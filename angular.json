@@ -25,9 +25,25 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/fonts",
+                "output": "/assets/fonts/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/icons",
+                "output": "/assets/icons/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/images",
+                "output": "/assets/images/"
+              }
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -89,9 +105,25 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/fonts",
+                "output": "/assets/fonts/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/icons",
+                "output": "/assets/icons/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ey-xd/ng-motif/assets/images",
+                "output": "/assets/images/"
+              }
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +155,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "eyc-ServiceEngine-UI"
 }

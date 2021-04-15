@@ -1,1 +1,495 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+@import "src/assets/styles/variables.scss";
+@import 'src/assets/fa/scss/fontawesome.scss';
+@import 'src/assets/fa/scss/solid.scss';
+@import 'src/assets/fa/scss/regular.scss';
+@import 'src/assets/fa/scss/brands.scss';
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/notosans-bold-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/notosans-medium-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/notosans-bolditalic-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-bolditalic-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/notosans-italic-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/notosans-regular-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$TaxReportingUI-primary: mat-palette($mat-indigo);
+$TaxReportingUI-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$TaxReportingUI-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$TaxReportingUI-theme: mat-light-theme($TaxReportingUI-primary, $TaxReportingUI-accent, $TaxReportingUI-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($TaxReportingUI-theme);
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('assets/fonts/notosans-bold-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('assets/fonts/notosans-bolditalic-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-bolditalic-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('assets/fonts/notosans-italic-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('assets/fonts/notosans-regular-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('assets/fonts/notosans-medium-webfont.woff2') format('woff2'),
+       url('assets/fonts/notosans-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'EYInterstate';
+    src: url(assets/fonts/EYInterstate-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EYInterstateBold';
+    src: url(assets/fonts/EYInterstate-Bold.ttf) format("truetype");
+    font-weight: bold ;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EYInterstateBoldItalic';
+    src: url(assets/fonts/EYInterstate-BoldItalic.ttf) format("truetype");
+    font-weight: bold ;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'EYInterstateItalic';
+    src: url(assets/fonts/EYInterstate-Italic.ttf) format("truetype");
+    font-weight: normal ;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'EYInterstateLightItalic';
+    src: url(assets/fonts/EYInterstate-LightItalic.ttf) format("truetype");
+    font-weight: lighter ;
+    font-style: italic;
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+
+body {
+  margin: 0 !important;
+  font-family: $font;
+  background-color: $color-background;
+  width: 100% !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+}
+
+.mat-tab-group-inverted-header .mat-tab-header {
+  border-top: 0px !important;
+}
+
+.mat-stroked-button.cancel-btn {
+  border: 1px solid #2E2E38;
+}
+
+.mat-stroked-button.cancel-btn {
+    border: 1px solid #2E2E38;
+}
+
+.mat-card-header {
+    height: 50px;
+
+    .mat-card-header-text {
+         margin: 0px 0px 0px 0px;
+    }
+
+
+}
+
+/* Styles Added for Admin */
+button {
+  cursor: hover;
+  }
+
+.main-button {
+  background-color: $color-button;
+  color: $color-button-text;
+  border-radius: $radius-button;
+  font-family: $font-button;
+  transition: all .4s ease;
+  border: $border-button;
+}
+
+.main-button-right {
+  position: absolute;
+  right: 10px;
+  top: 3px;
+}
+
+.main-button:hover {
+  background-color: $color-button-hover;
+  color: $color-button-text-hover;
+  border-radius: $radius-button;
+}
+
+.main-button:active {
+  background-color: $color-button;
+  color: $color-button-text;
+  border-radius: $radius-button;
+}
+
+.modal-header {
+  height: 46px;
+  background: #2E2E38;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  display: flex;
+  position: relative;
+}
+
+.modal-title {
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.modal-body {
+  padding: 30px 50px;
+}
+
+.modal-footer {
+  text-align: left;
+  border-top: 1px solid #E1E1E6;
+  padding: 16px 20px;
+}
+
+.cancel-button {
+  background: #FFFFFF;
+  color: #2E2E38;
+  border: 1px solid #2E2E38;
+  padding: 8px 16px;
+  margin-left: 20px !important;
+  cursor: pointer;
+}
+
+.submit-button {
+  background: #2E2E38;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  color: #2E2E38;
+}
+
+.close-window {
+  position: absolute;
+  right: 24px;
+  font-size: 38px;
+  padding: 0;
+  color: white;
+  cursor: pointer;
+  align-self: center;
+  background: none;
+  border: none;
+}
+
+mat-tab-group {
+
+  .mat-tab-label {
+      color: black;
+      opacity: 1;
+      min-width: 0;
+      height: 30px;
+      padding: 0px 2px;
+      font-size: 16px;
+      margin-top: 30px;
+      margin-right: 33px;
+  }
+
+  .mat-ink-bar {
+    background-color: black !important;
+  }
+
+  .mat-tab-header {
+    border-bottom: none;
+  }
+}
+
+.mat-ink-bar {
+  background-color: black !important;
+}
+
+.mat-button {
+background-color: transparent;
+border: none;
+}
+
+.mat-button-focus-overlay {
+  background-color: transparent!important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color:rgb(46, 46, 56);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+  color:rgb(46, 46, 56);
+  background-color:rgb(46, 46, 56);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color:rgb(46, 46, 56);;
+}
+
+.mat-flat-button.submit-btn {
+    background-color: #2E2E38;
+    color: white;
+    border-radius: 0;
+}
+.mat-expansion-panel-content {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  background-color: #f6f6fa !important;
+}
+
+
+/* Admin style ended */
+
+.tooltip-total {
+  background: #F6F6FA;
+  color: #000000 !important;
+  font-weight: bold;
+  font-size: 14px !important;
+}
+
+
+
+button:focus , button:active, button:hover {
+  outline: 0px !important;
+}
+button.mat-menu-item {
+  outline: 0px !important;
+}
+
+/* Ending Fund attributes dynamic tooltoop styles */
+
+
+#Attributescontainer {
+
+    margin-top: 20px;
+
+    i.fas {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+}
+#Filescontainer {
+
+  margin-top: 25px;
+
+  button.mat-menu-trigger.mat-button.mat-button-base {
+    margin-top: -12px;
+  }
+  span.mat-button-wrapper {
+    font-size: 35px;
+    color: #D8D8D8;
+  }
+  i.fas {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+
+}
+
+.mat-menu-panel {
+  border: 1px solid #E1E1E6 !important;
+}
+
+
+.sliderWrapper {
+  .mat-tab-group .mat-tab-label.mat-tab-label-active {
+    color: #2E2E38;
+  }
+  .mat-tab-group .mat-tab-label {
+    color: #747480;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    margin-top: 7px;
+  }
+  .mat-tab-group .mat-ink-bar {
+    background-color: #2E2E38 !important;
+  }
+}
+
+#FilesSlideContainer {
+  background: #F6F6FA;
+  border: 0px;
+
+  button.slick-prev.slick-arrow {
+   margin-left: -10px;
+   margin-top: -10px;
+ }
+  button.slick-next.slick-arrow {
+  margin-top: -10px;
+  margin-right: 5px;
+  }
+  .slick-dots{
+    display: none !important;
+  }
+}
+
+button.mat-menu-item{
+  font-family: EYInterstate !important
+ }
+ .mat-menu-content {
+   padding: 0px !important;
+ }
+ 
+ .mat-dialog-container {
+  padding: 0px !important;
+}
+
+.mat-tab-header, .mat-tab-nav-bar {
+  border-bottom: 0;
+}
+
+.mat-tab-header, .mat-tab-nav-bar::after {
+  border-bottom: 0;
+}
+#ShareholderSlideContainer{
+  .slick-dots {
+      display: none;
+  }
+}
+.fileWrapper {
+  .mat-expansion-panel-body {
+    padding: 0px !important;
+  }
+}
+
+
+/* LOADER CSS */
+/* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 1001;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
