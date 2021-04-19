@@ -14,7 +14,7 @@
 
 .ey-logo-container {
     display: flex;
-    padding-bottom: 9px;
+    padding-bottom: 5px;
     .ey-icon {
         width: 31.21px;
         height: 32.49px;
@@ -28,6 +28,7 @@
         font-weight: 100;
         line-height: 14px !important;
         color: #FFFFFF;
+        margin-left: 10px;
     }
 }
 
@@ -90,7 +91,7 @@
 }
 
 .fas {
-    margin: 0 24px;
+    margin: 0 30px;
     cursor: pointer;
 }
 
@@ -345,5 +346,65 @@ font-weight: bold;
 .mat-tab-header, .mat-tab-nav-bar {
     border-bottom: 0;
 }
+
+#header-right-section {
+  right: 0px;
+  position: absolute;
+  color:#FFFFFF;
+  margin-top: 10px;
+}
+.fa-user-circle {
+  color: inherit;
+  padding: 0px;
+  font-size: 30px;
+}
+li.user-text {
+font-size: 14px;
+font-family: Noto Sans;
+font-style: normal;
+font-weight: normal;
+line-height: 25px;
+text-align: right;
+color: #fff;
+position: relative;
+top: 5px;
+margin-right: 12px;
+}
+.header-hamburger {
+  display: inline-block;
+  margin-top: 13px;
+  cursor: pointer;
+}
+i.fas.fa-bars {
+  margin: 0px;
+}
+li.header-notification {
+  top: 13px;
+  position: relative;
+  cursor: pointer;
+}
+li.header-avatar {
+  position: relative;
+}
+li.singn-out {
+  top: 13px;
+  position: relative;
+  cursor: pointer;
+}
+
+li {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: 25px;
+}
+
+ul#user-info {
+  float: right;
+  right: 0px;
+  position: absolute;
+}
+
+
+// this is for testing
 
  
