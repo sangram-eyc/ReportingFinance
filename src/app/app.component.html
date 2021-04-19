@@ -3,6 +3,9 @@
   <mat-sidenav-content>
     <mat-toolbar class="app-header">
       <section class="ey-logo-container">
+        <div class="header-hamburger"> 
+          <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'"></motif-icon>
+        </div>
         <div class="ey-icon">
           <img src="assets/img/ey-logo-white.png" height="32.49" width="31.32">
         </div>
@@ -10,47 +13,36 @@
           <span>Comply</span>
         </div>
       </section>
-      
-      <!-- <div class="tool-bar-icons">
-        <div class="toolbar-user side-bar" *ngIf="currentUser">
-          <div class='first-name-container'>
-            <p class='first-name-text'>{{currentUser.firstName}}</p>
-            <div class="fa fa-user-circle fa-2x" aria-hidden="true"></div>
-            <div class="fa fa-caret-down fa-lg"></div>
-          </div>
 
-          <div class="userInfo">
-            <p class='dropdownUserInfo userInfo-user-name'> {{currentUser.userName}}</p>
-            <div class='userNames'>
-              <p class='dropdownUserInfo userInfo-first-name-text'>First name: {{currentUser.firstName}}</p>
-              <p class='dropdownUserInfo userInfo-last-name-text'>Last name: {{currentUser.lastName}}</p>
-            </div>
-            <div *ngIf="ssoType === 'ADFS'" class="userInfo-adfs-link">
-              <p class='buttonLink' (click)="changePassword()"><a class='dropdownLinks'> Change Password </a></p>
-              <p class='buttonLink' (click)="logout()"><a class='dropdownLinks'> Logout </a></p>
-            </div>
-            <div *ngIf="ssoType === 'AzureAD'" class='userInfo-adzure-link'>
-              <p class='buttonLink' (click)="logout()"><a class='dropdownLinks'> Logout </a></p>
-            </div>
-          </div>
+
+
+      <ul id="user-info">
+        <li class="user-text">Welcome</li>
+        <li class="header-avatar"><motif-avatar status="online"></motif-avatar></li>
+        <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></li>
+        <li class="singn-out"><!-- <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.09 12.59L8.5 14L13.5 9L8.5 4L7.09 5.41L9.67 8H0V10H9.67L7.09 12.59ZM16 0H2C0.89 0 0 0.9 0 2V6H2V2H16V16H2V12H0V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z" fill="white"/>
+        </svg>  -->
+        <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
+      </li>
+      </ul>
+             
+      <!-- <section id="header-right-section">
+        <div class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></div>
+        <div class="singn-out">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.09 12.59L8.5 14L13.5 9L8.5 4L7.09 5.41L9.67 8H0V10H9.67L7.09 12.59ZM16 0H2C0.89 0 0 0.9 0 2V6H2V2H16V16H2V12H0V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z" fill="white"/>
+          </svg>  
         </div>
-
-      </div> -->
+                
+      </section> -->
+  
     </mat-toolbar>
 
     <main id="main-container" cdkScrollable>
       <section class="main-section">
         <nav mat-tab-nav-bar class="tab-container">
-          <!-- <div *ngIf="taxPermissionService.readAccess('Tax')"> <a class="remove-bar" mat-tab-link (click)="navigateToActiveLink($event, './tax-home');" [active]="activeLink === './tax-home'"
-              [routerLink]="'./tax-home'"  [active]="activeLink === './tax-home'" [ngClass]="activeLink === './tax-home' ? 'tab-bold select-bold':'tab-normal'">Home</a> </div>
-          <div *ngIf="taxPermissionService.readAccess('Tax')"> <a class="remove-bar" mat-tab-link (click)="navigateToActiveLink($event, 'tax-fund');"
-              [routerLink]="'./tax-fund'"  [active]="activeLink === './tax-fund' || activeLink === './tax-fund-details'" [ngClass]="(activeLink === './tax-fund' || activeLink === './tax-fund-details') ? 'tab-bold select-bold':'tab-normal'">Funds</a></div>
-          <div *ngIf="taxPermissionService.readAccess('Tax')"> <a class="remove-bar" mat-tab-link (click)="navigateToActiveLink($event, 'data-explorer');"
-              [routerLink]="'./data-explorer'"  [active]="activeLink === './data-explorer'" [ngClass]="activeLink === './data-explorer' ? 'tab-bold select-bold':'tab-normal'">Explorer</a></div>
-          <div *ngIf="taxPermissionService.readAccess('User Management') && taxPermissionService.readAccess('Tax')"> <a class="remove-bar" mat-tab-link (click)="navigateToActiveLink($event, 'administration');"
-              [routerLink]="'./administration'"  [active]="activeLink === './administration'" [ngClass]="activeLink === './administration' ? 'tab-bold select-bold':'tab-normal'">Administration</a></div>
-          <div  *ngIf="taxPermissionService.readAccess('Status upload') && taxPermissionService.writeAccess('Status upload') && taxPermissionService.readAccess('Tax')"> <a class="remove-bar" mat-tab-link (click)="navigateToActiveLink($event, 'status-upload');"
-              [routerLink]="'./status-upload'"  [active]="activeLink === './status-upload'" [ngClass]="activeLink === './status-upload' ? 'tab-bold select-bold':'tab-normal'">Status Upload</a></div> -->
+         
 
         </nav>
         <router-outlet></router-outlet>

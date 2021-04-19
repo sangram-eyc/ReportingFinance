@@ -8,6 +8,8 @@ import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MotifModule , MotifAvatarModule } from '@ey-xd/ng-motif';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MotifModule,
+    MotifAvatarModule
    
   ],
   providers: [],

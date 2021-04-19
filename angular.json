@@ -157,5 +157,8 @@
       }
     }
   },
-  "defaultProject": "eyc-ServiceEngine-UI"
+  "defaultProject": "eyc-ServiceEngine-UI",
+  "cli": {
+    "analytics": "e10b3bac-cfcb-4549-bd37-1ae67ad5ad11"
+  }
 }
