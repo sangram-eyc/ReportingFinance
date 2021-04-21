@@ -1,53 +1,91 @@
-<mat-sidenav-container class="sidenav-coverage" style="background-color: #f6f6fa !important;">
-  
-  <mat-sidenav-content>
-    <mat-toolbar class="app-header">
-      <section class="ey-logo-container">
-        <div class="header-hamburger"> 
-          <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'"></motif-icon>
-        </div>
-        <div class="ey-icon">
-          <img src="assets/img/ey-logo-white.png" height="32.49" width="31.32">
-        </div>
-        <div class="ey-text" fxFlex="none">
-          <span>Comply</span>
-        </div>
-      </section>
+<section style="background-color: #f6f6fa !important;">
+
+  <mat-toolbar class="app-header">
+    <section class="ey-logo-container">
+      <div class="header-hamburger"> 
+        <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'" (click)="toggleSideNav()"></motif-icon>
+      </div>
+      <div class="ey-icon">
+        <img src="assets/img/ey-logo-white.png" height="32.49" width="31.32">
+      </div>
+      <div class="ey-text" fxFlex="none">
+        <span>Comply</span>
+      </div>
+    </section>
 
 
 
-      <ul id="user-info">
-        <li class="user-text">Welcome</li>
-        <li class="header-avatar"><motif-avatar status="online"></motif-avatar></li>
-        <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></li>
-        <li class="singn-out"><!-- <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ul id="user-info">
+      <li class="user-text">Welcome</li>
+      <li class="header-avatar"><motif-avatar status="online"></motif-avatar></li>
+      <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></li>
+      <li class="singn-out"><!-- <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.09 12.59L8.5 14L13.5 9L8.5 4L7.09 5.41L9.67 8H0V10H9.67L7.09 12.59ZM16 0H2C0.89 0 0 0.9 0 2V6H2V2H16V16H2V12H0V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z" fill="white"/>
+      </svg>  -->
+      <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
+    </li>
+    </ul>
+            
+    <!-- <section id="header-right-section">
+      <div class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></div>
+      <div class="singn-out">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M7.09 12.59L8.5 14L13.5 9L8.5 4L7.09 5.41L9.67 8H0V10H9.67L7.09 12.59ZM16 0H2C0.89 0 0 0.9 0 2V6H2V2H16V16H2V12H0V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z" fill="white"/>
-        </svg>  -->
-        <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
-      </li>
-      </ul>
-             
-      <!-- <section id="header-right-section">
-        <div class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></div>
-        <div class="singn-out">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.09 12.59L8.5 14L13.5 9L8.5 4L7.09 5.41L9.67 8H0V10H9.67L7.09 12.59ZM16 0H2C0.89 0 0 0.9 0 2V6H2V2H16V16H2V12H0V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z" fill="white"/>
-          </svg>  
-        </div>
-                
-      </section> -->
-  
-    </mat-toolbar>
+        </svg>  
+      </div>
+              
+    </section> -->
 
+  </mat-toolbar>
+
+  <div id="sidenav-and-content">
+
+    <section id="sidenav">
+      <ul id="sidenav-list">
+
+        <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
+          <motif-icon [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
+          <span>Home</span>
+        </li>
+
+        <!-- <li [class.active]="regreporting.isActive && mini" [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
+          <li [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+          <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
+          <span>Managed Services</span>
+          <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon" [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
+          <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon" [src]="'assets/icons/hardware/ic_keyboard_arrow_up_24px.svg'"></motif-icon>
+        </li>
+
+        <li class="sidenav-submenu">
+          <ul id="managed-submenu" class="submenu">
+            <!-- <li class="sidenav-item" routerLink="home" routerLinkActive="active-submenu" #regreporting="routerLinkActive"> -->
+              <li class="sidenav-item">
+              <span>Regulatory Reporting</span>
+            </li>
+            <!-- <li class="sidenav-item">
+              <span>Tax Compliance</span>
+            </li>
+            <li class="sidenav-item">
+              <span>Financial Reporting</span>
+            </li> -->
+          </ul>
+        </li>
+
+        <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="administration" routerLinkActive="active">
+          <motif-icon [src]="'/assets/icons/action/ic_supervisor_account_24px.svg'"></motif-icon>
+          <span>Admin</span>
+        </li>
+
+      </ul>
+    </section>
+  
     <main id="main-container" cdkScrollable>
       <section class="main-section">
         <nav mat-tab-nav-bar class="tab-container">
-         
-
         </nav>
         <router-outlet></router-outlet>
       </section>
-
+  
       <footer>
         <div class="footer-links">
           <a href="https://www.ey.com/en_gl/legal-and-privacy">Legal and Privacy</a>
@@ -65,33 +103,11 @@
           Global Limited, each of which is a separate legal entity. Ernst & Young Global Limited, a UK company limited
           by guarantee, does not provide services to clients.</p>
       </footer>
-
+  
     </main>
-  </mat-sidenav-content>
+  </div>
 
-
-  <!-- <mat-sidenav id="sidenav" fixedInViewport="true" [(opened)]="sideNavOpened" position="end" class="mat-sidenav">
-    <button type="button" class="close-window" (click)="toggleSideNav()">&times;</button>
-
-    <section class="menu-list-container">
-      <ul class="menu-sidenav-top-options">
-        
-        <li class="menu-list-item">
-          <div (click)="onNavigateToExternalApp()">Home</div>
-        </li>
-      </ul>
-      <ul class="menu-sidenav-btm-options">
-        <li class="menu-list-item">
-          <div (click)="navigateToCookieSettings()">Cookie Settings</div>
-        </li>
-        <li class="menu-list-item">
-          <div (click)="navigateToCookiePolicy()">Cookie Policy</div>
-        </li>
-      </ul>
-    </section>
-  </mat-sidenav> -->
-
-</mat-sidenav-container>
+</section>
 
 
 
