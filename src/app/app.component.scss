@@ -1,6 +1,11 @@
 @import "src/assets/styles/variables.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+
+#app-container {
+  background-color: #f6f6fa;
+}
+
 .app-header {
     z-index: 1000;
     background-color: #2E2E38;
@@ -10,6 +15,7 @@
     align-items: center;
     position: fixed;
     flex: none;
+    top: 0;
 }
 
 .ey-logo-container {
@@ -114,9 +120,16 @@ mat-sidenav-content {
 }
 
 main {
-    margin-top: 80px; //header height
     overflow: auto;
     height: 100%;
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+#main-container {
+  max-width: calc(100% - 286px); //viewport width minus sidenav 
+  margin-left: 286px; //sidenav width
 }
 
 .mat-sidenav {
@@ -403,6 +416,102 @@ ul#user-info {
   right: 0px;
   position: absolute;
 }
+
+#sidenav-and-content {
+  display: flex;
+  margin-top: 80px; //header height
+}
+
+#sidenav {
+  background-color: #2E2E38;
+  color: white;
+  width: 286px;
+  height: 100%;
+  min-height: 100vh;
+  // transition: all .3s ease;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: fixed;
+}
+
+#sidenav-list {
+  display: flex;
+  flex-direction: column;
+  background-color: #2E2E38;
+  padding: 0;
+  margin: 0;
+  
+  .sidenav-item, .sidenav-item-mini {
+    height: 52px;
+    display: flex;
+    padding-left: 14px;
+    align-items: center;
+    margin: 0;
+    outline: none;
+    ::ng-deep {
+      svg {
+          fill: #DADADA;
+      }
+    }
+    &:hover {
+      background-color: #23232F;
+      cursor: pointer;
+    }
+    span {
+      margin-left: 17px;
+      font-family: EYInterstate;
+      font-size: 14px;
+      line-height: 16px;
+    }
+    
+  }
+  .sidenav-item-mini {
+    .sidenav-accordion-icon {
+      visibility: hidden;
+    }
+    span {
+      visibility: hidden;
+    }
+  }
+  .active {
+    background-color: #23232F;
+    border-left: 5px solid #FFE600;
+    padding-left: 9px;
+    font-weight: 700;
+  }
+  .sidenav-submenu {
+    margin: 0;
+    background: #23232F;
+  }
+  .submenu {
+    padding-left: 0;
+    .sidenav-item {
+      padding-left: 43px;
+      &:hover {
+        border-left: 5px solid #FFE600;
+        padding-left: 38px;
+      }
+    }
+    .active-submenu {
+      border-left: 5px solid #FFE600;
+      padding-left: 38px;
+      font-weight: 700;
+    }
+  }
+  .submenu-open {
+    background-color: #23232F;
+  }
+}
+
+#managed-submenu {
+  display: none;
+}
+
+.sidenav-accordion-icon {
+  position: absolute;
+  right: 9px;
+}
+
 
 
 // this is for testing

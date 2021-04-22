@@ -9,12 +9,13 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MotifModule , MotifAvatarModule } from '@ey-xd/ng-motif';
+import { AdministrationModule } from './administration/administration.module';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,9 @@ import { MotifModule , MotifAvatarModule } from '@ey-xd/ng-motif';
     AppRoutingModule,
     BrowserAnimationsModule,
     MotifModule,
-    MotifAvatarModule
+    MotifAvatarModule,
+    AdministrationModule,
+    HomeModule
    
   ],
   providers: [],
