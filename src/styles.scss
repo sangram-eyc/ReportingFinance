@@ -9,6 +9,9 @@
 @import 'src/assets/fa/scss/regular.scss';
 @import 'src/assets/fa/scss/brands.scss';
 
+@import './../node_modules/@ey-xd/ng-motif/styles/_variables.scss';
+@import './../node_modules/@ey-xd/ng-motif/styles/_mixins.scss';
+
 @font-face {
   font-family: 'Noto Sans';
   src: url('assets/fonts/notosans-bold-webfont.woff2') format('woff2'),
@@ -362,73 +365,10 @@ button.mat-menu-item {
 /* Ending Fund attributes dynamic tooltoop styles */
 
 
-#Attributescontainer {
-
-    margin-top: 20px;
-
-    i.fas {
-      color: rgba(0, 0, 0, 0.54);
-    }
-
-}
-#Filescontainer {
-
-  margin-top: 25px;
-
-  button.mat-menu-trigger.mat-button.mat-button-base {
-    margin-top: -12px;
-  }
-  span.mat-button-wrapper {
-    font-size: 35px;
-    color: #D8D8D8;
-  }
-  i.fas {
-    color: rgba(0, 0, 0, 0.54);
-  }
-
-
-}
-
 .mat-menu-panel {
   border: 1px solid #E1E1E6 !important;
 }
 
-
-.sliderWrapper {
-  .mat-tab-group .mat-tab-label.mat-tab-label-active {
-    color: #2E2E38;
-  }
-  .mat-tab-group .mat-tab-label {
-    color: #747480;
-    font-family: Noto Sans;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 22px;
-    text-align: center;
-    margin-top: 7px;
-  }
-  .mat-tab-group .mat-ink-bar {
-    background-color: #2E2E38 !important;
-  }
-}
-
-#FilesSlideContainer {
-  background: #F6F6FA;
-  border: 0px;
-
-  button.slick-prev.slick-arrow {
-   margin-left: -10px;
-   margin-top: -10px;
- }
-  button.slick-next.slick-arrow {
-  margin-top: -10px;
-  margin-right: 5px;
-  }
-  .slick-dots{
-    display: none !important;
-  }
-}
 
 button.mat-menu-item{
   font-family: EYInterstate !important
@@ -448,16 +388,7 @@ button.mat-menu-item{
 .mat-tab-header, .mat-tab-nav-bar::after {
   border-bottom: 0;
 }
-#ShareholderSlideContainer{
-  .slick-dots {
-      display: none;
-  }
-}
-.fileWrapper {
-  .mat-expansion-panel-body {
-    padding: 0px !important;
-  }
-}
+
 
 
 /* LOADER CSS */
@@ -496,11 +427,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .header-notification .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#FFFFFF !important;
+  fill:#DADADA !important;
 }
 .singn-out .motif-icon .motif-icon-wrap .motif-icon-content svg {
   fill:#FFFFFF !important;
 }
 .header-hamburger .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#FFFFFF !important;
+  fill:#C4C4CD !important;
 }
