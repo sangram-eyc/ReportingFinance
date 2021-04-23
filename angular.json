@@ -43,9 +43,14 @@
               }
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@ey-xd/ng-motif/styles.scss",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "../node_modules/@ey-xd/ng-motif"
+            ]
+          },
             "scripts": []
           },
           "configurations": {
@@ -123,9 +128,14 @@
               }
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@ey-xd/ng-motif/styles.scss",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "../node_modules/@ey-xd/ng-motif"
+            ]
+          },
             "scripts": []
           }
         },

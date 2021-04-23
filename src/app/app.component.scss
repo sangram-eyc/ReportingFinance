@@ -9,7 +9,7 @@
 .app-header {
     z-index: 1000;
     background-color: #2E2E38;
-    height: 80px;
+    height: 56px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -28,13 +28,19 @@
     }
     
     .ey-text{
-        padding-top: 20px;
+        /* padding-top: 20px;
         font-family: NotoSans !important;
         font-size: 19px;
         font-weight: 100;
         line-height: 14px !important;
         color: #FFFFFF;
-        margin-left: 10px;
+        margin-left: 10px; */
+        font-family: EYInterstate;
+        font-size: 17px;
+        line-height: 20px;
+        color: #F6F5FA;
+        margin-top: 17px;
+        margin-left: 15px;
     }
 }
 
@@ -170,6 +176,7 @@ footer {
         margin-top: 8px;
         line-height: 20px;
         max-width: 763px;
+        color: #FFFFFF;
     }
 }
  
@@ -398,6 +405,7 @@ li.header-notification {
 }
 li.header-avatar {
   position: relative;
+  margin-bottom: 5px;
 }
 li.singn-out {
   top: 13px;
@@ -408,6 +416,7 @@ li.singn-out {
 li {
   list-style-type: none;
   display: inline-block;
+  margin: 0px;
   margin-right: 25px;
 }
 
@@ -419,7 +428,7 @@ ul#user-info {
 
 #sidenav-and-content {
   display: flex;
-  margin-top: 80px; //header height
+  margin-top: 56px; //header height
 }
 
 #sidenav {

@@ -1,0 +1,50 @@
+.page-header {
+    margin-top: 20px;
+}
+.page-header h4 {
+    font-family: EYInterstate;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+}
+.motif-card {
+    border: 1px solid #C4C4CD !important;
+    height: 154px !important;
+    width: 342px !important;
+}
+
+ .admin-container {
+    margin-top: 60px;
+    position: relative;
+}
+
+.sub-header h4 {
+font-family: EYInterstate;
+font-size: 24px;
+line-height: 32px;
+color: #2E2E38;
+}
+.card-button {
+    width: 102px;
+    position: absolute;
+    top: 150px;
+    left: 210px;
+}
+.card-block {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+}
+.card-block span {
+    font-family: EYInterstate;
+    font-size: 12px;
+    line-height: 16px;
+    color: #747480;
+}
+.motif-card:hover{
+    box-shadow: none !important;
+}

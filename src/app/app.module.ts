@@ -8,7 +8,7 @@ import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MotifModule , MotifAvatarModule } from '@ey-xd/ng-motif';
+import { MotifModule, MotifAvatarModule } from '@ey-xd/ng-motif';
 import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
 
