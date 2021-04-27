@@ -16,15 +16,10 @@ export class AppComponent {
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
-          if (this.router.url === '/login'){
-            this.showHeaderFooter = false;
-          } else {
-            this.showHeaderFooter = true;
-          }
+          this.showHeaderFooter = !(this.router.url === '/login')
         }
       });
-    
-    
+
   }
 
   toggleSideNav() {
