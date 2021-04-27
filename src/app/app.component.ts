@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,17 @@ export class AppComponent {
   title = 'eyc-ServiceEngine-UI';
   mini = false;
   opensubmenu = '';
+  showHeaderFooter: boolean = true;
+  constructor(private router:Router){
+    // To hide header and footer from login page
+    this.router.events.subscribe(
+      (event: any) => {
+        if (event instanceof NavigationEnd) {
+          this.showHeaderFooter = !(this.router.url === '/login')
+        }
+      });
+
+  }
 
   toggleSideNav() {
     if (this.mini) {

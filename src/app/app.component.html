@@ -1,4 +1,4 @@
-<section id="app-container">
+<section id="app-container" *ngIf="showHeaderFooter">
 
   <mat-toolbar class="app-header">
     <section class="ey-logo-container">
@@ -95,6 +95,10 @@
   </div>
 
 </section>
+
+<div *ngIf="!showHeaderFooter">
+  <router-outlet></router-outlet>
+</div>
 
 
 
