@@ -11,6 +11,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MotifModule, MotifAvatarModule } from '@ey-xd/ng-motif';
 import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
+import { LoginModule } from './login/login.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { HomeModule } from './home/home.module';
     MotifModule,
     MotifAvatarModule,
     AdministrationModule,
-    HomeModule
+    HomeModule,
+    LoginModule
    
   ],
   providers: [],

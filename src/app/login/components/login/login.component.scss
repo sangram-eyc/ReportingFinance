@@ -1,0 +1,30 @@
+.container {
+    background-image: url(../../../../assets/img/login_background_new.png);
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+  
+.motif-card {
+    margin: 10px auto;
+    align-items: center;
+    padding: 24px;
+ }
+
+  .card_container {
+    padding: 30px 80px;
+    margin: 0px 16px;
+    width: 100%;
+    text-align: center;
+    .btn_client {
+        border: 0px;
+        margin-bottom: 10px;
+    }
+  }
+
+ 
