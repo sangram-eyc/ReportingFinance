@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MotifCardModule, MotifButtonModule, MotifFormsModule } from '@ey-xd/ng-motif';
 import { AdministrationComponent } from './components/administration.component';
+import { AdminRegulatoryReportingModule } from './admin-regulatory-reporting/admin-regulatory-reporting.module';
 
 
 @NgModule({
@@ -9,10 +10,11 @@ import { AdministrationComponent } from './components/administration.component';
     CommonModule,
     MotifCardModule,
     MotifButtonModule,
-    MotifFormsModule
+    MotifFormsModule,
+    AdminRegulatoryReportingModule
   ],
   declarations: [
-    AdministrationComponent
+    AdministrationComponent,
   ],
   entryComponents: [
   ],
