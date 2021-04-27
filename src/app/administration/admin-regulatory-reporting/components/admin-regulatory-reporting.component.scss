@@ -1,0 +1,32 @@
+.page-header {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+.page-header h4 {
+font-family: EYInterstate;
+font-style: normal;
+font-weight: normal;
+font-size: 32px;
+line-height: 38px;
+color: #1A1A24;
+}
+button.motif-text-link {
+font-family: EYInterstate;
+font-style: normal;
+font-weight: 300 !important;
+font-size: 14px !important;
+line-height: 22px;
+color: #2E2E38 !important;
+padding: .85714rem 1.6rem .7rem 1.6rem !important;
+}
+button.motif-active.motif-text-link{
+font-family: EYInterstate;
+font-style: normal;
+font-weight: bold !important;
+font-size: 14px !important;
+line-height: 22px;
+color: #2E2E38 !important;
+}
+button.motif-text-link:focus, button.motif-text-link:active {
+    box-shadow: none !important;
+}
