@@ -48,3 +48,9 @@ color: #2E2E38;
 .motif-card:hover{
     box-shadow: none !important;
 }
+button.motif-button:focus, button.motif-button:active {
+    box-shadow: none !important;
+}
+.card-button a {
+    text-decoration: none !important;
+}
