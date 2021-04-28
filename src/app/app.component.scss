@@ -424,6 +424,7 @@ ul#user-info {
   float: right;
   right: 0px;
   position: absolute;
+  
 }
 
 #sidenav-and-content {
@@ -521,8 +522,119 @@ ul#user-info {
   right: 9px;
 }
 
+.admin-container {
+  margin-top: 269px;
+  position: relative;
+  margin-left: 1348px;
+}
 
+.sub-header h4 {
+  font-family: EYInterstate;
+  font-size: 24px;
+  line-height: 32px;
+  color: #2E2E38;
+  }
 
-// this is for testing
+  .card-block {
+    position: absolute;
+    // top: 70px;
+    left: 20px;
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+}
+.card-block span {
+    font-family: EYInterstate;
+    font-size: 12px;
+    line-height: 16px;
+    color: #747480;
+}
+
+.card-button {
+  width: 102px;
+  position: absolute;
+  top: 150px;
+  left: 119px;
+}
+.motif-card {
+    border: 1px solid #C4C4CD !important;
+    height: 202px !important;
+    width: 342px !important;
+}
+
+.motif-card-header, .motif-card-header{
+   padding:none !important;
+  border-bottom: none !important;
+}
+
+.not-error-block {
+  font-family: EYInterstate;
+  font-size: 22px;
+  line-height: 20px;
+  color: #747580;
+  margin-top: 22px;
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.notification-message {
+  top: 13px;
+  position: relative;
+  cursor: pointer;
+  margin-top: 26px;
+  margin-left: 144px;
+}
+
+.banner-header {
+  position: absolute;
+  width: 95px;
+  height: 18px;
+  left: 24px;
+  top: 30px;
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 18px;
+  color: #2E2E38;
+}
+
+.banner-header-right {
+  position: absolute;
+  width: 95px;
+  height: 18px;
+  left: 172px;
+  top: 30px;
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 18px;
+  color: #2E2E38;
+  display: flex;
+}
+.all-read {
+  margin-right: 30px !important;
+}
+
+.mark-all-message {
+    width: 70px;
+    color: #747480;
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+}
+.notification-bell-trianlgle
+{
+  margin-left: 280px;
+  margin-bottom: -4px;
+}
 
  
