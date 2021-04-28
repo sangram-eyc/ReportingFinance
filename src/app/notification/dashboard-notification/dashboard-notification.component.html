@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h4>
+    <div class="page-header-row">
+      <motif-icon [src]="'/assets/icons/social/ic_notifications_24px.svg'"></motif-icon><div class="notification-header">Notifications(26)</div>
+    </div>
+  </h4>
+</div>
+
+<div class="search-row">
+  <div class="search-filter">
+    <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>
+  </div>
+  <motif-form-field class="form-field">
+    <input motifInput motifSearch type="text" placeholder="Search Notifications" aria-label="Search"
+      [(ngModel)]="searchModel" [motifTypeahead]="searchTypeHead" [hideClear]="true" />
+  </motif-form-field>
+</div>
+<div class="display-message">
+  <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon>
+  <div class="not-error-block">There are no notifications to display.</div>
+</div>

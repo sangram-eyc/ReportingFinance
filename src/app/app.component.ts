@@ -11,6 +11,7 @@ export class AppComponent {
   mini = false;
   opensubmenu = '';
   showHeaderFooter: boolean = true;
+  isNotification = false;
   constructor(private router:Router){
     // To hide header and footer from login page
     this.router.events.subscribe(
@@ -21,6 +22,7 @@ export class AppComponent {
       });
 
   }
+  
 
   toggleSideNav() {
     if (this.mini) {
@@ -42,6 +44,19 @@ export class AppComponent {
       this.mini = true;
     }
   }
+
+  public notification() {
+    this.isNotification = !this.isNotification;
+
+  }
+
+  public navigatetonotifi() {
+    this.router.navigateByUrl('/notification');
+    this.isNotification = !this.isNotification;
+
+  }
+
+  
 
   toggleSubMenu(toggleId) {
     if (this.mini) {

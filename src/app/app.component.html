@@ -18,11 +18,32 @@
     <ul id="user-info">
       <li class="user-text">Welcome</li>
       <li class="header-avatar"><motif-avatar status="online"></motif-avatar></li>
-      <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'"></motif-icon></li>
+      <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon></li>
       <li class="singn-out"><motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
     </li>
+    
     </ul>
-
+    <div  class="admin-container" *ngIf ="isNotification">
+     <div class="notification-bell-trianlgle"> <motif-icon [src]="'/assets/icons/action/ic_change_history_24px.svg'"></motif-icon></div>
+      <motif-card>
+        <motif-card-header>
+          <div class="card-block banner-header">
+            Notifications
+            
+         </div>
+         <div class="card-block banner-header-right">
+          <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
+         <div class="mark-all-message"> Mark all as read</div>
+          
+       </div>
+        </motif-card-header>
+        <li class="notification-message"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon></li>
+        <div class="not-error-block">There are Notification to Display</div>
+        <div class="card-button">
+              <button motifButton color="primary-alt" (click)="navigatetonotifi()" >View All</button>
+          </div>
+      </motif-card>
+  </div>
   </mat-toolbar>
 
   <div id="sidenav-and-content">
@@ -31,7 +52,7 @@
       <ul id="sidenav-list">
 
         <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
-          <motif-icon [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
+          <motif-icon class="all-read" [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
           <span>Home</span>
         </li>
 
