@@ -25,6 +25,11 @@ node {
   nodeModulesDir = file("${project.projectDir}")
 }
 
+task buildLibrary(type: NpmTask) {
+  println "Building Reg Library"
+  args = ['run', 'buildLibrary']
+  
+}
 task build(type: NpmTask) {
   println "Building UI"
   args = ['run', 'buildWithLocalHref']
