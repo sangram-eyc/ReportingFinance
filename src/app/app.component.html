@@ -5,12 +5,21 @@
       <div class="header-hamburger"> 
         <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'" (click)="toggleSideNav()"></motif-icon>
       </div>
-      <div class="ey-icon">
+      <!-- <div class="ey-icon">
         <img src="assets/img/ey-logo-white.png" height="32.49" width="31.32">
       </div>
       <div class="ey-text" fxFlex="none">
         <span>Comply</span>
-      </div>
+      </div> -->
+
+      <motif-header [fixed]="true" appHeaderName="Comply">
+        <motif-header-logo>
+          <a routerLink="/" tabindex="0" aria-label="Home Page Link">
+            <img src="./assets/images/ey-logo-inverted.svg" alt="EY Motif Logo" />
+          </a>
+        </motif-header-logo>
+      </motif-header>
+
     </section>
 
 

@@ -394,21 +394,23 @@ margin-right: 12px;
   display: inline-block;
   margin-top: 13px;
   cursor: pointer;
+  z-index: 1;
 }
 i.fas.fa-bars {
   margin: 0px;
 }
 li.header-notification {
-  top: 13px;
+  top: 11px;
   position: relative;
   cursor: pointer;
 }
 li.header-avatar {
   position: relative;
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
+  top: 15px;
 }
 li.singn-out {
-  top: 13px;
+  top: 11px;
   position: relative;
   cursor: pointer;
 }
@@ -424,7 +426,7 @@ ul#user-info {
   float: right;
   right: 0px;
   position: absolute;
-  
+  margin-top: 0px;
 }
 
 #sidenav-and-content {
@@ -528,7 +530,8 @@ ul#user-info {
 .admin-container {
   margin-top: 269px;
   position: relative;
-  margin-left: 1348px;
+  // margin-left: 1348px;
+  margin-left: 70%;
 }
 
 .sub-header h4 {
@@ -639,5 +642,11 @@ ul#user-info {
   margin-left: 280px;
   margin-bottom: -4px;
 }
-
+::ng-deep .motif-avatar.status-online {
+  border-color: #F6F6FA !important;
+}
+::ng-deep .motif-avatar.size-small .motif-avatar-initials {
+  background: inherit !important;
+  // display: none !important;
+}
  
