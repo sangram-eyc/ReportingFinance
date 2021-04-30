@@ -7,6 +7,6 @@ import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filin
   declarations: [RegulatoryReportingFilingComponent],
   imports: [
   ],
-  exports: []
+  exports: [RegulatoryReportingFilingComponent]
 })
 export class EycRegulatoryReportingModule { }
