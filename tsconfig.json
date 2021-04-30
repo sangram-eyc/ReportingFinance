@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "eyc-regulatory-reporting": [
+        "dist/eyc-regulatory-reporting/eyc-regulatory-reporting",
+        "dist/eyc-regulatory-reporting"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
