@@ -2,7 +2,7 @@
 
   <mat-toolbar class="app-header">
     <section class="ey-logo-container">
-      <div class="header-hamburger"> 
+      <div class="header-hamburger">
         <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'" (click)="toggleSideNav()"></motif-icon>
       </div>
       <!-- <div class="ey-icon">
@@ -26,33 +26,51 @@
 
     <ul id="user-info">
       <li class="user-text">Welcome</li>
-      <li class="header-avatar"><motif-avatar status="online"></motif-avatar></li>
-      <li class="header-notification"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon></li>
-      <li class="singn-out"><motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
-    </li>
-    
+      <li class="header-avatar">
+        <motif-avatar status="online"></motif-avatar>
+      </li>
+      <li class="header-notification">
+        <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()"></motif-icon>
+      </li>
+      <li class="singn-out">
+        <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'"></motif-icon>
+      </li>
+
     </ul>
-    <div  class="admin-container" *ngIf ="isNotification">
-     <div class="notification-bell-trianlgle"> <motif-icon [src]="'/assets/icons/action/ic_change_history_24px.svg'"></motif-icon></div>
-      <motif-card>
-        <motif-card-header>
-          <div class="card-block banner-header">
-            Notifications
-            
-         </div>
-         <div class="card-block banner-header-right">
-          <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
-         <div class="mark-all-message"> Mark all as read</div>
-          
-       </div>
-        </motif-card-header>
-        <li class="notification-message"><motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon></li>
-        <div class="not-error-block">There are Notification to Display</div>
-        <div class="card-button">
-              <button motifButton color="primary-alt" (click)="navigatetonotifi()" >View All</button>
+
+    <div class="admin-container" *ngIf="isNotification">
+      <div>
+        <div class="notification-bell-trianlgle">
+          <motif-icon [src]="'/assets/icons/action/ic_change_history_24px.svg'"></motif-icon>
+        </div>
+
+        <motif-card>
+          <motif-card-header>
+            <div class="card-block banner-header">
+              Notifications
+
+            </div>
+            <div class="card-block banner-header-right">
+              <div style="display: inline-block;">
+                <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
+              </div>
+
+              <div class="mark-all-message" style="display: inline-block; bottom: 6px;position: relative;"> Mark all as read</div>
+
+            </div>
+          </motif-card-header>
+          <li class="notification-message">
+            <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
+            </motif-icon>
+          </li>
+          <div class="not-error-block">There are Notification to Display</div>
+          <div class="card-button">
+            <button motifButton color="primary-alt" class="notification-button" (click)="navigatetonotifi()">View
+              All</button>
           </div>
-      </motif-card>
-  </div>
+        </motif-card>
+      </div>
+    </div>
   </mat-toolbar>
 
   <div id="sidenav-and-content">
@@ -66,18 +84,21 @@
         </li>
 
         <!-- <li [class.active]="regreporting.isActive && mini" [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
-          <li [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+        <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
+          [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
           <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
           <span>Managed Services</span>
-          <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon" [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
-          <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon" [src]="'assets/icons/hardware/ic_keyboard_arrow_up_24px.svg'"></motif-icon>
+          <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon"
+            [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
+          <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
+            [src]="'assets/icons/hardware/ic_keyboard_arrow_up_24px.svg'"></motif-icon>
         </li>
 
         <li class="sidenav-submenu">
           <ul id="managed-submenu" class="submenu">
             <!-- <li class="sidenav-item" routerLink="home" routerLinkActive="active-submenu" #regreporting="routerLinkActive"> -->
-              <li class="sidenav-item">
-              <span [routerLink]="['/app-regulatory-filing']" >Regulatory Reporting</span>
+            <li class="sidenav-item">
+              <span [routerLink]="['/app-regulatory-filing']">Regulatory Reporting</span>
             </li>
             <!-- <li class="sidenav-item">
               <span>Tax Compliance</span>
@@ -88,21 +109,22 @@
           </ul>
         </li>
 
-        <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="administration" routerLinkActive="active">
+        <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="administration"
+          routerLinkActive="active">
           <motif-icon [src]="'/assets/icons/action/ic_supervisor_account_24px.svg'"></motif-icon>
           <span>Admin</span>
         </li>
 
       </ul>
     </section>
-  
+
     <main id="main-container" cdkScrollable>
       <section class="main-section">
         <nav mat-tab-nav-bar class="tab-container">
         </nav>
         <router-outlet></router-outlet>
       </section>
-  
+
       <footer>
         <div class="footer-links">
           <a href="https://www.ey.com/en_gl/legal-and-privacy">Legal and Privacy</a>
@@ -120,7 +142,7 @@
           Global Limited, each of which is a separate legal entity. Ernst & Young Global Limited, a UK company limited
           by guarantee, does not provide services to clients.</p>
       </footer>
-  
+
     </main>
   </div>
 
@@ -129,10 +151,3 @@
 <div *ngIf="!showHeaderFooter">
   <router-outlet></router-outlet>
 </div>
-
-
-
-
-
-
-
