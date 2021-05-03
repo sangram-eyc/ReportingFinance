@@ -477,4 +477,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
  ::ng-deep .mat-typography h4 {
   font: initial !important;
+  font-family: EYInterstate !important; ;
 }
+
+::ng-deep .mat-typography {
+  font: revert !important;
+  font-family: EYInterstate !important; ;
+}
+
+::ng-deep .mat-body, .mat-body-1, .mat-typography {
+  font: revert !important;
+  font-family: EYInterstate !important; ;
+}
+
+$custom-typography: mat-typography-config(
+  $font-family: 'EYInterstate'
+);
+
+@include angular-material-typography($custom-typography);

@@ -10,7 +10,8 @@
     "buildLibrary": "ng build --prod  eyc-regulatory-reporting",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "auth": "vsts-npm-auth -config .npmrc"
   },
   "private": true,
   "dependencies": {
@@ -24,9 +25,10 @@
     "@angular/platform-browser": "~9.1.13",
     "@angular/platform-browser-dynamic": "~9.1.13",
     "@angular/router": "~9.1.13",
-    "@ey-xd/ng-motif": "file:ng-motif-2.0.0-beta.2.tgz",
+    "@ey-xd/ng-motif": "file:ng-motif-2.0.0-beta.7.tgz",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "vsts-npm-auth": "^0.41.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
