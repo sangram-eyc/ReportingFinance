@@ -14,6 +14,7 @@ import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import {NotificationModule} from './notification/notification.module';
 import { MotifCardModule } from '@ey-xd/ng-motif';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -24,6 +25,7 @@ import { MotifCardModule } from '@ey-xd/ng-motif';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
