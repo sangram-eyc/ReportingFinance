@@ -80,7 +80,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
       this.columnDefs1 = [
         {
-          width: 410,
+          width: 400,
           headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: 'Name',
           field: 'name',
@@ -92,7 +92,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           autoHeight: true,
         },
         {
-          width: 410,
+          width: 400,
           headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: 'Email',
           field: 'email',
