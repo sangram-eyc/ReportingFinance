@@ -79,7 +79,7 @@
       <ul id="sidenav-list">
 
         <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
-          <motif-icon class="all-read" [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
+          <motif-icon [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
           <span>Home</span>
         </li>
 
@@ -88,10 +88,10 @@
           [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
           <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
           <span>Managed Services</span>
-          <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon"
-            [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
           <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
-            [src]="'assets/icons/hardware/ic_keyboard_arrow_up_24px.svg'"></motif-icon>
+            [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
+          <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon"
+          [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
         </li>
 
         <li class="sidenav-submenu">
