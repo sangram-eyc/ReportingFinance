@@ -668,6 +668,14 @@ ul#user-info {
   border-color: white;
   color: #2E2E38;
   margin-left: 110%;
+  border: none;
+}
+
+.notification-button:hover{
+  background-color: var(--btn-primary-bg-color);
+    border-color: var(--btn-primary-border-color);
+    color: var(--btn-primary-color);
+    border: none;
 }
 
 ::ng-deep .mat-body, .mat-body-1, .mat-typography {

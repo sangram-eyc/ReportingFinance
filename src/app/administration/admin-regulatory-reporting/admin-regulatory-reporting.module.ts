@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRegulatoryReportingComponent } from './components/admin-regulatory-reporting.component';
-import { MotifTabBarModule  } from '@ey-xd/ng-motif';
+import { MotifIconModule, MotifModalModule, MotifTabBarModule, MotifToastModule  } from '@ey-xd/ng-motif';
 import { MotifFormsModule,  MotifTableModule, MotifModule} from '@ey-xd/ng-motif';
 import { UsersComponent } from './../users/components/users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -18,7 +20,13 @@ import { UsersComponent } from './../users/components/users.component';
     MotifModule,
     MotifTabBarModule,
     MotifFormsModule,
-    MotifTableModule
+    MotifTableModule,
+    MotifModalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MotifToastModule,
+    HttpClientModule,
+    MotifIconModule
   ]
 })
 export class AdminRegulatoryReportingModule { }

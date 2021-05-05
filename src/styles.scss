@@ -495,3 +495,19 @@ $custom-typography: mat-typography-config(
 );
 
 @include angular-material-typography($custom-typography);
+
+.motif-h3 {
+  font-family: EYInterstate !important;
+}
+
+h4 {
+  font-family: EYInterstate !important;
+}
+
+.motif-form-field .motif-label {
+  font-family: EYInterstate;
+}
+
+.motif-button {
+  font-family: EYInterstate;
+}

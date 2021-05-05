@@ -1,15 +1,19 @@
-/* .search-section {
-    margin-top: 25px;
-    margin-left: 20px;
-}
-.frame-padding {
-    margin-left: 20px;
-    margin-top: 25px;
-} */
 .user-wrapper {
     background: #FFFFFF;
     padding: 20px;
 }
+/*.search-section {
+    top: 22px;
+    margin-left: 20px;
+    position: relative;
+}
+.frame-padding {
+    margin-right: 20px;
+    margin-top: 45px;
+    margin-left: 20px;
+    position: relative;
+}*/
+
 ::ng-deep .motif-header-name {
     font-family: EYInterstate;
     font-style: normal;
@@ -124,3 +128,64 @@ margin-left: 10px !important;
     height: 44px !important;
     transform: translateY(3px) !important;
 } */
+
+
+.btn_addUser {
+    border: 0px;
+    position: absolute;
+    right: 20px;
+    margin-top: -57px;
+}
+.btn_addUser:hover {
+    background-color: var(--btn-primary-bg-color);
+    border-color: var(--btn-primary-border-color);
+    color: var(--btn-primary-color);
+}
+.btn_save {
+    border: 0px;
+}
+
+.btn_save:hover {
+    background-color: var(--btn-primary-bg-color);
+    border-color: var(--btn-primary-border-color);
+    color: var(--btn-primary-color);
+}
+
+.btn_close:hover {
+    border-color: var(--btn-secondary-border-color);
+    background-color: var(--btn-secondary-bg-color);
+    color: var(--btn-primary-color);
+}
+::ng-deep .motif-form-field.motif-form-field-error .motif-input, .motif-form-field .motif-form-field-error .motif-input{
+    border-bottom: 1px solid var(--form-element-border-color) !important;
+}
+
+::ng-deep .motif-modal-close-button-wrapper {
+    background-color: var(--modal-header-border-color) !important;
+}
+
+::ng-deep .motif-modal-content {
+    width: 50% !important;
+}
+
+::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+}
+
+ ::ng-deep .motif-button path, .motif-button path:focus {
+    fill:  var(--btn-secondary-color) !important;
+  }
