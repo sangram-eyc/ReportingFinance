@@ -1,0 +1,12 @@
+<div class="page-header">
+    <h3>Regulatory reporting</h3>
+</div>
+<div class="page-subheader">
+    View filings in progress of intake, reporting, client review and submission. You can also view upcoming filings ready for fund scoping and client review.  
+</div>
+<section id="active-filings">
+    <h5>Active filings ({{activeFilings.length}})</h5>
+    <div id="filing-cards-container">
+        <app-filing-card *ngFor="let filing of activeFilings" [filingData]="filing"></app-filing-card>
+    </div>
+</section>

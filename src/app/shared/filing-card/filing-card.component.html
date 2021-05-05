@@ -1,0 +1,50 @@
+<motif-card>
+    <motif-card-header>
+        <h6 class="filing-name">{{name}}</h6>
+        <span class="filing-date-due"><motif-icon [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Filing due {{dueDate}}</span>
+    </motif-card-header>
+    <motif-card-body>
+        <div class="card-column">
+            <span class="total-funds">Total Funds</span>
+            <span class="fund-number">0</span>
+        </div>
+        <div class="card-column">
+            <span class="noto-header">STATUS</span> 
+            <div>
+                <motif-progress-indicators>
+                    <motif-progress-step
+                        [status]="getStatus(1)"
+                    ></motif-progress-step>
+                    <!-- <div class="line"></div> -->
+                    <motif-progress-step
+                        [status]="getStatus(2)"
+                    ></motif-progress-step>
+                    <motif-progress-step
+                        [status]="getStatus(3)"
+                    ></motif-progress-step>
+                    <motif-progress-step
+                        [status]="getStatus(4)"
+                    ></motif-progress-step>
+                    <motif-progress-step
+                        [status]="getStatus(5)"
+                    ></motif-progress-step>
+                </motif-progress-indicators>
+                
+            </div>
+            <span class="status-text">{{status.stage}}</span>
+        </div>
+        <div class="card-column comment-column">
+            <span class="noto-header">COMMENTS</span>
+            <div class="filing-comment" [ngClass]="{'blue-comment': comments.length > 0}">
+                <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"></motif-icon>
+                <span>{{comments.length}}</span>
+            </div>
+        </div>
+    </motif-card-body>
+    <div class="card-footer">
+        <div class="footer-status">Data intake review</div>
+        <div class="card-button">
+            <button motifButton color="primary-alt">View</button>
+         </div>
+    </div>
+</motif-card>

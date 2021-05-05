@@ -1,0 +1,39 @@
+@import '../../../styles/variables.scss';
+
+.page-header {
+  margin-top: 25px;
+}
+
+.page-header h3 {
+  
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  color: #2E2E38;
+}
+
+.page-subheader {
+  margin-bottom: 24px;
+  font-family: $font;
+  font-style: $font-style;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+
+#active-filings {
+  h5 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+  }
+  #filing-cards-container {
+    display: flex;
+    .motif-card {
+      margin-right: 20px;
+    }
+  }
+}

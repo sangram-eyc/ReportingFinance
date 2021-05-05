@@ -1,0 +1,172 @@
+.motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
+    padding: 0 !important;
+}
+
+.motif-card {
+    width: 422px;
+    font-family: EYInterstate;
+    border: 1px solid #747480 !important;
+    margin-right: 22px;
+
+    .motif-card-header {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 20px 18px 23px;
+        .filing-name {
+            margin: 0;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 18px;
+        }
+        .filing-date-due {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            .motif-icon {
+                margin-right: 4px;
+                width: 12px;
+                cursor: default;
+                ::ng-deep {
+                    svg {
+                        fill: #6F6F7A;
+                    }
+                  }
+            }
+        }
+    }
+
+    .motif-card-body {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 0;
+        padding-left: 23px;
+        ::ng-deep {
+            &:last-child {
+                padding: inherit;
+            }
+        }
+        span {
+            padding: 0;
+        }
+        .card-column {
+            display: flex;
+            flex-direction: column;
+            .status-text {
+                font-weight: 700;
+            }
+        }
+        .comment-column {
+            padding: 0 36px 0 0;
+            .filing-comment {
+                padding: 0;
+                display: flex;
+                align-items: center;
+                font-weight: 700;
+                color: rgba(0, 0, 0, 0.5);
+                .motif-icon {
+                    padding: 0;
+                    margin-right: 8px;
+                    width: 18px;
+                    ::ng-deep {
+                        svg {
+                            box-sizing: unset;
+                            fill: rgba(0, 0, 0, 0.5);
+                        }
+                    }
+                    .motif-icon-wrap {
+                        padding: 0 !important;
+                    }
+                }
+            }
+            .blue-comment {
+                color: #155CB4;
+                .motif-icon {
+                    ::ng-deep {
+                        svg {
+                            fill: #155CB4;
+                        }
+                    }
+                }
+            }
+        }
+        .total-funds {
+            font-size: 14px;
+            line-height: 20px;
+            color: #747480;
+        }
+        .fund-number {
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 48px;
+        }
+        .noto-header {
+            font-family: Noto Sans;
+            font-weight: 700;
+            font-size: 10px;    
+            line-height: 20px;
+            color: #747480;
+        }
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        padding-left: 23px;
+        padding-right: 22px;
+        .footer-status {
+            border: 1px solid #23232F;
+            border-radius: 16px;
+            padding: 0px 11px;
+            height: 22px;
+            font-family: 'EYInterstateLight';
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .card-button {
+            .motif-button {
+                width: 66px;
+                min-height: 31px;
+                height: 31px;
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .motif-step-container {
+        .step {
+            height: 1px !important;
+            &.in-progress, &.completed, &.not-set {
+                background-color: #C4C4CD !important;
+            }
+        }
+        .step-info {
+            .step-dot {
+                &.completed {
+                    background-color: transparent !important;
+                }
+                &.not-set {
+                    border: 1px solid #C4C4CD !important;
+                }
+                &.in-progress {
+                    border: 1px solid #34C768 !important;
+                    background-color: #34C768 !important;
+                }
+                .inner {
+                    visibility: hidden !important;
+                }
+            }
+
+            svg {
+                fill: #000000 !important;
+            }
+        }
+    }
+}
+
+
+
+
