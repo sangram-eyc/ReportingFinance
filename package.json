@@ -26,7 +26,10 @@
     "@angular/platform-browser-dynamic": "~9.1.13",
     "@angular/router": "~9.1.13",
     "@ey-xd/ng-motif": "file:ng-motif-2.0.0-beta.7.tgz",
+    "jquery": "3.6.0",
+    "ngx-slick-carousel": "0.5.1",
     "rxjs": "~6.5.4",
+    "slick-carousel": "1.8.1",
     "tslib": "^1.10.0",
     "vsts-npm-auth": "^0.41.0",
     "zone.js": "~0.10.2"

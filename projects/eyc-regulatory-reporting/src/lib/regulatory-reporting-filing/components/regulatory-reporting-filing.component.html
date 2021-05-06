@@ -1,0 +1,24 @@
+<div class="page-header">
+    <h3>Regulatory reporting</h3>
+</div>
+<div class="page-subheader">
+    View filings in progress of intake, reporting, client review and submission. You can also view upcoming filings ready for fund scoping and client review.  
+</div>
+<section id="active-filings">
+    <div id="active-filings-heading">
+        <h5>Active filings ({{activeFilings.length}})</h5>
+        <div id="carousel-arrows">
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="activePrevSlide()" [ngClass]="{'disabled-carousel-nav': activeLeftBtnDisabled === true}"></motif-icon>
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="activeSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': activeRightBtnDisabled === true}"></motif-icon>
+        </div>
+    </div>
+    <div id="left-carousel-blocker"></div>
+    <ngx-slick-carousel class="carousel"
+    [config]=slideConfig
+    (afterChange)="afterChange($event)"
+    #activeSlick="slick-carousel">
+        <div ngxSlickItem *ngFor="let filing of activeFilings" class="slide">
+            <app-filing-card [filingData]="filing"></app-filing-card>
+        </div>
+    </ngx-slick-carousel>
+</section>

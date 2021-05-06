@@ -5,7 +5,7 @@ import { HomeComponent } from './home/components/home.component';
 import { LoginComponent } from './login/components/login/login.component';
 import { AdminRegulatoryReportingComponent } from './administration/admin-regulatory-reporting/components/admin-regulatory-reporting.component';
 import {DashboardNotificationComponent} from './notification/dashboard-notification/dashboard-notification.component';
-import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/regulatory-reporting-filing.component';
+import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 
 
 const routes: Routes = [

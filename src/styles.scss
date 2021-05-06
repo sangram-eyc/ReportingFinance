@@ -154,6 +154,13 @@ $TaxReportingUI-theme: mat-light-theme($TaxReportingUI-primary, $TaxReportingUI-
     font-style: italic;
 }
 
+@font-face {
+  font-family: 'EYInterstateLight';
+  src: url(assets/fonts/EYInterstate-Light.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }

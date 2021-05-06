@@ -44,14 +44,19 @@
             ],
             "styles": [
               "node_modules/@ey-xd/ng-motif/styles.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss",
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "../node_modules/@ey-xd/ng-motif"
             ]
           },
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ]
           },
           "configurations": {
             "production": {
