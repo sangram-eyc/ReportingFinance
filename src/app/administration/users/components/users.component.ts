@@ -67,7 +67,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsersList().subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any = {
-          name: item.firstName + ' ' + item.lastName,
+          name:  item.lastName+ ', ' + item.firstName,
           email: item.userEmail,
           teams: item.userId,
           userId: item.userId,
@@ -101,6 +101,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           sortable: true,
           filter: true,
           cellClass: 'custom-user-name',
+          sort: 'asc',
           // tooltipField: 'name',
           wrapText: true,
           autoHeight: true,
