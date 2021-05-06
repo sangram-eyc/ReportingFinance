@@ -75,6 +75,11 @@ motif-icon.motif-icon.user-edit {
 .save-submit {
     margin-right: 30px;
     margin-left: 20px;
+    width: 80px !important;
+}
+
+.btn_close {
+    width: 80px !important;
 }
 
 .user-content-container {
@@ -89,6 +94,7 @@ motif-icon.motif-icon.user-edit {
             font-weight: 300;
             font-size: 12px;
             line-height: 22px;
+            color: #2E2E38;
         }
         .cust-col-colour {
             background: #F6F6FA;
@@ -110,16 +116,43 @@ motif-icon.motif-icon.user-edit {
                 margin-top: -5px;
         }
 
-}
+        
 
-::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online span{
-    background: transparent !important;
-    font-family: EYInterstate !important;
-    color: #2E2E38 !important;
-    // display: none !important;
-}
-::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
-    border-color: #2E2E38 !important;
+        ::ng-deep .motif-input {
+        padding: 0px !important;
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 25px !important;
+        color: #2E2E38 !important;
+        }
+
+        ::ng-deep .motif-form-field {
+            width: 100% !important;
+        }
+
+        ::ng-deep .motif-form-field.motif-form-field-error.motif-focus {
+            margin-bottom: 0px !important;
+            border-bottom: 0px !important;
+        }
+        
+        ::ng-deep .motif-form-field .motif-input {
+            background-color: transparent !important;
+            border-bottom: 1px solid !important;
+        }
+
+        ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online span{
+            background: transparent !important;
+            font-family: EYInterstate !important;
+            color: #2E2E38 !important;
+            // display: none !important;
+        }
+        ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
+            border-color: #2E2E38 !important;
+        }
+        
+             
 }
 
 /* ::ng-deep .motif-form-field {
@@ -141,6 +174,9 @@ top: -5px !important;
     color: #6F6F7A !important;
     background: inherit !important;
 } */
+
+
+
     
 
 
