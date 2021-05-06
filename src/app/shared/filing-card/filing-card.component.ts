@@ -28,7 +28,7 @@ export class FilingCardComponent implements OnInit {
   status = {
     stage: '',
     progress: ''
-  }
+  };
   states = [
     {
       stage: 'Fund Scoping',
@@ -50,7 +50,8 @@ export class FilingCardComponent implements OnInit {
       stage: 'Submission',
       progress: 'not-set'
     }
-  ]
+  ];
+  statusMessage = ''
 
 
   constructor() { }
@@ -80,6 +81,7 @@ export class FilingCardComponent implements OnInit {
         state['progress'] = 'not-set'
       }
     });
+    this.statusMessage = 'Ready for ' + this.status.stage.toLowerCase(); //Placeholder 
     console.log(this.states);
   }
 

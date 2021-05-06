@@ -5,17 +5,16 @@
     </motif-card-header>
     <motif-card-body>
         <div class="card-column">
-            <span class="total-funds">Total Funds</span>
+            <span class="column-header">Total Funds</span>
             <span class="fund-number">0</span>
         </div>
         <div class="card-column">
-            <span class="noto-header">STATUS</span> 
-            <div>
+            <span class="column-header">Status</span> 
+            <div class="progress-indicator-container">
                 <motif-progress-indicators>
                     <motif-progress-step
                         [status]="getStatus(1)"
                     ></motif-progress-step>
-                    <!-- <div class="line"></div> -->
                     <motif-progress-step
                         [status]="getStatus(2)"
                     ></motif-progress-step>
@@ -29,12 +28,12 @@
                         [status]="getStatus(5)"
                     ></motif-progress-step>
                 </motif-progress-indicators>
-                
+                <div class="line"></div>
             </div>
             <span class="status-text">{{status.stage}}</span>
         </div>
         <div class="card-column comment-column">
-            <span class="noto-header">COMMENTS</span>
+            <span class="column-header">Comments</span>
             <div class="filing-comment" [ngClass]="{'blue-comment': comments.length > 0}">
                 <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"></motif-icon>
                 <span>{{comments.length}}</span>
@@ -42,7 +41,7 @@
         </div>
     </motif-card-body>
     <div class="card-footer">
-        <div class="footer-status">Data intake review</div>
+        <div class="footer-status">{{statusMessage}}</div>
         <div class="card-button">
             <button motifButton color="primary-alt">View</button>
          </div>

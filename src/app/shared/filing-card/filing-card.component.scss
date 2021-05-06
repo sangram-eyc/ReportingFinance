@@ -42,6 +42,7 @@
         justify-content: space-between;
         padding-top: 0;
         padding-left: 23px;
+        padding-bottom: 25px;
         ::ng-deep {
             &:last-child {
                 padding: inherit;
@@ -91,7 +92,7 @@
                 }
             }
         }
-        .total-funds {
+        .column-header {
             font-size: 14px;
             line-height: 20px;
             color: #747480;
@@ -100,13 +101,6 @@
             font-weight: 700;
             font-size: 32px;
             line-height: 48px;
-        }
-        .noto-header {
-            font-family: Noto Sans;
-            font-weight: 700;
-            font-size: 10px;    
-            line-height: 20px;
-            color: #747480;
         }
     }
 
@@ -135,21 +129,46 @@
     }
 }
 
+
+
+.progress-indicator-container {
+    position: relative;
+    width: 100px;
+    ::ng-deep {
+        .motif-steps-container {
+            position: relative;
+            z-index: 2;
+        }
+    }
+    .line {
+        height: 1px;
+        background-color: #C4C4CD;
+        position: absolute;
+        width: 80%;
+        top: 61%;
+        left: 10px;
+        z-index: 0;
+    }
+}
+
 ::ng-deep {
     .motif-step-container {
         .step {
             height: 1px !important;
             &.in-progress, &.completed, &.not-set {
                 background-color: #C4C4CD !important;
+                display: none !important;
             }
         }
         .step-info {
             .step-dot {
+                flex-shrink: 0 !important;
                 &.completed {
-                    background-color: transparent !important;
+                    background-color: #FFFFFF !important;
                 }
                 &.not-set {
                     border: 1px solid #C4C4CD !important;
+                    background-color: #FFFFFF !important
                 }
                 &.in-progress {
                     border: 1px solid #34C768 !important;
@@ -163,6 +182,9 @@
             svg {
                 fill: #000000 !important;
             }
+        }
+        .completed-step-icon {
+            flex-shrink: 0;
         }
     }
 }
