@@ -577,9 +577,11 @@ ul#user-info {
   left: 119px;
 }
 .motif-card {
-    border: 1px solid #C4C4CD !important;
+    border: 1px solid #E7E7EA !important;
     height: 202px !important;
     width: 342px !important;
+    box-sizing: border-box !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
 .motif-card-header, .motif-card-header{
@@ -599,13 +601,14 @@ ul#user-info {
   font-size: 14px;
   line-height: 18px;
   text-align: center;
+  margin-bottom: 25px;
 }
 
 .notification-message {
   top: 13px;
   position: relative;
   cursor: pointer;
-  margin-top: 26px;
+  // margin-top: 26px;
   margin-left: 144px;
 }
 
@@ -637,7 +640,7 @@ ul#user-info {
   line-height: 18px;
   color: #2E2E38;
   display: inline-block;
-  margin-left: 20%;
+  margin-left: 25%;
 
 }
 .all-read {
@@ -652,6 +655,10 @@ ul#user-info {
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
+    display: inline-block; 
+    bottom: 9px;
+    position: relative;
+    margin-left: 5px;
 }
 .notification-bell-trianlgle
 {
@@ -683,11 +690,17 @@ ul#user-info {
     border-color: var(--btn-primary-border-color);
     color: var(--btn-primary-color);
     border: none;
+ 
 }
 
 ::ng-deep .mat-body, .mat-body-1, .mat-typography {
   font: revert !important;
   font-family: EYInterstate !important; ;
+}
+
+.notification-header
+{
+  display: flex;
 }
 
 
