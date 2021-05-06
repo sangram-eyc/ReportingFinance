@@ -4,6 +4,7 @@ import { MotifCardModule, MotifButtonModule } from '@ey-xd/ng-motif';
 import { UsersModule } from './users/users.module';
 import { AdministrationComponent } from './components/administration.component';
 import { AdminRegulatoryReportingModule } from './admin-regulatory-reporting/admin-regulatory-reporting.module';
+import { UserDetailsModule } from './user-details/user-details.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { AdminRegulatoryReportingModule } from './admin-regulatory-reporting/adm
     MotifCardModule,
     MotifButtonModule,
     AdminRegulatoryReportingModule,
-    UsersModule
+    UsersModule,
+    UserDetailsModule
   ],
   declarations: [
     AdministrationComponent,
