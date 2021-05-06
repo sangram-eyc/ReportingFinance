@@ -24,7 +24,7 @@
 
 
         <ng-template #actionSection let-row>
-            <motif-icon class="edtor-icon"  [src]="'/assets/icons/editor/ic_border_color_24px.svg'"></motif-icon>
+            <motif-icon class="edtor-icon"  [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editUser(row)"></motif-icon>
             <div class="delete-icon" (click)="onClickDeleteUserIcon(row)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"

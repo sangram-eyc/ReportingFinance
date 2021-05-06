@@ -410,7 +410,7 @@ li.header-notification {
 li.header-avatar {
   position: relative;
   // margin-bottom: 5px;
-  top: 15px;
+  top: 17px;
 }
 li.singn-out {
   top: 11px;
@@ -429,7 +429,13 @@ ul#user-info {
   float: right;
   right: 0px;
   position: absolute;
-  margin-top: 0px;
+  margin-top: -12px;
+}
+
+::ng-deep .header-name {
+  top: 12px !important;
+  position: relative !important;
+  margin-left: .7rem !important;
 }
 
 #sidenav-and-content {
