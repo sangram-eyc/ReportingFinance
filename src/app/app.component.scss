@@ -151,7 +151,8 @@ main {
 }
 
 .main-section {
-    margin-left: 51px;
+    margin-left: 41px;
+    margin-right: 37px;
     flex: 1;
     min-height: calc(100vh - 130px)
 }
@@ -389,7 +390,7 @@ line-height: 25px;
 text-align: right;
 color: #fff;
 position: relative;
-top: 5px;
+top: 2px;
 margin-right: 12px;
 }
 .header-hamburger {
@@ -402,17 +403,17 @@ i.fas.fa-bars {
   margin: 0px;
 }
 li.header-notification {
-  top: 11px;
+  top: 10px;
   position: relative;
   cursor: pointer;
 }
 li.header-avatar {
   position: relative;
   // margin-bottom: 5px;
-  top: 15px;
+  top: 17px;
 }
 li.singn-out {
-  top: 11px;
+  top: 10px;
   position: relative;
   cursor: pointer;
 }
@@ -428,7 +429,13 @@ ul#user-info {
   float: right;
   right: 0px;
   position: absolute;
-  margin-top: 0px;
+  margin-top: -12px;
+}
+
+::ng-deep .header-name {
+  top: 12px !important;
+  position: relative !important;
+  margin-left: .7rem !important;
 }
 
 #sidenav-and-content {
@@ -570,9 +577,11 @@ ul#user-info {
   left: 119px;
 }
 .motif-card {
-    border: 1px solid #C4C4CD !important;
+    border: 1px solid #E7E7EA !important;
     height: 202px !important;
     width: 342px !important;
+    box-sizing: border-box !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
 .motif-card-header, .motif-card-header{
@@ -592,13 +601,14 @@ ul#user-info {
   font-size: 14px;
   line-height: 18px;
   text-align: center;
+  margin-bottom: 25px;
 }
 
 .notification-message {
   top: 13px;
   position: relative;
   cursor: pointer;
-  margin-top: 26px;
+  // margin-top: 26px;
   margin-left: 144px;
 }
 
@@ -630,7 +640,7 @@ ul#user-info {
   line-height: 18px;
   color: #2E2E38;
   display: inline-block;
-  margin-left: 20%;
+  margin-left: 25%;
 
 }
 .all-read {
@@ -645,6 +655,10 @@ ul#user-info {
     font-weight: bold;
     font-size: 14px;
     line-height: 16px;
+    display: inline-block; 
+    bottom: 9px;
+    position: relative;
+    margin-left: 5px;
 }
 .notification-bell-trianlgle
 {
@@ -676,11 +690,17 @@ ul#user-info {
     border-color: var(--btn-primary-border-color);
     color: var(--btn-primary-color);
     border: none;
+ 
 }
 
 ::ng-deep .mat-body, .mat-body-1, .mat-typography {
   font: revert !important;
   font-family: EYInterstate !important; ;
+}
+
+.notification-header
+{
+  display: flex;
 }
 
 

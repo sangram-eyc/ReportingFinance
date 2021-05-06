@@ -4,6 +4,7 @@ import { UsersService } from '../services/users.service';
 import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,8 +24,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   constructor(
     private userService: UsersService,
+    private router: Router,
     private _formBuilder: FormBuilder
-  ) {
+  ) { 
   }
 
   usersListArr: any[] = [];
@@ -65,9 +67,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsersList().subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any = {
-          name: item.firstName + ' ' + item.lastName,
+          name:  item.lastName+ ', ' + item.firstName,
           email: item.userEmail,
           teams: item.userId,
+          userId: item.userId,
           options: '',
         };
         this.usersListArr.push(eachitem);
@@ -91,19 +94,20 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
       this.columnDefs1 = [
         {
-          width: 400,
+          width: 380,
           headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: 'Name',
           field: 'name',
           sortable: true,
           filter: true,
           cellClass: 'custom-user-name',
+          sort: 'asc',
           // tooltipField: 'name',
           wrapText: true,
           autoHeight: true,
         },
         {
-          width: 400,
+          width: 380,
           headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: 'Email',
           field: 'email',
@@ -223,4 +227,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 // Remove user end here
 
+
+  editUser(row) {
+    this.router.navigate(['/user-details/'+row['userId']])
+  }
 }

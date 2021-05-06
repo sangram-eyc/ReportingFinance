@@ -154,6 +154,13 @@ $TaxReportingUI-theme: mat-light-theme($TaxReportingUI-primary, $TaxReportingUI-
     font-style: italic;
 }
 
+@font-face {
+  font-family: 'EYInterstateLight';
+  src: url(assets/fonts/EYInterstate-Light.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
@@ -436,10 +443,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   fill:#C4C4CD !important;
 }
 .display-message .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#C4C4CD !important;
+  fill:#747480 !important;
   height: 70px !important;
   width: 100px !important;
-  margin-left: 66px;
+  margin-left: 75px;
 }
 
 .page-header-row .motif-icon .motif-icon-wrap .motif-icon-content svg {
@@ -450,18 +457,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .notification-message .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#C4C4CD !important;
- 
+  // fill:#C4C4CD !important;
+  fill:#747480 !important;
+  height: 32px !important;
+ width:  32px !important;
 }
 
 .card-block.banner-header-right .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#DADADA !important;
+  fill:#747480 !important;
+ 
  
 }
 
-.admin-container .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  fill:#C4C4CD !important;
- 
+.notification-bell-trianlgle .motif-icon .motif-icon-wrap .motif-icon-content svg {
+  fill:#E7E7EA !important;
+
 }
 .motif-avatar .motif-icon {
   display: none !important;

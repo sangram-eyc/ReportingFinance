@@ -1,0 +1,105 @@
+@import '../../../styles/variables.scss';
+
+.page-header {
+  margin-top: 25px;
+}
+
+.page-header h3 {
+  
+  font-weight: 700;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  color: #2E2E38;
+}
+
+.page-subheader {
+  margin-bottom: 24px;
+  font-family: $font;
+  font-style: $font-style;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+
+#active-filings {
+  position: relative;
+  #active-filings-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    h5 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
+      margin: 0;
+    }
+    #carousel-arrows{
+      display: flex;
+      .motif-icon {
+        cursor: pointer;
+        ::ng-deep {
+          svg {
+              fill: #23232F;
+          }
+        }
+        &.disabled {
+          ::ng-deep {
+            svg {
+                fill: #C4C4CD;
+            }
+          }
+        }
+      }
+      .disabled-carousel-nav {
+        cursor: default;
+        ::ng-deep {
+          svg {
+              fill: #C4C4CD;
+          }
+        } 
+      }
+    }
+  }
+  #filing-cards-container {
+    display: flex;
+  }
+}
+
+#left-carousel-blocker {
+  position: absolute;
+  height: 218px;
+  left: -41px;
+  width: 41px;
+  background-color: #f6f6fa;
+  z-index: 5;
+}
+
+::ng-deep .slick-dots {
+  position: initial;
+}
+
+::ng-deep .slick-dots li button:before{
+  font-family: 'slick';
+  font-size: 12px;
+  line-height: 20px;
+  color: #C4C4CD;
+  opacity: 1;
+}
+
+::ng-deep .slick-dots li.slick-active button:before {
+  color: #747480;
+}
+
+::ng-deep .slick-dots li {
+  margin: 0;
+}
+
+::ng-deep .slick-list {
+  overflow: inherit;
+  margin-bottom: 10px;
+}

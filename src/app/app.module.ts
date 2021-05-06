@@ -15,6 +15,7 @@ import { LoginModule } from './login/login.module';
 import {NotificationModule} from './notification/notification.module';
 import { MotifCardModule } from '@ey-xd/ng-motif';
 import { HttpClientModule } from '@angular/common/http';
+import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
 
 
 
@@ -41,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeModule,
     LoginModule,
     MotifCardModule,
-    NotificationModule
+    NotificationModule,
+    EycRegulatoryReportingModule
    
   ],
   providers: [],

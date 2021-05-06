@@ -1,0 +1,182 @@
+.user-details-wrapper {
+    background: #F2F2F2;
+    top: 20px;
+    position: relative;
+}
+.back-wrapper {
+    display: flex;
+}
+.back-opt {
+font-family: EYInterstate;
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 16px;
+color: #2E2E3C;
+top: 3px;
+position: relative;
+left: 3px;
+cursor: pointer;
+}
+h3 {
+font-family: EYInterstate;
+font-style: normal;
+font-weight: bold;
+font-size: 32px;
+line-height: 48px;
+color: #1A1A24;
+}
+.user-info-header, user-edit-header{
+    display: flex;
+    margin-top: 15px;
+}
+::ng-deep .motif-icon.motif-icon.user-edit svg {
+    fill: #155CB4 !important;
+}
+motif-icon.motif-icon.user-edit {
+    top: 13px;
+    position: relative;
+    left: 10px;
+} 
+.user-info-header span{
+    top: 2px;
+    left: 30px;
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+    color: #155CB4;
+    position: absolute;
+}
+
+.user-thumb {
+    display: flex;
+
+    span {
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 38px;
+        color: #1A1A24;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+}
+
+.edit-form {
+    display: flex;
+    position: absolute;
+    left: 150px;
+    margin-top: 3px;
+}
+
+.save-submit {
+    margin-right: 30px;
+    margin-left: 20px;
+    width: 80px !important;
+}
+
+.btn_close {
+    width: 80px !important;
+}
+
+.user-content-container {
+    background: #FFFFFF;
+    margin-top: 30px;
+
+        .row {
+            margin-left: 0px !important;
+            padding: 30px;
+            font-family: EYInterstate;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 22px;
+            color: #2E2E38;
+        }
+        .cust-col-colour {
+            background: #F6F6FA;
+            margin-right: -50px;
+        }
+
+        /* .offset-md-1 {
+            padding-bottom: 5px;
+        } */
+        .cust-row-st {
+                font-family: EYInterstate;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 25px;
+                display: flex;
+                align-items: center;
+                color: #6F6F7A;
+                margin-top: -5px;
+        }
+
+        
+
+        ::ng-deep .motif-input {
+        padding: 0px !important;
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 25px !important;
+        color: #2E2E38 !important;
+        }
+
+        ::ng-deep .motif-form-field {
+            width: 100% !important;
+        }
+
+        ::ng-deep .motif-form-field.motif-form-field-error.motif-focus {
+            margin-bottom: 0px !important;
+            border-bottom: 0px !important;
+        }
+        
+        ::ng-deep .motif-form-field .motif-input {
+            background-color: transparent !important;
+            border-bottom: 1px solid !important;
+        }
+
+        ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online span{
+            background: transparent !important;
+            font-family: EYInterstate !important;
+            color: #2E2E38 !important;
+            // display: none !important;
+        }
+        ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
+            border-color: #2E2E38 !important;
+        }
+        
+             
+}
+
+/* ::ng-deep .motif-form-field {
+margin-bottom: 0px !important;
+top: -5px !important;
+}
+::ng-deep .motif-form-field.motif-form-field-error.motif-focus {
+    margin-bottom: 0px !important;
+    border-bottom: 0px !important;
+}
+::ng-deep .motif-input {
+    padding: 0px !important;
+    background-color: inherit !important;
+    font-family: EYInterstate !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 25px !important;
+    color: #6F6F7A !important;
+    background: inherit !important;
+} */
+
+
+
+    
+
+
