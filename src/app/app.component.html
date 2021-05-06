@@ -46,6 +46,7 @@
 
         <motif-card>
           <motif-card-header>
+            <div class="notification-header">
             <div class="card-block banner-header">
               Notifications
 
@@ -55,15 +56,16 @@
                 <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
               </div>
 
-              <div class="mark-all-message" style="display: inline-block; bottom: 6px;position: relative;"> Mark all as read</div>
+              <div class="mark-all-message"> Mark all as read</div>
 
             </div>
+          </div>
           </motif-card-header>
           <li class="notification-message">
             <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
             </motif-icon>
           </li>
-          <div class="not-error-block">There are Notification to Display</div>
+          <div class="not-error-block">There are no notifications to display.</div>
           <div class="card-button">
             <button motifButton color="primary-alt" class="notification-button" (click)="navigatetonotifi()">View
               All</button>
