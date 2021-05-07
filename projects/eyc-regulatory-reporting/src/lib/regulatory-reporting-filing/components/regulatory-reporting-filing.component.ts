@@ -11,6 +11,7 @@ import { SlickCarouselComponent } from 'ngx-slick-carousel';
 export class RegulatoryReportingFilingComponent implements OnInit {
 
   @ViewChild('activeSlick', {static: false}) activeSlick: SlickCarouselComponent;
+  @ViewChild('upcomingSlick', {static: false}) upcomingSlick: SlickCarouselComponent;
 
   constructor(
     private filingService: RegulatoryReportingFilingService
@@ -19,6 +20,11 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   activeFilings: any[] = [];
   activeLeftBtnDisabled = true;
   activeRightBtnDisabled = false;
+
+  upcomingFilings: any[] = [];
+  upcomingLeftBtnDisabled = true;
+  upcomingRightBtnDisabled = false;
+  
   slideConfig = {
     slidesToShow: 4,
     arrows: false,
@@ -164,6 +170,12 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         };
         if (eachitem.startDate !== null) {
           this.activeFilings.push(eachitem);
+          let startD = new Date(eachitem.startDate)
+          var date = new Date();
+          var lastD = new Date(date.getTime() - (10 * 24 * 60 * 60 * 1000));
+          if (lastD < startD){
+            this.upcomingFilings.push(eachitem)
+          }
         }
       });
       console.log(this.activeFilings);
@@ -172,5 +184,30 @@ export class RegulatoryReportingFilingComponent implements OnInit {
 
   }
 
+  afterChangeUpcomingFilings(e){
+    if (e.currentSlide === 0) {
+      this.upcomingLeftBtnDisabled = true;
+    } else {
+      this.upcomingLeftBtnDisabled = false;
+    }
+    const slides = e.slick.$slides;
+    if (slides[slides.length - 1].classList.contains('slick-active')) {
+      this.upcomingRightBtnDisabled = true;
+    } else {
+      this.upcomingRightBtnDisabled = false;
+    }
+  }
+  upcomingPrevSlide(){
+    const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
+    if (currentSlide > 0) {
+      this.upcomingSlick.slickPrev();
+    }
+  }
 
+  upcomingNextSlide(){
+    const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
+    if (currentSlide > 0) {
+      this.upcomingSlick.slickPrev();
+    }
+  }
 }

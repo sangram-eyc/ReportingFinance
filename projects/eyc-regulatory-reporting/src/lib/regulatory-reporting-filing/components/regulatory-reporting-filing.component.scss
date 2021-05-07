@@ -103,3 +103,46 @@
   overflow: inherit;
   margin-bottom: 10px;
 }
+
+
+#upcoming-filings{
+  position: relative;
+  #upcoming-filings-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    h5 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
+      margin: 0;
+    }
+    #carousel-arrows{
+      display: flex;
+      .motif-icon {
+        cursor: pointer;
+        ::ng-deep {
+          svg {
+              fill: #23232F;
+          }
+        }
+        &.disabled {
+          ::ng-deep {
+            svg {
+                fill: #C4C4CD;
+            }
+          }
+        }
+      }
+      .disabled-carousel-nav {
+        cursor: default;
+        ::ng-deep {
+          svg {
+              fill: #C4C4CD;
+          }
+        } 
+      }
+    }
+  }
+}
