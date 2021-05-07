@@ -2,6 +2,46 @@
     background: #F2F2F2;
     top: 20px;
     position: relative;
+
+
+    *:focus {
+        box-shadow: none !important;
+    }
+
+    .save-submit {
+        margin-right: 30px;
+        margin-left: 20px;
+        width: 80px !important;
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #2E2E38 !important;
+        border: 0px;
+    }
+
+    .save-submit:hover {
+       background-color: var(--btn-primary-bg-color);
+    //    color: var(--btn-primary-color);
+    }
+    
+    .btn_close {
+        width: 80px !important;
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #2E2E38 !important;
+        border: 0.5px solid #2E2E38 !important;
+
+    }
+    .btn_close:hover {
+        background-color: var(--btn-secondary-bg-color);
+    }
 }
 .back-wrapper {
     display: flex;
@@ -26,7 +66,7 @@ font-size: 32px;
 line-height: 48px;
 color: #1A1A24;
 }
-.user-info-header, user-edit-header{
+.user-info-header {
     display: flex;
     margin-top: 15px;
 }
@@ -37,6 +77,7 @@ motif-icon.motif-icon.user-edit {
     top: 13px;
     position: relative;
     left: 10px;
+    cursor: pointer;
 } 
 .user-info-header span{
     top: 2px;
@@ -48,6 +89,7 @@ motif-icon.motif-icon.user-edit {
     line-height: 22px;
     color: #155CB4;
     position: absolute;
+    cursor: pointer;
 }
 
 .user-thumb {
@@ -72,15 +114,7 @@ motif-icon.motif-icon.user-edit {
     margin-top: 3px;
 }
 
-.save-submit {
-    margin-right: 30px;
-    margin-left: 20px;
-    width: 80px !important;
-}
 
-.btn_close {
-    width: 80px !important;
-}
 
 .user-content-container {
     background: #FFFFFF;
@@ -139,7 +173,7 @@ motif-icon.motif-icon.user-edit {
         
         ::ng-deep .motif-form-field .motif-input {
             background-color: transparent !important;
-            border-bottom: 1px solid !important;
+            border-bottom: 1px solid #2E2E38 !important;
         }
 
         ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online span{
@@ -174,6 +208,24 @@ top: -5px !important;
     color: #6F6F7A !important;
     background: inherit !important;
 } */
+
+::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+}
 
 
 
