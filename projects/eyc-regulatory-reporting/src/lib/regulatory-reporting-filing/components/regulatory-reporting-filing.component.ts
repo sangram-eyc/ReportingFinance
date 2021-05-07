@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FilingCardComponent } from '../../../../../../src/app/shared/filing-card/filing-card.component';
+import { FilingCardComponent } from '../../shared/filing-card/filing-card.component';
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 
