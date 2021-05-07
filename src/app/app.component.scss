@@ -399,6 +399,12 @@ margin-right: 12px;
   cursor: pointer;
   z-index: 1;
 }
+#menu-icon, #menu-open-icon {
+  color: #DADADA;
+  font-size: 30px;
+  padding-top: 7px;
+  margin-left: -4px;
+}
 i.fas.fa-bars {
   margin: 0px;
 }
@@ -469,6 +475,7 @@ ul#user-info {
     align-items: center;
     margin: 0;
     outline: none;
+    position: relative;
     ::ng-deep {
       svg {
           fill: #DADADA;
@@ -483,6 +490,16 @@ ul#user-info {
       font-family: EYInterstate;
       font-size: 14px;
       line-height: 16px;
+    }
+    .triangle-bottomright {
+      width: 0;
+      height: 0;
+      border-bottom: 9px solid #c4c4cd;
+      border-left: 9px solid transparent;
+      margin: 0;
+      position: absolute;
+      left: 46px;
+      bottom: 0px;
     }
     .motif-icon {
       flex-shrink: 0;
@@ -502,6 +519,10 @@ ul#user-info {
     border-left: 5px solid #FFE600;
     padding-left: 9px;
     font-weight: 700;
+    .triangle-bottomright {
+      border-bottom: 9px solid #FFE600;
+      left: 41px;
+    }
   }
   .sidenav-submenu {
     margin: 0;

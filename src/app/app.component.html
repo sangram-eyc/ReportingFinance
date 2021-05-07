@@ -3,7 +3,8 @@
   <mat-toolbar class="app-header">
     <section class="ey-logo-container">
       <div class="header-hamburger">
-        <motif-icon [src]="'/assets/icons/navigation/ic_menu_24px.svg'" (click)="toggleSideNav()"></motif-icon>
+        <i *ngIf="mini" class="material-icons" id="menu-icon" (click)="toggleSideNav()">menu</i>
+        <i *ngIf="!mini" class="material-icons" id="menu-open-icon" (click)="toggleSideNav()">menu_open</i>
       </div>
       <!-- <div class="ey-icon">
         <img src="assets/img/ey-logo-white.png" height="32.49" width="31.32">
@@ -85,10 +86,11 @@
           <span>Home</span>
         </li>
 
-        <!-- <li [class.active]="regreporting.isActive && mini" [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
-        <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
-          [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+        <li [class.active]="regreporting.isActive && mini || regreporting.isActive && opensubmenu !== 'managed-submenu'" [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+        <!-- <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
+          [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
           <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
+          <div *ngIf="mini" class="triangle-bottomright" [class.active-triangle]="regreporting.isActive"></div>
           <span>Managed Services</span>
           <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
             [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
@@ -99,8 +101,8 @@
         <li class="sidenav-submenu">
           <ul id="managed-submenu" class="submenu">
             <!-- <li class="sidenav-item" routerLink="home" routerLinkActive="active-submenu" #regreporting="routerLinkActive"> -->
-            <li class="sidenav-item">
-              <span [routerLink]="['/app-regulatory-filing']">Regulatory Reporting</span>
+            <li class="sidenav-item" [routerLink]="['/app-regulatory-filing']" routerLinkActive="active-submenu" #regreporting="routerLinkActive">
+              <span>Regulatory Reporting</span>
             </li>
             <!-- <li class="sidenav-item">
               <span>Tax Compliance</span>
