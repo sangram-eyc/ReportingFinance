@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class RegulatoryReportingFilingService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
 
@@ -15,7 +15,7 @@ export class RegulatoryReportingFilingService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://localhost:4200/assets/mock/filings.json', {
+    return this.http.get('https://10.48.234.20/qa31/assets/mock/filings.json', {
       headers
     });
   }
