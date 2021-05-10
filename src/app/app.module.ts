@@ -16,7 +16,7 @@ import {NotificationModule} from './notification/notification.module';
 import { MotifCardModule } from '@ey-xd/ng-motif';
 import { HttpClientModule } from '@angular/common/http';
 import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
-
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 
 @NgModule({
@@ -43,10 +43,12 @@ import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/
     LoginModule,
     MotifCardModule,
     NotificationModule,
-    EycRegulatoryReportingModule
+    EycRegulatoryReportingModule,
+    OAuthModule.forRoot()
    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
