@@ -10,7 +10,7 @@ import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 export class SettingsService {
   constructor(private oauthService: OAuthService) { }
-
+  public API_ENDPOINT = environment.apiEndpoint;
 // AUTHTOKEN FUNCTIONS
 setToken = (value) => {
   const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
