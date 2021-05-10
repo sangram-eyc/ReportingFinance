@@ -10,13 +10,16 @@ import { UserDetailsComponent } from './administration/user-details/components/u
 
 
 const routes: Routes = [
+  {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent},
   {path: 'administration', component: AdministrationComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'eyComply', component: LoginComponent},
   {path: 'admin-regulatory-reporting', component: AdminRegulatoryReportingComponent},
   {path: 'notification', component: DashboardNotificationComponent},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent},
   {path: 'user-details/:userId', component: UserDetailsComponent },
+  {path: '**', component: LoginComponent},
 ];
 
 @NgModule({

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import {SettingsService} from './services/settings.service';
+
 
 @Component({
   selector: 'app-root',
@@ -12,12 +14,14 @@ export class AppComponent {
   opensubmenu = '';
   showHeaderFooter: boolean = true;
   isNotification = false;
-  constructor(private router:Router){
+  constructor(private router:Router,private settingsService: SettingsService){
     // To hide header and footer from login page
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
-          this.showHeaderFooter = !(this.router.url === '/login')
+         // this.showHeaderFooter = !(this.router.url === '/login')
+         this.showHeaderFooter = this.settingsService.isUserLoggedin();
+        
         }
       });
 
@@ -54,6 +58,12 @@ export class AppComponent {
     this.router.navigateByUrl('/notification');
     this.isNotification = !this.isNotification;
 
+  }
+
+  public logoff() {
+   this.settingsService.logoff();
+  //  this.router.navigateByUrl('/logout');
+  this.router.navigate(['/eyComply'], { queryParams: { logout: true } })
   }
 
   

@@ -1,0 +1,29 @@
+<html>
+<body>
+<h1>Redirecting...</h1>
+<script>
+
+function getParamsString() {
+    debugger;
+    var url = window.location.href;
+    if (url.indexOf('#') !== -1 ) {
+        return url.split('#')[1];
+    }
+    return '';
+}
+
+
+
+const urlParams = getParamsString();
+var url = window.location.href;
+debugger;
+var rootUrl = url.split('assets')[0];
+window.location.href = rootUrl + '#' + urlParams;
+
+debugger;
+
+
+</script>
+
+</body>
+</html>
