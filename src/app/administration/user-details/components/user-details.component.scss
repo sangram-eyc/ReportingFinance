@@ -9,7 +9,7 @@
     }
 
     .save-submit {
-        margin-right: 30px;
+        margin-right: 20px;
         margin-left: 20px;
         width: 80px !important;
         font-family: EYInterstate;
@@ -65,10 +65,12 @@ font-weight: bold;
 font-size: 32px;
 line-height: 48px;
 color: #1A1A24;
+margin-right: 40px;
 }
 .user-info-header {
     display: flex;
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 ::ng-deep .motif-icon.motif-icon.user-edit svg {
     fill: #155CB4 !important;
@@ -102,8 +104,8 @@ motif-icon.motif-icon.user-edit {
         font-size: 32px;
         line-height: 38px;
         color: #1A1A24;
-        margin-top: 10px;
-        margin-left: 10px;
+        margin-top: 20px;
+        margin-left: 15px
     }
 }
 
@@ -184,7 +186,10 @@ motif-icon.motif-icon.user-edit {
         }
         ::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
             border-color: #2E2E38 !important;
+            height: 75px !important;
+            width: 75px !important;
         }
+        
         
              
 }
@@ -225,6 +230,11 @@ top: -5px !important;
     .motif-icon-button {
         display: none !important;
     }
+}
+
+::ng-deep .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
+    height: 75px !important;
+    width: 75px !important;
 }
 
 
