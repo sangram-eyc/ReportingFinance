@@ -7,6 +7,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -21,7 +22,8 @@ import { InlineSVGModule } from 'ng-inline-svg';
     MotifProrgressIndicatorsModule,
     MotifTableModule,
     SlickCarouselModule,
-    InlineSVGModule.forRoot()
+    InlineSVGModule.forRoot(),
+    HttpClientModule
   ],
   declarations: [
     RegulatoryReportingFilingComponent,

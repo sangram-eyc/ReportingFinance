@@ -15,7 +15,7 @@ export class RegulatoryReportingFilingService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('https://10.48.234.20/qa31/assets/mock/filings.json', {
+    return this.http.get('assets/mock/filings.json', {
       headers
     });
   }
