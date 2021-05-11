@@ -8,7 +8,7 @@ export const oAuthConfig = {
   
   loginUrl: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/authorize',
   logoutUrl: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/logout',
-  redirectUri: 'https://10.48.234.20/qa41/assets/redirect.html',
+  redirectUri: 'https://10.48.234.20/qa41/eyc-ServiceEngine-UI/assets/redirect.html',
  // redirectUri: 'http://localhost:4200',
   tenant:"5b973f99-77df-4beb-b27d-aa0c70b8482c",
   silentRefreshRedirectUri: 'http://localhost:4200/silent-refresh.html',
