@@ -15,10 +15,10 @@ export class RegulatoryReportingFilingComponent implements OnInit {
 
   @ViewChild('activeSlick', {static: false}) activeSlick: SlickCarouselComponent;
   @ViewChild('upcomingSlick', {static: false}) upcomingSlick: SlickCarouselComponent;
-
+  
   constructor(
     private filingService: RegulatoryReportingFilingService
-  ) { }
+  ) {}
 
   activeFilings: any[] = [];
   completedFilings: any[] = [];
@@ -29,6 +29,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   upcomingLeftBtnDisabled = true;
   upcomingRightBtnDisabled = false;
   
+  searchNoDataAvilable = false;
   slideConfig = {
     slidesToShow: 4,
     arrows: false,
@@ -121,20 +122,20 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     }
   }
 
-  activePrevSlide() {
-    const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
-    if (currentSlide > 0) {
-      this.activeSlick.slickPrev();
-    }
-    console.log(this.activeSlick.slides[0]);
-  } 
+  // activePrevSlide() {
+  //   const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
+  //   if (currentSlide > 0) {
+  //     this.activeSlick.slickPrev();
+  //   }
+  //   console.log(this.activeSlick.slides[0]);
+  // } 
 
-  activeNextSlide() {
-    const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
-    if (currentSlide > 0) {
-      this.activeSlick.slickPrev();
-    }
-  }
+  // activeNextSlide() {
+  //   const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
+  //   if (currentSlide > 0) {
+  //     this.activeSlick.slickPrev();
+  //   }
+  // }
 
   getFilingsData() {
     this.filingService.getFilings().subscribe(resp => {
@@ -151,16 +152,16 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         } else if (eachitem.startDate !== null ) {
           this.activeFilings.push(eachitem);
           let startD = new Date(eachitem.startDate)
-          var date = new Date();
-          var lastD = new Date(date.getTime() - (10 * 24 * 60 * 60 * 1000));
+          let date = new Date();
+          let lastD = new Date(date.getTime() - (10 * 24 * 60 * 60 * 1000));
           if (lastD < startD){
             this.upcomingFilings.push(eachitem)
           }
         }
 
       });
-      console.log(this.activeFilings);
-      console.log(this.activeFilings.length);
+      // console.log(this.activeFilings);
+      // console.log(this.activeFilings.length);
       this.createHistoryRowData();
     });
   }
@@ -206,6 +207,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         field: 'comments',
         sortable: true,
         filter: true,
+        minWidth: 140,
+        cellClass: 'custom_comments'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -213,6 +216,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         field: 'dueDate',
         sortable: true,
         filter: true,
+        minWidth: 130,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -220,7 +224,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         field: 'subDate',
         sortable: true,
         filter: true,
-        minWidth: 212
+        minWidth: 180
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -228,6 +232,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         field: 'exceptions',
         sortable: true,
         filter: true,
+        minWidth: 140
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -235,21 +240,23 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         field: 'resolved',
         sortable: true,
         filter: true,
+        minWidth: 140
       },
     ]; 
-    console.log('Completed Filings',this.completedFilings);
-    console.log(this.rowData);
+    // console.log('Completed Filings',this.completedFilings);
+    // console.log(this.rowData);
   }
 
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
+      this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length ===0)
   }
 
   formatDate(timestamp) {
     let due = new Date(timestamp);
-    console.log(due);
-    console.log(timestamp);
+    // console.log(due);
+    // console.log(timestamp);
     const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
     + ('0' + due.getDate()).slice(-2) + '/'
     + due.getFullYear();
@@ -281,17 +288,17 @@ export class RegulatoryReportingFilingComponent implements OnInit {
       this.upcomingRightBtnDisabled = false;
     }
   }
-  upcomingPrevSlide(){
-    const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
-    if (currentSlide > 0) {
-      this.upcomingSlick.slickPrev();
-    }
-  }
+  // upcomingPrevSlide(){
+  //   const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
+  //   if (currentSlide > 0) {
+  //     this.upcomingSlick.slickPrev();
+  //   }
+  // }
 
-  upcomingNextSlide(){
-    const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
-    if (currentSlide > 0) {
-      this.upcomingSlick.slickPrev();
-    }
-  }
+  // upcomingNextSlide(){
+  //   const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
+  //   if (currentSlide > 0) {
+  //     this.upcomingSlick.slickPrev();
+  //   }
+  // }
 }

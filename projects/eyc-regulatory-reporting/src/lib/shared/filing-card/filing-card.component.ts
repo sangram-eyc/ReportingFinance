@@ -12,7 +12,7 @@ export class FilingCardComponent implements OnInit {
   @Input() 
   set filingData(filingData: object) {
     this._filingData = filingData;
-    console.log(filingData);
+    // console.log(filingData);
     this.dueDate = this._filingData.dueDate;
     this.formatDate();
     this.startDate = this._filingData.startDate;
@@ -61,8 +61,8 @@ export class FilingCardComponent implements OnInit {
 
   formatDate() {
     let due = new Date(this.dueDate);
-    console.log(due);
-    console.log(this.dueDate);
+    // console.log(due);
+    // console.log(this.dueDate);
     const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
     + ('0' + due.getDate()).slice(-2) + '/'
     + due.getFullYear();
@@ -82,7 +82,7 @@ export class FilingCardComponent implements OnInit {
       }
     });
     this.statusMessage = 'Ready for ' + this.status.stage.toLowerCase(); //Placeholder 
-    console.log(this.states);
+    // console.log(this.states);
   }
 
   getStatus(index: number): string | null {

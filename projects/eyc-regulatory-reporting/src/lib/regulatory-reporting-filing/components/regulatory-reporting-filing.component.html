@@ -8,7 +8,7 @@
     <div id="active-filings-heading">
         <h5>Active filings ({{activeFilings.length}})</h5>
         <div id="carousel-arrows">
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="activePrevSlide()" [ngClass]="{'disabled-carousel-nav': activeLeftBtnDisabled === true}"></motif-icon>
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="activeSlick.slickPrev()" [ngClass]="{'disabled-carousel-nav': activeLeftBtnDisabled === true}"></motif-icon>
             <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="activeSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': activeRightBtnDisabled === true}"></motif-icon>
         </div>
     </div>
@@ -27,7 +27,7 @@
     <div id="upcoming-filings-heading">
         <h5>Upcoming filings ({{upcomingFilings.length}})</h5>
         <div id="carousel-arrows">
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="upcomingPrevSlide()" [ngClass]="{'disabled-carousel-nav': upcomingLeftBtnDisabled === true}"></motif-icon>
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="upcomingSlick.slickPrev()" [ngClass]="{'disabled-carousel-nav': upcomingLeftBtnDisabled === true}"></motif-icon>
             <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="upcomingSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': upcomingRightBtnDisabled === true}"></motif-icon>
         </div>
     </div>
@@ -49,7 +49,7 @@
             <input #reportHistorySearch motifInput motifSearch type="text" (keyup.enter)="searchCompleted(reportHistorySearch)" placeholder="Search filing names..." aria-label="Search">
         </motif-form-field>
     </div>
-    <div id="grid-wrapper">
+    <div id="grid-wrapper" [hidden]="searchNoDataAvilable">
         <ag-grid-angular
             class="ag-theme-alpine"
             (gridReady)="onGridReady($event)"
@@ -62,6 +62,13 @@
             [pagination]="true"
         ></ag-grid-angular>
     </div>
+
+    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+       
+    </motif-card>
 </section>
 
 <ng-template #headerTemplate>
