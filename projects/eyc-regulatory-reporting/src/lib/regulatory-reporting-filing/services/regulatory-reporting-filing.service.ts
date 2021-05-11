@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class RegulatoryReportingFilingService {
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient,private settingsService: EycRrSettingsService
   ) { }
 
 
@@ -15,7 +16,7 @@ export class RegulatoryReportingFilingService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('assets/mock/filings.json', {
+    return this.http.get(this.settingsService.API_ENDPOINT+ 'assets/mock/filings.json', {
       headers
     });
   }

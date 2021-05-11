@@ -561,7 +561,7 @@ ul#user-info {
 .admin-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 269px;
+  margin-top: 258px;
   position: relative;
   // margin-left: 1477px;
   max-width: 100%;
@@ -754,9 +754,11 @@ ul#user-info {
   font-family: EYInterstate !important; ;
 }
 
-.notification-header
-{
+.notification-header {
   display: flex;
+  font-family: EYInterstate !important;
+  font-size: 24px !important;
+  line-height: 32px !important;
 }
 
 

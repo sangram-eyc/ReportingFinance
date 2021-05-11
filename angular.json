@@ -43,8 +43,9 @@
               }
             ],
             "styles": [
+              
+              "src/eyc-styles.scss",
               "node_modules/@ey-xd/ng-motif/styles.scss",
-              "src/styles.scss",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
@@ -137,8 +138,9 @@
               }
             ],
             "styles": [
-              "node_modules/@ey-xd/ng-motif/styles.scss",
-              "src/styles.scss"
+              "src/eyc-styles.scss",
+              "node_modules/@ey-xd/ng-motif/styles.scss"
+             
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
