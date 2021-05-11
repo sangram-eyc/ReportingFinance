@@ -182,10 +182,13 @@
     }
     .ag-center-cols-container {
       width: auto !important;
-      // width: 100% !important;
-      // height: 100% !important;
     }
-  
+    .ag-center-cols-clipper {
+      min-height: unset !important;
+    }
+    .ag-horizontal-left-spacer {
+      display: none !important;
+    }
     .ag-header {
       font-family: EYInterstate !important;
       font-style: normal  !important;
@@ -252,13 +255,14 @@
 }
 
 ::ng-deep .custom_comments {
-  background: rgb(43, 40, 40);
-  width: 50px !important;
-    height: 35px;
-    border-radius: 18px;
-    color: #fff;
-    margin: 19px;
-    justify-content: center;
+  background: #2b2828;
+  width: 0px !important;
+  padding: 0px 16px !important;
+  height: 26px;
+  border-radius: 22px;
+  color: #fff;
+  margin: 24px;
+  justify-content: center;
 }
 
 // ::ng-deep .row-style {
