@@ -136,6 +136,7 @@ main {
 #main-container {
   max-width: calc(100% - 286px); //viewport width minus sidenav 
   margin-left: 286px; //sidenav width
+  overflow-x: hidden;
 }
 
 .mat-sidenav {

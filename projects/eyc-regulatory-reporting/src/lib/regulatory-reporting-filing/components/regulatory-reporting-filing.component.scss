@@ -181,9 +181,9 @@
       color: #2E2E38  !important;
     }
     .ag-center-cols-container {
-      // width: auto !important;
+      width: auto !important;
       // width: 100% !important;
-      height: 100% !important;
+      // height: 100% !important;
     }
   
     .ag-header {
@@ -251,14 +251,6 @@
   }
 }
 
-::ng-deep .row-style {
-  margin-top: -60px;
-    position: relative;
-}
-
-::ng-deep .row-style:first-child {
-  margin-top: 30px;
-}
 ::ng-deep .custom_comments {
   background: rgb(43, 40, 40);
   width: 50px !important;
@@ -268,7 +260,16 @@
     margin: 19px;
     justify-content: center;
 }
-::ng-deep .ag-center-cols-clipper {
-  height: 925px !important;
+
+// ::ng-deep .row-style {
+//   margin-top: -60px;
+//     position: relative;
+// }
+
+// ::ng-deep .row-style:first-child {
+//   margin-top: 30px;
+// }
+// ::ng-deep .ag-center-cols-clipper {
+//   height: 925px !important;
   
-}
+// }

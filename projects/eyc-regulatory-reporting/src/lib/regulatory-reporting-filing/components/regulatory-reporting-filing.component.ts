@@ -173,7 +173,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         name: filing.name,
         comments: filing.comments.length,
         dueDate: this.formatDate(filing.dueDate),
-        subDate: this.formatDate(filing.dueDate),
+        subDate: '-',
         exceptions: 0,
         resolved: 0
       })
