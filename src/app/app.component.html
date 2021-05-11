@@ -30,8 +30,10 @@
       <li class="header-avatar">
         <motif-avatar status="online"></motif-avatar>
       </li>
-      <li class="header-notification">
-        <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()"></motif-icon>
+      <li  class="header-notification" >
+        <div id ="bell-header" (blur)="outsideClick()">
+        <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon>
+      </div>
       </li>
       <li class="singn-out">
         <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'" (click)="logoff()"></motif-icon>
@@ -39,13 +41,9 @@
 
     </ul>
 
-    <div class="admin-container" *ngIf="isNotification">
-      <div>
-        <div class="notification-bell-trianlgle">
-          <motif-icon [src]="'/assets/icons/action/ic_change_history_24px.svg'"></motif-icon>
-        </div>
-      
-        <motif-card>
+    <div  id ="notifcationcontainer" class="admin-container" *ngIf="isNotification">
+      <div (blur)="outsideClick()">
+        <motif-card (blur)="outsideClick()">
           <motif-card-header>
             <div class="notification-header">
             <div class="card-block banner-header">

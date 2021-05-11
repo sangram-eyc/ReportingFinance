@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener,ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import {SettingsService} from './services/settings.service';
 
@@ -14,7 +14,8 @@ export class AppComponent {
   opensubmenu = '';
   showHeaderFooter: boolean = true;
   isNotification = false;
-  constructor(private router:Router,private settingsService: SettingsService){
+  notificationCount =0;
+  constructor(private router:Router,private settingsService: SettingsService,private elementRef:ElementRef){
     // To hide header and footer from login page
     this.router.events.subscribe(
       (event: any) => {
@@ -51,7 +52,6 @@ export class AppComponent {
 
   public notification() {
     this.isNotification = !this.isNotification;
-
   }
 
   public navigatetonotifi() {
@@ -64,6 +64,16 @@ export class AppComponent {
    this.settingsService.logoff();
   //  this.router.navigateByUrl('/logout');
   this.router.navigate(['/eyComply'], { queryParams: { logout: true } })
+  }
+  @HostListener('document:click',['$event'])
+  public outsideClick() {
+    const elementId = (event.target as Element).id;
+    const elementName = (event.target as Element).nodeName;
+    if (elementId.includes("notifcationcontainer") || elementId.includes("main-container") || elementId === " " || elementName !=="svg" ) {
+      this.isNotification = false;
+     
+    }
+    
   }
 
   

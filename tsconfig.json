@@ -18,10 +18,16 @@
     "paths": {
       "eyc-regulatory-reporting": [
         "dist/eyc-regulatory-reporting/eyc-regulatory-reporting",
-        "dist/eyc-regulatory-reporting"
-      ]
+        "dist/eyc-regulatory-reporting",
+      ],
+      "@default/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"]
     }
   },
+  "include": [
+    "src/**/*",
+    
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
