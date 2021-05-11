@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
 import { FilingCardComponent } from '../../shared/filing-card/filing-card.component';
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
+import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
+import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
@@ -18,6 +21,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   ) { }
 
   activeFilings: any[] = [];
+  completedFilings: any[] = [];
   activeLeftBtnDisabled = true;
   activeRightBtnDisabled = false;
 
@@ -76,56 +80,30 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         }
       }
     ]
-    // responsive: [
-    //   {
-    //     breakpoint: 2100,
-    //     settings: {
-    //       slidesToShow: 4,
-    //       slidesToScroll: 4
-    //     }
-    //   }, {
-    //     breakpoint: 2099,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 3
-    //     }
-    //   }, {
-    //     breakpoint: 1666,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 3
-    //     }
-    //   }, {
-    //     breakpoint: 1665,
-    //     settings: {
-    //       slidesToShow: 2,
-    //       slidesToScroll: 2
-    //     }
-    //   }, {
-    //     breakpoint: 1231,
-    //     settings: {
-    //       slidesToShow: 2,
-    //       slidesToScroll: 2
-    //     }
-    //   }, {
-    //     breakpoint: 1230,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1
-    //     }
-    //   },{
-    //     breakpoint: 0,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1
-    //     }
-    //   }
-    // ]
   };
+  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  gridApi;
+  rowData;
+  rowClass = 'row-style';
+  columnDefs;
+  rowStyle= {
+    height: '74px'
+  }
+  domLayout = 'autoHeight';
+  @ViewChild('headerTemplate')
+  headerTemplate: TemplateRef<any>;
+  @ViewChild('dropdownTemplate')
+  dropdownTemplate: TemplateRef<any>;
+
 
   ngOnInit(): void {
     this.getFilingsData();
     
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   afterChange(e) {
@@ -168,7 +146,9 @@ export class RegulatoryReportingFilingComponent implements OnInit {
           comments: item.comments,
           status: item.status
         };
-        if (eachitem.startDate !== null) {
+        if (eachitem.status.stage === 'Submission' && eachitem.status.progress === 'completed') {
+          this.completedFilings.push(eachitem);
+        } else if (eachitem.startDate !== null ) {
           this.activeFilings.push(eachitem);
           let startD = new Date(eachitem.startDate)
           var date = new Date();
@@ -177,12 +157,116 @@ export class RegulatoryReportingFilingComponent implements OnInit {
             this.upcomingFilings.push(eachitem)
           }
         }
+
       });
       console.log(this.activeFilings);
       console.log(this.activeFilings.length);
+      this.createHistoryRowData();
     });
-
   }
+
+  createHistoryRowData() {
+    this.rowData = [];
+    this.completedFilings.forEach( filing => {
+      this.rowData.push({
+        name: filing.name,
+        comments: filing.comments.length,
+        dueDate: this.formatDate(filing.dueDate),
+        subDate: this.formatDate(filing.dueDate),
+        exceptions: 0,
+        resolved: 0
+      })
+    });
+    this.columnDefs = [
+      {
+        headerName: '',
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dropdownTemplate,
+        },
+        field: 'template',
+        minWidth: 43,
+        width: 43,
+        sortable: false,
+        cellClass: 'actions-button-cell',
+        pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Filing Report Name',
+        field: 'name',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        minWidth: 240,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Comments',
+        field: 'comments',
+        sortable: true,
+        filter: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Due date',
+        field: 'dueDate',
+        sortable: true,
+        filter: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Submission date',
+        field: 'subDate',
+        sortable: true,
+        filter: true,
+        minWidth: 212
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exceptions',
+        field: 'exceptions',
+        sortable: true,
+        filter: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Resolved',
+        field: 'resolved',
+        sortable: true,
+        filter: true,
+      },
+    ]; 
+    console.log('Completed Filings',this.completedFilings);
+    console.log(this.rowData);
+  }
+
+
+  searchCompleted(input) {
+    this.gridApi.setQuickFilter(input.el.nativeElement.value);
+  }
+
+  formatDate(timestamp) {
+    let due = new Date(timestamp);
+    console.log(due);
+    console.log(timestamp);
+    const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
+    + ('0' + due.getDate()).slice(-2) + '/'
+    + due.getFullYear();
+    return newdate;
+  }
+
+  isFirstColumn(params) {
+    const displayedColumns = params.columnApi.getAllDisplayedColumns();
+    const thisIsFirstColumn = displayedColumns[0] === params.column;
+    
+    return thisIsFirstColumn;
+  };
+    
+  onGridReady(params)  {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+  };
 
   afterChangeUpcomingFilings(e){
     if (e.currentSlide === 0) {
