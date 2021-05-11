@@ -17,6 +17,7 @@ import { MotifCardModule } from '@ey-xd/ng-motif';
 import { HttpClientModule } from '@angular/common/http';
 import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     OAuthModule.forRoot()
    
   ],
-  providers: [],
+  providers: [{provide:"apiEndpoint",  useValue: environment.apiEndpoint}],
   bootstrap: [AppComponent],
   
 })
