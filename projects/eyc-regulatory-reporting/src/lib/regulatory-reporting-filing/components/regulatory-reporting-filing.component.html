@@ -22,3 +22,38 @@
         </div>
     </ngx-slick-carousel>
 </section>
+<section id="reports-history">
+    <div id="reports-history-heading">
+        <h5>Reports History ({{completedFilings.length}})</h5>
+        <motif-form-field>
+            <input #reportHistorySearch motifInput motifSearch type="text" (keyup.enter)="searchCompleted(reportHistorySearch)" placeholder="Search filing names..." aria-label="Search">
+        </motif-form-field>
+    </div>
+    <div id="grid-wrapper">
+        <ag-grid-angular
+            class="ag-theme-alpine"
+            (gridReady)="onGridReady($event)"
+            [columnDefs]="columnDefs"
+            [rowData]="rowData"
+            [rowHeight]="74"
+            [rowClass]="rowClass"
+            [domLayout]="domLayout"
+            [paginationPageSize]="10"
+            [pagination]="true"
+        ></ag-grid-angular>
+    </div>
+</section>
+
+<ng-template #headerTemplate>
+    <motif-icon
+        [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"
+        id="motifExampleDropdown"
+    ></motif-icon>
+</ng-template>
+
+<ng-template #dropdownTemplate>
+    <motif-icon
+        [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
+        id="motifDropdown"
+    ></motif-icon>
+</ng-template>
