@@ -5,22 +5,22 @@
     </div>
     <div class="user-info-header">
         <h3>User info</h3>
-        <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" class="user-edit"  *ngIf="!enableEditor">
-            <span *ngIf="!enableEditor">Edit</span>
+        <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" class="user-edit"  *ngIf="!enableEditor"  (click)="enableEditForm()">
+            <span *ngIf="!enableEditor" (click)="enableEditForm()">Edit</span>
         </motif-icon>
         <div  class="edit-form" *ngIf="enableEditor">
-            <button class="save-submit" motifButton color="primary" size="small">
-                <motif-icon [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>Save
-            </button>
-            <button motifButton color="secondary" class="btn_close" (click)="enableEditForm()">Cancel</button>
+            <button class="save-submit" motifButton color="primary" size="small" (click)="onSubmitEditUserForm(editUserForm)">Save</button>
+            <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
         </div>
        
     </div>
 
 
     <div class="user-thumb">
-        <motif-avatar size="large" status="online" class="user-thumb-icon"></motif-avatar><span>{{userInfo['lastName']+' '+userInfo['firstName'] }}</span>
+        <motif-avatar size="large" status="online" class="user-thumb-icon"></motif-avatar><span class="text-capitalize">{{userInfo['lastName']+' '+userInfo['firstName'] }}</span>
     </div>
+
+    <motif-toast [type]="'success'"  [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
 
     <div class="user-content-container" *ngIf="!enableEditor">
         <div class="container-fluid">
@@ -58,13 +58,30 @@
                         Last name
                     </div>
                     <div class="col-md-6 cust-col-colour cust-row-st">
-                        <motif-form-field>
-                            <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName"/>
-                        </motif-form-field>
+                            <motif-form-field>
+                                <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
+                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
+                                    </motif-error>
+                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only characters
+                                    </motif-error>
+                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('maxlength')">First name can be max 250
+                                        characters long</motif-error>
+                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('whitespace')">Please enter valid data
+                                    </motif-error>
+                    
+                            </motif-form-field>
                     </div>
                     <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
                         <motif-form-field>
                             <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
+                            <motif-error *ngIf="editUserForm.get('lastName').hasError('required')">Please provide a last name!
+                            </motif-error>
+                            <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!
+                            </motif-error>
+                            <motif-error *ngIf="editUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters
+                                long</motif-error>
+                            <motif-error *ngIf="editUserForm.get('lastName').hasError('whitespace')">Please enter valid data
+                            </motif-error>
                         </motif-form-field>
                     </div>
                     <div class="col-md-8 mt-4 cust-col-colour">
@@ -73,6 +90,13 @@
                     <div class="col-md-8 cust-col-colour cust-row-st">
                         <motif-form-field>
                             <input motifInput type="text" aria-label="Email Form Field" formControlName="userEmail" />
+                                <motif-error *ngIf="editUserForm.get('userEmail').hasError('required')">Please provide an email!
+                                </motif-error>
+                                <motif-error *ngIf="editUserForm.get('userEmail').hasError('pattern')">Please provide valid email!
+                                </motif-error>
+                                <motif-error *ngIf="editUserForm.get('userEmail').hasError('maxlength')">Email can be max 250 characters
+                                    long
+                                </motif-error>
                         </motif-form-field>
                     </div>
                 </div>

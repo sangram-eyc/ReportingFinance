@@ -105,6 +105,42 @@
   margin-bottom: 10px;
 }
 
+#upcoming-filings{
+  position: relative;
+  #upcoming-filings-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    #carousel-arrows{
+      display: flex;
+      .motif-icon {
+        cursor: pointer;
+        ::ng-deep {
+          svg {
+              fill: #23232F;
+          }
+        }
+        &.disabled {
+          ::ng-deep {
+            svg {
+                fill: #C4C4CD;
+            }
+          }
+        }
+      }
+      .disabled-carousel-nav {
+        cursor: default;
+        ::ng-deep {
+          svg {
+              fill: #C4C4CD;
+          }
+        } 
+      }
+    }
+  }
+}
+    
 #reports-history {
   position: relative;
   #reports-history-heading {
@@ -195,4 +231,3 @@
   }
 
 }
-

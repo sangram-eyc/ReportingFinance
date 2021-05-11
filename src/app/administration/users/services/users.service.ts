@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { AdminUsersResponse } from './../../../shared/model/AdminUsersResponse'
+import { AdminUsersResponse } from './../../../shared/model/AdminUsersResponse';
+import {SettingsService} from '../../../services/settings.service';
 import {map} from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {map} from 'rxjs/operators'
 export class UsersService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient, private settingsService: SettingsService
   ) { }
 
 
@@ -17,7 +18,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://localhost:4200/assets/mock/users.json', {
+    return this.http.get(this.settingsService.API_ENDPOINT +'/assets/mock/users.json', {
       headers
     });
   }
@@ -26,7 +27,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://localhost:4200/assets/mock/users.json',{
+    return this.http.get(this.settingsService.API_ENDPOINT + '/assets/mock/users.json',{
       headers
     }).pipe(map(res=> {
       console.log(res);

@@ -16,7 +16,7 @@ export class UserDetailsComponent implements OnInit {
     private userService:UsersService,
     private _formBuilder: FormBuilder
   ) {
-    this.editUserForm = this._createAddUser();
+    this.editUserForm = this._updateUser();
    }
 
   usersListArr: any[] = [];
@@ -24,13 +24,14 @@ export class UserDetailsComponent implements OnInit {
   curentUserId;
   enableEditor: boolean = false;
   editUserForm: FormGroup;
+  showToastAfterEditUser: boolean = false;
 
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe(params => {
       this.curentUserId = params.userId;
       });
-      this.getUsersData();
-      
+      this.getUsersData(); 
   }
 
   getUsersData() {
@@ -40,15 +41,23 @@ export class UserDetailsComponent implements OnInit {
       });
       const currentTaskIndex = this.usersListArr.findIndex(task => task.userId == this.curentUserId);
       this.userInfo = this.usersListArr[currentTaskIndex];
+
+
+      this.editUserForm.patchValue({
+        firstName: this.userInfo['firstName'].trim(),
+        lastName: this.userInfo['lastName'].trim(),
+        userEmail: this.userInfo['userEmail'].trim()
+        });
+
     });
 
   }
 
-  private _createAddUser() {
-  return this._formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      userEmail: ['', [Validators.required]]
+  private _updateUser() {
+    return this._formBuilder.group({
+      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      userEmail: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
     });
   }
 
@@ -69,5 +78,38 @@ export class UserDetailsComponent implements OnInit {
   enableEditForm() {
     this.enableEditor = !this.enableEditor;
   }
+
+  cancelForm() {
+    this.showToastAfterEditUser = false;
+    this.editUserForm.patchValue({
+      firstName: this.userInfo['firstName'].trim(),
+      lastName: this.userInfo['lastName'].trim(),
+      userEmail: this.userInfo['userEmail'].trim()
+      });
+      this.enableEditor = !this.enableEditor;
+  }
+
+  onSubmitEditUserForm(form: FormGroup) {
+
+    let obj = form.getRawValue()
+    Object.keys(obj).map(key => obj[key] = obj[key].trim()
+    );
+
+    if (this.editUserForm.valid) {
+      this.userInfo['firstName'] = obj['firstName'].trim();
+      this.userInfo['lastName'] = obj['lastName'].trim();
+      this.userInfo['userEmail'] = obj['userEmail'].trim();
+
+      this.showToastAfterEditUser = !this.showToastAfterEditUser;
+      this.enableEditor = !this.enableEditor;
+      setTimeout(() => {
+        this.showToastAfterEditUser = !this.showToastAfterEditUser;
+      }, 5000)
+    }
+
+
+  }
+
+  
 
 }

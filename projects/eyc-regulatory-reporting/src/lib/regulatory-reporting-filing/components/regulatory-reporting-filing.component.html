@@ -22,6 +22,26 @@
         </div>
     </ngx-slick-carousel>
 </section>
+
+<section id="upcoming-filings">
+    <div id="upcoming-filings-heading">
+        <h5>Upcoming filings ({{upcomingFilings.length}})</h5>
+        <div id="carousel-arrows">
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="upcomingPrevSlide()" [ngClass]="{'disabled-carousel-nav': upcomingLeftBtnDisabled === true}"></motif-icon>
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="upcomingSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': upcomingRightBtnDisabled === true}"></motif-icon>
+        </div>
+    </div>
+    <div id="left-carousel-blocker"></div>
+    <ngx-slick-carousel class="carousel"
+    [config]=slideConfig
+    (afterChange)="afterChangeUpcomingFilings($event)"
+    #upcomingSlick="slick-carousel">
+        <div ngxSlickItem *ngFor="let filing of upcomingFilings" class="slide">
+            <app-filing-card [filingData]="filing"></app-filing-card>
+        </div>
+    </ngx-slick-carousel>
+</section>
+
 <section id="reports-history">
     <div id="reports-history-heading">
         <h5>Reports History ({{completedFilings.length}})</h5>
@@ -57,3 +77,4 @@
         id="motifDropdown"
     ></motif-icon>
 </ng-template>
+
