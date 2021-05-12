@@ -1,6 +1,9 @@
-import { Component,HostListener,ElementRef } from '@angular/core';
+import { AfterViewChecked } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 import {SettingsService} from './services/settings.service';
+
 
 
 @Component({
@@ -8,44 +11,63 @@ import {SettingsService} from './services/settings.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewChecked {
   title = 'eyc-ServiceEngine-UI';
   mini = false;
+  userGivenName;
   opensubmenu = '';
-  showHeaderFooter: boolean = true;
+  showHeaderFooter = true;
   isNotification = false;
-  notificationCount =0;
-  constructor(private router:Router,private settingsService: SettingsService,private elementRef:ElementRef){
+  notificationCount = 0;
+  constructor(
+    private oauthservice: OAuthService, 
+    private router: Router,
+    private settingsService: SettingsService,
+    private elementRef: ElementRef){
     // To hide header and footer from login page
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
-         // this.showHeaderFooter = !(this.router.url === '/login')
          this.showHeaderFooter = this.settingsService.isUserLoggedin();
-        
         }
       });
 
   }
-  
+
+
+  ngAfterViewChecked() {
+
+    setTimeout(() => {
+
+      if (this.settingsService.isUserLoggedin()) {
+        const uname = this.oauthservice.getIdentityClaims();
+        if (uname) {
+          this.userGivenName = uname['given_name'];
+        }
+      }
+
+    }, 0);
+
+  }
+
 
   toggleSideNav() {
     if (this.mini) {
-      document.getElementById("sidenav").style.width = "286px";
-      let mainContainer = document.getElementById("main-container");
-      mainContainer.style.marginLeft = "286px";
-      mainContainer.style.maxWidth = "calc(100% - 286px)";
+      document.getElementById('sidenav').style.width = '286px';
+      const mainContainer = document.getElementById('main-container');
+      mainContainer.style.marginLeft = '286px';
+      mainContainer.style.maxWidth = 'calc(100% - 286px)';
       this.mini = false;
     } else {
       if (this.opensubmenu !== '') {
-        let y = document.getElementById(this.opensubmenu);
+        const y = document.getElementById(this.opensubmenu);
         y.style.display = 'none';
         this.opensubmenu = '';
       }
-      document.getElementById("sidenav").style.width = "56px";
-      let mainContainer = document.getElementById("main-container");
-      mainContainer.style.marginLeft = "56px";
-      mainContainer.style.maxWidth = "calc(100% - 56px)";
+      document.getElementById('sidenav').style.width = '56px';
+      const mainContainer = document.getElementById('main-container');
+      mainContainer.style.marginLeft = '56px';
+      mainContainer.style.maxWidth = 'calc(100% - 56px)';
       this.mini = true;
     }
   }
@@ -63,34 +85,34 @@ export class AppComponent {
   public logoff() {
    this.settingsService.logoff();
   //  this.router.navigateByUrl('/logout');
-  this.router.navigate(['/eyComply'], { queryParams: { logout: true } })
+   this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
   }
-  @HostListener('document:click',['$event'])
+  @HostListener('document:click', ['$event'])
   public outsideClick() {
     const elementId = (event.target as Element).id;
     const elementName = (event.target as Element).nodeName;
-    if (elementId.includes("notifcationcontainer") || elementId.includes("main-container") || elementId === " " || elementName !=="svg" ) {
+    if (elementId.includes('notifcationcontainer') || elementId.includes('main-container') || elementId === ' ' || elementName !== 'svg' ) {
       this.isNotification = false;
-     
+
     }
-    
+
   }
 
-  
+
 
   toggleSubMenu(toggleId) {
     if (this.mini) {
       this.toggleSideNav();
     }
-    let x = document.getElementById(toggleId);
+    const x = document.getElementById(toggleId);
     if (toggleId === this.opensubmenu) {
       x.style.display = 'none';
       this.opensubmenu = '';
     } else {
       x.style.display = 'block';
       if (this.opensubmenu !== '') {
-        let y = document.getElementById(this.opensubmenu);
-        y.style.display = 'none'
+        const y = document.getElementById(this.opensubmenu);
+        y.style.display = 'none';
       }
       this.opensubmenu = toggleId;
     }

@@ -384,12 +384,12 @@ font-weight: bold;
 }
 li.user-text {
 font-size: 14px;
-font-family: Noto Sans;
+font-family: EYInterstate;
 font-style: normal;
 font-weight: normal;
 line-height: 25px;
 text-align: right;
-color: #fff;
+color: #FFFFFF;
 position: relative;
 top: 2px;
 margin-right: 12px;
@@ -443,6 +443,10 @@ ul#user-info {
   top: 12px !important;
   position: relative !important;
   margin-left: .7rem !important;
+  font-family: EYInterstate !important;
+  font-size: 17px !important;
+  line-height: 20px !important;
+  color: #F6F5FA !important;
 }
 
 #sidenav-and-content {
