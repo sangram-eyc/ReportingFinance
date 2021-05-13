@@ -1,5 +1,5 @@
 export const environment = {
-  apiEndpoint : '',
+  apiEndpoint : '.',
   production: true
 };
 
