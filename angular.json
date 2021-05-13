@@ -69,6 +69,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/eyc-regulatory-reporting/environment-rr-dev.ts",
+                  "with": "src/environments/eyc-regulatory-reporting/environment-rr.prod.ts"
                 }
               ],
               "optimization": true,
