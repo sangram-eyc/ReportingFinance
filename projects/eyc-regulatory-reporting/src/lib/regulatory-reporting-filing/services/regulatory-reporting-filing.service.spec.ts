@@ -1,5 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { environment } from '../../../../../../src/environments/environment';
+import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 
 import { RegulatoryReportingFilingService } from './regulatory-reporting-filing.service';
 
@@ -8,7 +11,9 @@ describe('RegulatoryReportingFilingService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
+      imports: [HttpClientModule, HttpClientTestingModule],
+      providers: [EycRrSettingsService,
+        {provide:"apiEndpoint",  useValue: environment.apiEndpoint}]
     });
     service = TestBed.inject(RegulatoryReportingFilingService);
   });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'lib-reporting-tabs-card',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ReportingTabsCardComponent implements OnInit {
 
   tabIn;
-
+  @Output() messageEvent = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit(): void {
@@ -17,6 +17,7 @@ export class ReportingTabsCardComponent implements OnInit {
 
   reportTabChange(selectedTab){
     this.tabIn = selectedTab;
+    this.messageEvent.emit(this.tabIn)
   }
 
 }
