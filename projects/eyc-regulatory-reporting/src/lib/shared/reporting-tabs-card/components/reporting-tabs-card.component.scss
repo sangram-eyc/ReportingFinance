@@ -21,7 +21,8 @@
             font-weight: initial !important;
             border-bottom: 6px solid !important;
         }
-        button.motif-text-link:focus, button.motif-text-link:active {
+        button.motif-text-link:hover, button.motif-text-link:focus, button.motif-text-link:active {
             box-shadow: none !important;
+            border-bottom: 6px solid !important;
         }
 }

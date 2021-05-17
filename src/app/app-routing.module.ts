@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'fund-scoping', component: FundScopingComponent},
   {path: 'data-intake', component: DataIntakeComponent},
   {path: 'client-review', component: ClientReviewComponent},
-  {path: 'r-reporting', component: RrReportingComponent},
+  {path: 'regulatory-reporting', component: RrReportingComponent},
   {path: 'submission', component: SubmissionComponent},
   {path: 'user-details/:userId', component: UserDetailsComponent },
   {path: '**', component: LoginComponent},

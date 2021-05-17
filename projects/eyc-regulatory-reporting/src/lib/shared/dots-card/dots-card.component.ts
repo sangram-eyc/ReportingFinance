@@ -65,7 +65,7 @@ export class DotsCardComponent implements OnInit {
                 break;
               }
               case 'reporting': {
-                this.router.navigate(['r-reporting']);
+                this.router.navigate(['regulatory-reporting']);
                 break;
               }
               case 'submission': {
