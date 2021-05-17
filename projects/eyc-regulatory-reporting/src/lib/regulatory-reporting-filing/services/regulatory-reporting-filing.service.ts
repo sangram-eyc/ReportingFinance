@@ -21,4 +21,13 @@ export class RegulatoryReportingFilingService {
     });
   }
 
+  getReportingFilingEntities() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.get(this.settingsService.API_ENDPOINT+'assets/mock/filingEntities.json', {
+      headers
+    });
+  }
+
 }

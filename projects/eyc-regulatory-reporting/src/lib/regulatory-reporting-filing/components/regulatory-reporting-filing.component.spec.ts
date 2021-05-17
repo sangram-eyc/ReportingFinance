@@ -7,6 +7,8 @@ import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filin
 import { of } from 'rxjs';
 import { MotifButtonModule, MotifCardModule, MotifIconModule, MotifProrgressIndicatorsModule } from '@ey-xd/ng-motif';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../../../src/environments/environment';
+import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 describe('RegulatoryReportingFilingComponent', () => {
   let component: RegulatoryReportingFilingComponent;
   let fixture: ComponentFixture<RegulatoryReportingFilingComponent>;
@@ -24,7 +26,9 @@ describe('RegulatoryReportingFilingComponent', () => {
         MotifIconModule,
         MotifProrgressIndicatorsModule,
       ],
-      providers: [RegulatoryReportingFilingService]
+      providers: [RegulatoryReportingFilingService,
+        EycRrSettingsService,
+        {provide:"apiEndpoint",  useValue: environment.apiEndpoint}]
     })
     .compileComponents();
   }));

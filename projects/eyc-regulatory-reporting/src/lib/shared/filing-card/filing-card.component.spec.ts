@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FilingCardComponent } from './filing-card.component';
-
+import { RouterTestingModule } from '@angular/router/testing';
 describe('FilingCardComponent', () => {
   let component: FilingCardComponent;
   let fixture: ComponentFixture<FilingCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilingCardComponent ]
+      declarations: [ FilingCardComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   }));

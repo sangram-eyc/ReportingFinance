@@ -1,0 +1,166 @@
+{
+    "success": true,
+	"message": "sucess",
+	"data": [
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Corporate Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Municipal Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Fixed Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Global Opportunities Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Emerging Markets Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Multi-Asset Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha High-Yeild Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Exchange Traded Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Total Return Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust A",
+            "entityName": "Alpha Technology Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Corporate Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Municipal Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Fixed Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Global Opportunities Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Emerging Markets Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Multi-Asset Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta High-Yeild Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Exchange Traded Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Total Return Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        },
+        {
+            "entityGroup": "Trust B",
+            "entityName": "Beta Technology Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "myTasks": "",
+            "comments": ""
+        }
+    ]
+}
