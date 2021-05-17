@@ -1,0 +1,81 @@
+<div class="card-header-wrapper">
+
+    <div class="dots-header-container">
+      <h3>Form PF // Q3 2021</h3>
+      <span class="date-info"><motif-icon class="cust-date-motif-icon" [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Due Date: {{ dueDate }}</span>
+      
+    </div>
+
+ 
+    <div class="dots-container">
+            <div class="container">
+                <!-- <div class="row">
+                  <div class="col-md">
+                    <svg class="custom-circle" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" fill="white"/>
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" stroke="black" stroke-width="2"/>
+                    </svg>
+                    <motif-icon [src]="'/assets/icons/action/ic_done_24px.svg'" class="custom-check"></motif-icon>
+                    <span>Fund scoping</span>
+                    <hr>
+                  </div>
+                  <div class="col-md">
+                    <svg class="custom-circle" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" fill="white"/>
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" stroke="black" stroke-width="2"/>
+                        </svg>
+                    <motif-icon [src]="'/assets/icons/action/ic_done_24px.svg'" class="custom-check"></motif-icon>
+                    <span>Data intake</span>
+                    <hr>
+                  </div>
+                  <div class="col-md">
+                    <svg class="custom-circle" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" fill="white"/>
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" stroke="black" stroke-width="2"/>
+                        </svg>
+                    <motif-icon [src]="'/assets/icons/action/ic_done_24px.svg'" class="custom-check"></motif-icon>
+                    <span>Reporting</span>
+                    <hr>
+                  </div>
+                  <div class="col-md">
+                    <svg class="custom-circle-not-st" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" stroke-width="2"/>
+                    </svg>
+                    <span>Client review</span>
+                    <hr>
+                  </div>
+                  <div class="col-md">
+                    <svg class="custom-circle-success" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="-1" width="30" height="30" rx="15" transform="matrix(1 0 0 -1 0 30)" stroke-width="2"/>
+                    </svg>
+                    <span>Submission</span>
+                  </div>
+                </div> --> 
+            
+                <div class="row">
+                 
+                  <motif-progress-indicators>
+                    <motif-progress-step title="Fund Scoping" subtitle="" [disabled]="disState(1)" [status]="getStatus(1)" (click)="handleStepClick($event, 1, 'scoping')">
+                    </motif-progress-step>
+                    <motif-progress-step title="Intake" subtitle="" [disabled]="disState(1)"  [status]="getStatus(1)"  (click)="handleStepClick($event, 1, 'intake')">
+                    </motif-progress-step>
+                    <motif-progress-step title="Reporting" subtitle="" [disabled]="disState(2)" [status]="getStatus(3)" (click)="handleStepClick($event, 3, 'reporting')">
+                    </motif-progress-step>
+                    <motif-progress-step title="Client Review" subtitle="" [disabled]="disState(3)" [status]="getStatus(4)" (click)="handleStepClick($event, 4,'review')">
+                    </motif-progress-step>
+                    <motif-progress-step title="Submission" subtitle="" class="my-class" [disabled]="disState(4)" [status]="getStatus(4)" (click)="handleStepClick($event, 4, 'submission')">
+                    </motif-progress-step>
+                  </motif-progress-indicators>
+
+                </div>
+
+              </div>
+    </div>
+    
+
+</div>
+
+
+
+
+

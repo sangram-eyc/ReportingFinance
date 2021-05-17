@@ -25,6 +25,7 @@ export class UserDetailsComponent implements OnInit {
   enableEditor: boolean = false;
   editUserForm: FormGroup;
   showToastAfterEditUser: boolean = false;
+  fullname;
 
   ngOnInit(): void {
     
@@ -41,6 +42,8 @@ export class UserDetailsComponent implements OnInit {
       });
       const currentTaskIndex = this.usersListArr.findIndex(task => task.userId == this.curentUserId);
       this.userInfo = this.usersListArr[currentTaskIndex];
+
+      this.fullname = this.userInfo['lastName']+ ' '+ this.userInfo['firstName'];
 
 
       this.editUserForm.patchValue({
