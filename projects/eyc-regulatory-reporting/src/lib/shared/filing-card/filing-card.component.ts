@@ -95,7 +95,7 @@ export class FilingCardComponent implements OnInit {
 
   routeToDetailsView(){
     // this.router.navigate(['/regulatory-filing-list/'+1]);
-    this.router.navigate(['/r-reporting']);
+    this.router.navigate(['/regulatory-reporting']);
   }
 
 
