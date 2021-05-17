@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filing-card',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 export class FilingCardComponent implements OnInit {
 
   private _filingData;
+
 
   @Input() 
   set filingData(filingData: object) {
@@ -54,7 +56,7 @@ export class FilingCardComponent implements OnInit {
   statusMessage = ''
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -89,6 +91,11 @@ export class FilingCardComponent implements OnInit {
     // let state = 'not-set';
     index = index - 1;
     return this.states[index]['progress'];
+  }
+
+  routeToDetailsView(){
+    // this.router.navigate(['/regulatory-filing-list/'+1]);
+    this.router.navigate(['/r-reporting']);
   }
 
 

@@ -1,0 +1,210 @@
+.dots-header-container {
+    h3 {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 38px;
+    color: #1A1A24;
+    }
+    .date-info {
+        display: flex;
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 25px;
+        color: #2E2E38;
+    }
+    motif-icon.motif-icon.cust-date-motif-icon {
+        margin-right: 5px;
+    }
+    ::ng-deep .motif-icon.motif-icon.cust-date-motif-icon .motif-icon-wrap .motif-icon-content svg{
+        fill: #737374;
+    }
+}
+.card-header-wrapper {
+    margin-top: 50px;
+}
+.dots-container {
+
+    position: relative;
+    top: 60px;
+    left: 130px;
+    height: 55px;
+
+    .row {
+        margin: 0 auto !important;
+    }
+
+    ::ng-deep .step-info {
+        top: -23px;
+        position: relative;
+        margin-left: -14px;
+    }
+
+    ::ng-deep .motif-progress-step {
+        margin-left: 15px !important;
+    }
+
+    ::ng-deep .motif-step-container .step {
+    height: 0px !important;
+    border: 2px solid #C4C4CD !important;
+    position: relative;
+    background-color: #C4C4CD !important;
+    display: block !important;
+    }
+
+    ::ng-deep .motif-step-container .step-info .step-dot {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    ::ng-deep .motif-icon.motif-icon.completed-step-icon {
+        width: 32px !important;
+        height: 32px !important;
+        left: -15px;
+        position: relative;
+        top: 2px;
+    }
+
+    ::ng-deep .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
+        width: 32px !important;
+        height: 32px !important;
+        left: 0px !important;
+        position: relative;
+        top: -1px !important;
+        background-color: #57E188 !important;
+        border: 1px solid #57E188 !important;
+   }
+   ::ng-deep .motif-step-container .step-info .step-dot.in-progress {
+    border: 1px solid #57E188 !important;
+   }
+   /* ::ng-deep.motif-step-container .step-info .step-dot.in-progress .inner:hover{
+    border: 1px solid #57E188 !important;
+   } */
+    ::ng-deep .motif-step-container .step-info .step-dot.completed {
+        background-color: #F2F2F2 !important;
+        border: 2px solid #1A1A24 !important;
+   }
+   ::ng-deep .motif-step-container .step-info svg {
+     fill: var(--icon-fill-color) !important;
+   }
+
+   ::ng-deep .motif-step-container .step-info .step-data-container .first-line {
+    font-family: EYInterstate !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+    text-align: center;
+    color: #2E2E38;
+    position: absolute !important;
+    top: 37px !important;
+    margin-left: -50px !important;
+  }
+
+  
+  motif-progress-step {
+    width: 16% !important;
+  }
+  
+  motif-progress-step.no-cls-progress {
+        ::ng-deep .motif-step-container .step {
+            width: 96% !important;
+        }
+    }
+
+    motif-progress-step.my-class {
+        ::ng-deep .motif-step-container .step {
+            background-color: transparent !important;
+            border: 0px !important;
+        }
+    }
+
+
+    ::ng-deep .motif-step-container .step-info .step-dot.not-set {
+        border: 3.09px solid #C4C4CD !important;
+        background: #F2F2F2 !important;
+    }
+
+    
+    ::ng-deep  .motif-step-container:hover:not(.disabled) .step-info .step-dot.not-set .inner {
+        display: none !important;
+    }
+
+    ::ng-deep  .motif-step-container .step-info .step-data-container .first-line {
+        left: 49px;
+        position: relative;
+    }
+
+
+
+    /* .row span {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #2E2E38;
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 5px;
+    }
+
+    svg.custom-circle-completed {
+        fill: #57E188;
+        width: 32px;
+        height: 32px;
+    }
+    svg.custom-circle {
+        fill: #ffffff;
+        width: 32px;
+        height: 32px;
+    }
+
+    ::ng-deep motif-icon.motif-icon.custom-check svg{
+        width: 22px !important;
+        height: 22px !important;
+        position: absolute;
+        top: 5px;
+        left: 20px;
+    }
+
+    ::ng-deep .motif-icon-content {
+        height: auto !important;
+    }
+
+    svg.custom-circle-success  rect{
+        stroke:  #57E188;
+    }
+    svg.custom-circle-success {
+        fill: #57E188;
+        width: 32px;
+        height: 32px;
+    }
+
+    svg.custom-circle-not-st  rect{
+        stroke:  #C4C4CD;
+        stroke-width: 3.09px;
+    }
+    svg.custom-circle-not-st {
+        fill: #ffffff;
+        width: 32px;
+        height: 32px;
+    }
+    .row.hor-bar {
+        margin: 0px !important;
+        top: -30px;
+        position: relative;
+        width: 99.1%;
+        left: 15px;
+    }
+    hr {
+        position: relative;
+        top: -32px;
+        left: 32px;
+        border: 2px solid #C4C4CD;
+    } */
+}
