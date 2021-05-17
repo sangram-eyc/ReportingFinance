@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportingTabsCardComponent implements OnInit {
 
+  tabIn;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.tabIn = 1;
+  }
+
+  reportTabChange(selectedTab){
+    this.tabIn = selectedTab;
   }
 
 }

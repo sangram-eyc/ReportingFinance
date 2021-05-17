@@ -1,8 +1,8 @@
 <div class="eyc-rr-tabs">
     <motif-tab-bar>
-        <button motifButton class="motif-text-link">Exception Reports</button>
-        <button motifButton class="motif-active motif-text-link">Filing Entities</button>
-        <button motifButton class="motif-text-link">Topsides</button>
+        <button motifButton class="motif-text-link"  (click)="reportTabChange(1)" [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception Reports</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Filing Entities</button>
+        <button motifButton class="motif-text-link"  (click)="reportTabChange(3)" [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Topsides</button>
     </motif-tab-bar>
     
   </div>
