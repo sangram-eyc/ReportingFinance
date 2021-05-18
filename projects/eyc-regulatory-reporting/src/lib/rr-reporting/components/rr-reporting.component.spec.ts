@@ -12,39 +12,40 @@ import { DotsCardComponent } from '../../shared/dots-card/dots-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
+import { RrReportingService } from '../services/rr-reporting.service';
 
 describe('RrReportingComponent', () => {
   let component: RrReportingComponent;
   let fixture: ComponentFixture<RrReportingComponent>;
-  let testBedService: RegulatoryReportingFilingService;
+  let testBedService: RrReportingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RrReportingComponent, DotsCardComponent ],
-      imports: [ AgGridModule.withComponents([]),
-      CommonModule,
-      MotifCardModule,
-      MotifButtonModule,
-      MotifFormsModule,
-      MotifIconModule,
-      MotifProrgressIndicatorsModule,
-      MotifTableModule,
-      SlickCarouselModule,
-      HttpClientModule,
-      MotifPaginationModule,
-      RouterTestingModule,
-    HttpClientTestingModule ],
-      providers: [RegulatoryReportingFilingService,
-        {provide:"apiEndpoint",  useValue: environment.apiEndpoint}]
+      declarations: [RrReportingComponent, DotsCardComponent],
+      imports: [AgGridModule.withComponents([]),
+        CommonModule,
+        MotifCardModule,
+        MotifButtonModule,
+        MotifFormsModule,
+        MotifIconModule,
+        MotifProrgressIndicatorsModule,
+        MotifTableModule,
+        SlickCarouselModule,
+        HttpClientModule,
+        MotifPaginationModule,
+        RouterTestingModule,
+        HttpClientTestingModule],
+      providers: [RrReportingService,
+        { provide: "apiEndpoint", useValue: environment.apiEndpoint }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RrReportingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    testBedService = TestBed.get(RegulatoryReportingFilingService)
+    testBedService = TestBed.get(RrReportingService)
   });
 
   it('should create', () => {
@@ -52,7 +53,7 @@ describe('RrReportingComponent', () => {
   });
 
   it('should check the service', () => {
-    expect(testBedService instanceof RegulatoryReportingFilingService).toBeTruthy();
+    expect(testBedService instanceof RrReportingService).toBeTruthy();
   });
 
   it('should create', () => {
@@ -60,18 +61,23 @@ describe('RrReportingComponent', () => {
   });
 
   describe('The function onRowSelected ...', () => {
-    it(`- should do something`, () => {    
-      component.onRowSelected({name: 'Mock Hero'});
+    it(`- should do something`, () => {
+      component.onRowSelected({ name: 'Mock Hero' });
       expect(component).toBeTruthy();
     });
   });
 
   it('should get filling entities list', () => {
-    let list = []
+    const response = [];
+    spyOn(testBedService, 'getfilingEntities').and.returnValue(of(response))
     component.ngOnInit();
-    testBedService.getReportingFilingEntities().subscribe(res => {
-      list = res['data']
-      expect(component.rowData).toEqual(list);
-    })
-	});
+    fixture.detectChanges();
+    expect(component.rowData).toEqual(response['data']);
+  });
+
+  it('receiveMessage should return tab number', () => {
+    let tab = 1
+    component.receiveMessage(tab)
+    expect(component.tabs).toBe(tab)
+  })
 });

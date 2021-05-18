@@ -6,7 +6,7 @@
 
 
 <div class="reporting-content-container">
-<section id="filingEntities" *ngIf="tabs==2">
+<section id="filingEntities" [hidden]="!(tabs==2)">
     <div >
         <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
     headerCheckboxSelection: isFirstColumn,

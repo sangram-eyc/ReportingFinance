@@ -1,3 +1,57 @@
 .review-content-container {
     position: relative;
 }
+
+#filingEntities {
+    ::ng-deep .motif-table .ag-pinned-left-cols-container, ::ng-deep .motif-table .ag-pinned-left-header {
+        box-shadow: none !important;
+    }
+    
+    ::ng-deep .ag-theme-material .ag-pinned-left-header {
+        border-right: none;
+    }
+    
+    ::ng-deep  *:focus {
+        box-shadow: none !important;
+    }
+    
+    ::ng-deep .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+        box-shadow: none !important;
+        border: none !important;
+    }
+    ::ng-deep .motif-table .ag-header-cell {
+        height: 44px !important;
+    }
+    
+    ::ng-deep .motif-table .ag-header {
+        height: 49px !important;
+        min-height: 49px !important;
+    }
+    
+    ::ng-deep .motif-header-name {
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px !important;
+        line-height: 22px;
+        color: #2E2E3C;
+    }
+    ::ng-deep .motif-table .ag-cell-value {
+        font-family: EYInterstate !important;
+        font-style: normal  !important;
+        font-weight: normal  !important;
+        font-size: 14px  !important;
+        line-height: 22px  !important;
+        color: #2E2E38  !important;
+    }
+    ::ng-deep .motif-table .ag-root-wrapper {
+        min-height: 320px;
+    }
+    ::ng-deep .ag-theme-material .ag-radio-button-input-wrappe::after {
+        color: #23232F;
+      
+    }
+    ::ng-deep .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+        color: #23232F;
+    }
+}

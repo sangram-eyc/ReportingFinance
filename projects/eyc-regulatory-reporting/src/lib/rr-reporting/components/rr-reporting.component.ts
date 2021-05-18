@@ -1,9 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
-import { ReportingTabsCardComponent } from '../../shared/reporting-tabs-card/components/reporting-tabs-card.component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-
+import { RrReportingService } from '../services/rr-reporting.service';
 @Component({
   selector: 'lib-rr-reporting',
   templateUrl: './rr-reporting.component.html',
@@ -12,10 +10,10 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 export class RrReportingComponent implements OnInit {
 
   tabs = 1
-  constructor(private service:RegulatoryReportingFilingService) { }
+  constructor(private rrservice:RrReportingService) { }
 
   ngOnInit(): void {
-    this.service.getReportingFilingEntities().subscribe(res=> {
+    this.rrservice.getfilingEntities().subscribe(res=> {
       this.rowData = res['data']      
     })
   }
@@ -70,6 +68,9 @@ export class RrReportingComponent implements OnInit {
           field: 'entityName',
           sortable: true,
           filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 300
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -77,6 +78,7 @@ export class RrReportingComponent implements OnInit {
           field: 'resolve_exception',
           sortable: true,
           filter: true,
+          width: 210,
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -91,6 +93,7 @@ export class RrReportingComponent implements OnInit {
           field: 'myTasks',
           sortable: true,
           filter: true,
+          width: 140
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -98,6 +101,7 @@ export class RrReportingComponent implements OnInit {
           field: 'comments',
           sortable: true,
           filter: true,
+          width: 155
         },
       ];
     });
@@ -114,8 +118,6 @@ export class RrReportingComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    console.log($event);
-    
     this.tabs = $event
   }
 }

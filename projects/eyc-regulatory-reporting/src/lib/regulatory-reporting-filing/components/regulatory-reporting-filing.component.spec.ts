@@ -5,10 +5,13 @@ import { RegulatoryReportingFilingService } from '../services/regulatory-reporti
 
 import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filing.component';
 import { of } from 'rxjs';
-import { MotifButtonModule, MotifCardModule, MotifIconModule, MotifProrgressIndicatorsModule } from '@ey-xd/ng-motif';
+import { MotifButtonModule, MotifCardModule, MotifFormsModule, MotifIconModule, MotifPaginationModule, MotifProrgressIndicatorsModule, MotifTableModule } from '@ey-xd/ng-motif';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../../src/environments/environment';
 import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AgGridModule } from 'ag-grid-angular';
 describe('RegulatoryReportingFilingComponent', () => {
   let component: RegulatoryReportingFilingComponent;
   let fixture: ComponentFixture<RegulatoryReportingFilingComponent>;
@@ -18,13 +21,19 @@ describe('RegulatoryReportingFilingComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RegulatoryReportingFilingComponent ],
       imports: [
-        HttpClientTestingModule,
-        SlickCarouselModule,
+        AgGridModule.withComponents([]),
         CommonModule,
         MotifCardModule,
         MotifButtonModule,
+        MotifFormsModule,
         MotifIconModule,
         MotifProrgressIndicatorsModule,
+        MotifTableModule,
+        SlickCarouselModule,
+        HttpClientModule,
+        MotifPaginationModule,
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [RegulatoryReportingFilingService,
         EycRrSettingsService,
