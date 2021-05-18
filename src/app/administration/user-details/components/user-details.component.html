@@ -1,6 +1,6 @@
 <div class="user-details-wrapper">
     <div class="back-wrapper">
-        <motif-icon [src]="'/assets/icons/navigation/ic_arrow_back_24px.svg'"></motif-icon>&nbsp;|&nbsp;<span
+        <motif-icon [src]="'/assets/icons/navigation/ic_arrow_back_24px.svg'" (click)="backtoUserAdmin()"></motif-icon>&nbsp;|&nbsp;<span
             class="back-opt" (click)="backtoUserAdmin()">Back</span>
     </div>
     <div class="user-info-header">
@@ -9,7 +9,7 @@
             <span *ngIf="!enableEditor" (click)="enableEditForm()">Edit</span>
         </motif-icon>
         <div  class="edit-form" *ngIf="enableEditor">
-            <button class="save-submit" motifButton color="primary" size="small" (click)="onSubmitEditUserForm(editUserForm)">Save</button>
+            <button class="save-submit" motifButton color="primary" size="small" [disabled]="editUserForm.invalid" [ngClass]="editUserForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditUserForm(editUserForm)">Save</button>
             <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
         </div>
        

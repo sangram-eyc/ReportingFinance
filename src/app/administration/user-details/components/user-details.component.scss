@@ -26,6 +26,10 @@
        background-color: var(--btn-primary-bg-color);
     //    color: var(--btn-primary-color);
     }
+
+    button.motif-button.save-submit.dis-button:hover {
+        background-color: var(--btn-primary-disabled-bg-color) !important;
+    }
     
     .btn_close {
         width: 80px !important;
@@ -45,6 +49,9 @@
 }
 .back-wrapper {
     display: flex;
+    motif-icon.motif-icon {
+        cursor: pointer;
+    }
 }
 .back-opt {
 font-family: EYInterstate;
