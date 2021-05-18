@@ -40,6 +40,11 @@
                 "glob": "**/*",
                 "input": "./node_modules/@ey-xd/ng-motif/assets/images",
                 "output": "/assets/images/"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-regulatory-reporting/src/assets",
+                "output": "assets/eyc-regulatory-reporting"
               }
             ],
             "styles": [
@@ -139,6 +144,11 @@
                 "glob": "**/*",
                 "input": "./node_modules/@ey-xd/ng-motif/assets/images",
                 "output": "/assets/images/"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-regulatory-reporting/src/assets",
+                "output": "assets/eyc-regulatory-reporting"
               }
             ],
             "styles": [
