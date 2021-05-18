@@ -2,10 +2,13 @@
     <h4>Regulatory reporting</h4>
 </div>
 <motif-tab-bar>
-    <button motifButton class="motif-text-link">Teams</button>
-    <button motifButton class="motif-active motif-text-link">Users</button>
-    <button motifButton class="motif-text-link">Filings</button>
+    <button motifButton (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Teams</button>
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
+    <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button>
 </motif-tab-bar>
 
 
-<app-users></app-users>
+<app-users *ngIf="tabIn == 2"></app-users>
+
+<div *ngIf="tabIn == 1"><br>Teams</div>
+<div *ngIf="tabIn == 3"><br>Filings</div>

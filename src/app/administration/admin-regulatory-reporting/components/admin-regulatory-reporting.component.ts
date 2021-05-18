@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminRegulatoryReportingComponent implements OnInit {
 
+  tabIn;
   constructor() { }
 
   ngOnInit(): void {
+    this.tabIn = 2;
+  }
+
+  adminTabChange(selectedTab){
+    this.tabIn = selectedTab;
   }
 
 }
