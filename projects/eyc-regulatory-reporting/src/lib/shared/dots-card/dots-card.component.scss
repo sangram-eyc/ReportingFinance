@@ -49,10 +49,11 @@
 
     ::ng-deep .motif-step-container .step {
     height: 0px !important;
-    border: 2px solid #C4C4CD !important;
-    position: relative;
+    border: 1px solid #C4C4CD !important;
+    display: block !important; 
+    /* position: relative;
     background-color: #C4C4CD !important;
-    display: block !important;
+   */
     }
 
     ::ng-deep .motif-step-container .step-info .step-dot {
@@ -69,32 +70,42 @@
     }
 
     ::ng-deep .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
-        width: 32px !important;
+        /* width: 32px !important;
         height: 32px !important;
         left: 0px !important;
         position: relative;
         top: -1px !important;
         background-color: #57E188 !important;
-        border: 1px solid #57E188 !important;
+        border: 1px solid #57E188 !important; */
+        width: 18px !important;
+        height: 18px !important;
+        left: 5px !important;
+        top: 5px !important;
    }
    ::ng-deep .motif-step-container .step-info .step-dot.in-progress {
-    border: 1px solid #57E188 !important;
+    border: 2px solid #000000 !important;
+    background: #FFFFFF !important;
+   }
+   ::ng-deep .motif-step-container .step-info .step-dot .inner {
+    visibility: visible !important;
    }
    /* ::ng-deep.motif-step-container .step-info .step-dot.in-progress .inner:hover{
     border: 1px solid #57E188 !important;
    } */
     ::ng-deep .motif-step-container .step-info .step-dot.completed {
-        background-color: #F2F2F2 !important;
-        border: 2px solid #1A1A24 !important;
+        // background-color: #F2F2F2 !important;
+        background: #FFFFFF !important;
+        border: 2px solid #000000 !important;
    }
    ::ng-deep .motif-step-container .step-info svg {
-     fill: var(--icon-fill-color) !important;
+    //  fill: var(--icon-fill-color) !important;
+    fill: #000000 !important;
    }
 
    ::ng-deep .motif-step-container .step-info .step-data-container .first-line {
     font-family: EYInterstate !important;
     font-style: normal !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
     font-size: 12px !important;
     line-height: 16px !important;
     text-align: center;
@@ -115,7 +126,14 @@
         }
     }
 
-    motif-progress-step.my-class {
+    motif-progress-step.progress-active {
+        ::ng-deep .motif-step-container .step-info .step-data-container .first-line {
+            font-weight: bold !important;
+        }
+
+    } 
+
+    motif-progress-step.last-item-class {
         ::ng-deep .motif-step-container .step {
             background-color: transparent !important;
             border: 0px !important;
@@ -124,13 +142,15 @@
 
 
     ::ng-deep .motif-step-container .step-info .step-dot.not-set {
-        border: 3.09px solid #C4C4CD !important;
+        border: 2px solid #AAAAB1 !important;
+        box-sizing: border-box !important;
+        border-radius: 109.091px !important;
         background: #F2F2F2 !important;
     }
 
     
     ::ng-deep  .motif-step-container:hover:not(.disabled) .step-info .step-dot.not-set .inner {
-        display: none !important;
+        // display: none !important;
     }
 
     ::ng-deep  .motif-step-container .step-info .step-data-container .first-line {

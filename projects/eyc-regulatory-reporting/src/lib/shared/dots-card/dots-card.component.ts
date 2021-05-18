@@ -10,14 +10,15 @@ export class DotsCardComponent implements OnInit {
 
   step = 3;
   dueDate = 'March 31 2021';
+  activeCls = '';
 
 
   constructor(
-    private router: Router
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
-
+    // if(this.router.url.includes('data-intake'))
   }
 
     getStatus(index: number): string | null {
