@@ -22,4 +22,11 @@ describe('ReportingTabsCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('report change should return tab number', () => {
+    let tab = 1
+    component.reportTabChange(tab)
+    expect(component.tabIn).toBe(tab)
+  })
+
 });

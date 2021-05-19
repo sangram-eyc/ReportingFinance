@@ -11,6 +11,7 @@ export class DotsCardComponent implements OnInit {
   step = 3;
   dueDate = 'March 31 2021';
   activeCls = '';
+  curPage;
 
 
   constructor(
@@ -18,7 +19,7 @@ export class DotsCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if(this.router.url.includes('data-intake'))
+
   }
 
     getStatus(index: number): string | null {
@@ -44,9 +45,8 @@ export class DotsCardComponent implements OnInit {
 
       handleStepClick($event: Event, currentStep: number, pagename: string) { // For clickable steps
           let redirect = 'no';
-          if (currentStep < this.step) {
-            redirect = 'yes';
-          } else if (currentStep === this.step) {
+          
+          if (currentStep <= this.step) {
             redirect = 'yes';
           }
 

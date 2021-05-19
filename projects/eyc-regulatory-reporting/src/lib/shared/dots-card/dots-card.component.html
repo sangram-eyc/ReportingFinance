@@ -13,17 +13,18 @@
                 <div class="row">
                  
                   <motif-progress-indicators>
-                    <motif-progress-step title="Fund Scoping" [ngClass]="router.url.includes('fund-scoping') ? 'progress-active' : '' " subtitle="" [disabled]="disState(1)" [status]="getStatus(1)" (click)="handleStepClick($event, 1, 'scoping')">
+                    <motif-progress-step title="Fund Scoping" [ngClass]="this.router.url == '/fund-scoping' ? 'progress-active' : '' " subtitle="" [disabled]="disState(1)" [status]="getStatus(1)" (click)="handleStepClick($event, 1, 'scoping')">
                     </motif-progress-step>
-                    <motif-progress-step title="Intake" [ngClass]="router.url.includes('data-intake') ? 'progress-active' : '' " subtitle="" [disabled]="disState(1)"  [status]="getStatus(1)"  (click)="handleStepClick($event, 1, 'intake')">
+                    <motif-progress-step title="Intake" [ngClass]="this.router.url == '/data-intake' ? 'progress-active' : '' " subtitle="" [disabled]="disState(1)"  [status]="getStatus(1)"  (click)="handleStepClick($event, 1, 'intake')">
                     </motif-progress-step>
-                    <motif-progress-step title="Reporting" [ngClass]="router.url.includes('regulatory-reporting') ? 'progress-active' : '' " subtitle="" [disabled]="disState(3)" [status]="getStatus(3)" (click)="handleStepClick($event, 3, 'reporting')">
+                    <motif-progress-step title="Reporting" [ngClass]="this.router.url == '/regulatory-reporting' ?  'progress-active' : '' " subtitle="" [disabled]="disState(3)" [status]="getStatus(3)" (click)="handleStepClick($event, 3, 'reporting')">
                     </motif-progress-step>
-                    <motif-progress-step title="Client Review" [ngClass]="router.url.includes('client-review') ? 'progress-active' : '' " subtitle="" [disabled]="disState(4)" [status]="getStatus(4)" (click)="handleStepClick($event, 4,'review')">
+                    <motif-progress-step title="Client Review" [ngClass]="this.router.url == '/client-review' ?  'progress-active' : '' " subtitle="" [disabled]="disState(4)" [status]="getStatus(4)" (click)="handleStepClick($event, 4,'review')">
                     </motif-progress-step>
-                    <motif-progress-step title="Submission" [ngClass]="router.url.includes('submission') ? 'progress-active' : '' " subtitle="" class="last-item-class" [disabled]="disState(4)" [status]="getStatus(4)" (click)="handleStepClick($event, 4, 'submission')">
+                    <motif-progress-step title="Submission" [ngClass]="this.router.url == '/submission' ?  'progress-active' : '' " subtitle="" class="last-item-class" [disabled]="disState(4)" [status]="getStatus(4)" (click)="handleStepClick($event, 4, 'submission')">
                     </motif-progress-step>
                   </motif-progress-indicators>
+                  
 
                 </div>
 
