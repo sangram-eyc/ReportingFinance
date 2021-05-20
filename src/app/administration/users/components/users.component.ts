@@ -1,4 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
 import { Component, ViewChild, ElementRef, TemplateRef, AfterViewInit, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
@@ -16,7 +15,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   showAddUserModal = false;
   addUserForm: FormGroup;
-  showToastAfterAddUser: boolean = false;
+  showToastAfterAddUser = false;
 
   showDeleteUserModal = false;
   showToastAfterDeleteUser = false;
@@ -26,7 +25,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private userService: UsersService,
     private router: Router,
     private _formBuilder: FormBuilder
-  ) { 
+  ) {
   }
 
   usersListArr: any[] = [];
@@ -39,24 +38,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild('motifTable') table: ElementRef;
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
-  @ViewChild("actionSection")
+  @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
-
-
-  model = '';
-  /* motifTypeahead = [
-'Alaska',
-'California',
-'Georgia',
-'Kansas',
-'Michigan',
-'North Carolina',
-'South Carolina',
-'Virginia',
-'West Virginia',
-  ]; */
+model = '';
   motifTypeahead = [];
-
+  userResp: any[] = [];
 
   ngOnInit(): void {
     this.addUserForm = this._createAddUser();
@@ -65,9 +51,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   getUsersData() {
 
     this.userService.getUsersList().subscribe(resp => {
-      resp['data'].forEach((item) => {
+      this.userResp.push(resp);
+      this.userResp[0].forEach((item) => {
         const eachitem: any = {
-          name:  item.lastName+ ', ' + item.firstName,
+          name:  item.userLastName + ', ' + item.userFirstName,
           email: item.userEmail,
           teams: 0,
           userId: item.userId,
@@ -102,7 +89,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: true,
           cellClass: 'custom-user-name',
           sort: 'asc',
-          // tooltipField: 'name',
           wrapText: true,
           autoHeight: true,
         },
@@ -114,7 +100,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
           cellClass: 'custom-user-email',
           sortable: true,
           filter: true,
-          // tooltipField: 'email',
           wrapText: true,
           autoHeight: true,
         },
@@ -131,8 +116,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           headerComponentFramework: MotifTableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: this.editAct.bind(this),
-          headerName: "Actions",
-          field: "Actions",
+          headerName: 'Actions',
+          field: 'Actions',
           sortable: false,
           filter: false,
         },
@@ -152,83 +137,79 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitAddUserForm(form: FormGroup) {
-    let obj = form.getRawValue()
+    const obj = form.getRawValue();
     Object.keys(obj).map(key => obj[key] = obj[key].trim()
     );
-    this.showToastAfterAddUser = !this.showToastAfterAddUser;
+
     this.userService.addUser(obj).subscribe(resp => {
-      let userList = this.usersListArr
-      this.usersListArr = []
-      let lastitem = resp['data'].pop()
-      userList.push({
-        name: lastitem.firstName + ' ' + lastitem.lastName,
-        email: lastitem.userEmail,
-        teams: userList.length +3,
-        options: '',
-      });
-      userList.forEach(ele => {
-        this.usersListArr.push(ele);
-        this.rowData = this.usersListArr;
-      })
       this.showAddUserModal = false;
-      this.addUserForm = this._createAddUser()
-      setTimeout(() => {
+      this.addUserForm = this._createAddUser();
+      this.getUsersData();
+      if (resp) {
         this.showToastAfterAddUser = !this.showToastAfterAddUser;
-      }, 5000)
-    })
+        setTimeout(() => {
+          this.showToastAfterAddUser = !this.showToastAfterAddUser;
+        }, 5000);
+      }
+
+    }, error => {
+      this.showAddUserModal = !this.showAddUserModal;
+      this.addUserForm = this._createAddUser();
+    });
   }
 
   public noWhitespaceValidator(control: FormControl) {
     if (control.value.length === 0) {
-      return false
+      return false;
     } else {
       const isWhitespace = (control.value || '').trim().length === 0;
       const isValid = !isWhitespace;
-      return isValid ? null : { 'whitespace': true };
+      return isValid ? null : { whitespace: true };
     }
   }
 
   closeAddUserModal() {
     this.showAddUserModal = false;
-    this.addUserForm = this._createAddUser()
+    this.addUserForm = this._createAddUser();
   }
   // Add user end here
 
-  
+
   // Remove user start here
   deleteUser() {
-    let userList = this.usersListArr
-    this.usersListArr = []
-    this.rowData = []
-    const index = userList.indexOf(this.selectedUser)    
+    const userList = this.usersListArr;
+    this.usersListArr = [];
+    this.rowData = [];
+    const index = userList.indexOf(this.selectedUser);
     userList.splice(index, 1);
-    
-    userList.forEach(ele => {
-      console.log("ele", ele);
-      
-      this.usersListArr.push(ele);
-      this.rowData = this.usersListArr;
-    })
-    // const index = this.usersListArr.indexOf(this.selectedUser)
-    // this.usersListArr.splice(index, 1)
-    // this.rowData = this.usersListArr;
+    this.userService.removeUser(this.selectedUser['userId']).subscribe(resp => {
+      userList.forEach(ele => {
+        console.log('ele', ele);
 
-    this.showDeleteUserModal = false;
-    this.showToastAfterDeleteUser = true
-    setTimeout(() => {
-      this.showToastAfterDeleteUser = false
-    }, 5000)
+        this.usersListArr.push(ele);
+        this.rowData = this.usersListArr;
+      });
+
+
+      this.showDeleteUserModal = false;
+      this.showToastAfterDeleteUser = true;
+      setTimeout(() => {
+        this.showToastAfterDeleteUser = false;
+      }, 5000);
+
+    }, error => {
+      this.showDeleteUserModal = !this.showDeleteUserModal;
+
+    });
+
   }
-
 
   onClickDeleteUserIcon(row) {
     this.selectedUser = row;
     this.showDeleteUserModal = true;
   }
 // Remove user end here
-
-
   editUser(row) {
-    this.router.navigate(['/user-details/'+row['userId']])
+    this.router.navigate(['/user-details/' + row.userId]);
   }
 }

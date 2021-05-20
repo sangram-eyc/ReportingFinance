@@ -3,6 +3,7 @@ import * as CryptoJS from 'crypto-js';
 import {SESSION_ACCESS_TOKEN,SESSION_ENCRYPTION_KEY,SESSION_ID_TOKEN,ID_ENCRYPTION_KEY} from './settings-helpers';
 import { environment } from '../../environments/environment';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 export class SettingsService {
   constructor(private oauthService: OAuthService) { }
   public API_ENDPOINT = environment.apiEndpoint;
+  private errors = new Subject<string[]>();
 // AUTHTOKEN FUNCTIONS
 setToken = (value) => {
   const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
@@ -102,7 +104,5 @@ setToken = (value) => {
 			});
 	}
 
-  
-}
 
 
