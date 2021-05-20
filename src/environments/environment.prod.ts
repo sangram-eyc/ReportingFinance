@@ -9,10 +9,10 @@ export const oAuthConfig = {
   
   loginUrl: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/authorize',
   logoutUrl: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/logout',
-  redirectUri: 'http://localhost:4200/assets/redirect.html',
+  redirectUri: 'https://10.48.234.20/qa31/assets/redirect.html',
  // redirectUri: 'http://localhost:4200',
   tenant:"5b973f99-77df-4beb-b27d-aa0c70b8482c",
-  silentRefreshRedirectUri: 'http://localhost:4200/silent-refresh.html',
+  silentRefreshRedirectUri: 'https://10.48.234.20/qa31/silent-refresh.html',
   issuer: 'https://sts.windows.net/5b973f99-77df-4beb-b27d-aa0c70b8482c/',
   scope: 'openid profile email',
   //clientId: '3c652dbf-0b03-4537-b49c-14070a9b60db',
