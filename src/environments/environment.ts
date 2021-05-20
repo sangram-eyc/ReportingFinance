@@ -5,7 +5,8 @@
 export const environment = {
   apiEndpoint : 'http://localhost:4200/',
   production: false,
-  AUTH_TYPE: 'OAUTH'
+  AUTH_TYPE: 'OAUTH',
+  SECURITY_ENABLED:true,
 };
 
 /*
@@ -31,13 +32,14 @@ export const oAuthConfig = {
   //clientId: '3c652dbf-0b03-4537-b49c-14070a9b60db',
   clientId: 'b08471aa-d4f4-4d1c-a0a8-0e976a575dff',
   //resource: 'api://7e43da3b-2c84-426b-8e5a-1e3ef0ee8b42',
-  silentRefreshTimeout: environment.production ? 1 : 10000,
-  timeoutFactor: environment.production ? 0.1 : 0.25,
+  silentRefreshTimeout: environment.production ? 5000 : 5000,
+  timeoutFactor: environment.production ? 0.25 : 0.1,
   responseType:"token id_token",
   resource: 'https://graph.microsoft.com',
   postLogoutRedirectUri: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/logout',
   strictDiscoveryDocumentValidation: false,
-  clearHashAfterLogin: true,
+  
+  clearHashAfterLogin: false,
   oidc: true,
   jwks: {
 		keys: [

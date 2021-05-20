@@ -45,12 +45,13 @@
                 "glob": "**/*",
                 "input": "projects/eyc-regulatory-reporting/src/assets",
                 "output": "assets/eyc-regulatory-reporting"
-              }
+              },
+              "src/silent-refresh.html"
             ],
             "styles": [
               
               "src/eyc-styles.scss",
-              "node_modules/@ey-xd/ng-motif/styles.scss",
+               "node_modules/@ey-xd/ng-motif/styles.scss",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
@@ -149,7 +150,8 @@
                 "glob": "**/*",
                 "input": "projects/eyc-regulatory-reporting/src/assets",
                 "output": "assets/eyc-regulatory-reporting"
-              }
+              },
+              "src/silent-refresh.html"
             ],
             "styles": [
               "src/eyc-styles.scss",

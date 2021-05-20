@@ -112,4 +112,7 @@ export const authConfig: AuthConfig = {
 			}]
 	}, 
 	silentRefreshRedirectUri: oAuthConfig.silentRefreshRedirectUri,
+	siletRefreshTimeout:oAuthConfig.silentRefreshTimeout,
+	timeoutFactor:oAuthConfig.timeoutFactor,
+	
 };
