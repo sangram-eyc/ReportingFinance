@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h2 class="modal-title" >Oops...</h2>
+    <button type="button" class="close" (click)="close()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <ng-container>
+      <h3>Error: {{statusCode}} - {{statusText}}</h3>
+      <p> {{errorMessage}} </p>
+      <ul>
+          <li *ngFor="let error of errorList; let i=index;">{{i + 1}}.) {{error}}</li>
+      </ul>
+    </ng-container>
+  </div>
+  
+  <div class="modal-footer">
+    <button motifButton class="btn_save" color="primary" (click)="close()">OK</button>
+  </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../users/services/users.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {SettingsService} from '../../../services/settings.service';
 
 @Component({
   selector: 'app-user-details',
@@ -14,7 +15,9 @@ export class UserDetailsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService:UsersService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private settingService: SettingsService,
+    
   ) {
     this.editUserForm = this._updateUser();
    }
