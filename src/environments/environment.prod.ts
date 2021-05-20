@@ -1,7 +1,7 @@
 export const environment = {
   apiEndpoint : '.',
-  production: true,
-  SECURITY_ENABLED:true,
+  production: false,
+  SECURITY_ENABLED:false,
 };
 
 export const oAuthConfig = {
@@ -16,7 +16,7 @@ export const oAuthConfig = {
   issuer: 'https://sts.windows.net/5b973f99-77df-4beb-b27d-aa0c70b8482c/',
   scope: 'openid profile email',
   //clientId: '3c652dbf-0b03-4537-b49c-14070a9b60db',
-  clientId: 'b08471aa-d4f4-4d1c-a0a8-0e976a575dff',
+  clientId: '652c8c9c-1f5f-477c-a339-ed4753aead0d',
   //resource: 'api://7e43da3b-2c84-426b-8e5a-1e3ef0ee8b42',
   silentRefreshTimeout: environment.production ? 5000 : 5000,
   timeoutFactor: environment.production ? 0.25 : 0.1,
