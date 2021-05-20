@@ -30,10 +30,11 @@
       <li class="header-avatar">
         <motif-avatar status="online"></motif-avatar>
       </li>
-      <li  class="header-notification" >
-        <div id ="bell-header" (blur)="outsideClick()">
-        <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()" ></motif-icon>
-      </div>
+      <li class="header-notification">
+        <div id="bell-header" (blur)="outsideClick()">
+          <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
+          </motif-icon>
+        </div>
       </li>
       <li class="singn-out">
         <motif-icon [src]="'/assets/icons/action/ic_input_24px.svg'" (click)="logoff()"></motif-icon>
@@ -41,24 +42,24 @@
 
     </ul>
 
-    <div  id ="notifcationcontainer" class="admin-container" *ngIf="isNotification">
+    <div id="notifcationcontainer" class="admin-container" *ngIf="isNotification">
       <div (blur)="outsideClick()">
         <motif-card (blur)="outsideClick()">
           <motif-card-header>
             <div class="notification-header">
-            <div class="card-block banner-header">
-              Notifications
+              <div class="card-block banner-header">
+                Notifications
 
-            </div>
-            <div class="card-block banner-header-right">
-              <div style="display: inline-block;">
-                <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
               </div>
+              <div class="card-block banner-header-right">
+                <div style="display: inline-block;">
+                  <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
+                </div>
 
-              <div class="mark-all-message"> Mark all as read</div>
+                <div class="mark-all-message"> Mark all as read</div>
 
+              </div>
             </div>
-          </div>
           </motif-card-header>
           <li class="notification-message">
             <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
@@ -84,8 +85,10 @@
           <span>Home</span>
         </li>
 
-        <li [class.active]="regreporting.isActive && mini || regreporting.isActive && opensubmenu !== 'managed-submenu'" [class.submenu-open]="opensubmenu === 'managed-submenu'" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
-        <!-- <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
+        <li [class.active]="regreporting.isActive && mini || regreporting.isActive && opensubmenu !== 'managed-submenu'"
+          [class.submenu-open]="opensubmenu === 'managed-submenu'"
+          [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+          <!-- <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
           [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
           <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
           <div *ngIf="mini" class="triangle-bottomright" [class.active-triangle]="regreporting.isActive"></div>
@@ -93,13 +96,14 @@
           <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
             [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
           <motif-icon *ngIf="opensubmenu !== 'managed-submenu'" class="sidenav-accordion-icon"
-          [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+            [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
         </li>
 
         <li class="sidenav-submenu">
           <ul id="managed-submenu" class="submenu">
             <!-- <li class="sidenav-item" routerLink="home" routerLinkActive="active-submenu" #regreporting="routerLinkActive"> -->
-            <li class="sidenav-item" [routerLink]="['/app-regulatory-filing']" routerLinkActive="active-submenu" #regreporting="routerLinkActive">
+            <li class="sidenav-item" [routerLink]="['/app-regulatory-filing']" routerLinkActive="active-submenu"
+              #regreporting="routerLinkActive">
               <span>Regulatory Reporting</span>
             </li>
             <!-- <li class="sidenav-item">

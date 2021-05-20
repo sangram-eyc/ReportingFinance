@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { OAuthService} from 'angular-oauth2-oidc';
 import { LOCAL_STORAGE_ID_CURRENT_USER_SESSION } from '../helpers';
 import { authConfig } from '../helpers';
-import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import {SettingsService} from '../../services/settings.service'
+import {SettingsService} from '../../services/settings.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,7 @@ export class OauthService {
   constructor(private oauthService: OAuthService, private storageService: SettingsService,
     private httpClient: HttpClient) {
     this.oauthService.configure(authConfig);
-    // this.oauthService.setupAutomaticSilentRefresh();
+    this.oauthService.setupAutomaticSilentRefresh();
 	this.oauthService.tryLogin({});
 	
     if (this.oauthService.getAccessToken()) {

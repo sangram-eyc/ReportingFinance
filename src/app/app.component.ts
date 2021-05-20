@@ -1,9 +1,8 @@
-import { AfterViewChecked } from '@angular/core';
-import { Component, HostListener, ElementRef } from '@angular/core';
+import { AfterViewChecked} from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {SettingsService} from './services/settings.service';
-
 
 
 @Component({
@@ -22,8 +21,7 @@ export class AppComponent implements AfterViewChecked {
   constructor(
     private oauthservice: OAuthService, 
     private router: Router,
-    private settingsService: SettingsService,
-    private elementRef: ElementRef){
+    private settingsService: SettingsService,){
     // To hide header and footer from login page
     this.router.events.subscribe(
       (event: any) => {
@@ -31,7 +29,6 @@ export class AppComponent implements AfterViewChecked {
          this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
-
   }
 
 
@@ -98,7 +95,7 @@ export class AppComponent implements AfterViewChecked {
 
   }
 
-
+  
 
   toggleSubMenu(toggleId) {
     if (this.mini) {

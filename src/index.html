@@ -11,5 +11,8 @@
 </head>
 <body class="mat-typography">
   <app-root></app-root>
+  <script>
+    parent.postMessage(location.hash, location.origin);
+  </script>
 </body>
 </html>
