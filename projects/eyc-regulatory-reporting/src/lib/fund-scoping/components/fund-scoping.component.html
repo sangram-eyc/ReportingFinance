@@ -1,7 +1,60 @@
+<div class="breadcrumb-container">
+    <motif-breadcrumb>
+        <motif-breadcrumb-item
+         class="breadcrumb-first"
+         breadcrumbValue="Regulatory Reporting"
+         breadcrumbLink="/app-regulatory-filing">
+        </motif-breadcrumb-item>
+        <motif-breadcrumb-item
+         breadcrumbValue="Active">
+        </motif-breadcrumb-item>
+        <motif-breadcrumb-item
+         breadcrumbValue="Form PF // Q3 2021">
+        </motif-breadcrumb-item>
+    </motif-breadcrumb>
+</div>
+
 <lib-dots-card></lib-dots-card>
 
 
 <div class="scoping-content-container">
-    <br><br>fund scoping works!
+    <section id="funds">
+        <div id="funds-heading">
+            <motif-form-field>
+                <input #fundsSearch motifInput motifSearch type="text" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
+            </motif-form-field>
+        </div>
+        <div id="fund-grid-wrapper" [hidden]="searchNoDataAvilable">
+            <ag-grid-angular
+                class="ag-theme-alpine"
+                (gridReady)="onGridReady($event)"
+                [columnDefs]="columnDefs"
+                [rowData]="rowData"
+                [rowClass]="rowClass"
+                [domLayout]="domLayout"
+            ></ag-grid-angular>
+        </div>
+    
+        <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+            <motif-card-body>
+                <h5>Your search has returned no results. Please adjust and try again.</h5>
+            </motif-card-body>
+           
+        </motif-card>
+    </section>
+    
+    <ng-template #headerFundsTemplate>
+        <motif-icon
+            [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"
+            id="motifExampleDropdown"
+        ></motif-icon>
+    </ng-template>
+    
+    <ng-template #dropdownFundsTemplate>
+        <motif-icon
+            [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
+            id="motifDropdown"
+        ></motif-icon>
+    </ng-template>
 </div>
 
