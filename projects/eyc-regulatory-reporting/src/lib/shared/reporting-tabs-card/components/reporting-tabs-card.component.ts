@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-reporting-tabs-card',
@@ -9,7 +10,9 @@ export class ReportingTabsCardComponent implements OnInit {
 
   tabIn;
   @Output() messageEvent = new EventEmitter<string>();
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.tabIn = 1;
@@ -20,4 +23,7 @@ export class ReportingTabsCardComponent implements OnInit {
     this.messageEvent.emit(this.tabIn)
   }
 
+  dataExplorer() {
+    this.router.navigate(['/data-explorer'])
+  }
 }
