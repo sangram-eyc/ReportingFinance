@@ -5,8 +5,8 @@
     </div>
     <div class="user-info-header">
         <h3>User info</h3>
-        <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" class="user-edit"  *ngIf="!enableEditor"  (click)="enableEditForm()">
-            <span *ngIf="!enableEditor" (click)="enableEditForm()">Edit</span>
+        <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" class="user-edit"  *ngIf="!enableEditor && userInfo"  (click)="enableEditForm()">
+            <span *ngIf="!enableEditor && userInfo" (click)="enableEditForm()">Edit</span>
         </motif-icon>
         <div  class="edit-form" *ngIf="enableEditor">
             <button class="save-submit" motifButton color="primary" size="small" [disabled]="editUserForm.invalid" [ngClass]="editUserForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditUserForm(editUserForm)">Save</button>
@@ -16,13 +16,13 @@
     </div>
 
 
-    <div class="user-thumb">
-        <motif-avatar size="large" status="online" class="user-thumb-icon"></motif-avatar><span class="text-capitalize">{{userInfo['lastName']+' '+userInfo['firstName'] }}</span>
+    <div class="user-thumb" *ngIf="userInfo">
+        <motif-avatar [userName]="fullname" *ngIf="fullname" size="large" status="online" class="user-thumb-icon"></motif-avatar><span class="text-capitalize">{{userInfo?.userLastName+' '+userInfo?.userFirstName }}</span>
     </div>
 
     <motif-toast [type]="'success'"  [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
 
-    <div class="user-content-container" *ngIf="!enableEditor">
+    <div class="user-content-container" *ngIf="!enableEditor && userInfo">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 cust-col-colour">
@@ -32,16 +32,16 @@
                     Last name
                 </div>
                 <div class="col-md-6 cust-col-colour cust-row-st">
-                    <!--  {{ userInfo[0]?.firstName }} --> {{ userInfo['firstName'] }}
+                    <!--  {{ userInfo[0]?.firstName }} --> {{ userInfo?.userFirstName }}
                 </div>
                 <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
-                    {{ userInfo['lastName'] }}
+                    {{ userInfo?.userLastName }}
                 </div>
                 <div class="col-md-8 mt-4 cust-col-colour">
                     Email
                 </div>
                 <div class="col-md-8 cust-col-colour cust-row-st">
-                    {{ userInfo['userEmail'] }}
+                    {{ userInfo?.userEmail }}
                 </div>
             </div>
         </div>
@@ -59,28 +59,28 @@
                     </div>
                     <div class="col-md-6 cust-col-colour cust-row-st">
                             <motif-form-field>
-                                <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
-                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
+                                <input motifInput type="text" aria-label="Username Form Field" formControlName="userFirstName" />
+                                    <motif-error *ngIf="editUserForm.get('userFirstName').hasError('required')">Please provide a first name!
                                     </motif-error>
-                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only characters
+                                    <motif-error *ngIf="editUserForm.get('userFirstName').hasError('pattern')">First name must contain only characters
                                     </motif-error>
-                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('maxlength')">First name can be max 250
+                                    <motif-error *ngIf="editUserForm.get('userFirstName').hasError('maxlength')">First name can be max 250
                                         characters long</motif-error>
-                                    <motif-error *ngIf="editUserForm.get('firstName').hasError('whitespace')">Please enter valid data
+                                    <motif-error *ngIf="editUserForm.get('userFirstName').hasError('whitespace')">Please enter valid data
                                     </motif-error>
                     
                             </motif-form-field>
                     </div>
                     <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
                         <motif-form-field>
-                            <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
-                            <motif-error *ngIf="editUserForm.get('lastName').hasError('required')">Please provide a last name!
+                            <input motifInput type="text" aria-label="Email Form Field" formControlName="userLastName" />
+                            <motif-error *ngIf="editUserForm.get('userLastName').hasError('required')">Please provide a last name!
                             </motif-error>
-                            <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!
+                            <motif-error *ngIf="editUserForm.get('userLastName').hasError('pattern')">Last name must contain only characters!
                             </motif-error>
-                            <motif-error *ngIf="editUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters
+                            <motif-error *ngIf="editUserForm.get('userLastName').hasError('maxlength')">Last name can be max 250 characters
                                 long</motif-error>
-                            <motif-error *ngIf="editUserForm.get('lastName').hasError('whitespace')">Please enter valid data
+                            <motif-error *ngIf="editUserForm.get('userLastName').hasError('whitespace')">Please enter valid data
                             </motif-error>
                         </motif-form-field>
                     </div>

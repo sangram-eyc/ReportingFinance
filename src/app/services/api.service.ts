@@ -49,4 +49,10 @@ export class ApiService {
     const headers = this.setHeaders();
     return this.httpClient.delete<Response>(url, { headers });
   }
+
+  /*--------------GENERIC API FOR PUT METHOD-------------*/
+  invokePutAPI(url: string, params?: any) {
+    const headers = this.setHeaders1();
+    return this.httpClient.put(url, params, { headers });
+  }
 }
