@@ -1,7 +1,9 @@
-import { AfterViewChecked} from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Subject } from 'rxjs';
+import { LoaderService } from './services/loader.service';
 import {SettingsService} from './services/settings.service';
 
 
@@ -10,7 +12,7 @@ import {SettingsService} from './services/settings.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked {
+export class AppComponent implements AfterViewChecked, AfterContentChecked {
   title = 'eyc-ServiceEngine-UI';
   mini = false;
   userGivenName;
@@ -18,9 +20,13 @@ export class AppComponent implements AfterViewChecked {
   showHeaderFooter = true;
   isNotification = false;
   notificationCount = 0;
+  loginName;
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
   constructor(
-    private oauthservice: OAuthService, 
+    private oauthservice: OAuthService,
+    private loaderService: LoaderService, 
     private router: Router,
+    private cdRef : ChangeDetectorRef,
     private settingsService: SettingsService,){
     // To hide header and footer from login page
     this.router.events.subscribe(
@@ -31,15 +37,23 @@ export class AppComponent implements AfterViewChecked {
       });
   }
 
+ 
+
+  ngAfterContentChecked() : void {
+    this.cdRef.detectChanges();
+}
+
 
   ngAfterViewChecked() {
 
     setTimeout(() => {
+      
 
       if (this.settingsService.isUserLoggedin()) {
         const uname = this.oauthservice.getIdentityClaims();
         if (uname) {
           this.userGivenName = uname['given_name'];
+          this.loginName = uname['name'];
         }
       }
 

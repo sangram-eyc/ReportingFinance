@@ -21,6 +21,8 @@ import {TokenInterceptor} from './interceptor/token-interceptor';
 import { ErrorAlertComponent } from './dialogs/error-alert/error-alert.component';
 import {ErrorInterceptorService} from './interceptor/error-interceptor.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule
    
   ],
-  providers: [{provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+  providers: [
+    LoaderService,
+  { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
@@ -62,6 +66,11 @@ import {MatDialogModule} from '@angular/material/dialog';
   {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptorService,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptor,
     multi: true
   },
   ],

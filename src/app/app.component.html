@@ -1,3 +1,6 @@
+<div [hidden]="!isLoading" *ngIf="isLoading | async">
+<motif-loader [show]="true" [fullScreen]="true"></motif-loader>
+</div>
 <section id="app-container" *ngIf="showHeaderFooter">
 
   <mat-toolbar class="app-header">
@@ -28,7 +31,7 @@
     <ul id="user-info">
       <li class="user-text">Welcome {{ userGivenName }}</li>
       <li class="header-avatar">
-        <motif-avatar status="online"></motif-avatar>
+        <motif-avatar [userName]="loginName" status="online" *ngIf="loginName"></motif-avatar>
       </li>
       <li class="header-notification">
         <div id="bell-header" (blur)="outsideClick()">
