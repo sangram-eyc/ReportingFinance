@@ -1,0 +1,36 @@
+{
+    "success": true,
+	"message": "sucess",
+	"data": [
+        {
+            "fundName": "Fund A",
+            "fundCode": "1234",
+            "id": "FT2398"
+        },
+        {
+            "fundName": "Fund B",
+            "fundCode": "2345",
+            "id": "FT2399"
+        },
+        {
+            "fundName": "Fund C",
+            "fundCode": "3456",
+            "id": "FT2400"
+        },
+        {
+            "fundName": "Fund D",
+            "fundCode": "4567",
+            "id": "FT2401"
+        },
+        {
+            "fundName": "Fund E",
+            "fundCode": "5678",
+            "id": "FT2402"
+        },
+        {
+            "fundName": "Fund F",
+            "fundCode": "6789",
+            "id": "FT2403"
+        }
+    ]
+}
