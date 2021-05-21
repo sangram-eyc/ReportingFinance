@@ -28,6 +28,14 @@ export class UsersService {
     return this.apiService.invokePostAPI(`${userAdminstration.regulatory_Reporting.add_User}`,data);
   }
 
+  editUser(userId, formdata){
+    return this.apiService.invokePutAPI(`${userAdminstration.regulatory_Reporting.edit_User}/${userId}`,formdata);
+  }
+
+  userDetails(userId){
+    return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User_Details}/${userId}`);
+  }
+
   removeUser(userId) {
     return this.apiService.invokeDeleteAPI(`${userAdminstration.regulatory_Reporting.remove_User}/${userId}`);
   }
