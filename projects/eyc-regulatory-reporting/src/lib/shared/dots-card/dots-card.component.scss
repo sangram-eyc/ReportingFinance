@@ -159,3 +159,15 @@
     }
 
 }
+
+.breadcrumb-container {
+    margin-top: 24px;
+  
+    .breadcrumb-first {
+      ::ng-deep {
+        a {
+          color: #155CB4 !important;
+        }
+      }
+    }
+  }

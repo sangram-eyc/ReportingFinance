@@ -2,7 +2,7 @@ import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import { FilingCardComponent } from './shared/filing-card/filing-card.component';
-import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule } from '@ey-xd/ng-motif';
+import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule } from '@ey-xd/ng-motif';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
@@ -16,6 +16,8 @@ import { ClientReviewComponent } from './client-review/components/client-review.
 import { SubmissionComponent } from './submission/components/submission.component';
 import { RrReportingComponent } from './rr-reporting/components/rr-reporting.component';
 import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
+import { DataExplorerForReportingAndClientComponent } from './data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -35,7 +37,9 @@ import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/compone
     InlineSVGModule.forRoot(),
     HttpClientModule,
     MotifPaginationModule,
-    MotifBreadcrumbModule
+    MotifBreadcrumbModule,
+    FormsModule,
+    MotifChipModule
   ],
   declarations: [
     RegulatoryReportingFilingComponent,
@@ -47,7 +51,8 @@ import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/compone
     ClientReviewComponent,
     SubmissionComponent,
     RrReportingComponent,
-    ReportingTabsCardComponent
+    ReportingTabsCardComponent,
+    DataExplorerForReportingAndClientComponent
   ],
   exports: [RegulatoryReportingFilingComponent]
 })

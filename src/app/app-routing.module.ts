@@ -12,6 +12,7 @@ import { DataIntakeComponent } from 'projects/eyc-regulatory-reporting/src/lib/d
 import { ClientReviewComponent } from 'projects/eyc-regulatory-reporting/src/lib/client-review/components/client-review.component';
 import { RrReportingComponent } from 'projects/eyc-regulatory-reporting/src/lib/rr-reporting/components/rr-reporting.component';
 import { SubmissionComponent } from 'projects/eyc-regulatory-reporting/src/lib/submission/components/submission.component';
+import { DataExplorerForReportingAndClientComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'regulatory-reporting', component: RrReportingComponent},
   {path: 'submission', component: SubmissionComponent},
   {path: 'user-details/:userId', component: UserDetailsComponent },
+  {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent},
   {path: '**', component: LoginComponent},
 ];
 
