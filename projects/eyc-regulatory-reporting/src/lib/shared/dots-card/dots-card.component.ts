@@ -10,8 +10,40 @@ export class DotsCardComponent implements OnInit {
 
   step = 3;
   dueDate = 'March 31 2021';
-  activeCls = '';
-  curPage;
+
+
+  states = [
+    {
+      stage: 'Fund Scoping',
+      customCls: 'cust-fund',
+      url: '/fund-scoping',
+      curState: 2
+    },
+    {
+      stage: 'Intake',
+      customCls: 'cust-intake',
+      url: '/data-intake',
+      curState: 2
+    },
+    {
+      stage: 'Reporting',
+      customCls: 'cust-report',
+      url: '/regulatory-reporting',
+      curState: 2
+    },
+    {
+      stage: 'Client Review',
+      customCls: 'cust-review',
+      url: '/client-review',
+      curState: 3
+    },
+    {
+      stage: 'Submission',
+      customCls: 'last-item-class',
+      url: '/submission',
+      curState: 4
+    }
+  ];
 
 
   constructor(
@@ -43,7 +75,7 @@ export class DotsCardComponent implements OnInit {
     }
 
 
-      handleStepClick($event: Event, currentStep: number, pagename: string) { // For clickable steps
+      handleStepClick($event: Event, currentStep: number, pagename) { // For clickable steps
           let redirect = 'no';
           
           if (currentStep <= this.step) {
@@ -53,23 +85,23 @@ export class DotsCardComponent implements OnInit {
           if (redirect === 'yes') {
 
             switch (pagename) {
-              case 'scoping': {
+              case 0: {
                 this.router.navigate(['fund-scoping']);
                 break;
               }
-              case 'intake': {
+              case 1: {
                 this.router.navigate(['data-intake']);
                 break;
               }
-              case 'review': {
-                this.router.navigate(['client-review']);
-                break;
-              }
-              case 'reporting': {
+              case 2: {
                 this.router.navigate(['regulatory-reporting']);
                 break;
               }
-              case 'submission': {
+              case 3: {
+                this.router.navigate(['client-review']);
+                break;
+              }
+              case 4: {
                 this.router.navigate(['submission']);
                 break;
               }

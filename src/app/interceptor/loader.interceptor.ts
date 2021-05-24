@@ -12,9 +12,10 @@ export class LoaderInterceptor implements HttpInterceptor {
         this.loaderService.show();
         return next.handle(req).pipe(
             finalize(() => 
-            setTimeout(() => {
-            this.loaderService.hide() }, 1000)
-            )
+            this.loaderService.hide())
+           /*  setTimeout(() => {
+            this.loaderService.hide() }, 800)
+            ) */
         );
     }
 }

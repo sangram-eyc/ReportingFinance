@@ -149,13 +149,30 @@
     }
 
     
-    ::ng-deep  .motif-step-container:hover:not(.disabled) .step-info .step-dot.not-set .inner {
-        // display: none !important;
-    }
+    /* ::ng-deep  .motif-step-container:hover:not(.disabled) .step-info .step-dot.not-set .inner {
+        display: none !important;
+    } */
 
     ::ng-deep  .motif-step-container .step-info .step-data-container .first-line {
-        left: 49px;
+        // left: 49px;
         position: relative;
+    }
+
+    
+    ::ng-deep  motif-progress-step.cust-fund .motif-step-container .step-info .step-data-container .first-line {
+        left: 30px;
+    }
+    ::ng-deep  motif-progress-step.cust-intake .motif-step-container .step-info .step-data-container .first-line {
+        left: 50px;
+    }
+    ::ng-deep  motif-progress-step.cust-report .motif-step-container .step-info .step-data-container .first-line {
+        left: 40px;
+    }
+    ::ng-deep  motif-progress-step.cust-review .motif-step-container .step-info .step-data-container .first-line {
+        left: 31px;
+    }
+    ::ng-deep  motif-progress-step.last-item-class .motif-step-container .step-info .step-data-container .first-line {
+        left: 34px;
     }
 
 }

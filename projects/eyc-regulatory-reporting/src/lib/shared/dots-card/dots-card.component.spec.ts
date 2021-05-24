@@ -71,7 +71,7 @@ describe('DotsCardComponent', () => {
 
       it('tests scoping', () => {
         let currentStep = 1;
-        let pagename = 'scoping';
+        let pagename = 0;
         let event;
         component.handleStepClick(event, currentStep, pagename)
         expect(router.navigate).toHaveBeenCalledWith(['fund-scoping'])
@@ -79,7 +79,7 @@ describe('DotsCardComponent', () => {
 
       it('tests intake', () => {
         let currentStep = 2;
-        let pagename = 'intake';
+        let pagename = 1;
         let event;
         component.handleStepClick(event, currentStep, pagename)
         expect(router.navigate).toHaveBeenCalledWith(['data-intake'])
@@ -87,7 +87,7 @@ describe('DotsCardComponent', () => {
 
       it('tests review', () => {
         let currentStep = 2;
-        let pagename = 'review';
+        let pagename = 3;
         let event;
         component.handleStepClick(event, currentStep, pagename)
         expect(router.navigate).toHaveBeenCalledWith(['client-review'])
@@ -95,7 +95,7 @@ describe('DotsCardComponent', () => {
 
       it('tests reporting', () => {
         let currentStep = 1;
-        let pagename = 'reporting';
+        let pagename = 2;
         let event;
         component.handleStepClick(event, currentStep, pagename)
         expect(router.navigate).toHaveBeenCalledWith(['regulatory-reporting'])
@@ -103,7 +103,7 @@ describe('DotsCardComponent', () => {
 
       it('tests submission', () => {
         let currentStep = 1;
-        let pagename = 'submission';
+        let pagename = 4;
         let event;
         component.handleStepClick(event, currentStep, pagename)
         expect(router.navigate).toHaveBeenCalledWith(['submission'])
