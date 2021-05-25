@@ -1,38 +1,29 @@
-<!-- <div class="breadcrumb-container">
-    <motif-breadcrumb>
-        <motif-breadcrumb-item
-         class="breadcrumb-first"
-         breadcrumbValue="Regulatory Reporting"
-         breadcrumbLink="/app-regulatory-filing">
-        </motif-breadcrumb-item>
-        <motif-breadcrumb-item
-         breadcrumbValue="Active">
-        </motif-breadcrumb-item>
-        <motif-breadcrumb-item
-         breadcrumbValue="Form PF // Q3 2021">
-        </motif-breadcrumb-item>
-    </motif-breadcrumb>
-</div> -->
-
-<lib-dots-card></lib-dots-card>
+<lib-dots-card [status]="status"></lib-dots-card>
 
 
 <div class="scoping-content-container">
     <section id="funds">
         <div id="funds-heading">
+            <button motifButton color="primary" (click)="approveModal = true">Approve</button>
             <motif-form-field>
                 <input #fundsSearch motifInput motifSearch type="text" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
             </motif-form-field>
         </div>
+        <div >
+            
+        </div>
         <div id="fund-grid-wrapper" [hidden]="searchNoDataAvilable">
-            <ag-grid-angular
+            <motif-table [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" (gridReady)="onGridReady($event)"
+                [suppressRowClickSelection]="true" [suppressCellSelection]="true" [domLayout]="domLayout"
+                ></motif-table>
+            <!-- <ag-grid-angular
                 class="ag-theme-alpine"
                 (gridReady)="onGridReady($event)"
                 [columnDefs]="columnDefs"
                 [rowData]="rowData"
                 [rowClass]="rowClass"
                 [domLayout]="domLayout"
-            ></ag-grid-angular>
+            ></ag-grid-angular> -->
         </div>
     
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
@@ -56,5 +47,22 @@
             id="motifDropdown"
         ></motif-icon>
     </ng-template>
+
+    <motif-modal [show]="approveModal" (close)="approveModal = false">
+        <motif-modal-header>
+        Approve all
+        </motif-modal-header>
+        <motif-modal-body>
+            <p>
+            Are you sure you want to approve all funds for client review? Your client will be able to review and approve funds for cycle kickoff.
+            </p>
+        </motif-modal-body>
+        <motif-modal-footer>
+            <button motifButton class="approve-yes" color="primary" (click)="onSubmitApproveFunds()">Yes</button>
+            <button motifButton class="approve-no" color="secondary" (click)="approveModal = false">No</button>
+        </motif-modal-footer>
+    </motif-modal>
+
+    <motif-toast [type]="'success'"  [show]="showToastAfterApproveFunds" (close)="showToastAfterApproveFunds = !showToastAfterApproveFunds">Approved successfully</motif-toast>
 </div>
 
