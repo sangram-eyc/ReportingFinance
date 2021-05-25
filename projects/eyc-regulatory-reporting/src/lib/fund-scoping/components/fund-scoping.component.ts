@@ -15,6 +15,12 @@ export class FundScopingComponent implements OnInit {
   ) { }
 
   searchNoDataAvilable = false;
+  approveModal = false;
+  showToastAfterApproveFunds = false;
+  status = {
+    stage: 'Fund Scoping',
+    progress: 'in-progress'
+  };
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -108,6 +114,28 @@ export class FundScopingComponent implements OnInit {
   searchFunds(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+  }
+
+  onSubmitApproveFunds() {
+    this.status = {
+      stage: 'Fund Scoping',
+      progress: 'completed'
+    }
+    this.approveModal = false;
+    this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+
+    // this.userService.addUser(obj).subscribe(resp => {
+    //   this.approveModal = false;
+    //   if (resp) {
+    //     this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+    //     setTimeout(() => {
+    //       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+    //     }, 5000);
+    //   }
+
+    // }, error => {
+    //   this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+    // });
   }
 
 }
