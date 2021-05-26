@@ -26,7 +26,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit {
   ];
 
   selectedFiling = "Form PF";
-  selectedPeriod = "Q3 2020";
+  selectedPeriod = "Q3 2021";
   constructor(
     private router: Router
   ) { }
