@@ -29,7 +29,7 @@
             <motif-progress-step *ngFor="let state of states;let i=index" title="{{state['stage']}}"
               [ngClass]="this.router.url === state['url'] ? 'progress-active' : '' " subtitle=""
               [disabled]="disState(i)" class="{{state['customCls']}}"
-              [status]="getStatus(i)" (click)="handleStepClick($event, state['curState'] , i)">
+              [status]="getStatus(i)" (click)="handleStepClick(state['url'], disState(i))">
             </motif-progress-step>
           </motif-progress-indicators>
         </div>
