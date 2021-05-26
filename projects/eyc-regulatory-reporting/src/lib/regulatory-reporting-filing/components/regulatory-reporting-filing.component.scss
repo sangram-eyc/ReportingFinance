@@ -265,6 +265,35 @@
   justify-content: center;
 }
 
+.motif-pagination-select-wrapper {
+  position: relative;
+  text-align: right;
+  top: rem(-5);
+  right: rem(60);
+}
+
+.motif-dropdown {
+  position: absolute !important;
+  top: 9px;
+  right: 7px;
+
+  &.motif-pagination-select {
+    position: relative !important;
+    bottom: 55px;
+    right: 350px;
+    top: unset;
+
+      .motif-dropdown-trigger {
+          line-height: unset;
+          width: unset;
+
+          .motif-icon-button {
+              display: flex;
+          }
+      }
+  }
+}
+
 // ::ng-deep .row-style {
 //   margin-top: -60px;
 //     position: relative;
