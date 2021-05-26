@@ -100,12 +100,6 @@ setToken = (value) => {
 		return claims;
 	}
 
-	public getUserProfile() {
-		this.oauthService.loadUserProfile().then(user => {
-        console.log('user : ', user);
-        const abc = user;
-			});
-  }
   
   // Cancel Pending HTTP calls
   public cancelPendingRequests() {
