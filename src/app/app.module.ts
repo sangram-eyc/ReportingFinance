@@ -77,11 +77,11 @@ import { SettingsService } from './services/settings.service';
     useClass: LoaderInterceptor,
     multi: true
   },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: CancelHttpCallsInterceptor,
-    multi: true
-  },
+  // {
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: CancelHttpCallsInterceptor,
+  //   multi: true
+  // },
   {
     provide: APP_INITIALIZER,
     useFactory: resourceProviderFactory,
