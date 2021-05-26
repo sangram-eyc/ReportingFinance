@@ -70,11 +70,11 @@ export class DotsCardComponent implements OnInit, OnChanges {
   setStatus() {
     let currentStatusFound = false;
     this.states.forEach( state => {
-      if (this.status.stage === state.stage) {
-        state['curState'] = this.status.progress;
+      if (this.status['stage'] === state.stage) {
+        state['curState'] = this.status['progress'];
         currentStatusFound = true;
         state['disabled'] = false;
-      } else if (this.status.stage !== state.stage && currentStatusFound === false) {
+      } else if (this.status['stage'] !== state.stage && currentStatusFound === false) {
         state['curState'] = 'completed';
         state['disabled'] = false;
       } else {

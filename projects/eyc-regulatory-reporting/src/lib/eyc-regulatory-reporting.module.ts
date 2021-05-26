@@ -19,6 +19,7 @@ import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/compone
 import { DataExplorerForReportingAndClientComponent } from './data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
 import { FormsModule } from '@angular/forms';
 
+import {EycRrApiService} from './services/eyc-rr-api.service';
 
 
 
@@ -42,6 +43,8 @@ import { FormsModule } from '@angular/forms';
     MotifChipModule,
     MotifModalModule,
     MotifToastModule
+    
+    
   ],
   declarations: [
     RegulatoryReportingFilingComponent,

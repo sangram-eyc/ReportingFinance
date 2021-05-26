@@ -6,10 +6,9 @@ import { Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class EycRrApiService {
 
-  constructor(private httpClient: HttpClient, ) { }
-
+  constructor(private httpClient: HttpClient,) { }
   private setHeaders() {
     const headersConfig = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ export class ApiService {
   }
 
     /*--------------GENERIC API FOR GET METHOD-------------*/
-    invokeGetAPI(url: string): Observable<any> {
+    invokeGetAPI(url: string): Observable<Response> {
       const headers = this.setHeaders();
       return this.httpClient.get<any>(url, { headers });
     }

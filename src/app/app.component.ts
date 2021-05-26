@@ -7,6 +7,7 @@ import { LoaderService } from './services/loader.service';
 import {SettingsService} from './services/settings.service';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,8 +28,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked {
     private loaderService: LoaderService, 
     private router: Router,
     private cdRef : ChangeDetectorRef,
-    private settingsService: SettingsService,){
+    private settingsService: SettingsService){
     // To hide header and footer from login page
+  
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -38,18 +40,19 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked {
   }
 
  
-
-  ngAfterContentChecked() : void {
+  ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
-}
+    
+  }
 
 
   ngAfterViewChecked() {
 
     setTimeout(() => {
-      
 
       if (this.settingsService.isUserLoggedin()) {
+        
+      
         const uname = this.oauthservice.getIdentityClaims();
         if (uname) {
           this.userGivenName = uname['given_name'];
@@ -128,4 +131,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked {
       this.opensubmenu = toggleId;
     }
   }
+
+  
+  
 }

@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { OAuthService} from 'angular-oauth2-oidc';
-import { LOCAL_STORAGE_ID_CURRENT_USER_SESSION } from '../helpers';
+import { LOCAL_STORAGE_ID_CURRENT_USER_SESSION,authDetailsModel } from '../helpers';
 import { authConfig } from '../helpers';
 import { HttpClient } from '@angular/common/http';
 import {SettingsService} from '../../services/settings.service';
+import { Router} from '@angular/router';
+import {ApiService} from '../../services/api.service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +15,13 @@ import {SettingsService} from '../../services/settings.service';
 export class OauthService {
 
   constructor(private oauthService: OAuthService, private storageService: SettingsService,
-    private httpClient: HttpClient) {
-    this.oauthService.configure(authConfig);
+    private httpClient: HttpClient,private router: Router,private apiService: ApiService) {
+	this.oauthService.configure(authConfig);
     this.oauthService.setupAutomaticSilentRefresh();
 	this.oauthService.tryLogin({});
 	
     if (this.oauthService.getAccessToken()) {
 	  this.getAccessToken();
-	 
 	}
 	
 	
@@ -42,11 +45,11 @@ export class OauthService {
 	public getAccessToken() {
 		console.log('inside getAccessToken');
 		console.log(this.oauthService.getAccessToken());
-		//sessionStorage.setItem(LOCAL_STORAGE_ID_CURRENT_USER_SESSION, this.oauthService.getAccessToken());
-		this.storageService.setToken(this.oauthService.getAccessToken())
-		
-  }
-  
+		this.storageService.setToken(this.oauthService.getAccessToken());
+		this.router.navigate(['/home']);
+	}
+
+	
   public get name() {
 		const claims = this.oauthService.getIdentityClaims();
 		if (!claims) {
@@ -73,4 +76,9 @@ export class OauthService {
 			})
 			.catch(err => console.log('refresh error', err));
 	}
+
+	
 }
+
+
+
