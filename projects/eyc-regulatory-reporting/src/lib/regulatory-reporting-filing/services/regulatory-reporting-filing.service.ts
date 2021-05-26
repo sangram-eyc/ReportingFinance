@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+import {EycRrApiService} from '../../services/eyc-rr-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +8,19 @@ import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 export class RegulatoryReportingFilingService {
 
   constructor(
-    private http: HttpClient,private settingsService: EycRrSettingsService
+    private apiService: EycRrApiService,private settingsService: EycRrSettingsService
   ) { }
 
 
   getFilings() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http.get(this.settingsService.API_ENDPOINT+ 'assets/mock/filings.json', {
-      headers
-    });
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
+  }
+  getFilingsHistory(noOfRecords) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}${noOfRecords}`);
+  }
+
+  getFilingSearch(noOfRecords) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_search}${noOfRecords}`);
   }
 
 }

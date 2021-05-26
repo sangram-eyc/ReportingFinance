@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import {SESSION_ACCESS_TOKEN,SESSION_ENCRYPTION_KEY,SESSION_ID_TOKEN,ID_ENCRYPTION_KEY} from './settings-helpers';
 import { environment } from '../../environments/environment';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { OAuthService} from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
+import {authConfig} from '../login/helpers'
+import { HttpClient } from '@angular/common/http';
+import {authorization} from '../helper/api-config-helper';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SettingsService {
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService,private http: HttpClient) { }
   public API_ENDPOINT = environment.apiEndpoint;
-  private errors = new Subject<string[]>();
+  private pendingHTTPRequests$ = new Subject<void>();
 // AUTHTOKEN FUNCTIONS
 setToken = (value) => {
   const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
@@ -102,7 +105,35 @@ setToken = (value) => {
         console.log('user : ', user);
         const abc = user;
 			});
-	}
+  }
+  
+  // Cancel Pending HTTP calls
+  public cancelPendingRequests() {
+    this.pendingHTTPRequests$.next();
+  }
+
+  public onCancelPendingRequests() {
+    return this.pendingHTTPRequests$.asObservable();
+  }
+
+  loadAuthDetails() {
+    return new Promise((resolve, reject) => {
+      //An Http Get to my API to get the available authdetails
+      this.http.get(`${authorization.auth_Details}`).subscribe(res => {
+        //set the authdetails to authconfig to initialize the implict login
+        authConfig.loginUrl = res['authenticationUrl'];
+        authConfig.logoutUrl = res['logoutUrl'];
+        authConfig.redirectUri = environment.AUTH_PROD ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' + res['redirectUrl'] : environment.SERVICE_URL + res['redirectUrl'];
+        authConfig.clientId = res['clientId'];
+        authConfig.silentRefreshRedirectUri = environment.AUTH_PROD ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' + res['silentRefreshRedirectUri'] : this.API_ENDPOINT + res['silentRefreshRedirectUri'];
+        authConfig.resource = res['resource'];
+        resolve(true);
+
+      })
+    });
+
+  }
 
 }
+
 

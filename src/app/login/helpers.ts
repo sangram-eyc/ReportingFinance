@@ -1,5 +1,5 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
-import { oAuthConfig } from '../../environments/environment'
+import {oAuthConfig} from '../services/settings-helpers';
 
 export const MAX_AUTHENTICATION_ATTEMPTS = 3;
 export const MIN_PASSWORD_LENGTH = 8;
@@ -80,21 +80,31 @@ export const deleteUserSession = (): void => {
  * https://login.microsoftonline.com/<YOURTENANT>.onmicrosoft.com/.well-known/openid-configuration
  * and https://login.microsoftonline.com/<YOURTENANT>.onmicrosoft.com/discovery/keys
  */
+export const authDetailsModel ={
+    loginUrl: "",
+    logoutUrl:"",
+    redirectUri: "",
+    tenant: "",
+    silentRefreshRedirectUri: "",
+    clientId:"",
+    resource:""
+}
+
 export const authConfig: AuthConfig = {
 	issuer: oAuthConfig.issuer,
 	// URL of the SPA to redirect the user to after login
-	redirectUri: oAuthConfig.redirectUri,
+	redirectUri: " ",
 	// The SPA's id. The SPA is registerd with this id at the auth-server
-	clientId: oAuthConfig.clientId,
+	clientId:"",
 	// set the scope for the permissions the client should request
 	// The first three are defined by OIDC.
 	scope: oAuthConfig.scope,
-	logoutUrl: oAuthConfig.logoutUrl,
+	logoutUrl: "",
 	// The auth server's endpoint that allows to log
 	// the user in when using implicit flow.
-	loginUrl: oAuthConfig.loginUrl,
+	loginUrl: "",
 	// BE resource url
-	resource: oAuthConfig.resource,
+	resource: "",
 	responseType:oAuthConfig.responseType,
 	clearHashAfterLogin:oAuthConfig.clearHashAfterLogin,
 	// URL to redirect to after logout
@@ -111,8 +121,7 @@ export const authConfig: AuthConfig = {
 				n: oAuthConfig.jwks.keys[0].n
 			}]
 	}, 
-	silentRefreshRedirectUri: oAuthConfig.silentRefreshRedirectUri,
+	silentRefreshRedirectUri: "",
 	siletRefreshTimeout:oAuthConfig.silentRefreshTimeout,
 	timeoutFactor:oAuthConfig.timeoutFactor,
-	
 };

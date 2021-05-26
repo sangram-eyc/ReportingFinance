@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 import * as userAuthHelpers from '../services/settings-helpers';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { SettingsService } from '../services/settings.service';
+import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID} from '../services/settings-helpers';
+import {token_interceptor} from '../helper/api-config-helper';
 
 
 @Injectable()
@@ -15,43 +17,69 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(private settingService: SettingsService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (environment.SECURITY_ENABLED) {
-            console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
-            if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
-                const currentUserToken = this.settingService.getToken();
-                const urlString = request.url;
-                console.log('url : ' + urlString);
-                request = request.clone({
-                    headers: new HttpHeaders({
-                        Authorization: `Bearer ${currentUserToken}`
-                    }),
-                    url: urlString
-                });
-                if (currentUserToken && request.url.includes(location.origin)) {
+        const abcd = request.url.indexOf(token_interceptor.auth_Header);
+        if (request.url.indexOf(token_interceptor.auth_Header) !== -1) {
+            console.log('policy');
+            console.log( request.url.indexOf(token_interceptor.auth_Header));
+           
+                 const urlString = request.url;
+                    console.log('url : ' + urlString);
                     request = request.clone({
                         headers: new HttpHeaders({
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${currentUserToken}`
-                        })
+                            
+                            //    Authorization: `Bearer ${currentUserToken}`
+                            
+                        }),
+                        url: urlString
                     });
-
+                    
+                    // install an error handler
+                    return next.handle(request)
+                        .pipe(
+                            catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
+                        );
+                
+            
+            
+        }
+        else
+        {
+            if (environment.SECURITY_ENABLED) {
+                console.log('Banda');
+                console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
+                if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
+                    const currentUserToken = this.settingService.getToken();
+                    const urlString = request.url;
+                    console.log('url : ' + urlString);
+                    request = request.clone({
+                        headers: new HttpHeaders({
+                            
+                                Authorization: `Bearer ${currentUserToken}`
+                            
+                        }),
+                        url: urlString
+                    });
+                    if (currentUserToken && request.url.includes(location.origin)) {
+                        request = request.clone({
+                            headers: new HttpHeaders({
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${currentUserToken}`
+                            })
+                        });
+    
+                    }
+                    // install an error handler
+                    return next.handle(request)
+                        .pipe(
+                            catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
+                        );
                 }
-                // install an error handler
-                return next.handle(request)
-                    .pipe(
-                        catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
-                    );
+            }
+            if (ID_TOKEN) {
+                
             }
         }
-        else if (!environment.SECURITY_ENABLED) {
-            const accessTokenValue = localStorage.getItem('USER_TOKEN');
-            const urlString = request.url;
-            // install an error handler
-            return next.handle(request)
-                .pipe(
-                    catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
-                );
-        }
+      
         return new EmptyObservable();
     }
 

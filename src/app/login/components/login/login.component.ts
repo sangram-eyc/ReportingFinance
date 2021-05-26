@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute,Event, NavigationStart, NavigationEnd, NavigationError  } from '@angular/router';
+import { Router,ActivatedRoute} from '@angular/router';
 import {OauthService} from '../../services/oauth.service';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
+import { OAuthService} from 'angular-oauth2-oidc';
 import {SettingsService} from '../../../services/settings.service';
+import {EYC_LOGIN} from '../../../services/settings-helpers';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import {SettingsService} from '../../../services/settings.service';
 export class LoginComponent implements OnInit {
 
   isLoogedInUser = false;
+  isEycLogin = EYC_LOGIN;
   constructor(private router: Router,private oauthSvc: OauthService,
     private oauthService: OAuthService,
     private activatedRoute: ActivatedRoute,private settingsService: SettingsService) { 
@@ -19,34 +21,32 @@ export class LoginComponent implements OnInit {
  }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
+    if (EYC_LOGIN) {
+      this.eycWebApplogin();
+    }
+      this.activatedRoute.queryParams.subscribe(params => {
       if (params['logout'] === 'true') {
-        this.oauthSvc.logoff();
-
+        this.isLoogedInUser = false;
       }
-      else {
-        this.eycWebApplogin();
-        if (this.oauthService.getIdToken()) {
-          this.settingsService.setIdToken(this.oauthService.getIdToken());
-          }
-      }
-
+      
+      
     });
     
 }
 
-  routeToHome(){
-    this.router.navigate(['/home'])
+  routeToHome() {
+    if (!EYC_LOGIN) {
+      this.eycWebApplogin();
+      
+    }
   }
-
-  eycWebApplogin()
-  {
-   
+  eycWebApplogin() {
+  
     if (!this.oauthService.getAccessToken()) {
       this.oauthSvc.login();
     }
     else {
-      this.routeToHome();
+      this.router.navigate(['/home'])
     }
   }
 }

@@ -28,6 +28,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   upcomingFilings: any[] = [];
   upcomingLeftBtnDisabled = true;
   upcomingRightBtnDisabled = false;
+  filingResp: any[] = [];
   
   searchNoDataAvilable = false;
   slideConfig = {
@@ -166,6 +167,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
 
   getFilingsData() {
     this.filingService.getFilings().subscribe(resp => {
+      this.filingResp.push(resp);
       resp['data'].forEach((item) => {
         const eachitem: any  = {
           name: item.name + ' // ' + item.period,
