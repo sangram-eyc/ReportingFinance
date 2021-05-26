@@ -97,6 +97,33 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  dataset = [{
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+      },
+      {
+    disable: false,
+    value: 25,
+    name: '25',
+    id: 1
+      },
+      {
+    disable: false,
+    value: 50,
+    name: '50',
+    id: 2
+  }];
+  currentlySelectedPageSize = {
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  };
+    
+  pageSize;
+
 
   ngOnInit(): void {
     this.getFilingsData();
@@ -288,6 +315,11 @@ export class RegulatoryReportingFilingComponent implements OnInit {
       this.upcomingRightBtnDisabled = false;
     }
   }
+
+  updatePaginationSize(newPageSize: number) {
+    this.gridApi.paginationSetPageSize(newPageSize);
+  }
+
   // upcomingPrevSlide(){
   //   const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
   //   if (currentSlide > 0) {

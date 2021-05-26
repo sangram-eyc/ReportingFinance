@@ -118,11 +118,15 @@ export class FundScopingComponent implements OnInit {
 
   onSubmitApproveFunds() {
     this.status = {
-      stage: 'Fund Scoping',
-      progress: 'completed'
+      stage: 'Intake',
+      progress: 'in-progress'
     }
+    
     this.approveModal = false;
     this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+        setTimeout(() => {
+          this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+        }, 5000);
 
     // this.userService.addUser(obj).subscribe(resp => {
     //   this.approveModal = false;

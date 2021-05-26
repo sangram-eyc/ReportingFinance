@@ -58,16 +58,22 @@
             [rowHeight]="74"
             [rowClass]="rowClass"
             [domLayout]="domLayout"
-            [paginationPageSize]="10"
+            [paginationPageSize]="currentlySelectedPageSize.value"
             [pagination]="true"
         ></ag-grid-angular>
+
+        <div class="motif-pagination-select-wrapper">
+            <div class="motif-dropdown motif-dropdown-bottom-left motif-pagination-select">
+              <ng-container [ngTemplateOutlet]="paginationSelectTemplate"></ng-container>
+            </div>
+        </div>
+
     </div>
 
     <motif-card class="no_data" *ngIf="searchNoDataAvilable">
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
-       
     </motif-card>
 </section>
 
@@ -83,5 +89,9 @@
         [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
         id="motifDropdown"
     ></motif-icon>
+</ng-template>
+
+<ng-template #paginationSelectTemplate>
+    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
 </ng-template>
 
