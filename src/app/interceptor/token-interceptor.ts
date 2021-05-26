@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
         else
         {
             if (environment.SECURITY_ENABLED) {
-                console.log('Banda');
+               
                 console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
                 if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
                     const currentUserToken = this.settingService.getToken();
