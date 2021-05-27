@@ -79,18 +79,25 @@ export class SubmissionComponent implements OnInit {
 
   onRowSelected(event: any): void {
     if (this.selectedRows.includes(event.data)) {
-        this.selectedRows.splice(this.selectedRows.findIndex(item => item.fileName === event.data.fileName), 1)
+        this.selectedRows.splice(this.selectedRows.findIndex(item => item.fileId === event.data.fileId), 1)
     }else {
       this.selectedRows.push(event.data)
     }
   }
   
-  approveSelected(){​​​​​​​​
+  approveSelected() {​​​​​​​​
     console.log(this.selectedRows);
+
+     this.selectedRows.forEach((item) => {
+        const FileSaver = require('file-saver');
+        this.service.downloadXMl(item.fileId).subscribe((res: any) => {
+         
+            const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(res.body, item.fileName + '.xml');
+          
+        });
+
+      });
   }​​​​​​​​
-
-
-
-  
 
 }

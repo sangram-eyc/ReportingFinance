@@ -1,28 +1,6 @@
 .submission-content-container {
     position: relative;
-    top: 60px;l
-
-
-    .approve-button {
-        padding: 26px 12px 12px 12px;
-        background: #fff;
-        border-left: 1px solid #e1e1e6;
-        border-right: 1px solid #e1e1e6;
-        button {
-            position: relative;
-            font-family: EYInterstate !important;
-            font-size: 16px;
-            font-style: normal;
-            border: 1px solid #2E2E38;
-            color: #FFFFFF !important;
-            // background: #C4C4CD  !important;
-        }
-        // button:hover {
-        //     background-color: var(--btn-primary-bg-color);
-        //     border-color: var(--btn-primary-border-color);
-        //     color: var(--btn-primary-color);
-        // }
-    }
+    top: 60px;
 
     ::ng-deep{
         .motif-button {
