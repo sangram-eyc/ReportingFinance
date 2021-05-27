@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class DotsCardComponent implements OnInit, OnChanges {
 
   @Input() status: Object = {
-    stage: 'Reporting',
+    stage: 'Submission',
     progress: 'in-progress'
   };
 
