@@ -26,6 +26,7 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import {CancelHttpCallsInterceptor} from './interceptor/cancel-http-calls.interceptor';
 import { APP_INITIALIZER } from '@angular/core';
 import { SettingsService } from './services/settings.service';
+import {EncyptTokenInterceptor} from './interceptor/encypt-token.interceptor';
 
 
 @NgModule({
@@ -77,17 +78,22 @@ import { SettingsService } from './services/settings.service';
     useClass: LoaderInterceptor,
     multi: true
   },
-  // {
-  //   provide: HTTP_INTERCEPTORS,
-  //   useClass: CancelHttpCallsInterceptor,
-  //   multi: true
-  // },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: CancelHttpCallsInterceptor,
+    multi: true
+  },
   {
     provide: APP_INITIALIZER,
     useFactory: resourceProviderFactory,
     deps: [SettingsService],
     multi: true
     },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: EncyptTokenInterceptor,
+    //   multi: true
+    // },
   ],
   bootstrap: [AppComponent],
   
