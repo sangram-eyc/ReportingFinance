@@ -117,9 +117,9 @@ setToken = (value) => {
         //set the authdetails to authconfig to initialize the implict login
         authConfig.loginUrl = res['authenticationUrl'];
         authConfig.logoutUrl = res['logoutUrl'];
-        authConfig.redirectUri = environment.AUTH_PROD ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' + res['redirectUrl'] : this.API_ENDPOINT + res['redirectUrl'];
+        authConfig.redirectUri = environment.production ? environment.apiEndpoint +  res['redirectUrl'] : this.API_ENDPOINT + res['redirectUrl'];
         authConfig.clientId = res['clientId'];
-        authConfig.silentRefreshRedirectUri = environment.AUTH_PROD ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' + res['silentRefreshRedirectUri'] : this.API_ENDPOINT + res['silentRefreshRedirectUri'];
+        authConfig.silentRefreshRedirectUri = environment.apiEndpoint ? environment.apiEndpoint +  res['silentRefreshRedirectUri'] : this.API_ENDPOINT + res['silentRefreshRedirectUri'];
         authConfig.resource = res['resource'];
         resolve(true);
 
