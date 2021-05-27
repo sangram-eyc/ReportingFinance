@@ -26,7 +26,7 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import {CancelHttpCallsInterceptor} from './interceptor/cancel-http-calls.interceptor';
 import { APP_INITIALIZER } from '@angular/core';
 import { SettingsService } from './services/settings.service';
-import {EncyptTokenInterceptor} from './interceptor/encypt-token.interceptor';
+
 
 
 @NgModule({
