@@ -10,14 +10,23 @@ import { RrReportingService } from '../services/rr-reporting.service';
 export class RrReportingComponent implements OnInit {
 
   tabs = 1
-  constructor(private rrservice:RrReportingService) { }
+  selectedRows = [];
+  approveFilingEntitiesModal = false;
+  showToastAfterApproveFilingEntities = false;
+
+  status = {
+    stage: 'Reporting',
+    progress: 'in-progress'
+  };
+
+  constructor(private rrservice: RrReportingService) { }
 
   ngOnInit(): void {
-    this.rrservice.getfilingEntities().subscribe(res=> {
-      this.rowData = res['data']      
+    this.rrservice.getfilingEntities().subscribe(res => {
+      this.rowData = res['data']
     })
   }
-  
+
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
@@ -31,8 +40,13 @@ export class RrReportingComponent implements OnInit {
 
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    const thisIsFirstColumn = displayedColumns[0] === params.column;
-    return thisIsFirstColumn;
+    if (params.data) {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approve === false);
+      return thisIsFirstColumn;
+    } else {
+      const thisIsFirstColumn = displayedColumns[0] === params.column;
+      return thisIsFirstColumn;
+    }
   };
 
   ngAfterViewInit(): void {
@@ -44,7 +58,7 @@ export class RrReportingComponent implements OnInit {
           cellRendererParams: {
             ngTemplate: this.dropdownTemplate,
           },
-          field: 'template',
+          field: 'approve',
           // headerComponentParams: {
           //   dataColumn: false,
           //   ngTemplate: this.headerTemplate,
@@ -114,10 +128,31 @@ export class RrReportingComponent implements OnInit {
 
 
   onRowSelected(event: any): void {
-    console.log('Row Selected: ', event);
+    this.selectedRows = this.gridApi.getSelectedRows();
   }
 
   receiveMessage($event) {
     this.tabs = $event
+  }
+
+  onSubmitApproveFilingEntities() {
+    console.log(this.selectedRows);
+    this.selectedRows.forEach(ele => {
+      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true
+    });
+    this.ngAfterViewInit()
+    this.selectedRows = []
+    if (this.rowData.every(item => item.approve === true)) {
+      this.status = {
+        stage: 'Client Review',
+        progress: 'in-progress'
+      };
+    }
+
+    this.approveFilingEntitiesModal = false;
+    this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    setTimeout(() => {
+      this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    }, 5000);
   }
 }

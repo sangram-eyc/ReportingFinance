@@ -8,7 +8,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -16,7 +17,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust A",
@@ -24,7 +26,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -32,7 +35,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -40,7 +44,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -48,7 +53,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -56,7 +62,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust A",
@@ -64,7 +71,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -72,7 +80,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust A",
@@ -80,7 +89,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -88,7 +98,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust B",
@@ -96,7 +107,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust B",
@@ -104,7 +116,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust B",
@@ -112,7 +125,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -120,7 +134,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -128,7 +143,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -136,7 +152,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         },
         {
             "entityGroup": "Trust B",
@@ -144,7 +161,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -152,7 +170,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": false
         },
         {
             "entityGroup": "Trust B",
@@ -160,7 +179,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": ""
+            "comments": "",
+            "approve": true
         }
     ]
 }

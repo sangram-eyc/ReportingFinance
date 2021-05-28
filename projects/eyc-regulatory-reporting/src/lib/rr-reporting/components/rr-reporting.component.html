@@ -1,33 +1,63 @@
-
-<lib-dots-card></lib-dots-card>
+<lib-dots-card [status]="status"></lib-dots-card>
 
 
 <lib-reporting-tabs-card (messageEvent)="receiveMessage($event)"></lib-reporting-tabs-card>
 
 
 <div class="reporting-content-container">
-<section id="filingEntities" [hidden]="!(tabs==2)">
-    <div >
-        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
+    <section id="filingEntities" [hidden]="!(tabs==2)">
+        <div class="approve-button">
+            <button motifButton color="primary" size="large" (click)="approveFilingEntitiesModal = true;"
+                [disabled]="selectedRows.length==0">Approve selected</button>
+
+        </div>
+        <div>
+            <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
     headerCheckboxSelection: isFirstColumn,
     checkboxSelection: isFirstColumn
     }" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
-            [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
-            (rowSelected)="onRowSelected($event)"></motif-table>
-    </div>
-    <!-- CUSTOM TEMPLATE -->
-    <ng-template #headerTemplate>
-        <div>
-            <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
-                tabindex="0"></motif-icon>
+                [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false"
+                paginationPageSize="10" (rowSelected)="onRowSelected($event)"></motif-table>
         </div>
-    </ng-template>
-    <ng-template #dropdownTemplate>
-        <div>
-            <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
-            </motif-icon>
-        </div>
-    </ng-template>    
-</section>
-    
+        <!-- CUSTOM TEMPLATE -->
+        <ng-template #headerTemplate>
+            <div>
+                <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
+                    tabindex="0"></motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #dropdownTemplate let-row>
+            <div class="dropdownTemplate">
+                <motif-icon class="complete" *ngIf="row.approve == true"
+                    [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                    tabindex="0">
+                </motif-icon>
+            </div>
+        </ng-template>
+      
+
+        <motif-modal [show]="approveFilingEntitiesModal" (close)="approveFilingEntitiesModal = false">
+            <motif-modal-header>
+                Approve Filing Entities
+            </motif-modal-header>
+            <motif-modal-body>
+                <p>
+                    Are you sure you want to approve filing entities?
+                </p>
+            </motif-modal-body>
+            <motif-modal-footer>
+                <button motifButton class="approve-yes" color="primary"
+                    (click)="onSubmitApproveFilingEntities()">Yes</button>
+                <button motifButton class="approve-no" color="secondary"
+                    (click)="approveFilingEntitiesModal = false">No</button>
+            </motif-modal-footer>
+        </motif-modal>
+
+        <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
+            (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
+        </motif-toast>
+
+    </section>
+
 </div>

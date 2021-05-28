@@ -55,4 +55,91 @@
     ::ng-deep .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
         color: #23232F;
     }
+
+    .approve-button {
+        padding: 26px 12px 12px 12px;
+        background: #fff;
+        border-left: 1px solid #e1e1e6;
+        border-right: 1px solid #e1e1e6;
+
+        .motif-button {
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            text-align: right !important;
+            border: 0px !important;
+        }
+        .motif-button:hover {
+            background-color: var(--btn-primary-bg-color) !important;
+            color: var(--btn-primary-color) !important;
+        }
+        .motif-button:disabled {
+            background-color: #C4C4CD !important;
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            text-align: right !important;
+            color: #FFFFFF !important;
+        }
+        *:focus {
+            box-shadow: none !important;
+        }
+        
+    }
+    .dropdownTemplate {
+        display: flex;
+        .complete {
+            margin-right: 4px;
+            ::ng-deep svg {
+                fill: #168736;
+            }
+        }
+    }
 }
+
+::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+  }
+  
+  .approve-no  {
+        height: 44px;
+        color: var(--btn-primary-color) !important;
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        background-color: var(--btn-secondary-bg-color) !important;
+    }
+  .approve-yes {
+        height: 44px;
+        background-color: var(--btn-primary-bg-color) !important;
+        color: var(--btn-primary-color) !important;
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+  }
+  
+  ::ng-deep .motif-modal-content {
+    width: 400px !important;
+  }
+  
+  .motif-modal-body {
+    p {
+      font-family: EYInterstate;
+    }
+  }
