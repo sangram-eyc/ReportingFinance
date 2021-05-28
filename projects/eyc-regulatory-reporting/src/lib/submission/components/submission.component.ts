@@ -78,11 +78,7 @@ export class SubmissionComponent implements OnInit {
 
 
   onRowSelected(event: any): void {
-    if (this.selectedRows.includes(event.data)) {
-        this.selectedRows.splice(this.selectedRows.findIndex(item => item.fileId === event.data.fileId), 1)
-    }else {
-      this.selectedRows.push(event.data)
-    }
+    this.selectedRows = this.gridApi.getSelectedRows();
   }
   
   approveSelected() {​​​​​​​​
