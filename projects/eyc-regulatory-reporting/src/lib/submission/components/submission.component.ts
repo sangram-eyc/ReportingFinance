@@ -88,16 +88,16 @@ export class SubmissionComponent implements OnInit {
   approveSelected() {​​​​​​​​
     console.log(this.selectedRows);
 
-    //  this.selectedRows.forEach((item) => {
-    //     const FileSaver = require('file-saver');
-    //     this.service.downloadXMl(item.fileId).subscribe((res: any) => {
+     this.selectedRows.forEach((item) => {
+        const FileSaver = require('file-saver');
+        this.service.downloadXMl(item.fileId).subscribe((res: any) => {
          
-    //         const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
-    //         FileSaver.saveAs(res.body, item.fileName + '.xml');
+            const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(res.body, item.fileName + '.xml');
           
-    //     });
+        });
 
-    //   });
+      });
   }​​​​​​​​
 
 }

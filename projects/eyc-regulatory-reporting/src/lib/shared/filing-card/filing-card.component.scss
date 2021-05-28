@@ -171,8 +171,8 @@
                     background-color: #FFFFFF !important
                 }
                 &.in-progress {
-                    border: 1px solid #34C768 !important;
-                    background-color: #34C768 !important;
+                    // border: 1px solid #34C768 !important;
+                    // background-color: #34C768 !important;
                 }
                 .inner {
                     visibility: hidden !important;
@@ -188,6 +188,21 @@
         }
     }
 }
+
+::ng-deep {
+    .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
+        width: 8px !important;
+        height: 8px !important;
+        left: 2px !important;
+        top: 2px !important;
+        visibility: visible !important;
+    }
+    .motif-step-container .step-info .step-dot.in-progress {
+        border: 1px solid #000000 !important;
+        background: #FFFFFF !important;
+    }
+}
+
 
 
 
