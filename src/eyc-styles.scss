@@ -515,9 +515,18 @@ h4 {
 }
 
 .motif-form-field .motif-label {
-  font-family: EYInterstate;
+  font-family: EYInterstate !important;
 }
 
 .motif-button {
-  font-family: EYInterstate;
+  font-family: EYInterstate !important;
+}
+::placeholder { 
+  font-family: EYInterstate !important;
+}
+.mat-typography p {
+  font-family: EYInterstate !important;
+}
+span.motif-avatar-initials {
+  font-family: EYInterstate !important;
 }
