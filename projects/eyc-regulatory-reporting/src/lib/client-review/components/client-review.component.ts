@@ -10,15 +10,18 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 })
 export class ClientReviewComponent implements OnInit {
 
-  tabs = 1
-  constructor(private service:ClientReviewService) { }
+  constructor(private service: ClientReviewService) { }
 
-  ngOnInit(): void {
-    this.service.getfilingEntities().subscribe(res=> {
-      this.rowData = res['data']      
-    })
-  }
-  
+  tabs = 1;
+  selectedRows = [];
+  approveFilingEntitiesModal = false;
+  showToastAfterApproveFilingEntities = false;
+
+  status = {
+    stage: 'Client Review',
+    progress: 'in-progress'
+  };
+
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
@@ -30,11 +33,22 @@ export class ClientReviewComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  ngOnInit(): void {
+    this.service.getfilingEntities().subscribe(res => {
+      this.rowData = res['data'];
+    });
+  }
+
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    const thisIsFirstColumn = displayedColumns[0] === params.column;
-    return thisIsFirstColumn;
-  };
+    if (params.data) {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approve === false);
+      return thisIsFirstColumn;
+    } else {
+      const thisIsFirstColumn = displayedColumns[0] === params.column;
+      return thisIsFirstColumn;
+    }
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -46,10 +60,6 @@ export class ClientReviewComponent implements OnInit {
             ngTemplate: this.dropdownTemplate,
           },
           field: 'template',
-          // headerComponentParams: {
-          //   dataColumn: false,
-          //   ngTemplate: this.headerTemplate,
-          // },
           headerName: '',
           width: 70,
           sortable: false,
@@ -59,7 +69,6 @@ export class ClientReviewComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
           field: 'entityGroup',
-          // width: 350,
           sortable: true,
           filter: true,
         },
@@ -110,16 +119,32 @@ export class ClientReviewComponent implements OnInit {
 
   handleGridReady(params) {
     this.gridApi = params.api;
-    console.log('GRID API: ', params);
-  };
-
+  }
 
   onRowSelected(event: any): void {
-    console.log('Row Selected: ', event);
+    this.selectedRows = this.gridApi.getSelectedRows();
   }
 
   receiveMessage($event) {
-    this.tabs = $event
+    this.tabs = $event;
   }
 
+  onSubmitApproveFilingEntities() {
+    this.selectedRows.forEach(ele => {
+      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true;
+    });
+    this.ngAfterViewInit();
+    this.selectedRows = [];
+    if (this.rowData.every(item => item.approve === true)) {
+      this.status = {
+        stage: 'Submission',
+        progress: 'in-progress'
+      };
+    }
+    this.approveFilingEntitiesModal = false;
+    this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    setTimeout(() => {
+      this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    }, 5000);
+  }
 }
