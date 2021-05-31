@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EycRrApiService } from '../../services/eyc-rr-api.service';
 import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 
 @Injectable({
@@ -8,15 +9,10 @@ import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 export class RrReportingService {
 
   constructor(
-    private http: HttpClient ,private settingsService: EycRrSettingsService
+    private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
   getfilingEntities() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/filingEntities.json', {
-      headers
-    });
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}`);
   }
 }

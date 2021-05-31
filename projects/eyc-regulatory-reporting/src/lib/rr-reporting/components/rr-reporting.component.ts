@@ -9,7 +9,10 @@ import { RrReportingService } from '../services/rr-reporting.service';
 })
 export class RrReportingComponent implements OnInit {
 
-  tabs = 1
+  constructor(private rrservice: RrReportingService) { }
+
+
+  tabs = 1;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
@@ -18,14 +21,6 @@ export class RrReportingComponent implements OnInit {
     stage: 'Reporting',
     progress: 'in-progress'
   };
-
-  constructor(private rrservice: RrReportingService) { }
-
-  ngOnInit(): void {
-    this.rrservice.getfilingEntities().subscribe(res => {
-      this.rowData = res['data']
-    })
-  }
 
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -38,6 +33,12 @@ export class RrReportingComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  ngOnInit(): void {
+    this.rrservice.getfilingEntities().subscribe(res => {
+      this.rowData = res['data'];
+    });
+  }
+
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     if (params.data) {
@@ -47,7 +48,7 @@ export class RrReportingComponent implements OnInit {
       const thisIsFirstColumn = displayedColumns[0] === params.column;
       return thisIsFirstColumn;
     }
-  };
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -59,10 +60,6 @@ export class RrReportingComponent implements OnInit {
             ngTemplate: this.dropdownTemplate,
           },
           field: 'approve',
-          // headerComponentParams: {
-          //   dataColumn: false,
-          //   ngTemplate: this.headerTemplate,
-          // },
           headerName: '',
           width: 70,
           sortable: false,
@@ -123,25 +120,22 @@ export class RrReportingComponent implements OnInit {
 
   handleGridReady(params) {
     this.gridApi = params.api;
-    console.log('GRID API: ', params);
-  };
-
+  }
 
   onRowSelected(event: any): void {
     this.selectedRows = this.gridApi.getSelectedRows();
   }
 
   receiveMessage($event) {
-    this.tabs = $event
+    this.tabs = $event;
   }
 
   onSubmitApproveFilingEntities() {
-    console.log(this.selectedRows);
     this.selectedRows.forEach(ele => {
-      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true
+      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true;
     });
-    this.ngAfterViewInit()
-    this.selectedRows = []
+    this.ngAfterViewInit();
+    this.selectedRows = [];
     if (this.rowData.every(item => item.approve === true)) {
       this.status = {
         stage: 'Client Review',
