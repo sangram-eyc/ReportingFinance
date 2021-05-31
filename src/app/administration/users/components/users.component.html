@@ -1,110 +1,103 @@
 <div class="user-wrapper">
-    <div class="search-section">
-        <motif-form-field>
-            <input motifInput motifSearch [motifTypeahead]="motifTypeahead" type="text" placeholder="Search"
-                aria-label="Search" tabindex="0" />
-        </motif-form-field>
-    </div>
-    <button motifButton class="btn_addUser" (click)="showAddUserModal = true" color="primary" size="medium">
-        <motif-icon [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>Add User
-    </button>
-
-    <div class="frame-padding">
-
-        <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" [pagination]="false" paginationPageSize="10">
-        </motif-table>
-
-
-
-
-        <ng-template #headerTemplate>
-            <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
-            </motif-icon>
-        </ng-template>
-
-
-        <ng-template #actionSection let-row>
-            <motif-icon class="edtor-icon"  [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editUser(row)"></motif-icon>
-            <div class="delete-icon" (click)="onClickDeleteUserIcon(row)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                        fill="#155CB4" />
-                </svg>
-            </div>
-        </ng-template>
-
-    </div>
-
+  <div class="search-section">
+    <motif-form-field>
+      <input motifInput motifSearch [motifTypeahead]="motifTypeahead" type="text" placeholder="Search"
+        aria-label="Search" tabindex="0" />
+    </motif-form-field>
+  </div>
+  <button motifButton class="btn_addUser" (click)="showAddUserModal = true" color="primary" size="medium">
+    <motif-icon [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>Add User
+  </button>
+  <div class="frame-padding">
+    <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" [pagination]="false" paginationPageSize="10">
+    </motif-table>
+    <ng-template #headerTemplate>
+      <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
+      </motif-icon>
+    </ng-template>
+    <ng-template #actionSection let-row>
+      <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editUser(row)">
+      </motif-icon>
+      <div class="delete-icon" (click)="onClickDeleteUserIcon(row)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
+            fill="#155CB4" />
+        </svg>
+      </div>
+    </ng-template>
+  </div>
 </div>
-
-
 <!-- Add User Start -->
 <motif-modal [show]="showAddUserModal" (close)="closeAddUserModal()">
-    <motif-modal-header>
-        Add user
-    </motif-modal-header>
-    <motif-modal-body>
-        <form [formGroup]="addUserForm">
-            <h4>Add a new user to assign to one or more teams.</h4>
-            <div class="motif-row">
-                <div class="motif-col-xs-4 motif-col-lg-12">
-                    <motif-form-field>
-                        <label motifLabel>First name (Required)</label>
-                        <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
-                        <motif-error *ngIf="
-                        addUserForm.get('firstName').hasError('required') &&
-                        addUserForm.get('firstName').touched">Please provide a first name!</motif-error>
-                        <motif-error *ngIf="addUserForm.get('firstName').hasError('pattern')">First name must contain only characters</motif-error>
-                        <motif-error *ngIf="
-                        addUserForm.get('firstName').hasError('maxlength')">First name can be max 250 characters long</motif-error>
-                        <motif-error *ngIf="addUserForm.get('firstName').hasError('whitespace') &&
-                        addUserForm.get('firstName').touched">Please enter valid data</motif-error>
-                    </motif-form-field>
-                </div>
-                <div class="motif-col-xs-4 motif-col-lg-12">
-                    <motif-form-field>
-                        <label motifLabel>Last name (Required)</label>
-                        <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
-                        <motif-error *ngIf="
-                        addUserForm.get('lastName').hasError('required') &&
-                        addUserForm.get('lastName').touched">Please provide a last name!</motif-error>
-                        <motif-error *ngIf="
-                        addUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!</motif-error>
-                        <motif-error *ngIf="
-                        addUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters long</motif-error>
-                        <motif-error *ngIf="addUserForm.get('lastName').hasError('whitespace') &&
-                        addUserForm.get('lastName').touched">Please enter valid data</motif-error>
+  <motif-modal-header>
+    Add user
+  </motif-modal-header>
+  <motif-modal-body>
+    <form [formGroup]="addUserForm">
+      <h4>Add a new user to assign to one or more teams.</h4>
+      <div class="motif-row">
+        <div class="motif-col-xs-4 motif-col-lg-12">
+          <motif-form-field>
+            <label motifLabel>First name (Required)</label>
+            <input motifInput type="text" aria-label="Username Form Field" formControlName="first" />
+            <motif-error *ngIf="
+                        addUserForm.get('first').hasError('required') &&
+                        addUserForm.get('first').touched">Please provide a first name!</motif-error>
+            <motif-error *ngIf="addUserForm.get('first').hasError('pattern')">First name must contain only characters
+            </motif-error>
+            <motif-error *ngIf="
+                        addUserForm.get('first').hasError('maxlength')">First name can be max 250 characters long
+            </motif-error>
+            <motif-error *ngIf="addUserForm.get('first').hasError('whitespace') &&
+                        addUserForm.get('first').touched">Please enter valid data</motif-error>
+          </motif-form-field>
+        </div>
+        <div class="motif-col-xs-4 motif-col-lg-12">
+          <motif-form-field>
+            <label motifLabel>Last name (Required)</label>
+            <input motifInput type="text" aria-label="Email Form Field" formControlName="last" />
+            <motif-error *ngIf="
+                        addUserForm.get('last').hasError('required') &&
+                        addUserForm.get('last').touched">Please provide a last name!</motif-error>
+            <motif-error *ngIf="
+                        addUserForm.get('last').hasError('pattern')">Last name must contain only characters!
+            </motif-error>
+            <motif-error *ngIf="
+                        addUserForm.get('last').hasError('maxlength')">Last name can be max 250 characters long
+            </motif-error>
+            <motif-error *ngIf="addUserForm.get('last').hasError('whitespace') &&
+                        addUserForm.get('last').touched">Please enter valid data</motif-error>
 
-                    </motif-form-field>
-                </div>
-                <div class="motif-col-xs-4 motif-col-lg-12">
-                    <motif-form-field>
-                        <label motifLabel>Email (Required)</label>
-                        <input motifInput type="text" aria-label="Email Form Field" formControlName="userEmail" />
-                        <motif-error *ngIf="
-                        addUserForm.get('userEmail').hasError('required') &&
-                        addUserForm.get('userEmail').touched">Please provide an email!</motif-error>
-                        <motif-error *ngIf="
-                        addUserForm.get('userEmail').hasError('pattern')">Please provide valid email!</motif-error>
-                        <motif-error *ngIf="
-                        addUserForm.get('userEmail').hasError('maxlength')">Email can be max 250 characters long</motif-error>
-                    </motif-form-field>
-                </div>
-            </div>
-        </form>
+          </motif-form-field>
+        </div>
+        <div class="motif-col-xs-4 motif-col-lg-12">
+          <motif-form-field>
+            <label motifLabel>Email (Required)</label>
+            <input motifInput type="text" aria-label="Email Form Field" formControlName="email" />
+            <motif-error *ngIf="
+                        addUserForm.get('email').hasError('required') &&
+                        addUserForm.get('email').touched">Please provide an email!</motif-error>
+            <motif-error *ngIf="
+                        addUserForm.get('email').hasError('pattern')">Please provide valid email!</motif-error>
+            <motif-error *ngIf="
+                        addUserForm.get('email').hasError('maxlength')">Email can be max 250 characters long
+            </motif-error>
+          </motif-form-field>
+        </div>
+      </div>
+    </form>
 
-    </motif-modal-body>
-    <motif-modal-footer>
-        <button motifButton color="primary-alt" class="btn_save" color="primary" [disabled]="addUserForm.invalid" (click)="onSubmitAddUserForm(addUserForm)">Save </button>
-        <button motifButton color="secondary" class="btn_close" (click)="closeAddUserModal()">Cancel</button>
-    </motif-modal-footer>
+  </motif-modal-body>
+  <motif-modal-footer>
+    <button motifButton color="primary-alt" class="btn_save" color="primary" [disabled]="addUserForm.invalid"
+      (click)="onSubmitAddUserForm(addUserForm)">Save </button>
+    <button motifButton color="secondary" class="btn_close" (click)="closeAddUserModal()">Cancel</button>
+  </motif-modal-footer>
 </motif-modal>
 
-<motif-toast [type]="'success'"  [show]="showToastAfterAddUser" >New user added successfully</motif-toast>
+<motif-toast [type]="'success'" [show]="showToastAfterAddUser">New user added successfully</motif-toast>
 <!-- Add User End -->
-
-
 <!-- Remove User Start -->
 <motif-modal [show]="showDeleteUserModal" (close)="showDeleteUserModal = false; selectedUser ='';">
   <motif-modal-header>
@@ -122,7 +115,5 @@
       (click)="showDeleteUserModal = false; selectedUser ='';">No</button>
   </motif-modal-footer>
 </motif-modal>
-  
-  
-  <motif-toast [type]="'success'"  [show]="showToastAfterDeleteUser" >User removed successfully</motif-toast>
-  <!--Remove User End  -->
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteUser">User removed successfully</motif-toast>
+<!--Remove User End  -->

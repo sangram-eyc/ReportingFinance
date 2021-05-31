@@ -24,9 +24,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UsersService,
     private router: Router,
-    private _formBuilder: FormBuilder
-  ) {
-  }
+    private formBuilder: FormBuilder
+  ) { }
 
   usersListArr: any[] = [];
 
@@ -40,7 +39,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   headerTemplate: TemplateRef<any>;
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
-model = '';
+  model = '';
   motifTypeahead = [];
   userResp: any[] = [];
 
@@ -54,7 +53,7 @@ model = '';
       this.userResp.push(resp);
       this.userResp[0].forEach((item) => {
         const eachitem: any = {
-          name:  item.userLastName + ', ' + item.userFirstName,
+          name: item.userLastName + ', ' + item.userFirstName,
           email: item.userEmail,
           teams: 0,
           userId: item.userId,
@@ -129,10 +128,10 @@ model = '';
   // Add user start here
 
   private _createAddUser() {
-    return this._formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      userEmail: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
+    return this.formBuilder.group({
+      first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      email: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
     });
   }
 
@@ -142,6 +141,7 @@ model = '';
     );
 
     this.userService.addUser(obj).subscribe(resp => {
+      console.log('Add user', resp);
       this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
       this.getUsersData();
@@ -173,8 +173,6 @@ model = '';
     this.addUserForm = this._createAddUser();
   }
   // Add user end here
-
-
   // Remove user start here
   deleteUser() {
     const userList = this.usersListArr;
@@ -184,13 +182,9 @@ model = '';
     userList.splice(index, 1);
     this.userService.removeUser(this.selectedUser['userId']).subscribe(resp => {
       userList.forEach(ele => {
-        console.log('ele', ele);
-
         this.usersListArr.push(ele);
         this.rowData = this.usersListArr;
       });
-
-
       this.showDeleteUserModal = false;
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {
@@ -208,7 +202,7 @@ model = '';
     this.selectedUser = row;
     this.showDeleteUserModal = true;
   }
-// Remove user end here
+  // Remove user end here
   editUser(row) {
     this.router.navigate(['/user-details/' + row.userId]);
   }
