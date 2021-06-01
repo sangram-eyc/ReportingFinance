@@ -50,6 +50,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   getUsersData() {
 
     this.userService.getUsersList().subscribe(resp => {
+      this.userResp =[];
       this.userResp.push(resp);
       this.userResp[0].forEach((item) => {
         const eachitem: any = {
@@ -154,6 +155,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
       //Temp fix we will remove it after api response is fixed
+      setTimeout(() => {
+        this.showToastAfterAddUser = !this.showToastAfterAddUser;
+      }, 5000);
       console.log("API Response is throwing error,user data loaded")
       this.getUsersData();
     });
@@ -194,7 +198,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
     }, error => {
       this.showDeleteUserModal = false;
-
     });
 
   }
