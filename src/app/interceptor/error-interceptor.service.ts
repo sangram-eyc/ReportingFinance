@@ -1,4 +1,4 @@
-import {catchError, retry } from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -26,7 +26,6 @@ public onCancelPendingRequests() {
 
     return next.handle(request)
       .pipe(
-        retry(1),
         catchError((error: HttpErrorResponse) => {
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {

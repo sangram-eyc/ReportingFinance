@@ -14,35 +14,33 @@ export class UserDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private userService:UsersService,
-    private _formBuilder: FormBuilder,
+    private userService: UsersService,
+    private formBuilder: FormBuilder,
   ) {
     this.editUserForm = this._updateUser();
-   }
+  }
 
   usersListArr: any[] = [];
-  // userInfo: any[] = [];
   isLocal = environment.SECURITY_ENABLED;
   userInfo;
   curentUserId;
-  enableEditor: boolean = false;
+  enableEditor = false;
   editUserForm: FormGroup;
-  showToastAfterEditUser: boolean = false;
+  showToastAfterEditUser = false;
   fullname;
   userResp: any[] = [];
 
   ngOnInit(): void {
-    
     this.activatedRoute.params.subscribe(params => {
       this.curentUserId = params.userId;
-      });
-      this.getUsersData(); 
+    });
+    this.getUsersData();
   }
 
   getUsersData() {
-    
 
-    /* if(this.isLocal){ 
+    // Below code will inly work,if it is a local environment reading data from json
+    /* if(this.isLocal){
       this.userService.getUsersList().subscribe(resp => {
           this.userResp.push(resp);
         this.userResp[0].forEach((item) => {
@@ -56,42 +54,42 @@ export class UserDetailsComponent implements OnInit {
           userLastName: this.userInfo.userLastName.trim(),
           userEmail: this.userInfo.userEmail.trim()
           });
-  
+
       });
     } else { */
-      this.userService.userDetails(this.curentUserId).subscribe(resp => {
-        this.userInfo = resp;
-        this.fullname = this.userInfo.userLastName+ ' '+ this.userInfo.userFirstName;
-        this.editUserForm.patchValue({
-          userFirstName: this.userInfo.userFirstName.trim(),
-          userLastName: this.userInfo.userLastName.trim(),
-          userEmail: this.userInfo.userEmail.trim()
-          });
-  
+    this.userService.userDetails(this.curentUserId).subscribe(resp => {
+      this.userInfo = resp;
+      this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
+      this.editUserForm.patchValue({
+        first: this.userInfo.userFirstName.trim(),
+        last: this.userInfo.userLastName.trim(),
+        email: this.userInfo.userEmail.trim()
       });
+
+    });
     // }
 
   }
 
   private _updateUser() {
-    return this._formBuilder.group({
-      userFirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      userLastName:  ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      userEmail: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
+    return this.formBuilder.group({
+      first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      email: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
     });
   }
 
   public noWhitespaceValidator(control: FormControl) {
     if (control.value.length === 0) {
-      return false
+      return false;
     } else {
       const isWhitespace = (control.value || '').trim().length === 0;
       const isValid = !isWhitespace;
-      return isValid ? null : { 'whitespace': true };
+      return isValid ? null : { whitespace: true };
     }
   }
 
-  backtoUserAdmin(){
+  backtoUserAdmin() {
     this.router.navigate(['/admin-regulatory-reporting']);
   }
 
@@ -102,31 +100,21 @@ export class UserDetailsComponent implements OnInit {
   cancelForm() {
     this.showToastAfterEditUser = false;
     this.editUserForm.patchValue({
-      userFirstName: this.userInfo.userFirstName.trim(),
-      userLastName: this.userInfo.userLastName.trim(),
-      userEmail: this.userInfo.userEmail.trim()
-      });
-      this.enableEditor = !this.enableEditor;
+      first: this.userInfo.userFirstName.trim(),
+      last: this.userInfo.userLastName.trim(),
+      email: this.userInfo.userEmail.trim()
+    });
+    this.enableEditor = !this.enableEditor;
   }
 
   onSubmitEditUserForm(form: FormGroup) {
-
-    let obj = form.getRawValue()
+    const obj = form.getRawValue();
     Object.keys(obj).map(key => obj[key] = obj[key].trim()
     );
 
     if (this.editUserForm.valid) {
-      /* this.userInfo['userFirstName'] = obj['firstName'].trim();
-      this.userInfo['userLastName'] = obj['lastName'].trim();
-      this.userInfo['userEmail'] = obj['userEmail'].trim();
-
-      this.showToastAfterEditUser = !this.showToastAfterEditUser;
-      this.enableEditor = !this.enableEditor;
-      setTimeout(() => {
-        this.showToastAfterEditUser = !this.showToastAfterEditUser;
-      }, 5000) */
       this.userService.editUser(this.curentUserId, obj).subscribe(resp => {
-        // this.getUsersData();
+        this.getUsersData();
         this.userInfo = resp;
         if (resp) {
           this.showToastAfterEditUser = !this.showToastAfterEditUser;
@@ -135,18 +123,10 @@ export class UserDetailsComponent implements OnInit {
             this.showToastAfterEditUser = !this.showToastAfterEditUser;
           }, 5000);
         }
-  
+
       }, error => {
         console.log(error);
       });
     }
-
-    
-    
-
-
   }
-
-  
-
 }
