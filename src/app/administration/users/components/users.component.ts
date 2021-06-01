@@ -153,6 +153,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
     }, error => {
       this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
+      //Temp fix we will remove it after api response is fixed
+      console.log("API Response is throwing error,user data loaded")
+      this.getUsersData();
     });
   }
 
