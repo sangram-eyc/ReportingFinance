@@ -1,4 +1,4 @@
-import {catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -7,9 +7,9 @@ import {
   HttpHandler,
   HttpEvent
 } from '@angular/common/http';
-import { Observable , throwError, Subject} from 'rxjs';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ErrorAlertComponent} from '../dialogs/error-alert/error-alert.component';
+import { Observable, throwError, Subject } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ErrorAlertComponent } from '../dialogs/error-alert/error-alert.component';
 
 
 @Injectable()
@@ -18,26 +18,26 @@ export class ErrorInterceptorService implements HttpInterceptor {
   // enter the route for which you want outgoing request to be canceled
   prevRoute = '';
   constructor(public dialog: MatDialog
-   ) { }
-public onCancelPendingRequests() {
-  return this.pendingHTTPRequests$.asObservable();
-}
+  ) { }
+  public onCancelPendingRequests() {
+    return this.pendingHTTPRequests$.asObservable();
+  }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           let errorMessage = '';
-          if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
-          } else {
-            // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          if (error.status !== 200) {
+            if (error.error instanceof ErrorEvent) {
+              // client-side error
+              errorMessage = `Error: ${error.error.message}`;
+            } else {
+              // server-side error
+              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            }
+            this.launchErrorDialog(errorMessage);
+            return throwError(errorMessage);
           }
-          this.launchErrorDialog(errorMessage);
-          return throwError(errorMessage);
-
         }));
   }
 

@@ -21,5 +21,14 @@ export class EycRrSettingsService {
 
     return regulatory_Reporting;
   }
+
+  get pbiReportingConfig(): any {
+    const regulatory_Reporting = {
+      question_details: this.rrproduction ? this.API_ENDPOINT + '' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/pbi_report.json',
+      pbi_auth_token: '/api/v1/powerBI/authToken',
+    }
+
+    return regulatory_Reporting;
+  }
   
 }

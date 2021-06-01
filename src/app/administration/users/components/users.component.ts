@@ -139,10 +139,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const obj = form.getRawValue();
     Object.keys(obj).map(key => obj[key] = obj[key].trim()
     );
-
+    this.showAddUserModal = false;
     this.userService.addUser(obj).subscribe(resp => {
-      console.log('Add user', resp);
-      this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
       this.getUsersData();
       if (resp) {
@@ -153,7 +151,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       }
 
     }, error => {
-      this.showAddUserModal = !this.showAddUserModal;
+      this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
     });
   }
@@ -180,19 +178,19 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.rowData = [];
     const index = userList.indexOf(this.selectedUser);
     userList.splice(index, 1);
+    this.showDeleteUserModal = false;
     this.userService.removeUser(this.selectedUser['userId']).subscribe(resp => {
       userList.forEach(ele => {
         this.usersListArr.push(ele);
         this.rowData = this.usersListArr;
       });
-      this.showDeleteUserModal = false;
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {
         this.showToastAfterDeleteUser = false;
       }, 5000);
 
     }, error => {
-      this.showDeleteUserModal = !this.showDeleteUserModal;
+      this.showDeleteUserModal = false;
 
     });
 

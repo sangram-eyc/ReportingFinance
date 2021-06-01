@@ -1,67 +1,81 @@
 <div class="card-header-wrapper">
-    <div class="header-container">
-        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="back()"></motif-icon>
-        <h3>
-            Data Explorer
-        </h3>
-    </div>
-    <div class="body-container">
-        <section id="form-fields">
-            <div class="row">
-                <div class="col-md-2 mt-2 title">
-                    <h3>Filing</h3>
-                </div>
-                <div class="col-md-8">
-                    <div class="cus-formField">
-                        <div class="cus-chips">
-                            <motif-chip *ngIf="selectedFiling">{{selectedFiling}}<motif-icon class="cus-chip-close"
-                                    [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removeFilingChip()">
-                                </motif-icon>
-                            </motif-chip>
-                        </div>
-                        <motif-form-field>
-                            <input class="cus-input" (ngModelChange)="filingModelChanged($event)" motifInput motifSearch
-                                [motifTypeahead]="filingList" type="text" placeholder="filter search"
-                                aria-label="Search" [(ngModel)]="filing" tabindex="0" />
-                        </motif-form-field>
-                    </div>
-                </div>
+  <div class="header-container">
+    <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="back()"></motif-icon>
+    <h3>
+      Data Explorer
+    </h3>
+  </div>
+  <div class="body-container">
+    <section id="form-fields">
+      <div class="row">
+        <div class="col-md-2 mt-2 title">
+          <h3>Filing</h3>
+        </div>
+        <div class="col-md-8">
+          <div class="cus-formField">
+            <div class="cus-chips">
+              <motif-chip *ngIf="selectedFiling">{{selectedFiling}}<motif-icon class="cus-chip-close"
+                  [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removeFilingChip()">
+                </motif-icon>
+              </motif-chip>
             </div>
+            <motif-form-field>
+              <input class="cus-input" (ngModelChange)="filingModelChanged($event)" motifInput motifSearch
+                [motifTypeahead]="filingList" type="text" placeholder="filter search" aria-label="Search"
+                [(ngModel)]="filing" tabindex="0" />
+            </motif-form-field>
+          </div>
+        </div>
+      </div>
 
-            <div class="row">
-                <div class="col-md-2 mt-2 title">
-                    <h3>Period</h3>
-                </div>
-                <div class="col-md-8">
-                    <div class="cus-formField">
-                        <div class="cus-chips">
-                            <motif-chip *ngIf="selectedPeriod">{{selectedPeriod}}<motif-icon class="cus-chip-close"
-                                    [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removePeriodChip()">
-                                </motif-icon>
-                            </motif-chip>
-                        </div>
-                        <motif-form-field>
-                            <input class="cus-input" (ngModelChange)="periodModelChanged($event)" motifInput motifSearch
-                                [motifTypeahead]="periodList" type="text" placeholder="filter search"
-                                aria-label="Search" [(ngModel)]="period" tabindex="0" />
-                        </motif-form-field>
-                    </div>
-                </div>
+      <div class="row">
+        <div class="col-md-2 mt-2 title">
+          <h3>Period</h3>
+        </div>
+        <div class="col-md-8">
+          <div class="cus-formField">
+            <div class="cus-chips">
+              <motif-chip *ngIf="selectedPeriod">{{selectedPeriod}}<motif-icon class="cus-chip-close"
+                  [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removePeriodChip()">
+                </motif-icon>
+              </motif-chip>
             </div>
-            <!-- Model Value: {{ model | json }} -->
+            <motif-form-field>
+              <input class="cus-input" (ngModelChange)="periodModelChanged($event)" motifInput motifSearch
+                [motifTypeahead]="periodList" type="text" placeholder="filter search" aria-label="Search"
+                [(ngModel)]="period" tabindex="0" />
+            </motif-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-dropdown">
+        <div class="col-md-2 mt-2 title">
+          <h3>Question</h3>
+        </div>
+        <div class="col-md-8">
+            
+            <motif-form-field>
+                <label *ngIf = "currentPBIQuestions !==''" motifLabel class="select-label">Please Select a Question</label>
+                <motif-select [(ngModel)]="currentPBIQuestions" aria-label="Aria Label"
+                (change)="updateMotifCurrentTask(currentPBIQuestions)">
+                <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.questionName">
+                  {{item.questionName}}</motif-option>
+              </motif-select>
+            </motif-form-field>
+        </div>
+      </div>
 
-            <!-- <motif-chip-group>
-                <motif-chip [removeable]="true">Chip text</motif-chip>
-                <motif-chip [removeable]="true">Chip text</motif-chip>
-                <motif-chip [removeable]="true">Chip text</motif-chip>
-                </motif-chip-group> -->
-        </section>
-        <section id="result">
-            <div class="result-header">
-                <span>Results</span>
-            </div>
-    
-        </section>
+    </section>
+    <section id="result">
+      <div class="result-header">
+        <span>Results</span>
+      </div>
+
+    </section>
+    <div>
+      <!-- <lib-rr-visualisation [selectedReportId]="selectedReport" [selectedFilling]="selectedFiling"
+        [selectedPeriod]="selectedPeriod"></lib-rr-visualisation> -->
     </div>
-   
+  </div>
+
 </div>

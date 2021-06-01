@@ -1,0 +1,18 @@
+
+export const PBI_CONFIG = {
+    PBI_USER_NAME: 'eycomply-gs-qa-master@eymsprod.onmicrosoft.com',
+    PBI_PASSWORD: 'DiW*j2KeIoB#',
+    PBI_WORK_SPACE_ID: '4c4f5af3-ab5a-44c0-8fe9-533e75e8a324',
+    PBI_CLIENT_ID:'2b496842-de6d-4993-a955-f4ccb5d8a22e',
+    PBI_EMBED_URL:'https://app.powerbi.com/reportEmbed',
+    PBI_AUTH_CTX_URL:'https://login.windows.net/common',
+    PBI_TOKEN_URL:'https://analysis.windows.net/powerbi/api',
+    PBI_API_URL:'https://api.powerbi.com/v1.0/myorg/',
+    adalConfig: {
+        tenant: '5b973f99-77df-4beb-b27d-aa0c70b8482c', //tenant id of your organization
+        clientId: 'b08471aa-d4f4-4d1c-a0a8-0e976a575dff', // client id of your azure ad application
+        //cacheLocation: 'localStorage', // Default is sessionStorage
+        redirectUri:`${window.location.origin}/`    ,
+        popUp: false    
+      }
+};

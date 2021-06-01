@@ -6,7 +6,7 @@ import { userAdminstration } from '../../../helper/api-config-helper';
 })
 export class UsersService {
   constructor(private apiService: ApiService) { }
-  
+
   getUsersList() {
     return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User}`);
   }

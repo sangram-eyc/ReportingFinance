@@ -89,11 +89,7 @@ import { SettingsService } from './services/settings.service';
     deps: [SettingsService],
     multi: true
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: EncyptTokenInterceptor,
-    //   multi: true
-    // },
+   
   ],
   bootstrap: [AppComponent],
   
