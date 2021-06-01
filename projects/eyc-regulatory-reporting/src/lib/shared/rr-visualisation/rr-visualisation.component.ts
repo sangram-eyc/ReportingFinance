@@ -20,10 +20,10 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
   constructor(private powerbiMappingService: EycPbiService) { }
 
   ngOnInit() {
-    this.getEmbedToken();
+    //this.getEmbedToken();
   }
   ngOnChanges() {
-    this.getEmbedToken();
+    //this.getEmbedToken();
   }
  
   
