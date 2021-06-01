@@ -80,6 +80,9 @@
       .ag-pinned-left-cols-container, .ag-pinned-left-header {
         box-shadow: none !important;
       }
+      .ag-menu {
+        max-height: none !important;
+      }
       .ag-theme-material .ag-pinned-left-header {
         border-right: none;
       }
@@ -117,9 +120,12 @@
         min-height: unset !important;
       }
 
-      // .ag-root-wrapper {
-      //   border: 1px solid #E0E0E0 !important;
-      // }
+      .ag-root-wrapper {
+        position: inherit !important;
+        overflow: visible !important;
+        // border: 1px solid #E0E0E0 !important;
+      }
+
       // .motif-header-name {
       //   font-family: EYInterstate !important;
       //   font-style: normal  !important;
