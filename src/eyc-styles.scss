@@ -457,10 +457,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .notification-message .motif-icon .motif-icon-wrap .motif-icon-content svg {
-  // fill:#C4C4CD !important;
-  fill:#747480 !important;
+  fill: #747480 !important;
   height: 32px !important;
- width:  32px !important;
+  width: 32px !important;
+}
+
+.no-data-container.svg-container svg {
+  height: 32px !important;
+  width: 32px !important;
 }
 
 .card-block.banner-header-right .motif-icon .motif-icon-wrap .motif-icon-content svg {
@@ -529,4 +533,10 @@ h4 {
 }
 span.motif-avatar-initials {
   font-family: EYInterstate !important;
+}
+
+button.motif-select-trigger {
+  border: 1px solid #212529 !important;
+  background-color: #F2F2F2 !important;
+  height: 40px !important;
 }

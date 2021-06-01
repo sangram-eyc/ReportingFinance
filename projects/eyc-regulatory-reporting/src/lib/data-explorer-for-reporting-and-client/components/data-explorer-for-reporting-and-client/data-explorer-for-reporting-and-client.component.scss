@@ -68,12 +68,13 @@
     
     ::ng-deep .motif-form-field :focus {
         background: var(--form-element-bg-color) !important;
-        border-bottom: none !important;
+        // border-bottom: none !important;
     }
     
-    ::ng-deep .motif-form-field :hover {
-        background: var(--form-element-bg-color) !important;
-    }
+    // ::ng-deep .motif-form-field :hover {
+    //     background: var(--form-element-bg-color) !important;
+    //     border-bottom:  1px solid #212529 !important;
+    // }
     
     ::ng-deep .cus-formField .dropdown-menu{
         margin-top: 2px !important;
@@ -128,3 +129,9 @@
         color: #FFFFFF;
     }
 }
+
+.bottom-dropdown {
+  margin-bottom: 70px;
+}
+
+

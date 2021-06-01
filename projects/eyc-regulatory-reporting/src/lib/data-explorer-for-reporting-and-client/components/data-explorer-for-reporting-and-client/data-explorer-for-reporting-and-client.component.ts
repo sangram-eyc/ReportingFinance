@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {EycPbiService} from '../../../services/eyc-pbi.service';
 
 @Component({
   selector: 'lib-data-explorer-for-reporting-and-client',
   templateUrl: './data-explorer-for-reporting-and-client.component.html',
   styleUrls: ['./data-explorer-for-reporting-and-client.component.scss']
 })
-export class DataExplorerForReportingAndClientComponent implements OnInit {
+export class DataExplorerForReportingAndClientComponent implements OnInit,AfterViewInit {
   filing = '';
   period = '';
   filingList = [
@@ -27,11 +28,20 @@ export class DataExplorerForReportingAndClientComponent implements OnInit {
 
   selectedFiling = "Form PF";
   selectedPeriod = "Q3 2021";
+  currentPBIQuestions ='';
+  pbiQuestionList = [];
+  selectedReport;
   constructor(
-    private router: Router
+    private router: Router, private pbiServices:EycPbiService
   ) { }
 
   ngOnInit(): void {
+   
+  }
+
+  ngAfterViewInit()
+  {
+    this.getPBIQuestions();
   }
 
   filingModelChanged(event) {
@@ -56,5 +66,17 @@ export class DataExplorerForReportingAndClientComponent implements OnInit {
 
   back() {
     this.router.navigate(["/regulatory-reporting"])
+  }
+
+  getPBIQuestions() {
+    this.pbiServices.getPBIQuestion().subscribe(resp=>{
+      this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.selectedFiling );
+      
+
+    });
+  }
+
+  updateMotifCurrentTask(currentMotifTask) {
+    this.selectedReport = this.pbiQuestionList.filter(value => value.filingName === this.selectedFiling); currentMotifTask
   }
 }
