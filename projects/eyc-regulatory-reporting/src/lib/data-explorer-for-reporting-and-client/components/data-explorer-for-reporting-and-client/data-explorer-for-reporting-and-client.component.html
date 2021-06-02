@@ -12,7 +12,20 @@
           <h3>Filing</h3>
         </div>
         <div class="col-md-8">
-          <div class="cus-formField">
+
+
+          <motif-form-field>
+            <label motifLabel class="select-label">Please Select a Filing</label>
+            <motif-select [(ngModel)]="selectedFiling" aria-label="Aria Label"
+            (change)="filingModelChanged($event)">
+            <motif-option *ngFor="let item of filingList;index as i;" [value]="item">
+              {{item}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+
+
+
+          <!-- <div class="cus-formField">
             <div class="cus-chips">
               <motif-chip *ngIf="selectedFiling">{{selectedFiling}}<motif-icon class="cus-chip-close"
                   [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removeFilingChip()">
@@ -24,7 +37,7 @@
                 [motifTypeahead]="filingList" type="text" placeholder="filter search" aria-label="Search"
                 [(ngModel)]="filing" tabindex="0" />
             </motif-form-field>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -33,19 +46,16 @@
           <h3>Period</h3>
         </div>
         <div class="col-md-8">
-          <div class="cus-formField">
-            <div class="cus-chips">
-              <motif-chip *ngIf="selectedPeriod">{{selectedPeriod}}<motif-icon class="cus-chip-close"
-                  [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removePeriodChip()">
-                </motif-icon>
-              </motif-chip>
-            </div>
-            <motif-form-field>
-              <input class="cus-input" (ngModelChange)="periodModelChanged($event)" motifInput motifSearch
-                [motifTypeahead]="periodList" type="text" placeholder="filter search" aria-label="Search"
-                [(ngModel)]="period" tabindex="0" />
-            </motif-form-field>
-          </div>
+
+          <motif-form-field>
+            <label motifLabel class="select-label">Please Select a Period</label>
+            <motif-select [(ngModel)]="selectedPeriod" aria-label="Aria Label"
+            (change)="periodModelChanged($event)">
+            <motif-option *ngFor="let item of periodList;index as i;" [value]="item">
+              {{item}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+
         </div>
       </div>
       <div class="row bottom-dropdown">

@@ -39,9 +39,12 @@
             color: #000000;
         }
     }
-    // .row{
-    //     margin-bottom: -10px;
-    // }
+    .row{
+        margin-bottom: 8px;
+    }
+    .bottom-dropdown {
+        margin-bottom: 70px;
+    }
     ::ng-deep .cus-formField {
         border: 1px solid !important;
         padding: 6px !important;
@@ -130,8 +133,6 @@
     }
 }
 
-.bottom-dropdown {
-  margin-bottom: 70px;
-}
+
 
 
