@@ -42,6 +42,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   model = '';
   motifTypeahead = [];
   userResp: any[] = [];
+  gridApi;
 
   ngOnInit(): void {
     this.addUserForm = this._createAddUser();
@@ -62,6 +63,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         };
         this.usersListArr.push(eachitem);
         this.rowData = this.usersListArr;
+        this.gridApi.setRowData(this.rowData);
       });
 
     });
@@ -124,6 +126,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       ];
 
     });
+  }
+  handleGridReady(params) {
+    this.gridApi = params.api;
   }
 
   // Add user start here

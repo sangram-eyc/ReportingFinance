@@ -9,7 +9,7 @@
     <motif-icon [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>Add User
   </button>
   <div class="frame-padding">
-    <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" [pagination]="false" paginationPageSize="10">
+    <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" [pagination]="false" paginationPageSize="10" (gridReady)="handleGridReady($event)">
     </motif-table>
     <ng-template #headerTemplate>
       <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
