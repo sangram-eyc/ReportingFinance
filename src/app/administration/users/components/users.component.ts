@@ -62,8 +62,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           options: '',
         };
         this.usersListArr.push(eachitem);
-        this.rowData = this.usersListArr;
-        this.gridApi.setRowData(this.rowData);
+        //this.rowData = this.usersListArr;
+        this.gridApi.setRowData(this.usersListArr);
       });
 
     });
