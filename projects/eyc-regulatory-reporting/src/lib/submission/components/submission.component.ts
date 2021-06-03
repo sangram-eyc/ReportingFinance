@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SubmissionService } from '../../submission/services/submission.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import * as FileSaver from 'file-saver';
 
 
 
@@ -14,14 +15,9 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 export class SubmissionComponent implements OnInit {
 
 
-  constructor(private service:SubmissionService) { }
+  constructor(private service: SubmissionService) { }
 
-  ngOnInit(): void {
-    this.service.getXmlFilesList().subscribe(res=> {
-      this.rowData = res['data']      
-    })
-  }
-  
+
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
@@ -34,11 +30,17 @@ export class SubmissionComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  ngOnInit(): void {
+    this.service.getXmlFilesList().subscribe(res => {
+      this.rowData = res['data'];
+    });
+  }
+
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     const thisIsFirstColumn = displayedColumns[0] === params.column;
     return thisIsFirstColumn;
-  };
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -73,24 +75,18 @@ export class SubmissionComponent implements OnInit {
   }
   handleGridReady(params) {
     this.gridApi = params.api;
-    console.log('GRID API: ', params);
-  };
+  }
 
-
-  onRowSelected(event: any): void {
+  onRowSelected() {
     this.selectedRows = this.gridApi.getSelectedRows();
   }
-  
-  approveSelected() {​​​​​​​​
-    console.log(this.selectedRows);
 
-     this.selectedRows.forEach((item) => {
-        const FileSaver = require('file-saver');
+  approveSelected() {​​​​​​​​
+
+    this.selectedRows.forEach((item) => {
         this.service.downloadXMl(item.fileId).subscribe((res: any) => {
-         
-            const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
+          //  const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
             FileSaver.saveAs(res.body, item.fileName + '.xml');
-          
         });
 
       });

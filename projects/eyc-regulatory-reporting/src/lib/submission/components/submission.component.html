@@ -14,7 +14,7 @@
         checkboxSelection: isFirstColumn
         }" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
-                (rowSelected)="onRowSelected($event)"></motif-table>
+                (rowSelected)="onRowSelected()"></motif-table>
         </div>
         <!-- CUSTOM TEMPLATE -->
         <ng-template #headerTemplate>
