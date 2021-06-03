@@ -5,7 +5,6 @@
 }
 
 .page-header h3 {
-  
   font-weight: 700;
   font-size: 32px;
   font-weight: 400;
@@ -26,146 +25,89 @@
   color: #000000;
 }
 
-#active-filings {
+.eyc-rr-tabs {
   position: relative;
-  #active-filings-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    h5 {
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 25px;
-      margin: 0;
-    }
-    #carousel-arrows{
-      display: flex;
-      .motif-icon {
-        cursor: pointer;
-        ::ng-deep {
-          svg {
-              fill: #23232F;
-          }
-        }
-        &.disabled {
-          ::ng-deep {
-            svg {
-                fill: #C4C4CD;
-            }
-          }
-        }
+  margin-top: 80px;
+  button.motif-text-link {
+      font-family: EYInterstate;
+      font-size: 18px;
+      line-height: 20px;
+      align-items: center;
+      text-align: center;
+      color: #23232F !important;
+      padding: .85714rem 1.6rem .7rem 1.6rem !important;
       }
-      .disabled-carousel-nav {
-        cursor: default;
-        ::ng-deep {
-          svg {
-              fill: #C4C4CD;
-          }
-        } 
+      button.motif-active.motif-text-link{
+          font-family: EYInterstate;
+          font-size: 18px;
+          line-height:20px;
+          color: #23232F;
+          font-weight: initial !important;
+          border-bottom: 6px solid !important;
       }
-    }
-  }
-  #filing-cards-container {
-    display: flex;
-  }
+      button.motif-text-link:hover, button.motif-text-link:focus, button.motif-text-link:active {
+          box-shadow: none !important;
+          border-bottom: 6px solid !important;
+      }
 }
 
-#left-carousel-blocker {
-  position: absolute;
-  height: 218px;
-  left: -41px;
-  width: 41px;
-  background-color: #f6f6fa;
-  z-index: 5;
-}
-
-::ng-deep .slick-dots {
-  position: initial;
-}
-
-::ng-deep .slick-dots li button:before{
-  font-family: 'slick';
-  font-size: 12px;
-  line-height: 20px;
-  color: #C4C4CD;
-  opacity: 1;
-}
-
-::ng-deep .slick-dots li.slick-active button:before {
-  color: #747480;
-}
-
-::ng-deep .slick-dots li {
-  margin: 0;
-}
-
-::ng-deep .slick-list {
-  overflow: inherit;
-  margin-bottom: 10px;
-}
-
-#upcoming-filings{
+#active-reports {
   position: relative;
-  #upcoming-filings-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    h5 {
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 25px;
-      margin: 0;
-    }
-    #carousel-arrows{
-      display: flex;
-      .motif-icon {
-        cursor: pointer;
-        ::ng-deep {
-          svg {
-              fill: #23232F;
-          }
-        }
-        &.disabled {
-          ::ng-deep {
-            svg {
-                fill: #C4C4CD;
-            }
-          }
-        }
-      }
-      .disabled-carousel-nav {
-        cursor: default;
-        ::ng-deep {
-          svg {
-              fill: #C4C4CD;
-          }
-        } 
+  #reports-history-heading {
+    margin-bottom: 6px;
+    margin-top: 20px;
+    float: right;
+    width: 100%;
+    .search {
+      float: right;
+      .motif-form-field input{
+        width: 228px;
       }
     }
   }
+  .filing-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .card {
+      margin: 8px;
+      // flex: 1 1 422px;
+    }
+  }
+
 }
-    
+
 #reports-history {
   position: relative;
   #reports-history-heading {
+    margin-bottom: 12px;
+    margin-top: 20px;
+    float: right;
+    width: 100%;
+    .search {
+      float: right;
+      .motif-form-field input{
+        width: 228px;
+      }
+    }
+  }
+  .pagination {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    h5 {
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 25px;
-      margin: 0;
+    background: #fff;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 15px;
+    margin-top: 15px;
+    .page-description {
+      font-family: EYInterstate;
+      .page-number {
+        font-weight: 700;
+      }
     }
   }
 }
 
-.motif-form-field {
-  width: 228px;
-}
+
 
 #grid-wrapper {
   ::ng-deep {
@@ -223,7 +165,6 @@
     .motif-table {
       .ag-row {
             background: #FFFFFF !important;
-            // height: 74px !important;
       }
       .ag-cell-value {
         font-family: EYInterstate !important;
@@ -294,15 +235,11 @@
   }
 }
 
-// ::ng-deep .row-style {
-//   margin-top: -60px;
-//     position: relative;
-// }
+::ng-deep .ag-body-viewport {
+  min-height: 150px !important;
+}
 
-// ::ng-deep .row-style:first-child {
-//   margin-top: 30px;
-// }
-// ::ng-deep .ag-center-cols-clipper {
-//   height: 925px !important;
-  
-// }
+::ng-deep .ag-header {
+  height: 49px !important;
+  min-height: 49px !important;
+}

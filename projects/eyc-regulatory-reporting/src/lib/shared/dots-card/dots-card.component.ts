@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +13,12 @@ export class DotsCardComponent implements OnInit, OnChanges {
     progress: 'in-progress'
   };
 
+  @Output() filingDetails = new EventEmitter<any>();
+  
   dueDate = 'March 31 2021';
-
+  filingName = "Form PF";
+  period = "Q3 2021";
+  fillingId: 1;
   states = [
     {
       stage: 'Fund Scoping',
@@ -60,6 +64,7 @@ export class DotsCardComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.setStatus();
+    this.filingDetails.emit({filingName: this.filingName, period: this.period, fillingId: this.fillingId});
   }
 
   ngOnChanges(changes: SimpleChanges) {

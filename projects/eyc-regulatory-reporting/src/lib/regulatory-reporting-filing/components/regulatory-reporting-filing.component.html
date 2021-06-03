@@ -2,72 +2,57 @@
     <h3>Regulatory reporting</h3>
 </div>
 <div class="page-subheader">
-    View filings in progress of intake, reporting, client review and submission. You can also view upcoming filings ready for fund scoping and client review.  
+    View filings in progress of intake, reporting, client review and submission. You can also view upcoming filings
+    ready for fund scoping and client review.
 </div>
-<section id="active-filings">
-    <div id="active-filings-heading">
-        <h5>Active filings ({{activeFilings.length}})</h5>
-        <div id="carousel-arrows">
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="activeSlick.slickPrev()" [ngClass]="{'disabled-carousel-nav': activeLeftBtnDisabled === true}"></motif-icon>
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="activeSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': activeRightBtnDisabled === true}"></motif-icon>
-        </div>
-    </div>
-    <div id="left-carousel-blocker"></div>
-    <ngx-slick-carousel class="carousel"
-    [config]=slideConfig
-    (afterChange)="afterChange($event)"
-    #activeSlick="slick-carousel">
-        <div ngxSlickItem *ngFor="let filing of activeFilings" class="slide">
-            <app-filing-card [filingData]="filing"></app-filing-card>
-        </div>
-    </ngx-slick-carousel>
-</section>
 
-<section id="upcoming-filings">
-    <div id="upcoming-filings-heading">
-        <h5>Upcoming filings ({{upcomingFilings.length}})</h5>
-        <div id="carousel-arrows">
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="upcomingSlick.slickPrev()" [ngClass]="{'disabled-carousel-nav': upcomingLeftBtnDisabled === true}"></motif-icon>
-            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="upcomingSlick.slickNext()" [ngClass]="{'disabled-carousel-nav': upcomingRightBtnDisabled === true}"></motif-icon>
-        </div>
-    </div>
-    <div id="left-carousel-blocker"></div>
-    <ngx-slick-carousel class="carousel"
-    [config]=slideConfig
-    (afterChange)="afterChangeUpcomingFilings($event)"
-    #upcomingSlick="slick-carousel">
-        <div ngxSlickItem *ngFor="let filing of upcomingFilings" class="slide">
-            <app-filing-card [filingData]="filing"></app-filing-card>
-        </div>
-    </ngx-slick-carousel>
-</section>
+<div class="eyc-rr-tabs">
+    <motif-tab-bar>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Active Reports</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Reports History</button>
+    </motif-tab-bar>
+</div>
 
-<section id="reports-history">
+<section id='active-reports' [hidden]="!(tabIn == 1)">
     <div id="reports-history-heading">
-        <h5>Reports History ({{completedFilings.length}})</h5>
-        <motif-form-field>
-            <input #reportHistorySearch motifInput motifSearch type="text" (keyup.enter)="searchCompleted(reportHistorySearch)" placeholder="Search filing names..." aria-label="Search">
-        </motif-form-field>
+        <div class="search">
+            <motif-form-field>
+                <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+                    (keyup.enter)="searchActiveReports(activeReports)" placeholder="Search" aria-label="Search">
+            </motif-form-field>
+        </div>
+    </div>
+    <div class="filing-card">
+        <div class="card" *ngFor="let filing of activeFilings.sort(sortByDueDate)">
+            <app-filing-card [filingData]="filing"></app-filing-card>
+        </div>
+    </div>
+
+    <motif-card class="no_data" *ngIf="activeReportsSearchNoDataAvilable">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+</section>
+
+<section id='reports-history' [hidden]="!(tabIn == 2)">
+    <div id="reports-history-heading">
+        <div class="search">
+            <motif-form-field>
+                <input #reportHistorySearch motifInput motifSearch type="text"
+                    (keypress)="searchFilingValidation($event)" (keyup.enter)="searchCompleted(reportHistorySearch)"
+                    placeholder="Search" aria-label="Search">
+            </motif-form-field>
+        </div>
     </div>
     <div id="grid-wrapper" [hidden]="searchNoDataAvilable">
-        <ag-grid-angular
-            class="ag-theme-alpine"
-            (gridReady)="onGridReady($event)"
-            [columnDefs]="columnDefs"
-            [rowData]="rowData"
-            [rowHeight]="74"
-            [rowClass]="rowClass"
-            [domLayout]="domLayout"
-            [paginationPageSize]="currentlySelectedPageSize.value"
-            [pagination]="true"
-        ></ag-grid-angular>
+        <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
+            [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
+            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
 
-        <div class="motif-pagination-select-wrapper">
-            <div class="motif-dropdown motif-dropdown-bottom-left motif-pagination-select">
-              <ng-container [ngTemplateOutlet]="paginationSelectTemplate"></ng-container>
-            </div>
-        </div>
-
+       
     </div>
 
     <motif-card class="no_data" *ngIf="searchNoDataAvilable">
@@ -75,23 +60,41 @@
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
     </motif-card>
+
+    <ng-template #headerTemplate>
+        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
+        </motif-icon>
+    </ng-template>
+
+    <ng-template #dropdownTemplate>
+        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
+    </ng-template>
+    
+    <div class="pagination">
+
+        <motif-pagination>
+            <button motifIconButton size="small" aria-label="Go to first page"
+                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
+                <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
+            </button>
+            <button motifIconButton size="small" aria-label="Go to previous page"
+                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
+            </button>
+            <span class="page-description">Page <span class="page-number">{{currentPage}}</span> of <span class="page-number">{{maxPages}}</span></span>
+            <button motifIconButton size="small" aria-label="Go to next page"
+                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
+                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+            </button>
+            <button motifIconButton size="small" aria-label="Go to last page"
+                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
+                <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
+            </button>
+        </motif-pagination>
+
+        <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
+        (paginationSelectChange)="updatePaginationSize($event.value)">
+        </motif-pagination-select>
+    </div> 
+
 </section>
-
-<ng-template #headerTemplate>
-    <motif-icon
-        [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"
-        id="motifExampleDropdown"
-    ></motif-icon>
-</ng-template>
-
-<ng-template #dropdownTemplate>
-    <motif-icon
-        [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
-        id="motifDropdown"
-    ></motif-icon>
-</ng-template>
-
-<ng-template #paginationSelectTemplate>
-    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
-</ng-template>
-
