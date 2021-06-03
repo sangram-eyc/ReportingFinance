@@ -138,7 +138,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return this.formBuilder.group({
       first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
       last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      email: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.maxLength(250)]]
+      email: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9.]+@[A-Za-z0-9.]+\\.[a-z]{2,3}'), Validators.maxLength(250)]]
     });
   }
 
