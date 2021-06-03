@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
-import { FilingCardComponent } from '../../shared/filing-card/filing-card.component';
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
-import { SlickCarouselComponent } from 'ngx-slick-carousel';
-import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 
@@ -13,83 +10,28 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 })
 export class RegulatoryReportingFilingComponent implements OnInit {
 
-  @ViewChild('activeSlick', {static: false}) activeSlick: SlickCarouselComponent;
-  @ViewChild('upcomingSlick', {static: false}) upcomingSlick: SlickCarouselComponent;
-  
+  tabIn;
   constructor(
     private filingService: RegulatoryReportingFilingService
-  ) {}
+  ) { }
 
   activeFilings: any[] = [];
+  activeReports: any[] = []
   completedFilings: any[] = [];
-  activeLeftBtnDisabled = true;
-  activeRightBtnDisabled = false;
-
-  upcomingFilings: any[] = [];
-  upcomingLeftBtnDisabled = true;
-  upcomingRightBtnDisabled = false;
   filingResp: any[] = [];
-  
+
+  noOfCompletdFilingRecords = 10;
+  currentPage = 1;
+  maxPages = 5;
   searchNoDataAvilable = false;
-  slideConfig = {
-    slidesToShow: 4,
-    arrows: false,
-    dots: true,
-    infinite: false,
-    responsive: [
-      {
-        breakpoint: 1860,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4
-        }
-      }, 
-      {
-        breakpoint: 1859,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3
-        }
-      }, {
-        breakpoint: 1421,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3
-        }
-      }, {
-        breakpoint: 1420,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      }, {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      }, {
-        breakpoint: 999,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      },{
-        breakpoint: 0,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+  activeReportsSearchNoDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
   rowData;
   rowClass = 'row-style';
   columnDefs;
-  rowStyle= {
+  rowStyle = {
     height: '74px'
   }
   domLayout = 'autoHeight';
@@ -103,14 +45,14 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     value: 10,
     name: '10',
     id: 0
-      },
-      {
+  },
+  {
     disable: false,
     value: 25,
     name: '25',
     id: 1
-      },
-      {
+  },
+  {
     disable: false,
     value: 50,
     name: '50',
@@ -122,82 +64,62 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     name: '10',
     id: 0
   };
-    
+
   pageSize;
 
 
   ngOnInit(): void {
-    this.getFilingsData();
-    
+    this.tabIn = 1;
+    this.getActiveFilingsData();
+    this.getCompletedFilingsData();
+  }
+
+  reportTabChange(selectedTab) {
+    this.tabIn = selectedTab;
   }
 
   ngAfterViewInit(): void {
 
   }
 
-  afterChange(e) {
-    console.log(e);
-    if (e.currentSlide === 0) {
-      this.activeLeftBtnDisabled = true;
-    } else {
-      this.activeLeftBtnDisabled = false;
-    }
-    const slides = e.slick.$slides;
-    if (slides[slides.length - 1].classList.contains('slick-active')) {
-      this.activeRightBtnDisabled = true;
-    } else {
-      this.activeRightBtnDisabled = false;
-    }
-  }
-
-  // activePrevSlide() {
-  //   const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
-  //   if (currentSlide > 0) {
-  //     this.activeSlick.slickPrev();
-  //   }
-  //   console.log(this.activeSlick.slides[0]);
-  // } 
-
-  // activeNextSlide() {
-  //   const currentSlide = this.activeSlick.slides[0].carousel.currentIndex;
-  //   if (currentSlide > 0) {
-  //     this.activeSlick.slickPrev();
-  //   }
-  // }
-
-  getFilingsData() {
+  getActiveFilingsData() {
     this.filingService.getFilings().subscribe(resp => {
       this.filingResp.push(resp);
       resp['data'].forEach((item) => {
-        const eachitem: any  = {
-          name: item.name + ' // ' + item.period,
+        const eachitem: any = {
+          name: item.filingName + ' // ' + item.period,
           dueDate: item.dueDate,
           startDate: item.startDate,
-          comments: item.comments,
-          status: item.status
+          comments: [],
+          status: item.filingStatus
         };
-        if (eachitem.status.stage === 'Submission' && eachitem.status.progress === 'completed') {
-          this.completedFilings.push(eachitem);
-        } else if (eachitem.startDate !== null ) {
-          this.activeFilings.push(eachitem);
-          let startD = new Date(eachitem.startDate)
-          let date = new Date();
-          let lastD = new Date(date.getTime() - (10 * 24 * 60 * 60 * 1000));
-          if (lastD < startD){
-            this.upcomingFilings.push(eachitem)
-          }
-        }
-
+        this.activeFilings.push(eachitem);
+        this.activeReports.push(eachitem);
       });
-      // console.log(this.activeFilings);
-      // console.log(this.activeFilings.length);
       this.createHistoryRowData();
     });
   }
 
+  getCompletedFilingsData() {
+    this.completedFilings = [];
+    this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords).subscribe(resp => {
+      resp['data'].forEach((item) => {
+        const eachitem: any = {
+          name: item.filingName + ' // ' + item.period,
+          dueDate: item.dueDate,
+          startDate: item.startDate,
+          comments: [],
+          status: item.filingStatus
+        };
+        this.completedFilings.push(eachitem);
+      });
+      this.createHistoryRowData();
+    })
+  }
+
   createHistoryRowData() {
     this.rowData = [];
-    this.completedFilings.forEach( filing => {
+    this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
         comments: filing.comments.length,
@@ -271,68 +193,67 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         filter: true,
         minWidth: 140
       },
-    ]; 
-    // console.log('Completed Filings',this.completedFilings);
-    // console.log(this.rowData);
+    ];
   }
 
+  searchActiveReports(input) {
+    this.activeFilings = this.activeReports.filter(item => item.name.toLowerCase().indexOf((input.el.nativeElement.value).toLowerCase()) !== -1)
+    this.activeReportsSearchNoDataAvilable = !!(this.activeFilings.length === 0);
+  }
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
-      this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length ===0)
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[A-Za-z0-9\-\_/ ]+/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  sortByDueDate(a, b) {
+    let date1 = new Date(a.dueDate)
+    let date2 = new Date(b.dueDate)
+    if (date1 < date2) {
+      return 1;
+    } else if (date1 > date2) {
+      return -1;
+    } else {
+      return 0;
+    }
   }
 
   formatDate(timestamp) {
     let due = new Date(timestamp);
-    // console.log(due);
-    // console.log(timestamp);
-    const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-    + ('0' + due.getDate()).slice(-2) + '/'
-    + due.getFullYear();
+    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
+      + ('0' + due.getDate()).slice(-2) + '/'
+      + due.getFullYear();
     return newdate;
   }
 
   isFirstColumn(params) {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     const thisIsFirstColumn = displayedColumns[0] === params.column;
-    
     return thisIsFirstColumn;
   };
-    
-  onGridReady(params)  {
+
+  onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
   };
 
-  afterChangeUpcomingFilings(e){
-    if (e.currentSlide === 0) {
-      this.upcomingLeftBtnDisabled = true;
-    } else {
-      this.upcomingLeftBtnDisabled = false;
-    }
-    const slides = e.slick.$slides;
-    if (slides[slides.length - 1].classList.contains('slick-active')) {
-      this.upcomingRightBtnDisabled = true;
-    } else {
-      this.upcomingRightBtnDisabled = false;
-    }
-  }
-
   updatePaginationSize(newPageSize: number) {
-    this.gridApi.paginationSetPageSize(newPageSize);
+    this.noOfCompletdFilingRecords = newPageSize;
+    this.getCompletedFilingsData();
   }
 
-  // upcomingPrevSlide(){
-  //   const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
-  //   if (currentSlide > 0) {
-  //     this.upcomingSlick.slickPrev();
-  //   }
-  // }
-
-  // upcomingNextSlide(){
-  //   const currentSlide = this.upcomingSlick.slides[0].carousel.currentIndex;
-  //   if (currentSlide > 0) {
-  //     this.upcomingSlick.slickPrev();
-  //   }
-  // }
+  handlePageChange(val: number): void {
+    this.currentPage = val;
+    this.getCompletedFilingsData();
+  }
 }

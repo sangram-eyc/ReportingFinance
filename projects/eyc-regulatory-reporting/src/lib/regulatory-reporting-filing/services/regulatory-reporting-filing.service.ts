@@ -15,8 +15,10 @@ export class RegulatoryReportingFilingService {
   getFilings() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
   }
-  getFilingsHistory(noOfRecords) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}${noOfRecords}`);
+  getFilingsHistory(currentPage,noOfRecords) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
+    // After API integration will remove above line and uncomment below line
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
   }
 
   getFilingSearch(noOfRecords) {
