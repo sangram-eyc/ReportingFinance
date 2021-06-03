@@ -47,7 +47,14 @@ describe('DotsCardComponent', () => {
 
   });
 
-  
+
+  it('dots onclick', () => {
+    let pageUrl = 'client-review';
+    let enableRoute = false;
+    component.handleStepClick(pageUrl, enableRoute)
+    expect(router.navigate).toHaveBeenCalledWith([pageUrl])
+  });
+
   /* describe('greet', () => {
     let curPage;
     it('should include the name in the message', () => {
@@ -58,7 +65,7 @@ describe('DotsCardComponent', () => {
 
 
 
-  describe('dots onclick', () => {
+  /* describe('dots onclick', () => {
     let currentStep = 3;
     let redirect = 'no';
     let step = 3;
@@ -111,6 +118,6 @@ describe('DotsCardComponent', () => {
 
     }
     
-  });
+  }); */
 
 });

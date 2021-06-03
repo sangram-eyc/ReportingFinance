@@ -19,6 +19,8 @@ export class EycRrSettingsService {
       approve_rr_filing_entities: this.rrproduction ? this.API_ENDPOINT +'/api/v2/regreporting/entity': this.API_ENDPOINT +  '',
       client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT + '/api/v2/regreporting/entity?period=Q3-2021&stage=Client review&filingName=Form_PF' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
       approve_client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT +'/api/v2/regreporting/entity': this.API_ENDPOINT +  '',
+      submission_xml_files: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/xmlFilesList.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',
+      submission_download_xml: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/',
     }
 
     return regulatory_Reporting;
