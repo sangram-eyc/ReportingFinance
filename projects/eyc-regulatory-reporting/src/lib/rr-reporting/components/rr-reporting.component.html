@@ -1,25 +1,17 @@
-<lib-dots-card [status]="status"></lib-dots-card>
-
-
+<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
 <lib-reporting-tabs-card (messageEvent)="receiveMessage($event)"></lib-reporting-tabs-card>
-
-
 <div class="reporting-content-container">
     <section id="filingEntities" [hidden]="!(tabs==2)">
         <div class="approve-button">
             <button motifButton color="primary" size="large" (click)="approveFilingEntitiesModal = true;"
                 [disabled]="selectedRows.length==0">Approve selected</button>
-
         </div>
-        <div>
-            <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
+        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
     headerCheckboxSelection: isFirstColumn,
     checkboxSelection: isFirstColumn
     }" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
-                [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false"
-                paginationPageSize="10" (rowSelected)="onRowSelected($event)"></motif-table>
-        </div>
-        <!-- CUSTOM TEMPLATE -->
+            [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false"
+            paginationPageSize="10" (rowSelected)="onRowSelected($event)"></motif-table>
         <ng-template #headerTemplate>
             <div>
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
@@ -35,15 +27,13 @@
                 </motif-icon>
             </div>
         </ng-template>
-      
-
         <motif-modal [show]="approveFilingEntitiesModal" (close)="approveFilingEntitiesModal = false">
             <motif-modal-header>
-                Approve Filing Entities
+                Approve Selected
             </motif-modal-header>
             <motif-modal-body>
                 <p>
-                    Are you sure you want to approve filing entities?
+                    Are you sure approve the selected entities? This will move them to client review.
                 </p>
             </motif-modal-body>
             <motif-modal-footer>
@@ -53,11 +43,8 @@
                     (click)="approveFilingEntitiesModal = false">No</button>
             </motif-modal-footer>
         </motif-modal>
-
         <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>
-
     </section>
-
 </div>

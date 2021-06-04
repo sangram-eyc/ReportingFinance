@@ -11,7 +11,6 @@ export class RrReportingComponent implements OnInit {
 
   constructor(private rrservice: RrReportingService) { }
 
-
   tabs = 1;
   selectedRows = [];
   approveFilingEntitiesModal = false;
@@ -22,11 +21,13 @@ export class RrReportingComponent implements OnInit {
     progress: 'in-progress'
   };
 
+  filingDetails:any;
+
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
-  rowData;
+  rowData = [];
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -34,7 +35,11 @@ export class RrReportingComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-    this.rrservice.getfilingEntities().subscribe(res => {
+   
+  }
+
+  getFilingEntities(){
+    this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
     });
   }
@@ -45,7 +50,7 @@ export class RrReportingComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approve === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = displayedColumns[0] === params.column;
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approve === true));
       return thisIsFirstColumn;
     }
   }
@@ -69,7 +74,6 @@ export class RrReportingComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
           field: 'entityGroup',
-          // width: 350,
           sortable: true,
           filter: true,
         },
@@ -124,15 +128,46 @@ export class RrReportingComponent implements OnInit {
 
   onRowSelected(event: any): void {
     this.selectedRows = this.gridApi.getSelectedRows();
+    console.log(this.selectedRows);
+    
   }
 
   receiveMessage($event) {
     this.tabs = $event;
   }
 
+  receiveFilingDetails(event) {
+    this.filingDetails = event;
+    this.getFilingEntities();
+  }
+
   onSubmitApproveFilingEntities() {
+    // let selectedFiling = {
+    //   "entityIds": this.selectedRows.map(({ entityId }) => entityId),
+    //   "filingName": this.filingDetails.filingName,
+    //   "period": this.filingDetails.period,
+    //   "stage": "Reporting"
+    // };
+    // this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
+    //   res['data'].forEach(ele => {
+    //     this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+    //   });
+    //   this.ngAfterViewInit();
+    //   this.selectedRows = [];
+    //   if (this.rowData.every(item => item.approve === true)) {
+    //     this.status = {
+    //       stage: 'Client Review',
+    //       progress: 'in-progress'
+    //     };
+    //   }
+    //   this.approveFilingEntitiesModal = false;
+    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    //   setTimeout(() => {
+    //     this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    //   }, 5000);
+    // });
     this.selectedRows.forEach(ele => {
-      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true;
+      this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
     });
     this.ngAfterViewInit();
     this.selectedRows = [];

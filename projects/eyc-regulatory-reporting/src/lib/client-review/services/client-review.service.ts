@@ -12,7 +12,13 @@ export class ClientReviewService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getfilingEntities() {
+  getfilingEntities(filingName, period) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}`);
+    // After backend API up will remove above line and uncomment below line
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}&filingName=${filingName}&period=${period}`);
+  }
+
+  approvefilingEntities(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_client_review_filing_entities}`, data);
   }
 }
