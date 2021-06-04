@@ -5,11 +5,8 @@
        breadcrumbValue="Regulatory Reporting"
        breadcrumbLink="/app-regulatory-filing">
       </motif-breadcrumb-item>
-     <!--  <motif-breadcrumb-item
-       breadcrumbValue="Active">
-      </motif-breadcrumb-item> -->
       <motif-breadcrumb-item
-       breadcrumbValue="Form PF // Q3 2021">
+       breadcrumbValue="{{filingName}} // {{period}}">
       </motif-breadcrumb-item>
   </motif-breadcrumb>
 </div>
@@ -18,7 +15,6 @@
     <div class="dots-header-container">
       <h3>{{filingName}} // {{period}}</h3>
       <span class="date-info"><motif-icon class="cust-date-motif-icon" [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Due Date: {{ dueDate }}</span>
-      
     </div>
 
  

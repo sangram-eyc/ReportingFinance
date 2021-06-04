@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'app-filing-card',
@@ -14,7 +15,6 @@ export class FilingCardComponent implements OnInit {
   @Input() 
   set filingData(filingData: object) {
     this._filingData = filingData;
-    // console.log(filingData);
     this.dueDate = this._filingData.dueDate;
     this.formatDate();
     this.startDate = this._filingData.startDate;
@@ -63,7 +63,10 @@ export class FilingCardComponent implements OnInit {
   statusMessage = ''
 
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private filingService: RegulatoryReportingFilingService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -105,6 +108,7 @@ export class FilingCardComponent implements OnInit {
 
   routeToDetailsView(){
     // this.router.navigate(['/regulatory-filing-list/'+1]);
+    this.filingService.addFilingData(this._filingData);
     switch (this.status.stageCode) {
       case "FUND_SCOPING":
         this.router.navigate(['/fund-scoping']);

@@ -1,9 +1,10 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit} from '@angular/core';
 import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
+import { SESSION_ID_TOKEN } from './services/settings-helpers';
 import {SettingsService} from './services/settings.service';
 
 
@@ -13,7 +14,7 @@ import {SettingsService} from './services/settings.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked {
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit {
   title = 'eyc-ServiceEngine-UI';
   mini = false;
   userGivenName;
@@ -37,6 +38,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked {
          this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
+  }
+
+  ngOnInit(): void {
+    if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
+       this.router.navigate(['home'])
+    }
   }
 
  

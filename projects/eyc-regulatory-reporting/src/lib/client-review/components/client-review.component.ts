@@ -10,6 +10,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 })
 export class ClientReviewComponent implements OnInit {
 
+  filingDetails:any;
   constructor(private service: ClientReviewService) { }
 
   tabs = 1;
@@ -26,7 +27,7 @@ export class ClientReviewComponent implements OnInit {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
-  rowData;
+  rowData = [];
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -34,7 +35,11 @@ export class ClientReviewComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-    this.service.getfilingEntities().subscribe(res => {
+    
+  }
+
+  getFilingEntities(){
+    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
     });
   }
@@ -45,7 +50,7 @@ export class ClientReviewComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approve === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = displayedColumns[0] === params.column;
+      const thisIsFirstColumn = (displayedColumns[0] === params.column)  && !(this.rowData.every(item => item.approve === true));
       return thisIsFirstColumn;
     }
   }
@@ -129,9 +134,39 @@ export class ClientReviewComponent implements OnInit {
     this.tabs = $event;
   }
 
+  receiveFilingDetails(event) {
+    this.filingDetails = event;
+    this.getFilingEntities();
+  }
+
   onSubmitApproveFilingEntities() {
+    // let selectedFiling = {
+    //   "entityIds": this.selectedRows.map(({ entityId }) => entityId),
+    //   "filingName": this.filingDetails.filingName,
+    //   "period": this.filingDetails.period,
+    //   "stage": "Client review"
+    // };
+    // this.service.approvefilingEntities(selectedFiling).subscribe(res => {
+    //   res['data'].forEach(ele => {
+    //     this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+    //   });
+    //   this.ngAfterViewInit();
+    //   this.selectedRows = [];
+    //   if (this.rowData.every(item => item.approve === true)) {
+    //     this.status = {
+    //       stage: 'Submission',
+    //       progress: 'in-progress'
+    //     };
+    //   }
+    //   this.approveFilingEntitiesModal = false;
+    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    //   setTimeout(() => {
+    //     this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    //   }, 5000);
+    // });
+
     this.selectedRows.forEach(ele => {
-      this.rowData[this.rowData.findIndex(item => item.entityName === ele.entityName)].approve = true;
+      this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
     });
     this.ngAfterViewInit();
     this.selectedRows = [];

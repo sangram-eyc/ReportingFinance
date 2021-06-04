@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-dots-card',
@@ -14,11 +15,11 @@ export class DotsCardComponent implements OnInit, OnChanges {
   };
 
   @Output() filingDetails = new EventEmitter<any>();
-  
-  dueDate = 'March 31 2021';
-  filingName = "Form PF";
-  period = "Q3 2021";
-  fillingId: 1;
+
+  dueDate: string;
+  filingName: string;
+  period: string;
+  fillingId: number;
   states = [
     {
       stage: 'Fund Scoping',
@@ -57,14 +58,24 @@ export class DotsCardComponent implements OnInit, OnChanges {
     }
   ];
 
-
   constructor(
     public router: Router,
+    private filingService: RegulatoryReportingFilingService
   ) { }
 
   ngOnInit(): void {
     this.setStatus();
-    this.filingDetails.emit({filingName: this.filingName, period: this.period, fillingId: this.fillingId});
+    this.filingService.filingData.subscribe(res => {
+      if (res === null) {
+        this.router.navigate(['home']);
+        return;
+      }
+      this.dueDate = res.dueDate;
+      this.filingName = res.filingName;
+      this.period = res.period;
+      this.fillingId = res.fillingId;
+      this.filingDetails.emit(res);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -73,7 +84,7 @@ export class DotsCardComponent implements OnInit, OnChanges {
 
   setStatus() {
     let currentStatusFound = false;
-    this.states.forEach( state => {
+    this.states.forEach(state => {
       if (this.status['stage'] === state.stage) {
         state.curState = this.status['progress'];
         currentStatusFound = true;
@@ -95,11 +106,8 @@ export class DotsCardComponent implements OnInit, OnChanges {
     return this.states[index].disabled;
   }
 
-
-      handleStepClick(pageUrl, enableRoute) { // For clickable steps
-        if (!enableRoute) { this.router.navigate([pageUrl]); }
-      }
-
-
+  handleStepClick(pageUrl, enableRoute) { // For clickable steps
+    if (!enableRoute) { this.router.navigate([pageUrl]); }
+  }
 
 }

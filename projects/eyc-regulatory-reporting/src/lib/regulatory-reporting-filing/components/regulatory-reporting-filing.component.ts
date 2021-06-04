@@ -91,7 +91,10 @@ export class RegulatoryReportingFilingComponent implements OnInit {
           dueDate: item.dueDate,
           startDate: item.startDate,
           comments: [],
-          status: item.filingStatus
+          status: item.filingStatus,
+          filingName: item.filingName,
+          period: item.period,
+          fillingId: item.fillingId
         };
         this.activeFilings.push(eachitem);
         this.activeReports.push(eachitem);
