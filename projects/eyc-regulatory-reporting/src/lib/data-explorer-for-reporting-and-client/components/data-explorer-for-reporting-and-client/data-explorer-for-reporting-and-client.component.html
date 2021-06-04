@@ -7,15 +7,13 @@
   </div>
   <div class="body-container">
     <section id="form-fields">
-      <div class="row">
-        <div class="col-md-2 mt-2 title">
+      <div class="motif-row">
+        <!-- <div class="col-md-2 mt-2 title">
           <h3>Filing</h3>
-        </div>
-        <div class="col-md-8">
-
-
+        </div> -->
+        <div class="motif-col-sm-2">
           <motif-form-field>
-            <label motifLabel class="select-label">Please Select a Filing</label>
+            <label motifLabel class="select-label">Filing type</label>
             <motif-select [(ngModel)]="selectedFiling" aria-label="Aria Label"
             (change)="filingModelChanged($event)">
             <motif-option *ngFor="let item of filingList;index as i;" [value]="item">
@@ -23,59 +21,33 @@
             </motif-select>
           </motif-form-field>
 
-
-
-          <!-- <div class="cus-formField">
-            <div class="cus-chips">
-              <motif-chip *ngIf="selectedFiling">{{selectedFiling}}<motif-icon class="cus-chip-close"
-                  [src]="'/assets/icons/navigation/ic_close_24px.svg'" (click)="removeFilingChip()">
-                </motif-icon>
-              </motif-chip>
-            </div>
-            <motif-form-field>
-              <input class="cus-input" (ngModelChange)="filingModelChanged($event)" motifInput motifSearch
-                [motifTypeahead]="filingList" type="text" placeholder="filter search" aria-label="Search"
-                [(ngModel)]="filing" tabindex="0" />
-            </motif-form-field>
-          </div> -->
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-2 mt-2 title">
-          <h3>Period</h3>
-        </div>
-        <div class="col-md-8">
-
+        <div class="motif-col-sm-2">
           <motif-form-field>
-            <label motifLabel class="select-label">Please Select a Period</label>
+            <label motifLabel class="select-label">Period</label>
             <motif-select [(ngModel)]="selectedPeriod" aria-label="Aria Label"
             (change)="periodModelChanged($event)">
             <motif-option *ngFor="let item of periodList;index as i;" [value]="item">
               {{item}}</motif-option>
             </motif-select>
           </motif-form-field>
-
-        </div>
-      </div>
-      <div class="row bottom-dropdown">
-        <div class="col-md-2 mt-2 title">
-          <h3>Question</h3>
-        </div>
-        <div class="col-md-8">
-            
-            <motif-form-field>
-                <label *ngIf = "currentPBIQuestions !==''" motifLabel class="select-label">Please Select a Question</label>
-                <motif-select [(ngModel)]="currentPBIQuestions" aria-label="Aria Label"
-                (change)="updateMotifCurrentTask(currentPBIQuestions)">
-                <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.questionName">
-                  {{item.questionName}}</motif-option>
-              </motif-select>
-            </motif-form-field>
         </div>
       </div>
 
+      <div class="motif-row">
+        <div class="motif-col-sm-2">
+          <motif-form-field>
+            <label *ngIf = "currentPBIQuestions !==''" motifLabel class="select-label">Question</label>
+            <motif-select [(ngModel)]="currentPBIQuestions" aria-label="Aria Label"
+            (change)="updateMotifCurrentTask(currentPBIQuestions)">
+              <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.questionName">
+                {{item.questionName}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+        </div>
+      </div>
     </section>
+
     <section id="result">
       <div class="result-header">
         <span>Results</span>
