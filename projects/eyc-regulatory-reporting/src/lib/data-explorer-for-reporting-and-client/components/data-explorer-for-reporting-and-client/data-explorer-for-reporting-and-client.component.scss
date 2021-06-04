@@ -4,6 +4,7 @@
 
 .header-container {
     display: flex;
+    margin-bottom: 8px;
     h3 {
         font-family: EYInterstate;
         font-style: normal;
@@ -22,10 +23,10 @@
 }
 .body-container {
     margin-top: 30px;
-    margin-left: 30px;
 }
 
 #form-fields {
+    margin-bottom: 70px;
     .title {
         margin-right: -25px;
          h3{
@@ -39,9 +40,12 @@
             color: #000000;
         }
     }
-    // .row{
-    //     margin-bottom: -10px;
-    // }
+    .motif-row{
+        margin-bottom: 20px;
+    }
+    .bottom-dropdown {
+        margin-bottom: 70px;
+    }
     ::ng-deep .cus-formField {
         border: 1px solid !important;
         padding: 6px !important;
@@ -130,8 +134,6 @@
     }
 }
 
-.bottom-dropdown {
-  margin-bottom: 70px;
-}
+
 
 
