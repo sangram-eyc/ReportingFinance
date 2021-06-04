@@ -244,6 +244,11 @@ top: -5px !important;
     width: 75px !important;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.6
+}
+
 
 
     

@@ -58,15 +58,11 @@ export const EYC_LOGIN = false;
 
 
 export const oAuthConfig = {
-	issuer: 'https://sts.windows.net/5b973f99-77df-4beb-b27d-aa0c70b8482c/',
 	scope: 'openid profile email',
-	silentRefreshTimeout: environment.production ? 5000 : 5000,
-  	timeoutFactor: environment.production ? 1 : 1,
 	responseType:"token id_token",
 	resource: 'https://graph.microsoft.com',
 	postLogoutRedirectUri: 'https://login.microsoftonline.com/5b973f99-77df-4beb-b27d-aa0c70b8482c/oauth2/logout',
 	strictDiscoveryDocumentValidation: false,
-	
 	clearHashAfterLogin: false,
 	oidc: true,
 	jwks: {
@@ -76,10 +72,14 @@ export const oAuthConfig = {
 				  use: 'sig',
 				  kty: 'RSA',
 				  e: 'AQAB',
-				  // tslint:disable-next-line:max-line-length
 				  n: 'u98KvoUHfs2z2YJyfkJzaGFYM58eD0epHfETTwNDl6AL_cTfOklcxM4jrLWvVqqp2sHaH0gFpYPyovN-_akmE_4fkc0Vw_wGM5jDP-jnOJ1vBvbFoF7uBAy4r3ln2ey1PoGUhpkXdDawhIfdAbc7WLtyopHNWQXI336rXiwjvcjL8dHhievDOktsAsilADP5wJT0lyTifONPZOq-XWCw9FtXAQr7DniOC5uDuUaL0mM1UJChiCrDmFOAf6CNdu2SwLinXYauqM9ORElKYEChoEfi51fcsmlsn4mtNPkxstvR7OJiJBpvk7FLeiaBtMnsO5x30DPgrhAagrVn3IaKRQ'
 			  }]
 	  },
 	  
   }
   
+  /**
+ * configuration to set the user admin module
+ */
+
+export const IS_USER_DETAILS_EDITABLE = false;

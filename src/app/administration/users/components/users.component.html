@@ -40,34 +40,34 @@
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>First name (Required)</label>
-            <input motifInput type="text" aria-label="Username Form Field" formControlName="first" />
+            <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
             <motif-error *ngIf="
-                        addUserForm.get('first').hasError('required') &&
-                        addUserForm.get('first').touched">Please provide a first name!</motif-error>
-            <motif-error *ngIf="addUserForm.get('first').hasError('pattern')">First name must contain only characters
+                        addUserForm.get('firstName').hasError('required') &&
+                        addUserForm.get('firstName').touched">Please provide a first name!</motif-error>
+            <motif-error *ngIf="addUserForm.get('firstName').hasError('pattern')">First name must contain only characters
             </motif-error>
             <motif-error *ngIf="
-                        addUserForm.get('first').hasError('maxlength')">First name can be max 250 characters long
+                        addUserForm.get('firstName').hasError('maxlength')">First name can be max 250 characters long
             </motif-error>
-            <motif-error *ngIf="addUserForm.get('first').hasError('whitespace') &&
-                        addUserForm.get('first').touched">Please enter valid data</motif-error>
+            <motif-error *ngIf="addUserForm.get('firstName').hasError('whitespace') &&
+                        addUserForm.get('firstName').touched">Please enter valid data</motif-error>
           </motif-form-field>
         </div>
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>Last name (Required)</label>
-            <input motifInput type="text" aria-label="Email Form Field" formControlName="last" />
+            <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
             <motif-error *ngIf="
-                        addUserForm.get('last').hasError('required') &&
-                        addUserForm.get('last').touched">Please provide a last name!</motif-error>
+                        addUserForm.get('lastName').hasError('required') &&
+                        addUserForm.get('lastName').touched">Please provide a last name!</motif-error>
             <motif-error *ngIf="
-                        addUserForm.get('last').hasError('pattern')">Last name must contain only characters!
+                        addUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!
             </motif-error>
             <motif-error *ngIf="
-                        addUserForm.get('last').hasError('maxlength')">Last name can be max 250 characters long
+                        addUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters long
             </motif-error>
-            <motif-error *ngIf="addUserForm.get('last').hasError('whitespace') &&
-                        addUserForm.get('last').touched">Please enter valid data</motif-error>
+            <motif-error *ngIf="addUserForm.get('lastName').hasError('whitespace') &&
+                        addUserForm.get('lastName').touched">Please enter valid data</motif-error>
 
           </motif-form-field>
         </div>

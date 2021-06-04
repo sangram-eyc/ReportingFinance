@@ -11,7 +11,7 @@ export const userAdminstration = {
 };
 
 export const authorization = {
-     auth_Details: environment.production ? environment.SERVICE_URL + 'authenticationService/api/v2/authentication/getDetails' : environment.apiEndpoint + 'assets/mock/auth.json',
+     auth_Details: environment.production ? environment.SERVICE_URL + 'gatewayService/api/v2/authentication/getDetails' : environment.apiEndpoint + 'assets/mock/auth.json',
 };
 
 export const token_interceptor = {

@@ -91,7 +91,6 @@ export const authDetailsModel ={
 }
 
 export const authConfig: AuthConfig = {
-	issuer: oAuthConfig.issuer,
 	// URL of the SPA to redirect the user to after login
 	redirectUri: " ",
 	// The SPA's id. The SPA is registerd with this id at the auth-server
@@ -122,6 +121,6 @@ export const authConfig: AuthConfig = {
 			}]
 	}, 
 	silentRefreshRedirectUri: "",
-	siletRefreshTimeout:oAuthConfig.silentRefreshTimeout,
-	timeoutFactor:oAuthConfig.timeoutFactor,
+	siletRefreshTimeout: 0 ,
+	timeoutFactor: 0 ,
 };
