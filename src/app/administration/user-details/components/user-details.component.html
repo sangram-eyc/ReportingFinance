@@ -5,9 +5,9 @@
   </div>
   <div class="user-info-header">
     <h3>User info</h3>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" class="user-edit" *ngIf="!enableEditor && userInfo"
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'"  [class.disabled]="!is_editable" class="user-edit" *ngIf="!enableEditor && userInfo"
       (click)="enableEditForm()">
-      <span *ngIf="!enableEditor && userInfo" (click)="enableEditForm()">Edit</span>
+      <span *ngIf="!enableEditor && userInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
     <div class="edit-form" *ngIf="enableEditor">
       <button class="save-submit" motifButton color="primary" size="small" [disabled]="editUserForm.invalid"

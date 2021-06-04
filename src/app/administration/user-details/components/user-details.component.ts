@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../users/services/users.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../../environments/environment';
+import {IS_USER_DETAILS_EDITABLE} from '../../../services/settings-helpers';
 
 @Component({
   selector: 'app-user-details',
@@ -29,6 +30,7 @@ export class UserDetailsComponent implements OnInit {
   showToastAfterEditUser = false;
   fullname;
   userResp: any[] = [];
+  is_editable = IS_USER_DETAILS_EDITABLE;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -40,7 +42,7 @@ export class UserDetailsComponent implements OnInit {
   getUsersData() {
 
     // Below code will inly work,if it is a local environment reading data from json
-    /* if(this.isLocal){
+     if(this.isLocal){
       this.userService.getUsersList().subscribe(resp => {
           this.userResp.push(resp);
         this.userResp[0].forEach((item) => {
@@ -56,18 +58,18 @@ export class UserDetailsComponent implements OnInit {
           });
 
       });
-    } else { */
-    this.userService.userDetails(this.curentUserId).subscribe(resp => {
-      this.userInfo = resp;
-      this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
-      this.editUserForm.patchValue({
-        first: this.userInfo.userFirstName.trim(),
-        last: this.userInfo.userLastName.trim(),
-        email: this.userInfo.userEmail.trim()
-      });
+    } 
+    // this.userService.userDetails(this.curentUserId).subscribe(resp => {
+    //   this.userInfo = resp;
+    //   this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
+    //   this.editUserForm.patchValue({
+    //     first: this.userInfo.userFirstName.trim(),
+    //     last: this.userInfo.userLastName.trim(),
+    //     email: this.userInfo.userEmail.trim()
+    //   });
 
-    });
-    // }
+    // });
+    
 
   }
 

@@ -136,8 +136,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   private _createAddUser() {
     return this.formBuilder.group({
-      first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
       email: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9.]+@[A-Za-z0-9.]+\\.[a-z]{2,3}'), Validators.maxLength(250)]]
     });
   }
@@ -161,11 +161,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.showAddUserModal = false;
       this.addUserForm = this._createAddUser();
       //Temp fix we will remove it after api response is fixed
-      this.getUsersData();
-      this.showToastAfterAddUser = !this.showToastAfterAddUser;
-      setTimeout(() => {
-        this.showToastAfterAddUser = !this.showToastAfterAddUser;
-      }, 5000);
+      // this.getUsersData();
+      // this.showToastAfterAddUser = !this.showToastAfterAddUser;
+      // setTimeout(() => {
+      //   this.showToastAfterAddUser = !this.showToastAfterAddUser;
+      // }, 5000);
       console.log("API Response is throwing error,user data loaded")
       
     });

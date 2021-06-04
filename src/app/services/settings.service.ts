@@ -117,12 +117,14 @@ setToken = (value) => {
         //set the authdetails to authconfig to initialize the implict login
         authConfig.loginUrl = res['authenticationUrl'];
         authConfig.logoutUrl = res['logoutUrl'];
-        authConfig.redirectUri = environment.production ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' +  res['redirectUrl'] : this.API_ENDPOINT + res['redirectUrl'];
+        authConfig.redirectUri = environment.production ?  res['redirectUrl'] : res['redirectUrl'];
         authConfig.clientId = res['clientId'];
-        authConfig.silentRefreshRedirectUri = environment.production ? environment.SERVICE_URL + 'eyc-ServiceEngine-UI/' + res['silentRefreshRedirectUri'] : this.API_ENDPOINT + res['silentRefreshRedirectUri'];
+        authConfig.silentRefreshRedirectUri = environment.production ?  res['silentRefreshRedirectUri'] : res['silentRefreshRedirectUri'];
         authConfig.resource = res['resource'];
+        authConfig.timeoutFactor = environment.production ? res['timeoutFactor'] : 5000;
+        authConfig.silentRefreshTimeout=  environment.production ? res['timeoutFactor'] : 0.25;
         resolve(true);
-
+        
       })
     });
 
