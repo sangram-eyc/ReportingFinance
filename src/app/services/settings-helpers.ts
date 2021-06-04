@@ -58,6 +58,7 @@ export const EYC_LOGIN = false;
 
 
 export const oAuthConfig = {
+	issuer: 'https://sts.windows.net/5b973f99-77df-4beb-b27d-aa0c70b8482c/',
 	scope: 'openid profile email',
 	responseType:"token id_token",
 	resource: 'https://graph.microsoft.com',
@@ -83,3 +84,10 @@ export const oAuthConfig = {
  */
 
 export const IS_USER_DETAILS_EDITABLE = false;
+
+
+  /**
+ * configuration to set the input validation
+ */
+
+export const INPUT_VALIDATION = /[A-Za-z0-9\ ]+/;
