@@ -25,6 +25,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
+  noCompletedDataAvilable =  false;
+  noActivatedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
@@ -85,9 +87,10 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   getActiveFilingsData() {
     this.filingService.getFilings().subscribe(resp => {
       this.filingResp.push(resp);
+      resp['data'].length  === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
-          name: item.filingName + ' // ' + item.period,
+          name: item.filingName,
           dueDate: item.dueDate,
           startDate: item.startDate,
           comments: [],
@@ -106,9 +109,11 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   getCompletedFilingsData() {
     this.completedFilings = [];
     this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords).subscribe(resp => {
+     resp['data'].length  === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.filingName + ' // ' + item.period,
+          period: item.period,
           dueDate: item.dueDate,
           startDate: item.startDate,
           comments: [],

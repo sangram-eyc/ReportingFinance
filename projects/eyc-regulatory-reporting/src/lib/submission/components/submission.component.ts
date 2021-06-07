@@ -24,6 +24,11 @@ export class SubmissionComponent implements OnInit {
   columnDefs;
   rowData;
   selectedRows = [];
+  filingDetails;
+  filingName;
+  period;
+  slectedFiles;
+  downloadFilesRes;
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -31,9 +36,7 @@ export class SubmissionComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-    this.service.getXmlFilesList().subscribe(res => {
-      this.rowData = res['data'];
-    });
+   
   }
 
   isFirstColumn = (params) => {
@@ -81,15 +84,35 @@ export class SubmissionComponent implements OnInit {
     this.selectedRows = this.gridApi.getSelectedRows();
   }
 
-  approveSelected() {​​​​​​​​
+  
 
+  approveSelected() {
+    
+    const formData: any = new FormData();
     this.selectedRows.forEach((item) => {
-        this.service.downloadXMl(item.fileId).subscribe((res: any) => {
-          //  const file = new Blob([res.body], { type: 'text/plain;charset=utf-8' });
-            FileSaver.saveAs(res.body, item.fileName + '.xml');
-        });
+    formData.append("filenames",item);
+    });
 
+
+    this.service.downloadXMl(formData, this.filingName, this.period).subscribe((res: any) => {
+      this.downloadFilesRes = res['data'];
+      this.downloadFilesRes.forEach((item: any) => {
+        FileSaver.saveAs(item.file, item.fileName);
       });
+    });
+  }
+
+
+  receiveFilingDetails(event) {
+    this.filingDetails = event;
+    this.filingName = this.filingDetails.filingName;
+    this.period = this.filingDetails.period;
+    this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
+      this.rowData = res['data'];
+    });
+
   }​​​​​​​​
+
+
 
 }
