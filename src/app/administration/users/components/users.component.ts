@@ -4,6 +4,7 @@ import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {INPUT_VALIDATION} from '../../../services/settings-helpers';
 
 
 @Component({
@@ -217,5 +218,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   // Remove user end here
   editUser(row) {
     this.router.navigate(['/user-details/' + row.userId]);
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 }

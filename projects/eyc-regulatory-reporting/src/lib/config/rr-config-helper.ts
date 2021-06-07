@@ -16,3 +16,8 @@ export const PBI_CONFIG = {
         popUp: false    
       }
 };
+
+export const INPUT_VALIDATON_CONFIG = {
+ SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
+}
+
