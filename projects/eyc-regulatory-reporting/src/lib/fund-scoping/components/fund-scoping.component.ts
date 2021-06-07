@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { FundScopingService } from '../services/fund-scoping.service';
+import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-fund-scoping',
@@ -67,6 +68,16 @@ export class FundScopingComponent implements OnInit {
   receiveFilingDetails(event) {
     this.filingDetails = event;
     this.getFundsData();
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   createFundRowData() {

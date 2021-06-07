@@ -6,7 +6,7 @@
         <div id="funds-heading">
             <button motifButton color="primary" (click)="approveModal = true" [disabled]="fundScopingStatus === null || fundScopingStatus[0].progress === 'Completed'">Approve</button>
             <motif-form-field>
-                <input #fundsSearch motifInput motifSearch type="text" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
+                <input #fundsSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
             </motif-form-field>
         </div>
         <div >
@@ -16,14 +16,7 @@
             <motif-table [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" (gridReady)="onGridReady($event)"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [domLayout]="domLayout"
                 ></motif-table>
-            <!-- <ag-grid-angular
-                class="ag-theme-alpine"
-                (gridReady)="onGridReady($event)"
-                [columnDefs]="columnDefs"
-                [rowData]="rowData"
-                [rowClass]="rowClass"
-                [domLayout]="domLayout"
-            ></ag-grid-angular> -->
+            
         </div>
     
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
