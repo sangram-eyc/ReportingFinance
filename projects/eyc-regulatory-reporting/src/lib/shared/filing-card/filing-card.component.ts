@@ -21,12 +21,14 @@ export class FilingCardComponent implements OnInit {
     this.comments = this._filingData.comments;
     this.name = this._filingData.name;
     this.states = this._filingData.status;
+    this.period = this._filingData.period;
     this.setStatus();
   };
   startDate = '';
   dueDate = '';
   comments = [];
   name = '';
+  period = '';
   status = {
     stage: '',
     progress: '',

@@ -13,12 +13,12 @@ export class SubmissionService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getXmlFilesList() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}`);
+  getXmlFilesList(filingName: any,period: any) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}`);
   }
 
-  downloadXMl(id: any) {
-    return this.apiService.invokeGetDownloadAPI(`${this.settingsService.regReportingFiling.submission_download_xml}${id}.xml`);
+  downloadXMl(fileName: any, filingName: any,period: any) {
+    return this.apiService.invokeGetDownloadAPI(`${this.settingsService.regReportingFiling.submission_download_xml}?filenames=${fileName}&filing=${filingName}&period=${period}`);
     // return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/'+id+'.xml',  { headers , responseType: 'blob' as 'json' , observe: 'response' });
   }
 
