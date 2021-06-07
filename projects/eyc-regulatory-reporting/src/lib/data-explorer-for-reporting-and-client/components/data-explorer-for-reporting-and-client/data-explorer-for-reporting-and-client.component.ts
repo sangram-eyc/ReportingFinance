@@ -78,9 +78,9 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
   getPBIQuestions() {
     this.pbiServices.getPBIQuestion(this.form.get('filingId').value).subscribe(resp => {
-      // this.pbiQuestionList = resp['data'];
+       this.pbiQuestionList = resp['data'];
       // After API are ready will remove above line and uncomment below line
-      this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
+     // this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
     });
   }
 
@@ -98,10 +98,10 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
   getPowerBIReportID() {
     this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('filingId').value, this.form.get('questionId').value).subscribe(res => {
-      // this.PBIReportId = res['data'];
+       this.PBIReportId = res['data'];
       // After API are ready will remove above line and uncomment below line
-      let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
-      this.PBIReportId = obj[0].reportId;
+      // let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
+      // this.PBIReportId = obj[0].reportId;
     });
   }
 }

@@ -20,70 +20,37 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
   constructor(private powerbiMappingService: EycPbiService) { }
 
   ngOnInit() {
-    //this.getEmbedToken();
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-
-  }
+ }
   ngOnChanges() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-    
-    //this.getEmbedToken();
+    this.showVisualizationForPowerBi();
   }
  
-  
-  getEmbedToken() {
-    const req: any = {};
-    req.groupId = PBI_CONFIG.PBI_WORK_SPACE_ID;
-    req.reportId = this.selectedReportId;
-    return this.powerbiMappingService.embedToken(req).subscribe(embedToken =>{
-      const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL,embedToken['token']);
-       this.showVisualizationForPowerBi(embedConfig);
-     
-    });
+  getAuthToken() {
+    return this.powerbiMappingService.authToken();
   }
 
-  buildConfig(embedUrl: string,embedToken: string) {
+  getEmbedToken(authToken: string) {
+    const req: any = {};
+    req.reportId = this.selectedReportId;
+    return this.powerbiMappingService.embedToken(authToken, req);
+  }
+
+  buildConfig(embedUrl: string, reportId: string, workspaceId: string, embedToken: string) {
     const embedConfig = {
       type: 'report',
-      embedUrl: embedUrl + '?' + 'reportId=' + this.selectedReportId + '&groupId=' + PBI_CONFIG.PBI_WORK_SPACE_ID,
+      embedUrl: embedUrl + '?' + 'reportId=' + reportId + '&groupId=' + workspaceId,
       accessToken: embedToken,
       permissions: models.Permissions.All,
       tokenType: models.TokenType.Embed,
+      //theme: {themeJson: powerbiTheme.default},
       viewMode: models.ViewMode.View
     };
     return embedConfig;
   }
 
-  showVisualizationForPowerBi(embedConfig) {
-    const filingId = this.selectedReportId;
-    const period = this.selectedPeriod;
-      const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
-          powerbi.factories.routerFactory);
-        pbi.reset(this.el.nativeElement);
-        const reportContainer = <HTMLElement>this.el.nativeElement;
-        this.report = <powerbi.Report>pbi.embed(reportContainer,embedConfig);
-        const self = this;
-        this.report.on('loaded', function (event) {
-          self.report.getFilters().then(filters => {
-            self.filters = [];
-            for (const filter of filters) {
-              console.log('Filter', filter);
-              if (filter['target']['column'] === 'Filling') {
-                filter['operator'] = 'In';
-                filter['values'].push(filingId);
-              }
-              if (filter['target']['column'] === 'period') {
-                filter['operator'] = 'In';
-                if (filter.hasOwnProperty('values')) {
-                  filter['values'].push(period);
-                }
-              }
-              self.filters.push(filter);
-            }
-            self.setFilter(self.filters);
-          });
-        });
-  }
+ 
   setFilter(value) {
     if (!isNaN(value)) {
       value = +value;
@@ -92,5 +59,44 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
     this.report.setFilters(this.filters);
     console.log('Filters', this.filters);
   }
+
+
+  showVisualizationForPowerBi() {
+    const period ="";
+    const year ="";
+     this.getAuthToken().subscribe(authTokenData => {
+        const authToken = authTokenData['accessToken'];
+        this.getEmbedToken(authToken).subscribe(embedTokenData => {
+          const embedToken = embedTokenData['token'];
+          const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);
+          const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
+                  powerbi.factories.routerFactory);
+          pbi.reset(this.el.nativeElement);
+          const reportContainer = <HTMLElement>this.el.nativeElement;
+          this.report = <powerbi.Report>pbi.embed(reportContainer,embedConfig);
+          const self = this;
+          this.report.on('loaded', function (event) {
+            self.report.getFilters().then(filters => {
+              self.filters = [];
+              for (const filter of filters) {
+                console.log('Filter', filter);
+                if (filter['target']['column'] === 'period') {
+                  filter['operator'] = 'In';
+                  if (filter.hasOwnProperty('values')) {
+                    filter['values'].push(period);
+                  }
+                }
+                self.filters.push(filter);
+              }
+              self.setFilter(self.filters);
+            });
+         
+
+        });
+      });
+    });
+  }
+
+
 
 }
