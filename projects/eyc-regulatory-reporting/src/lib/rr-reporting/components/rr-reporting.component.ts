@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
 @Component({
@@ -9,7 +10,10 @@ import { RrReportingService } from '../services/rr-reporting.service';
 })
 export class RrReportingComponent implements OnInit {
 
-  constructor(private rrservice: RrReportingService) { }
+  constructor(
+    private rrservice: RrReportingService,
+    private filingService: RegulatoryReportingFilingService
+    ) { }
 
   tabs = 1;
   selectedRows = [];
@@ -128,9 +132,9 @@ export class RrReportingComponent implements OnInit {
   }
 
   onRowSelected(event: any): void {
-    this.selectedRows = this.gridApi.getSelectedRows();
-    console.log(this.selectedRows);
-    
+    let selectedArr = [];
+    selectedArr = this.gridApi.getSelectedRows();
+    this.selectedRows =selectedArr.filter(item => item.approve === false);
   }
 
   receiveMessage($event) {
@@ -143,46 +147,36 @@ export class RrReportingComponent implements OnInit {
   }
 
   onSubmitApproveFilingEntities() {
-    // let selectedFiling = {
-    //   "entityIds": this.selectedRows.map(({ entityId }) => entityId),
-    //   "filingName": this.filingDetails.filingName,
-    //   "period": this.filingDetails.period,
-    //   "stage": "Reporting"
-    // };
-    // this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
-    //   res['data'].forEach(ele => {
-    //     this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
-    //   });
-    //   this.ngAfterViewInit();
-    //   this.selectedRows = [];
-    //   if (this.rowData.every(item => item.approve === true)) {
-    //     this.status = {
-    //       stage: 'Client Review',
-    //       progress: 'in-progress'
-    //     };
-    //   }
-    //   this.approveFilingEntitiesModal = false;
-    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    //   setTimeout(() => {
-    //     this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    //   }, 5000);
-    // });
-    this.selectedRows.forEach(ele => {
-      this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
-    });
-    this.ngAfterViewInit();
-    this.selectedRows = [];
-    if (this.rowData.every(item => item.approve === true)) {
-      this.status = {
-        stage: 'Client Review',
-        progress: 'in-progress'
-      };
-    }
-
-    this.approveFilingEntitiesModal = false;
-    this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    setTimeout(() => {
+    let selectedFiling = {
+      "entityIds": this.selectedRows.map(({ entityId }) => entityId),
+      "filingName": this.filingDetails.filingName,
+      "period": this.filingDetails.period,
+      "stage": "Reporting"
+    };
+    this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
+      res['data'].forEach(ele => {
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+      });
+      this.ngAfterViewInit();
+      this.selectedRows = [];
+       this.filingService.addfilingStatus("Reporting");
+      this.approveFilingEntitiesModal = false;
       this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    }, 5000);
+      setTimeout(() => {
+        this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+      }, 5000);
+    });
+    // this.selectedRows.forEach(ele => {
+    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+    // });
+    // this.ngAfterViewInit();
+    // this.selectedRows = [];
+
+    // this.filingService.addfilingStatus("Reporting");
+    // this.approveFilingEntitiesModal = false;
+    // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    // setTimeout(() => {
+    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    // }, 5000);
   }
 }
