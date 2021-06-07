@@ -1,10 +1,10 @@
-<lib-dots-card [status]="status"></lib-dots-card>
+<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
 
 
 <div class="scoping-content-container">
     <section id="funds">
         <div id="funds-heading">
-            <button motifButton color="primary" (click)="approveModal = true">Approve</button>
+            <button motifButton color="primary" (click)="approveModal = true" [disabled]="fundScopingStatus === null || fundScopingStatus[0].progress === 'Completed'">Approve</button>
             <motif-form-field>
                 <input #fundsSearch motifInput motifSearch type="text" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
             </motif-form-field>

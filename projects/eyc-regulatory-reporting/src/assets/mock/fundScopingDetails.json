@@ -1,0 +1,34 @@
+{
+    "success": true,
+    "message": "Funds in scope details fetched successfully",
+    "corelationId": null,
+    "data": [
+      {
+        "fundName": "Goldman Sachs China A-Share Equity Portfolio",
+        "fundCode": "19614011",
+        "fundId": "PV100356"
+      },
+      {
+        "fundName": "Goldman Sachs China B-Share Equity Portfolio",
+        "fundCode": "19614012",
+        "fundId": "PV100357"
+      },
+      {
+        "fundName": "Goldman Sachs China C-Share Equity Portfolio",
+        "fundCode": "19614013",
+        "fundId": "PV100358"
+      },
+      {
+        "fundName": "Goldman Sachs China D-Share Equity Portfolio",
+        "fundCode": "19614014",
+        "fundId": "PV100359"
+      },
+      {
+        "fundName": "Goldman Sachs China E-Share Equity Portfolio",
+        "fundCode": "19614015",
+        "fundId": "PV100360"
+      }
+    ],
+    "error": null
+  }
+  

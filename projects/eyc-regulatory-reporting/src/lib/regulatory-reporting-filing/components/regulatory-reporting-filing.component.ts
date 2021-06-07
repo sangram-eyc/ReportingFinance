@@ -94,7 +94,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
           status: item.filingStatus,
           filingName: item.filingName,
           period: item.period,
-          fillingId: item.fillingId
+          filingId: item.filingId
         };
         this.activeFilings.push(eachitem);
         this.activeReports.push(eachitem);

@@ -14,6 +14,8 @@ export class FundScopingComponent implements OnInit {
     private fundScopingService: FundScopingService
   ) { }
 
+  filingDetails: any;
+  fundScopingStatus = null;
   searchNoDataAvilable = false;
   approveModal = false;
   showToastAfterApproveFunds = false;
@@ -36,7 +38,7 @@ export class FundScopingComponent implements OnInit {
   funds: any[] = [];
 
   ngOnInit(): void {
-    this.getFundsData();
+    
   }
 
   onGridReady(params)  {
@@ -45,17 +47,26 @@ export class FundScopingComponent implements OnInit {
   };
 
   getFundsData() {
-    this.fundScopingService.getFilingFunds().subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period).subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any  = {
           name: item.fundName,
           code: item.fundCode,
-          id: item.id
+          id: item.fundId
         };
         this.funds.push(eachitem);
       });
       this.createFundRowData();
     });
+    this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).subscribe(resp => {
+      this.fundScopingStatus = resp['data'];
+      console.log('FUND SCOPING STATUS', this.fundScopingStatus);
+    });
+  }
+
+  receiveFilingDetails(event) {
+    this.filingDetails = event;
+    this.getFundsData();
   }
 
   createFundRowData() {
@@ -107,8 +118,6 @@ export class FundScopingComponent implements OnInit {
         filter: true,
       }
     ]; 
-    // console.log('Completed Filings',this.completedFilings);
-    // console.log(this.rowData);
   }
 
   searchFunds(input) {
@@ -127,19 +136,6 @@ export class FundScopingComponent implements OnInit {
         setTimeout(() => {
           this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
         }, 5000);
-
-    // this.userService.addUser(obj).subscribe(resp => {
-    //   this.approveModal = false;
-    //   if (resp) {
-    //     this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
-    //     setTimeout(() => {
-    //       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
-    //     }, 5000);
-    //   }
-
-    // }, error => {
-    //   this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
-    // });
   }
 
 }
