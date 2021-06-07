@@ -41,6 +41,7 @@ export class RrReportingComponent implements OnInit {
   getFilingEntities(){
     this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
+      this.ngAfterViewInit();
     });
   }
 
