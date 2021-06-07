@@ -29,7 +29,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      fillingId: [''],
+      filingId: [''],
       period: [''],
       questionId: ['']
     });
@@ -43,14 +43,14 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
       }
       this.filingDetails = res;
       this.form.patchValue({
-        fillingId: res.fillingId,
+        filingId: res.filingId,
         period: res.period,
       });
     });
 
     if (this.filingDetails) {
-      this.form.get('fillingId').valueChanges.subscribe(res => {
-        this.filingName = this.filingList.find(item => item.fillingId === res);
+      this.form.get('filingId').valueChanges.subscribe(res => {
+        this.filingName = this.filingList.find(item => item.filingId === res);
         this.getPeriods();
         this.getPBIQuestions();
       });
@@ -62,7 +62,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
       this.form.get('questionId').valueChanges.subscribe(res => {
         if (res) {
           this.getPowerBIReportID();
-          this.selectedFiling = this.filingList.find(item => item.fillingId === this.form.get('fillingId').value);
+          this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
           this.selectedPeriod = this.form.get('period').value;
         }
       });
@@ -77,7 +77,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
   }
 
   getPBIQuestions() {
-    this.pbiServices.getPBIQuestion(this.form.get('fillingId').value).subscribe(resp => {
+    this.pbiServices.getPBIQuestion(this.form.get('filingId').value).subscribe(resp => {
       // this.pbiQuestionList = resp['data'];
       // After API are ready will remove above line and uncomment below line
       this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
@@ -97,7 +97,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
   }
 
   getPowerBIReportID() {
-    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('fillingId').value, this.form.get('questionId').value).subscribe(res => {
+    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('filingId').value, this.form.get('questionId').value).subscribe(res => {
       // this.PBIReportId = res['data'];
       // After API are ready will remove above line and uncomment below line
       let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);

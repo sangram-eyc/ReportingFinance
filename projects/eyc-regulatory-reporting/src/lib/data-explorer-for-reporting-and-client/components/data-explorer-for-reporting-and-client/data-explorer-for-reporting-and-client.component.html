@@ -16,8 +16,8 @@
         <div class="motif-col-sm-2">
           <motif-form-field>
             <label motifLabel class="select-label">Filing type</label>
-            <motif-select formControlName="fillingId" aria-label="Aria Label">
-            <motif-option *ngFor="let item of filingList;index as i;" [value]="item.fillingId">
+            <motif-select formControlName="filingId" aria-label="Aria Label">
+            <motif-option *ngFor="let item of filingList;index as i;" [value]="item.filingId">
               {{item.filingName}}</motif-option>
             </motif-select>
           </motif-form-field>

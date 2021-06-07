@@ -3,11 +3,11 @@
     "message": "",
     "corelationId": null,
     "data": [
-        {"fillingId": 1, "filingName": "Form PF"},
-        {"fillingId": 5, "filingName": "CPO-PQR"},
-        {"fillingId": 3, "filingName": "N-PORT"},
-        {"fillingId": 4, "filingName": "N-CEN"},
-        {"fillingId": 2, "filingName": "AIFMD"}
+        {"filingId": 1, "filingName": "Form PF"},
+        {"filingId": 5, "filingName": "CPO-PQR"},
+        {"filingId": 3, "filingName": "N-PORT"},
+        {"filingId": 4, "filingName": "N-CEN"},
+        {"filingId": 2, "filingName": "AIFMD"}
       ],
     "error": null
   }
