@@ -11,9 +11,10 @@ export class EycPbiService {
   constructor( private http: HttpClient, private settingService: EycRrSettingsService,
     private apiService: EycRrApiService) {}
 
-  embedToken = (data) => {
+  embedToken = (authtoken,data) => {
     const headers = new HttpHeaders({
       'Content-Type':  'application/json',
+      'accessToken': authtoken,
       
     });
   
@@ -23,9 +24,9 @@ export class EycPbiService {
   }
 
   getPBIQuestion(filingId) {
-    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}`);
+    //return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}`);
     // After API are ready will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}${filingId}`);
+     return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}${filingId}`);
   }
 
   authToken = () => {
@@ -37,15 +38,15 @@ export class EycPbiService {
   }
 
   getPeriods(filingName) {
-    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}`)
+    //return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}`)
     // After API are ready will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}${filingName}/period`)
+     return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}${filingName}/period`)
   }
 
   getPBIReportIDByFilingIdQuestionId(filingId,questionId) {
-    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}`)
+    //return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}`)
     // After API are ready will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}${filingId}/${questionId}`)
+     return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}${filingId}/${questionId}`)
   }
 
 }
