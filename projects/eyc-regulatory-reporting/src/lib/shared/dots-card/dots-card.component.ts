@@ -19,7 +19,7 @@ export class DotsCardComponent implements OnInit, OnChanges {
   dueDate: string;
   filingName: string;
   period: string;
-  fillingId: number;
+  filingId: number;
   states = [
     {
       stage: 'Fund Scoping',
@@ -73,7 +73,7 @@ export class DotsCardComponent implements OnInit, OnChanges {
       this.dueDate = res.dueDate;
       this.filingName = res.filingName;
       this.period = res.period;
-      this.fillingId = res.fillingId;
+      this.filingId = res.filingId;
       this.filingDetails.emit(res);
     });
   }

@@ -5,7 +5,7 @@
     "data": [
       {
         "filingName": "Form PF",
-        "fillingId": 1,
+        "filingId": 1,
         "filingStatus": [
           {
             "stage": "Fund Scoping",
@@ -49,7 +49,7 @@
       },
       {
         "filingName": "AIFMD",
-        "fillingId": 2,
+        "filingId": 2,
         "filingStatus": [
           {
             "stage": "Fund Scoping",
@@ -93,7 +93,7 @@
       },
       {
         "filingName": "N-PORT",
-        "fillingId": 3,
+        "filingId": 3,
         "filingStatus": [
           {
             "stage": "Fund Scoping",
@@ -137,7 +137,7 @@
       },
       {
         "filingName": "N-CEN",
-        "fillingId": 4,
+        "filingId": 4,
         "filingStatus": [
           {
             "stage": "Fund Scoping",
@@ -181,7 +181,7 @@
       },
       {
         "filingName": "CPO-PQR",
-        "fillingId": 5,
+        "filingId": 5,
         "filingStatus": [
           {
             "stage": "Fund Scoping",

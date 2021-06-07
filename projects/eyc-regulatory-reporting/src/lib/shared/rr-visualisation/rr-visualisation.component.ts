@@ -51,7 +51,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
   }
 
   showVisualizationForPowerBi(embedConfig) {
-    const fillingId = this.selectedReportId;
+    const filingId = this.selectedReportId;
     const period = this.selectedPeriod;
       const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
           powerbi.factories.routerFactory);
@@ -66,7 +66,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
               console.log('Filter', filter);
               if (filter['target']['column'] === 'Filling') {
                 filter['operator'] = 'In';
-                filter['values'].push(fillingId);
+                filter['values'].push(filingId);
               }
               if (filter['target']['column'] === 'period') {
                 filter['operator'] = 'In';
