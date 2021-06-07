@@ -24,6 +24,7 @@ export class EycRrSettingsService {
       approve_fund_scoping_status: this.rrproduction ? this.API_ENDPOINT +'/api/v2/regreporting/fundScopingStatus': this.API_ENDPOINT +  '',
       submission_xml_files: this.rrproduction ? this.API_ENDPOINT + '/api/v2/regreporting/getAnswerFilesList' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',
       submission_download_xml: this.rrproduction ? this.API_ENDPOINT + '/api/v2/regreporting/downloadAnswerFiles' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',
+      filing_status: this.rrproduction ? this.API_ENDPOINT + '/api/v2/regreporting/filings/': this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filing-status.json',
     }
 
     return regulatory_Reporting;
