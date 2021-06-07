@@ -8,6 +8,7 @@
   <p>Please select from the options below to explore data.</p>
   <div class="body-container">
     <section id="form-fields">
+      <form [formGroup]="form">
       <div class="motif-row">
         <!-- <div class="col-md-2 mt-2 title">
           <h3>Filing</h3>
@@ -15,10 +16,9 @@
         <div class="motif-col-sm-2">
           <motif-form-field>
             <label motifLabel class="select-label">Filing type</label>
-            <motif-select [(ngModel)]="selectedFiling" aria-label="Aria Label"
-            (change)="filingModelChanged($event)">
-            <motif-option *ngFor="let item of filingList;index as i;" [value]="item">
-              {{item}}</motif-option>
+            <motif-select formControlName="fillingId" aria-label="Aria Label">
+            <motif-option *ngFor="let item of filingList;index as i;" [value]="item.fillingId">
+              {{item.filingName}}</motif-option>
             </motif-select>
           </motif-form-field>
 
@@ -26,8 +26,7 @@
         <div class="motif-col-sm-2">
           <motif-form-field>
             <label motifLabel class="select-label">Period</label>
-            <motif-select [(ngModel)]="selectedPeriod" aria-label="Aria Label"
-            (change)="periodModelChanged($event)">
+            <motif-select formControlName="period" aria-label="Aria Label">
             <motif-option *ngFor="let item of periodList;index as i;" [value]="item">
               {{item}}</motif-option>
             </motif-select>
@@ -38,27 +37,25 @@
       <div class="motif-row">
         <div class="motif-col-sm-2">
           <motif-form-field>
-            <label *ngIf = "currentPBIQuestions !==''" motifLabel class="select-label">Question</label>
-            <motif-select [(ngModel)]="currentPBIQuestions" aria-label="Aria Label"
-            (change)="updateMotifCurrentTask(currentPBIQuestions)">
-              <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.questionName">
+            <label motifLabel class="select-label">Question</label>
+            <motif-select formControlName="questionId" aria-label="Aria Label">
+              <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.id">
                 {{item.questionName}}</motif-option>
             </motif-select>
           </motif-form-field>
         </div>
       </div>
+    </form>
     </section>
 
     <section id="result">
       <div class="result-header">
         <span>Results</span>
       </div>
-
     </section>
     <div>
-      <lib-rr-visualisation [selectedReportId]="selectedReport" [selectedFilling]="selectedFiling"
+      <lib-rr-visualisation [selectedReportId]="PBIReportId" [selectedFilling]="selectedFiling"
         [selectedPeriod]="selectedPeriod"></lib-rr-visualisation>
     </div>
   </div>
-
 </div>

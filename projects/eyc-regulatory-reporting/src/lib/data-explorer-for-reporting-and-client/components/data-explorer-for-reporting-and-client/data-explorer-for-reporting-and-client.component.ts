@@ -1,67 +1,75 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {EycPbiService} from '../../../services/eyc-pbi.service';
+import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { EycPbiService } from '../../../services/eyc-pbi.service';
 
 @Component({
   selector: 'lib-data-explorer-for-reporting-and-client',
   templateUrl: './data-explorer-for-reporting-and-client.component.html',
   styleUrls: ['./data-explorer-for-reporting-and-client.component.scss']
 })
-export class DataExplorerForReportingAndClientComponent implements OnInit,AfterViewInit {
-  filing = '';
-  period = '';
-  filingList = [
-    'Form PF',
-    'CPO-PQR',
-    'N-PORT',
-    'Test 1',
-    'Test 2',
-    'Test 3'
-  ];
-  
-  periodList = [
-    "Q1 2020",
-    "Q2 2020",
-    "Q3 2020",
-    "Q4 2020"
-  ];
+export class DataExplorerForReportingAndClientComponent implements OnInit, AfterViewInit {
 
-  selectedFiling = "Form PF";
-  selectedPeriod = "Q3 2021";
-  currentPBIQuestions ='';
+  filingList = [];
+  periodList = [];
+  selectedFiling: any;
+  filingName: any;
+  selectedPeriod: any;
   pbiQuestionList = [];
-  selectedReport;
+  form: FormGroup;
+  filingDetails: any;
+  PBIReportId: any;
   constructor(
-    private router: Router, private pbiServices:EycPbiService
+    private router: Router,
+    private pbiServices: EycPbiService,
+    private fb: FormBuilder,
+    private filingService: RegulatoryReportingFilingService
   ) { }
 
   ngOnInit(): void {
-   
-  }
+    this.form = this.fb.group({
+      fillingId: [''],
+      period: [''],
+      questionId: ['']
+    });
 
-  ngAfterViewInit()
-  {
-    this.getPBIQuestions();
-  }
+    this.getFilingNames();
 
-  filingModelChanged(event) {
-    if (this.filingList.includes(event)) {
-      this.selectedFiling = event
+    this.filingService.filingData.subscribe(res => {
+      if (res === null) {
+        this.router.navigate(['home']);
+        return;
+      }
+      this.filingDetails = res;
+      this.form.patchValue({
+        fillingId: res.fillingId,
+        period: res.period,
+      });
+    });
+
+    if (this.filingDetails) {
+      this.form.get('fillingId').valueChanges.subscribe(res => {
+        this.filingName = this.filingList.find(item => item.fillingId === res);
+        this.getPeriods();
+        this.getPBIQuestions();
+      });
+
+      this.form.get('period').valueChanges.subscribe(res => {
+
+      });
+
+      this.form.get('questionId').valueChanges.subscribe(res => {
+        if (res) {
+          this.getPowerBIReportID();
+          this.selectedFiling = this.filingList.find(item => item.fillingId === this.form.get('fillingId').value);
+          this.selectedPeriod = this.form.get('period').value;
+        }
+      });
     }
   }
 
-  removeFilingChip() {
-    this.selectedFiling = "";
-  }
-
-  periodModelChanged(event) {
-    if (this.periodList.includes(event)) {
-      this.selectedPeriod = event
-    }
-  }
-
-  removePeriodChip() {
-    this.selectedPeriod = "";
+  ngAfterViewInit() {
   }
 
   back() {
@@ -69,14 +77,31 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,AfterV
   }
 
   getPBIQuestions() {
-    this.pbiServices.getPBIQuestion().subscribe(resp=>{
-      this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.selectedFiling );
-      
-
+    this.pbiServices.getPBIQuestion(this.form.get('fillingId').value).subscribe(resp => {
+      // this.pbiQuestionList = resp['data'];
+      // After API are ready will remove above line and uncomment below line
+      this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
     });
   }
 
-  updateMotifCurrentTask(currentMotifTask) {
-    this.selectedReport = this.pbiQuestionList.filter(value => value.filingName === this.selectedFiling); currentMotifTask
+  getFilingNames() {
+    this.pbiServices.getFilingNames().subscribe(res => {
+      this.filingList = res['data'];
+    });
+  }
+
+  getPeriods() {
+    this.pbiServices.getPeriods(this.filingName?.filingName).subscribe(res => {
+      this.periodList = res['data'];
+    });
+  }
+
+  getPowerBIReportID() {
+    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('fillingId').value, this.form.get('questionId').value).subscribe(res => {
+      // this.PBIReportId = res['data'];
+      // After API are ready will remove above line and uncomment below line
+      let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
+      this.PBIReportId = obj[0].reportId;
+    });
   }
 }

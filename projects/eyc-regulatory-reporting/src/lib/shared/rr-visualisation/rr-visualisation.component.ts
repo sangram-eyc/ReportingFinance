@@ -21,8 +21,12 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
 
   ngOnInit() {
     //this.getEmbedToken();
+    console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
+
   }
   ngOnChanges() {
+    console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
+    
     //this.getEmbedToken();
   }
  

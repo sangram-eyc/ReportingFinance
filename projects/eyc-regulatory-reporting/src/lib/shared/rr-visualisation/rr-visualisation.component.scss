@@ -1,13 +1,15 @@
 .no-data-container
 {
-    margin-left: 31%;
+    // margin-left: 31%;
     margin-top: 5%;
+    text-align: center;
 }
 
 .svg-container
 {
-    margin-left: 210px;
-    margin-bottom: 15px;
+   
+    margin: auto;
+    width: 5%;
 }
 
 ::ng-deep.no-data-container.svg-container svg {
@@ -19,7 +21,7 @@
 {
     ::ng-deep svg {
         height: 52px !important;
-        width: 52px !important;
+        width: 52px !important;    
     }
 }
 
@@ -30,4 +32,5 @@ font-style: normal;
 font-weight: 300;
 font-size: 16px;
 line-height: 20px;
+margin-top: 15px;
 }

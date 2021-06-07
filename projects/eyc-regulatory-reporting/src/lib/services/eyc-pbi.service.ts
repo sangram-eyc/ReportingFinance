@@ -22,12 +22,30 @@ export class EycPbiService {
     });
   }
 
-  getPBIQuestion() {
+  getPBIQuestion(filingId) {
     return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}`);
+    // After API are ready will remove above line and uncomment below line
+    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}${filingId}`);
   }
 
   authToken = () => {
     return this.apiService.invokePostAPI(`${this.settingService.pbiReportingConfig.pbi_auth_token}`);
+  }
+
+  getFilingNames() {
+    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.filing_names}`)
+  }
+
+  getPeriods(filingName) {
+    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}`)
+    // After API are ready will remove above line and uncomment below line
+    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}${filingName}/period`)
+  }
+
+  getPBIReportIDByFilingIdQuestionId(filingId,questionId) {
+    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}`)
+    // After API are ready will remove above line and uncomment below line
+    // return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.PBIReportId}${filingId}/${questionId}`)
   }
 
 }

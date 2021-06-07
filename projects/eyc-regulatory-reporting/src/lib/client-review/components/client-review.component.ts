@@ -41,6 +41,7 @@ export class ClientReviewComponent implements OnInit {
   getFilingEntities(){
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
+      this.ngAfterViewInit();
     });
   }
 

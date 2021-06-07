@@ -17,7 +17,7 @@ import { SubmissionComponent } from './submission/components/submission.componen
 import { RrReportingComponent } from './rr-reporting/components/rr-reporting.component';
 import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
 import { DataExplorerForReportingAndClientComponent } from './data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {EycRrApiService} from './services/eyc-rr-api.service';
 import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisation.component';
@@ -44,7 +44,8 @@ import {EycPbiService} from './services/eyc-pbi.service';
     MotifChipModule,
     MotifModalModule,
     MotifToastModule,
-    MotifDropdownModule
+    MotifDropdownModule,
+    ReactiveFormsModule
     
     
   ],
