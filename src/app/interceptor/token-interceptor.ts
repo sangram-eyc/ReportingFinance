@@ -18,7 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const abcd = request.url.indexOf(token_interceptor.auth_Header);
-        console.log(request.url.indexOf('powerbi'));
+        console.log(request.url.indexOf('getPowerBIEmbedToken'));
         console.log(request.url);
         if (request.url.indexOf(token_interceptor.auth_Header) !== -1) {
             console.log('policy');
@@ -46,7 +46,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         
         
-        else if (request.url.indexOf('powerbi') !== -1)
+        else if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
         {
           const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
           console.log("powerbiAuthToken",powerbiAuthToken);
