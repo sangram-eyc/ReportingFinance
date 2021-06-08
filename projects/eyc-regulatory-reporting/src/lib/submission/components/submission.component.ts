@@ -87,14 +87,15 @@ export class SubmissionComponent implements OnInit {
   
 
   approveSelected() {
-    
+    this.slectedFiles = [];
     const formData: any = new FormData();
     this.selectedRows.forEach((item) => {
-    formData.append("filenames",item);
+    // formData.append("file", item['fileName']);
+    this.slectedFiles.push(item['fileName']);
     });
 
 
-    this.service.downloadXMl(formData, this.filingName, this.period).subscribe((res: any) => {
+    this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res['data'];
       this.downloadFilesRes.forEach((item: any) => {
         FileSaver.saveAs(item.file, item.fileName);
