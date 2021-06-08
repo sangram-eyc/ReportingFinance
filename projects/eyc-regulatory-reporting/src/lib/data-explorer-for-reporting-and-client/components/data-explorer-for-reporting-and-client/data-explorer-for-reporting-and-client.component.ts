@@ -57,12 +57,12 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
         if (this.isUserInDataExplorerPage) {
           this.filingDetails = selectedRes;
           this.form.patchValue({
-            filingId: selectedRes.filingId,
+            filingId: selectedRes.filingName,
             period: selectedRes.period,
           });
 
           this.form.get('filingId').valueChanges.subscribe(res => {
-            this.filingName = this.filingList.find(item => item.formId === res);
+            this.filingName = this.filingList.find(item => item.filingName === res);
             this.getPeriods();
             this.getPBIQuestions();
           });
@@ -91,7 +91,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
   }
 
   getPBIQuestions() {
-    this.pbiServices.getPBIQuestion(this.form.get('filingId').value).subscribe(resp => {
+    this.pbiServices.getPBIQuestion(this.filingName?.formId).subscribe(resp => {
       this.pbiQuestionList = resp['data'];
       // After API are ready will remove above line and uncomment below line
       // this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
@@ -111,8 +111,10 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
   }
 
   getPowerBIReportID() {
-    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('filingId').value, this.form.get('questionId').value).subscribe(res => {
+    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.filingName?.formId, this.form.get('questionId').value).subscribe(res => {
       this.PBIReportId = res['data'];
+      console.log("PBIReportId", this.PBIReportId);
+      
       // After API are ready will remove above line and uncomment below line
       // let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
       // this.PBIReportId = obj[0].reportId;
