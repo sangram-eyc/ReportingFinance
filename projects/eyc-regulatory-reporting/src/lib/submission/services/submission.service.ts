@@ -18,7 +18,7 @@ export class SubmissionService {
   }
 
   downloadXMl(fileName: any, filingName: any,period: any) {
-    return this.apiService.invokeGetDownloadAPI(`${this.settingsService.regReportingFiling.submission_download_xml}?filenames=${fileName}&filing=${filingName}&period=${period}`);
+    return this.apiService.invokePostDownloadAPI(`${this.settingsService.regReportingFiling.submission_download_xml}?filenames=${fileName}&filing=${filingName}&period=${period}`);
     // return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/'+id+'.xml',  { headers , responseType: 'blob' as 'json' , observe: 'response' });
   }
 
