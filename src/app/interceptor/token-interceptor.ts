@@ -42,6 +42,18 @@ export class TokenInterceptor implements HttpInterceptor {
             
             
         }
+        else if (request.url.indexOf('powerbi') !== -1)
+        {
+          const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
+            request = request.clone({
+                headers: request.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+            });
+            request = request.clone({
+                setHeaders: {
+                    Authorization: 'Bearer ' + powerbiAuthToken
+                }
+            });
+        }
         else
         {
             if (environment.SECURITY_ENABLED) {

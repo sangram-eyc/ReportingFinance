@@ -68,6 +68,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
     const year ="";
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
+        sessionStorage.setItem("PBI_AUTH_TOKEN",authToken);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
           const embedToken = embedTokenData['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);

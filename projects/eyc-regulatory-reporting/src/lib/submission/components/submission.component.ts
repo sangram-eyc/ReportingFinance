@@ -96,8 +96,8 @@ export class SubmissionComponent implements OnInit {
 
 
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
-      this.downloadFilesRes = res['data'];
-      this.downloadFilesRes.forEach((item: any) => {
+      // this.downloadFilesRes = res['data'];
+      res['data'].forEach((item: any) => {
         FileSaver.saveAs(item.file, item.fileName);
       });
     });
