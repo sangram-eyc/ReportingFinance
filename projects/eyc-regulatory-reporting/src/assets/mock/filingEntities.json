@@ -10,7 +10,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 2,
@@ -20,7 +20,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 3,
@@ -30,7 +30,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 4,
@@ -40,7 +40,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 5,
@@ -50,7 +50,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 6,
@@ -60,7 +60,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 7,
@@ -70,7 +70,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 8,
@@ -80,7 +80,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 9,
@@ -90,7 +90,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 10,
@@ -100,7 +100,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 11,
@@ -110,7 +110,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 12,
@@ -120,7 +120,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 13,
@@ -130,7 +130,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 14,
@@ -140,7 +140,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 15,
@@ -150,7 +150,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 16,
@@ -160,7 +160,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 17,
@@ -170,7 +170,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         },
         {
             "entityId": 18,
@@ -180,7 +180,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 19,
@@ -190,7 +190,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": false
+            "approved": false
         },
         {
             "entityId": 20,
@@ -200,7 +200,7 @@
             "reviewLevel": "--",
             "myTasks": "",
             "comments": [],
-            "approve": true
+            "approved": true
         }
     ]
 }

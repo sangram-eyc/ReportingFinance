@@ -50,7 +50,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
     if (this.filingDetails) {
       this.form.get('filingId').valueChanges.subscribe(res => {
-        this.filingName = this.filingList.find(item => item.filingId === res);
+        this.filingName = this.filingList.find(item => item.formId === res);
         this.getPeriods();
         this.getPBIQuestions();
       });

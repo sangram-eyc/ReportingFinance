@@ -24,7 +24,9 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
  }
   ngOnChanges() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-    this.showVisualizationForPowerBi();
+    if(this.selectedReportId){
+      this.showVisualizationForPowerBi();
+    }
   }
  
   getAuthToken() {
