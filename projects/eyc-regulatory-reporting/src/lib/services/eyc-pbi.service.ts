@@ -25,9 +25,9 @@ export class EycPbiService {
   }
 
   getPBIQuestion(filingId) {
-    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}`);
+    //return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}`);
     // After API are ready will remove above line and uncomment below line
-    //  return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}${filingId}`);
+    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.question_details}${filingId}`);
   }
 
   authToken = () => {
@@ -39,9 +39,9 @@ export class EycPbiService {
   }
 
   getPeriods(filingName) {
-    return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}`)
+  //  return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}`)
     // After API are ready will remove above line and uncomment below line
-    //  return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}${filingName}/period`)
+   return this.apiService.invokeGetAPI(`${this.settingService.pbiReportingConfig.period}${filingName}/period`)
   }
 
   getPBIReportIDByFilingIdQuestionId(filingId,questionId) {
