@@ -24,7 +24,7 @@ export class FundScopingService {
   }
 
   getFundScopingDetails(filingName, period) {
-   // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);
+  //  return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);
     // After backend API up will remove above line and uncomment below line
      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}&filingName=${filingName}&period=${period}`);
   }
@@ -36,7 +36,7 @@ export class FundScopingService {
   }
 
   approveFundScopingStatus(data) {
-    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_fund_scoping_status}`, data);
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.approve_fund_scoping_status}`, data);
   }
 
 }
