@@ -12,15 +12,6 @@ export class EycPbiService {
     private apiService: EycRrApiService) {}
 
   embedToken = (authtoken,data) => {
-    // const headers = new HttpHeaders({
-    //   'Content-Type':  'application/json',
-    //   'accessToken': authtoken,
-      
-    // });
-  
-    // return this.http.post(PBI_CONFIG.PBI_EMBED_URL, data, {
-    //   headers: headers,
-    // });
     return this.apiService.invokePostAPI(`${this.settingService.pbiReportingConfig.pbi_embeded_token}${data}`);
   }
 
