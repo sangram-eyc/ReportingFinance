@@ -137,16 +137,33 @@ export class FundScopingComponent implements OnInit {
   }
 
   onSubmitApproveFunds() {
-    this.status = {
-      stage: 'Intake',
-      progress: 'in-progress'
+    const approveInfo = {
+      filingId: this.filingDetails.filingId,
+      stageId: this.fundScopingStatus[0].stageId
     }
-    this.fundScopingStatus[0].progress = 'Completed';
-    this.approveModal = false;
-    this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
-        setTimeout(() => {
-          this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
-        }, 5000);
+    this.fundScopingService.approveFundScopingStatus(approveInfo).subscribe(resp => {
+      const data = resp;
+      this.status = {
+        stage: 'Intake',
+        progress: 'in-progress'
+      }
+      this.fundScopingStatus[0].progress = 'Completed';
+      this.approveModal = false;
+      this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+          setTimeout(() => {
+            this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+          }, 5000);
+    })
+    // this.status = {
+    //   stage: 'Intake',
+    //   progress: 'in-progress'
+    // }
+    // this.fundScopingStatus[0].progress = 'Completed';
+    // this.approveModal = false;
+    // this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+    //     setTimeout(() => {
+    //       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
+    //     }, 5000);
   }
 
 }
