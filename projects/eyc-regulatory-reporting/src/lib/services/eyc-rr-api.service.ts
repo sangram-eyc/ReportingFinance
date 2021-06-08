@@ -42,7 +42,7 @@ export class EycRrApiService {
       const headers = this.setHeaders();
       // return this.httpClient.post<any>(url, { headers , responseType: 'blob' as 'json' , observe: 'response' }, body);
 
-      return this.httpClient.post(url, body, { headers , responseType: 'blob' as 'json' , observe: 'response' });
+      return this.httpClient.post(url, body, { headers });
     }
 
     /*--------------GENERIC API FOR POST METHOD-------------*/
