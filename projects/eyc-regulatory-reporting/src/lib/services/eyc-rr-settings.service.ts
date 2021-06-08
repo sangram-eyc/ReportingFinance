@@ -35,7 +35,7 @@ export class EycRrSettingsService {
     const regulatory_Reporting = {
       question_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getQuestionsByFilingId/' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/pbi_report.json',
       pbi_auth_token: this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getPBIAuthToken',
-      pbi_embeded_token: this.API_ENDPOINT + 'api/v2/regreporting/getPowerBIEmbedToken?reportId=',
+      pbi_embeded_token: this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getPowerBIEmbedToken?reportId=',
       filing_names: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filing/names' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filingNames.json',
       period: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/pbi_period.json',
       PBIReportId: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getPBIReportIDByFilingIdQuestionId/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/pbi_report.json',
