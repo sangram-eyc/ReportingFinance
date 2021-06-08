@@ -113,6 +113,7 @@ setToken = (value) => {
   loadAuthDetails() {
     return new Promise((resolve, reject) => {
       //An Http Get to my API to get the available authdetails
+      if (!sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.http.get(`${authorization.auth_Details}`).subscribe(res => {
         //set the authdetails to authconfig to initialize the implict login
         authConfig.loginUrl = res['authenticationUrl'];
@@ -126,6 +127,9 @@ setToken = (value) => {
         resolve(true);
         
       })
+    } else {
+      resolve(true);
+    }
     });
 
   }
