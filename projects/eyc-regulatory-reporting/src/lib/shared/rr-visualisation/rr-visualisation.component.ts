@@ -70,6 +70,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
         const authToken = authTokenData['accessToken'];
         sessionStorage.setItem("PBI_AUTH_TOKEN",authToken);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
+          console.log("PowerBI Acceestokn works");
           const embedToken = embedTokenData['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);
           const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
@@ -96,6 +97,11 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
          
 
         });
+      }, error => {
+       
+        console.log("Embed token is not working",error);
+        
+        
       });
     });
   }
