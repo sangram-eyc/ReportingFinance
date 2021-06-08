@@ -60,6 +60,10 @@ export class TokenInterceptor implements HttpInterceptor {
                
                 console.log(request);
                 console.log("Accesstoken works");
+                return next.handle(request)
+                            .pipe(
+                                catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
+                            );
                 
             }
             else
