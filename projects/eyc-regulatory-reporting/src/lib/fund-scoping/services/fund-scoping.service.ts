@@ -24,15 +24,15 @@ export class FundScopingService {
   }
 
   getFundScopingDetails(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);
+   // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);
     // After backend API up will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}&filingName=${filingName}&period=${period}`);
+     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}&filingName=${filingName}&period=${period}`);
   }
 
   getFundScopingStatus(filingId) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}`);
+  //  return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}`);
     // After backend API up will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}&filingId=${filingId}`);
+     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}&filingId=${filingId}`);
   }
 
   approveFundScopingStatus(data) {

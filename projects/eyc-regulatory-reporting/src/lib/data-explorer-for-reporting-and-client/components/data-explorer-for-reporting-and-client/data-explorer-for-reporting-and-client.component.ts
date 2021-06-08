@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EycPbiService } from '../../../services/eyc-pbi.service';
 
@@ -20,12 +20,20 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
   form: FormGroup;
   filingDetails: any;
   PBIReportId: any;
+  isUserInDataExplorerPage = false;
   constructor(
     private router: Router,
     private pbiServices: EycPbiService,
     private fb: FormBuilder,
     private filingService: RegulatoryReportingFilingService
-  ) { }
+  ) {
+    this.router.events.subscribe(
+      (event: any) => {
+        if (event instanceof NavigationEnd) {
+          (event.url === "/data-explorer") ? this.isUserInDataExplorerPage = true : this.isUserInDataExplorerPage = false;
+        }
+      });
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -34,39 +42,45 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
       questionId: ['']
     });
 
-    this.getFilingNames();
+    // this.getFilingNames();
+    this.pbiServices.getFilingNames().subscribe(filingNamesRes => {
+      this.filingList = filingNamesRes['data'];
+      console.log("filingNamesRes",filingNamesRes);
+      
+      this.filingService.filingData.subscribe(selectedRes => {
+        if (selectedRes === null) {
+          this.router.navigate(['home']);
+          return;
+        }
+        console.log("selectedRes", selectedRes);
 
-    this.filingService.filingData.subscribe(res => {
-      if (res === null) {
-        this.router.navigate(['home']);
-        return;
-      }
-      this.filingDetails = res;
-      this.form.patchValue({
-        filingId: res.filingId,
-        period: res.period,
-      });
-    });
+        if (this.isUserInDataExplorerPage) {
+          this.filingDetails = selectedRes;
+          this.form.patchValue({
+            filingId: selectedRes.filingId,
+            period: selectedRes.period,
+          });
 
-    if (this.filingDetails) {
-      this.form.get('filingId').valueChanges.subscribe(res => {
-        this.filingName = this.filingList.find(item => item.filingId === res);
-        this.getPeriods();
-        this.getPBIQuestions();
-      });
+          this.form.get('filingId').valueChanges.subscribe(res => {
+            this.filingName = this.filingList.find(item => item.formId === res);
+            this.getPeriods();
+            this.getPBIQuestions();
+          });
 
-      this.form.get('period').valueChanges.subscribe(res => {
+          this.form.get('period').valueChanges.subscribe(res => {
 
-      });
+          });
 
-      this.form.get('questionId').valueChanges.subscribe(res => {
-        if (res) {
-          this.getPowerBIReportID();
-          this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
-          this.selectedPeriod = this.form.get('period').value;
+          this.form.get('questionId').valueChanges.subscribe(res => {
+            if (res) {
+              this.getPowerBIReportID();
+              this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
+              this.selectedPeriod = this.form.get('period').value;
+            }
+          });
         }
       });
-    }
+    });
   }
 
   ngAfterViewInit() {
@@ -78,9 +92,9 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
   getPBIQuestions() {
     this.pbiServices.getPBIQuestion(this.form.get('filingId').value).subscribe(resp => {
-       this.pbiQuestionList = resp['data'];
+      this.pbiQuestionList = resp['data'];
       // After API are ready will remove above line and uncomment below line
-     // this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
+      // this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
     });
   }
 
@@ -98,7 +112,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
 
   getPowerBIReportID() {
     this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.form.get('filingId').value, this.form.get('questionId').value).subscribe(res => {
-       this.PBIReportId = res['data'];
+      this.PBIReportId = res['data'];
       // After API are ready will remove above line and uncomment below line
       // let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
       // this.PBIReportId = obj[0].reportId;

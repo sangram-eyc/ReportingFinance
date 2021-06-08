@@ -52,10 +52,10 @@ export class ClientReviewComponent implements OnInit {
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     if (params.data) {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approve === false);
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column)  && !(this.rowData.every(item => item.approve === true));
+      const thisIsFirstColumn = (displayedColumns[0] === params.column)  && !(this.rowData.every(item => item.approved === true));
       return thisIsFirstColumn;
     }
   }
@@ -134,7 +134,7 @@ export class ClientReviewComponent implements OnInit {
   onRowSelected(event: any): void {
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
-    this.selectedRows =selectedArr.filter(item => item.approve === false);
+    this.selectedRows =selectedArr.filter(item => item.approved === false);
   }
 
   receiveMessage($event) {
@@ -155,7 +155,7 @@ export class ClientReviewComponent implements OnInit {
     };
     this.service.approvefilingEntities(selectedFiling).subscribe(res => {
       res['data'].forEach(ele => {
-        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
       });
       this.ngAfterViewInit();
       this.selectedRows = [];
@@ -168,7 +168,7 @@ export class ClientReviewComponent implements OnInit {
     });
 
     // this.selectedRows.forEach(ele => {
-    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approve = true;
+    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
     // });
     // this.ngAfterViewInit();
     // this.selectedRows = [];
