@@ -37,6 +37,12 @@ export class EycRrApiService {
       return this.httpClient.get<any>(url, { headers , responseType: 'blob' as 'json' , observe: 'response' });
     }
 
+    /*--------------GENERIC API FOR POST DOWNLOAD METHOD-------------*/
+    invokePostDownloadAPI(url: string) {
+      const headers = this.setHeaders();
+      return this.httpClient.post<any>(url, { headers , responseType: 'blob' as 'json' , observe: 'response' });
+    }
+
     /*--------------GENERIC API FOR POST METHOD-------------*/
   invokePostAPI(url: string, params?: any) {
     const headers = this.setHeaders1();
