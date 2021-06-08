@@ -141,7 +141,7 @@ export class FundScopingComponent implements OnInit {
       stage: 'Intake',
       progress: 'in-progress'
     }
-    
+    this.fundScopingStatus[0].progress = 'Completed';
     this.approveModal = false;
     this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
         setTimeout(() => {
