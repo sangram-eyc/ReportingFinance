@@ -44,58 +44,61 @@ export class TokenInterceptor implements HttpInterceptor {
             
             
         }
-        
-        
-        else if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
-        {
-          const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
-          console.log("powerbiAuthToken",powerbiAuthToken);
-          
-            request = request.clone({
-                headers: request.headers.set('accessToken',powerbiAuthToken)
-            });
-           
-            console.log(request);
-            console.log("Accesstoken works");
-            
-        }
+      
         else
         {
-            if (environment.SECURITY_ENABLED) {
+            console.log("This is power bi API",request.url.indexOf('getPowerBIEmbedToken'))
+            if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
+            {
+             console.log("This is power bi API inside API block")
+              const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
+              console.log("powerbiAuthToken",powerbiAuthToken);
+              
+                request = request.clone({
+                    headers: request.headers.set('accessToken',powerbiAuthToken)
+                });
                
-                console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
-                if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
-                    const currentUserToken = this.settingService.getToken();
-                    const urlString = request.url;
-                    console.log('url : ' + urlString);
-                    request = request.clone({
-                        headers: new HttpHeaders({
-                            
-                                Authorization: `Bearer ${currentUserToken}`
-                            
-                        }),
-                        url: urlString
-                    });
-                    if (currentUserToken && request.url.includes(location.origin)) {
-                        request = request.clone({
-                            headers: new HttpHeaders({
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${currentUserToken}`
-                            })
-                        });
-    
-                    }
-                    // install an error handler
-                    return next.handle(request)
-                        .pipe(
-                            catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
-                        );
-                }
-            }
-            if (ID_TOKEN) {
+                console.log(request);
+                console.log("Accesstoken works");
                 
             }
+            else
+            {
+                if (environment.SECURITY_ENABLED) {
+               
+                    console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
+                    if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
+                        const currentUserToken = this.settingService.getToken();
+                        const urlString = request.url;
+                        console.log('url : ' + urlString);
+                        request = request.clone({
+                            headers: new HttpHeaders({
+                                
+                                    Authorization: `Bearer ${currentUserToken}`
+                                
+                            }),
+                            url: urlString
+                        });
+                        if (currentUserToken && request.url.includes(location.origin)) {
+                            request = request.clone({
+                                headers: new HttpHeaders({
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bearer ${currentUserToken}`
+                                })
+                            });
+        
+                        }
+                        // install an error handler
+                        return next.handle(request)
+                            .pipe(
+                                catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
+                            );
+                    }
+                }
+            }
+           
         }
+      
       
         return new EmptyObservable();
     }
