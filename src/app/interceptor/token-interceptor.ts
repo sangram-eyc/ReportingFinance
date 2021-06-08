@@ -46,22 +46,22 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         
         
-        else if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
-        {
-          const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
-          console.log("powerbiAuthToken",powerbiAuthToken);
+        // else if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
+        // {
+        //   const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
+        //   console.log("powerbiAuthToken",powerbiAuthToken);
           
-            request = request.clone({
-                headers: request.headers.set('Content-Type', 'application/x-www-form-urlencoded')
-            });
-            request = request.clone({
-                setHeaders: {
-                    Authorization: 'Bearer ' + powerbiAuthToken
-                }
-            });
-            console.log(request);
+        //     // request = request.clone({
+        //     //     headers: request.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        //     // });
+        //     request = request.clone({
+        //         setHeaders: {
+        //             Authorization: 'Bearer ' + powerbiAuthToken
+        //         }
+        //     });
+        //     console.log(request);
             
-        }
+        // }
         else
         {
             if (environment.SECURITY_ENABLED) {
