@@ -36,7 +36,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
   getEmbedToken(authToken: string) {
     const req: any = {};
     req.reportId = this.selectedReportId;
-    return this.powerbiMappingService.embedToken(authToken, this.selectedReportId);
+    return this.powerbiMappingService.embedToken(this.selectedReportId);
   }
 
   buildConfig(embedUrl: string, reportId: string, workspaceId: string, embedToken: string) {
