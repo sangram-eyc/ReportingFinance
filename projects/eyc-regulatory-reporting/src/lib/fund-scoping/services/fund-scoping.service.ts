@@ -36,7 +36,7 @@ export class FundScopingService {
   }
 
   approveFundScopingStatus(data) {
-    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.approve_fund_scoping_status}`, data);
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_fund_scoping_status}`, data);
   }
 
 }
