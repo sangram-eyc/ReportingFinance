@@ -17,6 +17,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
   private report: powerbi.Report;
   embedConfig;
   filters = [];
+  isReportPresent = false;
   constructor(private powerbiMappingService: EycPbiService) { }
 
   ngOnInit() {
@@ -64,12 +65,12 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
 
 
   showVisualizationForPowerBi() {
-    const period ="";
-    const year ="";
+    const filter = this.selectedPeriod.split(" ");
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
         sessionStorage.setItem("PBI_AUTH_TOKEN",authToken);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
+          this.isReportPresent = true;
           console.log("PowerBI Acceestokn works");
           const embedToken = embedTokenData['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);
@@ -84,10 +85,16 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
               self.filters = [];
               for (const filter of filters) {
                 console.log('Filter', filter);
-                if (filter['target']['column'] === 'period') {
+                if (filter['target']['column'] === 'FilingYear') {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(period);
+                    filter['values'].push(filter[1]);
+                  }
+                }
+                if (filter['target']['column'] === 'FilingPeriod') {
+                  filter['operator'] = 'In';
+                  if (filter.hasOwnProperty('values')) {
+                    filter['values'].push(filter[0]);
                   }
                 }
                 self.filters.push(filter);
