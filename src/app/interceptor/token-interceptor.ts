@@ -48,7 +48,7 @@ export class TokenInterceptor implements HttpInterceptor {
         else
         {
             console.log("This is power bi API",request.url.indexOf('getPowerBIEmbedToken'))
-            if (request.url.indexOf('getPowerBIEmbedToken') !== -1)
+            if (request.url.indexOf('getPBIEmbedToken') !== -1)
             {
              console.log("This is power bi API inside API block")
              const currentUserToken = this.settingService.getToken();
