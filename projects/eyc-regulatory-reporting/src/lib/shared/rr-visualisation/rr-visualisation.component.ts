@@ -65,6 +65,7 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
 
 
   showVisualizationForPowerBi() {
+    this.isReportPresent = false;
     const filter = this.selectedPeriod.split(" ");
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
