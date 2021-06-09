@@ -11,7 +11,7 @@ export class EycPbiService {
   constructor( private http: HttpClient, private settingService: EycRrSettingsService,
     private apiService: EycRrApiService) {}
 
-  embedToken = (authtoken,data) => {
+  embedToken = (data) => {
     return this.apiService.invokePostAPI(`${this.settingService.pbiReportingConfig.pbi_embeded_token}${data}`);
   }
 
