@@ -3,6 +3,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-fund-scoping',
@@ -12,7 +13,8 @@ import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 export class FundScopingComponent implements OnInit {
 
   constructor(
-    private fundScopingService: FundScopingService
+    private fundScopingService: FundScopingService,
+    private filingService: RegulatoryReportingFilingService
   ) { }
 
   filingDetails: any;
@@ -148,6 +150,7 @@ export class FundScopingComponent implements OnInit {
         progress: 'in-progress'
       }
       this.fundScopingStatus[0].progress = 'Completed';
+      this.filingService.addfilingStatus("Reporting");
       this.approveModal = false;
       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
           setTimeout(() => {
