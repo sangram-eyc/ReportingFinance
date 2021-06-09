@@ -98,12 +98,34 @@ export class SubmissionComponent implements OnInit {
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
       this.downloadFilesRes.forEach((item: any) => {
-        console.log("item", item);
-        let data = new Blob([item.file], {type: 'application/xml'});
+        console.log("download - item > ", item);
+        // let data = new Blob([item.file], {type: 'application/xml'});
+        // let data = new Blob([item.file], { type: 'text/plain;charset=utf-8' });
+        const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
     });
   }
+
+
+  public base64ToBlob(b64Data, contentType='text/xml', sliceSize=512) {
+    b64Data = b64Data.replace(/\s/g, ''); //IE compatibility...
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        let byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        let byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, {type: contentType});
+}
+
+
 
 
   receiveFilingDetails(event) {
