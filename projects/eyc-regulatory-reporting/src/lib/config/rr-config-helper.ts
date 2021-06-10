@@ -21,3 +21,7 @@ export const INPUT_VALIDATON_CONFIG = {
  SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
 }
 
+/*PBI Theme file settings */
+export const IS_THEME_APPLIED = true;
+/*PBI Theme file settings */
+

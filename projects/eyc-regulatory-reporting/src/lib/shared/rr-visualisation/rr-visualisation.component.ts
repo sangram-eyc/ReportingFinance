@@ -1,15 +1,15 @@
-import { Component,OnInit,OnChanges,Input,ElementRef,ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ElementRef, ViewChild } from '@angular/core';
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import {EycPbiService} from '../../services/eyc-pbi.service';
-import {PBI_CONFIG} from '../../config/rr-config-helper';
-
+import {PBI_CONFIG, IS_THEME_APPLIED} from '../../config/rr-config-helper';
+import * as powerbiTheme from '../../../assets/theme/eyc_theme.json';
 @Component({
   selector: 'lib-rr-visualisation',
   templateUrl: './rr-visualisation.component.html',
   styleUrls: ['./rr-visualisation.component.scss']
 })
-export class RrVisualisationComponent implements OnChanges,OnInit {
+export class RrVisualisationComponent implements OnChanges, OnInit {
   @ViewChild('reportstatic') el: ElementRef;
   @Input() selectedReportId: any;
   @Input() selectedFilling: any;
@@ -25,11 +25,11 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
  }
   ngOnChanges() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-    if(this.selectedReportId){
+    if (this.selectedReportId){
       this.showVisualizationForPowerBi();
     }
   }
- 
+
   getAuthToken() {
     return this.powerbiMappingService.authToken();
   }
@@ -47,13 +47,13 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
       accessToken: embedToken,
       permissions: models.Permissions.All,
       tokenType: models.TokenType.Embed,
-      //theme: {themeJson: powerbiTheme.default},
+      theme: IS_THEME_APPLIED ? {themeJson: powerbiTheme} : '',
       viewMode: models.ViewMode.View
     };
     return embedConfig;
   }
 
- 
+
   setFilter(value) {
     if (!isNaN(value)) {
       value = +value;
@@ -65,51 +65,49 @@ export class RrVisualisationComponent implements OnChanges,OnInit {
 
 
   showVisualizationForPowerBi() {
-   // this.isReportPresent = false;
-    const filter = this.selectedPeriod.split(" ");
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
-        sessionStorage.setItem("PBI_AUTH_TOKEN",authToken);
+        sessionStorage.setItem('PBI_AUTH_TOKEN', authToken);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
-          //this.isReportPresent = true;
-          console.log("PowerBI Acceestokn works");
+          console.log('PowerBI Acceestokn works');
           const embedToken = embedTokenData['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);
           const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
                   powerbi.factories.routerFactory);
           pbi.reset(this.el.nativeElement);
-          const reportContainer = <HTMLElement>this.el.nativeElement;
-          this.report = <powerbi.Report>pbi.embed(reportContainer,embedConfig);
+          const reportContainer = this.el.nativeElement as HTMLElement;
+          this.report = (pbi.embed(reportContainer, embedConfig) as powerbi.Report);
           const self = this;
-          this.report.on('loaded', function (event) {
+          const filters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [] ;
+          this.report.on('loaded', function(event) {
             self.report.getFilters().then(filters => {
               self.filters = [];
               for (const filter of filters) {
                 console.log('Filter', filter);
-                if (filter['target']['column'] === 'FilingYear') {
+                if (filter.target['column'] === 'FilingYear') {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(filter[1]);
+                    filter['values'].push(filters[1]);
                   }
                 }
-                if (filter['target']['column'] === 'FilingPeriod') {
+                if (filter.target['column'] === 'FilingPeriod') {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(filter[0]);
+                    filter['values'].push(filters[0]);
                   }
                 }
                 self.filters.push(filter);
               }
               self.setFilter(self.filters);
             });
-         
+
 
         });
       }, error => {
-       
-        console.log("Embed token is not working",error);
-        
-        
+
+        console.log('Embed token is not working', error);
+
+
       });
     });
   }
