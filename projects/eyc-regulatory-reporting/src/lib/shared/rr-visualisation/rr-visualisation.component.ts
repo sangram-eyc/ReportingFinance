@@ -27,12 +27,12 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
  }
   ngOnChanges(changes: SimpleChanges) {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-    if (this.selectedReportId) {
+    console.log("changed period value",changes)
+    if (this.selectedReportId || changes['selectedPeriod']) {
+      console.log("it works")
       this.showVisualizationForPowerBi();
     }
-    else if (changes['selectedPeriod']) {
-      this.showVisualizationForPowerBi();
-    }
+    
   }
 
   getAuthToken() {
