@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import {EycPbiService} from '../../services/eyc-pbi.service';
@@ -25,9 +25,12 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   ngOnInit() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
  }
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
-    if (this.selectedReportId){
+    if (this.selectedReportId) {
+      this.showVisualizationForPowerBi();
+    }
+    else if (changes['selectedPeriod']) {
       this.showVisualizationForPowerBi();
     }
   }
