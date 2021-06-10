@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
-import { SESSION_ID_TOKEN } from './services/settings-helpers';
+import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN } from './services/settings-helpers';
 import {SettingsService} from './services/settings.service';
 
 
@@ -138,6 +138,19 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       this.opensubmenu = toggleId;
     }
   }
+
+@HostListener('window:message', ['$event'])
+onMessage(event) {
+  if (event['data'] && (typeof event['data'] === 'string' || event['data']  instanceof String)) {
+    if (event['data'].includes('#access_token=')) {
+      setTimeout(() => {
+        this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
+        this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
+      }, 1000);
+    }
+
+  }
+}
 
   
   

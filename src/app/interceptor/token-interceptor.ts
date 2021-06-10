@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import * as userAuthHelpers from '../services/settings-helpers';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { SettingsService } from '../services/settings.service';
-import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID} from '../services/settings-helpers';
+import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../services/settings-helpers';
 import {token_interceptor} from '../helper/api-config-helper';
 
 
@@ -53,7 +53,8 @@ export class TokenInterceptor implements HttpInterceptor {
              console.log("This is power bi API inside API block")
              const currentUserToken = this.settingService.getToken();
              const urlString = request.url;
-              const powerbiAuthToken =  sessionStorage.getItem("PBI_AUTH_TOKEN");
+            
+              const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
               console.log("powerbiAuthToken",powerbiAuthToken);
               request = request.clone({
                 headers: new HttpHeaders({

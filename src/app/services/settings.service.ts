@@ -75,6 +75,21 @@ setToken = (value) => {
       }
     }
 
+    decryptToken = (session_id,encryption_key) => {
+      const getDecryptedText = sessionStorage.getItem(session_id);
+      const key = CryptoJS.enc.Utf8.parse(encryption_key);
+      const iv = CryptoJS.enc.Utf8.parse(encryption_key);
+      if (getDecryptedText != null) {
+        var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
+          keySize: 128 / 8,
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+      }
+    }
+
   public isUserLoggedin = () => {
     const accessToken = sessionStorage.getItem('access_token')
     if (accessToken != null) {
@@ -122,8 +137,8 @@ setToken = (value) => {
         authConfig.clientId = res['clientId'];
         authConfig.silentRefreshRedirectUri = environment.production ?  res['silentRefreshRedirectUri'] : res['silentRefreshRedirectUri'];
         authConfig.resource = res['resource'];
-        authConfig.timeoutFactor = environment.production ? res['timeoutFactor'] : 5000;
-        authConfig.silentRefreshTimeout=  environment.production ? res['timeoutFactor'] : 0.25;
+        authConfig.timeoutFactor = environment.production ? res['timeoutFactor'] : 0.25;
+        authConfig.silentRefreshTimeout=  environment.production ? res['timeoutFactor'] : 5000;
         resolve(true);
         
       })
