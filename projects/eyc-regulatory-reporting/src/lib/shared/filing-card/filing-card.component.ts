@@ -110,7 +110,7 @@ export class FilingCardComponent implements OnInit {
 
   routeToDetailsView(){
     // this.router.navigate(['/regulatory-filing-list/'+1]);
-    this.filingService.addFilingData(this._filingData);
+    this.filingService.setfilingData =this._filingData;
     switch (this.status.stageCode) {
       case "FUND_SCOPING":
         this.router.navigate(['/fund-scoping']);
