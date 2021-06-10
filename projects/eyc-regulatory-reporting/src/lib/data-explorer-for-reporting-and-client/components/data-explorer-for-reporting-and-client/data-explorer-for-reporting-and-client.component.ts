@@ -1,15 +1,17 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EycPbiService } from '../../../services/eyc-pbi.service';
+import {EycRrSettingsService} from '../../../services/eyc-rr-settings.service';
+import {SESSION_PBI_TOKEN} from '../../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-data-explorer-for-reporting-and-client',
   templateUrl: './data-explorer-for-reporting-and-client.component.html',
   styleUrls: ['./data-explorer-for-reporting-and-client.component.scss']
 })
-export class DataExplorerForReportingAndClientComponent implements OnInit, AfterViewInit {
+export class DataExplorerForReportingAndClientComponent implements OnInit,OnDestroy {
 
   filingList = [];
   periodList = [];
@@ -25,7 +27,8 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
     private router: Router,
     private pbiServices: EycPbiService,
     private fb: FormBuilder,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    private eycSettingsService:EycRrSettingsService
   ) {
     this.router.events.subscribe(
       (event: any) => {
@@ -41,8 +44,6 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
       period: [''],
       questionId: ['']
     });
-
-    // this.getFilingNames();
     this.pbiServices.getFilingNames().subscribe(filingNamesRes => {
       this.filingList = filingNamesRes['data'];
       console.log("filingNamesRes", filingNamesRes);
@@ -82,8 +83,10 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
     });
   }
 
-  ngAfterViewInit() {
+  ngOnDestroy(){
+   this.eycSettingsService.deleteSessionKey(SESSION_PBI_TOKEN);
   }
+
 
   back() {
     this.router.navigate(["/regulatory-reporting"])

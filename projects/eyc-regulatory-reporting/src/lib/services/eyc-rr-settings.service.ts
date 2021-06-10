@@ -1,4 +1,6 @@
 import { Injectable,Inject } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
+import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/rr-config-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +45,38 @@ export class EycRrSettingsService {
 
     return regulatory_Reporting;
   }
+
+  setSessionToken = (value,sesssion_id,encrypt_key) => {
+    const key = CryptoJS.enc.Utf8.parse(sesssion_id);
+    const iv = CryptoJS.enc.Utf8.parse(encrypt_key);
+    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
+    {
+        keySize: 128 / 8,
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    sessionStorage.setItem(SESSION_PBI_TOKEN,encrypted);
+   
+  }
   
+    getSessionToken = (sesssion_id,encrypt_key) => {
+      const getDecryptedText = sessionStorage.getItem(sesssion_id);
+      const key = CryptoJS.enc.Utf8.parse(encrypt_key);
+      const iv = CryptoJS.enc.Utf8.parse(encrypt_key);
+      if (getDecryptedText != null) {
+        var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
+          keySize: 128 / 8,
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+      }
+    }
+deleteSessionKey = (session_Key): void => {
+      sessionStorage.removeItem(session_Key);
+};
+  
+    
 }

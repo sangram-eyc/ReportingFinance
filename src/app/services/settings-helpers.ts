@@ -91,3 +91,9 @@ export const IS_USER_DETAILS_EDITABLE = false;
  */
 
 export const INPUT_VALIDATION = /[A-Za-z0-9\ ]+/;
+
+ /**
+ * configuration to decrypt pbi token
+ */
+export const SESSION_PBI_TOKEN= "pbi_token";
+export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';

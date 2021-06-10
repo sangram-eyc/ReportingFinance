@@ -2,8 +2,10 @@ import { Component, OnInit, OnChanges, Input, ElementRef, ViewChild } from '@ang
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import {EycPbiService} from '../../services/eyc-pbi.service';
-import {PBI_CONFIG, IS_THEME_APPLIED} from '../../config/rr-config-helper';
+import {PBI_CONFIG, IS_THEME_APPLIED,IS_FY_FILTER,IS_PERIOD_FILTER} from '../../config/rr-config-helper';
 import * as powerbiTheme from '../../../assets/theme/eyc_theme.json';
+import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../../config/rr-config-helper'
 @Component({
   selector: 'lib-rr-visualisation',
   templateUrl: './rr-visualisation.component.html',
@@ -18,7 +20,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   embedConfig;
   filters = [];
   isReportPresent = false;
-  constructor(private powerbiMappingService: EycPbiService) { }
+  constructor(private powerbiMappingService: EycPbiService,private regSettingsSvc: EycRrSettingsService) { }
 
   ngOnInit() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
@@ -67,7 +69,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   showVisualizationForPowerBi() {
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
-        sessionStorage.setItem('PBI_AUTH_TOKEN', authToken);
+       this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
           console.log('PowerBI Acceestokn works');
           const embedToken = embedTokenData['token'];
@@ -78,22 +80,22 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
           const reportContainer = this.el.nativeElement as HTMLElement;
           this.report = (pbi.embed(reportContainer, embedConfig) as powerbi.Report);
           const self = this;
-          const filters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [] ;
+          const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [] ;
           this.report.on('loaded', function(event) {
             self.report.getFilters().then(filters => {
               self.filters = [];
               for (const filter of filters) {
                 console.log('Filter', filter);
-                if (filter.target['column'] === 'FilingYear') {
+                if (filter.target['column'] === 'FilingYear' && IS_FY_FILTER) {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(filters[1]);
+                    filter['values'].push(pbifilters[1]);
                   }
                 }
-                if (filter.target['column'] === 'FilingPeriod') {
+                if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(filters[0]);
+                    filter['values'].push(pbifilters[0]);
                   }
                 }
                 self.filters.push(filter);

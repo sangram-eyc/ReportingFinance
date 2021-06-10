@@ -23,5 +23,11 @@ export const INPUT_VALIDATON_CONFIG = {
 
 /*PBI Theme file settings */
 export const IS_THEME_APPLIED = true;
+export const IS_FY_FILTER = true;
+export const IS_PERIOD_FILTER = true;
+export const SESSION_PBI_TOKEN= "pbi_token";
+export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
+
+
 /*PBI Theme file settings */
 
