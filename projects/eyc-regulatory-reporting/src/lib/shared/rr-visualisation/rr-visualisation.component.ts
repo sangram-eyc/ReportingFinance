@@ -69,7 +69,8 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   showVisualizationForPowerBi() {
      this.getAuthToken().subscribe(authTokenData => {
         const authToken = authTokenData['accessToken'];
-       this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
+        sessionStorage.setItem(SESSION_PBI_TOKEN,authToken);
+      // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
           console.log('PowerBI Acceestokn works');
           const embedToken = embedTokenData['token'];

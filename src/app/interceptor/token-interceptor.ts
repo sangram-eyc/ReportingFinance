@@ -53,8 +53,8 @@ export class TokenInterceptor implements HttpInterceptor {
              console.log("This is power bi API inside API block")
              const currentUserToken = this.settingService.getToken();
              const urlString = request.url;
-            
-              const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
+             const powerbiAuthToken = sessionStorage.getItem(SESSION_PBI_TOKEN);
+             // const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
               console.log("powerbiAuthToken",powerbiAuthToken);
               request = request.clone({
                 headers: new HttpHeaders({
