@@ -8,6 +8,7 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { SettingsService } from '../services/settings.service';
 import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../services/settings-helpers';
 import {token_interceptor} from '../helper/api-config-helper';
+import { v4 as uuid } from 'uuid'
 
 
 @Injectable()
@@ -58,7 +59,7 @@ export class TokenInterceptor implements HttpInterceptor {
               console.log("powerbiAuthToken",powerbiAuthToken);
               request = request.clone({
                 headers: new HttpHeaders({
-                    
+                       'X-Correlation-ID': uuid(),
                         Authorization: `Bearer ${currentUserToken}`
                     
                 }),
@@ -81,13 +82,13 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (environment.SECURITY_ENABLED) {
                
                     console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
-                    if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN)) {
+                    if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN) || UUID ) {
                         const currentUserToken = this.settingService.getToken();
                         const urlString = request.url;
                         console.log('url : ' + urlString);
                         request = request.clone({
                             headers: new HttpHeaders({
-                                
+                                   'X-Correlation-ID': uuid(),
                                     Authorization: `Bearer ${currentUserToken}`
                                 
                             }),
@@ -96,12 +97,14 @@ export class TokenInterceptor implements HttpInterceptor {
                         if (currentUserToken && request.url.includes(location.origin)) {
                             request = request.clone({
                                 headers: new HttpHeaders({
+                                    'X-Correlation-ID': uuid(),
                                     'Content-Type': 'application/json',
                                     Authorization: `Bearer ${currentUserToken}`
                                 })
                             });
         
                         }
+                      
                         // install an error handler
                         return next.handle(request)
                             .pipe(
