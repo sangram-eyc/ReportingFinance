@@ -21,7 +21,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   filingResp: any[] = [];
 
   noOfCompletdFilingRecords = 10;
-  currentPage = 1;
+  currentPage = 0;
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
