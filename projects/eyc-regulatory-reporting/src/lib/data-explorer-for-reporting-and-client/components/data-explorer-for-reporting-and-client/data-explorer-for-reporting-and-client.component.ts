@@ -65,7 +65,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
           });
 
           this.form.get('period').valueChanges.subscribe(res => {
-
+            this.selectedPeriod = this.form.get('period').value;
           });
 
           this.form.get('questionId').valueChanges.subscribe(res => {

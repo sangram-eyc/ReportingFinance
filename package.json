@@ -40,6 +40,7 @@
     "rxjs-compat": "^6.6.7",
     "slick-carousel": "1.8.1",
     "tslib": "^1.10.0",
+    "uuid": "^8.3.2",
     "vsts-npm-auth": "^0.41.0",
     "zone.js": "~0.10.2"
   },
