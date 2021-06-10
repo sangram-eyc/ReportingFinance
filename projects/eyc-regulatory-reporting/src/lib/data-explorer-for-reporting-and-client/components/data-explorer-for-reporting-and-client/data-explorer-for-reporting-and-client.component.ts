@@ -45,20 +45,16 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
     // this.getFilingNames();
     this.pbiServices.getFilingNames().subscribe(filingNamesRes => {
       this.filingList = filingNamesRes['data'];
-      console.log("filingNamesRes",filingNamesRes);
-      
-      this.filingService.filingData.subscribe(selectedRes => {
-        if (selectedRes === null) {
-          this.router.navigate(['home']);
-          return;
-        }
-        console.log("selectedRes", selectedRes);
+      console.log("filingNamesRes", filingNamesRes);
+      if (this.filingService.getFilingData) {
+
+        console.log("selectedRes", this.filingService.getFilingData);
 
         if (this.isUserInDataExplorerPage) {
-          this.filingDetails = selectedRes;
+          this.filingDetails = this.filingService.getFilingData;
           this.form.patchValue({
-            filingId: selectedRes.filingName,
-            period: selectedRes.period,
+            filingId: this.filingDetails.filingName,
+            period: this.filingDetails.period,
           });
 
           this.form.get('filingId').valueChanges.subscribe(res => {
@@ -79,7 +75,10 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, After
             }
           });
         }
-      });
+      } else {
+        this.router.navigate(['home']);
+        return;
+      }
     });
   }
 

@@ -159,7 +159,7 @@ export class ClientReviewComponent implements OnInit {
       });
       this.ngAfterViewInit();
       this.selectedRows = [];
-        this.filingService.addfilingStatus("Client Review");
+      this.filingService.invokeFilingDetails();
       this.approveFilingEntitiesModal = false;
       this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       setTimeout(() => {
@@ -172,7 +172,7 @@ export class ClientReviewComponent implements OnInit {
     // });
     // this.ngAfterViewInit();
     // this.selectedRows = [];
-    // this.filingService.addfilingStatus("Client Review");
+    // this.filingService.invokeFilingDetails();
     // this.approveFilingEntitiesModal = false;
     // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
     // setTimeout(() => {

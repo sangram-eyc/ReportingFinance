@@ -159,7 +159,7 @@ export class RrReportingComponent implements OnInit {
       });
       this.ngAfterViewInit();
       this.selectedRows = [];
-       this.filingService.addfilingStatus("Reporting");
+      this.filingService.invokeFilingDetails();
       this.approveFilingEntitiesModal = false;
       this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       setTimeout(() => {
@@ -172,7 +172,7 @@ export class RrReportingComponent implements OnInit {
     // this.ngAfterViewInit();
     // this.selectedRows = [];
 
-    // this.filingService.addfilingStatus("Reporting");
+    // this.filingService.invokeFilingDetails();
     // this.approveFilingEntitiesModal = false;
     // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
     // setTimeout(() => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 import {EycRrApiService} from '../../services/eyc-rr-api.service';
 import { BehaviorSubject } from 'rxjs';
@@ -7,23 +7,26 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RegulatoryReportingFilingService {
-  private filingDataSubject = new BehaviorSubject(null);
-  filingData = this.filingDataSubject.asObservable();
+ 
+  filingData: any;
+  @Output() dotcardStatusDetails = new EventEmitter<any>();
 
-  private filingStatusSubject = new BehaviorSubject(null);
-  filingStatus = this.filingStatusSubject.asObservable();
 
   constructor(
     private apiService: EycRrApiService,private settingsService: EycRrSettingsService
   ) { }
 
-  addFilingData(data){
-    this.filingDataSubject.next(data);
-  }
+    invokeFilingDetails(){
+      this.dotcardStatusDetails.emit()
+    }
 
-  addfilingStatus(data){
-    this.filingStatusSubject.next(data);
-  }
+    set setfilingData(data) {
+      this.filingData = data;
+    }
+
+    get getFilingData() {
+      return this.filingData;
+    }
 
   getFilings() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);

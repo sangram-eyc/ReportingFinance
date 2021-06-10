@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
   templateUrl: './dots-card.component.html',
   styleUrls: ['./dots-card.component.scss']
 })
-export class DotsCardComponent implements OnInit, OnChanges {
+export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() status: Object = {
     stage: 'Submission',
@@ -15,7 +17,7 @@ export class DotsCardComponent implements OnInit, OnChanges {
   };
 
   @Output() filingDetails = new EventEmitter<any>();
-
+  ngUnsubscribe = new Subject()
   dueDate: string;
   filingName: string;
   period: string;
@@ -28,24 +30,28 @@ export class DotsCardComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.filingService.filingData.subscribe(res => {
-      if (res === null) {
-        this.router.navigate(['home']);
-        return;
-      }
-      this.dueDate = res.dueDate;
-      this.filingName = res.filingName;
-      this.period = res.period;
-      this.filingId = res.filingId;
-      this.filingDetails.emit(res);
-      this.filingService.filingStatus.subscribe(res => {
+    if (this.filingService.getFilingData) {
+      this.dueDate = this.filingService.getFilingData.dueDate;
+      this.filingName = this.filingService.getFilingData.filingName;
+      this.period = this.filingService.getFilingData.period;
+      this.filingId = this.filingService.getFilingData.filingId;
+      this.filingDetails.emit(this.filingService.getFilingData);
+      this.getFilingStatus();
+      this.filingService.dotcardStatusDetails.pipe(takeUntil(this.ngUnsubscribe)).subscribe(res => {
         this.getFilingStatus();
       });
-    });
-
+    } else {
+      this.router.navigate(['home']);
+      return;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) { 
+  }
+
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   setStatus() {

@@ -150,7 +150,7 @@ export class FundScopingComponent implements OnInit {
         progress: 'in-progress'
       }
       this.fundScopingStatus[0].progress = 'Completed';
-      this.filingService.addfilingStatus("Reporting");
+      this.filingService.invokeFilingDetails();
       this.approveModal = false;
       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
           setTimeout(() => {
