@@ -8,7 +8,7 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { SettingsService } from '../services/settings.service';
 import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../services/settings-helpers';
 import {token_interceptor} from '../helper/api-config-helper';
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
 
 
 @Injectable()
