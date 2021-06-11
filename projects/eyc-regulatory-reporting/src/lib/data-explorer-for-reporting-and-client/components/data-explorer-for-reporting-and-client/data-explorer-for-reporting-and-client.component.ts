@@ -60,6 +60,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
 
           this.form.get('filingId').valueChanges.subscribe(res => {
             this.filingName = this.filingList.find(item => item.filingName === res);
+            this.PBIReportId = "";
             this.getPeriods();
             this.getPBIQuestions();
           });
