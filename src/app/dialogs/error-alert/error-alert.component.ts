@@ -30,9 +30,16 @@ export class ErrorAlertComponent implements OnInit {
       console.log('Have data', this.data);
       if (typeof this.data === 'string') {
         // If data contains only string
-        this.statusCode = '404';
-        this.statusText = 'Request retuns a invalid response';
-        this.errorMessage = this.data;
+        if(this.data.includes('User already present')) {
+          this.statusCode = '409';
+          this.statusText = 'Request retuns a invalid response';
+          this.errorMessage = 'User with specified email address already exists';
+        } else {
+          this.statusCode = '404';
+          this.statusText = 'Request retuns a invalid response';
+          this.errorMessage = this.data;
+        }
+       
       }
       else {
         // If we have a normal error
