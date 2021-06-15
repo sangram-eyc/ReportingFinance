@@ -32,6 +32,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
+      this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
@@ -44,6 +45,16 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       this.router.navigate(['home']);
       return;
     }
+  }
+
+  formatDate() {
+    let due = new Date(this.dueDate);
+    // console.log(due);
+    // console.log(this.dueDate);
+    const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
+    + ('0' + due.getDate()).slice(-2) + '/'
+    + due.getFullYear();
+    this.dueDate = newdate;
   }
 
   ngOnChanges(changes: SimpleChanges) { 
