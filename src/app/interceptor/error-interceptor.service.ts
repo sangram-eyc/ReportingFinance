@@ -35,9 +35,16 @@ export class ErrorInterceptorService implements HttpInterceptor {
             } else {
               // server-side error
               console.log('case 2 > ', error);
-              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
+              if(error.error.message.includes('User already present')) {
+                errorMessage = `Error Code: 409 }\nMessage: User already present.`;
+              }
+              else {
+                errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+              }
+              
             }
-            console.log('cust msg > ', errorMessage)
+            // console.log('cust msg > ', errorMessage)
             this.launchErrorDialog(errorMessage);
             return throwError(errorMessage);
           }
