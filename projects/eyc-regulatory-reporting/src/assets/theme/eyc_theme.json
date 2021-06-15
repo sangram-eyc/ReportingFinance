@@ -1,13 +1,13 @@
 ﻿{
-  "name": "eyc_theme",
+  "name": "eyc_theme_eycint",
   "dataColors": [
 	"#188CE5",
 	"#3D108A",
-	"#750E5C",
-	"#FF4136",
+	"#750E5C", 
+	"#FF4136", 
 	"#FF6D00",
 	"#2DB757",
-	"#27ACAA",
+	"#27ACAA", 	
 	"#35A4E8",
 	"#34C768",
 	"#42C9C2",
@@ -19,46 +19,46 @@
   "firstLevelElements": "#2E2E38",
   "foregroundNeutralSecondary": "#C4C4CD",
   "foregroundNeutralTertiary": "#E6E6E6",
-  "background": "#FFFFFF",
+  "background": "#F2F2F2",
   "textClasses": {
     "callout": {
       "fontSize": 20,
-      "fontFace": "Arial",
+      "fontFace": "EYInterstate",
       "color": "#188CE5"
     },
     "largeTitle": {
       "fontSize": 15,
-      "fontFace": "Arial Black",
+      "fontFace": "EYInterstate",
       "color": "#747480"
     },
     "title": {
       "fontSize": 12,
-      "fontFace": "Arial Black",
+      "fontFace": "EYInterstate",
       "color": "#747480"
     },
     "header": {
       "fontSize": 13,
-      "fontFace": "'Arial Black",
+      "fontFace": "'EYInterstate",
       "color": "#2E2E38"
     },
     "label": {
       "fontSize": 15,
-      "fontFace": "Arial",
+      "fontFace": "EYInterstate",
       "color": "#2E2E38"
     },
     "smallLabel": {
       "fontSize": 12,
-      "fontFace": "Arial Black",
+      "fontFace": "EYInterstate",
       "color": "#2E2E38"
     },
     "lightLabel": {
       "fontSize": 13,
-      "fontFace": "Arial",
+      "fontFace": "EYInterstate",
       "color": "#2E2E38"
     },
     "smallLightLabel": {
       "fontSize": 12,
-      "fontFace": "Arial",
+      "fontFace": "EYInterstate",
       "color": "#2E2E38"
     }
   },
@@ -79,16 +79,22 @@
           {
             "titleFontColor": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#F2F2F2"
               }
             },
             "valueFontColor": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#F2F2F2"
               }
             }
           }
-        ]
+        ],
+		"background": [{
+					"show": false,
+					"color": { "solid": { "color": "#F2F2F2"}},
+					"transparency": 50
+		  }
+		]
       }
     },
     "textbox": {
@@ -96,10 +102,17 @@
         "labels": [
           {
             "fontSize": 18,
-            "fontFace": "Arial",
+            "fontFace": "EYInterstate",
             "color": "#C4C4CD"
           }
-        ]
+        ],
+		"background": [
+			{
+				"show": false,
+				"color": { "solid": { "color": "#F2F2F2"}},
+					"transparency": 100
+		  }
+		]
       }
     },
     "barChart": {
@@ -281,9 +294,16 @@
         ],
         "items": [
           {
-            "textSize": 12
+            "textSize": 12,
+			"background": [
+				{
+					"show": true, 
+					"color": { "solid": { "color": "#F6F6FA"}}, 
+					"transparency": 10
+				}
+			]
           }
-        ],
+		],
         "data": [
           {
             "mode": "Dropdown",
@@ -321,7 +341,7 @@
           {
             "backColorSecondary": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#F2F2F2"
               }
             }
           }
@@ -344,17 +364,17 @@
           {
             "gridVerticalColor": {
               "solid": {
-                "color": "#E6E6E6"
+                "color": "#2E2E38"
               }
             },
             "gridHorizontalColor": {
               "solid": {
-                "color": "#E6E6E6"
+                "color": "#2E2E38"
               }
             },
             "outlineColor": {
               "solid": {
-                "color": "#C4C4CD"
+                "color": "#2E2E38"
               }
             },
             "textSize": 13,
@@ -366,7 +386,7 @@
           {
             "backColorSecondary": {
               "solid": {
-                "color": "#FFFFFF"
+                "color": "#F2F2F2"
               }
             }
           }
@@ -378,10 +398,39 @@
                 "color": "#2E2E38"
               }
             },
+			"outlineColor": {
+              "solid": {
+                "color": "#2E2E38"
+              }
+            },
             "fontSize": 13
+          }
+	
+        ]
+      }
+    },
+	  "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            },
+            "transparency": 100
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            }
           }
         ]
       }
-    }
+	}
   }
 }
