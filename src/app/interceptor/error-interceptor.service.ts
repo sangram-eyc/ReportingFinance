@@ -30,11 +30,14 @@ export class ErrorInterceptorService implements HttpInterceptor {
           if (error.status !== 200) {
             if (error.error instanceof ErrorEvent) {
               // client-side error
+              console.log('case 1 > ', error);
               errorMessage = `Error: ${error.error.message}`;
             } else {
               // server-side error
+              console.log('case 2 > ', error);
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
             }
+            console.log('cust msg > ', errorMessage)
             this.launchErrorDialog(errorMessage);
             return throwError(errorMessage);
           }
