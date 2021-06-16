@@ -112,7 +112,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   public outsideClick() {
     const elementId = (event.target as Element).id;
     const elementName = (event.target as Element).nodeName;
-    if (elementId.includes('notifcationcontainer') || elementId.includes('main-container') || elementId === ' ' || elementName !== 'svg' ) {
+    /* if (elementId.includes('notifcationcontainer') || elementId.includes('main-container') || elementId === ' ' || elementName !== 'svg' ) {
+      this.isNotification = false;
+
+    } */
+
+    if (elementId.includes('notifcationcontainer') ) {
       this.isNotification = false;
 
     }
