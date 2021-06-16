@@ -70,6 +70,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
           });
 
           this.form.get('questionId').valueChanges.subscribe(res => {
+            this.PBIReportId = "";
             if (res) {
               this.getPowerBIReportID();
               this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
@@ -115,6 +116,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
 
   getPowerBIReportID() {
     this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.filingName?.formId, this.form.get('questionId').value).subscribe(res => {
+      console.log("PBI Response > ", res);
       this.PBIReportId = res['data'];
       console.log("PBIReportId", this.PBIReportId);
       
