@@ -1,6 +1,6 @@
 
     <div>
-      <div  *ngIf="selectedReportId || selectedReportId !=='' " id="reportstatic" #reportstatic style="height:610px;"></div>
+      <!-- <div  *ngIf="selectedReportId || selectedReportId !=='' " id="reportstatic" #reportstatic style="height:610px;"></div> -->
       <div *ngIf="!selectedReportId || selectedReportId ===''" class="no-data-container">
         <div class="svg-container">
         <svg width="59" height="58" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,6 +9,7 @@
         </div>
           <div class="no-data-text">No data displayed. Please select a section and question filter criteria to explore data.</div>
       </div>
+      <div  *ngIf="selectedReportId || selectedReportId !=='' " id="reportstatic" #reportstatic style="height:610px;"></div>
     </div>
     
  
