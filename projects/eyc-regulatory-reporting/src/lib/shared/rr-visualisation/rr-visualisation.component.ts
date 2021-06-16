@@ -32,6 +32,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
     if (this.selectedReportId && changes['selectedPeriod']) {
       this.showVisualizationForPowerBi();
     }
+    console.log("selected report ID > ", this.selectedReportId);
   }
 
   getAuthToken() {
