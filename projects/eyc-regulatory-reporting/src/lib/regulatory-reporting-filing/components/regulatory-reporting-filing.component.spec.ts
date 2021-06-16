@@ -37,7 +37,8 @@ describe('RegulatoryReportingFilingComponent', () => {
       ],
       providers: [RegulatoryReportingFilingService,
         EycRrSettingsService,
-        {provide:"apiEndpoint",  useValue: environment.apiEndpoint}]
+        {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+        {provide:"rrproduction",  useValue: environment.production}]
     })
     .compileComponents();
   }));
@@ -55,31 +56,24 @@ describe('RegulatoryReportingFilingComponent', () => {
 
   it('should call getFilingsData and return list of flilingsData', async(()=> {
     let activeFilings = []
-    let upcomingFilings = []
     // spyOn(filingService, 'getFilings').and.returnValue(of(response))
-    component.getFilingsData();
     fixture.detectChanges();
-    filingService.getFilings().subscribe(resp  => {
+    const result$ = filingService.getFilings();
+    result$.subscribe(resp  => {
       resp['data'].forEach((item) => {
         const eachitem: any  = {
-          name: item.name + ' // ' + item.period,
+          name: item.filingName,
           dueDate: item.dueDate,
           startDate: item.startDate,
-          comments: item.comments,
-          status: item.status
+          comments: [],
+          status: item.filingStatus,
+          filingName: item.filingName,
+          period: item.period,
+          filingId: item.filingId
         };
-        if (eachitem.startDate !== null) {
-          activeFilings.push(eachitem);
-          let startD = new Date(eachitem.startDate)
-          var date = new Date();
-          var lastD = new Date(date.getTime() - (10 * 24 * 60 * 60 * 1000));
-          if (lastD < startD){
-            upcomingFilings.push(eachitem)
-          }
-        }
+        activeFilings.push(eachitem);
       });
       expect(component.activeFilings).toEqual(activeFilings);
-      expect(component.upcomingFilings).toEqual(upcomingFilings);
     })
     
   }));

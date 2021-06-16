@@ -26,7 +26,7 @@ export class EycRrApiService {
   }
 
     /*--------------GENERIC API FOR GET METHOD-------------*/
-    invokeGetAPI(url: string): Observable<Response> {
+    invokeGetAPI(url: string): Observable<any> {
       const headers = this.setHeaders();
       return this.httpClient.get<any>(url, { headers });
     }
