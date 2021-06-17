@@ -23,6 +23,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   isNotification = false;
   notificationCount = 0;
   loginName;
+  notifFlag = false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   constructor(
     private oauthservice: OAuthService,
@@ -94,7 +95,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   public notification() {
+    
     this.isNotification = !this.isNotification;
+    this.notifFlag = true;
+
+    setTimeout(() => {
+      this.notifFlag = false; 
+    }, 1000);
   }
 
   public navigatetonotifi() {
@@ -109,17 +116,15 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
    this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
   }
   @HostListener('document:click', ['$event'])
-  public outsideClick() {
-    const elementId = (event.target as Element).id;
-    const elementName = (event.target as Element).nodeName;
-    /* if (elementId.includes('notifcationcontainer') || elementId.includes('main-container') || elementId === ' ' || elementName !== 'svg' ) {
+  public outsideClick(event) {
+    console.log(event);
+    // let checkarray = ["View All", "There are no notifications to display", "Notifications"];
+
+    if (event.srcElement.innerText && (event.srcElement.innerText.includes('Notifications') || event.srcElement.innerText.includes('View All')) && event.srcElement.id == '') {
+      return;
+    }
+    if (!this.notifFlag) {
       this.isNotification = false;
-
-    } */
-
-    if (elementId.includes('notifcationcontainer') ) {
-      this.isNotification = false;
-
     }
 
   }
