@@ -34,7 +34,7 @@
         <motif-avatar [userName]="loginName" status="online" *ngIf="loginName"></motif-avatar>
       </li>
       <li class="header-notification">
-        <div id="bell-header" (blur)="outsideClick()">
+        <div id="bell-header">
           <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
           </motif-icon>
         </div>
@@ -46,8 +46,8 @@
     </ul>
 
     <div id="notifcationcontainer" class="admin-container" *ngIf="isNotification">
-      <div (blur)="outsideClick()">
-        <motif-card (blur)="outsideClick()">
+      <div>
+        <motif-card>
           <motif-card-header>
             <div class="notification-header">
               <div class="card-block banner-header">
@@ -80,7 +80,7 @@
 
   <div id="sidenav-and-content">
 
-    <section id="sidenav">
+    <section id="sidenav" (click)="outsideClick($event)">
       <ul id="sidenav-list">
 
         <li [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
@@ -131,10 +131,10 @@
       <section class="main-section">
         <nav mat-tab-nav-bar class="tab-container">
         </nav>
-        <router-outlet></router-outlet>
+        <router-outlet (click)="outsideClick($event)"></router-outlet>
       </section>
 
-      <footer>
+      <footer (click)="outsideClick($event)">
         <div class="footer-links">
           <a href="https://www.ey.com/en_gl/legal-and-privacy">Legal and Privacy</a>
           <a href="https://www.ey.com/en_gl/connect-with-us">Connect with Us</a>
@@ -158,5 +158,5 @@
 </section>
 
 <div *ngIf="!showHeaderFooter">
-  <router-outlet></router-outlet>
+  <router-outlet (click)="outsideClick($event)"></router-outlet>
 </div>
