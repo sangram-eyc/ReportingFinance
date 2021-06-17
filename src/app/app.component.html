@@ -33,7 +33,7 @@
       <li class="header-avatar">
         <motif-avatar [userName]="loginName" status="online" *ngIf="loginName"></motif-avatar>
       </li>
-      <li class="header-notification">
+      <li class="header-notification" #notificationicon>
         <div id="bell-header">
           <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
           </motif-icon>
@@ -46,7 +46,7 @@
     </ul>
 
     <div id="notifcationcontainer" class="admin-container" *ngIf="isNotification">
-      <div>
+      <div #notification>
         <motif-card>
           <motif-card-header>
             <div class="notification-header">

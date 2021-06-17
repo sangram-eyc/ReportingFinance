@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit} from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -25,6 +25,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   loginName;
   notifFlag = false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
+  @ViewChild('notification', { static: false }) notificationCard: ElementRef;
+  @ViewChild('notificationicon', { static: false }) notificationIcon: ElementRef;
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService, 
@@ -117,16 +119,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
   @HostListener('document:click', ['$event'])
   public outsideClick(event) {
-    console.log(event);
-    // let checkarray = ["View All", "There are no notifications to display", "Notifications"];
-
-    if (event.srcElement.innerText && (event.srcElement.innerText.includes('Notifications') || event.srcElement.innerText.includes('View All')) && event.srcElement.id == '') {
-      return;
-    }
-    if (!this.notifFlag) {
+    if( this.notificationCard && !this.notificationCard.nativeElement.contains(event.target)  && !this.notificationIcon.nativeElement.contains(event.target)){
       this.isNotification = false;
     }
-
   }
 
   
