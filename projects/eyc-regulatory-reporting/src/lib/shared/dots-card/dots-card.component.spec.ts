@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DotsCardComponent } from './dots-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { environment } from '../../../../../../src/environments/environment';
 
 describe('DotsCardComponent', () => {
   let component: DotsCardComponent;
@@ -15,8 +17,12 @@ describe('DotsCardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DotsCardComponent ],
-      imports: [RouterTestingModule],
-      providers : [{ provide: Router, useValue: router }]
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [
+        {provide: Router, useValue: router},
+        {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+        {provide:"rrproduction",  useValue: environment.production}
+      ]
     })
     .compileComponents();
   }));
@@ -24,6 +30,46 @@ describe('DotsCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DotsCardComponent);
     component = fixture.componentInstance;
+    component.filingName = 'AIFMD';
+    component.period = 'Q4 2021';
+    component.dueDate = "2021-06-30";
+    component.states = [
+      {
+        "stage": "Fund Scoping",
+        "stageId": 1,
+        "stageCode": "FUND_SCOPING",
+        "progress": "In Progress",
+        "displayOrder": 1
+      },
+      {
+        "stage": "Intake",
+        "stageId": 2,
+        "stageCode": "DATA_INTAKE",
+        "progress": "In Progress",
+        "displayOrder": 2
+      },
+      {
+        "stage": "Reporting",
+        "stageId": 3,
+        "stageCode": "REPORTING",
+        "progress": "Not Started",
+        "displayOrder": 3
+      },
+      {
+        "stage": "Client review",
+        "stageId": 4,
+        "stageCode": "CLIENT_REVIEW",
+        "progress": "Not Started",
+        "displayOrder": 4
+      },
+      {
+        "stage": "Submission",
+        "stageId": 5,
+        "stageCode": "SUBMISSION",
+        "progress": "Not Started",
+        "displayOrder": 5
+      }
+    ];
     fixture.detectChanges();
   });
 
@@ -32,19 +78,8 @@ describe('DotsCardComponent', () => {
   });
   
   it('get status', () => {
-    let state = 'not-set';
-    let step =3;
-    let index = 2;
-
-    if (index < step) {
-      state = 'completed';
-    } else if (index === step) {
-      state = 'in-progress';
-    }
-
-    let result = component.getStatus(index)
-    expect(result).toBe(state)
-
+    let result = component.getStatus(1);
+    expect(result).toBe('In Progress');
   });
 
 
@@ -55,69 +90,24 @@ describe('DotsCardComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith([pageUrl])
   });
 
-  /* describe('greet', () => {
-    let curPage;
-    it('should include the name in the message', () => {
-      expect(router.navigate().includes('fund-scoping'))
-      curPage = 'scoping';
+  describe('The function progressSort...', () => {
+    let a = {
+      displayOrder: 2
+    }
+    let b = {
+      displayOrder: 3
+    }
+    it(`- should return -1 when a < b`, () => {
+      let result = component.progressSort(a, b);
+      expect(result).toBe(-1);
     });
-  }); */
-
-
-
-  /* describe('dots onclick', () => {
-    let currentStep = 3;
-    let redirect = 'no';
-    let step = 3;
- 
-    if (currentStep <= step) {
-      redirect = 'yes';
-    }
-
-    if (redirect === 'yes') { 
-
-      it('tests scoping', () => {
-        let currentStep = 1;
-        let pagename = 0;
-        let event;
-        component.handleStepClick(event, currentStep, pagename)
-        expect(router.navigate).toHaveBeenCalledWith(['fund-scoping'])
-      });
-
-      it('tests intake', () => {
-        let currentStep = 2;
-        let pagename = 1;
-        let event;
-        component.handleStepClick(event, currentStep, pagename)
-        expect(router.navigate).toHaveBeenCalledWith(['data-intake'])
-      });
-
-      it('tests review', () => {
-        let currentStep = 2;
-        let pagename = 3;
-        let event;
-        component.handleStepClick(event, currentStep, pagename)
-        expect(router.navigate).toHaveBeenCalledWith(['client-review'])
-      });
-
-      it('tests reporting', () => {
-        let currentStep = 1;
-        let pagename = 2;
-        let event;
-        component.handleStepClick(event, currentStep, pagename)
-        expect(router.navigate).toHaveBeenCalledWith(['regulatory-reporting'])
-      });
-
-      it('tests submission', () => {
-        let currentStep = 1;
-        let pagename = 4;
-        let event;
-        component.handleStepClick(event, currentStep, pagename)
-        expect(router.navigate).toHaveBeenCalledWith(['submission'])
-      });
-
-    }
-    
-  }); */
-
+    it(`- should return 1 when a > b`, () => {
+      let result = component.progressSort(b, a);
+      expect(result).toBe(1);
+    });
+    it(`- should return 0 when a === b`, () => {
+      let result = component.progressSort(a, a);
+      expect(result).toBe(0);
+    });
+  });
 });

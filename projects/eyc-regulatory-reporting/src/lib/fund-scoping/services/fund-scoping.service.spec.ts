@@ -4,10 +4,10 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../../../src/environments/environment';
 import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 
-import { RrReportingService } from './rr-reporting.service';
+import { FundScopingService } from './fund-scoping.service';
 
-describe('RrReportingService', () => {
-  let service: RrReportingService;
+describe('FundScopingService', () => {
+  let service: FundScopingService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('RrReportingService', () => {
         {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
         {provide:"rrproduction",  useValue: environment.production}]
     });
-    service = TestBed.inject(RrReportingService);
+    service = TestBed.inject(FundScopingService);
   });
 
   it('should be created', () => {

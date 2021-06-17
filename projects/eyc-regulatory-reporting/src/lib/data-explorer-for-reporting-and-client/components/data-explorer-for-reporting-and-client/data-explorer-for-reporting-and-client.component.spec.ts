@@ -2,7 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataExplorerForReportingAndClientComponent } from './data-explorer-for-reporting-and-client.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
+import { EycPbiService } from '../../../services/eyc-pbi.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { EycRrSettingsService } from '../../../services/eyc-rr-settings.service';
+import { environment } from '../../../../../../../src/environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { BehaviorSubject } from 'rxjs';
+import { MotifFormsModule } from '@ey-xd/ng-motif';
+
 
 
 describe('DataExplorerForReportingAndClientComponent', () => {
@@ -11,16 +20,21 @@ describe('DataExplorerForReportingAndClientComponent', () => {
   let router = {
     navigate: jasmine.createSpy('navigate')
   }
+  const routerEvent$ = new BehaviorSubject<RouterEvent>(null);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DataExplorerForReportingAndClientComponent ],
-      imports: [RouterTestingModule],
-      providers: [{provide: Router, useValue: router}]
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule, ReactiveFormsModule, MotifFormsModule],
+      providers: [{provide: Router, useValue: router},
+        {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+        {provide:"rrproduction",  useValue: environment.production}, EycPbiService, EycRrSettingsService, RegulatoryReportingFilingService]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    router = TestBed.get(Router);
+    (<any>router).events = routerEvent$.asObservable();
     fixture = TestBed.createComponent(DataExplorerForReportingAndClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -30,26 +44,10 @@ describe('DataExplorerForReportingAndClientComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('removeFilingChip should assign empty string to selectedFiling', ()=> {
-  //   component.removeFilingChip();
-  //   expect(component.selectedFiling).toBe("");
-  // });
-
   // it('filingModelChanged should assign value to selectedFiling', () => {
   //   let event = "CPO-PQR";
   //   component.filingModelChanged(event);
   //   expect(component.selectedFiling).toBe(event);
-  // });
-
-  // it('removePeriodChip should assign empty string to selectedPeriod ', ()=> {
-  //   component.removePeriodChip();
-  //   expect(component.selectedPeriod).toBe("");
-  // });
-
-  // it('periodModelChanged should assign value to selectedPeriod', () => {
-  //   let event = "Q4 2020";
-  //   component.periodModelChanged(event);
-  //   expect(component.selectedPeriod).toBe(event);
   // });
 
   it('should navigate back to regulatory-reporting or client-review', () => {

@@ -21,7 +21,7 @@ describe('RrReportingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RrReportingComponent, DotsCardComponent],
+      declarations: [RrReportingComponent],
       imports: [AgGridModule.withComponents([]),
         CommonModule,
         MotifCardModule,
@@ -35,18 +35,16 @@ describe('RrReportingComponent', () => {
         MotifPaginationModule,
         RouterTestingModule,
         HttpClientTestingModule],
-      providers: [RrReportingService,
-        { provide: "apiEndpoint", useValue: environment.apiEndpoint }]
+      providers: [RrReportingService, RegulatoryReportingFilingService,
+        { provide: "apiEndpoint", useValue: environment.apiEndpoint },
+        { provide:"rrproduction",  useValue: environment.production }]
     })
       .compileComponents();
+      fixture = TestBed.createComponent(RrReportingComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      testBedService = TestBed.get(RrReportingService)
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RrReportingComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    testBedService = TestBed.get(RrReportingService)
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -60,6 +58,11 @@ describe('RrReportingComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('grid API is available after `detectChanges`', () => {
+    fixture.detectChanges();
+    expect(component.gridApi).toBeTruthy();
+  });
+
   describe('The function onRowSelected ...', () => {
     it(`- should do something`, () => {
       component.onRowSelected({ name: 'Mock Hero' });
@@ -67,13 +70,13 @@ describe('RrReportingComponent', () => {
     });
   });
 
-  it('should get filling entities list', () => {
-    const response = [];
-    spyOn(testBedService, 'getfilingEntities').and.returnValue(of(response))
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(component.rowData).toEqual(response['data']);
-  });
+  // it('should get filling entities list', () => {
+  //   const response = [];
+  //   spyOn(testBedService, 'getfilingEntities').and.returnValue(of(response))
+  //   component.ngOnInit();
+  //   fixture.detectChanges();
+  //   expect(component.rowData).toEqual(response['data']);
+  // });
 
   it('receiveMessage should return tab number', () => {
     let tab = 1

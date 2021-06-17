@@ -79,9 +79,9 @@ describe('SubmissionComponent', () => {
   ];
         component.selectedRows.forEach((item) => {
           
-          testBedService.downloadXMl(item.fileId).subscribe((res: any) => {
-            FileSaver.saveAs(res.body, item.fileName + '.xml');
-        });
+          // testBedService.downloadXMl(item.fileId).subscribe((res: any) => {
+            // FileSaver.saveAs(res.body, item.fileName + '.xml');
+        // });
 
         });
 

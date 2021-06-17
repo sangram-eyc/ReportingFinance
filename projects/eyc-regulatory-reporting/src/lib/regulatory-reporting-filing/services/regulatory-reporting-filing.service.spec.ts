@@ -12,8 +12,8 @@ describe('RegulatoryReportingFilingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
-      providers: [EycRrSettingsService,
-        {provide:"apiEndpoint",  useValue: environment.apiEndpoint}]
+      providers: [EycRrSettingsService, {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+      {provide:"rrproduction",  useValue: environment.production}]
     });
     service = TestBed.inject(RegulatoryReportingFilingService);
   });

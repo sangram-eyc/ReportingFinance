@@ -48,7 +48,7 @@ describe('SubmissionService', () => {
 
     }
     const url = "/assets/eyc-regulatory-reporting/mock/xmlFilesList.json"
-    service.getXmlFilesList().subscribe((res) => {
+    service.getXmlFilesList('x', 'y').subscribe((res) => {
       expect(res).toEqual(JSON.parse(data.toString()));
 
 
@@ -90,7 +90,7 @@ describe('SubmissionService', () => {
         }]
     }
     const url = "/assets/eyc-regulatory-reporting/mock/1.xml"
-    service.downloadXMl(1).subscribe((res) => {
+    service.downloadXMl(1, 'x', 'y').subscribe((res) => {
       expect(res).toEqual(JSON.parse(data.toString()));
 
       const req = httpMock.expectOne(url);
