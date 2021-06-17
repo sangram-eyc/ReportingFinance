@@ -139,10 +139,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
       lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+.[a-zA-Z0-9]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'), Validators.maxLength(250)]]
+      email: ['', [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-z.]+\\.[a-z]{2,6}'), Validators.maxLength(250)]]
     });
   }
-
   onSubmitAddUserForm(form: FormGroup) {
     const obj = form.getRawValue();
     Object.keys(obj).map(key => obj[key] = obj[key].trim()
