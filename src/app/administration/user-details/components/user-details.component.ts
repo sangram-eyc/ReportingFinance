@@ -77,7 +77,7 @@ export class UserDetailsComponent implements OnInit {
     return this.formBuilder.group({
       first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
       last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      email: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9.]+@[A-Za-z0-9.]+\\.[a-z]{2,3}'), Validators.maxLength(250)]]
+      email: ['', [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-z.]+\\.[a-z]{2,6}'), Validators.maxLength(250)]]
     });
   }
 
