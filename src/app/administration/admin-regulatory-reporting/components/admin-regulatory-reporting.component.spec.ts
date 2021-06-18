@@ -22,4 +22,11 @@ describe('AdminRegulatoryReportingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('admin tab change', () => {
+    let tab = 1
+    component.adminTabChange(tab);
+    expect(component.tabIn).toBe(tab)
+  })
+
 });
