@@ -29,12 +29,12 @@ export class OauthService {
   }
 
   public login() {
-		console.log('inside login');
+		// console.log('inside login');
 			this.oauthService.initImplicitFlow();
 		
   }
   public logoff() {
-		console.log('inside logout');
+		// console.log('inside logout');
 		
 			this.oauthService.logOut();
 		
@@ -43,8 +43,8 @@ export class OauthService {
 	}
 
 	public getAccessToken() {
-		console.log('inside getAccessToken');
-		console.log(this.oauthService.getAccessToken());
+		// console.log('inside getAccessToken');
+		// console.log(this.oauthService.getAccessToken());
 		this.storageService.setToken(this.oauthService.getAccessToken());
 		this.router.navigate(['/home']);
 	}
@@ -58,19 +58,19 @@ export class OauthService {
 		return claims;
 	}
 
-	public getUserProfile() {
+	/* public getUserProfile() {
 		this.oauthService.loadUserProfile().then(user => {
-				console.log('user : ', user);
+
 				
 			});
-	}
+	} */
 
 	public refreshToken() {
 		this.oauthService.silentRefresh()
 			.then(info => {
-				console.log('refresh ok', info);
+				// console.log('refresh ok', info);
 				if (this.oauthService.getAccessToken()) {
-					console.log(this.oauthService.getAccessToken());
+					// console.log(this.oauthService.getAccessToken());
 					this.getAccessToken();
 				}
 			})
