@@ -83,7 +83,7 @@ export const oAuthConfig = {
  * configuration to set the user admin module
  */
 
-export const IS_USER_DETAILS_EDITABLE = false;
+export const IS_USER_DETAILS_EDITABLE = true;
 
 
   /**
