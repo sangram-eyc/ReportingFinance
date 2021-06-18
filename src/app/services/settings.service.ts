@@ -75,20 +75,20 @@ setToken = (value) => {
       }
     }
 
-    decryptToken = (session_id,encryption_key) => {
-      const getDecryptedText = sessionStorage.getItem(session_id);
-      const key = CryptoJS.enc.Utf8.parse(encryption_key);
-      const iv = CryptoJS.enc.Utf8.parse(encryption_key);
-      if (getDecryptedText != null) {
-        var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
-          keySize: 128 / 8,
-          iv: iv,
-          mode: CryptoJS.mode.CBC,
-          padding: CryptoJS.pad.Pkcs7
-        });
-        return decrypted.toString(CryptoJS.enc.Utf8);
-      }
-    }
+    // decryptToken = (session_id,encryption_key) => {
+    //   const getDecryptedText = sessionStorage.getItem(session_id);
+    //   const key = CryptoJS.enc.Utf8.parse(encryption_key);
+    //   const iv = CryptoJS.enc.Utf8.parse(encryption_key);
+    //   if (getDecryptedText != null) {
+    //     var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
+    //       keySize: 128 / 8,
+    //       iv: iv,
+    //       mode: CryptoJS.mode.CBC,
+    //       padding: CryptoJS.pad.Pkcs7
+    //     });
+    //     return decrypted.toString(CryptoJS.enc.Utf8);
+    //   }
+    // }
 
   public isUserLoggedin = () => {
     const accessToken = sessionStorage.getItem('access_token')
