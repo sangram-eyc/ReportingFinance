@@ -18,7 +18,7 @@
   </div>
   <div class="user-thumb" *ngIf="userInfo">
     <motif-avatar [userName]="fullname" *ngIf="fullname" size="large" status="online" class="user-thumb-icon">
-    </motif-avatar><span class="text-capitalize">{{userInfo?.lastName+' '+userInfo?.firstName }}</span>
+    </motif-avatar><span class="text-capitalize">{{userInfo?.userLastName+' '+userInfo?.userFirstName }}</span>
   </div>
   <motif-toast [type]="'success'" [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
   <div class="user-content-container" *ngIf="!enableEditor && userInfo">
@@ -31,10 +31,10 @@
           Last name
         </div>
         <div class="col-md-6 cust-col-colour cust-row-st">
-          <!--  {{ userInfo[0]?.firstName }} --> {{ userInfo?.firstName }}
+          <!--  {{ userInfo[0]?.firstName }} --> {{ userInfo?.userFirstName }}
         </div>
         <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
-          {{ userInfo?.lastName }}
+          {{ userInfo?.userLastName }}
         </div>
         <div class="col-md-8 mt-4 cust-col-colour">
           Email
