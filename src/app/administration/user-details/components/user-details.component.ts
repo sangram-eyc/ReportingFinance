@@ -42,7 +42,7 @@ export class UserDetailsComponent implements OnInit {
   getUsersData() {
 
     // Below code will inly work,if it is a local environment reading data from json
-     if(this.isLocal){
+     /* if(this.isLocal){
       this.userService.getUsersList().subscribe(resp => {
           this.userResp.push(resp);
         this.userResp[0].forEach((item) => {
@@ -52,23 +52,23 @@ export class UserDetailsComponent implements OnInit {
         this.userInfo = this.usersListArr[currentTaskIndex];
         this.fullname = this.userInfo.userLastName+ ' '+ this.userInfo.userFirstName;
         this.editUserForm.patchValue({
-          userFirstName: this.userInfo.userFirstName.trim(),
-          userLastName: this.userInfo.userLastName.trim(),
-          userEmail: this.userInfo.userEmail.trim()
+          first: this.userInfo.userFirstName.trim(),
+          last: this.userInfo.userLastName.trim(),
+          email: this.userInfo.userEmail.trim()
           });
 
       });
-    } 
-    // this.userService.userDetails(this.curentUserId).subscribe(resp => {
-    //   this.userInfo = resp;
-    //   this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
-    //   this.editUserForm.patchValue({
-    //     first: this.userInfo.userFirstName.trim(),
-    //     last: this.userInfo.userLastName.trim(),
-    //     email: this.userInfo.userEmail.trim()
-    //   });
+    }  */
+    this.userService.userDetails(this.curentUserId).subscribe(resp => {
+      this.userInfo = resp['data'];
+      this.fullname = this.userInfo.lastName + ' ' + this.userInfo.firstName;
+      this.editUserForm.patchValue({
+        first: this.userInfo.firstName.trim(),
+        last: this.userInfo.lastName.trim(),
+        email: this.userInfo.userEmail.trim()
+      });
 
-    // });
+    });
     
 
   }
@@ -101,11 +101,11 @@ export class UserDetailsComponent implements OnInit {
 
   cancelForm() {
     this.showToastAfterEditUser = false;
-    this.editUserForm.patchValue({
-      first: this.userInfo.userFirstName.trim(),
-      last: this.userInfo.userLastName.trim(),
+    /* this.editUserForm.patchValue({
+      first: this.userInfo.firstName.trim(),
+      last: this.userInfo.lastName.trim(),
       email: this.userInfo.userEmail.trim()
-    });
+    }); */
     this.enableEditor = !this.enableEditor;
   }
 
