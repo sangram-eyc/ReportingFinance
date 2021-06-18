@@ -14,14 +14,14 @@ import { ErrorAlertComponent } from '../dialogs/error-alert/error-alert.componen
 
 @Injectable()
 export class ErrorInterceptorService implements HttpInterceptor {
-  private pendingHTTPRequests$ = new Subject<void>();
+  // private pendingHTTPRequests$ = new Subject<void>();
   // enter the route for which you want outgoing request to be canceled
   prevRoute = '';
   constructor(public dialog: MatDialog
   ) { }
-  public onCancelPendingRequests() {
-    return this.pendingHTTPRequests$.asObservable();
-  }
+  // public onCancelPendingRequests() {
+  //   return this.pendingHTTPRequests$.asObservable();
+  // }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
@@ -30,11 +30,9 @@ export class ErrorInterceptorService implements HttpInterceptor {
           if (error.status !== 200) {
             if (error.error instanceof ErrorEvent) {
               // client-side error
-              console.log('case 1 > ', error);
               errorMessage = `Error: ${error.error.message}`;
             } else {
               // server-side error
-              console.log('case 2 > ', error);
 
               if(error.error.message.includes('User already present')) {
                 errorMessage = `Error Code: 409 }\nMessage: User already present.`;

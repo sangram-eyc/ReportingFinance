@@ -1,17 +1,19 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 import { OAuthLogger, OAuthService, UrlHelperService } from 'angular-oauth2-oidc';
 
 import { SettingsService } from './settings.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ID_ENCRYPTION_KEY, SESSION_ACCESS_TOKEN, SESSION_ENCRYPTION_KEY, SESSION_ID_TOKEN } from './settings-helpers';
 import * as CryptoJS from 'crypto-js';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('SettingsService', () => {
   let service: SettingsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [OAuthService, UrlHelperService, OAuthLogger]
+      providers: [OAuthService, UrlHelperService, OAuthLogger],
+      schemas: [NO_ERRORS_SCHEMA]
     });
     service = TestBed.inject(SettingsService);
   });
@@ -95,6 +97,8 @@ describe('SettingsService', () => {
     expect(getIdToken).toBe(returndID);
   });
 
+
+
   it('isUserLoggedin() true condition', () => {
     sessionStorage.setItem('access_token', "dssdfsdfsfsd")
    const isUser =  service.isUserLoggedin();
@@ -132,6 +136,19 @@ describe('SettingsService', () => {
     const claims = oauthService.getIdentityClaims();
       expect(name).toBe(claims);
   }));
+
+  it('cancelPendingRequests()', () => {
+    const nextSpy = spyOn((service as any).pendingHTTPRequests$, 'next');
+    service.cancelPendingRequests();
+    expect(nextSpy).toHaveBeenCalled();
+});
+
+it('loadAuthDetails should return a resolved Promise', ()=>{
+  service.loadAuthDetails().then((value) => {
+    expect(value).toBe(true);
+  });
+});
+
 
   // it('getUserProfile()', inject([OAuthService], (oauthService) => {
   //   service.getUserProfile()

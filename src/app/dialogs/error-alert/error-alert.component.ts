@@ -20,11 +20,6 @@ export class ErrorAlertComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ErrorAlertComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   ngOnInit() {
     if (this.data != null && this.data !== undefined) {
       console.log('Have data', this.data);
@@ -49,7 +44,7 @@ export class ErrorAlertComponent implements OnInit {
         if (this.data.statusText) {
           this.statusText = this.data.statusText;
         }
-        if (this.data.error.message) {
+        if (this.data.error?.message) {
           this.errorMessage = this.data.error.message;
         }
         if (this.data.errorList) {
