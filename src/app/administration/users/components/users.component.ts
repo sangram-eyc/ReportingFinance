@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   showDeleteUserModal = false;
   showToastAfterDeleteUser = false;
-  selectedUser = '';
+  selectedUser: any;
 
   constructor(
     private userService: UsersService,
@@ -166,7 +166,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       // setTimeout(() => {
       //   this.showToastAfterAddUser = !this.showToastAfterAddUser;
       // }, 5000);
-      console.log("API Response is throwing error,user data loaded")
+      // console.log("API Response is throwing error,user data loaded")
       
     });
   }

@@ -2,97 +2,28 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule} from '@angular/common/http';
 import { UserDetailsComponent } from './user-details.component';
-import { MotifAvatarModule, MotifButtonModule, MotifModule, MotifFormsModule} from '@ey-xd/ng-motif';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+/* import { MotifAvatarModule, MotifButtonModule, MotifModule, MotifFormsModule} from '@ey-xd/ng-motif'; */
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsersService } from '../../users/services/users.service';
-import { SettingsService } from 'src/app/services/settings.service';
-import { OauthService } from 'src/app/login/services/oauth.service';
+/* import { SettingsService } from 'src/app/services/settings.service';
+import { OauthService } from 'src/app/login/services/oauth.service'; */
 import { OAuthLogger, OAuthService, UrlHelperService } from 'angular-oauth2-oidc';
-
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { of } from 'rxjs';
 
 
 
 describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent;
   let fixture: ComponentFixture<UserDetailsComponent>;
-  let userService : UsersService;
-  let mockUserList = {
-    "success": true,
-    "message": "sucess",
-    "data": [
-      {
-      "userId": 4,
-      "userEmail": "nandha.gopal@gds.ey.com",
-      "userDetails": {
-        "additionalProp1": {},
-        "additionalProp2": {},
-        "additionalProp3": {}
-      },
-      "userType": "string",
-      "firstName": "Nandha",
-      "lastName": "Gopal N",
-      "isAdmin": 0,
-      "createdDate": "2021-04-28T07:05:58.544Z",
-      "updatedDate": "2021-04-28T07:05:58.544Z",
-      "fullName": "Nandha Gopal N"
-      },
-      {
-      "userId": 3,
-      "userEmail": "suhas.srinidhi@gds.ey.com",
-      "userDetails": {
-        "additionalProp1": {},
-        "additionalProp2": {},
-        "additionalProp3": {}
-      },
-      "userType": "string",
-      "firstName": "Suhas Talakad",
-      "lastName": "Srinidhi",
-      "isAdmin": 0,
-      "createdDate": "2021-04-28T07:05:58.544Z",
-      "updatedDate": "2021-04-28T07:05:58.544Z",
-      "fullName": "Suhas Talakad Srinidhi"
-      },
-      {
-      "userId": 1,
-      "userEmail": " debabrata.dash@gds.ey.com",
-      "userDetails": {
-        "additionalProp1": {},
-        "additionalProp2": {},
-        "additionalProp3": {}
-      },
-      "userType": "string",
-      "firstName": "Debabrata",
-      "lastName": "Dash",
-      "isAdmin": 0,
-      "createdDate": "2021-04-28T07:05:58.544Z",
-      "updatedDate": "2021-04-28T07:05:58.544Z",
-      "fullName": "Debabrata Dash"
-      },
-      {
-      "userId": 6,
-      "userEmail": "Koteswararao.Yarlagadda@ey.com",
-      "userDetails": {
-        "additionalProp1": {},
-        "additionalProp2": {},
-        "additionalProp3": {}
-      },
-      "userType": "string",
-      "firstName": "Koteswara Rao",
-      "lastName": "Yarlagadda",
-      "isAdmin": 0,
-      "createdDate": "2021-04-28T07:05:58.544Z",
-      "updatedDate": "2021-04-28T07:05:58.544Z",
-      "fullName": "Koteswara Rao Yarlagadda"
-      }
-    ]
-    };
+  let testBedService: UsersService;
+ 
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, HttpClientModule, MotifAvatarModule, MotifButtonModule, MotifModule, MotifFormsModule, FormsModule, ReactiveFormsModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
       declarations: [ UserDetailsComponent ],
-      providers: [OAuthService, UrlHelperService, OAuthLogger]
+      providers: [UsersService, OAuthService, UrlHelperService, OAuthLogger]
     })
     .compileComponents();
   }));
@@ -101,6 +32,7 @@ describe('UserDetailsComponent', () => {
     fixture = TestBed.createComponent(UserDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    testBedService = TestBed.get(UsersService)
   });
 
   it('should create', () => {
@@ -108,22 +40,55 @@ describe('UserDetailsComponent', () => {
   });
   
 
-  /* it('get users data',()=> {
-		spyOn(component, 'getUsersData').and.callThrough(); 
-		fixture.detectChanges();
-		expect(component.getUsersData).toHaveBeenCalled();
-	}); */
 
-  // it('get users data',()=> {
-  //   // spyOn(userService, 'get users data').and.returnValue('Mocked');
+  it('onSubmitEditUserForm', () => {
+    const resp ={"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}
+    let form = new FormGroup({
+      first: new FormControl( resp.userFirstName.trim(), [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250)]),
+      last: new FormControl(resp.userLastName.trim(), [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250)]),
+      email: new FormControl(resp.userEmail.trim(), [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z.]+\\.[a-zA-Z]{2,6}'), Validators.maxLength(250)])
+    });
+    component.editUserForm.patchValue({
+      first: resp.userFirstName.trim(),
+      last: resp.userLastName.trim(),
+      email: resp.userEmail.trim() 
+    })
+    spyOn(testBedService, 'editUser').and.returnValue(of(resp))
+    component.onSubmitEditUserForm(form)
+    expect(component.userInfo).toEqual(resp)
+  });
 
 
-  //   spyOn(component, 'getUsersData').and.callThrough(); 
-  //   fixture.detectChanges();
-	// 	expect(component.getUsersData).toHaveBeenCalled();
 
-	// });
 
-  
+  it('enable edit form',()=> {​​​​​​​​
 
+  let enableEditor = true;
+  component.enableEditForm();
+  fixture.detectChanges();
+  expect(component.enableEditor).toBe(enableEditor);
+  }​​​​​​​​);
+
+  it('cancel form',()=> {​​​​​​​​
+  let showToastAfterEditUser  = false;
+  component.userInfo ={​​​​​​​​"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}​​​​​​​​
+
+  let enableEditor = true;
+  component.cancelForm();
+  fixture.detectChanges();
+  expect(component.showToastAfterEditUser).toBe(showToastAfterEditUser);
+  }​​​​​​​​); 
+
+
+  it('should get user details', () => {​​​​​​​​
+  const resp ={​​​​​​​​"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}​​​​​​​​
+  let name = 'sdsdsdsd sdsdsdsdsd';
+  spyOn(testBedService, 'userDetails').and.returnValue(of(resp))
+  component.ngOnInit();
+  fixture.detectChanges();
+  expect(component.userInfo).toEqual(resp);
+  }​​​​​​​​);
+
+
+ 
 });

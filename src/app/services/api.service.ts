@@ -45,7 +45,7 @@ export class ApiService {
   }
 
   /*--------------GENERIC API FOR DELETE METHOD-------------*/
-  invokeDeleteAPI(url: string): Observable<Response> {
+  invokeDeleteAPI(url: string): Observable<any> {
     const headers = this.setHeaders();
     return this.httpClient.delete<Response>(url, { headers });
   }
