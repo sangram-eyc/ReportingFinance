@@ -14,14 +14,14 @@ export class FundScopingService {
     private settingsService: EycRrSettingsService,
   ) { }
 
-  getFilingFunds() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/filingFunds.json', {
-      headers
-    });
-  }
+  // getFilingFunds() {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //   });
+  //   return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/filingFunds.json', {
+  //     headers
+  //   });
+  // }
 
   getFundScopingDetails(filingName, period) {
   //  return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);

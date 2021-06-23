@@ -48,6 +48,61 @@ describe('FundScopingComponent', () => {
       "id": "PV100360"
     }
   ]
+  let mockDetails = {
+    "success": true,
+    "message": "Funds in scope details fetched successfully",
+    "corelationId": null,
+    "data": [
+      {
+        "fundName": "Goldman Sachs China A-Share Equity Portfolio",
+        "fundCode": "19614011",
+        "fundId": "PV100356"
+      },
+      {
+        "fundName": "Goldman Sachs China B-Share Equity Portfolio",
+        "fundCode": "19614012",
+        "fundId": "PV100357"
+      },
+      {
+        "fundName": "Goldman Sachs China C-Share Equity Portfolio",
+        "fundCode": "19614013",
+        "fundId": "PV100358"
+      },
+      {
+        "fundName": "Goldman Sachs China D-Share Equity Portfolio",
+        "fundCode": "19614014",
+        "fundId": "PV100359"
+      },
+      {
+        "fundName": "Goldman Sachs China E-Share Equity Portfolio",
+        "fundCode": "19614015",
+        "fundId": "PV100360"
+      }
+    ],
+    "error": null
+  }
+  let mockStatus = {
+    "success": true,
+    "message": "Funds scoping status returned successfully",
+    "corelationId": null,
+    "data": [
+      {
+        "stageId": 61,
+        "stage": "EY Review",
+        "stageCode": "EY_REVIEW",
+        "progress": "In Progress",
+        "displayOrder": 1
+      },
+      {
+        "stageId": 62,
+        "stage": "Client Review",
+        "stageCode": "CLIENT_REVIEW",
+        "progress": "Completed",
+        "displayOrder": 2
+      }
+    ],
+    "error": null
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -87,12 +142,59 @@ describe('FundScopingComponent', () => {
     expect(fundScopingService instanceof FundScopingService).toBeTruthy();
   });
 
-  it('should call getFilingsFunds and return list of filingsFunds', () => {
-    const response = [];
-    spyOn(fundScopingService, 'getFilingFunds').and.returnValue(of(response))
-    component.ngOnInit();
+  it("should call getFundScopingDetails and return list of funds", async(() => {
+    const resp = mockDetails;
+    const fundTest = [];
+    const filingDetails = {
+      filingName: 'Form PF',
+      period: 'Q4 2021',
+      filingId: 1
+    };
+    spyOn(fundScopingService, 'getFundScopingDetails').and.returnValue(of(resp));
+    component.receiveFilingDetails(filingDetails);
     fixture.detectChanges();
-    expect(component.rowData).toEqual(response['data']);
+    resp['data'].forEach((item) => {
+      const eachitem: any  = {
+        name: item.fundName,
+        code: item.fundCode,
+        id: item.fundId
+      };
+      fundTest.push(eachitem);
+    })
+    expect(component.funds).toEqual(fundTest);
+  }));
+
+  it("should call getFundScopingStatus and return list of fund status", async(() => {
+    const resp = mockStatus;
+    const fundTest = [];
+    const filingDetails = {
+      filingName: 'Form PF',
+      period: 'Q4 2021',
+      filingId: 1
+    };
+    spyOn(fundScopingService, 'getFundScopingStatus').and.returnValue(of(resp));
+    component.receiveFilingDetails(filingDetails);
+    fixture.detectChanges();
+    expect(component.fundScopingStatus).toEqual(resp['data']);
+  }));
+
+  it('should call onSubmitApproveFund and close modal', () => {
+    const resp = [];
+    component.filingDetails = {filingId: 1};
+    component.fundScopingStatus = [{stageId: 61}];
+    spyOn(fundScopingService, 'approveFundScopingStatus').and.returnValue(of(resp));
+    component.onSubmitApproveFunds();
+    fixture.detectChanges();
+    expect(component.approveModal).toEqual(false);
+  })
+
+  it('should validate characters in search`', () => {
+    const test1 = { keyCode: 65, preventDefault: function() {}};
+    const test2 = { keyCode: 48, preventDefault: function() {} };
+    const test3 = { keyCode: 164, preventDefault: function() {} };
+    expect(component.searchFilingValidation(test1)).toEqual(true);
+    expect(component.searchFilingValidation(test2)).toEqual(true);
+    expect(component.searchFilingValidation(test3)).toEqual(false);
   });
 
   it('grid API is available after `detectChanges`', () => {
@@ -114,7 +216,15 @@ describe('FundScopingComponent', () => {
     component.createFundRowData();
     fixture.detectChanges();
     const hostElement = fixture.nativeElement;
-    component.gridApi.setQuickFilter('19614013');
+    // component.gridApi.setQuickFilter('19614013');
+    const input = {
+      el: {
+        nativeElement: {
+          value: '19614013'
+        }
+      }
+    }
+    component.searchFunds(input);
     const cellElements = hostElement.querySelectorAll('.ag-cell-value');
     expect(cellElements.length).toEqual(4);
   })
