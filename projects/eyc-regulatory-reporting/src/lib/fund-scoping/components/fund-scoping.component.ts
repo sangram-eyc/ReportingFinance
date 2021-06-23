@@ -14,7 +14,7 @@ export class FundScopingComponent implements OnInit {
 
   constructor(
     private fundScopingService: FundScopingService,
-    private filingService: RegulatoryReportingFilingService
+    // private filingService: RegulatoryReportingFilingService
   ) { }
 
   filingDetails: any;
@@ -150,7 +150,7 @@ export class FundScopingComponent implements OnInit {
         progress: 'in-progress'
       }
       this.fundScopingStatus[0].progress = 'Completed';
-      this.filingService.invokeFilingDetails();
+      // this.filingService.invokeFilingDetails();
       this.approveModal = false;
       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
           setTimeout(() => {
