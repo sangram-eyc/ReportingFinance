@@ -1,6 +1,7 @@
 <lib-dots-card (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
 
 
+<motif-toast [type]="'success'" [show]="showToastAfterEditUser">{{ downloadMsg }} </motif-toast>
 
 <div class="submission-content-container">
     <div class="approve-button">
@@ -31,3 +32,4 @@
         </ng-template>    
     </section>
 </div>
+

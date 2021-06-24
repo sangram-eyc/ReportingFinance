@@ -129,3 +129,20 @@
  ::ng-deep .ag-body-viewport {
     min-height: inherit !important;
   }
+
+  ::ng-deep.motif-toast {
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+}
