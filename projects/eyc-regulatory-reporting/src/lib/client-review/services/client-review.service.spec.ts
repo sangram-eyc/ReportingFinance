@@ -21,4 +21,21 @@ describe('ClientReviewService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('invokePutAPI  returned Observable should match the right data', () => {
+    const mockUser ={
+      "entityIds": [1,2,3],
+      "filingName": "FormPF",
+      "period": "Q3 2021",
+      "stage": "Client review"
+    };
+    service.approvefilingEntities(mockUser)
+      .subscribe(res => {
+        expect(res).toBeTruthy();
+      });
+
+    // const req = httpMock.expectOne(url);
+    // expect(req.request.method).toEqual('PUT');
+    // req.flush(mockUser);
+  });
 });

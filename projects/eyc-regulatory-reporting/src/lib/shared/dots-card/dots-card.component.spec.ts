@@ -198,7 +198,7 @@ describe('DotsCardComponent', () => {
   it('should format date', () => {
     component.dueDate = '2021-06-30';
     component.formatDate();
-    expect(component.dueDate).toEqual('06/29/2021');
+    expect(component.dueDate).toEqual('06/30/2021');
   });
 
   it('should get filing status', () => {
