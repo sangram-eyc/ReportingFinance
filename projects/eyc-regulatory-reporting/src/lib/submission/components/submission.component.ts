@@ -29,7 +29,7 @@ export class SubmissionComponent implements OnInit {
   period;
   slectedFiles;
   downloadFilesRes = [];
-  showToastAfterEditUser = false;
+  showToastAfterDownload = false;
   downloadMsg;
 
   @ViewChild('headerTemplate')
@@ -99,13 +99,14 @@ export class SubmissionComponent implements OnInit {
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
       this.downloadMsg = res.message;
-      this.showToastAfterEditUser = !this.showToastAfterEditUser;
+      console.log('download msg > ', this.downloadMsg);
+      this.showToastAfterDownload = !this.showToastAfterDownload;
       this.downloadFilesRes.forEach((item: any) => {
         const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
       setTimeout(() => {
-        this.showToastAfterEditUser = !this.showToastAfterEditUser;
+        this.showToastAfterDownload = !this.showToastAfterDownload;
       }, 5000);
     });
   }
