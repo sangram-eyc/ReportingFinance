@@ -29,6 +29,8 @@ export class SubmissionComponent implements OnInit {
   period;
   slectedFiles;
   downloadFilesRes = [];
+  showToastAfterEditUser = false;
+  downloadMsg;
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -90,20 +92,21 @@ export class SubmissionComponent implements OnInit {
     this.slectedFiles = [];
     const formData: any = new FormData();
     this.selectedRows.forEach((item) => {
-    // formData.append("file", item['fileName']);
     this.slectedFiles.push(item['fileName']);
     });
 
 
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
+      this.downloadMsg = res.message;
+      this.showToastAfterEditUser = !this.showToastAfterEditUser;
       this.downloadFilesRes.forEach((item: any) => {
-        console.log("download - item > ", item);
-        // let data = new Blob([item.file], {type: 'application/xml'});
-        // let data = new Blob([item.file], { type: 'text/plain;charset=utf-8' });
         const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
+      setTimeout(() => {
+        this.showToastAfterEditUser = !this.showToastAfterEditUser;
+      }, 5000);
     });
   }
 
