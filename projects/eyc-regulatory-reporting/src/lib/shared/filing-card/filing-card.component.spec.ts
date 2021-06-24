@@ -128,7 +128,7 @@ describe('FilingCardComponent', () => {
 
   it('should format date', () => {
     component.formatDate();
-    expect(component.dueDate).toBe('06/29/2021');
+    expect(component.dueDate).toBe('06/30/2021');
   });
 
   describe('The function sortStates...', () => {

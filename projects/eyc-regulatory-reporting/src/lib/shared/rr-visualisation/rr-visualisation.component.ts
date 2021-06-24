@@ -25,7 +25,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   ngOnInit() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);
  }
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: any) {
     if (this.selectedReportId) {
       this.showVisualizationForPowerBi();
     }
@@ -65,7 +65,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
     }
 
     this.report.setFilters(this.filters);
-    console.log('Filters', this.filters);
+    // console.log('Filters', this.filters);
   }
 
 
@@ -89,7 +89,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
             self.report.getFilters().then(filters => {
               self.filters = [];
               for (const filter of filters) {
-                console.log('Filter', filter);
+                // console.log('Filter', filter);
                 if (filter.target['column'] === 'FilingYear' && IS_FY_FILTER) {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
