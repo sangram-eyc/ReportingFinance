@@ -4,7 +4,7 @@
 
 .motif-card {
     // width: 422px;
-    max-width: 560px;
+    max-width: 600px;
     min-width: 350px;
     font-family: EYInterstate;
     border: 1px solid #747480 !important;
@@ -16,13 +16,33 @@
         justify-content: space-between;
         align-items: center;
         padding: 28px 20px 18px 23px;
-        min-height: 82px;
+        min-height: 85px;
+        .elli-wrap {
+            width: 67%;
+        }
         .filing-name {
             margin: 0;
             font-weight: 700;
             font-size: 16px;
             line-height: 18px;
             width: 62%;
+        }
+        .eli-filing-name {
+            margin: 0;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 5px;
+            width: 62%;
+            /* position: absolute;
+            margin-top: 25px; */
+        }
+        span.filing-name.ellipsis {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            // width: 44%;
         }
         .filing-date-due {
             display: flex;
@@ -204,6 +224,12 @@
     .motif-step-container .step-info .step-dot.in-progress {
         border: 1px solid #000000 !important;
         background: #FFFFFF !important;
+    }
+   /*  .motif-tooltip {
+        width: 100% !important;
+    } */
+    .motif-icon.motif-tooltip-close {
+        display: none !important;
     }
 }
 

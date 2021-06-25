@@ -2,7 +2,7 @@ import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import { FilingCardComponent } from './shared/filing-card/filing-card.component';
-import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
+import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
@@ -22,12 +22,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {EycRrApiService} from './services/eyc-rr-api.service';
 import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisation.component';
 import {EycPbiService} from './services/eyc-pbi.service';
+import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
+
+
 
 
 @NgModule({
   imports: [
     AgGridModule.withComponents([]),
     CommonModule,
+    MotifTooltipModule,
     MotifCardModule,
     MotifButtonModule,
     MotifFormsModule,
@@ -45,7 +49,8 @@ import {EycPbiService} from './services/eyc-pbi.service';
     MotifModalModule,
     MotifToastModule,
     MotifDropdownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
     
     
   ],
