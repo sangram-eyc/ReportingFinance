@@ -3,7 +3,9 @@
 }
 
 .motif-card {
-    width: 422px;
+    // width: 422px;
+    max-width: 560px;
+    min-width: 350px;
     font-family: EYInterstate;
     border: 1px solid #747480 !important;
     // margin-right: 22px;
