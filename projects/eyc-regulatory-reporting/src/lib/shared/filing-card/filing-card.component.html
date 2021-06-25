@@ -1,6 +1,19 @@
 <motif-card>
     <motif-card-header>
-        <h6 class="filing-name">{{name}} // {{period}}</h6>
+        <!-- <h6 class="filing-name">{{name}} // {{period}}</h6> -->
+        <h6 class="filing-name" *ngIf="name.length < 40">{{name}} // {{period}}</h6>
+        
+       
+        <div *ngIf="name.length > 40" class="elli-wrap">
+        <motif-tooltip placement="top">
+            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span></h6>
+            {{name}}
+        </motif-tooltip>
+        <h6 class="eli-filing-name" >// {{period}}</h6>
+        </div>
+     
+        
+
         <span class="filing-date-due"><motif-icon [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Filing due {{dueDate}}</span>
     </motif-card-header>
     <motif-card-body>
