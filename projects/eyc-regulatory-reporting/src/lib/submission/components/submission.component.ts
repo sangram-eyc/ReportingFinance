@@ -22,7 +22,7 @@ export class SubmissionComponent implements OnInit {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
-  rowData;
+  rowData = [];
   selectedRows = [];
   filingDetails;
   filingName;
