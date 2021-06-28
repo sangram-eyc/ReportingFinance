@@ -41,11 +41,24 @@ export class SubmissionComponent implements OnInit {
    
   }
 
-  isFirstColumn = (params) => {
+  /* isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     const thisIsFirstColumn = displayedColumns[0] === params.column;
     return thisIsFirstColumn;
+  } */
+
+
+  isFirstColumn = (params) => {
+    const displayedColumns = params.columnApi.getAllDisplayedColumns();
+    if (params.data) {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column);
+      return thisIsFirstColumn;
+    } else {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.length == 0);
+      return thisIsFirstColumn;
+    }
   }
+
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -99,7 +112,7 @@ export class SubmissionComponent implements OnInit {
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
       this.downloadMsg = res.message;
-      console.log('download msg > ', this.downloadMsg);
+      // console.log('download msg > ', this.downloadMsg);
       this.showToastAfterDownload = !this.showToastAfterDownload;
       this.downloadFilesRes.forEach((item: any) => {
         const data = this.base64ToBlob(item.file);
