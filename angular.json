@@ -232,6 +232,46 @@
           }
         }
       }
+    },
+    "eyc-ui-shared-component": {
+      "projectType": "library",
+      "root": "projects/eyc-ui-shared-component",
+      "sourceRoot": "projects/eyc-ui-shared-component/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/eyc-ui-shared-component/tsconfig.lib.json",
+            "project": "projects/eyc-ui-shared-component/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/eyc-ui-shared-component/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/eyc-ui-shared-component/src/test.ts",
+            "tsConfig": "projects/eyc-ui-shared-component/tsconfig.spec.json",
+            "karmaConfig": "projects/eyc-ui-shared-component/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/eyc-ui-shared-component/tsconfig.lib.json",
+              "projects/eyc-ui-shared-component/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "eyc-ServiceEngine-UI",

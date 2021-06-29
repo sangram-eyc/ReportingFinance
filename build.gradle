@@ -25,6 +25,12 @@ node {
   nodeModulesDir = file("${project.projectDir}")
 }
 
+task buildSharedComponent(type: NpmTask) {
+  println "Building eyc shared component"
+  args = ['run', 'eyc-ui-shared']
+  
+}
+
 task buildLibrary(type: NpmTask) {
   println "Building Reg Library"
   args = ['run', 'buildLibrary']
