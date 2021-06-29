@@ -8,6 +8,7 @@
     "buildTest": "node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build --prod --aot -c production",
     "buildWithLocalHref": "node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build  --base-href=. --prod --aot -c production",
     "buildLibrary": "ng build --prod  eyc-regulatory-reporting",
+    "eyc-ui-shared": "ng build --prod eyc-ui-shared-component",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

@@ -15,22 +15,28 @@
       "es2018",
       "dom"
     ],
-    
     "paths": {
       "eyc-regulatory-reporting": [
         "dist/eyc-regulatory-reporting/eyc-regulatory-reporting",
-        "dist/eyc-regulatory-reporting",
+        "dist/eyc-regulatory-reporting"
       ],
-      "@default/*": ["src/app/*"],
-      "@env/*": ["src/environments/*"]
+      "@default/*": [
+        "src/app/*"
+      ],
+      "@env/*": [
+        "src/environments/*"
+      ],
+      "eyc-ui-shared-component": [
+        "dist/eyc-ui-shared-component/eyc-ui-shared-component",
+        "dist/eyc-ui-shared-component"
+      ]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*",
-    
+    "src/**/*"
   ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
