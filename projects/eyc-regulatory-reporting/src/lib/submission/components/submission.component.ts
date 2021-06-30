@@ -44,6 +44,7 @@ export class SubmissionComponent implements OnInit {
   /* isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     const thisIsFirstColumn = displayedColumns[0] === params.column;
+    console.log('K1 > ',thisIsFirstColumn);
     return thisIsFirstColumn;
   } */
 
@@ -54,7 +55,7 @@ export class SubmissionComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.length == 0);
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.length === 0);
       return thisIsFirstColumn;
     }
   }
