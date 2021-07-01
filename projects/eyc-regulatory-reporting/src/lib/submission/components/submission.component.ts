@@ -152,6 +152,7 @@ export class SubmissionComponent implements OnInit {
     this.period = this.filingDetails.period;
     this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
       this.rowData = res['data'];
+      this.ngAfterViewInit();
     });
 
   }​​​​​​​​
