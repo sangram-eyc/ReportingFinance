@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import * as userAuthHelpers from '../services/settings-helpers';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { SettingsService } from '../services/settings.service';
-import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../services/settings-helpers';
+import {ACCESS_TOKEN,ID_TOKEN,USER_NAME,NONCE,SESSION_ID,UUID,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY,SESSION_ACCESS_TOKEN} from '../services/settings-helpers';
 import {token_interceptor} from '../helper/api-config-helper';
 import { v4 as uuid } from 'uuid';
 
@@ -52,7 +52,8 @@ export class TokenInterceptor implements HttpInterceptor {
             if (request.url.indexOf('getPBIEmbedToken') !== -1)
             {
              console.log("This is power bi API inside API block")
-             const currentUserToken = this.settingService.getToken();
+            // const currentUserToken = this.settingService.getToken();
+            const currentUserToken = sessionStorage.getItem(SESSION_ACCESS_TOKEN);
              const urlString = request.url;
              const powerbiAuthToken = sessionStorage.getItem(SESSION_PBI_TOKEN);
              // const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
@@ -83,7 +84,8 @@ export class TokenInterceptor implements HttpInterceptor {
                
                     console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
                     if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN) || UUID ) {
-                        const currentUserToken = this.settingService.getToken();
+                      //  const currentUserToken = this.settingService.getToken();
+                      const currentUserToken = sessionStorage.getItem(SESSION_ACCESS_TOKEN);
                         const urlString = request.url;
                         console.log('url : ' + urlString);
                         request = request.clone({

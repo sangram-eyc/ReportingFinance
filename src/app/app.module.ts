@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MotifModule, MotifAvatarModule,MotifFormsModule } from '@ey-xd/ng-motif';
 import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
@@ -43,7 +43,7 @@ import { SettingsService } from './services/settings.service';
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatProgressSpinnerModule,
+    // MatProgressSpinnerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MotifModule,
@@ -78,11 +78,11 @@ import { SettingsService } from './services/settings.service';
     useClass: LoaderInterceptor,
     multi: true
   },
-  // {
-  //   provide: HTTP_INTERCEPTORS,
-  //   useClass: CancelHttpCallsInterceptor,
-  //   multi: true
-  // },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: CancelHttpCallsInterceptor,
+    multi: true
+  },
   {
     provide: APP_INITIALIZER,
     useFactory: resourceProviderFactory,

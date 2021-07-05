@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-import {SESSION_ACCESS_TOKEN,SESSION_ENCRYPTION_KEY,SESSION_ID_TOKEN,ID_ENCRYPTION_KEY} from './settings-helpers';
+import {SESSION_ACCESS_TOKEN,SESSION_ENCRYPTION_KEY,SESSION_ID_TOKEN,ID_ENCRYPTION_KEY,SESSION_ENCRYPTION_IV,ID_ENCRYPTION_IV} from './settings-helpers';
 import { environment } from '../../environments/environment';
 import { OAuthService} from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
@@ -19,7 +19,7 @@ export class SettingsService {
 // AUTHTOKEN FUNCTIONS
 setToken = (value) => {
   const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
-  const iv = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
+  const iv = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_IV);
   const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
   {
       keySize: 128 / 8,
@@ -34,7 +34,7 @@ setToken = (value) => {
   getToken = () => {
     const getDecryptedText = sessionStorage.getItem(SESSION_ACCESS_TOKEN);
     const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
-    const iv = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
+    const iv = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_IV);
     if (getDecryptedText != null) {
       var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
         keySize: 128 / 8,
@@ -46,9 +46,12 @@ setToken = (value) => {
     }
   }
 
+  
+
   setIdToken = (value) => {
     const key = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
-    const iv = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
+    const iv = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_IV);
+    console.log("Initial vector value",iv)
     const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
     {
         keySize: 128 / 8,
@@ -63,7 +66,7 @@ setToken = (value) => {
     getIdToken = () => {
       const getDecryptedText = sessionStorage.getItem(SESSION_ID_TOKEN);
       const key = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
-      const iv = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
+      const iv = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_IV);
       if (getDecryptedText != null) {
         var decrypted = CryptoJS.AES.decrypt(getDecryptedText, key, {
           keySize: 128 / 8,
