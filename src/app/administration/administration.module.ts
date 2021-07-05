@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AdministrationComponent } from './components/administration.component';
 import { AdminRegulatoryReportingModule } from './admin-regulatory-reporting/admin-regulatory-reporting.module';
 import { UserDetailsModule } from './user-details/user-details.module';
+// import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module'
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { UserDetailsModule } from './user-details/user-details.module';
     MotifButtonModule,
     AdminRegulatoryReportingModule,
     UsersModule,
-    UserDetailsModule
+    UserDetailsModule,
+    // EycUiSharedComponentModule
   ],
   declarations: [
     AdministrationComponent,
