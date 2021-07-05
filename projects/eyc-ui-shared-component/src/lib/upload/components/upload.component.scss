@@ -1,0 +1,36 @@
+::ng-deep {
+    .motif-file-upload-button-text {
+        color: #000000 !important
+    }
+    .motif-file-upload-button {
+        background-color: #ffffff !important;
+    }
+    .motif-file-upload-button:hover,  .motif-file-upload-button:active, .motif-file-upload-button:focus{
+        background-color: #ffffff !important;
+    }
+}
+.files-list {
+    font-family: EYInterstate;
+    font-size: 12px;
+    // line-height: 25px;
+    ::ng-deep .motif-icon svg {
+        height: 1.11429rem !important;
+        width: 1.11429rem !important;
+        margin-top: 2px !important;
+        position: relative !important;
+    } 
+    
+}
+#del-file-cls {
+    display: inline-block;
+    position: absolute;
+}
+
+
+
+
+
+
+
+
+

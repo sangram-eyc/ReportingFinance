@@ -1,0 +1,11 @@
+<motif-form-field>
+  <motif-file-upload [uploader]="uploaderURL" [(ngModel)]="ngModelQueue" [multiple]="true"
+    (change)="filesUploaded($event)">
+    <label for="motif-file-upload-0">{{sharedHelper.fileUploadHeading}}</label>
+  </motif-file-upload>
+ <motif-error *ngIf="uploadError">{{ uploadErrorMsg }}</motif-error>
+</motif-form-field>
+
+<div class="files-list" *ngFor="let document of uploaderURL.queue; let i = index"> 
+  {{ document.file.name }}  <motif-icon id="del-file-cls" [src]="'/assets/icons/action/ic_delete_24px.svg'" (click)="removeAttachment(i)"></motif-icon>
+</div>
