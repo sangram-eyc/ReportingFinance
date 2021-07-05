@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import { FilingCardComponent } from './shared/filing-card/filing-card.component';
 import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -39,7 +38,6 @@ import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from
     MotifProrgressIndicatorsModule,
     MotifTableModule,
     MotifTabBarModule,
-    SlickCarouselModule,
     InlineSVGModule.forRoot(),
     HttpClientModule,
     MotifPaginationModule,

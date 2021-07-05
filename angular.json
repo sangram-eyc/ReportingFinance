@@ -52,9 +52,7 @@
               
               "src/eyc-styles.scss",
                "node_modules/@ey-xd/ng-motif/styles.scss",
-              "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss",
-              "node_modules/ag-grid-community/dist/styles/ag-grid.css",
+               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
               "node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
@@ -65,7 +63,6 @@
           },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
