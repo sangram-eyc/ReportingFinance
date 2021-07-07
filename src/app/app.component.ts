@@ -119,8 +119,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
   @HostListener('document:click', ['$event'])
   public outsideClick(event) {
-    console.log(event);
-    console.log(this.notificationCard)
+    // console.log(event);
+    // console.log(this.notificationCard)
     if( this.notificationCard && !this.notificationCard.nativeElement.contains(event.target)  && !this.notificationIcon.nativeElement.contains(event.target)){
       this.isNotification = false;
     }
