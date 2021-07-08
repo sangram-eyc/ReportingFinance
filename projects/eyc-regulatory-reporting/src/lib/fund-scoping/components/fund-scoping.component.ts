@@ -60,11 +60,12 @@ export class FundScopingComponent implements OnInit {
         this.funds.push(eachitem);
       });
       this.createFundRowData();
+      this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).subscribe(resp => {
+        this.fundScopingStatus = resp['data'];
+        console.log('FUND SCOPING STATUS', this.fundScopingStatus);
+      });
     });
-    this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).subscribe(resp => {
-      this.fundScopingStatus = resp['data'];
-      console.log('FUND SCOPING STATUS', this.fundScopingStatus);
-    });
+    
   }
 
   receiveFilingDetails(event) {
