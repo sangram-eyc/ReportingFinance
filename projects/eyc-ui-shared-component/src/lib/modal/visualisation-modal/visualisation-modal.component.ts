@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {EycPowerbiEmbedComponent} from '../../eyc-powerbi/eyc-powerbi-embed/eyc-powerbi-embed.component';
 
 @Component({
   selector: 'lib-visualisation-modal',
