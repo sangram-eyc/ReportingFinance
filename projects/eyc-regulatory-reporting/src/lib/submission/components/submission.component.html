@@ -5,30 +5,29 @@
 
 <div class="submission-content-container">
     <div class="approve-button">
-        <button motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
-    </div>
-    <section id="xml-files-list">
+      <button motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
+<!--  <lib-download [buttonLabel]="'Download selected'" [downloadFilesList]="selectedRows" (downloadFilesEmitter)="donwloadFilesOnSelected($event)"></lib-download>    </div>
+ -->    <section id="xml-files-list">
        
         <div >
             <motif-table title="XML Files" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
         headerCheckboxSelection: isFirstColumn,
-        checkboxSelection: isFirstColumn
-        }" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
+        checkboxSelection: isFirstColumn}" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()"></motif-table>
         </div>
         <!-- CUSTOM TEMPLATE -->
         <ng-template #headerTemplate>
-            <div>
+           <!--  <div>
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
                     tabindex="0"></motif-icon>
-            </div>
+            </div> -->
         </ng-template>
         <ng-template #dropdownTemplate>
-            <div>
+         <!--    <div>
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
                 </motif-icon>
-            </div>
+            </div> -->
         </ng-template>    
     </section>
 </div>
