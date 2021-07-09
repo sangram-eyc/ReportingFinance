@@ -20,11 +20,11 @@
         <div class="search">
             <motif-form-field>
                 <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
-                    (keyup.enter)="searchActiveReports(activeReports)" placeholder="Search" aria-label="Search">
+                    (keyup)="searchActiveReports(activeReports)" placeholder="Search" aria-label="Search">
             </motif-form-field>
         </div>
     </div>
-    <div class="filing-card">
+    <!-- <div class="filing-card">
         <div fxFlex fxLayout="column" fxLayoutGap="10px">
             <div fxLayout="row wrap">
                 <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" 
@@ -39,7 +39,35 @@
                 </div>
             </div>
         </div>
+    </div> -->
+<!-- 
+    <div class="filing-card">
+        <div fxFlex fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row wrap">
+                <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" class="each-card"
+             style="padding: 5px;">
+                    <app-filing-card [filingData]="filing"></app-filing-card>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="each-card" *ngFor="let filing of activeFilings.sort(sortByDueDate)">
+            <app-filing-card [filingData]="filing"></app-filing-card>
+        </div>
     </div>
+    <!-- <div class="filing-card">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+
+       
+            <ng-container *ngFor="let filing of activeFilings.sort(sortByDueDate)">
+                <app-filing-card [filingData]="filing" fxFlex="0 1 calc(33.3% - 32px)"
+                fxFlex.lt-md="0 1 calc(50% - 32px)"
+                fxFlex.lt-sm="100%"></app-filing-card>
+            </ng-container>
+        </div>
+    </div> -->
+    
 
     <motif-card class="no_data" *ngIf="activeReportsSearchNoDataAvilable">
         <motif-card-body>
