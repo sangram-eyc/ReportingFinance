@@ -46,6 +46,9 @@ export class ClientReviewComponent implements OnInit {
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.ngAfterViewInit();
+    },error=>{
+      this.rowData =[];
+      console.log("Client Review error");
     });
   }
 
