@@ -46,6 +46,9 @@ export class RrReportingComponent implements OnInit {
     this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.ngAfterViewInit();
+    },error=>{
+      this.rowData =[];
+      console.log("Client Review error");
     });
   }
 
