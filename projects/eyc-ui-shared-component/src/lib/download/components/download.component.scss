@@ -1,0 +1,45 @@
+
+    .shared-download-buton {
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-weight: bold !important;
+        font-size: 14px !important;
+        line-height: 16px !important;
+        text-align: right !important;
+        // border: 0px !important;
+        // border-width: 1px !important;
+        // width: initial !important;
+    }
+
+    .shared-download-buton:disabled {
+        background-color: #C4C4CD !important;
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-weight: bold !important;
+        font-size: 14px !important;
+        line-height: 16px !important;
+        text-align: right !important;
+        color: #FFFFFF !important;
+    }
+
+    *:focus {
+        box-shadow: none !important;
+    }
+
+    ::ng-deep.motif-toast {
+        position: fixed;
+        right: 0px;
+        margin-right: 2%;
+        top: 50px;
+        z-index: 2;
+        .motif-toast-content {
+            font-family: EYInterstate
+        }
+        .motif-button {
+            color: #1a1a24;
+        }
+        .motif-icon-button {
+            display: none !important;
+        }
+    }
+

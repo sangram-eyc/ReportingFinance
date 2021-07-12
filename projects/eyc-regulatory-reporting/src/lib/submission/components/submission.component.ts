@@ -3,6 +3,8 @@ import { SubmissionService } from '../../submission/services/submission.service'
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
+// import { SharedDownloadService } from './../../../../../eyc-ui-shared-component/src/lib/download/services/shared-download.service'
+
 
 
 
@@ -24,10 +26,11 @@ export class SubmissionComponent implements OnInit {
   columnDefs;
   rowData = [];
   selectedRows = [];
+  slectedFiles: any[] = [];
   filingDetails;
   filingName;
   period;
-  slectedFiles;
+  selectedFiles: any[] = [];
   downloadFilesRes = [];
   showToastAfterDownload = false;
   downloadMsg;
@@ -38,15 +41,7 @@ export class SubmissionComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-   
   }
-
-  /* isFirstColumn = (params) => {
-    const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    const thisIsFirstColumn = displayedColumns[0] === params.column;
-    console.log('K1 > ',thisIsFirstColumn);
-    return thisIsFirstColumn;
-  } */
 
 
   isFirstColumn = (params) => {
@@ -102,6 +97,18 @@ export class SubmissionComponent implements OnInit {
 
   
 
+  
+
+  /* donwloadFilesOnSelected(emitiedFiles) {
+    
+    emitiedFiles.forEach((item) => {
+      this.selectedFiles.push(item['fileName']);
+    })
+    this.service.downloadXMl(this.selectedFiles, this.filingName, this.period).subscribe((res: any) => {
+    this.sharedDownloadService.downloadAttachments(res.message, res.data);
+    });
+  } */
+
   approveSelected() {
     this.slectedFiles = [];
     const formData: any = new FormData();
@@ -141,9 +148,7 @@ export class SubmissionComponent implements OnInit {
         byteArrays.push(byteArray);
     }
     return new Blob(byteArrays, {type: contentType});
-}
-
-
+  }
 
 
   receiveFilingDetails(event) {
