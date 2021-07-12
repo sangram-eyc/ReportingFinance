@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild} from '@angular/core';
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import {EycPbiSharedService} from '../eyc-powerbi-embed/services/eyc-pbi-shared.service'
-import * as powerbiTheme from  '../pbi-config/theme/eyc_theme.json';
+import * as powerbiTheme from  '../pbi-config/theme/eyc_2_theme.json';
 import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY,PBI_CONFIG, IS_THEME_APPLIED,IS_FY_FILTER,IS_PERIOD_FILTER} from '../pbi-config/pbi-config-helper';
 
 @Component({
