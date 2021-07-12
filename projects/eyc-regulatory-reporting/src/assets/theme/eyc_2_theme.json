@@ -23,42 +23,42 @@
   "textClasses": {
     "callout": {
       "fontSize": 20,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#188CE5"
     },
     "largeTitle": {
       "fontSize": 15,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#747480"
     },
     "title": {
       "fontSize": 12,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#747480"
     },
     "header": {
       "fontSize": 13,
-      "fontFace": "'EYInterstate",
+      "fontFace": "'Arial",
       "color": "#2E2E38"
     },
     "label": {
       "fontSize": 15,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#2E2E38"
     },
     "smallLabel": {
       "fontSize": 12,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#2E2E38"
     },
     "lightLabel": {
       "fontSize": 13,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#2E2E38"
     },
     "smallLightLabel": {
       "fontSize": 12,
-      "fontFace": "EYInterstate",
+      "fontFace": "Arial",
       "color": "#2E2E38"
     }
   },
@@ -102,7 +102,7 @@
         "labels": [
           {
             "fontSize": 18,
-            "fontFace": "EYInterstate",
+            "fontFace": "Arial",
             "color": "#C4C4CD"
           }
         ],
