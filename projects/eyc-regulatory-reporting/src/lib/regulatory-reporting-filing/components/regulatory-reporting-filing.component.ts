@@ -213,7 +213,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     let clipboardData = event.clipboardData;
     let pastedText = (clipboardData.getData('text')).split("");    
     pastedText.forEach((ele, index) => {
-      if (/[A-Za-z0-9\-\_/ ]+/.test(ele)) {
+      if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
         if ((pastedText.length - 1) === index) {
           return true;
         }
@@ -231,7 +231,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
 
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
-    if (/[A-Za-z0-9\-\_/ ]+/.test(inp)) {
+    if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
       return true;
     } else {
       event.preventDefault();
