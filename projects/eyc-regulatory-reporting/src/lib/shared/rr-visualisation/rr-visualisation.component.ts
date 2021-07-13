@@ -85,7 +85,9 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
           this.report = (pbi.embed(reportContainer, embedConfig) as powerbi.Report);
           const self = this;
           const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [] ;
+          //this.report.applyTheme({theme:powerbiTheme});
           this.report.on('loaded', function(event) {
+            
             self.report.getFilters().then(filters => {
               self.filters = [];
               for (const filter of filters) {
@@ -106,7 +108,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
               }
               self.setFilter(self.filters);
             });
-
+          self.report.applyTheme({theme:powerbiTheme});
 
         });
       }, error => {
