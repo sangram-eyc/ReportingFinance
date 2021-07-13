@@ -566,3 +566,75 @@ a, .header-row-container, li, button:focus {
 .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
   color: #23232F !important;
 }
+
+/* .revised-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(50%, 50%);
+} */
+/* .indeterminated-spinner-container .spinner {
+  border: 4px solid var(--accordion-accent-color) !important;
+} */
+.indeterminated-spinner-container .spinner:before {
+left: 0px !important;
+}
+
+.motif-progress-bar.motif-progress-bar-circle, .motif-progress-bar .motif-progress-bar-circle {
+ width: 60px !important;
+ height: 60px !important;
+}
+
+
+
+/* Absolute Center Spinner */
+.revised-loading {
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+}
+
+/* Transparent Overlay */
+.revised-loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.8);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.revised-loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.revised-loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 50px;
+  height: 50px;
+  margin-top: -0.5em;
+
+  // border: 15px solid rgba(33, 150, 243, 1.0);
+  border-radius: 100%;
+  border-bottom-color: transparent;
+ 
+}
+

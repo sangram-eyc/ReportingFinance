@@ -1,6 +1,10 @@
 <div [hidden]="!isLoading" *ngIf="isLoading | async">
-  <motif-loader [show]="true" [fullScreen]="true"></motif-loader>
+  <!-- <motif-loader [show]="true" [fullScreen]="true"></motif-loader> -->
+  <div class="revised-loading">
+    <motif-progress-bar [progress]="100" [circle]="true">
+    </motif-progress-bar>
   </div>
+</div>
   <section id="app-container" *ngIf="showHeaderFooter" (click)="outsideClick($event)">
   
     <mat-toolbar class="app-header">
