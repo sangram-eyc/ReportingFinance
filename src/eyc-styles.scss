@@ -553,3 +553,9 @@ button.motif-select-trigger {
 .motif-table  .ag-cell {
   font-family: EYInterstate !important;
 }
+
+a, .header-row-container, li, button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
