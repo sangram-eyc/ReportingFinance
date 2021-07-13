@@ -222,7 +222,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         return false;
       }
     });
-  }
+  } 
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
