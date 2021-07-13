@@ -16,7 +16,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
   @Input() selectedFilling: any;
   @Input() selectedPeriod: any;
   private report: powerbi.Report;
-  embedConfig;
+  embedConfig; 
   filters = [];
   isReportPresent = false;
   constructor(private powerbiMappingService: EycPbiSharedService) { }
