@@ -164,6 +164,10 @@
         motif-progress-step.last-item-class .motif-step-container .step-info .step-data-container .first-line {
             left: 34px;
         }
+
+        .motif-step-container .step.in-progress, .motif-step-container .step.completed {
+            background-color: #C4C4CD !important;
+        }
     }
 
     
