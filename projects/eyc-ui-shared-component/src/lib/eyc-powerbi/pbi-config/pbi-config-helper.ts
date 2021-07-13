@@ -27,3 +27,8 @@ export const PBI_CONFIG = {
         popUp: false    
       }
 };
+
+export const pbiReportingConfig = {
+   pbi_auth_token:  'gatewayService/api/v2/regreporting/getPBIAuthToken',
+   pbi_embeded_token:'gatewayService/api/v2/regreporting/getPBIEmbedToken/',
+}

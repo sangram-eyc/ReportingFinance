@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import {PBI_CONFIG} from '../config/rr-config-helper';
-import {EycRrSettingsService} from '../services/eyc-rr-settings.service';
-import {EycRrApiService } from '../services/eyc-rr-api.service';
+import {PBI_CONFIG,pbiReportingConfig} from '../../pbi-config/pbi-config-helper';
+import {ApiSharedService} from '../../../services/api-shared.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class EycPbiSharedService {
 
-  constructor(private settingService: EycRrSettingsService,
-    private apiService: EycRrApiService) { }
+  constructor(private apiService: ApiSharedService) { }
 
   embedToken = (data) => {
-    return this.apiService.invokePostAPI(`${this.settingService.pbiReportingConfig.pbi_embeded_token}${data}`);
+    return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_embeded_token}${data}`);
   }
   authToken = () => {
-    return this.apiService.invokePostAPI(`${this.settingService.pbiReportingConfig.pbi_auth_token}`);
+    return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_auth_token}`);
   }
 
 }
