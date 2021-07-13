@@ -20,7 +20,7 @@
         <div class="search">
             <motif-form-field>
                 <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
-                    (keyup)="searchActiveReports(activeReports)" placeholder="Search" aria-label="Search">
+                    (keyup)="searchActiveReports(activeReports)" (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
             </motif-form-field>
         </div>
     </div>

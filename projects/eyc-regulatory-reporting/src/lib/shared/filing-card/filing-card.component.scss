@@ -271,6 +271,12 @@
             display: flex !important;
             justify-content: center !important;
         }
+        .motif-tooltip .motif-tooltip-inner{
+            padding: .85714rem 1rem .85714rem 1rem !important;
+        }
+        .motif-tooltip.color-default .motif-tooltip-close-button {
+            display: none;
+        }
     }
     
     

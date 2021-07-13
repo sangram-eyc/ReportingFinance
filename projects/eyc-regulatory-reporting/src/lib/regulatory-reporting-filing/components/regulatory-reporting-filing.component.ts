@@ -209,6 +209,18 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     this.activeReportsSearchNoDataAvilable = !!(this.activeFilings.length === 0);
   }
 
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = clipboardData.getData('text');
+    if (/[A-Za-z0-9\-\_/ ]+/.test(pastedText)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+    
+  }
+
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
