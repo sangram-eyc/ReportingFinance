@@ -7,7 +7,7 @@ import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 // import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MotifModule, MotifAvatarModule,MotifFormsModule } from '@ey-xd/ng-motif';
+import { MotifModule, MotifAvatarModule,MotifFormsModule,MotifProgressBarModule } from '@ey-xd/ng-motif';
 import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
@@ -43,6 +43,7 @@ import { SettingsService } from './services/settings.service';
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
+    MotifProgressBarModule,
     // MatProgressSpinnerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
