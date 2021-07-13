@@ -1,17 +1,17 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EycPbiService } from '../../../services/eyc-pbi.service';
-import {EycRrSettingsService} from '../../../services/eyc-rr-settings.service';
-import {SESSION_PBI_TOKEN} from '../../../config/rr-config-helper';
+import { EycRrSettingsService } from '../../../services/eyc-rr-settings.service';
+import { SESSION_PBI_TOKEN } from '../../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-data-explorer-for-reporting-and-client',
   templateUrl: './data-explorer-for-reporting-and-client.component.html',
   styleUrls: ['./data-explorer-for-reporting-and-client.component.scss']
 })
-export class DataExplorerForReportingAndClientComponent implements OnInit,OnDestroy {
+export class DataExplorerForReportingAndClientComponent implements OnInit, OnDestroy {
 
   filingList = [];
   periodList = [];
@@ -28,7 +28,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
     private pbiServices: EycPbiService,
     private fb: FormBuilder,
     private filingService: RegulatoryReportingFilingService,
-    private eycSettingsService:EycRrSettingsService
+    private eycSettingsService: EycRrSettingsService
   ) {
     this.router.events.subscribe(
       (event: any) => {
@@ -85,8 +85,8 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
     });
   }
 
-  ngOnDestroy(){
-   this.eycSettingsService.deleteSessionKey(SESSION_PBI_TOKEN);
+  ngOnDestroy() {
+    this.eycSettingsService.deleteSessionKey(SESSION_PBI_TOKEN);
   }
 
 
@@ -97,9 +97,26 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
   getPBIQuestions() {
     this.pbiServices.getPBIQuestion(this.filingName?.formId).subscribe(resp => {
       this.pbiQuestionList = resp['data'];
+      this.pbiQuestionList.sort(this.sortPBIQuestion)
+      console.log(this.pbiQuestionList);
+      this.form.patchValue({
+        questionId: this.pbiQuestionList[0].id
+      });
       // After API are ready will remove above line and uncomment below line
       // this.pbiQuestionList = resp['data'].filter(value => value.filingName === this.filingName?.filingName);
     });
+  }
+
+  sortPBIQuestion(a, b) {
+    let que1 = a.questionName;
+    let que2 = b.questionName;
+    if (que1 > que2) {
+      return 1;
+    } else if (que1 < que2) {
+      return -1;
+    } else {
+      return 0;
+    }
   }
 
   getFilingNames() {
@@ -119,7 +136,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit,OnDest
       console.log("PBI Response > ", res);
       this.PBIReportId = res['data'];
       console.log("PBIReportId", this.PBIReportId);
-      
+
       // After API are ready will remove above line and uncomment below line
       // let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);
       // this.PBIReportId = obj[0].reportId;

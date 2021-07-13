@@ -138,6 +138,12 @@ export class ClientReviewComponent implements OnInit {
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows =selectedArr.filter(item => item.approved === false);
+    if(this.selectedRows.length === 0){
+      this.gridApi.deselectAll();
+    }
+    if(this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length){
+      this.gridApi.selectAll();
+    }
   }
 
   receiveMessage($event) {
