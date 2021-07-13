@@ -559,3 +559,10 @@ a, .header-row-container, li, button:focus {
   outline: none !important;
 }
 
+.ag-theme-material input:focus {
+  border-bottom-color: #23232F !important;
+}
+
+.ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+  color: #23232F !important;
+}
