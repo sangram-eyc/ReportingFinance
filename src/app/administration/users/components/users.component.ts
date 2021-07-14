@@ -228,4 +228,19 @@ export class UsersComponent implements OnInit, AfterViewInit {
       return false;
     }
   }
+
+  onPasteSearchValidation(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (INPUT_VALIDATION.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  } 
 }
