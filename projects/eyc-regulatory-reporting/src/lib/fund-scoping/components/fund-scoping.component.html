@@ -6,7 +6,7 @@
         <div id="funds-heading">
             <button motifButton color="primary" (click)="approveModal = true" [disabled]="fundScopingStatus === null || fundScopingStatus[0].progress === 'Completed'">Approve</button>
             <motif-form-field>
-                <input #fundsSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup.enter)="searchFunds(fundsSearch)" placeholder="Search..." aria-label="Search">
+                <input #fundsSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup)="searchFunds(fundsSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search..." aria-label="Search">
             </motif-form-field>
         </div>
         <div >

@@ -88,8 +88,8 @@
         <div class="search">
             <motif-form-field>
                 <input #reportHistorySearch motifInput motifSearch type="text"
-                    (keypress)="searchFilingValidation($event)" (keyup.enter)="searchCompleted(reportHistorySearch)"
-                    placeholder="Search" aria-label="Search">
+                    (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(reportHistorySearch)"
+                    (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
             </motif-form-field>
         </div>
     </div>
