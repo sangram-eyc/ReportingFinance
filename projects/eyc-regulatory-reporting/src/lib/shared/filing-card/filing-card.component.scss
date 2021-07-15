@@ -60,6 +60,7 @@
                 display: flex;
                 align-items: center;
                 font-size: 12px;
+                justify-content: flex-end;
                 .motif-icon {
                     margin-right: 4px;
                     width: 12px;
@@ -97,6 +98,7 @@
             }
             .comment-column {
                 padding: 0 10px;
+                float: right;
                 .filing-comment {
                     padding: 0;
                     display: flex;
@@ -282,6 +284,9 @@
     
 }
 
-
-
+@media screen and (min-width: 990px) and (max-width: 1060px) {
+    .filing-wrapper .motif-card .motif-card-header .filing-date-due {
+        font-size: 10px;
+    }
+   }
 
