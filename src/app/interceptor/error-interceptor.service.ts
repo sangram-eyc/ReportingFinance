@@ -33,9 +33,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
               errorMessage = `Error: ${error.error.message}`;
             } else {
               // server-side error
-
               if(error.error.message.includes('User already present')) {
                 errorMessage = `Error Code: 409 }\nMessage: User already present.`;
+              }
+              else if (error['errors'][0].message.includes('Access is denied')) {
+                errorMessage = `Error Code: 500 }\nMessage: Access is denied.`;
               }
               else {
                 errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
