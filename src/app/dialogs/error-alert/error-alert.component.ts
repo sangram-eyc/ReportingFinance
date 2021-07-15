@@ -29,7 +29,13 @@ export class ErrorAlertComponent implements OnInit {
           this.statusCode = '409';
           this.statusText = 'Request retuns a invalid response';
           this.errorMessage = 'User with specified email address already exists';
-        } else {
+        } 
+        else if (this.data.includes('Access is denied')) {
+          this.statusCode = '500';
+          this.statusText = 'INTERNAL_SERVER_ERROR';
+          this.errorMessage = 'Access is denied.';
+        }
+        else {
           this.statusCode = '404';
           this.statusText = 'Request retuns a invalid response';
           this.errorMessage = this.data;
