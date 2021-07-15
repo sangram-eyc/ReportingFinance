@@ -12,6 +12,9 @@
 .files-list {
     font-family: EYInterstate;
     font-size: 12px;
+    bottom: 5px;
+    position: relative;
+    left: -3px;
     // line-height: 25px;
     ::ng-deep .motif-icon svg {
         height: 1.11429rem !important;
@@ -24,6 +27,10 @@
 #del-file-cls {
     display: inline-block;
     position: absolute;
+}
+.files-list-name {
+    left: 20px;
+    position: relative;
 }
 
 
