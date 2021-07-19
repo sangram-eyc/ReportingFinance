@@ -45,7 +45,7 @@ export class ClientReviewComponent implements OnInit {
   getFilingEntities(){
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
-      this.ngAfterViewInit();
+      this.createEntitiesRowData();
     },error=>{
       this.rowData =[];
       console.log("Client Review error");
@@ -63,8 +63,7 @@ export class ClientReviewComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
+  createEntitiesRowData(): void {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -127,7 +126,6 @@ export class ClientReviewComponent implements OnInit {
           width: 155
         },
       ];
-    });
   }
 
   handleGridReady(params) {
@@ -148,11 +146,14 @@ export class ClientReviewComponent implements OnInit {
 
   receiveMessage($event) {
     this.tabs = $event;
+    if(this.tabs == 2){
+      this.getFilingEntities();
+    }
   }
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    this.getFilingEntities();
+    // this.getFilingEntities();
   }
 
   onSubmitApproveFilingEntities() {
@@ -166,7 +167,7 @@ export class ClientReviewComponent implements OnInit {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
       });
-      this.ngAfterViewInit();
+      this.createEntitiesRowData();
       this.selectedRows = [];
       this.filingService.invokeFilingDetails();
       this.approveFilingEntitiesModal = false;
@@ -179,7 +180,7 @@ export class ClientReviewComponent implements OnInit {
     // this.selectedRows.forEach(ele => {
     //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
     // });
-    // this.ngAfterViewInit();
+    // this.createEntitiesRowData();
     // this.selectedRows = [];
     // this.filingService.invokeFilingDetails();
     // this.approveFilingEntitiesModal = false;
