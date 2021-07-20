@@ -60,6 +60,7 @@ export class RrReportingComponent implements OnInit {
       this.exceptionData = res['data'];
       console.log(this.exceptionData);
       this.createEntitiesRowData();
+      
     },error=>{
       this.exceptionData =[];
       console.log("Client Review error");
@@ -196,7 +197,9 @@ export class RrReportingComponent implements OnInit {
           width: 155
         },
       ];
+  
     
+  
 
   }
 

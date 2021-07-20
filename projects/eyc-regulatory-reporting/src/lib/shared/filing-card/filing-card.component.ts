@@ -22,6 +22,7 @@ export class FilingCardComponent implements OnInit {
     this.name = this._filingData.name;
     this.states = this._filingData.status;
     this.period = this._filingData.period;
+    this.totalFunds = this._filingData.totalFunds;
     this.setStatus();
   };
   startDate = '';
@@ -35,6 +36,7 @@ export class FilingCardComponent implements OnInit {
     stageCode: ''
   };
   states: any[] = [];
+  totalFunds;
   // states = [
   //   {
   //     stage: 'Fund Scoping',

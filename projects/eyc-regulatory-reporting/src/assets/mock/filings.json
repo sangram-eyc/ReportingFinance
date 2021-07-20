@@ -6,6 +6,7 @@
      {
         "filingId":20,
         "filingName":"Form PF:Hedge Fund Form PF Form PF:Hedge Fund Form PF Form PF:Hedge Fund Form PF",
+        "totalFunds":3,
         "filingStatus":[
            {
               "stageId":1,
@@ -50,6 +51,7 @@
      {
         "filingId":21,
         "filingName":"Form PF:Hedge Fund",
+        "totalFunds":4,
         "filingStatus":[
            {
               "stageId":1,
@@ -94,6 +96,7 @@
      {
         "filingId":22,
         "filingName":"FDI FDI Testing FDI FDI Testing FDI FDI Testing FDI FDI Testing",
+        "totalFunds":3,
         "filingStatus":[
            {
               "stageId":6,
@@ -138,6 +141,7 @@
      {
         "filingId":23,
         "filingName":"HK:QS",
+        "totalFunds":3,
         "filingStatus":[
            {
               "stageId":11,
@@ -182,6 +186,7 @@
      {
         "filingId":24,
         "filingName":"HK:QS",
+        "totalFunds":3,
         "filingStatus":[
            {
               "stageId":11,
