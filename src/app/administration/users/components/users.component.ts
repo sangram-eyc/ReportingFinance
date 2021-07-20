@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsersList().subscribe(resp => {
       this.userResp =[];
       this.usersListArr= [];
-      this.userResp.push(resp);
+      this.userResp.push(resp.data);
       this.userResp[0].forEach((item) => {
         const eachitem: any = {
           name: item.userLastName + ', ' + item.userFirstName,
