@@ -5,6 +5,7 @@ import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-
 import { EycPbiService } from '../../../services/eyc-pbi.service';
 import { EycRrSettingsService } from '../../../services/eyc-rr-settings.service';
 import { SESSION_PBI_TOKEN } from '../../../config/rr-config-helper';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-data-explorer-for-reporting-and-client',
@@ -28,7 +29,8 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
     private pbiServices: EycPbiService,
     private fb: FormBuilder,
     private filingService: RegulatoryReportingFilingService,
-    private eycSettingsService: EycRrSettingsService
+    private eycSettingsService: EycRrSettingsService,
+    private location: Location
   ) {
     this.router.events.subscribe(
       (event: any) => {
@@ -91,7 +93,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
 
 
   back() {
-    this.router.navigate(["/regulatory-reporting"])
+    this.location.back();
   }
 
   getPBIQuestions() {

@@ -3,6 +3,9 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'projects/eyc-ui-shared-component/src/lib/modal/component/modal.component';
+
 @Component({
   selector: 'lib-rr-reporting',
   templateUrl: './rr-reporting.component.html',
@@ -12,8 +15,9 @@ export class RrReportingComponent implements OnInit {
 
   constructor(
     private rrservice: RrReportingService,
-    private filingService: RegulatoryReportingFilingService
-    ) { }
+    private filingService: RegulatoryReportingFilingService,
+    public dialog: MatDialog
+  ) { }
 
   tabs = 1;
   selectedRows = [];
@@ -26,7 +30,7 @@ export class RrReportingComponent implements OnInit {
     progress: 'in-progress'
   };
 
-  filingDetails:any;
+  filingDetails: any;
 
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -42,8 +46,11 @@ export class RrReportingComponent implements OnInit {
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
+  @ViewChild('commentTemplate')
+  commentTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
+
    this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
    this.submitTest = this.onSubmitTest.bind(this);
   }
@@ -57,21 +64,21 @@ export class RrReportingComponent implements OnInit {
       this.exceptionData =[];
       console.log("Client Review error");
     });
+
   }
 
-  getFilingEntities(){
+  getFilingEntities() {
     this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
-      this.ngAfterViewInit();
-    },error=>{
-      this.rowData =[];
-      console.log("Client Review error");
+      this.createEntitiesRowData();
+    }, error => {
+      this.rowData = [];
+      console.log("Reporting error");
     });
   }
 
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
+  createEntitiesRowData(): void {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -134,6 +141,7 @@ export class RrReportingComponent implements OnInit {
           width: 155
         },
       ];
+
       this.exceptionDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -192,15 +200,39 @@ export class RrReportingComponent implements OnInit {
     
   }
 
+  }
+
+  handleGridReady(params) {
+    this.gridApi = params.api;
+  }
+
+  onRowSelected(event: any): void {
+    let selectedArr = [];
+    selectedArr = this.gridApi.getSelectedRows();
+    this.selectedRows = selectedArr.filter(item => item.approved === false);
+    if (this.selectedRows.length === 0) {
+      this.gridApi.deselectAll();
+    }
+    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+      this.gridApi.selectAll();
+    }
+  }
 
   receiveMessage($event) {
     this.tabs = $event;
+    if (this.tabs == 2) {
+      this.getFilingEntities();
+    }
   }
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
+
     this.getExceptionReports();
-    this.getFilingEntities();
+  //  this.getFilingEntities();
+
+    // this.getFilingEntities();
+
   }
 
   onSubmitTest() {
@@ -219,7 +251,7 @@ export class RrReportingComponent implements OnInit {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
       });
-      this.ngAfterViewInit();
+      this.createEntitiesRowData();
       this.selectedRows = [];
       this.filingService.invokeFilingDetails();
       this.approveFilingEntitiesModal = false;
@@ -231,7 +263,7 @@ export class RrReportingComponent implements OnInit {
     // this.selectedRows.forEach(ele => {
     //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
     // });
-    // this.ngAfterViewInit();
+    // this.createEntitiesRowData();
     // this.selectedRows = [];
 
     // this.filingService.invokeFilingDetails();
@@ -240,5 +272,36 @@ export class RrReportingComponent implements OnInit {
     // setTimeout(() => {
     //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
     // }, 5000);
+  }
+
+  addComment() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Resolved Selected",
+        description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg>. When clicked you can view resolution comments.</p>`,
+        forms: {
+          isSelect: false,
+          isTextarea: true,
+          textareaDetails: {
+            label: "Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Confirm",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
   }
 }

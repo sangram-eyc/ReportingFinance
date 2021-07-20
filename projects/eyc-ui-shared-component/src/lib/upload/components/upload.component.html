@@ -6,6 +6,10 @@
  <motif-error *ngIf="uploadError">{{ uploadErrorMsg }}</motif-error>
 </motif-form-field>
 
-<div class="files-list" *ngFor="let document of uploaderURL.queue; let i = index"> 
-  {{ document.file.name }}  <motif-icon id="del-file-cls" [src]="'/assets/icons/action/ic_delete_24px.svg'" (click)="removeAttachment(i)"></motif-icon>
+<div class="files-list">
+  <div *ngFor="let document of uploaderURL.queue; let i = index"> 
+    <motif-icon id="del-file-cls" [src]="'/assets/icons/action/ic_delete_24px.svg'" (click)="removeAttachment(i)"></motif-icon> 
+    <span class="files-list-name">{{ document.file.name }} </span> 
+  </div>
 </div>
+

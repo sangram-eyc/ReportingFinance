@@ -80,6 +80,9 @@
       .ag-pinned-left-cols-container, .ag-pinned-left-header {
         box-shadow: none !important;
       }
+      *:focus {
+        box-shadow: none !important;
+      }
       .ag-menu {
         max-height: none !important;
       }

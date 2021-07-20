@@ -33,16 +33,21 @@ export class ErrorInterceptorService implements HttpInterceptor {
               errorMessage = `Error: ${error.error.message}`;
             } else {
               // server-side error
-
-              if(error.error.message.includes('User already present')) {
-                errorMessage = `Error Code: 409 }\nMessage: User already present.`;
+              if (error.error.message.includes('User already present')) {
+                errorMessage = `Error Code: 409 \nMessage: User already present.`;
+              }
+              else if (error.error['errors'][0].includes('Access is denied')) {
+                errorMessage = `Error Code: 500 \nMessage: Access is denied.`;
+                console.log("Access is denied Error Message", error.error['errors'][0]);
               }
               else {
                 errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                console.log("Generic Error Message");
               }
-              
+
             }
             // console.log('cust msg > ', errorMessage)
+           
             this.launchErrorDialog(errorMessage);
             return throwError(errorMessage);
           }
