@@ -23,7 +23,7 @@ export class GridComponent implements OnInit {
   @Input() search = true;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
-  @Input() modalMessage = 'Are you sure you want to approve the selected entities? This will move them to client review.';
+  @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() submitFunction: () => void;
 

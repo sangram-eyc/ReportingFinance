@@ -23,7 +23,7 @@ export class RrReportingComponent implements OnInit {
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
-  modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
+  modalMessage:any;
 
   status = {
     stage: 'Reporting',
@@ -221,6 +221,7 @@ export class RrReportingComponent implements OnInit {
     if (this.tabs == 2) {
       this.getFilingEntities();
     } else if (this.tabs == 1) {
+      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
       this.getExceptionReports();
     }
   }
