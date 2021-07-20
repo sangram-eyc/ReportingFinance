@@ -20,6 +20,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   embedConfig;
   filters = [];
   isReportPresent = false;
+  authTokenRes;
   constructor(private powerbiMappingService: EycPbiService,private regSettingsSvc: EycRrSettingsService) { }
 
   ngOnInit() {
@@ -36,7 +37,9 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   }
 
   getAuthToken() {
-    return this.powerbiMappingService.authToken();
+    this.authTokenRes =  this.powerbiMappingService.authToken();
+    console.log('auth token power BI > ', this.authTokenRes);
+    return  this.authTokenRes.data['accessToken'];
   }
 
   getEmbedToken(authToken: string) {
