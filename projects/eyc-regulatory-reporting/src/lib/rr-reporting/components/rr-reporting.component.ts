@@ -19,6 +19,7 @@ export class RrReportingComponent implements OnInit {
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
+  modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
 
   status = {
     stage: 'Reporting',
@@ -31,7 +32,11 @@ export class RrReportingComponent implements OnInit {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
+  exceptionDefs;
+  exceptionData;
   rowData = [];
+  submitFunction;
+  submitTest;
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -39,7 +44,19 @@ export class RrReportingComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-   
+   this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
+   this.submitTest = this.onSubmitTest.bind(this);
+  }
+
+  getExceptionReports() {
+    this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.exceptionData = res['data'];
+      console.log(this.exceptionData);
+      this.ngAfterViewInit();
+    },error=>{
+      this.exceptionData =[];
+      console.log("Client Review error");
+    });
   }
 
   getFilingEntities(){
@@ -52,16 +69,6 @@ export class RrReportingComponent implements OnInit {
     });
   }
 
-  isFirstColumn = (params) => {
-    const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    if (params.data) {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
-      return thisIsFirstColumn;
-    } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
-      return thisIsFirstColumn;
-    }
-  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -127,24 +134,64 @@ export class RrReportingComponent implements OnInit {
           width: 155
         },
       ];
+      this.exceptionDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dropdownTemplate,
+          },
+          field: 'approved',
+          headerName: '',
+          width: 70,
+          sortable: false,
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Type',
+          field: 'exceptionReportType',
+          sortable: true,
+          filter: true,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Name',
+          field: 'exceptionReportName',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 300
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Resolved/Exception',
+          field: 'resolve_exception',
+          sortable: true,
+          filter: true,
+          width: 210,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          sortable: true,
+          filter: true,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Comments',
+          field: 'comments',
+          sortable: true,
+          filter: true,
+          width: 155
+        },
+      ];
     });
+    
   }
 
-  handleGridReady(params) {
-    this.gridApi = params.api;
-  }
-
-  onRowSelected(event: any): void {
-    let selectedArr = [];
-    selectedArr = this.gridApi.getSelectedRows();
-    this.selectedRows =selectedArr.filter(item => item.approved === false);
-    if(this.selectedRows.length === 0){
-      this.gridApi.deselectAll();
-    }
-    if(this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length){
-      this.gridApi.selectAll();
-    }
-  }
 
   receiveMessage($event) {
     this.tabs = $event;
@@ -152,7 +199,13 @@ export class RrReportingComponent implements OnInit {
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
+    this.getExceptionReports();
     this.getFilingEntities();
+  }
+
+  onSubmitTest() {
+    console.log('This is being called from the shared grid component');
+    console.log(this);
   }
 
   onSubmitApproveFilingEntities() {

@@ -1,0 +1,70 @@
+
+
+    <section id="gridContainer">
+        <div id="grid-heading">
+            <div *ngIf="buttonPosition === 'left'" class="left-button">
+                <div *ngIf="button" class="approve-button">
+                    <button motifButton color="primary" size="large" (click)="buttonModal = true;"
+                        [disabled]="selectedRows.length==0">{{buttonText}}</button>
+                </div>
+                <div *ngIf="!button"></div>
+                <motif-form-field *ngIf="search">
+                    <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search" aria-label="Search">
+                </motif-form-field>
+                <div *ngIf="!search"></div>
+            </div>
+            <div *ngIf="buttonPosition === 'right'" class="right-button">
+                <motif-form-field *ngIf="search">
+                    <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search" aria-label="Search">
+                </motif-form-field>
+                <div *ngIf="!search"></div>
+                <div *ngIf="button" class="approve-button">
+                    <button motifButton color="primary" size="large" (click)="buttonModal = true;"
+                        [disabled]="selectedRows.length==0">{{buttonText}}</button>
+                </div>
+                <div *ngIf="!button"></div>
+            </div>
+        </div>
+    
+        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
+        headerCheckboxSelection: isFirstColumn,
+        checkboxSelection: isFirstColumn
+        }" [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
+            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
+            paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+        <!-- <ng-template #headerTemplate>
+            <div>
+                <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
+                    tabindex="0"></motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #dropdownTemplate let-row>
+            <div class="dropdownTemplate">
+                <motif-icon class="complete" *ngIf="row.approved == true"
+                    [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                    tabindex="0">
+                </motif-icon>
+            </div>
+        </ng-template> -->
+    </section>
+    
+    <motif-modal [show]="buttonModal" (close)="buttonModal = false">
+        <motif-modal-header>
+            {{buttonText}}
+        </motif-modal-header>
+        <motif-modal-body>
+            <p>
+                {{modalMessage}}
+            </p>
+        </motif-modal-body>
+        <motif-modal-footer>
+            <button motifButton class="approve-yes" color="primary"
+                (click)="submit()">Yes</button>
+            <button motifButton class="approve-no" color="secondary"
+                (click)="buttonModal = false">No</button>
+        </motif-modal-footer>
+    </motif-modal>
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit"
+        (close)="showToastAfterSubmit = !showToastAfterSubmit">{{toastSuccessMessage}}
+    </motif-toast>

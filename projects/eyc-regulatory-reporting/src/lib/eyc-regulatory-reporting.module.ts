@@ -22,6 +22,7 @@ import {EycRrApiService} from './services/eyc-rr-api.service';
 import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisation.component';
 import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
+import { GridComponent } from './grid/grid.component';
 
 
 
@@ -64,7 +65,8 @@ import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from
     RrReportingComponent,
     ReportingTabsCardComponent,
     DataExplorerForReportingAndClientComponent,
-    RrVisualisationComponent
+    RrVisualisationComponent,
+    GridComponent
   ],
   exports: [RegulatoryReportingFilingComponent]
 })

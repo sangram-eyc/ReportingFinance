@@ -1,0 +1,186 @@
+{
+    "success": true,
+	"message": "sucess",
+	"data": [
+        {
+            "exceptionId": 1,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Corporate Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 2,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Municipal Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 3,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Fixed Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 4,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Global Opportunities Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 5,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Emerging Markets Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 6,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Multi-Asset Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 7,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha High-Yeild Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 8,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Exchange Traded Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 9,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Total Return Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 10,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Technology Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 11,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Corporate Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 12,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Municipal Bond Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 13,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Fixed Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 14,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Global Opportunities Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 15,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Emerging Markets Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 16,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Multi-Asset Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 17,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta High-Yeild Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        },
+        {
+            "exceptionId": 18,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Exchange Traded Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 19,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Total Return Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false
+        },
+        {
+            "exceptionId": 20,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Beta Technology Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true
+        }
+    ]
+}
