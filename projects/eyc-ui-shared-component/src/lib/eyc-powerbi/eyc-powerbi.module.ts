@@ -8,6 +8,9 @@ import { EycPowerbiEmbedComponent } from './eyc-powerbi-embed/eyc-powerbi-embed.
   declarations: [EycPowerbiEmbedComponent],
   imports: [
     CommonModule
+  ],
+  exports: [
+    EycPowerbiEmbedComponent
   ]
 })
 export class EycPowerbiModule { }

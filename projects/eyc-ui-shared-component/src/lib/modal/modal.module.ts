@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoSanitizePipe } from "../pipes/noSanitize.pipe";
 import { VisualisationModalComponent } from './visualisation-modal/visualisation-modal.component';
 import { UploadModule } from '../upload/upload.module';
+import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { UploadModule } from '../upload/upload.module';
     ReactiveFormsModule,
     FormsModule,
     MotifIconModule ,
-    UploadModule
+    UploadModule,
+    EycPowerbiModule
   ]
 })
 export class ModalModule { }

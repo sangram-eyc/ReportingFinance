@@ -4,7 +4,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'projects/eyc-ui-shared-component/src/lib/modal/component/modal.component';
+// import { ModalComponent } from 'projects/eyc-ui-shared-component/src/lib/modal/component/modal.component';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -59,7 +59,7 @@ export class RrReportingComponent implements OnInit {
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.exceptionData = res['data'];
       console.log(this.exceptionData);
-      this.ngAfterViewInit();
+      this.createEntitiesRowData();
     },error=>{
       this.exceptionData =[];
       console.log("Client Review error");
@@ -196,9 +196,7 @@ export class RrReportingComponent implements OnInit {
           width: 155
         },
       ];
-    });
     
-  }
 
   }
 
@@ -222,16 +220,16 @@ export class RrReportingComponent implements OnInit {
     this.tabs = $event;
     if (this.tabs == 2) {
       this.getFilingEntities();
+    } else if (this.tabs == 1) {
+      this.getExceptionReports();
     }
   }
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
 
-    this.getExceptionReports();
+    // this.getExceptionReports();
   //  this.getFilingEntities();
-
-    // this.getFilingEntities();
 
   }
 
@@ -274,34 +272,34 @@ export class RrReportingComponent implements OnInit {
     // }, 5000);
   }
 
-  addComment() {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '700px',
-      data: {
-        type: "ConfirmationTextUpload",
-        header: "Resolved Selected",
-        description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg>. When clicked you can view resolution comments.</p>`,
-        forms: {
-          isSelect: false,
-          isTextarea: true,
-          textareaDetails: {
-            label: "Comment (required)",
-            formControl: 'comment',
-            type: "textarea",
-            validation: true,
-            validationMessage: "Comment is required"
-          }
-        },
-        footer: {
-          style: "start",
-          YesButton: "Confirm",
-          NoButton: "Cancel"
-        }
-      }
-    });
+  // addComment() {
+  //   const dialogRef = this.dialog.open(ModalComponent, {
+  //     width: '700px',
+  //     data: {
+  //       type: "ConfirmationTextUpload",
+  //       header: "Resolved Selected",
+  //       description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg>. When clicked you can view resolution comments.</p>`,
+  //       forms: {
+  //         isSelect: false,
+  //         isTextarea: true,
+  //         textareaDetails: {
+  //           label: "Comment (required)",
+  //           formControl: 'comment',
+  //           type: "textarea",
+  //           validation: true,
+  //           validationMessage: "Comment is required"
+  //         }
+  //       },
+  //       footer: {
+  //         style: "start",
+  //         YesButton: "Confirm",
+  //         NoButton: "Cancel"
+  //       }
+  //     }
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed', result);
+  //   });
+  // }
 }
