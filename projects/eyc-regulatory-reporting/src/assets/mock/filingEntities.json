@@ -9,7 +9,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 2,
             "approved": false
         },
         {
@@ -19,7 +19,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 3,
             "approved": true
         },
         {
@@ -29,7 +29,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 4,
             "approved": false
         },
         {
@@ -39,7 +39,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 5,
             "approved": false
         },
         {
@@ -49,7 +49,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 6,
             "approved": false
         },
         {
@@ -59,7 +59,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 7,
             "approved": false
         },
         {
@@ -69,7 +69,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 8,
             "approved": true
         },
         {
@@ -79,7 +79,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 7,
             "approved": false
         },
         {
@@ -89,7 +89,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 8,
             "approved": false
         },
         {
@@ -99,7 +99,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 9,
             "approved": false
         },
         {
@@ -109,7 +109,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 10,
             "approved": true
         },
         {
@@ -119,7 +119,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments":11,
             "approved": true
         },
         {
@@ -129,7 +129,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 9,
             "approved": true
         },
         {
@@ -139,7 +139,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 8,
             "approved": false
         },
         {
@@ -149,7 +149,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 4,
             "approved": false
         },
         {
@@ -159,7 +159,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 3,
             "approved": false
         },
         {
@@ -169,7 +169,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 2,
             "approved": true
         },
         {
@@ -179,7 +179,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": "",
             "approved": false
         },
         {
@@ -189,7 +189,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 1,
             "approved": false
         },
         {
@@ -199,7 +199,7 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "myTasks": "",
-            "comments": [],
+            "comments": 3,
             "approved": true
         }
     ]
