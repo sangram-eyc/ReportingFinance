@@ -42,7 +42,7 @@
         font-weight: normal  !important;
         font-size: 14px  !important;
         line-height: 22px  !important;
-        color: #2E2E38  !important;
+        color: #2E2E38;
     }
     ::ng-deep .motif-table .ag-root-wrapper {
         min-height: 320px;
@@ -140,4 +140,14 @@
     p {
       font-family: EYInterstate;
     }
+  }
+
+  ::ng-deep .comments-background {
+    .ag-cell-value {
+      background-color: black;
+      color: white !important;
+      border-radius: 50px;
+      padding: 4px 12px !important;
+    }
+
   }

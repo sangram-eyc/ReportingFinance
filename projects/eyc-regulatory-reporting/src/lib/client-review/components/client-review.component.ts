@@ -123,7 +123,11 @@ export class ClientReviewComponent implements OnInit {
           field: 'comments',
           sortable: true,
           filter: true,
-          width: 155
+          width: 155,
+          cellClass: params => {
+            return params.value === '' ? '' :'comments-background';
+        }
+          
         },
       ];
   }
