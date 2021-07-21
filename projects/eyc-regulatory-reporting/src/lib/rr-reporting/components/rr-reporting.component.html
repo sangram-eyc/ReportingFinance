@@ -8,7 +8,7 @@
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">
-        <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" buttonPosition="left"></lib-grid>
+        <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" [modalMessage]="modalMessage" buttonPosition="left"></lib-grid>
         <ng-template #headerTemplate>
             <div>
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
