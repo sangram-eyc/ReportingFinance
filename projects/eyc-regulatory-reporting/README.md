@@ -2,7 +2,7 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.13.
 
-## Code scaffolding
+#### Code scaffolding
 
 Run `ng generate component component-name --project eyc-regulatory-reporting` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project eyc-regulatory-reporting`.
 > Note: Don't forget to add `--project eyc-regulatory-reporting` or else it will be added to the default project in your `angular.json` file. 
