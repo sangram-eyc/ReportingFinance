@@ -13,6 +13,7 @@ import {authorization} from '../helper/api-config-helper';
 })
 
 export class SettingsService {
+  authdetails;
   constructor(private oauthService: OAuthService,private http: HttpClient) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
@@ -134,14 +135,15 @@ setToken = (value) => {
       // if (!sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.http.get(`${authorization.auth_Details}`).subscribe(res => {
         //set the authdetails to authconfig to initialize the implict login
-        authConfig.loginUrl = res['authenticationUrl'];
-        authConfig.logoutUrl = res['logoutUrl'];
-        authConfig.redirectUri = environment.production ?  res['redirectUrl'] : res['redirectUrl'];
-        authConfig.clientId = res['clientId'];
-        authConfig.silentRefreshRedirectUri = environment.production ?  res['silentRefreshRedirectUri'] : res['silentRefreshRedirectUri'];
-        authConfig.resource = res['resource'];
-        authConfig.timeoutFactor = environment.production ? res['timeoutFactor'] : 0.25;
-        authConfig.silentRefreshTimeout=  environment.production ? res['timeoutFactor'] : 5000;
+        this.authdetails = res;
+        authConfig.loginUrl = this.authdetails.data.authenticationUrl;
+        authConfig.logoutUrl = this.authdetails.data.logoutUrl;
+        authConfig.redirectUri = environment.production ?  this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;
+        authConfig.clientId = this.authdetails.data.clientId;
+        authConfig.silentRefreshRedirectUri = environment.production ? this.authdetails.data.silentRefreshRedirectUri : this.authdetails.data.silentRefreshRedirectUri;
+        authConfig.resource = this.authdetails.data.resource;
+        authConfig.timeoutFactor = environment.production ? this.authdetails.data.timeoutFactor : 0.25;
+        authConfig.silentRefreshTimeout=  environment.production ? this.authdetails.data.timeoutFactor : 5000;
         resolve(true);
         
       })
