@@ -205,6 +205,16 @@ export class RrReportingComponent implements OnInit {
   
 
   }
+  isFirstColumn = (params) => {
+    const displayedColumns = params.columnApi.getAllDisplayedColumns();
+    if (params.data) {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
+      return thisIsFirstColumn;
+    } else {
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+      return thisIsFirstColumn;
+    }
+  }
 
   handleGridReady(params) {
     this.gridApi = params.api;
@@ -235,9 +245,10 @@ export class RrReportingComponent implements OnInit {
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
-
-    // this.getExceptionReports();
-  //  this.getFilingEntities();
+    if (this.tabs == 1) {
+      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.getExceptionReports();
+    }
 
   }
 
@@ -247,6 +258,7 @@ export class RrReportingComponent implements OnInit {
   }
 
   onSubmitApproveFilingEntities() {
+    const filingDetails = this.filingDetails;
     let selectedFiling = {
       "entityIds": this.selectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
