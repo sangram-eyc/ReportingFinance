@@ -60,7 +60,7 @@ export class UserDetailsComponent implements OnInit {
       });
     }  */
     this.userService.userDetails(this.curentUserId).subscribe(resp => {
-      this.userInfo = resp;
+      this.userInfo = resp.data;
       this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
       this.editUserForm.patchValue({
         first: this.userInfo.userFirstName.trim(),
