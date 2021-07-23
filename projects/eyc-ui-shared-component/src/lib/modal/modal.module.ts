@@ -26,6 +26,9 @@ import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
     MotifIconModule ,
     UploadModule,
     EycPowerbiModule
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class ModalModule { }

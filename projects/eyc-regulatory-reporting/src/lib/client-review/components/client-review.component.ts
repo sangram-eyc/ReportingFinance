@@ -3,6 +3,8 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-client-review',
@@ -14,7 +16,8 @@ export class ClientReviewComponent implements OnInit {
   filingDetails:any;
   constructor(
     private service: ClientReviewService,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    public dialog: MatDialog
     ) { }
 
   tabs = 2;
@@ -37,6 +40,8 @@ export class ClientReviewComponent implements OnInit {
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
+  @ViewChild('commentTemplate')
+  commentTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
     
@@ -119,14 +124,18 @@ export class ClientReviewComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentTemplate,
+          },
           headerName: 'Comments',
           field: 'comments',
           sortable: true,
           filter: true,
           width: 155,
-          cellClass: params => {
-            return params.value === '' ? '' :'comments-background';
-        }
+        //   cellClass: params => {
+        //     return params.value === '' ? '' :'comments-background';
+        // }
           
         },
       ];
@@ -195,5 +204,58 @@ export class ClientReviewComponent implements OnInit {
     // setTimeout(() => {
     //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
     // }, 5000);
+  }
+
+  addComment() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below. You also have the option to assign to a user.`,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed', result);
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+        
+      } else {
+        console.log(result);
+      }
+    });
   }
 }
