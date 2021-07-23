@@ -17,7 +17,7 @@ export class ClientReviewComponent implements OnInit {
     private filingService: RegulatoryReportingFilingService
     ) { }
 
-  tabs = 1;
+  tabs = 2;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
@@ -158,6 +158,9 @@ export class ClientReviewComponent implements OnInit {
   receiveFilingDetails(event) {
     this.filingDetails = event;
     // this.getFilingEntities();
+    if (this.tabs == 2) {
+      this.getFilingEntities();
+    }
   }
 
   onSubmitApproveFilingEntities() {

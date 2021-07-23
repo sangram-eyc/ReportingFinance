@@ -15,7 +15,7 @@ export class ReportingTabsCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tabIn = 1;
+    this.tabIn = 2;
   }
 
   reportTabChange(selectedTab){
