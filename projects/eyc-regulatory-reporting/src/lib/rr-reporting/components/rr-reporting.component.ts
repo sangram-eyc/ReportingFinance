@@ -19,7 +19,7 @@ export class RrReportingComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  tabs = 1;
+  tabs = 2;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
@@ -245,9 +245,13 @@ export class RrReportingComponent implements OnInit {
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    if (this.tabs == 1) {
+  /*   if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
       this.getExceptionReports();
+    } */
+    if (this.tabs == 2) {
+      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
+      this.getFilingEntities();
     }
 
   }
