@@ -70,19 +70,22 @@
     padding: 2.14286rem 1.42857rem;
     display: block;
     overflow: auto;
+    .description-text {
+      margin-bottom: 16px;
+    }
   }
   b{
     font-weight: 800;
   }
 
   .approve-no  {
-    height: 45px;
+    height: 32px;
     font-family: EYInterstate !important;
     font-style: normal !important;
   }
 
   .approve-yes {
-    height: 45px;
+    height: 32px;
     font-family: EYInterstate !important;
     font-style: normal !important;
   }

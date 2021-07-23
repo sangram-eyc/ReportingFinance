@@ -28,7 +28,8 @@
       ],
       "eyc-ui-shared-component": [
         "dist/eyc-ui-shared-component/eyc-ui-shared-component",
-        "dist/eyc-ui-shared-component"
+        "dist/eyc-ui-shared-component",
+        "projects/eyc-ui-shared-component/src/lib*"
       ]
     },
     "resolveJsonModule": true,

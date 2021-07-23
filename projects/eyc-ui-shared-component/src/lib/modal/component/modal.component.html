@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
     <ng-container>
-        <div [innerHTML]="modalDetails.description | noSanitize"></div>
+        <div class="description-text" [innerHTML]="modalDetails.description | noSanitize"></div>
         <!-- {{modalDetails.description}} -->
     </ng-container>
     <div *ngIf="ConfirmationTextUpload">

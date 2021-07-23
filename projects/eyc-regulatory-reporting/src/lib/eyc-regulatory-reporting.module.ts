@@ -23,6 +23,7 @@ import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisa
 import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { GridComponent } from './grid/grid.component';
+import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 
 
 
@@ -49,7 +50,8 @@ import { GridComponent } from './grid/grid.component';
     MotifToastModule,
     MotifDropdownModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    EycUiSharedComponentModule
     
     
   ],

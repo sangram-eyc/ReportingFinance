@@ -1,8 +1,9 @@
 export const fileUploadHeading = 'Drag and drop documents';
-export const fileUploaInvalid = 'Please upload valid file type'; 
+export const allowedFileTyes = ['doc','docx','csv','xls','xlsx','pdf','msg'];
+export const fileUploaInvalid = 'You have uploaded an restricted file type. Please limit attachments to one of the following file types: '+ allowedFileTyes; 
 export const fileSizeLimit = 'Size exceeds limit ';
 export const fileUploadSucess = 'Files uploaded successfully';
 export const notAllowedFileTyes = ['dll', 'exe'];
-export const allowedFileTyes = ['doc','docx','csv','xls','xlsx','pdf','msg'];
-export const MAX_FILE_SIZE = 10485760;
-export const MB_SIZE = 1048576;
+
+export const MAX_FILE_SIZE = 25000000;
+export const MB_SIZE = 1000000;

@@ -24,11 +24,10 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {
+    dialogRef.disableClose = true;
     console.log(data);
     this.modalDetails = data;
     if (this.modalDetails.type === "ConfirmationTextUpload") {
-      console.log("ConfirmationTextUpload");
-      
       this.ConfirmationTextUpload = true;
       if(this.modalDetails.forms?.isSelect === true){
         this.modalForm = this.fb.group({
