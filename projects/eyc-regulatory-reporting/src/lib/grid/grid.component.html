@@ -1,11 +1,11 @@
 
 
-    <section id="gridContainer">
-        <div id="grid-heading">
+    <section id="{{gridContainerCls}}">
+        <div id="{{gridHeadingCls}}">
             <div *ngIf="buttonPosition === 'left'" class="left-button">
                 <div *ngIf="button" class="approve-button">
                     <button motifButton color="primary" size="large" (click)="buttonModal = true;"
-                        [disabled]="selectedRows.length==0">{{buttonText}}</button>
+                        [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
                 </div>
                 <div *ngIf="!button"></div>
                 <motif-form-field *ngIf="search">
@@ -20,18 +20,22 @@
                 <div *ngIf="!search"></div>
                 <div *ngIf="button" class="approve-button">
                     <button motifButton color="primary" size="large" (click)="buttonModal = true;"
-                        [disabled]="selectedRows.length==0">{{buttonText}}</button>
+                        [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
                 </div>
                 <div *ngIf="!button"></div>
             </div>
         </div>
-    
-        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
-        headerCheckboxSelection: isFirstColumn,
-        checkboxSelection: isFirstColumn
-        }" [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
+        
+        <motif-table *ngIf="displayCheckBox" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{}" [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+
+        <motif-table *ngIF="!displayCheckBox" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
+                headerCheckboxSelection: isFirstColumn,
+                checkboxSelection: isFirstColumn
+                }" [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
+                    [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
+                    paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
         <!-- <ng-template #headerTemplate>
             <div>
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"

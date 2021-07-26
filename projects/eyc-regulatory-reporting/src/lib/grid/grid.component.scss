@@ -165,3 +165,141 @@
       font-family: EYInterstate;
     }
   }
+
+  #grid-heading-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding: 28px 43px 40px 20px;
+    background: #fff;
+    
+    h5 {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 25px;
+        margin: 0;
+    }
+    ::ng-deep {
+    .motif-form-field {
+        width: 258px;
+        margin-bottom: 0 !important;
+    }
+    }
+    .left-button, .right-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        .approve-button {
+            
+    
+            .motif-button {
+                font-family: EYInterstate !important;
+                font-style: normal !important;
+                font-weight: bold !important;
+                font-size: 14px !important;
+                line-height: 16px !important;
+                text-align: right !important;
+                border: 0px !important;
+            }
+            .motif-button:hover {
+                background-color: var(--btn-primary-bg-color) !important;
+                color: var(--btn-primary-color) !important;
+            }
+            .motif-button:disabled {
+                background-color: #C4C4CD !important;
+                font-family: EYInterstate !important;
+                font-style: normal !important;
+                font-weight: bold !important;
+                font-size: 14px !important;
+                line-height: 16px !important;
+                text-align: right !important;
+                color: #FFFFFF !important;
+            }
+            *:focus {
+                box-shadow: none !important;
+            }
+            
+        }
+    }
+}
+
+  #gridAdminContainer {
+
+    .approve-button {
+        left: 22px;
+        position: relative;
+    }
+
+    ::ng-deep {
+        .motif-table .ag-pinned-left-cols-container, ::ng-deep .motif-table .ag-pinned-left-header {
+            box-shadow: none !important;
+        }
+        .motif-button:hover path {
+            color: var(--btn-primary-color) !important;
+        }
+        .motif-button:hover path {
+            fill: var(--btn-primary-color) !important;
+        }
+        .ag-theme-material .ag-pinned-left-header {
+            border-right: none;
+        }
+        *:focus {
+            box-shadow: none !important;
+        }
+        .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+            box-shadow: none !important;
+            border: none !important;
+        }
+        .motif-table .ag-header-cell {
+            height: 44px !important;
+        }
+        .motif-table .ag-header {
+            height: 49px !important;
+            min-height: 49px !important;
+        }
+        .motif-header-name {
+            font-family: EYInterstate;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px !important;
+            line-height: 22px;
+            color: #2E2E3C;
+        }
+        .motif-table .ag-cell-value {
+            font-family: EYInterstate !important;
+            font-style: normal  !important;
+            font-weight: normal  !important;
+            font-size: 14px  !important;
+            line-height: 22px  !important;
+            color: #2E2E38  !important;
+            margin-left: 0px !important;
+        }
+        .motif-table .ag-root-wrapper {
+            min-height: 320px;
+            width: 96% !important;
+            margin: 0 auto;
+            bottom: 20px;
+        }
+        .ag-theme-material .ag-radio-button-input-wrappe::after {
+            color: #23232F;
+          
+        }
+        .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+            color: #23232F;
+        }
+
+    }
+
+    .dropdownTemplate {
+        display: flex;
+        .complete {
+            margin-right: 4px;
+            ::ng-deep svg {
+                fill: #168736;
+            }
+        }
+    }
+   
+}

@@ -28,6 +28,7 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 
 
 
+
 @NgModule({
   imports: [
     AgGridModule.withComponents([]),
@@ -70,7 +71,7 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
     RrVisualisationComponent,
     GridComponent
   ],
-  exports: [RegulatoryReportingFilingComponent]
+  exports: [RegulatoryReportingFilingComponent, GridComponent]
 })
 export class EycRegulatoryReportingModule {
 
