@@ -115,8 +115,6 @@ export class AdminRegulatoryReportingComponent implements OnInit {
 
 }
 
-
-
 deleteTeams(row){
   console.log(row)
 }

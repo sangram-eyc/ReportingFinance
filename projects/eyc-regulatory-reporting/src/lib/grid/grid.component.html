@@ -30,7 +30,7 @@
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
 
-        <motif-table *ngIF="!displayCheckBox" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
+        <motif-table *ngIf="!displayCheckBox" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
                 headerCheckboxSelection: isFirstColumn,
                 checkboxSelection: isFirstColumn
                 }" [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
