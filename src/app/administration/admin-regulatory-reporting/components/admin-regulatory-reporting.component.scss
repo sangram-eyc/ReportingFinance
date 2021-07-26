@@ -30,3 +30,22 @@ color: #2E2E38 !important;
 button.motif-text-link:focus, button.motif-text-link:active {
     box-shadow: none !important;
 }
+
+.delete-icon {
+    margin-left: 10px !important;
+    cursor: pointer;
+}
+
+::ng-deep .motif-icon.motif-icon.edtor-icon {
+    cursor: pointer;
+}
+
+::ng-deep .motif-icon.motif-icon.edtor-icon.ng-star-inserted svg {
+    fill:#155CB4 !important;
+    height: 1.51429rem !important;
+    width: 1.51429rem !important;
+} 
+
+::ng-deep .motif-icon.motif-icon.edtor-icon.ng-star-inserted svg path {
+    fill-opacity: 1 !important;
+}

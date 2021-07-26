@@ -6,7 +6,10 @@ export const userAdminstration = {
         add_User: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + 'assets/mock/users.json',
         edit_User: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + '/assets/mock/users.json',
         remove_User: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + '/assets/mock/users.json',
-        view_User_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + 'assets/mock/users.json',
+        view_User_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + 'assets/mock/userInfo.json',
+    },
+    teams: {
+        teams_list: environment.production ?  environment.apiEndpoint + 'assets/mock/teams.json' : environment.apiEndpoint + 'assets/mock/teams.json',
     }
 };
 

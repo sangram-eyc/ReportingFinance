@@ -21,10 +21,10 @@ export class AdministrationComponent implements OnInit {
   }
 
   routeAdminRR(){
-    this.router.navigate(['/admin-regulatory-reporting']);
+    this.router.navigate(['/admin-rr-dashboard']);
   }
 
-  /* uploadedFiles(emitiedFiles) {
+ /*  uploadedFiles(emitiedFiles) {
     this.filesList = emitiedFiles;
   }
 

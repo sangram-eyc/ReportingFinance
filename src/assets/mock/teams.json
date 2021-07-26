@@ -1,0 +1,51 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "teamId": 1,
+            "teamName": "Securities Funds - Accounting",
+            "role": "L1 Reviewer",
+            "assignments": 3,
+            "members": 2
+        },
+        {
+            "teamId": 2,
+            "teamName": "Real Estate Funds - Accounting",
+            "role": "L2 Reviewer",
+            "assignments": 2,
+            "members": 3
+        },
+        {
+            "teamId": 3,
+            "teamName": "Securities Funds - Accounting",
+            "role": "L1 Reviewer",
+            "assignments": 3,
+            "members": 2
+        },
+        {
+            "teamId": 4,
+            "teamName": "Real Estate Funds - Accounting",
+            "role": "L2 Reviewer",
+            "assignments": 2,
+            "members": 3
+        },
+        {
+            "teamId": 5,
+            "teamName": "Securities Funds - Accounting",
+            "role": "L1 Reviewer",
+            "assignments": 3,
+            "members": 2
+        },
+        {
+            "teamId": 6,
+            "teamName": "Real Estate Funds - Accounting",
+            "role": "L2 Reviewer",
+            "assignments": 2,
+            "members": 3
+        }
+        
+    ],
+    "error": null
+}
