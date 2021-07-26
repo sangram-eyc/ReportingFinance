@@ -5,5 +5,5 @@ export const fileSizeLimit = 'Size exceeds limit ';
 export const fileUploadSucess = 'Files uploaded successfully';
 export const notAllowedFileTyes = ['dll', 'exe'];
 
-export const MAX_FILE_SIZE = 25000000;
-export const MB_SIZE = 1000000;
+export const MAX_FILE_SIZE = 26214400;
+export const MB_SIZE = 1048576;
