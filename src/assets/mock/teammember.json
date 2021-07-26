@@ -1,0 +1,45 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "teamMemberId": 543,
+            "memberEmail": "Suhas.Srinidhi@gds.ey.com",
+            "memberName": "Suhas"
+          
+        },
+        {
+            "teamMemberId": 546,
+            "memberEmail": "Nandha.Gopal@gds.ey.com",
+            "memberName": "Nandha Gopal"
+            
+        },
+        {
+            "teamMemberId": 551,
+            "memberEmail": "Koteswararao.Yarlagadda@ey.com",
+            "memberName": "Koteswararao Yarlagadda"
+            
+        },
+        {
+            "teamMemberId": 553,
+            "memberEmail": "debabrata.dash@gds.ey.com",
+            "memberName": "Debabrata Dash"
+            
+        },
+        {
+            "teamMemberId": 564,
+            "memberEmail": "apurva.k.srivastav@ey.com",
+            "memberName": "Apurva Srivatsav"
+            
+        },
+        {
+            "teamMemberId": 575,
+            "memberEmail": "Stephen.A.Rienzi@ey.com",
+            "memberName": "Stephen Rienzi"
+            
+        }
+    ],
+    "error": null
+}
+ 

@@ -12,4 +12,12 @@ export class TeamsService {
   getTeamsList() {
     return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}`);
   }
+
+  getTeamsDetailsList() {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}`);
+  }
+
+  getTeamMemberList() {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_member_list}`);
+  }
 }

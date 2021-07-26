@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -20,7 +20,8 @@ export class AdminRegulatoryReportingComponent implements OnInit {
   
  
   constructor(
-    private teamsService: TeamsService
+    private teamsService: TeamsService,
+    private router: Router
   ) { }
 
   @ViewChild('actionSection')
@@ -118,8 +119,8 @@ export class AdminRegulatoryReportingComponent implements OnInit {
 deleteTeams(row){
   console.log(row)
 }
-editTeams(row){
-  console.log(row)
+editTeams(row) {
+  this.router.navigate(['/team-details/' + row.teamId]);
 }
 
 }

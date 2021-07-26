@@ -1,50 +1,76 @@
-[
-	{
-	   "groups":[
-		  "string"
-	   ],
-	   "roles":[
-		  "string"
-	   ],
-	   "userId":4,
-	   "userEmail":"nandha.gopal@gds.ey.com",
-	   "userFirstName":"Nandha",
-	   "userLastName":"Gopal N"
-	},
-	{
-	   "groups":[
-		  "string"
-	   ],
-	   "roles":[
-		  "string"
-	   ],
-	   "userId":3,
-	   "userEmail":"suhas.srinidhi@gds.ey.com",
-	   "userFirstName":"Suhas Talakad",
-	   "userLastName":"Srinidhi"
-	},
-	{
-	   "groups":[
-		  "string"
-	   ],
-	   "roles":[
-		  "string"
-	   ],
-	   "userId":1,
-	   "userEmail":" debabrata.dash@gds.ey.com",
-	   "userFirstName":"Debabrata",
-	   "userLastName":"Dash"
-	},
-	{
-	   "groups":[
-		  "string"
-	   ],
-	   "roles":[
-		  "string"
-	   ],
-	   "userId":6,
-	   "userEmail":"Koteswararao.Yarlagadda@ey.com",
-	   "userFirstName":"Koteswara Rao",
-	   "userLastName":"Yarlagadda"
-	}
- ]
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "userId": 543,
+            "userEmail": "Suhas.Srinidhi@gds.ey.com",
+            "userFirstName": "Suhas",
+            "userLastName": "Talakad Srinidhi",
+            "groups": null,
+            "roles": [
+                "RegReportingAdmin",
+                "ROLE_ADMIN"
+            ]
+        },
+        {
+            "userId": 546,
+            "userEmail": "Nandha.Gopal@gds.ey.com",
+            "userFirstName": "Nandha",
+            "userLastName": "Gopal N",
+            "groups": null,
+            "roles": [
+                "UserManagementAdmin",
+                "RegReportingAdmin",
+                "ROLE_ADMIN"
+            ]
+        },
+        {
+            "userId": 551,
+            "userEmail": "Koteswararao.Yarlagadda@ey.com",
+            "userFirstName": "Koteswararao",
+            "userLastName": "Yarlagadda",
+            "groups": null,
+            "roles": [
+                "ROLE_USER_MANAGEMENT",
+                "ROLE_ADMIN"
+            ]
+        },
+        {
+            "userId": 553,
+            "userEmail": "debabrata.dash@gds.ey.com",
+            "userFirstName": "Debabrata",
+            "userLastName": "Dash",
+            "groups": null,
+            "roles": [
+                "RegReportingAdmin",
+                "ROLE_ADMIN"
+            ]
+        },
+        {
+            "userId": 564,
+            "userEmail": "apurva.k.srivastav@ey.com",
+            "userFirstName": "Apurva",
+            "userLastName": "Srivatsav",
+            "groups": null,
+            "roles": [
+                "ROLE_ADMIN"
+            ]
+        },
+        {
+            "userId": 575,
+            "userEmail": "Stephen.A.Rienzi@ey.com",
+            "userFirstName": "Stephen",
+            "userLastName": "Rienzi",
+            "groups": null,
+            "roles": [
+                "ROLE_USER_MANAGEMENT",
+                "RegReportingAdmin",
+                "ROLE_ADMIN"
+            ]
+        }
+    ],
+    "error": null
+}
+ 
