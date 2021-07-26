@@ -94,6 +94,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   backtoUserAdmin() {
+    sessionStorage.setItem("adminTab", '2');
     this.location.back();
   }
 

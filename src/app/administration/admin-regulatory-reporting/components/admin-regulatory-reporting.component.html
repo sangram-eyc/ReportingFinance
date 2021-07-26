@@ -1,3 +1,5 @@
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team has been deleted successfully</motif-toast>
+
 <div class="page-header">
     <h1 class="motif-h1">Regulatory reporting</h1>
 </div>
@@ -11,7 +13,6 @@
 <app-users *ngIf="tabIn == 2"></app-users>
 
 <div *ngIf="tabIn == 1">
-
 
     <lib-grid [columnDefs]="columnDefs" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" displayCheckBox="{{displayCheckBox}}"></lib-grid>
 

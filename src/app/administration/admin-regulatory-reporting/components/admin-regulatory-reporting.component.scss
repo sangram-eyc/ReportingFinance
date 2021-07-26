@@ -49,3 +49,21 @@ button.motif-text-link:focus, button.motif-text-link:active {
 ::ng-deep .motif-icon.motif-icon.edtor-icon.ng-star-inserted svg path {
     fill-opacity: 1 !important;
 }
+
+::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 9 !important;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+}
