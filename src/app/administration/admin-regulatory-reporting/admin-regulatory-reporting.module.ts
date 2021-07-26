@@ -6,7 +6,8 @@ import { MotifFormsModule,  MotifTableModule, MotifModule} from '@ey-xd/ng-motif
 import { UsersComponent } from './../users/components/users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module'
+import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
+import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.component';
 
 
 
@@ -15,7 +16,8 @@ import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/
 @NgModule({
   declarations: [
     AdminRegulatoryReportingComponent,
-    UsersComponent
+    UsersComponent,
+    EycTeamDetailsComponent
   ],
   imports: [
     CommonModule,

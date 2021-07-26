@@ -10,6 +10,7 @@ export const userAdminstration = {
     },
     teams: {
         teams_list: environment.production ?  environment.apiEndpoint + 'assets/mock/teams.json' : environment.apiEndpoint + 'assets/mock/teams.json',
+        teams_member_list: environment.production ?  environment.apiEndpoint + 'assets/mock/teammember.json' : environment.apiEndpoint + 'assets/mock/teammember.json'
     }
 };
 

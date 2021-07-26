@@ -48,7 +48,7 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.displayCheckBox) {
-      this.buttonText = 'Add team';
+      //this.buttonText = 'Add team';
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
       this.gridContainerCls = 'gridAdminContainer';
