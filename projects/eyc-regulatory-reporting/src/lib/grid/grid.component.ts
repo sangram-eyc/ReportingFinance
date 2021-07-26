@@ -22,6 +22,7 @@ export class GridComponent implements OnInit {
   @Input() button = true;
   @Input() search = true;
   @Input() buttonPosition: 'left' | 'right';
+  @Input() displayCheckBox;
   @Input() buttonText = 'Approve selected';
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
@@ -34,6 +35,8 @@ export class GridComponent implements OnInit {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  gridHeadingCls;
+  gridContainerCls;
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -44,6 +47,15 @@ export class GridComponent implements OnInit {
   // dropdownTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
+    if(this.displayCheckBox) {
+      this.buttonText = 'Add team';
+      this.selectedRows.length = 1;
+      this.gridHeadingCls = 'grid-heading-admin';
+      this.gridContainerCls = 'gridAdminContainer';
+    } else {
+      this.gridHeadingCls = 'grid-heading';
+      this.gridContainerCls = 'gridContainer';
+    }
   }
 
   async submit() {
@@ -81,8 +93,12 @@ export class GridComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
-      return thisIsFirstColumn;
+      console.log("row data > ", this.rowData)
+      if(this.rowData) {
+        const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+        return thisIsFirstColumn;
+      }
+      
     }
   }
 
