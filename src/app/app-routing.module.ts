@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'administration', component: AdministrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'eyComply', component: LoginComponent},
-  {path: 'admin-regulatory-reporting', component: AdminRegulatoryReportingComponent},
+  {path: 'admin-rr-dashboard', component: AdminRegulatoryReportingComponent},
   {path: 'notification', component: DashboardNotificationComponent},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent},
   {path: 'fund-scoping', component: FundScopingComponent},

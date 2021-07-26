@@ -4,6 +4,7 @@ import { UsersService } from '../../users/services/users.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../../environments/environment';
 import {IS_USER_DETAILS_EDITABLE} from '../../../services/settings-helpers';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-details',
@@ -17,6 +18,7 @@ export class UserDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private formBuilder: FormBuilder,
+    private location: Location
   ) {
     this.editUserForm = this._updateUser();
   }
@@ -92,7 +94,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   backtoUserAdmin() {
-    this.router.navigate(['/admin-regulatory-reporting']);
+    this.location.back();
   }
 
   enableEditForm() {
