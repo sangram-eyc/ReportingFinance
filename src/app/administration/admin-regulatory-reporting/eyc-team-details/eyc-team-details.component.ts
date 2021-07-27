@@ -1,13 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { environment } from './../../../../environments/environment';
-import {IS_USER_DETAILS_EDITABLE} from '../../../services/settings-helpers';
+import {IS_TEAM_DETAILS_EDITABLE} from '../../../services/settings-helpers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {TeamsService} from '../services/teams.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'eyc-ui-shared-component';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -17,7 +18,7 @@ export class EycTeamDetailsComponent implements OnInit {
 
   constructor(private location: Location,
               private teamService: TeamsService,
-              private activatedRoute: ActivatedRoute, ) { }
+              private activatedRoute: ActivatedRoute,private dialog: MatDialog, ) { }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -30,7 +31,7 @@ export class EycTeamDetailsComponent implements OnInit {
   showToastAfterEditUser = false;
   fullname;
   teamResp: any[] = [];
-  is_editable = IS_USER_DETAILS_EDITABLE;
+  is_editable = IS_TEAM_DETAILS_EDITABLE;
   columnDefs;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -38,6 +39,7 @@ export class EycTeamDetailsComponent implements OnInit {
   gridApi;
   teamsMemberData;
   displayCheckBox = true;
+  showToastAfterDeleteTeams = false;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -133,7 +135,7 @@ export class EycTeamDetailsComponent implements OnInit {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Email',
         field: 'memberEmail',
-        sortable: false,
+        sortable: true,
         filter: false,
         wrapText: true,
         autoHeight: true,
@@ -175,8 +177,41 @@ adminTabChange(selectedTab){
 //   });
 // }
 
-  deleteTeamMember(row) {
+  deleteTeamMember(row){
 
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Delete team member",
+        description: "Are you sure you want to remove this team member from the team?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result.button == 'Yes') {
+  
+      const teamsList = this.teamsMemberData;
+      this.teamsMemberData = [];
+      teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId),1);
+      teamsList.forEach(ele => {
+        this.teamsMemberData.push(ele);
+      });
+      
+        this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        setTimeout(() => {
+          this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        }, 5000);
+      }
+    });
+  
+    
   }
 
 }
