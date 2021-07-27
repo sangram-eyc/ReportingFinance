@@ -16,8 +16,8 @@ import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/
 export class EycTeamDetailsComponent implements OnInit {
 
   constructor(private location: Location,
-    private teamService:TeamsService,
-    private activatedRoute: ActivatedRoute,) { }
+              private teamService: TeamsService,
+              private activatedRoute: ActivatedRoute, ) { }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -37,8 +37,8 @@ export class EycTeamDetailsComponent implements OnInit {
   tabIn;
   gridApi;
   teamsMemberData;
-  displayCheckBox: boolean = true;
-  
+  displayCheckBox = true;
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
@@ -71,27 +71,27 @@ export class EycTeamDetailsComponent implements OnInit {
   getTeamsData() {
 
     // Below code will inly work,if it is a local environment reading data from json
-      if(this.isLocal){
+      if (this.isLocal){
       this.teamService.getTeamsDetailsList().subscribe(resp => {
           this.teamResp.push(resp);
-        this.teamResp[0]['data'].forEach((item) => {
+          this.teamResp[0].data.forEach((item) => {
           this.teamsListArr.push(item);
         });
-        this.teamInfo =  this.teamsListArr.filter(task => task.teamId == this.curentTeamId)[0];
+          this.teamInfo =  this.teamsListArr.filter(task => task.teamId == this.curentTeamId)[0];
         // if(this.teamInfo)
         // {
         //   this.editTeamForm.patchValue({
         //     teamName: "this.teamInfo.teamName.trim()",
         //     teamRole: "this.teamInfo.role.trim()",
-           
+
         //     });
         // }
-       
+
 
       });
-    }  
-   
-    
+    }
+
+
 
   }
 
@@ -100,12 +100,12 @@ export class EycTeamDetailsComponent implements OnInit {
     // Below code will inly work,if it is a local environment reading data from json
     if (this.isLocal) {
       this.teamService.getTeamMemberList().subscribe(resp => {
-        this.teamsMemberData = resp['data'];
-        
+        this.teamsMemberData = resp.data;
+
 
       });
       this. createTeamsRowData();
-     
+
     }
 
 
@@ -127,7 +127,7 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 350
+        width: 370
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -137,7 +137,7 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 950
+        width: 370
       },
       {
         width: 80,
@@ -154,12 +154,12 @@ export class EycTeamDetailsComponent implements OnInit {
 }
 
 adminTabChange(selectedTab){
-   
+
   this.tabIn = selectedTab;
-  if(this.tabIn === 1) {
+  if (this.tabIn === 1) {
     this.displayCheckBox = false;
   // this.getTeamMemberDetails();
-    setTimeout(() => { 
+    setTimeout(() => {
       this.displayCheckBox = true;
     }, 200);
   } else {

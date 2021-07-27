@@ -213,3 +213,7 @@
       font-family: EYInterstate;
     }
   }
+
+  ::ng-deep .motif-button path, .motif-button path:focus {
+    fill:  var(--btn-secondary-color) !important;
+  }

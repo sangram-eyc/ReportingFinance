@@ -1,52 +1,52 @@
 <div class="user-details-wrapper">
-    <div class="back-wrapper">
-      <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>&nbsp;<span class="back-opt">Back</span>
-    </div>
-    <div class="user-info-header">
-      <h3>Team Details</h3>
-      <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'"  [class.disabled]="!is_editable" class="user-edit" *ngIf="!enableEditor && teamInfo"
-        (click)="enableEditForm()">
-        <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
-      </motif-icon>
-      <div class="edit-form" *ngIf="enableEditor">
-        <button class="save-submit" motifButton color="primary" size="small" [disabled]="editTeamForm.invalid"
-          [ngClass]="editTeamForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
-        <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
-      </div>
-    </div>
-    <div>
-      <span class="field-header">Team Name</span>
-     </div>
-    <div>
-     <span class="data-header">{{teamInfo?.teamName}}</span>
-    </div>
-    <div  *ngIf="teamInfo">
-      <span class="field-header">Role</span>
-     </div>
-    <div *ngIf="teamInfo">
-     <span class="data-header">{{teamInfo?.role}}</span>
-    </div>
-    <motif-toast [type]="'success'" [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
-    <motif-tab-bar>
-      <button motifButton (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
-      <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
-      <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
-  </motif-tab-bar>
-    <div  *ngIf="tabIn == 1">
-          <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
-          <ng-template #actionSection let-row>
-            
-            <div class="delete-icon" (click)="deleteTeamMember(row)">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
-                  fill="#155CB4" />
-              </svg>
-            </div>
-          </ng-template>
-   
-        </div>
-  
-    
-  
+  <div class="back-wrapper">
+    <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp; <span class="pipe-back">|</span> &nbsp; Back</span>
   </div>
+  <div class="user-info-header">
+    <h3>Team Details</h3>
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+      *ngIf="!enableEditor && teamInfo" (click)="enableEditForm()">
+      <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
+    </motif-icon>
+    <div class="edit-form" *ngIf="enableEditor">
+      <button class="save-submit" motifButton color="primary" size="small" [disabled]="editTeamForm.invalid"
+        [ngClass]="editTeamForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
+      <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+  <div>
+    <span class="field-header">Team Name</span>
+  </div>
+  <div class="header-comp">
+    <span class="data-header">{{teamInfo?.teamName}}</span>
+  </div>
+  <div *ngIf="teamInfo">
+    <span class="field-header">Role</span>
+  </div>
+  <div class="header-comp" *ngIf="teamInfo">
+    <span class="data-header">{{teamInfo?.role}}</span>
+  </div>
+  <motif-toast [type]="'success'" [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
+  <motif-tab-bar>
+    <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
+      [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
+      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
+    <button motifButton (click)="adminTabChange(3)" class="motif-text-link"
+      [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
+  </motif-tab-bar>
+  <div *ngIf="tabIn == 1">
+    <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
+      buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
+    <ng-template #actionSection let-row>
+      <div class="delete-icon" (click)="deleteTeamMember(row)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
+            fill="#155CB4" />
+        </svg>
+      </div>
+    </ng-template>
+  </div>
+</div>
