@@ -87,6 +87,7 @@ export const oAuthConfig = {
  */
 
 export const IS_USER_DETAILS_EDITABLE = false;
+export const IS_TEAM_DETAILS_EDITABLE = true;
 
 
   /**
