@@ -3,7 +3,7 @@ import {INPUT_VALIDATON_CONFIG} from '../config/rr-config-helper';
 import { TableHeaderRendererComponent } from '../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'projects/eyc-ui-shared-component/src/lib/modal/component/modal.component';
+import { ModalComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-grid',
