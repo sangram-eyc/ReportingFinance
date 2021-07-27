@@ -1,5 +1,3 @@
-
-
 .first-heading {
     background: #fff;
     border-left: 1px solid #e1e1e6;
@@ -17,7 +15,7 @@
     background: #fff;
 }
 
-#grid-heading, #grid-heading-admin {
+#grid-heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,41 +71,7 @@
     }
 }
 
-#grid-heading-admin {
-        .approve-button {
-            
-    
-            .motif-button {
-                font-family: EYInterstate !important;
-                font-style: normal !important;
-                font-weight: bold !important;
-                font-size: 14px !important;
-                line-height: 16px !important;
-                text-align: right !important;
-                border: 0px !important;
-            }
-            .motif-button:hover {
-                background-color: var(--btn-primary-bg-color) !important;
-                color: var(--btn-primary-color) !important;
-            }
-            .motif-button:disabled {
-                background-color: #C4C4CD !important;
-                font-family: EYInterstate !important;
-                font-style: normal !important;
-                font-weight: bold !important;
-                font-size: 14px !important;
-                line-height: 16px !important;
-                text-align: right !important;
-                color: #FFFFFF !important;
-            }
-            *:focus {
-                box-shadow: none !important;
-            }
-            
-        }
-}
-
-#gridContainer, #gridAdminContainer {
+#gridContainer {
     ::ng-deep .motif-table .ag-pinned-left-cols-container, ::ng-deep .motif-table .ag-pinned-left-header {
         box-shadow: none !important;
     }

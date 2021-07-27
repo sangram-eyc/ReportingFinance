@@ -1,12 +1,10 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import {INPUT_VALIDATON_CONFIG} from '../config/rr-config-helper';
-import { TableHeaderRendererComponent } from '../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'projects/eyc-ui-shared-component/src/lib/modal/component/modal.component';
+import { ModalComponent } from '../../modal/component/modal.component';
 
 @Component({
-  selector: 'lib-grid',
+  selector: 'lib-shared-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
@@ -14,6 +12,9 @@ export class GridComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
+  INPUT_VALIDATON_CONFIG = {
+    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
+   }
   gridApi;
   selectedRows = [];
   approveFilingEntitiesModal = false;
@@ -21,12 +22,11 @@ export class GridComponent implements OnInit {
   searchNoDataAvilable;
   buttonModal = false;
 
-  @Input() gridStyle = 'first';
+  @Input() gridStyle: 'first' | 'second' | 'third';
   @Input() button = true;
   @Input() search = true;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
-  @Input() displayCheckBox;
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() submitFunction: () => void;
@@ -53,8 +53,6 @@ export class GridComponent implements OnInit {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
-  gridHeadingCls;
-  gridContainerCls;
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -72,15 +70,6 @@ export class GridComponent implements OnInit {
         headerCheckboxSelection: this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
-    }
-    if(this.displayCheckBox) {
-      //this.buttonText = 'Add team';
-      this.selectedRows.length = 1;
-      this.gridHeadingCls = 'grid-heading-admin';
-      this.gridContainerCls = 'gridAdminContainer';
-    } else {
-      this.gridHeadingCls = 'grid-heading';
-      this.gridContainerCls = 'gridContainer';
     }
   }
 
@@ -140,7 +129,7 @@ export class GridComponent implements OnInit {
 
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
-    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+    if (this.INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
       return true;
     } else {
       event.preventDefault();
@@ -152,7 +141,7 @@ export class GridComponent implements OnInit {
     let clipboardData = event.clipboardData;
     let pastedText = (clipboardData.getData('text')).split("");    
     pastedText.forEach((ele, index) => {
-      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+      if (this.INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
         if ((pastedText.length - 1) === index) {
           return true;
         }

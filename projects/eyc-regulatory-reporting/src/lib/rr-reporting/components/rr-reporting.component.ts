@@ -5,6 +5,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
+import { GridComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -38,9 +39,24 @@ export class RrReportingComponent implements OnInit {
   columnDefs;
   exceptionDefs;
   exceptionData;
+  exceptionDefaultColDef;
+  exceptionDetailCellRendererParams;
   rowData = [];
   submitFunction;
   submitTest;
+  exceptionModalConfig = {
+    width: '400px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "THIS IS A TEST!",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;

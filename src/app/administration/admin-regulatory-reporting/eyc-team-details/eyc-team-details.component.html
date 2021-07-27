@@ -33,7 +33,7 @@
       <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
   </motif-tab-bar>
     <div  *ngIf="tabIn == 1">
-          <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" displayCheckBox="{{displayCheckBox}}"></lib-grid>
+          <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
           <ng-template #actionSection let-row>
             
             <div class="delete-icon" (click)="deleteTeamMember(row)">
