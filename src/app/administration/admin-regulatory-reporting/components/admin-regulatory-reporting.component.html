@@ -14,7 +14,7 @@
 
 <div *ngIf="tabIn == 1">
 
-    <lib-grid [columnDefs]="columnDefs" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" displayCheckBox="{{displayCheckBox}}"></lib-grid>
+    <lib-grid [columnDefs]="columnDefs" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
