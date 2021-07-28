@@ -5,6 +5,7 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -21,11 +22,17 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   
+  addTeamModal = false;
+  addTeamForm: FormGroup;
+  roles = ['L1 Reviewer', 'L2 Reviewer', 'L3 Reviewer']
+  assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
+  showToastAfterAddTeam = false;
  
   constructor(
     private teamsService: TeamsService,
     private router: Router,
     private dialog: MatDialog,
+    private fb: FormBuilder
   ) { }
 
   @ViewChild('actionSection')
@@ -34,6 +41,17 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     sessionStorage.getItem("adminTab") ?  this.tabIn =  sessionStorage.getItem("adminTab") :  this.tabIn = 1;
     this.getTeamList();
+
+    this.addTeamForm = this._createTeam()
+  }
+
+  private _createTeam () {
+    return this.fb.group({
+      teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$')]],
+      role: ['', [Validators.required]],
+      assignments: ['', [Validators.required]],
+      description: ['', [Validators.maxLength(250)]]
+    });
   }
 
   adminTabChange(selectedTab){
@@ -155,6 +173,40 @@ deleteTeams(row){
 editTeams(row) {
   this.router.navigate(['/team-details/' + row.teamId]);
 }
+
+  addTeam(newTeam) {
+    this.addTeamModal = true;
+  }
+
+  onSubmitNewTeam() {
+    const obj = this.addTeamForm.getRawValue();
+    this.addTeamModal = false
+    // below code will change after api integration
+    const team = {
+      "teamId": this.teamsData.length + 1,
+      "teamName": obj.teamName,
+      "role": obj.role,
+      "assignments": obj.assignments.length,
+      "members": 2
+    }
+    const teamsList = this.teamsData;
+    this.teamsData = [];
+    teamsList.push(team);
+    teamsList.forEach(ele => {
+      this.teamsData.push(ele);
+    });
+    this.addTeamForm.reset();
+    this.showToastAfterAddTeam = !this.showToastAfterAddTeam;
+    setTimeout(() => {
+      this.showToastAfterAddTeam = !this.showToastAfterAddTeam;
+    }, 5000);
+
+  }
+
+  closeTeamModal() {
+    this.addTeamModal = false;
+    this.addTeamForm.reset();
+  }
 
 ngOnDestroy() {
   sessionStorage.removeItem("adminTab");

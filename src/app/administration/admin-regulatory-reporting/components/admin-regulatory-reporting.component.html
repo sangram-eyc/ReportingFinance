@@ -14,7 +14,7 @@
 
 <div *ngIf="tabIn == 1">
 
-    <lib-grid [columnDefs]="columnDefs" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
+    <lib-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
@@ -28,5 +28,76 @@
         </div>
       </ng-template>
 
+      <motif-modal class="new_team_modal" [show]="addTeamModal" (close)="closeTeamModal()">
+        <motif-modal-header>
+          Add new team
+        </motif-modal-header>
+        <motif-modal-body>
+      
+          <form [formGroup]="addTeamForm">
+            <span class="description"> Please give your new team a name, assign the team role, and choose at least one
+              assignment. Once your team has been created go to team members tab to add users.
+            </span>
+            <div class="motif-row">
+              <div class="motif-col-xs-4 motif-col-lg-12">
+                <motif-form-field>
+                  <label motifLabel>Team name (Required)</label>
+                  <input motifInput type="text" aria-label="Team name Form Field" formControlName="teamName" />
+                  <motif-error *ngIf="
+                                    addTeamForm.get('teamName').hasError('required') &&
+                                    addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters
+                    long
+                  </motif-error>
+                  <motif-error *ngIf="
+                  addTeamForm.get('teamName').hasError('pattern')">Team name must contain only alphanumeric!
+                  </motif-error>
+                </motif-form-field>
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-6">
+                <motif-form-field>
+                  <label motifLabel class="select-label">Role (Required)</label>
+                  <motif-select aria-label="Please select an option" formControlName="role">
+                    <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
+                  </motif-select>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('role').hasError('required') &&
+                                    addTeamForm.get('role').touched">Please provide a role!</motif-error>
+                </motif-form-field>
+      
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-6">
+                <motif-form-field>
+                  <label motifLabel class="select-label">Assignment (Required)</label>
+                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="assignments">
+                    <motif-option [value]="assignment" *ngFor="let assignment of assignments">{{assignment}}</motif-option>
+                  </motif-select>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('assignments').hasError('required') &&
+                                    addTeamForm.get('assignments').touched">Please provide a assignment!</motif-error>
+                </motif-form-field>
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-12">
+                <motif-form-field>
+                  <label motifLabel>Description (Optional)</label>
+                  <textarea motifInput class="motif-textarea" formControlName="description"></textarea>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('description').hasError('maxlength')">Description can be max 250
+                    characters long
+                  </motif-error>
+                </motif-form-field>
+              </div>
+            </div>
+          </form>
+        </motif-modal-body>
+        <motif-modal-footer>
+          <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeam()"
+            [disabled]="addTeamForm.invalid">Save</button>
+          <button motifButton class="approve-no" color="secondary" (click)="closeTeamModal()">Cancel</button>
+        </motif-modal-footer>
+      </motif-modal>
+
+      <motif-toast [type]="'success'" [show]="showToastAfterAddTeam">New team added successfully</motif-toast>
 </div>
 <div *ngIf="tabIn == 3"><br>Filings</div>
