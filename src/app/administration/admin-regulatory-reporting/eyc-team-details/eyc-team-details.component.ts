@@ -184,7 +184,7 @@ adminTabChange(selectedTab){
       data: {
         type: "Confirmation",
         header: "Delete team member",
-        description: "Are you sure you want to remove this team member from the team?",
+        description: "Are you sure you want to delete this team member from the team?",
         footer: {
           style: "start",
           YesButton: "Yes",

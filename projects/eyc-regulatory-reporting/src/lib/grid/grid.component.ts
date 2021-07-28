@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import {INPUT_VALIDATON_CONFIG} from '../config/rr-config-helper';
 import { TableHeaderRendererComponent } from '../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
@@ -56,6 +56,7 @@ export class GridComponent implements OnInit {
   gridHeadingCls;
   gridContainerCls;
 
+  @Output() newEventToParent = new EventEmitter<string>();
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
 
@@ -95,6 +96,11 @@ export class GridComponent implements OnInit {
   }
 
   openDialog() {
+    if(this.buttonText === "Add team") {
+      this.newEventToParent.emit();
+      return;
+    }
+
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
 
     dialogRef.afterClosed().subscribe(result => {
