@@ -114,6 +114,14 @@
     .ag-root-wrapper {
       border: 1px solid #EAEAF2 !important;
     }
+    ::ng-deep .ag-body-viewport {
+      min-height: 150px !important;
+    }
+    
+    ::ng-deep .ag-header {
+      height: 49px !important;
+      min-height: 49px !important;
+    }
     .motif-header-name {
       font-family: EYInterstate !important;
       font-style: normal  !important;
@@ -234,15 +242,6 @@
           }
       }
   }
-}
-
-::ng-deep .ag-body-viewport {
-  min-height: 150px !important;
-}
-
-::ng-deep .ag-header {
-  height: 49px !important;
-  min-height: 49px !important;
 }
 
 ::ng-deep .motif-card:hover {
