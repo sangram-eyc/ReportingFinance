@@ -4,7 +4,7 @@
 
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
-        <lib-grid 
+        <lib-shared-grid 
             gridStyle="first"
             [columnDefs]="exceptionDefs" 
             [rowData]="exceptionData" 
@@ -14,9 +14,7 @@
             buttonPosition="left" 
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [defaultColDef]="exceptionDefaultColDef"
-        ></lib-grid>
+        ></lib-shared-grid>
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">
@@ -30,8 +28,6 @@
             buttonPosition="left" 
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [defaultColDef]="exceptionDefaultColDef"
         ></lib-shared-grid> -->
         <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" [modalMessage]="modalMessage" buttonPosition="left"></lib-grid> -->
         <div class="approve-button">

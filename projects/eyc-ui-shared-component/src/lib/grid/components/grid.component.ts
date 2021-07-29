@@ -9,9 +9,9 @@ import { ModalComponent } from '../../modal/component/modal.component';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-
+  
   constructor(public dialog: MatDialog) { }
-
+  
   INPUT_VALIDATON_CONFIG = {
     SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
    }
@@ -22,11 +22,12 @@ export class GridComponent implements OnInit {
   searchNoDataAvilable;
   buttonModal = false;
 
-  @Input() gridStyle: 'first' | 'second' | 'third';
+  @Input() gridStyle = 'first';
   @Input() button = true;
   @Input() search = true;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
+  @Input() displayCheckBox;
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() submitFunction: () => void;
@@ -53,6 +54,8 @@ export class GridComponent implements OnInit {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  gridHeadingCls;
+  gridContainerCls;
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -70,6 +73,15 @@ export class GridComponent implements OnInit {
         headerCheckboxSelection: this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
+    }
+    if(this.displayCheckBox) {
+      //this.buttonText = 'Add team';
+      this.selectedRows.length = 1;
+      this.gridHeadingCls = 'grid-heading-admin';
+      this.gridContainerCls = 'gridAdminContainer';
+    } else {
+      this.gridHeadingCls = 'grid-heading';
+      this.gridContainerCls = 'gridContainer';
     }
   }
 
@@ -125,6 +137,7 @@ export class GridComponent implements OnInit {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
     console.log(this.search);
+    console.log(this.rowData);
   }
 
   searchFilingValidation(event) {

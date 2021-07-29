@@ -188,3 +188,7 @@
       }
   }
 }
+
+::ng-deep .ag-theme-material .ag-header-cell:hover {
+    background-color: #f2f2f2;
+}

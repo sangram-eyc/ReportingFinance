@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <motif-table *ngIf="displayCheckBox" [columnDefs]="columnDefs"
+        <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
             [rowData]="rowData"
             [defaultColDef]="{}"
             [rowSelection]="rowSelection"
@@ -23,7 +23,7 @@
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
     
-        <motif-table *ngIf="!displayCheckBox" [columnDefs]="columnDefs"
+        <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
             [rowData]="rowData" 
             [defaultColDef]="defaultColDef" 
             [masterDetail]="masterDetail"
@@ -31,6 +31,19 @@
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+
+        <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+            <motif-card-body>
+                <h5>Your search has returned no results. Please adjust and try again.</h5>
+            </motif-card-body>
+        </motif-card>
+
+        <motif-card class="no_data" *ngIf="!searchNoDataAvilable && (rowData?.length < 1)">
+            <motif-card-body>
+                <h5>No results found.</h5>
+            </motif-card-body>
+        </motif-card>
+
     </section>
     
     <motif-modal [show]="buttonModal" (close)="buttonModal = false">
