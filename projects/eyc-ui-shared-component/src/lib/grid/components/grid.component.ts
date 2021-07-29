@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
@@ -54,6 +54,7 @@ export class GridComponent implements OnInit {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  @Output() newEventToParent = new EventEmitter<string>();
   gridHeadingCls;
   gridContainerCls;
 
@@ -96,6 +97,10 @@ export class GridComponent implements OnInit {
   }
 
   openDialog() {
+    if(this.buttonText === "Add team") {
+      this.newEventToParent.emit();
+      return;
+    }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
 
     dialogRef.afterClosed().subscribe(result => {
