@@ -128,8 +128,10 @@ export class GridComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
-      return thisIsFirstColumn;
+      if(this.rowData){
+        const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+        return thisIsFirstColumn;
+      } 
     }
   }
 

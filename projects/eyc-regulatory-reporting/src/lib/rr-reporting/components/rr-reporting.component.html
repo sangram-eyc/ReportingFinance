@@ -15,6 +15,17 @@
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
         ></lib-shared-grid>
+
+        <ng-template #commentExceptionTemplate let-row>
+            <div *ngIf="row.comments.length!==0" class="comments-background">
+                {{row.comments}}
+            </div>
+            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">

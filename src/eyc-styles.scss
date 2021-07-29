@@ -639,7 +639,8 @@ left: 0px !important;
 }
 
 .cdk-global-scrollblock {
-  top: 0px !important;
+  overflow: unset;
+  position: unset;
 }
 
 button.motif-select-trigger{

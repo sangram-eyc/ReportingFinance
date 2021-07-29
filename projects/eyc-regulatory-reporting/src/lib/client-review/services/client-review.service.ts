@@ -12,6 +12,11 @@ export class ClientReviewService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
+  getExceptionReports(filingName, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}`);
+    // After backend API up will remove above line and uncomment below line
+  }
+  
   getfilingEntities(filingName, period) {
     // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}`);
     // After backend API up will remove above line and uncomment below line
