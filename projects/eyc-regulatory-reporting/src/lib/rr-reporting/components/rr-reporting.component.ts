@@ -64,7 +64,9 @@ export class RrReportingComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
   commentTemplate: TemplateRef<any>;
-
+  @ViewChild('commentExceptionTemplate')
+  commentExceptionTemplate: TemplateRef<any>
+  
   ngOnInit(): void {
 
    this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
@@ -214,7 +216,10 @@ export class RrReportingComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentExceptionTemplate,
+          },
           headerName: 'Comments',
           field: 'comments',
           sortable: true,
@@ -374,4 +379,56 @@ export class RrReportingComponent implements OnInit {
     });
   }
 
+  addCommentToException() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below. You also have the option to assign to a user.`,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed', result);
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+        
+      } else {
+        console.log(result);
+      }
+    });
+  }
 }
