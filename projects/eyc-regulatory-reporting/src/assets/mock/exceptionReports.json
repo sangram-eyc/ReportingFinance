@@ -8,7 +8,7 @@
             "exceptionReportName": "Alpha Corporate Bond Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 7,
             "approved": false
         },
         {
@@ -17,7 +17,7 @@
             "exceptionReportName": "Alpha Municipal Bond Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": "",
             "approved": true
         },
         {
@@ -26,7 +26,7 @@
             "exceptionReportName": "Alpha Fixed Income Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 10,
             "approved": false
         },
         {
@@ -44,7 +44,7 @@
             "exceptionReportName": "Alpha Emerging Markets Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 5,
             "approved": false
         },
         {
@@ -62,7 +62,7 @@
             "exceptionReportName": "Alpha High-Yeild Income Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 3,
             "approved": true
         },
         {
@@ -71,7 +71,7 @@
             "exceptionReportName": "Alpha Exchange Traded Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 9,
             "approved": false
         },
         {
@@ -89,7 +89,7 @@
             "exceptionReportName": "Alpha Technology Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 11,
             "approved": false
         },
         {
@@ -98,7 +98,7 @@
             "exceptionReportName": "Beta Corporate Bond Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 7,
             "approved": true
         },
         {
@@ -125,7 +125,7 @@
             "exceptionReportName": "Beta Global Opportunities Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 2,
             "approved": false
         },
         {
@@ -134,7 +134,7 @@
             "exceptionReportName": "Beta Emerging Markets Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 6,
             "approved": false
         },
         {
@@ -143,7 +143,7 @@
             "exceptionReportName": "Beta Multi-Asset Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 8,
             "approved": false
         },
         {
@@ -161,7 +161,7 @@
             "exceptionReportName": "Beta Exchange Traded Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 12,
             "approved": false
         },
         {
@@ -179,7 +179,7 @@
             "exceptionReportName": "Beta Technology Fund",
             "resolve_exception": "--",
             "reviewLevel": "--",
-            "comments": [],
+            "comments": 10,
             "approved": true
         }
     ]
