@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MotifFormsModule, MotifModule, MotifButtonModule } from '@ey-xd/ng-motif';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadComponent } from './components/upload.component';
+import { NoSanitizePipe } from "../pipes/noSanitize.pipe";
 
 
 
 
 @NgModule({
-  declarations: [UploadComponent],
+  declarations: [UploadComponent , NoSanitizePipe],
   imports: [
     CommonModule,
     MotifFormsModule,
@@ -17,6 +18,6 @@ import { UploadComponent } from './components/upload.component';
     MotifModule,
     MotifButtonModule
   ],
-  exports: [UploadComponent]
+  exports: [UploadComponent, NoSanitizePipe]
 })
 export class UploadModule { }
