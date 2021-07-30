@@ -5,7 +5,8 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
-import { GridComponent } from 'eyc-ui-shared-component';
+//import { GridComponent } from 'eyc-ui-shared-component';
+import {customComparator} from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -118,6 +119,8 @@ export class RrReportingComponent implements OnInit {
           field: 'entityGroup',
           sortable: true,
           filter: true,
+          sort:'asc',
+         comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -127,7 +130,9 @@ export class RrReportingComponent implements OnInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -188,6 +193,8 @@ export class RrReportingComponent implements OnInit {
           field: 'exceptionReportType',
           sortable: true,
           filter: true,
+          sort:'asc',
+         comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -197,7 +204,9 @@ export class RrReportingComponent implements OnInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,

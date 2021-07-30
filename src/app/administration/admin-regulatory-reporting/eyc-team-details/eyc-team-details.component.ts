@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { environment } from './../../../../environments/environment';
-import {IS_TEAM_DETAILS_EDITABLE} from '../../../services/settings-helpers';
+import {IS_TEAM_DETAILS_EDITABLE,customComparator} from '../../../services/settings-helpers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -124,7 +124,9 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 370
+        width: 370,
+        sort:'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -134,7 +136,9 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 370
+        width: 370,
+        sort:'asc',
+        comparator: customComparator
       },
       {
         width: 80,

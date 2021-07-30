@@ -6,6 +6,7 @@ import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regu
 import { TeamsService } from './../services/teams.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {customComparator} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -77,8 +78,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.createTeamsRowData();
   }
 
-
+  
   createTeamsRowData(): void {
+   
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -88,7 +90,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 350
+        width: 350,
+        sort: 'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -98,7 +102,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 200
+        width: 200,
+        sort: 'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -108,7 +114,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 150
+        width: 150,
+        
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

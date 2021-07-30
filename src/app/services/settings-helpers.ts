@@ -101,3 +101,8 @@ export const INPUT_VALIDATION = /[A-Za-z0-9\ ]+/;
  */
 export const SESSION_PBI_TOKEN= "pbi_token";
 export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
+
+
+export const customComparator = (valueA, valueB) => {
+	return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+  };
