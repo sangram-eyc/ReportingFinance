@@ -42,7 +42,7 @@
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Team name (Required)</label>
-                  <input motifInput type="text" aria-label="Team name Form Field" formControlName="teamName" />
+                  <input motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" />
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
                                     addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
@@ -52,6 +52,8 @@
                   </motif-error>
                   <motif-error *ngIf="
                   addTeamForm.get('teamName').hasError('pattern')">Team name must contain only alphanumeric!
+                  </motif-error>
+                  <motif-error *ngIf="addTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
                   </motif-error>
                 </motif-form-field>
               </div>

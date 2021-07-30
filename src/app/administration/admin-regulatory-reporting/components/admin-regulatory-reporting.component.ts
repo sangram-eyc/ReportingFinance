@@ -215,6 +215,13 @@ editTeams(row) {
     this.addTeamForm.reset();
   }
 
+  teamDuplicateCheck(event){
+    let teamDupcheck = this.teamsData.findIndex(item => item.teamName === event);
+    if(teamDupcheck != -1) {
+      this.addTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
+    }
+  }
+
 ngOnDestroy() {
   sessionStorage.removeItem("adminTab");
 }
