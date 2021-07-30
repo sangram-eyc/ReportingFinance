@@ -341,7 +341,7 @@ export class RrReportingComponent implements OnInit {
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
-        description: `Please add your comment below. You also have the option to assign to a user.`,
+        description: `Please add your comment below.`,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -394,7 +394,7 @@ export class RrReportingComponent implements OnInit {
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
-        description: `Please add your comment below. You also have the option to assign to a user.`,
+        description: `Please add your comment below.`,
         forms: {
           isSelect: false,
           selectDetails: {

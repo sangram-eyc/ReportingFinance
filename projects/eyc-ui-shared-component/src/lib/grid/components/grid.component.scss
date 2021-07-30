@@ -248,3 +248,6 @@
       font-family: EYInterstate !important;
     }
   }
+  ::ng-deep .no_data:hover {
+    box-shadow: none !important;
+  }

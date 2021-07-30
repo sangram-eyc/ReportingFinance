@@ -50,7 +50,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return this.fb.group({
       teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$')]],
       role: ['', [Validators.required]],
-      assignments: ['', [Validators.required]],
+      assignments: [''],
       description: ['', [Validators.maxLength(250)]]
     });
   }
