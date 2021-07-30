@@ -90,6 +90,12 @@
     font-family: EYInterstate !important;
     font-style: normal !important;
   }
- /* ::ng-deep .motif-select-field {
+
+  ::ng-deep  *:focus {
+    box-shadow: none !important;
+}
+.modal-body {
+  ::ng-deep .motif-select-field {
     width: 50% !important;
-  } */
+  }
+}
