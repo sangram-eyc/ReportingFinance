@@ -1,7 +1,10 @@
 <motif-form-field>
   <motif-file-upload [uploader]="uploaderURL" [(ngModel)]="ngModelQueue" [multiple]="true"
     (change)="filesUploaded($event)">
-    <label for="motif-file-upload-0">{{sharedHelper.fileUploadHeading}}</label>
+    <label for="motif-file-upload-0">
+      <!-- {{sharedHelper.fileUploadHeading}} -->
+      <div class="uploadLable" [innerHTML]="sharedHelper.fileUploadHeading | noSanitize"></div>
+    </label>
   </motif-file-upload>
  <motif-error *ngIf="uploadError">{{ uploadErrorMsg }}</motif-error>
 </motif-form-field>
