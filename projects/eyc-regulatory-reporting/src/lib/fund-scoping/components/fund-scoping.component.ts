@@ -4,6 +4,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import {customComparator} from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-fund-scoping',
@@ -149,6 +150,8 @@ export class FundScopingComponent implements OnInit {
         field: 'name',
         sortable: true,
         filter: true,
+        sort:'asc',
+        comparator: customComparator
       }
     ]; 
   }

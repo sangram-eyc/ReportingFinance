@@ -4,7 +4,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
 // import { SharedDownloadService } from './../../../../../eyc-ui-shared-component/src/lib/download/services/shared-download.service'
-
+import {customComparator} from '../../config/rr-config-helper';
 
 
 
@@ -58,6 +58,7 @@ export class SubmissionComponent implements OnInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -66,10 +67,6 @@ export class SubmissionComponent implements OnInit {
             ngTemplate: this.dropdownTemplate,
           },
           field: 'template',
-          // headerComponentParams: {
-          //   dataColumn: false,
-          //   ngTemplate: this.headerTemplate,
-          // },
           headerName: '',
           width: 70,
           sortable: false,
@@ -82,7 +79,9 @@ export class SubmissionComponent implements OnInit {
           cellClass: 'custom-report-name',
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         }
       ];
     });

@@ -105,6 +105,9 @@ export class ClientReviewComponent implements OnInit {
   }
 
   createEntitiesRowData(): void {
+    const customComparator = (valueA, valueB) => {
+      return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+    };
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -124,6 +127,8 @@ export class ClientReviewComponent implements OnInit {
           field: 'entityGroup',
           sortable: true,
           filter: true,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -133,7 +138,9 @@ export class ClientReviewComponent implements OnInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -169,10 +176,6 @@ export class ClientReviewComponent implements OnInit {
           sortable: true,
           filter: true,
           width: 155,
-        //   cellClass: params => {
-        //     return params.value === '' ? '' :'comments-background';
-        // }
-          
         },
       ];
 
@@ -195,6 +198,8 @@ export class ClientReviewComponent implements OnInit {
           field: 'exceptionReportType',
           sortable: true,
           filter: true,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -204,7 +209,9 @@ export class ClientReviewComponent implements OnInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,

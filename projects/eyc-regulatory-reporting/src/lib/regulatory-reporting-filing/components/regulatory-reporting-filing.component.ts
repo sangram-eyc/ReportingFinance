@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } 
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
+import {customComparator} from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
@@ -127,6 +128,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   }
 
   createHistoryRowData() {
+   
     this.rowData = [];
     this.completedFilings.forEach(filing => {
       this.rowData.push({
@@ -160,6 +162,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         filter: true,
         resizeable: true,
         minWidth: 240,
+        sort:'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

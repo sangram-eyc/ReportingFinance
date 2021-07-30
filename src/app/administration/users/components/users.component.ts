@@ -4,7 +4,8 @@ import { MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {INPUT_VALIDATION} from '../../../services/settings-helpers';
+import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
+
 
 
 @Component({
@@ -80,9 +81,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-
-      this.getUsersData();
-
+    this.getUsersData();
+      
       this.columnDefs1 = [
         {
           width: 410,
@@ -95,6 +95,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           sort: 'asc',
           wrapText: true,
           autoHeight: true,
+          comparator: customComparator
         },
         {
           width: 410,
@@ -106,6 +107,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           width: 90,
