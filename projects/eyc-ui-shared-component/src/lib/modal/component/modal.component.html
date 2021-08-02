@@ -27,8 +27,11 @@
             <motif-error *ngIf="
         modalForm.get('comment').hasError('required') &&
         modalForm.get('comment').touched">{{modalDetails.forms.textareaDetails.validationMessage}}</motif-error>
-
-        <lib-upload (uploadedFilesEmitter)="uploadedFiles($event)"></lib-upload>
+            <motif-error *ngIf="
+        modalForm.get('comment').hasError('maxlength')">Comment can be max 250
+                characters long
+            </motif-error>
+            <lib-upload (uploadedFilesEmitter)="uploadedFiles($event)"></lib-upload>
         </form>
     </div>
 </div>

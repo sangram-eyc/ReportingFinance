@@ -196,6 +196,14 @@ editTeams(row) {
       "assignments": obj.assignments.length,
       "members": 2
     }
+    const addedTeam = {
+      teamName:obj.teamName,
+      role: obj.role,
+      assignments: obj.assignments,
+      description: escape(obj.description)
+    }
+    console.log(addedTeam);
+    
     const teamsList = this.teamsData;
     this.teamsData = [];
     teamsList.push(team);
