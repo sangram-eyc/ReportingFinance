@@ -56,7 +56,9 @@ export class FundScopingComponent implements OnInit {
         const eachitem: any  = {
           name: item.fundName,
           code: item.fundCode,
-          id: item.fundId
+          id: item.fundId,
+          adviser: item.adviser,
+          businessUnit: item.businessUnit
         };
         this.funds.push(eachitem);
       });
@@ -109,7 +111,9 @@ export class FundScopingComponent implements OnInit {
       this.rowData.push({
         name: fund.name,
         id: fund.id,
-        code: fund.code
+        code: fund.code,
+        adviser: fund.adviser,
+        businessUnit: fund.businessUnit
       })
     });
     this.columnDefs = [
@@ -151,7 +155,31 @@ export class FundScopingComponent implements OnInit {
         sortable: true,
         filter: true,
         sort:'asc',
-        comparator: customComparator
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Adviser',
+        field: 'adviser',
+        sortable: true,
+        filter: true,
+        sort:'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Business Unit',
+        field: 'businessUnit',
+        sortable: true,
+        filter: true,
+        sort:'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true
       }
     ]; 
   }
