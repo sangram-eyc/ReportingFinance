@@ -90,19 +90,6 @@ export class EycTeamDetailsComponent implements OnInit {
     this.location.back();
   }
 
-
-  onSubmitEditTeamForm(form: FormGroup) {
-  }
-  cancelForm() {
-    this.showToastAfterEditUser = false;
-    // this.editTeamForm.patchValue({
-    //   first: this.teamInfo.userFirstName.trim(),
-    //   last: this.teamInfo.userLastName.trim(),
-    //   email: this.teamInfo.userEmail.trim()
-    // });
-    this.enableEditor = !this.enableEditor;
-  }
-
   enableEditForm() {
     this.enableEditor = !this.enableEditor;
   }
