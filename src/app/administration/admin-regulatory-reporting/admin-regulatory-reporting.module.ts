@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRegulatoryReportingComponent } from './components/admin-regulatory-reporting.component';
-import { MotifIconModule, MotifModalModule, MotifTabBarModule, MotifToastModule  } from '@ey-xd/ng-motif';
+import { MotifChipModule, MotifIconModule, MotifModalModule, MotifTabBarModule, MotifToastModule  } from '@ey-xd/ng-motif';
 import { MotifFormsModule,  MotifTableModule, MotifModule} from '@ey-xd/ng-motif';
 import { UsersComponent } from './../users/components/users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.com
     MotifFormsModule,
     MotifTableModule,
     MotifModalModule,
+    MotifChipModule,
     FormsModule,
     ReactiveFormsModule,
     MotifToastModule,

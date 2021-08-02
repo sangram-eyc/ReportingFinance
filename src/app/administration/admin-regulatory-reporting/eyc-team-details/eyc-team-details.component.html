@@ -38,7 +38,7 @@
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
-    <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
+    <lib-grid [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
       buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)">
@@ -49,5 +49,48 @@
         </svg>
       </div>
     </ng-template>
+
+    <motif-modal class="new-team-member-modal" [show]="addTeamMemberModal" (close)="closeTeamMemberModal()">
+      <motif-modal-header>
+        Add member to team
+      </motif-modal-header>
+      <motif-modal-body>
+    
+        <form [formGroup]="addTeamMemberForm">
+          <span class="description"> Select members to add to this team below
+          </span>
+          <div class="motif-row">
+            <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-form-field>
+                <label motifLabel class="select-label">Select</label>
+                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
+                  <motif-option [value]="member" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
+                  <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
+                </motif-select>
+                <motif-error *ngIf="
+                                  addTeamMemberForm.get('members').hasError('required') &&
+                                  addTeamMemberForm.get('members').touched">Please provide a team member!</motif-error>
+              </motif-form-field>
+            </div>
+            <!-- <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-chip-group>
+                <motif-chip *ngFor="let member of this.addTeamMemberForm.controls.members.value" [removeable]="true" (remove)="removeChipMember($event)">{{member.userFirstName}} {{member.userLastName}}</motif-chip>
+              </motif-chip-group>
+            </div> -->
+            <div class="motif-col-xs-4 motif-col-lg-12 add-member-note">
+              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span>
+            </div>
+          </div>
+        </form>
+        <!-- <span class="add-member-note"><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span> -->
+      </motif-modal-body>
+      <motif-modal-footer>
+        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeamMembers()"
+          [disabled]="addTeamMemberForm.invalid">Save</button>
+        <button motifButton class="approve-no" color="secondary" (click)="closeTeamMemberModal()">Cancel</button>
+      </motif-modal-footer>
+    </motif-modal>
+
+    <motif-toast [type]="'success'" [show]="showToastAfterAddTeamMember">Team members added successfully</motif-toast>
   </div>
 </div>

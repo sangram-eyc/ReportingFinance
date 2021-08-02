@@ -96,7 +96,7 @@ export class GridComponent implements OnInit {
   }
 
   openDialog() {
-    if(this.buttonText === "Add team") {
+    if(this.buttonText === "Add team" || this.buttonText === "Add member") {
       this.newEventToParent.emit();
       return;
     }

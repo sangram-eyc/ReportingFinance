@@ -9,6 +9,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
+import { UsersService } from '../../users/services/users.service';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -16,9 +17,14 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 })
 export class EycTeamDetailsComponent implements OnInit {
 
-  constructor(private location: Location,
-              private teamService: TeamsService,
-              private activatedRoute: ActivatedRoute,private dialog: MatDialog, ) { }
+  constructor(
+    private location: Location,
+    private teamService: TeamsService,
+    private userService: UsersService,
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+    private fb: FormBuilder
+  ) { }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -40,6 +46,11 @@ export class EycTeamDetailsComponent implements OnInit {
   teamsMemberData;
   displayCheckBox = true;
   showToastAfterDeleteTeams = false;
+  showToastAfterAddTeamMember;
+  addTeamMemberModal = false;
+  addTeamMemberForm: FormGroup;
+  users;
+  multiSelectValues = [];
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -48,6 +59,14 @@ export class EycTeamDetailsComponent implements OnInit {
     this.tabIn = 1;
     this.getTeamsData();
     this.getTeamMemberDetails();
+    this.getUsersList();
+    this.addTeamMemberForm = this._createTeamMembers();
+  }
+
+  private _createTeamMembers () {
+    return this.fb.group({
+      members: ['', [Validators.required]],
+    });
   }
 
   backtoTeamVIew() {
@@ -70,6 +89,14 @@ export class EycTeamDetailsComponent implements OnInit {
     this.enableEditor = !this.enableEditor;
   }
 
+  getUsersList() {
+    if(this.isLocal) {
+      this.userService.getUsersList().subscribe(resp => {
+        this.users = resp.data;
+      });
+    }
+  }
+
   getTeamsData() {
 
     // Below code will inly work,if it is a local environment reading data from json
@@ -89,12 +116,8 @@ export class EycTeamDetailsComponent implements OnInit {
         //     });
         // }
 
-
       });
     }
-
-
-
   }
 
   getTeamMemberDetails() {
@@ -107,12 +130,9 @@ export class EycTeamDetailsComponent implements OnInit {
 
       });
       this. createTeamsRowData();
-
     }
-
-
-
   }
+
   editAct($event) {
     return {
       ngTemplate: this.actionSection,
@@ -210,8 +230,68 @@ adminTabChange(selectedTab){
         }, 5000);
       }
     });
-  
-    
+
   }
+
+  addTeamMembers(event) {
+    this.addTeamMemberModal = true;
+  }
+
+  onSubmitNewTeamMembers() {
+    const obj = this.addTeamMemberForm.getRawValue();
+    this.addTeamMemberModal = false
+    // below code will change after api integration
+    const teamMembersToAdd = {
+      "members": obj.members,
+    }
+    const teamsList = this.teamsMemberData;
+    this.teamsMemberData = [];
+    teamsList.forEach(ele => {
+      this.teamsMemberData.push(ele);
+    });
+    console.log('TEAM MEMBERS TO ADD', teamMembersToAdd);
+    teamMembersToAdd.members.forEach((element, i) => {
+      this.teamsMemberData.push({
+        teamMemberId: this.teamsMemberData.length + i,
+        memberEmail: element.userEmail,
+        memberName: element.userFirstName + ' ' + element.userLastName
+      })
+    });
+    this.addTeamMemberForm.reset();
+    // this.addTeamMemberForm = this._createTeamMembers();
+    console.log('AFTER FORM RESET', this.addTeamMemberForm);
+    this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
+    setTimeout(() => {
+      this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
+    }, 5000);
+  }
+
+  closeTeamMemberModal() {
+    this.addTeamMemberModal = false;
+    this.addTeamMemberForm.reset();
+    this.multiSelectValues = null;
+  }
+
+  /**
+   * 
+   * Retry this method after upgrading motif version
+   */
+  removeChipMember(event, index) {
+    console.log(index);
+    console.log(this.multiSelectValues);
+    this.multiSelectValues.splice(index, 1);
+    this.multiSelectValues = [...this.multiSelectValues];
+    console.log('AFTER SPLICE', this.multiSelectValues);
+  }
+
+  logEvent(event: any, type: string, model: any) {
+    console.log(
+        `Select Component Type: ${type}`,
+        ' | $event output: ',
+        event,
+        ' | model value: ',
+        model
+    );
+}
 
 }
