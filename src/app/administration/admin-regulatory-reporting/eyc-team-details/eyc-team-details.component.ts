@@ -242,16 +242,14 @@ teamDuplicateCheck(event){
     this.editTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
   }
 }
-
+  
 cancelForm() {
   this.showToastAfterEditTeam = false;
-  this.presentRole = this.teamInfo.role === 'L1 Reviewer' ? this.presentRole = 1 : this.presentRole = 2;
   this.editTeamForm.patchValue({
     teamName: this.teamInfo.teamName.trim(),
-    role: this.presentRole,
+    // role: this.presentRole,
     description: this.teamInfo.description.trim()
   });
-  // this.editTeamForm.reset();
   this.enableEditor = !this.enableEditor;
 }
 
