@@ -142,6 +142,7 @@ export class GridComponent implements OnInit {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
     console.log(this.search);
+    console.log(this.rowData);
   }
 
   searchFilingValidation(event) {

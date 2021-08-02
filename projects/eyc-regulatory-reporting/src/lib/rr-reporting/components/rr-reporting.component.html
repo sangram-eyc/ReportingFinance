@@ -4,7 +4,7 @@
 
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
-        <lib-grid 
+        <lib-shared-grid 
             gridStyle="first"
             [columnDefs]="exceptionDefs" 
             [rowData]="exceptionData" 
@@ -14,9 +14,18 @@
             buttonPosition="left" 
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [defaultColDef]="exceptionDefaultColDef"
-        ></lib-grid>
+        ></lib-shared-grid>
+
+        <ng-template #commentExceptionTemplate let-row>
+            <div *ngIf="row.comments.length!==0" class="comments-background">
+                {{row.comments}}
+            </div>
+            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">
@@ -30,8 +39,6 @@
             buttonPosition="left" 
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [defaultColDef]="exceptionDefaultColDef"
         ></lib-shared-grid> -->
         <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" [modalMessage]="modalMessage" buttonPosition="left"></lib-grid> -->
         <div class="approve-button">

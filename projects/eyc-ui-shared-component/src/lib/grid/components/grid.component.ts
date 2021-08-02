@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
@@ -9,9 +9,9 @@ import { ModalComponent } from '../../modal/component/modal.component';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-
+  
   constructor(public dialog: MatDialog) { }
-
+  
   INPUT_VALIDATON_CONFIG = {
     SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
    }
@@ -22,11 +22,12 @@ export class GridComponent implements OnInit {
   searchNoDataAvilable;
   buttonModal = false;
 
-  @Input() gridStyle: 'first' | 'second' | 'third';
+  @Input() gridStyle = 'first';
   @Input() button = true;
   @Input() search = true;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
+  @Input() displayCheckBox;
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() submitFunction: () => void;
@@ -53,6 +54,9 @@ export class GridComponent implements OnInit {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  @Output() newEventToParent = new EventEmitter<string>();
+  gridHeadingCls;
+  gridContainerCls;
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -71,6 +75,15 @@ export class GridComponent implements OnInit {
         checkboxSelection: this.isFirstColumn
       }
     }
+    if(this.displayCheckBox) {
+      //this.buttonText = 'Add team';
+      this.selectedRows.length = 1;
+      this.gridHeadingCls = 'grid-heading-admin';
+      this.gridContainerCls = 'gridAdminContainer';
+    } else {
+      this.gridHeadingCls = 'grid-heading';
+      this.gridContainerCls = 'gridContainer';
+    }
   }
 
   async submit() {
@@ -84,6 +97,10 @@ export class GridComponent implements OnInit {
   }
 
   openDialog() {
+    if(this.buttonText === "Add team") {
+      this.newEventToParent.emit();
+      return;
+    }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -116,8 +133,10 @@ export class GridComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
-      return thisIsFirstColumn;
+      if(this.rowData){
+        const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+        return thisIsFirstColumn;
+      } 
     }
   }
 
@@ -125,6 +144,7 @@ export class GridComponent implements OnInit {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
     console.log(this.search);
+    console.log(this.rowData);
   }
 
   searchFilingValidation(event) {

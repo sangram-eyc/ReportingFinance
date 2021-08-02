@@ -7,6 +7,7 @@ import { UsersComponent } from './../users/components/users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
+import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
 import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.component';
 
 
@@ -32,7 +33,8 @@ import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.com
     MotifToastModule,
     HttpClientModule,
     MotifIconModule,
-    EycRegulatoryReportingModule
+    EycRegulatoryReportingModule,
+    EycUiSharedComponentModule
   ]
 })
 export class AdminRegulatoryReportingModule { }

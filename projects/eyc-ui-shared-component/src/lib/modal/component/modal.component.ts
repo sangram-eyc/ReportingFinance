@@ -32,12 +32,12 @@ export class ModalComponent implements OnInit {
       if(this.modalDetails.forms?.isSelect === true){
         this.modalForm = this.fb.group({
           assignTo: [''],
-          comment: ['', [Validators.required]],
+          comment: ['', [Validators.required, Validators.maxLength(250)]],
           files: ['']
         });
       } else {
         this.modalForm = this.fb.group({
-          comment: ['', [Validators.required]],
+          comment: ['', [Validators.required, Validators.maxLength(250)]],
           files: ['']
         });
       }

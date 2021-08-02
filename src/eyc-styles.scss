@@ -631,15 +631,14 @@ left: 0px !important;
   width: 50px;
   height: 50px;
   margin-top: -0.5em;
-
-  // border: 15px solid rgba(33, 150, 243, 1.0);
   border-radius: 100%;
   border-bottom-color: transparent;
  
 }
 
 .cdk-global-scrollblock {
-  top: 0px !important;
+  overflow: unset;
+  position: unset;
 }
 
 button.motif-select-trigger{
@@ -648,4 +647,8 @@ button.motif-select-trigger{
 
  .motif-input {
   font-family: 'EYInterstate' !important;
+}
+
+.mat-dialog-container  {
+  box-shadow: none !important;
 }

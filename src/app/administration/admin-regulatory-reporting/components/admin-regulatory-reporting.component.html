@@ -14,7 +14,7 @@
 
 <div *ngIf="tabIn == 1">
 
-    <lib-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
+    <lib-shared-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
@@ -42,7 +42,7 @@
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Team name (Required)</label>
-                  <input motifInput type="text" aria-label="Team name Form Field" formControlName="teamName" />
+                  <input motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" />
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
                                     addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
@@ -52,6 +52,8 @@
                   </motif-error>
                   <motif-error *ngIf="
                   addTeamForm.get('teamName').hasError('pattern')">Team name must contain only alphanumeric!
+                  </motif-error>
+                  <motif-error *ngIf="addTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
                   </motif-error>
                 </motif-form-field>
               </div>
@@ -69,7 +71,7 @@
               </div>
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
-                  <label motifLabel class="select-label">Assignment (Required)</label>
+                  <label motifLabel class="select-label">Assignment (Optional)</label>
                   <motif-select aria-label="Please select an option" [multiple]="true" formControlName="assignments">
                     <motif-option [value]="assignment" *ngFor="let assignment of assignments">{{assignment}}</motif-option>
                   </motif-select>

@@ -24,6 +24,7 @@ export class ClientReviewComponent implements OnInit {
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
+  modalMessage:any;
 
   status = {
     stage: 'Client Review',
@@ -34,7 +35,26 @@ export class ClientReviewComponent implements OnInit {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
+  exceptionDefs;
+  exceptionData;
+  exceptionDefaultColDef;
+  exceptionDetailCellRendererParams;
   rowData = [];
+  submitFunction;
+  submitTest;
+  exceptionModalConfig = {
+    width: '400px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "THIS IS A TEST!",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -42,9 +62,25 @@ export class ClientReviewComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
   commentTemplate: TemplateRef<any>;
+  @ViewChild('commentExceptionTemplate')
+  commentExceptionTemplate: TemplateRef<any>
 
   ngOnInit(): void {
-    
+    this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
+    this.submitTest = this.onSubmitTest.bind(this);
+  }
+
+  getExceptionReports() {
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.exceptionData = res['data'];
+      console.log(this.exceptionData);
+      this.createEntitiesRowData();
+      
+    },error=>{
+      this.exceptionData =[];
+      console.log("Client Review error");
+    });
+
   }
 
   getFilingEntities(){
@@ -69,6 +105,9 @@ export class ClientReviewComponent implements OnInit {
   }
 
   createEntitiesRowData(): void {
+    const customComparator = (valueA, valueB) => {
+      return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+    };
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -88,6 +127,8 @@ export class ClientReviewComponent implements OnInit {
           field: 'entityGroup',
           sortable: true,
           filter: true,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -97,7 +138,9 @@ export class ClientReviewComponent implements OnInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 300
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -133,10 +176,69 @@ export class ClientReviewComponent implements OnInit {
           sortable: true,
           filter: true,
           width: 155,
-        //   cellClass: params => {
-        //     return params.value === '' ? '' :'comments-background';
-        // }
-          
+        },
+      ];
+
+      this.exceptionDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dropdownTemplate,
+          },
+          field: 'approved',
+          headerName: '',
+          width: 70,
+          sortable: false,
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Type',
+          field: 'exceptionReportType',
+          sortable: true,
+          filter: true,
+          sort:'asc',
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Name',
+          field: 'exceptionReportName',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Resolved/Exception',
+          field: 'resolve_exception',
+          sortable: true,
+          filter: true,
+          width: 210,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          sortable: true,
+          filter: true,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentExceptionTemplate,
+          },
+          headerName: 'Comments',
+          field: 'comments',
+          sortable: true,
+          filter: true,
+          width: 155
         },
       ];
   }
@@ -161,6 +263,9 @@ export class ClientReviewComponent implements OnInit {
     this.tabs = $event;
     if(this.tabs == 2){
       this.getFilingEntities();
+    } else if (this.tabs == 1) {
+      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.getExceptionReports();
     }
   }
 
@@ -170,6 +275,11 @@ export class ClientReviewComponent implements OnInit {
     if (this.tabs == 2) {
       this.getFilingEntities();
     }
+  }
+
+  onSubmitTest() {
+    console.log('This is being called from the shared grid component');
+    console.log(this);
   }
 
   onSubmitApproveFilingEntities() {
@@ -212,7 +322,60 @@ export class ClientReviewComponent implements OnInit {
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
-        description: `Please add your comment below. You also have the option to assign to a user.`,
+        description: `Please add your comment below.`,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+        
+      } else {
+        console.log(result);
+      }
+    });
+  }
+
+  addCommentToException() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
         forms: {
           isSelect: false,
           selectDetails: {

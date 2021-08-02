@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { environment } from './../../../../environments/environment';
-import {IS_TEAM_DETAILS_EDITABLE} from '../../../services/settings-helpers';
+import {IS_TEAM_DETAILS_EDITABLE,customComparator} from '../../../services/settings-helpers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -17,14 +17,15 @@ import { UsersService } from '../../users/services/users.service';
 })
 export class EycTeamDetailsComponent implements OnInit {
 
-  constructor(
-    private location: Location,
-    private teamService: TeamsService,
-    private userService: UsersService,
-    private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog,
-    private fb: FormBuilder
-  ) { }
+
+  constructor(private location: Location,
+              private teamService: TeamsService,
+              private activatedRoute: ActivatedRoute,
+              private userService: UsersService,
+              private dialog: MatDialog,
+              private formBuilder: FormBuilder) {
+                this.editTeamForm = this._updateTeam();
+               }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -34,10 +35,22 @@ export class EycTeamDetailsComponent implements OnInit {
   curentTeamId;
   enableEditor = false;
   editTeamForm: FormGroup;
-  showToastAfterEditUser = false;
+  showToastAfterEditTeam = false;
   fullname;
   teamResp: any[] = [];
+  teamsData;
   is_editable = IS_TEAM_DETAILS_EDITABLE;
+  roleList =  [
+        {
+            role: 1,
+            roleName: 'L1 Reviewer'
+        },
+        {
+            role: 2,
+            roleName: 'L2 Reviewer',
+        }
+
+    ];
   columnDefs;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -46,11 +59,14 @@ export class EycTeamDetailsComponent implements OnInit {
   teamsMemberData;
   displayCheckBox = true;
   showToastAfterDeleteTeams = false;
+
   showToastAfterAddTeamMember;
   addTeamMemberModal = false;
   addTeamMemberForm: FormGroup;
   users;
   multiSelectValues = [];
+  presentRole;
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -64,14 +80,16 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   private _createTeamMembers () {
-    return this.fb.group({
+    return this.formBuilder.group({
       members: ['', [Validators.required]],
     });
   }
 
   backtoTeamVIew() {
+    sessionStorage.setItem('adminTab', '1');
     this.location.back();
   }
+
 
   onSubmitEditTeamForm(form: FormGroup) {
   }
@@ -107,27 +125,27 @@ export class EycTeamDetailsComponent implements OnInit {
           this.teamsListArr.push(item);
         });
           this.teamInfo =  this.teamsListArr.filter(task => task.teamId == this.curentTeamId)[0];
-        // if(this.teamInfo)
-        // {
-        //   this.editTeamForm.patchValue({
-        //     teamName: "this.teamInfo.teamName.trim()",
-        //     teamRole: "this.teamInfo.role.trim()",
-
-        //     });
-        // }
+          this.teamsListArr.splice( this.teamsListArr.findIndex(item => item.teamName === this.teamInfo.teamName),1);
+          this.presentRole = this.teamInfo.role === 'L1 Reviewer' ? this.presentRole = 1 : this.presentRole = 2;
+          if (this.teamInfo)
+        {
+          this.editTeamForm.patchValue({
+            teamName: this.teamInfo.teamName.trim(),
+            role: this.presentRole,
+            description: this.teamInfo.description.trim()
+            });
+        }
 
       });
     }
+
   }
 
   getTeamMemberDetails() {
-
     // Below code will inly work,if it is a local environment reading data from json
     if (this.isLocal) {
       this.teamService.getTeamMemberList().subscribe(resp => {
         this.teamsMemberData = resp.data;
-
-
       });
       this. createTeamsRowData();
     }
@@ -149,7 +167,9 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 370
+        width: 370,
+        sort:'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -159,7 +179,9 @@ export class EycTeamDetailsComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 370
+        width: 370,
+        sort:'asc',
+        comparator: customComparator
       },
       {
         width: 80,
@@ -176,61 +198,101 @@ export class EycTeamDetailsComponent implements OnInit {
 }
 
 adminTabChange(selectedTab){
-
   this.tabIn = selectedTab;
-  if (this.tabIn === 1) {
-    this.displayCheckBox = false;
-  // this.getTeamMemberDetails();
-    setTimeout(() => {
-      this.displayCheckBox = true;
-    }, 200);
+}
+
+private _updateTeam() {
+  return this.formBuilder.group({
+    teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
+    role: ['', [Validators.required]],
+    description: ['', Validators.maxLength(250)],
+  });
+}
+
+public noWhitespaceValidator(control: FormControl) {
+  if (control.value.length === 0) {
+    return false;
   } else {
-    this.displayCheckBox = false;
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
   }
 }
 
-// private _updateUser() {
-//   return this.formBuilder.group({
-//     first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-//     last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-//     email: ['', [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z.]+\\.[a-zA-Z]{2,6}'), Validators.maxLength(250)]]
-//   });
-// }
+
+
+onSubmitEditTeamForm(form: FormGroup) {
+  const obj = this.editTeamForm.getRawValue();
+  
+
+  
+
+  if (this.editTeamForm.valid) {
+    this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
+    this.enableEditor = !this.enableEditor;
+    setTimeout(() => {
+    this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
+    }, 5000);
+  }
+}
+
+teamDuplicateCheck(event){
+  let teamDupcheck = this.teamsListArr.findIndex(item => item.teamName === event);
+  if(teamDupcheck != -1) {
+    this.editTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
+  }
+}
+
+cancelForm() {
+  this.showToastAfterEditTeam = false;
+  this.presentRole = this.teamInfo.role === 'L1 Reviewer' ? this.presentRole = 1 : this.presentRole = 2;
+  this.editTeamForm.patchValue({
+    teamName: this.teamInfo.teamName.trim(),
+    role: this.presentRole,
+    description: this.teamInfo.description.trim()
+  });
+  // this.editTeamForm.reset();
+  this.enableEditor = !this.enableEditor;
+}
+
+enableEditForm() {
+  this.enableEditor = !this.enableEditor;
+}
+
 
   deleteTeamMember(row){
 
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
       data: {
-        type: "Confirmation",
-        header: "Delete team member",
-        description: "Are you sure you want to delete this team member from the team?",
+        type: 'Confirmation',
+        header: 'Delete team member',
+        description: 'Are you sure you want to delete this team member from the team?',
         footer: {
-          style: "start",
-          YesButton: "Yes",
-          NoButton: "No"
+          style: 'start',
+          YesButton: 'Yes',
+          NoButton: 'No'
         }
       }
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if(result.button == 'Yes') {
-  
+      if (result.button == 'Yes') {
+
       const teamsList = this.teamsMemberData;
       this.teamsMemberData = [];
-      teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId),1);
+      teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId), 1);
       teamsList.forEach(ele => {
         this.teamsMemberData.push(ele);
       });
-      
-        this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
-        setTimeout(() => {
+
+      this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+      setTimeout(() => {
           this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
         }, 5000);
       }
     });
-
   }
 
   addTeamMembers(event) {
@@ -270,6 +332,7 @@ adminTabChange(selectedTab){
     this.addTeamMemberModal = false;
     this.addTeamMemberForm.reset();
     this.multiSelectValues = null;
+
   }
 
   /**

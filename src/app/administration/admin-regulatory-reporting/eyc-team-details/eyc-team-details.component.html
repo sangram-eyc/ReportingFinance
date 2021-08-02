@@ -16,19 +16,88 @@
       <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
     </div>
   </div>
-  <div>
-    <span class="field-header">Team Name</span>
+
+  <div class="team-detailscontent-container" *ngIf="!enableEditor && teamInfo">
+   
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-5 lablel-heading">
+            Team Name
+          </div>
+          <div class="col-md-7  lablel-heading">
+            Description
+          </div>
+          <div class="col-md-5 label-value">
+            {{teamInfo?.teamName}} 
+          </div>
+          <div class="col-md-7  label-value">
+            {{teamInfo?.description}}
+          </div>
+          <div class="col-md-12 lablel-heading cust-col-role">
+            Role
+          </div>
+          <div class="col-md-5"></div>
+          <div class="col-md-5 label-value cust-col-role-value">
+            {{teamInfo?.role}}
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+    </div>
+
   </div>
-  <div class="header-comp">
-    <span class="data-header">{{teamInfo?.teamName}}</span>
+
+  <div class="team-detailscontent-container" *ngIf="enableEditor && teamInfo">
+  
+    <div class="container-fluid">
+      <form [formGroup]="editTeamForm" *ngIf="editTeamForm">
+        <div class="row">
+          <div class="col-md-5 lablel-heading">
+            Team Name
+          </div>
+          <div class="col-md-7 lablel-heading">
+            Description
+          </div>
+          <div class="col-md-5">
+            <motif-form-field>
+              <input motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('pattern')">Team name must be alpha numeric!
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters long</motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-7">
+            <motif-form-field>
+              <textarea motifInput class="motif-textarea" formControlName="description"></textarea>
+              <motif-error *ngIf="editTeamForm.get('description').hasError('maxlength')">Description can be max 250 characters long
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-5 lablel-heading cust-col-role">
+            Role
+          </div>
+          <div class="col-md-5"></div>
+          <div class="col-md-5 cust-col-role-value">
+            <motif-form-field>
+              <motif-select formControlName="role" aria-label="Aria Label" >
+                <motif-option *ngFor="let item of roleList;index as i;" [value]="item.role">
+                  {{item.roleName}}</motif-option>
+              </motif-select>
+            </motif-form-field>
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+      </form>
+    </div>
+
   </div>
-  <div *ngIf="teamInfo">
-    <span class="field-header">Role</span>
-  </div>
-  <div class="header-comp" *ngIf="teamInfo">
-    <span class="data-header">{{teamInfo?.role}}</span>
-  </div>
-  <motif-toast [type]="'success'" [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
+
+  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!</motif-toast>
   <motif-tab-bar>
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
@@ -38,8 +107,15 @@
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
+
     <lib-grid [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
       buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
+
+    <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
+      buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid> -->
+
+    <!-- <lib-shared-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-shared-grid> -->
+
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -6,6 +6,7 @@ import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regu
 import { TeamsService } from './../services/teams.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {customComparator} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -49,7 +50,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return this.fb.group({
       teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$')]],
       role: ['', [Validators.required]],
-      assignments: ['', [Validators.required]],
+      assignments: [''],
       description: ['', [Validators.maxLength(250)]]
     });
   }
@@ -77,8 +78,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.createTeamsRowData();
   }
 
-
+  
   createTeamsRowData(): void {
+   
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -88,7 +90,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 350
+        width: 350,
+        sort: 'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -98,7 +102,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 200
+        width: 200,
+        sort: 'asc',
+        comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -108,7 +114,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 150
+        width: 150,
+        
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -189,6 +196,14 @@ editTeams(row) {
       "assignments": obj.assignments.length,
       "members": 2
     }
+    const addedTeam = {
+      teamName:obj.teamName,
+      role: obj.role,
+      assignments: obj.assignments,
+      description: escape(obj.description)
+    }
+    console.log(addedTeam);
+    
     const teamsList = this.teamsData;
     this.teamsData = [];
     teamsList.push(team);
@@ -206,6 +221,13 @@ editTeams(row) {
   closeTeamModal() {
     this.addTeamModal = false;
     this.addTeamForm.reset();
+  }
+
+  teamDuplicateCheck(event){
+    let teamDupcheck = this.teamsData.findIndex(item => item.teamName === event);
+    if(teamDupcheck != -1) {
+      this.addTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
+    }
   }
 
 ngOnDestroy() {

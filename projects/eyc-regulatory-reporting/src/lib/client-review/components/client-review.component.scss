@@ -87,14 +87,14 @@
             box-shadow: none !important;
         }
         
-    }
-    .dropdownTemplate {
-        display: flex;
-        .complete {
-            margin-right: 4px;
-            ::ng-deep svg {
-                fill: #168736;
-            }
+    }  
+}
+.dropdownTemplate {
+    display: flex;
+    .complete {
+        margin-right: 4px;
+        ::ng-deep svg {
+            fill: #168736;
         }
     }
 }
