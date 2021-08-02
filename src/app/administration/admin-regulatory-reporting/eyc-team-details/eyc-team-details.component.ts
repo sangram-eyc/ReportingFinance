@@ -240,9 +240,9 @@ cancelForm() {
   this.enableEditor = !this.enableEditor;
 }
 
-enableEditForm() {
-  this.enableEditor = !this.enableEditor;
-}
+// enableEditForm() {
+//   this.enableEditor = !this.enableEditor;
+// }
 
 
   deleteTeamMember(row){
