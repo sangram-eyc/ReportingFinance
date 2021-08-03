@@ -314,31 +314,31 @@ export class RrReportingComponent implements OnInit {
       "period": this.filingDetails.period,
       "stage": "Reporting"
     };
-    // this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
-    //   res['data'].forEach(ele => {
-    //     this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
-    //   });
-    //   this.createEntitiesRowData();
-    //   this.selectedRows = [];
-    //   this.filingService.invokeFilingDetails();
-    //   this.approveFilingEntitiesModal = false;
-    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    //   setTimeout(() => {
-    //     this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    //   }, 5000);
-    // });
-    this.selectedRows.forEach(ele => {
-      this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
-    });
-    this.createEntitiesRowData();
-    this.selectedRows = [];
-
-    this.filingService.invokeFilingDetails();
-    this.approveFilingEntitiesModal = false;
-    this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    setTimeout(() => {
+    this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
+      res['data'].forEach(ele => {
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+      });
+      this.createEntitiesRowData();
+      this.selectedRows = [];
+      this.filingService.invokeFilingDetails();
+      this.approveFilingEntitiesModal = false;
       this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    }, 5000);
+      setTimeout(() => {
+        this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+      }, 5000);
+    });
+    // this.selectedRows.forEach(ele => {
+    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+    // });
+    // this.createEntitiesRowData();
+    // this.selectedRows = [];
+
+    // this.filingService.invokeFilingDetails();
+    // this.approveFilingEntitiesModal = false;
+    // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    // setTimeout(() => {
+    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    // }, 5000);
   }
 
   onSubmitApproveExceptionReports() {
