@@ -8,98 +8,112 @@
         "fundCode": "19614011",
         "fundId": "PV102245",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": "Type1"
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EMERGING MARKETS DEBT PORTFOLIO",
         "fundCode": null,
         "fundId": "PV100025",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": "Type"
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS GLOBAL FUTURE TECHNOLOGY LEADERS EQUITY PORTFOLIO",
         "fundCode": "19614012",
         "fundId": "PV103491",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EMERGING MARKETS EQUITY PORTFOLIO",
         "fundCode": null,
         "fundId": "PV100026",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EMERGING MARKETS CORPORATE BOND PORTFOLIO",
         "fundCode": "19614013",
         "fundId": "PV101526",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS US CORE® EQUITY PORTFOLIO",
         "fundCode": null,
         "fundId": "PV100045",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": "Type3"
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EMERGING MARKETS MULTI-ASSET PORTFOLIO",
         "fundCode": "19614014",
         "fundId": "PV102894",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": "Type6"
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS ASIA HIGH YIELD BOND PORTFOLIO",
         "fundCode": null,
         "fundId": "PV103633",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS GLOBAL CORE® EQUITY PORTFOLIO",
         "fundCode": "19614015",
         "fundId": "PV100259",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EUROPE CORE® EQUITY PORTFOLIO",
         "fundCode": "19614011",
         "fundId": "PV100011",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS GLOBAL FUTURE HEALTH CARE EQUITY PORTFOLIO",
         "fundCode": null,
         "fundId": "PV103666",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS GLOBAL MILLENNIALS EQUITY PORTFOLIO",
         "fundCode": "19614020",
         "fundId": "PV101781",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": "Type6"
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS EMERGING MARKETS CORE® EQUITY PORTFOLIO",
         "fundCode": null,
         "fundId": "PV100735",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       },
       {
         "fundName": "GOLDMAN SACHS FUNDS - GOLDMAN SACHS GLOBAL HIGH YIELD PORTFOLIO",
         "fundCode": "19614019",
         "fundId": "PV100031",
         "businessUnit": null,
-        "adviser": "Goldman Sachs Asset Management Fund Services Ltd"
+        "adviser": "Goldman Sachs Asset Management Fund Services Ltd",
+        "filerType": null
       }
     ],
     "error": null

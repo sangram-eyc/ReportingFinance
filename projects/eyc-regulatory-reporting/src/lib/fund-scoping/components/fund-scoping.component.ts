@@ -58,7 +58,8 @@ export class FundScopingComponent implements OnInit {
           code: item.fundCode,
           id: item.fundId,
           adviser: item.adviser,
-          businessUnit: item.businessUnit
+          businessUnit: item.businessUnit,
+          filerType: item.filerType
         };
         this.funds.push(eachitem);
       });
@@ -113,7 +114,8 @@ export class FundScopingComponent implements OnInit {
         id: fund.id,
         code: fund.code,
         adviser: fund.adviser,
-        businessUnit: fund.businessUnit
+        businessUnit: fund.businessUnit,
+        filerType: fund.filerType
       })
     });
     this.columnDefs = [
@@ -174,6 +176,17 @@ export class FundScopingComponent implements OnInit {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Business Unit',
         field: 'businessUnit',
+        sortable: true,
+        filter: true,
+        sort:'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Filing Type',
+        field: 'filerType',
         sortable: true,
         filter: true,
         sort:'asc',
