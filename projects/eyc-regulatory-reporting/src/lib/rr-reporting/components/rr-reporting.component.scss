@@ -133,6 +133,10 @@
         font-family: EYInterstate !important;
         font-style: normal !important;
   }
+
+  ::ng-deep .mat-dialog-container {
+      border-radius: 0;
+  }
   
   ::ng-deep .motif-modal-content {
     width: 400px !important;
