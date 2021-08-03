@@ -210,10 +210,6 @@ public noWhitespaceValidator(control: FormControl) {
 
 onSubmitEditTeamForm(form: FormGroup) {
   const obj = this.editTeamForm.getRawValue();
-  
-
-  
-
   if (this.editTeamForm.valid) {
     this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
     this.enableEditor = !this.enableEditor;
@@ -239,10 +235,6 @@ cancelForm() {
   });
   this.enableEditor = !this.enableEditor;
 }
-
-// enableEditForm() {
-//   this.enableEditor = !this.enableEditor;
-// }
 
 
   deleteTeamMember(row){
