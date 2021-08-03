@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -32,12 +32,12 @@ export class ModalComponent implements OnInit {
       if(this.modalDetails.forms?.isSelect === true){
         this.modalForm = this.fb.group({
           assignTo: [''],
-          comment: ['', [Validators.required, Validators.maxLength(250)]],
+          comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator]],
           files: ['']
         });
       } else {
         this.modalForm = this.fb.group({
-          comment: ['', [Validators.required, Validators.maxLength(250)]],
+          comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator]],
           files: ['']
         });
       }
@@ -70,5 +70,15 @@ export class ModalComponent implements OnInit {
     this.modalForm.patchValue({
       files: this.filesList
     })
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    if (control.value.length === 0) {
+      return false;
+    } else {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    }
   }
 }
