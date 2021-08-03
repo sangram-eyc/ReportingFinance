@@ -9,11 +9,12 @@
             [columnDefs]="exceptionDefs" 
             [rowData]="exceptionData" 
             rowSelection="multiple" 
-            [submitFunction]="submitTest" 
+            [submitFunction]="submitException" 
             [modalMessage]="modalMessage" 
             buttonPosition="left" 
             [masterDetail]="true"
             [modalConfig]="exceptionModalConfig"
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)"
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>

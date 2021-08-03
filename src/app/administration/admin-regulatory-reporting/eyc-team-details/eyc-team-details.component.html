@@ -108,13 +108,7 @@
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
 
-    <lib-grid [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
-      buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid>
-
-    <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText]="'Add member'" rowSelection="multiple"
-      buttonPosition="right" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-grid> -->
-
-    <!-- <lib-shared-grid [columnDefs]="columnDefs" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-shared-grid> -->
+    <lib-shared-grid [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)">

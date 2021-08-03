@@ -23,6 +23,7 @@ export class RrReportingComponent implements OnInit {
 
   tabs = 2;
   selectedRows = [];
+  exceptionReportRows;
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
   modalMessage:any;
@@ -44,17 +45,18 @@ export class RrReportingComponent implements OnInit {
   exceptionDetailCellRendererParams;
   rowData = [];
   submitFunction;
+  submitException;
   submitTest;
   exceptionModalConfig = {
-    width: '400px',
+    width: '550px',
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "THIS IS A TEST!",
+      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
       footer: {
         style: "start",
-        YesButton: "Yes",
-        NoButton: "No"
+        YesButton: "Continue",
+        NoButton: "Cancel"
       }
     }
   };
@@ -71,6 +73,7 @@ export class RrReportingComponent implements OnInit {
   ngOnInit(): void {
 
    this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
+   this.submitException = this.onSubmitApproveExceptionReports.bind(this);
    this.submitTest = this.onSubmitTest.bind(this);
    console.log(this.filingDetails);
   }
@@ -308,31 +311,44 @@ export class RrReportingComponent implements OnInit {
       "period": this.filingDetails.period,
       "stage": "Reporting"
     };
-    this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
-      res['data'].forEach(ele => {
-        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
-      });
-      this.createEntitiesRowData();
-      this.selectedRows = [];
-      this.filingService.invokeFilingDetails();
-      this.approveFilingEntitiesModal = false;
-      this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-      setTimeout(() => {
-        this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-      }, 5000);
-    });
-    // this.selectedRows.forEach(ele => {
-    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
-    // });
-    // this.createEntitiesRowData();
-    // this.selectedRows = [];
-
-    // this.filingService.invokeFilingDetails();
-    // this.approveFilingEntitiesModal = false;
-    // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    // setTimeout(() => {
+    // this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
+    //   res['data'].forEach(ele => {
+    //     this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+    //   });
+    //   this.createEntitiesRowData();
+    //   this.selectedRows = [];
+    //   this.filingService.invokeFilingDetails();
+    //   this.approveFilingEntitiesModal = false;
     //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    // }, 5000);
+    //   setTimeout(() => {
+    //     this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    //   }, 5000);
+    // });
+    this.selectedRows.forEach(ele => {
+      this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+    });
+    this.createEntitiesRowData();
+    this.selectedRows = [];
+
+    this.filingService.invokeFilingDetails();
+    this.approveFilingEntitiesModal = false;
+    this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    setTimeout(() => {
+      this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
+    }, 5000);
+  }
+
+  onSubmitApproveExceptionReports() {
+    console.log(this.exceptionReportRows);
+    this.exceptionReportRows.forEach(ele => {
+      this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    });
+    this.createEntitiesRowData();
+  }
+
+  exceptionReportRowsSelected(event) {
+    console.log(event);
+    this.exceptionReportRows = event;
   }
 
   addComment() {

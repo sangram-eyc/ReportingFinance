@@ -55,6 +55,7 @@ export class GridComponent implements OnInit {
   @Input() pagination = false;
   @Input() paginationSize = 10;
   @Output() newEventToParent = new EventEmitter<string>();
+  @Output() selectedRowEmitter = new EventEmitter<any[]>();
   gridHeadingCls;
   gridContainerCls;
 
@@ -87,24 +88,32 @@ export class GridComponent implements OnInit {
   }
 
   async submit() {
+    console.log('CALLING SUBMIT SHARED GRID');
     await this.submitFunction();
     this.selectedRows = [];
+    this.selectedRowEmitter.emit(this.selectedRows);
     this.buttonModal = false;
+    this.showToastAfterSubmit = !this.showToastAfterSubmit;
+    setTimeout(() => {
       this.showToastAfterSubmit = !this.showToastAfterSubmit;
-      setTimeout(() => {
-        this.showToastAfterSubmit = !this.showToastAfterSubmit;
-      }, 5000);
+    }, 5000);
   }
 
   openDialog() {
-    if(this.buttonText === "Add team") {
+    if(this.buttonText === "Add team" || this.buttonText === "Add member") {
       this.newEventToParent.emit();
       return;
     }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
-
+    console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
+      if(result.button === "Submit" || result.button === "Continue") {
+        console.log('Calling Submit ...');
+        this.submit();
+      } else {
+        console.log(result);
+      }
     });
   }
 
@@ -119,6 +128,7 @@ export class GridComponent implements OnInit {
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows =selectedArr.filter(item => item.approved === false);
+    this.selectedRowEmitter.emit(this.selectedRows);
     if(this.selectedRows.length === 0){
       this.gridApi.deselectAll();
     }
