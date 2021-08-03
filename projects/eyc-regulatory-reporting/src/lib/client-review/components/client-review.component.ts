@@ -199,7 +199,10 @@ export class ClientReviewComponent implements OnInit {
           sortable: true,
           filter: true,
           sort:'asc',
-          comparator: customComparator
+          comparator: customComparator,
+          autoHeight: true,
+         wrapText: true,
+         width: 300
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
