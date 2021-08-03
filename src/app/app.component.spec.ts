@@ -35,7 +35,6 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   // it( `toggleSubMenu`, () => {
   //   component.toggleSubMenu('managed-submenu');
   //   const x = document.getElementById("managed-submenu");
