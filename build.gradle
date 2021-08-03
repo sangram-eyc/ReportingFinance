@@ -36,6 +36,12 @@ task buildLibrary(type: NpmTask) {
   args = ['run', 'buildLibrary']
   
 }
+
+task builddataintake(type: NpmTask) {
+  println "Building Reg Library"
+  args = ['run', 'eyc-data-intake']
+  
+}
 task build(type: NpmTask) {
   println "Building UI"
   args = ['run', 'buildWithLocalHref']
