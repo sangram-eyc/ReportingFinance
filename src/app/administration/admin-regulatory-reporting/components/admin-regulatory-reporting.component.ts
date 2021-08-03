@@ -5,7 +5,7 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {customComparator} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
@@ -48,7 +48,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   private _createTeam () {
     return this.fb.group({
-      teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$')]],
+      teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
       role: ['', [Validators.required]],
       assignments: [''],
       description: ['', [Validators.maxLength(250)]]
@@ -234,4 +234,13 @@ ngOnDestroy() {
   sessionStorage.removeItem("adminTab");
 }
 
+public noWhitespaceValidator(control: FormControl) {
+  if (control.value.length === 0) {
+    return false;
+  } else {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
+}
 }
