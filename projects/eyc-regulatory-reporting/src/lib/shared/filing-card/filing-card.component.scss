@@ -228,7 +228,7 @@
         }
     }
     .only-period-ellipsis {
-        display: flex;
+        // display: flex;
     }
     
     ::ng-deep {
@@ -280,11 +280,49 @@
             display: none;
         }
     }
+    @media screen and (min-width: 300px) {
+        
+       }
+      @media screen and (min-width: 1000px) {
+       
+      }
+      @media screen and (min-width: 1200px) {
+         span.filing-name.ellipsis {
+            width: 200px !important;
+        }
+        span.filing-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 1950px) {
+        span.filing-name.ellipsis {
+            width: 241px !important;
+        }
+        span.filing-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 2600px) {
+        
+       }
+      
+       @media screen and (min-width: 2800px) {
+        
+       }   
     
-    
+       @media screen and (min-width: 850px) and (max-width: 1000px) {
+        span.filing-name.ellipsis {
+            width: 230px !important;
+        }
+        span.filing-name.ellipsis-period {
+            width: 200px !important;
+        }
+    }
 }
 
-@media screen and (min-width: 990px) and (max-width: 1060px) {
+@media screen and (min-width: 990px) and (max-width: 1070px) {
     .filing-wrapper .motif-card .motif-card-header .filing-date-due {
         font-size: 10px;
     }
