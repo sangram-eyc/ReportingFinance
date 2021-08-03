@@ -55,6 +55,8 @@
                   </motif-error>
                   <motif-error *ngIf="addTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
                   </motif-error>
+                  <motif-error *ngIf="addTeamForm.get('teamName').hasError('whitespace') &&
+                  addTeamForm.get('teamName').touched">Please enter valid data</motif-error>
                 </motif-form-field>
               </div>
               <div class="motif-col-xs-4 motif-col-lg-6">
