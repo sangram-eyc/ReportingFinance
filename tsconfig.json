@@ -30,6 +30,10 @@
         "dist/eyc-ui-shared-component/eyc-ui-shared-component",
         "dist/eyc-ui-shared-component",
         "projects/eyc-ui-shared-component/src/lib*"
+      ],
+      "eyc-data-intake": [
+        "dist/eyc-data-intake/eyc-data-intake",
+        "dist/eyc-data-intake"
       ]
     },
     "resolveJsonModule": true,

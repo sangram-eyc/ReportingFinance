@@ -267,6 +267,46 @@
           }
         }
       }
+    },
+    "eyc-data-intake": {
+      "projectType": "library",
+      "root": "projects/eyc-data-intake",
+      "sourceRoot": "projects/eyc-data-intake/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/eyc-data-intake/tsconfig.lib.json",
+            "project": "projects/eyc-data-intake/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/eyc-data-intake/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/eyc-data-intake/src/test.ts",
+            "tsConfig": "projects/eyc-data-intake/tsconfig.spec.json",
+            "karmaConfig": "projects/eyc-data-intake/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/eyc-data-intake/tsconfig.lib.json",
+              "projects/eyc-data-intake/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "eyc-ServiceEngine-UI",
