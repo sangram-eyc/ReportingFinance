@@ -12,3 +12,4 @@ export * from './lib/modal/component/modal.component';
 
 export * from './lib/grid/grid.module';
 export * from './lib/grid/components/grid.component';
+export * from './lib/services/custom-global.service';

@@ -3,7 +3,7 @@ import { RegulatoryReportingFilingService } from '../services/regulatory-reporti
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/rr-config-helper';
-
+import { CustomGlobalService } from 'eyc-ui-shared-component';
 @Component({
   selector: 'lib-regulatory-reporting-filing',
   templateUrl: './regulatory-reporting-filing.component.html',
@@ -13,7 +13,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
 
   tabIn;
   constructor(
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    private customglobalService: CustomGlobalService
   ) { }
 
   activeFilings: any[] = [];
@@ -104,6 +105,7 @@ export class RegulatoryReportingFilingComponent implements OnInit {
         this.activeFilings.push(eachitem);
         this.activeReports.push(eachitem);
       });
+      this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
       this.createHistoryRowData();
     });
   }
@@ -244,17 +246,26 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     }
   }
 
-  sortByDueDate(a, b) {
-    let date1 = new Date(a.dueDate)
-    let date2 = new Date(b.dueDate)
-    if (date1 < date2) {
-      return 1;
-    } else if (date1 > date2) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }
+  // sortByDueDate(a, b) {
+  //   let date1 = new Date(a.dueDate)
+  //   let date2 = new Date(b.dueDate)
+  //   if (date1 > date2) {
+  //     return 1;
+  //   } else if (date1 < date2) {
+  //     return -1;
+  //   } else {
+  //     let filing1 = a.filingName.toLowerCase();
+  //     let filing2 = b.filingName.toLowerCase();
+  //     if (filing1 > filing2) {
+  //       return 1;
+  //     } else if (filing1 < filing2) {
+  //       return -1;
+  //     } else {
+  //     console.log(a, b);
+  //     return 0;
+  //     }
+  //   }
+  // }
 
   formatDate(timestamp) {
     let due = new Date(timestamp);
