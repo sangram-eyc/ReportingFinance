@@ -52,7 +52,7 @@
         </div>
     </div> -->
     <div class="row">
-        <div class="each-card" *ngFor="let filing of activeFilings.sort(sortByDueDate)">
+        <div class="each-card" *ngFor="let filing of activeFilings">
             <app-filing-card [filingData]="filing"></app-filing-card>
         </div>
     </div>
