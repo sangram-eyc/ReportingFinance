@@ -18,9 +18,9 @@ export class RrReportingService {
   }
 
   getfilingEntities(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}`);
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}`);
     // After backend API up will remove above line and uncomment below line
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}&filingName=${filingName}&period=${period}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}&filingName=${filingName}&period=${period}`);
   }
 
   approvefilingEntities(data) {
