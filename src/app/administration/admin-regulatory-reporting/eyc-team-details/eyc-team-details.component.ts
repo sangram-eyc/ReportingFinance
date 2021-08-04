@@ -258,8 +258,9 @@ cancelForm() {
       if (result.button == 'Yes') {
 
       const teamsList = this.teamsMemberData;
+
       this.teamsMemberData = [];
-      teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId), 1);
+      teamsList.splice(teamsList.findIndex(item => item.teamMemberId === row.teamMemberId), 1);
       teamsList.forEach(ele => {
         this.teamsMemberData.push(ele);
       });
