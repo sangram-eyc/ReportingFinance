@@ -64,6 +64,7 @@ export class EycTeamDetailsComponent implements OnInit {
   addTeamMemberModal = false;
   addTeamMemberForm: FormGroup;
   users;
+  allUsers = []
   multiSelectValues = [];
   presentRole;
 
@@ -75,7 +76,7 @@ export class EycTeamDetailsComponent implements OnInit {
     this.tabIn = 1;
     this.getTeamsData();
     this.getTeamMemberDetails();
-    this.getUsersList();
+    // this.getUsersList();
     this.addTeamMemberForm = this._createTeamMembers();
   }
 
@@ -97,7 +98,8 @@ export class EycTeamDetailsComponent implements OnInit {
   getUsersList() {
     if(this.isLocal) {
       this.userService.getUsersList().subscribe(resp => {
-        this.users = resp.data;
+        this.allUsers = resp.data
+        this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
       });
     }
   }
@@ -132,6 +134,7 @@ export class EycTeamDetailsComponent implements OnInit {
     // Below code will inly work,if it is a local environment reading data from json
     if (this.isLocal) {
       this.teamService.getTeamMemberList().subscribe(resp => {
+        this.getUsersList();
         this.teamsMemberData = resp.data;
       });
       this. createTeamsRowData();
@@ -264,6 +267,7 @@ cancelForm() {
       teamsList.forEach(ele => {
         this.teamsMemberData.push(ele);
       });
+      this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
 
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
@@ -297,6 +301,7 @@ cancelForm() {
         memberName: element.userFirstName + ' ' + element.userLastName
       })
     });
+    this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
     this.addTeamMemberForm.reset();
     // this.addTeamMemberForm = this._createTeamMembers();
     console.log('AFTER FORM RESET', this.addTeamMemberForm);

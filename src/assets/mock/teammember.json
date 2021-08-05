@@ -16,12 +16,6 @@
             
         },
         {
-            "teamMemberId": 551,
-            "memberEmail": "Debabrata.dash@gds.ey.com",
-            "memberName": "Koteswararao Yarlagadda"
-            
-        },
-        {
             "teamMemberId": 553,
             "memberEmail": "debabrata.dash@gds.ey.com",
             "memberName": "Debabrata Dash"
@@ -38,18 +32,6 @@
             "memberEmail": "Stephen.A.Rienzi@ey.com",
             "memberName": "Stephen Rienzi"
             
-        },
-        {
-            "teamMemberId": 593,
-            "memberEmail": "as222@gmail.com",
-            "memberName": "apurva"
-          
-        },
-        {
-            "teamMemberId": 571,
-            "memberEmail": "dd.dash222@gmail.com",
-            "memberName": "debabrata dash"
-          
         }
     ],
     "error": null
