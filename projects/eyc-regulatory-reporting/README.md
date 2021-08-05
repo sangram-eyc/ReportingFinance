@@ -4,6 +4,8 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 #New test line
 
+#New Test Line 2
+
 #### Code scaffolding
 
 Run `ng generate component component-name --project eyc-regulatory-reporting` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project eyc-regulatory-reporting`.
