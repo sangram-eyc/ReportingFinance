@@ -69,6 +69,17 @@
                 "RegReportingAdmin",
                 "ROLE_ADMIN"
             ]
+        },
+        {
+            "userId": 585,
+            "userEmail": "akshay.raskar1@ey.com",
+            "userFirstName": "Akshay",
+            "userLastName": "Raskar",
+            "groups": null,
+            "roles": [
+                "ROLE_USER_MANAGEMENT",
+                "ROLE_ADMIN"
+            ]
         }
     ],
     "error": null
