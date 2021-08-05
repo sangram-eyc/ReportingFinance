@@ -1,7 +1,11 @@
-<lib-dots-card (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
+<lib-dots-card (filingDetails)="receiveFilingDetails($event)" (fileStatus)="getFileStatus($event)"></lib-dots-card>
 
+<div class="mark-button-comp">
+    <button motifButton color="primary" size="large" (click)="statusUpdateToComplete()" [disabled]= "enableComplete">Mark filing complete</button>
+</div>
 
 <motif-toast [type]="'success'" [show]="showToastAfterDownload">{{ downloadMsg }} </motif-toast>
+<motif-toast [type]="'success'" [show]="showToastAfterStatusChange">{{ filingStatusChangeMsg }} </motif-toast>
 
 <div class="submission-content-container">
     <div class="approve-button">
