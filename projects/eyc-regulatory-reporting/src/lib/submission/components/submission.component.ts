@@ -5,6 +5,9 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
 // import { SharedDownloadService } from './../../../../../eyc-ui-shared-component/src/lib/download/services/shared-download.service'
 import {customComparator} from '../../config/rr-config-helper';
+import { ModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
+import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
 
 
 
@@ -17,7 +20,9 @@ import {customComparator} from '../../config/rr-config-helper';
 export class SubmissionComponent implements OnInit {
 
 
-  constructor(private service: SubmissionService) { }
+  constructor(
+    private service: SubmissionService,
+    private dialog: MatDialog,) { }
 
 
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -33,12 +38,18 @@ export class SubmissionComponent implements OnInit {
   selectedFiles: any[] = [];
   downloadFilesRes = [];
   showToastAfterDownload = false;
+  showToastAfterStatusChange = false;
+  enableComplete = false;
   downloadMsg;
+  filingStatusChangeMsg;
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
+
+  
+  @ViewChild(DotsCardComponent) private childDot: DotsCardComponent;
 
   ngOnInit(): void {
   }
@@ -152,6 +163,7 @@ export class SubmissionComponent implements OnInit {
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
+    console.log("filing details > ", this.filingDetails)
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;
     this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
@@ -160,6 +172,45 @@ export class SubmissionComponent implements OnInit {
     });
 
   }​​​​​​​​
+
+  getFileStatus(event){
+    console.log(event);
+    event === 'completed' ? this.enableComplete = false : this.enableComplete = true;
+    console.log(this.enableComplete);
+  }
+
+  statusUpdateToComplete(){
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Filing status confirmation",
+        description: "Are you sure you want to complete this filing? This action cannot be undone.",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result.button == 'Yes') {
+        console.log(this.filingName);
+        console.log( this.period);
+        this.childDot.updateSubmissionStatus();
+        this.filingStatusChangeMsg = 'Filing has been completed';
+        this.enableComplete = true;
+        this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+      setTimeout(() => {
+        this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+      }, 5000);
+      }
+    });
+  
+    
+  }
 
 
 

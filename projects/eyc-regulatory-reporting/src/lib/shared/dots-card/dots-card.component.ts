@@ -17,6 +17,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   };
 
   @Output() filingDetails = new EventEmitter<any>();
+  @Output() fileStatus = new EventEmitter<any>();
   ngUnsubscribe = new Subject()
   dueDate: string;
   filingName: string;
@@ -81,39 +82,119 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  getFilingStatus(){
+  getFilingStatus() {
     this.filingService.getFilingStatus(this.filingId).subscribe(res => {
       this.states = res['data'];
+
       this.states.forEach(item => {
         switch (item['stageCode']) {
           case "FUND_SCOPING":
-            item.customCls= 'cust-fund';
-            item.url= '/fund-scoping';
-            item.disabled= true;
+            item.customCls = 'cust-fund';
+            item.url = '/fund-scoping';
+            item.disabled = true;
             break;
           case "DATA_INTAKE":
-            item.customCls= 'cust-intake';
-            item.url= '/data-intake';
-            item.disabled= true;
+            item.customCls = 'cust-intake';
+            item.url = '/data-intake';
+            item.disabled = true;
             break;
           case "REPORTING":
-            item.customCls= 'cust-report';
-            item.url= '/regulatory-reporting';
-            item.disabled= true;
+            item.customCls = 'cust-report';
+            item.url = '/regulatory-reporting';
+            item.disabled = true;
             break;
           case "CLIENT_REVIEW":
-            item.customCls= 'cust-review';
-            item.url= '/client-review';
-            item.disabled= true;
+            item.customCls = 'cust-review';
+            item.url = '/client-review';
+            item.disabled = true;
             break;
           case "SUBMISSION":
-            item.customCls= 'last-item-class';
-            item.url= '/submission';
-            item.disabled= true;
+            item.customCls = 'last-item-class';
+            item.url = '/submission';
+            item.disabled = true;
         }
       });
       this.setStatus();
+
+      let cmpSt = res['data'].find(item => item.progress !== 'completed');
+      if (cmpSt) {
+          if (cmpSt.stageCode !== 'SUBMISSION') {
+            this.fileStatus.emit("in-progress");
+          } else { this.fileStatus.emit("completed"); }
+      } else {
+          this.fileStatus.emit("all-completed");
+      }
     });
+  }
+
+  updateSubmissionStatus() {
+    this.states = [
+      {
+          "stageId": 21,
+          "stage": "Fund Scoping",
+          "stageCode": "FUND_SCOPING",
+          "progress": "COMPLETED",
+          "displayOrder": 1
+      },
+      {
+          "stageId": 22,
+          "stage": "Intake",
+          "stageCode": "DATA_INTAKE",
+          "progress": "COMPLETED",
+          "displayOrder": 2
+      },
+      {
+          "stageId": 23,
+          "stage": "Reporting",
+          "stageCode": "REPORTING",
+          "progress": "COMPLETED",
+          "displayOrder": 3
+      },
+      {
+          "stageId": 24,
+          "stage": "Client review",
+          "stageCode": "CLIENT_REVIEW",
+          "progress": "COMPLETED",
+          "displayOrder": 4
+      },
+      {
+          "stageId": 25,
+          "stage": "Submission",
+          "stageCode": "SUBMISSION",
+          "progress": "COMPLETED",
+          "displayOrder": 5
+      }
+  ];
+
+    this.states.forEach(item => {
+        switch (item['stageCode']) {
+          case "FUND_SCOPING":
+            item.customCls = 'cust-fund';
+            item.url = '/fund-scoping';
+            item.disabled = true;
+            break;
+          case "DATA_INTAKE":
+            item.customCls = 'cust-intake';
+            item.url = '/data-intake';
+            item.disabled = true;
+            break;
+          case "REPORTING":
+            item.customCls = 'cust-report';
+            item.url = '/regulatory-reporting';
+            item.disabled = true;
+            break;
+          case "CLIENT_REVIEW":
+            item.customCls = 'cust-review';
+            item.url = '/client-review';
+            item.disabled = true;
+            break;
+          case "SUBMISSION":
+            item.customCls = 'last-item-class';
+            item.url = '/submission';
+            item.disabled = true;
+        }
+      });
+      this.setStatus();
   }
 
   progressSort(a, b) {
