@@ -8,11 +8,30 @@
     h2 {
         color: #1A1A24;
         margin-left: 17px;
-    }  
+    }
+    // .motif-icon {
+    //     ::ng-deep svg {
+    //         background-color: #e1e1e6;
+    //         cursor: pointer;
+    //         fill: #747480 !important;
+    //     }
+    // }  
+}
+
+.back-button {
+    height: 24px;
     ::ng-deep svg {
         background-color: #e1e1e6;
         cursor: pointer;
         fill: #747480 !important;
+    }
+}
+
+.back-button:hover {
+    ::ng-deep svg {
+        background-color: #2e2e3c;
+        cursor: pointer;
+        fill: #ffffff !important;
     }
 }
 .body-container {

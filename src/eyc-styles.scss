@@ -652,3 +652,23 @@ button.motif-select-trigger{
 .mat-dialog-container  {
   box-shadow: none !important;
 }
+
+.back-button {
+
+  ::ng-deep svg {
+      background-color: #e1e1e6;
+      cursor: pointer;
+      fill: #747480 !important;
+  }
+
+}
+
+.back-button:hover {
+
+  ::ng-deep svg {
+    background-color: #2e2e3c;
+    cursor: pointer;
+    fill: #ffffff !important;
+  }
+  
+}
