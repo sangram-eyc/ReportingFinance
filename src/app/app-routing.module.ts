@@ -6,6 +6,7 @@ import { LoginComponent } from './login/components/login/login.component';
 import { AdminRegulatoryReportingComponent } from './administration/admin-regulatory-reporting/components/admin-regulatory-reporting.component';
 import {DashboardNotificationComponent} from './notification/dashboard-notification/dashboard-notification.component';
 import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
+import { DataIntakeLandingComponent } from '../../projects/eyc-data-intake/src/lib/data-intake-landing/components/data-intake-landing.component'
 import { UserDetailsComponent } from './administration/user-details/components/user-details.component';
 import { FundScopingComponent } from 'projects/eyc-regulatory-reporting/src/lib/fund-scoping/components/fund-scoping.component';
 import { DataIntakeComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/components/data-intake.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'admin-rr-dashboard', component: AdminRegulatoryReportingComponent},
   {path: 'notification', component: DashboardNotificationComponent},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent},
+  {path: 'data-intake-landing', component: DataIntakeLandingComponent},
   {path: 'fund-scoping', component: FundScopingComponent},
   {path: 'data-intake', component: DataIntakeComponent},
   {path: 'client-review', component: ClientReviewComponent},

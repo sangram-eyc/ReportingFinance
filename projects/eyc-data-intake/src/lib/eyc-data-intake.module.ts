@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+import { DataIntakeLandingComponent } from './data-intake-landing/components/data-intake-landing.component';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [DataIntakeLandingComponent],
   imports: [
   ],
   exports: []

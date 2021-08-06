@@ -92,13 +92,13 @@
             <span>Home</span>
           </li>
   
-          <li [class.active]="regreporting.isActive && mini || regreporting.isActive && opensubmenu !== 'managed-submenu'"
+          <li [class.active]="(regreporting.isActive || dataintake.isActive) && mini || (regreporting.isActive || dataintake.isActive) && opensubmenu !== 'managed-submenu'"
             [class.submenu-open]="opensubmenu === 'managed-submenu'"
             [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
             <!-- <li [class.submenu-open]="opensubmenu === 'managed-submenu'"
             [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')"> -->
             <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
-            <div *ngIf="mini" class="triangle-bottomright" [class.active-triangle]="regreporting.isActive"></div>
+            <div *ngIf="mini" class="triangle-bottomright" [class.active-triangle]="regreporting.isActive || dataintake.isActive"></div>
             <span>Managed Services</span>
             <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
               [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
@@ -112,6 +112,10 @@
               <li class="sidenav-item" [routerLink]="['/app-regulatory-filing']" routerLinkActive="active-submenu"
                 #regreporting="routerLinkActive">
                 <span>Regulatory Reporting</span>
+              </li>
+              <li class="sidenav-item" [routerLink]="['/data-intake-landing']" routerLinkActive="active-submenu"
+                #dataintake="routerLinkActive">
+                <span>Data Intake</span>
               </li>
               <!-- <li class="sidenav-item">
                 <span>Tax Compliance</span>
