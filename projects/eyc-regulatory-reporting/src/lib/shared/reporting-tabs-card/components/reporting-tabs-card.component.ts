@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ export class ReportingTabsCardComponent implements OnInit {
 
   tabIn;
   @Output() messageEvent = new EventEmitter<string>();
+  @Input() isDataInteake = false;
   constructor(
     private router: Router
   ) { }

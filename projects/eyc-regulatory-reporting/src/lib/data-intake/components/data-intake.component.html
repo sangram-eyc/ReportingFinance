@@ -1,7 +1,77 @@
-<lib-dots-card [status]="status"></lib-dots-card>
+<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
+<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [isDataInteake] ="true"></lib-reporting-tabs-card>
 
+<div class="review-content-container">
 
-<div class="intake-content-container">
-    <br><br>data-intake works!
+    <section id="exceptionReports" [hidden]="!(tabs==1)">
+        <lib-shared-grid 
+            gridStyle="first"
+            [columnDefs]="exceptionDefs" 
+            [rowData]="exceptionData" 
+            rowSelection="multiple" 
+            buttonPosition="left" 
+            [masterDetail]="false"
+            [displayCheckBox] ="true"
+            [button] ="false"
+           
+            [detailCellRendererParams]="exceptionDetailCellRendererParams"
+          
+        ></lib-shared-grid>
+
+        
+        <ng-template #commentExceptionTemplate let-row>
+            <div *ngIf="row.comments.length!==0" class="comments-background">
+                {{row.comments}}
+            </div>
+            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #resolveExceptionTemplate let-row>
+            <div >
+                {{row.resolve_exception}}
+            </div>
+            <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
+               
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+               
+            </div>
+        </ng-template>
+    </section>
+
+    <section id="filingEntities" [hidden]="!(tabs==2)">
+        <ng-template #commentTemplate let-row>
+            <div *ngIf="row.comments.length!==0" class="comments-background">
+                {{row.comments}}
+            </div>
+            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment()"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        
+        <!-- <motif-modal [show]="approveFilingEntitiesModal" (close)="approveFilingEntitiesModal = false">
+            <motif-modal-header>
+                Approve Selected
+            </motif-modal-header>
+            <motif-modal-body>
+                <p>
+                    Are you sure you want to approve the selected entities? This will approve them for submission.
+                </p>
+            </motif-modal-body>
+            <motif-modal-footer>
+                <button motifButton class="approve-yes" color="primary"
+                    (click)="onSubmitApproveFilingEntities()">Yes</button>
+                <button motifButton class="approve-no" color="secondary"
+                    (click)="approveFilingEntitiesModal = false">No</button>
+            </motif-modal-footer>
+        </motif-modal> -->
+        <!-- <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
+            (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
+        </motif-toast> -->
+    </section>
 </div>
 
