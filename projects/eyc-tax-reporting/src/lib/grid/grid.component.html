@@ -1,0 +1,67 @@
+
+    <section id="{{gridContainerCls}}" [ngClass]="{'user-style-container': gridStyle === 'third'}">
+        <div id="{{gridHeadingCls}}" [ngClass]="gridStyle === 'first' ? 'first-heading' : 'second-heading'">
+            <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
+                <div *ngIf="button" class="approve-button">
+                    <button motifButton color="primary" size="large" (click)="openDialog()"
+                        [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
+                </div>
+                <div *ngIf="!button"></div>
+                <motif-form-field *ngIf="search">
+                    <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search" aria-label="Search">
+                </motif-form-field>
+                <div *ngIf="!search"></div>
+            </div>
+        </div>
+
+        <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
+            [rowData]="rowData"
+            [defaultColDef]="{}"
+            [rowSelection]="rowSelection"
+            (gridReady)="handleGridReady($event)"
+            [firstColumnBorderRight]="firstColumnBorderRight"
+            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
+            paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+    
+        <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
+            [rowData]="rowData" 
+            [defaultColDef]="defaultColDef" 
+            [masterDetail]="masterDetail"
+            [detailCellRendererParams]="detailCellRendererParams"
+            [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
+            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
+            paginationPageSize="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+
+        <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+            <motif-card-body>
+                <h5>Your search has returned no results. Please adjust and try again.</h5>
+            </motif-card-body>
+        </motif-card>
+
+        <motif-card class="no_data" *ngIf="!searchNoDataAvilable && (rowData?.length < 1)">
+            <motif-card-body>
+                <h5>No results found.</h5>
+            </motif-card-body>
+        </motif-card>
+
+    </section>
+    
+    <motif-modal [show]="buttonModal" (close)="buttonModal = false">
+        <motif-modal-header>
+            {{buttonText}}
+        </motif-modal-header>
+        <motif-modal-body>
+            <p>
+                {{modalMessage}}
+            </p>
+        </motif-modal-body>
+        <motif-modal-footer>
+            <button motifButton class="approve-yes" color="primary"
+                (click)="submit()">Continue</button>
+            <button motifButton class="approve-no" color="secondary"
+                (click)="buttonModal = false">Cancel</button>
+        </motif-modal-footer>
+    </motif-modal>
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit"
+        (close)="showToastAfterSubmit = !showToastAfterSubmit">{{toastSuccessMessage}}
+    </motif-toast>

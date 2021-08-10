@@ -1,0 +1,45 @@
+.eyc-rr-tabs {
+    position: relative;
+    // margin-bottom: 50px;
+    margin-top: 80px;
+
+
+    button.motif-text-link {
+        font-family: EYInterstate;
+        font-size: 18px;
+        line-height: 20px;
+        align-items: center;
+        text-align: center;
+        color: #23232F !important;
+        padding: .85714rem 1.6rem .7rem 1.6rem !important;
+        }
+        button.motif-active.motif-text-link{
+            font-family: EYInterstate;
+            font-size: 18px;
+            line-height:20px;
+            color: #23232F;
+            font-weight: initial !important;
+            border-bottom: 6px solid !important;
+        }
+        button.motif-text-link:hover, button.motif-text-link:focus, button.motif-text-link:active {
+            box-shadow: none !important;
+        }
+        button.motif-text-link:hover, button.motif-text-link:active {
+            border-bottom: 6px solid !important;
+        }
+}
+.data-explorer {
+    position: relative;
+    float: right;
+    margin-top: -48px;
+    font-family: EYInterstate !important;
+    font-size: 16px;
+    font-style: normal;
+    border: 1px solid #2E2E38;;
+}
+
+.data-explorer:hover {
+    border-color: var(--btn-secondary-border-color);
+    background-color: var(--btn-secondary-bg-color);
+    color: var(--btn-primary-color);
+}

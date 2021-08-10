@@ -1,0 +1,155 @@
+.submission-content-container {
+    position: relative;
+    top: 90px;
+
+    ::ng-deep{
+        /* .motif-button {
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            text-align: right !important;
+            border: 0px !important;
+        }
+        .motif-button:hover {
+            background-color: var(--btn-primary-bg-color) !important;
+            color: var(--btn-primary-color) !important;
+        }
+        .motif-button:disabled {
+            background-color: #C4C4CD !important;
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            text-align: right !important;
+            color: #FFFFFF !important;
+        } */
+        *:focus {
+            box-shadow: none !important;
+        }
+    }
+}
+
+#xml-files-list {
+    bottom: 50px;
+    position: relative;
+    margin-top: 70px;
+
+    ::ng-deep {
+
+        .motif-table .ag-pinned-left-cols-container, .motif-table .ag-pinned-left-header {
+            box-shadow: none !important;
+        }
+        
+       .ag-theme-material .ag-pinned-left-header {
+            border-right: none;
+        }
+        
+        *:focus {
+            box-shadow: none !important;
+        }
+        
+        .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+            box-shadow: none !important;
+            border: none !important;
+        }
+        .motif-table .ag-header-cell {
+            height: 44px !important;
+        }
+        
+        .motif-table .ag-header {
+            height: 49px !important;
+            min-height: 49px !important;
+        }
+        
+       .motif-header-name {
+            font-family: EYInterstate;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px !important;
+            line-height: 20px;
+            color: #2E2E3C;
+        }
+        .motif-table .ag-cell-value {
+            font-family: EYInterstate !important;
+            font-style: normal  !important;
+            font-weight: 300 !important;
+            font-size: 12px  !important;
+            line-height: 20px  !important;
+            color: #2E2E38  !important;
+        }
+        .custom-report-name .ag-cell-wrapper .ag-cell-value {
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: 300 !important;
+            font-size: 12px !important;
+            line-height: 20px !important;
+            // color: #155CB4 !important;
+            color: #2E2E3C !important;
+            margin-left: 1px !important;
+        }
+        .motif-table .ag-root-wrapper {
+            min-height: 320px;
+            background: #f6f6fa;
+        }
+       .ag-theme-material .ag-radio-button-input-wrappe::after {
+            color: #23232F;
+          
+        }
+        .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+            color: #23232F;
+        }
+        .motif-table-title-bar {
+            background: #FFFFFF !important;
+            font-family: EYInterstate;
+            font-size: 18px;
+            line-height: 20px;
+            color: #1A1A24 !important;
+            border: 1px solid #E1E1E6;
+        }
+        span.motif-table-end-component-renderer {
+            display: none !important;
+        }
+        .ag-theme-material .ag-checkbox .ag-input-wrapper {
+            left: 15px !important;
+            position: relative !important;
+            cursor: none !important;
+        }
+
+    }
+
+}
+
+.mark-button-comp {
+    position: absolute;
+    top: 136px;
+    right: 40px;
+}
+
+ ::ng-deep .ag-body-viewport.ag-layout-normal.ag-row-no-animation {
+    border-left: 1px solid #e1e1e6 !important;
+    border-bottom: 1px solid #e1e1e6  !important;
+    min-height: 150px !important;
+ }
+ ::ng-deep .ag-body-viewport {
+    min-height: inherit !important;
+  }
+
+  ::ng-deep.motif-toast {
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 50px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    .motif-icon-button {
+        display: none !important;
+    }
+}

@@ -1,0 +1,61 @@
+<div class="card-header-wrapper">
+  <div class="header-container">
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="back()"></motif-icon>
+    <h2 class="motif-h2">
+      Data Explorer
+    </h2>
+  </div>
+  <p>Please select from the options below to explore data.</p>
+  <div class="body-container">
+    <section id="form-fields">
+      <form [formGroup]="form">
+      <div class="motif-row">
+        <!-- <div class="col-md-2 mt-2 title">
+          <h3>Filing</h3>
+        </div> -->
+        <div class="motif-col-sm-2">
+          <motif-form-field>
+            <label motifLabel class="select-label">Filing type</label>
+            <motif-select formControlName="filingId" aria-label="Aria Label">
+            <motif-option *ngFor="let item of filingList;index as i;" [value]="item.filingName">
+              {{item.filingName}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+
+        </div>
+        <div class="motif-col-sm-2">
+          <motif-form-field>
+            <label motifLabel class="select-label">Period</label>
+            <motif-select formControlName="period" aria-label="Aria Label">
+            <motif-option *ngFor="let item of periodList;index as i;" [value]="item">
+              {{item}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+        </div>
+      </div>
+
+      <div class="motif-row">
+        <div class="motif-col-sm-2">
+          <motif-form-field>
+            <label motifLabel class="select-label">Question</label>
+            <motif-select formControlName="questionId" aria-label="Aria Label">
+              <motif-option *ngFor="let item of pbiQuestionList;index as i;" [value]="item.id">
+                {{item.questionName}}</motif-option>
+            </motif-select>
+          </motif-form-field>
+        </div>
+      </div>
+    </form>
+    </section>
+
+    <section id="result">
+      <div class="result-header">
+        <span>Results</span>
+      </div>
+    </section>
+    <div>
+      <lib-rr-visualisation [selectedReportId]="PBIReportId" [selectedFilling]="selectedFiling"
+        [selectedPeriod]="selectedPeriod"></lib-rr-visualisation>
+    </div>
+  </div>
+</div>

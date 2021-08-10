@@ -1,0 +1,152 @@
+.card-header-wrapper {
+    margin-top: 50px;
+}
+
+.header-container {
+    display: flex;
+    margin-bottom: 8px;
+    h2 {
+        color: #1A1A24;
+        margin-left: 17px;
+    }
+    // .motif-icon {
+    //     ::ng-deep svg {
+    //         background-color: #e1e1e6;
+    //         cursor: pointer;
+    //         fill: #747480 !important;
+    //     }
+    // }  
+}
+
+.back-button {
+    height: 24px;
+    ::ng-deep svg {
+        background-color: #e1e1e6;
+        cursor: pointer;
+        fill: #747480 !important;
+    }
+}
+
+.back-button:hover {
+    ::ng-deep svg {
+        background-color: #2e2e3c;
+        cursor: pointer;
+        fill: #ffffff !important;
+    }
+}
+.body-container {
+    margin-top: 30px;
+}
+
+#form-fields {
+    margin-bottom: 70px;
+    .title {
+        margin-right: -25px;
+         h3{
+            font-family: EYInterstate;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 18px;
+            display: flex;
+            align-items: center;
+            color: #000000;
+        }
+    }
+    .motif-row{
+        margin-bottom: 20px;
+    }
+    .bottom-dropdown {
+        margin-bottom: 70px;
+    }
+    ::ng-deep .cus-formField {
+        border: 1px solid !important;
+        padding: 6px !important;
+        height: 40px;
+        width: 100%;
+    }
+    
+    .cus-input{
+        width: 26%;
+        position: relative;
+        right: 9%;
+        float: right;
+        margin-top: -47px;
+        border-bottom: none;
+        height: 36px !important;
+        color: #2E2E38 !important;
+    }
+    ::ng-deep .motif-form-field {
+        margin-bottom: 0px !important;
+    }
+     ::placeholder { 
+        color: #2E2E38 !important;
+      }
+    
+    ::ng-deep .motif-form-field :focus {
+        background: var(--form-element-bg-color) !important;
+        // border-bottom: none !important;
+    }
+    
+    // ::ng-deep .motif-form-field :hover {
+    //     background: var(--form-element-bg-color) !important;
+    //     border-bottom:  1px solid #212529 !important;
+    // }
+    
+    ::ng-deep .cus-formField .dropdown-menu{
+        margin-top: 2px !important;
+    }
+    
+    ::ng-deep .cus-formField .dropdown-menu:hover{
+        background: #fff !important;
+    }
+    ::ng-deep .cus-chips {
+        margin-top: 1px;
+        height: 40px;
+        width: 64%;
+        margin-left: 7px;
+    }
+    ::ng-deep .cus-chips button{
+        height: 22px !important;
+        font-size: 12px !important;
+        font-family: EYInterstate !important;
+        font-style: normal;
+    }
+    ::ng-deep .cus-chips .motif-chip:hover {
+        background-color: var(--chip-bg-color) !important;
+        border-color: var(--chip-hover-border-color);
+        color: var(--chip-color) !important;
+    }
+    
+    ::ng-deep .motif-form-field-search-icon, ::ng-deep .motif-clear-input {
+        top: -2.81571rem !important;
+        svg {
+            fill: #747480 !important;
+        }
+    }
+    
+    ::ng-deep .cus-chip-close {
+        position: relative;
+        left: 10px;
+    }
+}
+
+#result {
+    .result-header {
+        background-color: #2E2E3C;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+    }
+    .result-header span{
+        font-family: EYInterstate;
+        font-size: 18px;
+        line-height: 20px;
+        color: #FFFFFF;
+    }
+}
+
+
+
+

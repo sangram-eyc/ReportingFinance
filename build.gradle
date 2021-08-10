@@ -48,4 +48,10 @@ task build(type: NpmTask) {
   
 }
 
+task build(type: NpmTask) {
+  println "Building UI"
+  args = ['run', 'eyc-tax-reporting']
+  
+}
+
 build.dependsOn(npm_install)

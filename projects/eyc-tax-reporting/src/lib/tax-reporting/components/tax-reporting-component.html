@@ -1,0 +1,157 @@
+<div class="page-header">
+    <h1 class="motif-h1">Tax Reporting</h1>
+</div>
+<div class="page-subheader">
+    View tax reporting in production cycles, management reporting, archived reports and data explorer
+</div>
+
+<div class="eyc-rr-tabs">
+    <motif-tab-bar>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Archived Reports</button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Data Explorer</button>
+    </motif-tab-bar>
+</div>
+
+<section id='active-reports' [hidden]="!(tabIn == 1)">
+    <div id="reports-history-heading">
+        <div class="search">
+            <motif-form-field>
+                <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+                    (keyup)="searchActiveReports(activeReports)" (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
+            </motif-form-field>
+        </div>
+    </div>
+    <!-- <div class="filing-card">
+        <div fxFlex fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row wrap">
+                <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" 
+                fxFlex="14"
+                fxFlex.xl="25"
+                fxFlex.lg="50"
+                fxFlex.md="50"
+                fxFlex.sm="100"
+                fxFlex.xs="100" 
+                fxLayout="column" style="padding: 5px;">
+                    <app-filing-card [filingData]="filing"></app-filing-card>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- 
+    <div class="filing-card">
+        <div fxFlex fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row wrap">
+                <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" class="each-card"
+             style="padding: 5px;">
+                    <app-filing-card [filingData]="filing"></app-filing-card>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="each-card" *ngFor="let filing of activeFilings">
+            <app-filing-card [filingData]="filing"></app-filing-card>
+        </div>
+    </div>
+    <!-- <div class="filing-card">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+
+       
+            <ng-container *ngFor="let filing of activeFilings.sort(sortByDueDate)">
+                <app-filing-card [filingData]="filing" fxFlex="0 1 calc(33.3% - 32px)"
+                fxFlex.lt-md="0 1 calc(50% - 32px)"
+                fxFlex.lt-sm="100%"></app-filing-card>
+            </ng-container>
+        </div>
+    </div> -->
+    
+
+    <motif-card class="no_data" *ngIf="activeReportsSearchNoDataAvilable">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+
+    <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
+        <motif-card-body>
+            <h5>No results found.</h5>
+        </motif-card-body>
+    </motif-card>
+
+</section>
+
+<section id='reports-history' [hidden]="!(tabIn == 2)">
+    <div id="reports-history-heading">
+        <div class="search">
+            <motif-form-field>
+                <input #reportHistorySearch motifInput motifSearch type="text"
+                    (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(reportHistorySearch)"
+                    (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
+            </motif-form-field>
+        </div>
+    </div>
+    <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+        <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
+            [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
+            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
+
+
+    </div>
+
+    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+
+    <ng-template #headerTemplate>
+        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
+        </motif-icon>
+    </ng-template>
+
+    <ng-template #dropdownTemplate>
+        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
+    </ng-template>
+
+    <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+
+        <motif-pagination>
+            <button motifIconButton size="small" aria-label="Go to first page"
+                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
+                <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
+            </button>
+            <button motifIconButton size="small" aria-label="Go to previous page"
+                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
+            </button>
+            <span class="page-description">Page <span class="page-number">{{currentPage}}</span> of <span
+                    class="page-number">{{maxPages}}</span></span>
+            <button motifIconButton size="small" aria-label="Go to next page"
+                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
+                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+            </button>
+            <button motifIconButton size="small" aria-label="Go to last page"
+                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
+                <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
+            </button>
+        </motif-pagination>
+
+        <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
+            (paginationSelectChange)="updatePaginationSize($event.value)">
+        </motif-pagination-select>
+    </div>
+
+
+    <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
+        <motif-card-body>
+            <h5>No results found.</h5>
+        </motif-card-body>
+    </motif-card>
+
+</section>

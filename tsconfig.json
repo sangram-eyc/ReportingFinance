@@ -34,6 +34,10 @@
       "eyc-data-intake": [
         "dist/eyc-data-intake/eyc-data-intake",
         "dist/eyc-data-intake"
+      ],
+      "eyc-tax-reporting": [
+        "dist/eyc-tax-reporting/eyc-tax-reporting",
+        "dist/eyc-tax-reporting"
       ]
     },
     "resolveJsonModule": true,
