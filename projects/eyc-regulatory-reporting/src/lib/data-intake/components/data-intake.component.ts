@@ -163,6 +163,18 @@ export class DataIntakeComponent implements OnInit {
       this.exceptionDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dropdownTemplate,
+          },
+          field: 'template',
+          headerName: '',
+          width: 70,
+          sortable: false,
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Due',
           field: 'exceptionDue',
           sortable: true,

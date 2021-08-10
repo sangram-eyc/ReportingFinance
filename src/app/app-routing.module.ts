@@ -15,6 +15,7 @@ import { RrReportingComponent } from 'projects/eyc-regulatory-reporting/src/lib/
 import { SubmissionComponent } from 'projects/eyc-regulatory-reporting/src/lib/submission/components/submission.component';
 import { DataExplorerForReportingAndClientComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
 import {EycTeamDetailsComponent} from '../app/administration/admin-regulatory-reporting/eyc-team-details/eyc-team-details.component'
+import { ProcessingExceptionComponent } from 'projects/eyc-data-intake/src/lib/processing-exception/components/processing-exception.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent},
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'user-details/:userId', component: UserDetailsComponent },
   {path: 'team-details/:teamId', component: EycTeamDetailsComponent},
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent},
+  {path: 'processing-exceptions', component: ProcessingExceptionComponent},
   {path: '**', component: LoginComponent},
 ];
 
