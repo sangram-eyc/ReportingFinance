@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
@@ -8,7 +8,7 @@ import { ModalComponent } from '../../modal/component/modal.component';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, OnChanges {
   
   constructor(public dialog: MatDialog) { }
   
@@ -45,6 +45,7 @@ export class GridComponent implements OnInit {
     }
   };
   @Input() rowData: any;
+  @Input() disableAddMemberButton = false;
   @Input() columnDefs: any;
   @Input() defaultColDef: any;
   @Input() masterDetail = false;
@@ -85,6 +86,11 @@ export class GridComponent implements OnInit {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
     }
+  }
+
+
+  ngOnChanges(changes: any) {
+    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
   }
 
   async submit() {

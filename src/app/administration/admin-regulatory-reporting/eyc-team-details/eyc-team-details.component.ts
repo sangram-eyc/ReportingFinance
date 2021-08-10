@@ -36,6 +36,7 @@ export class EycTeamDetailsComponent implements OnInit {
   enableEditor = false;
   editTeamForm: FormGroup;
   showToastAfterEditTeam = false;
+  disableAddMemberButton = false;
   fullname;
   teamResp: any[] = [];
   teamsData;
@@ -93,6 +94,7 @@ export class EycTeamDetailsComponent implements OnInit {
 
   enableEditForm() {
     this.enableEditor = !this.enableEditor;
+    this.disableAddMemberButton = !this.disableAddMemberButton;
   }
 
   getUsersList() {
@@ -216,6 +218,7 @@ onSubmitEditTeamForm(form: FormGroup) {
   if (this.editTeamForm.valid) {
     this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
     this.enableEditor = !this.enableEditor;
+    this.disableAddMemberButton = !this.disableAddMemberButton;
     setTimeout(() => {
     this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
     }, 5000);
@@ -237,6 +240,7 @@ cancelForm() {
     description: this.teamInfo.description.trim()
   });
   this.enableEditor = !this.enableEditor;
+  this.disableAddMemberButton = !this.disableAddMemberButton;
 }
 
 

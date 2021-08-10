@@ -17,13 +17,13 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    color: #2E2E38 !important;
-    border: 0px;
+    // color: #2E2E38 !important;
+    // border: 0px;
   }
 
-  .save-submit:hover {
+  /* .save-submit:hover {
     background-color: var(--btn-primary-bg-color);
-  }
+  } */
 
   button.motif-button.save-submit.dis-button:hover {
     background-color: var(--btn-primary-disabled-bg-color) !important;
@@ -37,14 +37,14 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    color: #2E2E38 !important;
-    border: 0.5px solid #2E2E38 !important;
+   /*  color: #2E2E38 !important;
+    border: 0.5px solid #2E2E38 !important; */
 
   }
 
-  .btn_close:hover {
+  /* .btn_close:hover {
     background-color: var(--btn-secondary-bg-color);
-  }
+  } */
 }
 
 .back-wrapper {
