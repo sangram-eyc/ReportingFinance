@@ -1,0 +1,42 @@
+<div class="card-header-wrapper">
+    <div class="header-container">
+        <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+            (click)="back()"></motif-icon> 
+            <div class="breadcrumb-container">
+                <motif-breadcrumb>
+                    <motif-breadcrumb-item
+                     class="breadcrumb-first"
+                     breadcrumbValue="Home"
+                     breadcrumbLink="/home">
+                    </motif-breadcrumb-item>
+                    <motif-breadcrumb-item 
+                    class="breadcrumb-first"
+                    breadcrumbValue='Data Intake' 
+                    breadcrumbLink='/home'>
+                </motif-breadcrumb-item>
+                    <!-- <motif-breadcrumb-item
+                     breadcrumbValue="Exceptions">
+                    </motif-breadcrumb-item> -->
+                    
+                </motif-breadcrumb>
+                <span class="exception-header"> / Exceptions</span>
+              </div>
+    </div>
+    <div class="page-header">
+        <h1 class="motif-h1">Processing exceptions</h1>
+    </div>
+    <div class="page-subheader">
+        Use the default unresolved view in the fast filters below to view work that needs to be done.
+    </div>
+</div>
+<div class="eyc-rr-tabs">
+    <motif-tab-bar>
+        <button motifButton class="motif-text-link" (click)="onTabChange(1)"
+            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception reports</button>
+        <button motifButton class="motif-text-link" (click)="onTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Datasets</button>
+    </motif-tab-bar>
+    <section [hidden]="!(tabIn==1)">
+        <lib-exception-report></lib-exception-report>                           
+    </section>
+</div>

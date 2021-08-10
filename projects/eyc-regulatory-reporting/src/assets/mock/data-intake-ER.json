@@ -6,14 +6,14 @@
             "exceptionId": 1,
             "exceptionDue":"JAN 5 - BD3",
             "exceptionFile":"General Manager",
-            "exceptions":5,
+            "exceptions":0,
             "exceptionReportType": "Transformation and Review",
             "exceptionReportName": "Alpha Corporate Bond Fund",
             "resolve_exception": "0",
             "reviewLevel": "EY Level 1",
             "comments": 7,
             "approved": false,
-            "isExceptionResolved":true
+            "isExceptionResolved":false
         },
         {
             "exceptionId": 2,

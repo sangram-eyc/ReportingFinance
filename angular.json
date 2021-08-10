@@ -45,6 +45,11 @@
                 "input": "projects/eyc-regulatory-reporting/src/assets",
                 "output": "assets/eyc-regulatory-reporting"
               },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-data-intake/src/assets",
+                "output": "assets/eyc-data-intake"
+              },
               "src/silent-refresh.html"
             ],
             "styles": [
@@ -145,6 +150,11 @@
                 "glob": "**/*",
                 "input": "projects/eyc-regulatory-reporting/src/assets",
                 "output": "assets/eyc-regulatory-reporting"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-data-intake/src/assets",
+                "output": "assets/eyc-data-intake"
               },
               "src/silent-refresh.html"
             ],

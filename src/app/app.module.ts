@@ -26,7 +26,8 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import {CancelHttpCallsInterceptor} from './interceptor/cancel-http-calls.interceptor';
 import { APP_INITIALIZER } from '@angular/core';
 import { SettingsService } from './services/settings.service';
-
+import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
+import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-intake.module';
 
 
 @NgModule({
@@ -57,7 +58,9 @@ import { SettingsService } from './services/settings.service';
     NotificationModule,
     EycRegulatoryReportingModule,
     OAuthModule.forRoot(),
-    MatDialogModule
+    MatDialogModule,
+    EycUiSharedComponentModule,
+    EycDataIntakeModule
    
   ],
   providers: [

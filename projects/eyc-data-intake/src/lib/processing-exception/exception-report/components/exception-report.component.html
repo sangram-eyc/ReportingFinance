@@ -1,0 +1,49 @@
+<lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData" rowSelection="multiple"
+    buttonPosition="left" [masterDetail]="false" [displayCheckBox]="true" [button]="false"
+    [detailCellRendererParams]="exceptionDetailCellRendererParams"></lib-shared-grid>
+
+<ng-template #commentExceptionTemplate let-row>
+    <div *ngIf="row.comments.length!==0" class="comments-background">
+        {{row.comments}}
+    </div>
+    <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+        <div class="add_icon">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span
+                    class="plus">+</span></motif-icon>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #unresolveExceptionTemplate let-row>
+    <div>
+        {{row.unresolve_exception}}
+    </div>
+    <div class="unresolve-Exception" *ngIf="!row.result">
+        <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+    </div>
+</ng-template>
+
+<ng-template #resolveExceptionTemplate let-row>
+    <div>
+        {{row.resolve_exception}}
+    </div>
+    <div class="resolve-Exception" *ngIf="row.result">
+        <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+    </div>
+</ng-template>
+
+<ng-template #resultTemplate let-row>
+    <div class="result_complete" *ngIf="row.result">
+        <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+    </div>
+    <div class="result_warning" *ngIf="!row.result">
+        <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+    </div>
+</ng-template>
+
+<ng-template #dropdownTemplate let-row>
+    <div class="dropdownTemplate">
+        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
+        </motif-icon>
+    </div>
+</ng-template>
