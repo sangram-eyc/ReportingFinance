@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-processing-exception',
@@ -8,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class ProcessingExceptionComponent implements OnInit {
 
   tabIn = 1;
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
   }
 
   back() {
-
+    this.location.back();
   }
 
   onTabChange(selectedTab) {

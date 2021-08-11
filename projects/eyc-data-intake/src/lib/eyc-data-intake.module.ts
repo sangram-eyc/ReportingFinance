@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DataIntakeLandingComponent } from './data-intake-landing/components/data-intake-landing.component';
 import { ProcessingExceptionComponent } from './processing-exception/components/processing-exception.component';
 import { CommonModule } from '@angular/common';
-import { MotifModule, MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
+import { MotifAccordionModule, MotifModule, MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { ExceptionReportComponent } from './processing-exception/exception-report/components/exception-report.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
+import { IntakeFilesComponent } from './intake-files/components/intake-files.component';
 
 
 
@@ -17,7 +18,7 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
   declarations: [
     DataIntakeLandingComponent,
     ProcessingExceptionComponent, 
-    ExceptionReportComponent
+    ExceptionReportComponent, IntakeFilesComponent
   ],
   imports: [
     AgGridModule.withComponents([]),
@@ -42,6 +43,7 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
     ReactiveFormsModule,
     FlexLayoutModule,
     MotifModule,
+    MotifAccordionModule,
     EycUiSharedComponentModule
   ],
   exports: []
