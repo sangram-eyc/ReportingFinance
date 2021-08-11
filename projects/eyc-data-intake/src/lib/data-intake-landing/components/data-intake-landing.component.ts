@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'lib-data-intake-landing',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DataIntakeLandingComponent implements OnInit {
 
+  curDate;
   constructor() { }
-
   ngOnInit(): void {
+    this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
   }
-
 }
