@@ -6,6 +6,7 @@ import { DownloadModule } from './download/download.module';
 // import { UploadComponent } from './upload/components/upload.component';
 import {EycPowerbiModule} from '../lib/eyc-powerbi/eyc-powerbi.module';
 import { GridModule } from './grid/grid.module';
+import { IntakeFilesModule } from './intake-files/intake-files.module';
 
 
 
@@ -18,14 +19,16 @@ import { GridModule } from './grid/grid.module';
     UploadModule,
     DownloadModule,
     EycPowerbiModule,
-    GridModule
+    GridModule,
+    IntakeFilesModule
   ],
   exports: [
     ModalModule,
     UploadModule,
     DownloadModule,
     EycPowerbiModule,
-    GridModule
+    GridModule,
+    IntakeFilesModule
   ]
 })
 export class EycUiSharedComponentModule { }

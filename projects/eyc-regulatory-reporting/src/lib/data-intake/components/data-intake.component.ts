@@ -21,11 +21,12 @@ export class DataIntakeComponent implements OnInit {
   gridApi;
   columnDefs;
   exceptionDefs;
-  tabs = 1;
+  tabs = 2;
   filingDetails:any;
   exceptionData;
   rowData = [];
   exceptionDetailCellRendererParams;
+  filesListArr;
   constructor(
     private service: DataIntakeService,
     private filingService: RegulatoryReportingFilingService,
@@ -66,13 +67,20 @@ export class DataIntakeComponent implements OnInit {
   }
 
   getFiles(){
-    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+    /* this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.createEntitiesRowData();
     },error=>{
       this.rowData =[];
       console.log("Client Review error");
+    }); */
+    
+    this.service.getfilesList().subscribe(res => {
+      this.filesListArr = res['data'];
+    },error=>{
+      console.log("files list error");
     });
+
   }
 
   receiveMessage($event) {
@@ -89,7 +97,7 @@ export class DataIntakeComponent implements OnInit {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
     };
-      this.columnDefs = [
+      /* this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -158,7 +166,7 @@ export class DataIntakeComponent implements OnInit {
           filter: true,
           width: 155,
         },
-      ];
+      ]; */
 
       this.exceptionDefs = [
         {

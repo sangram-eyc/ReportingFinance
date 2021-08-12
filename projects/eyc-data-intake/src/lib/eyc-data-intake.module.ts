@@ -10,7 +10,6 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { ExceptionReportComponent } from './processing-exception/exception-report/components/exception-report.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
-import { IntakeFilesComponent } from './intake-files/components/intake-files.component';
 
 
 
@@ -18,7 +17,7 @@ import { IntakeFilesComponent } from './intake-files/components/intake-files.com
   declarations: [
     DataIntakeLandingComponent,
     ProcessingExceptionComponent, 
-    ExceptionReportComponent, IntakeFilesComponent
+    ExceptionReportComponent
   ],
   imports: [
     AgGridModule.withComponents([]),

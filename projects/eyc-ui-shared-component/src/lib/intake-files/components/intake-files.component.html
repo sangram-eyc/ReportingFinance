@@ -8,14 +8,14 @@
         <!-- <button motifButton color="primary" size="large">All exceptions</button> -->
         <button class="exceptions-button" size="medium" motifButton color="secondary" (click)="routeToexceptions()">
             <motif-icon class="exceptions-icon" [src]="'/assets/icons/alert/ic_error_outline_24px.svg'"></motif-icon>
-            All exceptions
+            {{buttonTxt}}
         </button>
         <button motifButton color="primary" size="medium">Data explorer</button>
     </div>
     
 </div>
 
-<motif-accordion id="example-1" *ngFor="let item of filesLiastArr;index as i;">
+<motif-accordion id="example-1" *ngFor="let item of filesData;index as i;">
 <motif-accordion-header>
     
     <div class="container-fluid intake-files-header-wrapper">
