@@ -5,16 +5,20 @@
     View tax reporting in production cycles, management reporting, archived reports and data explorer
 </div>
 
+<div class="client-title">
+    Client ABC
+</div>
+
 <div class="eyc-rr-tabs">
     <motif-tab-bar>
         <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
             [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
         <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
             [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
-            <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Archived Reports</button>
-            <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Data Explorer</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+            [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Archived Reports</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(4)"
+            [ngClass]="tabIn == 4 ? 'motif-active' : '' ">Data Explorer</button>
     </motif-tab-bar>
 </div>
 
