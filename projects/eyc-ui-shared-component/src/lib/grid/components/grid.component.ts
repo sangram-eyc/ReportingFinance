@@ -9,7 +9,7 @@ import { ModalComponent } from '../../modal/component/modal.component';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit, OnChanges {
-  
+  mytasks = false;
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
@@ -25,6 +25,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() gridStyle = 'first';
   @Input() button = true;
   @Input() search = true;
+  @Input() isToggle = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() displayCheckBox;
@@ -57,6 +58,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() paginationSize = 10;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
+  @Output() toggleEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
 
@@ -188,4 +190,7 @@ export class GridComponent implements OnInit, OnChanges {
     });
   } 
 
+  toggleChanged(event){
+    this.toggleEventToParent.emit(event);
+  }
 }

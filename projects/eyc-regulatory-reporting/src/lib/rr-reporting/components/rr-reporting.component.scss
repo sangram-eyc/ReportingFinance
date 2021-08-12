@@ -196,3 +196,8 @@
 ::ng-deep .ag-theme-material .ag-header-cell:hover {
     background-color: #f2f2f2;
 }
+.mytask {
+    ::ng-deep svg {
+        fill: #85858a !important;
+    }
+}

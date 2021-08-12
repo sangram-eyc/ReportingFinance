@@ -12,9 +12,11 @@
             [modalMessage]="modalMessage" 
             buttonPosition="left" 
             [masterDetail]="true"
+            [isToggle]= "true"
             [modalConfig]="exceptionModalConfig"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
             [defaultColDef]="exceptionDefaultColDef"
+            (toggleEventToParent) = "onClickMyTask($event)"
         ></lib-shared-grid>
 
         
@@ -26,6 +28,11 @@
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
                 </div>
+            </div>
+        </ng-template>
+        <ng-template #myTasksExceptionTemplate let-row>
+            <div class="mytask" *ngIf="row.mytask">
+                <motif-icon [src]="'/assets/icons/action/ic_assignment_24px.svg'"></motif-icon>
             </div>
         </ng-template>
     </section>
