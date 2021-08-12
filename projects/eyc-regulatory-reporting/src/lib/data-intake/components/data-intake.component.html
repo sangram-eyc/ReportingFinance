@@ -56,7 +56,10 @@
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">
-        <ng-template #commentTemplate let-row>
+
+        
+        <shared-lib-intake-files [filesData]="filesListArr" [buttonTxt]="'Exceptions'"></shared-lib-intake-files>
+        <!-- <ng-template #commentTemplate let-row>
             <div *ngIf="row.comments.length!==0" class="comments-background">
                 {{row.comments}}
             </div>
@@ -65,7 +68,7 @@
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment()"><span class="plus">+</span></motif-icon>
                 </div>
             </div>
-        </ng-template>
+        </ng-template> -->
         
         <!-- <motif-modal [show]="approveFilingEntitiesModal" (close)="approveFilingEntitiesModal = false">
             <motif-modal-header>

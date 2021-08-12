@@ -30,6 +30,7 @@ export class EycRrSettingsService {
       filing_status: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/': this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filing-status.json',
       di_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
       di_files: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
+      files_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/intake-files-list.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/intake-files-list.json',
     }
 
     return regulatory_Reporting;

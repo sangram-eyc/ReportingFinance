@@ -20,4 +20,7 @@ export class DataIntakeService {
     // After backend API up will remove above line and uncomment below line
    
   }
+  getfilesList() {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
+ }
 }

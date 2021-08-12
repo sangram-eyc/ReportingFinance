@@ -4,7 +4,7 @@
 	"data": [
         {
             "exceptionId": 1,
-            "exceptionDue":"JAN 5 - BD3",
+            "exceptionDue":"JAN 5 - BD",
             "exceptionFile":"General Ledger",
             "exceptions":5,
             "exceptionReportType": "Transformation and Review",
