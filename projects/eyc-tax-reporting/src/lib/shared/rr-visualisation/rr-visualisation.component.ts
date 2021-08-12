@@ -2,10 +2,10 @@ import { Component, OnInit, OnChanges, Input, ElementRef, ViewChild, SimpleChang
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import {EycPbiService} from '../../services/eyc-pbi.service';
-import {PBI_CONFIG, IS_THEME_APPLIED,IS_FY_FILTER,IS_PERIOD_FILTER} from '../../config/rr-config-helper';
+import {PBI_CONFIG, IS_THEME_APPLIED,IS_FY_FILTER,IS_PERIOD_FILTER} from '../../config/tax-config-helper';
 import powerbiTheme from '../../../assets/theme/eyc_2_theme.json';
-import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
-import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../../config/rr-config-helper'
+import {EycRrSettingsService} from '../../services/eyc-tax-settings.service';
+import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../../config/tax-config-helper'
 @Component({
   selector: 'lib-rr-visualisation',
   templateUrl: './rr-visualisation.component.html',

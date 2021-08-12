@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../../src/environments/environment';
 
 import { EycPbiService } from './eyc-pbi.service';
-import { EycRrSettingsService } from './eyc-rr-settings.service';
+import { EycRrSettingsService } from './eyc-tax-settings.service';
 
 describe('EycPbiService', () => {
   let service: EycPbiService;

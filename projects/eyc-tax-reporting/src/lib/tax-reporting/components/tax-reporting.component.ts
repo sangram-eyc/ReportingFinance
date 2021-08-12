@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } 
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {customComparator} from '../../config/rr-config-helper';
+import {customComparator} from '../../config/tax-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
 @Component({
   selector: 'lib-tax-reporting',

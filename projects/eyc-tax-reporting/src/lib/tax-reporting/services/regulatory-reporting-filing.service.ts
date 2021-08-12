@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
-import {EycRrApiService} from '../../services/eyc-rr-api.service';
+import {EycRrSettingsService} from '../../services/eyc-tax-settings.service';
+import {EycRrApiService} from '../../services/eyc-tax-api.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

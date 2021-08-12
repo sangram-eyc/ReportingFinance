@@ -6,12 +6,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
-import {EycRrSettingsService} from './services/eyc-rr-settings.service';
+import {EycRrSettingsService} from './services/eyc-tax-settings.service';
 import { DotsCardComponent } from './shared/dots-card/dots-card.component';
 import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {EycRrApiService} from './services/eyc-rr-api.service';
+import {EycRrApiService} from './services/eyc-tax-api.service';
 import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisation.component';
 import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';

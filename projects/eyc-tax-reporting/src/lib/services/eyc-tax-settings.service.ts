@@ -1,6 +1,6 @@
 import { Injectable,Inject } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/rr-config-helper';
+import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/tax-config-helper';
 
 @Injectable({
   providedIn: 'root'

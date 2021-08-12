@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {PBI_CONFIG} from '../config/rr-config-helper';
-import {EycRrSettingsService} from '../services/eyc-rr-settings.service';
-import {EycRrApiService } from '../services/eyc-rr-api.service';
+import {PBI_CONFIG} from '../config/tax-config-helper';
+import {EycRrSettingsService} from '../services/eyc-tax-settings.service';
+import {EycRrApiService } from '../services/eyc-tax-api.service';
 
 @Injectable({
   providedIn: 'root'
