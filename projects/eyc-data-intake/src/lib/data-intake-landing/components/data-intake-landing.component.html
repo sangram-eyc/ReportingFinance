@@ -4,8 +4,8 @@
 
 
 <div class="dateWrapper">
-    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
-    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)"></motif-icon>
+    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)"></motif-icon>
     {{ curDate }}
 </div>
 

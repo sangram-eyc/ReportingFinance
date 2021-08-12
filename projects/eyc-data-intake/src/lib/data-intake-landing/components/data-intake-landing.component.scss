@@ -12,4 +12,9 @@
     color: #000000;
     left: -7px;
     position: relative;
+    ::ng-deep {
+        .motif-icon {
+            cursor: pointer;
+        }
+    }
 }
