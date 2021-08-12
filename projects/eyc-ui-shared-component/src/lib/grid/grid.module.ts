@@ -19,7 +19,8 @@ import { AgGridModule } from 'ag-grid-angular';
     MotifTableModule,
     MotifFormsModule,
     MotifCardModule,
-    MotifIconModule
+    MotifIconModule,
+    FormsModule
   ],
   exports: [GridComponent]
 })

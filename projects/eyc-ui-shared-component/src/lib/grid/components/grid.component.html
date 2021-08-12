@@ -7,9 +7,17 @@
                         [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
                 </div>
                 <div *ngIf="!button"></div>
-                <motif-form-field *ngIf="search">
-                    <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search" aria-label="Search">
-                </motif-form-field>
+                <div class="search" *ngIf="search">
+                    <motif-form-field>
+                        <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+                            (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search"
+                            aria-label="Search">
+                    </motif-form-field>
+                    <div class="toggle" *ngIf="isToggle">
+                        <h4>My Tasks</h4>
+                        <motif-toggle-switch [hideLabels]="true" [(ngModel)]="mytasks" (change)="toggleChanged($event)"></motif-toggle-switch>
+                    </div>
+                </div>
                 <div *ngIf="!search"></div>
             </div>
         </div>

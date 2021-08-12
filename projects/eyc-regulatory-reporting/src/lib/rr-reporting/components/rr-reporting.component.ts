@@ -41,6 +41,7 @@ export class RrReportingComponent implements OnInit {
   columnDefs;
   exceptionDefs;
   exceptionData;
+  exceptionDataForFilter = [];
   exceptionDefaultColDef;
   exceptionDetailCellRendererParams;
   rowData = [];
@@ -69,6 +70,8 @@ export class RrReportingComponent implements OnInit {
   commentTemplate: TemplateRef<any>;
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>
+  @ViewChild('myTasksExceptionTemplate')
+  myTasksExceptionTemplate: TemplateRef<any>
   
   ngOnInit(): void {
 
@@ -81,6 +84,7 @@ export class RrReportingComponent implements OnInit {
   getExceptionReports() {
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.exceptionData = res['data'];
+      this.exceptionDataForFilter = this.exceptionData;
       console.log(this.exceptionData);
       this.createEntitiesRowData();
       
@@ -226,6 +230,17 @@ export class RrReportingComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
+          sortable: true,
+          filter: true,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.myTasksExceptionTemplate,
+          },
+          headerName: 'My Tasks',
+          field: 'mytask',
           sortable: true,
           filter: true,
         },
@@ -458,5 +473,14 @@ export class RrReportingComponent implements OnInit {
         console.log(result);
       }
     });
+  }
+
+  onClickMyTask(event){
+    console.log(event);
+    if(event){
+      this.exceptionData = this.exceptionDataForFilter.filter(item => item.mytask ==true);
+    } else {
+      this.exceptionData = this.exceptionDataForFilter
+    }
   }
 }

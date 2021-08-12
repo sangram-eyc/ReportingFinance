@@ -188,3 +188,9 @@
         }
     }
   }
+
+  .mytask {
+    ::ng-deep svg {
+        fill: #85858a !important;
+    }
+}

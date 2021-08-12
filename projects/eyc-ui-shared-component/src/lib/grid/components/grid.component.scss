@@ -251,3 +251,11 @@
   ::ng-deep .no_data:hover {
     box-shadow: none !important;
   }
+
+  .search {
+      display: flex;
+      .toggle {
+        margin: 12px 0px -8px 20px;
+        display: flex;
+      }
+  }
