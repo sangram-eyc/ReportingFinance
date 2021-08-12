@@ -10,11 +10,13 @@ import { DataIntakeLandingService } from './../services/data-intake-landing.serv
 export class DataIntakeLandingComponent implements OnInit {
 
   curDate;
+  presentDate;
   filesListArr;
   constructor(private service: DataIntakeLandingService) { }
 
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
+    this.presentDate =  new Date();
     this.getIntakeFilesList();
   }
 
@@ -22,5 +24,17 @@ export class DataIntakeLandingComponent implements OnInit {
     this.service.getIntakeFilesList().subscribe(res => {
       this.filesListArr = res['data'];
     });
+  }
+
+  dateSub(presentDate){
+    let curDateVal = presentDate;
+    curDateVal.setMonth(curDateVal.getMonth() - 1);
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    
+  }
+  dateAdd(presentDate){
+    let curDateVal = presentDate;
+    curDateVal.setMonth(curDateVal.getMonth() + 1);
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
   }
 }
