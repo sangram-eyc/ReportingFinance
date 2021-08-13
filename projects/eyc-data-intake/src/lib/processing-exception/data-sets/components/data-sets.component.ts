@@ -131,6 +131,7 @@ export class DataSetsComponent implements OnInit {
         sortable: true,
         filter: true,
         width: 150,
+        cellClass: 'custom-unresolve',
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
