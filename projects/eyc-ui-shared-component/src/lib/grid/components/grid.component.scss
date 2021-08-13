@@ -259,3 +259,6 @@
         display: flex;
       }
   }
+  ::ng-deep #gridAdminContainer .motif-table .custom-file.ag-cell-value {
+    color: #155CB4  !important;
+  }
