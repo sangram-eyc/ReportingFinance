@@ -22,7 +22,7 @@
     </motif-tab-bar>
 </div>
 
-<section id='active-reports' [hidden]="!(tabIn == 1)">
+<section id='active-reports' [hidden]="!(tabIn == 2)">
     <div id="reports-history-heading">
         <div class="search">
             <motif-form-field>
@@ -76,7 +76,7 @@
     </div> -->
     
 
-    <motif-card class="no_data" *ngIf="activeReportsSearchNoDataAvilable">
+    <motif-card class="no_data" >
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
@@ -90,7 +90,7 @@
 
 </section>
 
-<section id='reports-history' [hidden]="!(tabIn == 2)">
+<section id='reports-history' [hidden]="!(tabIn == 1)">
     <div id="reports-history-heading">
         <div class="search">
             <motif-form-field>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { RegulatoryReportingFilingService } from '../../tax-reporting/services/regulatory-reporting-filing.service';
+import { TaxReportingFilingService } from '../../tax-reporting/services/tax-reporting-filing.service';
 
 @Component({
   selector: 'app-filing-card',
@@ -71,7 +71,7 @@ export class FilingCardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: TaxReportingFilingService
   ) { }
 
   ngOnInit(): void {

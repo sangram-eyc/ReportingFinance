@@ -5,13 +5,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { environment } from '../../../../../../src/environments/environment';
-import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { TaxReportingFilingService } from '../../tax-reporting/services/tax-reporting-filing.service';
 import { of } from 'rxjs';
 import { resolvePtr } from 'dns';
 
 describe('DotsCardComponent', () => {
   let component: DotsCardComponent;
-  let service: RegulatoryReportingFilingService;
+  let service: TaxReportingFilingService;
   let fixture: ComponentFixture<DotsCardComponent>;
   let mockFilingData = {
     "success": true,
@@ -123,7 +123,7 @@ describe('DotsCardComponent', () => {
       ]
     })
     .compileComponents();
-    service = TestBed.inject(RegulatoryReportingFilingService);
+    service = TestBed.inject(TaxReportingFilingService);
     fixture = TestBed.createComponent(DotsCardComponent);
     component = fixture.componentInstance;
     component.filingName = 'AIFMD';

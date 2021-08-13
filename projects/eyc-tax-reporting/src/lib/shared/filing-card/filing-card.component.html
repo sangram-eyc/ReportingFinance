@@ -1,45 +1,33 @@
-
-<div class="filing-wrapper">
+ <div class="filing-wrapper">
     <motif-card>
         <motif-card-header>
             <!-- <h6 class="filing-name">{{name}} // {{period}}</h6> -->
             <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <h6 class="filing-name" *ngIf="name.length <= filingWidth && period.length <= periodWidth">{{name}} // {{period}}</h6>
-    
-    
-                    <div *ngIf="name.length >= filingWidth && period.length <= periodWidth" class="elli-wrap">
+                <div class="col-md-4 col-sm-4">
+                     <div *ngIf="name.length >= filingWidth && period.length <= periodWidth" class="elli-wrap">
                         <motif-tooltip placement="top">
-                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span><span class="filing-name ">// {{period}}</span>
+                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">MES// NAME</span>
                             </h6>
-                            {{name}} // {{period}}
                         </motif-tooltip>
-                        <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
-                    </div>
-                    <div *ngIf="period.length >= periodWidth && name.length <= filingWidth" class="elli-wrap">
-                        <motif-tooltip placement="top">
-                            <h6 motifTooltipTrigger aria-label="tooltip" class="only-period-ellipsis"><span class="filing-name ">{{name}} </span><span class="filing-name ellipsis-period"> // {{period}}</span>
-                            </h6>
-                            {{name}} // {{period}}
-                        </motif-tooltip>
-                        <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
-                    </div>
+                       
+                    </div> 
+                   
                     <div *ngIf="name.length >= filingWidth && period.length >= periodWidth" class="elli-wrap">
                         <motif-tooltip placement="top">
-                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span><span class="filing-name ellipsis-period">// {{period}}</span>
+                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis-period">// {{period}}</span>
                             </h6>
-                            {{name}} // {{period}}
+                             // {{period}}
                         </motif-tooltip>
-                        <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
+                        
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+               <!--  <div class="col-md-6 col-sm-6">
                     <span class="filing-date-due">
-                        <motif-icon [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Filing due
-                        {{dueDate}}
+                         <motif-icon [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon> 
+                        icono-createdDate
                     </span>
     
-                </div>
+                </div> -->
             </div>
     
     
@@ -50,14 +38,13 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3">
                     <div class="card-column">
-                        <span class="column-header">Total Funds</span>
-                        <span class="fund-number">{{totalFunds}}</span>
+                       ICONO
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-5">
                     <div class="card-column">
-                        <span class="column-header">Status</span>
-                        <div class="progress-indicator-container">
+                        <span class="column-header">FECHA</span>
+                       <!--  <div class="progress-indicator-container">
                             <motif-progress-indicators>
                                 <motif-progress-step [status]="getStatus(1)"></motif-progress-step>
                                 <motif-progress-step [status]="getStatus(2)"></motif-progress-step>
@@ -66,11 +53,11 @@
                                 <motif-progress-step [status]="getStatus(5)"></motif-progress-step>
                             </motif-progress-indicators>
                             <div class="line"></div>
-                        </div>
-                        <span class="status-text">{{status.stage}}</span>
+                        </div> -->
+                        <span class="status-text">submmited by author</span>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4">
+               <!--  <div class="col-md-4 col-sm-4">
                     <div class="card-column comment-column">
                         <span class="column-header">Comments</span>
                         <div class="filing-comment" [ngClass]="{'blue-comment': comments.length > 0}">
@@ -78,18 +65,19 @@
                             <span>{{comments.length}}</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
     
     
     
         </motif-card-body>
         <div class="filing-card-footer">
-            <div class="footer-status">{{statusMessage}}</div>
+            <div>Download</div>
             <div class="card-button">
-                <button motifButton color="primary-alt" (click)="routeToDetailsView()">View</button>
+              <div>icono</div>
+              <div>icono</div>
             </div>
         </div>
     </motif-card>
-</div>
+ </div>
 

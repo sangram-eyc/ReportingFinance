@@ -4,10 +4,10 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../../../src/environments/environment';
 import { EycRrSettingsService } from '../../services/eyc-tax-settings.service';
 
-import { RegulatoryReportingFilingService } from './regulatory-reporting-filing.service';
+import { TaxReportingFilingService } from './tax-reporting-filing.service';
 
-describe('RegulatoryReportingFilingService', () => {
-  let service: RegulatoryReportingFilingService;
+describe('TaxReportingFilingService', () => {
+  let service: TaxReportingFilingService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('RegulatoryReportingFilingService', () => {
       providers: [EycRrSettingsService, {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
       {provide:"rrproduction",  useValue: environment.production}]
     });
-    service = TestBed.inject(RegulatoryReportingFilingService);
+    service = TestBed.inject(TaxReportingFilingService);
     httpMock = TestBed.get(HttpTestingController);
   });
 
@@ -127,7 +127,7 @@ describe('RegulatoryReportingFilingService', () => {
     service.getFilingSearch(1).subscribe(resp => {
       expect(resp['data'].length).toEqual(1);
     });
-    let req = httpMock.expectOne(environment.apiEndpoint + 'assets/eyc-regulatory-reporting/mock/filings.json1');
+    let req = httpMock.expectOne(environment.apiEndpoint + 'assets/eyc-tax-reporting/mock/filings.json1');
     expect(req.request.method).toEqual("GET");
     req.flush(filingSearch);
     httpMock.verify();
@@ -166,7 +166,7 @@ describe('RegulatoryReportingFilingService', () => {
     service.getFilingStatus(1).subscribe(resp => {
       expect(resp['data'].length).toEqual(3);
     });
-    let req = httpMock.expectOne(environment.apiEndpoint + 'assets/eyc-regulatory-reporting/mock/filing-status.json');
+    let req = httpMock.expectOne(environment.apiEndpoint + 'assets/eyc-tax-reporting/mock/filing-status.json');
     expect(req.request.method).toEqual("GET");
     req.flush(filingStatus);
     httpMock.verify();

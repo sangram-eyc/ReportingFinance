@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RegulatoryReportingFilingService {
+export class TaxReportingFilingService {
  
   filingData: any;
   @Output() dotcardStatusDetails = new EventEmitter<any>();

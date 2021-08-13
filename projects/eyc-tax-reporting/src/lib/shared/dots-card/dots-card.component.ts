@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { RegulatoryReportingFilingService } from '../../tax-reporting/services/regulatory-reporting-filing.service';
+import { TaxReportingFilingService } from '../../tax-reporting/services/tax-reporting-filing.service';
 
 @Component({
   selector: 'lib-dots-card',
@@ -27,7 +27,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public router: Router,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: TaxReportingFilingService
   ) { }
 
   ngOnInit(): void {

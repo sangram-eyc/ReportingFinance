@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
-import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
+import { TaxReportingFilingService } from '../services/tax-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/tax-config-helper';
@@ -13,7 +13,7 @@ export class TaxReportingComponent implements OnInit {
 
   tabIn;
   constructor(
-    private filingService: RegulatoryReportingFilingService,
+    private filingService: TaxReportingFilingService,
     private customglobalService: CustomGlobalService
   ) { }
 
