@@ -1,0 +1,70 @@
+{
+    "success": true,
+	"message": "sucess",
+	"data": [
+        {
+            "exceptionId": 1,
+            "exceptionDue":"JAN 5 - BD",
+            "exceptionFile":"General Ledger",
+            "exceptions":5,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Corporate Bond Fund",
+            "resolve_exception": "3",
+            "reviewLevel": "Data Specialist",
+            "comments": 7,
+            "result": false,
+            "isExceptionResolved":true,
+            "unresolve_exception": 9,
+            "reg_reporting": "Form PF",
+            "source": "State Street, SEI"
+        },
+        {
+            "exceptionId": 2,
+            "exceptionDue":"JAN 7 - BD3",
+            "exceptionFile":"General Ledger",
+            "exceptions":5,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Municipal Bond Fund",
+            "resolve_exception": "5",
+            "reviewLevel": "Data Specialist",
+            "comments": "",
+            "result": false,
+            "isExceptionResolved":true,
+            "unresolve_exception": 6,
+            "reg_reporting": "N-PORT",
+            "source": "State Street"
+        },
+        {
+            "exceptionId": 3,
+            "exceptionDue":"JAN 10 - BD3",
+            "exceptionFile":"Trial Balance",
+            "exceptions":5,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Fixed Income Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "Data Specialist",
+            "comments": 10,
+            "result": false,
+            "isExceptionResolved":true,
+            "unresolve_exception": 7,
+            "reg_reporting": "Form PF",
+            "source": "State Street, SEI"
+        },
+        {
+            "exceptionId": 4,
+            "exceptionDue":"JAN 11 - BD3",
+            "exceptionFile":"Positions",
+            "exceptions":5,
+            "exceptionReportType": "Transformation and Review",
+            "exceptionReportName": "Alpha Global Opportunities Fund",
+            "resolve_exception": "--",
+            "reviewLevel": "Data Specialist",
+            "comments": [],
+            "result": false,
+            "isExceptionResolved":true,
+            "unresolve_exception": 8,
+            "reg_reporting": "CPO-PQR",
+            "source": "State Street"
+        }
+    ]
+}
