@@ -9,7 +9,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 7,
-            "approved": false
+            "approved": false,
+            "mytask": true
         },
         {
             "exceptionId": 2,
@@ -18,7 +19,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": "",
-            "approved": true
+            "approved": true,
+            "mytask": false
         },
         {
             "exceptionId": 3,
@@ -27,7 +29,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 10,
-            "approved": false
+            "approved": false,
+            "mytask": true
         },
         {
             "exceptionId": 4,
@@ -36,7 +39,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": false
+            "approved": false,
+            "mytask": true
         },
         {
             "exceptionId": 5,
@@ -45,7 +49,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 5,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 6,
@@ -54,7 +59,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 7,
@@ -63,7 +69,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 3,
-            "approved": true
+            "approved": true,
+            "mytask": true
         },
         {
             "exceptionId": 8,
@@ -72,7 +79,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 9,
-            "approved": false
+            "approved": false,
+            "mytask": true
         },
         {
             "exceptionId": 9,
@@ -81,7 +89,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": false
+            "approved": false,
+            "mytask": true
         },
         {
             "exceptionId": 10,
@@ -90,7 +99,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 11,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 11,
@@ -99,7 +109,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 7,
-            "approved": true
+            "approved": true,
+            "mytask": false
         },
         {
             "exceptionId": 12,
@@ -108,7 +119,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": true
+            "approved": true,
+            "mytask": false
         },
         {
             "exceptionId": 13,
@@ -117,7 +129,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": true
+            "approved": true,
+            "mytask": false
         },
         {
             "exceptionId": 14,
@@ -126,7 +139,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 2,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 15,
@@ -135,7 +149,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 6,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 16,
@@ -144,7 +159,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 8,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 17,
@@ -153,7 +169,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": true
+            "approved": true,
+            "mytask": false
         },
         {
             "exceptionId": 18,
@@ -162,7 +179,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 12,
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 19,
@@ -171,7 +189,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": [],
-            "approved": false
+            "approved": false,
+            "mytask": false
         },
         {
             "exceptionId": 20,
@@ -180,7 +199,8 @@
             "resolve_exception": "--",
             "reviewLevel": "--",
             "comments": 10,
-            "approved": true
+            "approved": true,
+            "mytask": true
         }
     ]
 }
