@@ -35,17 +35,25 @@
             </div>
             <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
                
+                    <div class="result_complete" *ngIf="row.exceptions == row.resolve_exception">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                    </div>
+                    <div class="result_warning" *ngIf="row.exceptions != row.resolve_exception">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                    </div>
                
             </div>
         </ng-template>
         <ng-template #dropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.exceptions == 0" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-            <div class="result_complete" *ngIf="row.isExceptionResolved && (row.exceptions != 0)">
+            <div class="result_complete" *ngIf="row.isExceptionResolved && (row.exceptions != 0) && row.exceptions == row.resolve_exception">
                 <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
             </div>
-            <div class="result_warning" *ngIf="!row.isExceptionResolved && (row.exceptions != 0)">
+            <!-- <div class="result_warning" *ngIf="!row.isExceptionResolved && (row.exceptions != 0)">
+                <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+            </div> -->
+            <div class="result_warning" *ngIf="row.exceptions != row.resolve_exception">
                 <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
             </div>
             <div class="dropdownTemplate">
