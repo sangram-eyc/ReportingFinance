@@ -14,7 +14,7 @@
 
 <div *ngIf="tabIn == 1">
 
-    <lib-shared-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third"></lib-shared-grid>
+    <lib-shared-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">

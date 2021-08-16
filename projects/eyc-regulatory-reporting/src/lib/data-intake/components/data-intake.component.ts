@@ -27,6 +27,25 @@ export class DataIntakeComponent implements OnInit {
   rowData = [];
   exceptionDetailCellRendererParams;
   filesListArr;
+
+  datasets = [];
+  datasetsDefs;
+  submitDatasets;
+  datasetsSelectedRows;
+  datasetsModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected datasets? This will advance them to the next reviewer.",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
+
   constructor(
     private service: DataIntakeService,
     private filingService: RegulatoryReportingFilingService,
@@ -34,6 +53,7 @@ export class DataIntakeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
   }
   
   @ViewChild('headerTemplate')
@@ -46,7 +66,12 @@ export class DataIntakeComponent implements OnInit {
   commentExceptionTemplate: TemplateRef<any>;
   @ViewChild('resolveExceptionTemplate')
   resolveExceptionTemplate: TemplateRef<any>;
-  
+  @ViewChild('datasetsDropdownTemplate')
+  datasetsDropdownTemplate: TemplateRef<any>;
+  @ViewChild('commentDatasetsTemplate')
+  commentDatasetsTemplate: TemplateRef<any>;
+  @ViewChild('resolveDatasetsTemplate')
+  resolveDatasetsTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
     if (this.tabs == 2) {
@@ -83,6 +108,19 @@ export class DataIntakeComponent implements OnInit {
 
   }
 
+  getDatasets() {
+    this.service.getDatasetsrecords().subscribe(res => {
+      this.datasets = res['data'];
+      console.log(this.datasets);
+      this.createEntitiesRowData();
+      
+    },error=>{
+      this.datasets =[];
+      console.log("Datasets error");
+    });
+
+  }
+
   receiveMessage($event) {
     this.tabs = $event;
     if(this.tabs == 2){
@@ -90,6 +128,8 @@ export class DataIntakeComponent implements OnInit {
     } else if (this.tabs == 1) {
      
       this.getExceptionReports();
+    } else if (this.tabs == 3) {
+      this.getDatasets();
     }
   }
 
@@ -270,6 +310,115 @@ export class DataIntakeComponent implements OnInit {
         },
         
       ];
+
+    this.datasetsDefs = [
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.datasetsDropdownTemplate,
+        },
+        field: 'template',
+        headerName: '',
+        width: 70,
+        sortable: false,
+        pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Due',
+        field: 'exceptionDue',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 130
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'File',
+        field: 'exceptionFile',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 150
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Source',
+        field: 'source',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 150
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Client',
+        field: 'client',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true,
+        width: 150,
+        sort: 'asc',
+        comparator: customComparator
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.commentExceptionTemplate,
+        },
+        headerName: 'Comments',
+        field: 'comments',
+        sortable: true,
+        filter: true,
+        width: 150
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.resolveExceptionTemplate,
+        },
+        headerName: 'Resolved',
+        field: 'resolve_exception',
+        sortable: true,
+        filter: true,
+        width: 150,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exceptions',
+        field: 'exceptions',
+        sortable: true,
+        filter: true,
+        width: 150,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Review Level',
+        field: 'reviewLevel',
+        sortable: true,
+        filter: true,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Version',
+        field: 'version',
+        sortable: true,
+        filter: true,
+      }
+    ];
   }
 
   handleGridReady(params) {
@@ -334,5 +483,16 @@ export class DataIntakeComponent implements OnInit {
     
   }
 
+  onSubmitApproveDatasets(){
+    this.datasetsSelectedRows.forEach(ele => {
+      this.datasets[this.datasets.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    });
+    this.createEntitiesRowData();
+  }
+
+  datasetsReportRowsSelected(event) {
+    console.log(event);
+    this.datasetsSelectedRows = event;
+  }
 
 }

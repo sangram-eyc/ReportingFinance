@@ -22,5 +22,10 @@ export class DataIntakeService {
   }
   getfilesList() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
- }
+  }
+
+  getDatasetsrecords() {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`)
+  }
+ 
 }
