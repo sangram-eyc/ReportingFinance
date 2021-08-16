@@ -554,7 +554,7 @@ button.motif-select-trigger {
   font-family: EYInterstate !important;
 }
 
-a, .header-row-container, li, button:focus {
+a, .header-row-container, li, button:focus, ::ng-deep .motif-toggle-switch-container:focus {
   box-shadow: none !important;
   outline: none !important;
 }
@@ -671,4 +671,7 @@ button.motif-select-trigger{
     fill: #ffffff !important;
   }
   
+}
+.motif-toggle-switch-container:focus-within {
+  outline: none !important;
 }

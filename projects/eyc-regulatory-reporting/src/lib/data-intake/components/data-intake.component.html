@@ -98,5 +98,38 @@
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast> -->
     </section>
+    <section id="dataset" [hidden]="!(tabs==3)">
+        <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
+            [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
+            [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
+            (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"></lib-shared-grid>
+    
+        <ng-template #datasetsDropdownTemplate let-row>
+            <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
+            </motif-icon>
+            <div class="dropdownTemplate">
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                    tabindex="0">
+                </motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #commentDatasetsTemplate let-row>
+            <div *ngIf="row.comments.length!==0" class="comments-background">
+                {{row.comments}}
+            </div>
+            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()">
+                        <span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #resolveDatasetsTemplate let-row>
+            {{row.resolve_exception}}
+            <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
+                <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+            </div>
+        </ng-template>
+    </section>
 </div>
 

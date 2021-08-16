@@ -103,9 +103,10 @@ export class RegulatoryReportingFilingComponent implements OnInit {
           totalFunds: item.totalFunds
         };
         this.activeFilings.push(eachitem);
-        this.activeReports.push(eachitem);
+        // this.activeReports.push(eachitem);
       });
       this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
+      this.activeReports = this.activeFilings;
       this.createHistoryRowData();
     });
   }

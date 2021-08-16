@@ -2,9 +2,12 @@
     <section id="{{gridContainerCls}}" [ngClass]="{'user-style-container': gridStyle === 'third'}">
         <div id="{{gridHeadingCls}}" [ngClass]="gridStyle === 'first' ? 'first-heading' : 'second-heading'">
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
-                <div *ngIf="button" class="approve-button">
-                    <button motifButton color="primary" size="large" (click)="openDialog()"
+                <div *ngIf="button" class="buttons">
+                    <div class="approve-button">
+                        <button motifButton color="primary" size="large" (click)="openDialog()"
                         [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
+                    </div>
+                    <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                 </div>
                 <div *ngIf="!button"></div>
                 <div class="search" *ngIf="search">

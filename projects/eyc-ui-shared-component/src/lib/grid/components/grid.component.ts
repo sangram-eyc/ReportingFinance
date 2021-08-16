@@ -28,7 +28,9 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() isToggle = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
-  @Input() displayCheckBox;
+  @Input() secondbuttonText = 'Reject selected';
+  @Input() displaySecondButton = false;
+  @Input() displayCheckBox = false;
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() submitFunction: () => void;
@@ -46,7 +48,7 @@ export class GridComponent implements OnInit, OnChanges {
     }
   };
   @Input() rowData: any;
-  @Input() disableAddMemberButton = false;
+  @Input() disableAddMemberButton = true;
   @Input() columnDefs: any;
   @Input() defaultColDef: any;
   @Input() masterDetail = false;

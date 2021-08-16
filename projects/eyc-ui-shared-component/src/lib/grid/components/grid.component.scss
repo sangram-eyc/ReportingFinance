@@ -40,6 +40,12 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        .buttons {
+            display: flex;
+            .second-button {
+                margin-left: 16px;
+            }
+        }
         .approve-button {
             .motif-button {
                 font-family: EYInterstate !important;
