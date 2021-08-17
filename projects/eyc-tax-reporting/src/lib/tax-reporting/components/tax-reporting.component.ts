@@ -87,27 +87,30 @@ export class TaxReportingComponent implements OnInit {
   }
 
   getActiveFilingsData() {
-    this.filingService.getFilings().subscribe(resp => {
+    
+    let resp = [
+      {name: 'Management Report',author:'Author1',createdDate:'00/00/00',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Author2',createdDate:'00/00/00',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Author3',createdDate:'00/00/00',downloadUrl:'asdasd'}
+    ];
+  
+    //  this.filingService.getFilings().subscribe(resp => {
       this.filingResp.push(resp);
-      resp['data'].length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
-      resp['data'].forEach((item) => {
+
+      resp.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
+      resp.forEach((item) => {
         const eachitem: any = {
-          name: item.filingName,
-          dueDate: item.dueDate,
-          startDate: item.startDate,
-          comments: [],
-          status: item.filingStatus,
-          filingName: item.filingName,
-          period: item.period,
-          filingId: item.filingId,
-          totalFunds: item.totalFunds
+           name: item.name,
+           author: item.author,
+           createdDate: item.createdDate,
+           downloadUrl: item.downloadUrl
         };
         this.activeFilings.push(eachitem);
         this.activeReports.push(eachitem);
       });
-      this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
-      this.createHistoryRowData();
-    });
+       this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
+       this.createHistoryRowData();
+    // });
   }
 
   getCompletedFilingsData() {

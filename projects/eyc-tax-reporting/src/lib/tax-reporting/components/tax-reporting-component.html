@@ -24,81 +24,51 @@
 
 <section id='active-reports' [hidden]="!(tabIn == 2)">
     <div id="reports-history-heading">
-        <div class="search">
+       <!--  <div class="search">
             <motif-form-field>
                 <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
                     (keyup)="searchActiveReports(activeReports)" (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
             </motif-form-field>
+        </div> -->
+        
+        <div>
+            <h3>View tax reporting in production cycles, management reporting, archived reports and data explorer</h3>
+            <h2>Management Report</h2>
+            <!-- <button>Upload report</button> -->
         </div>
     </div>
-    <!-- <div class="filing-card">
-        <div fxFlex fxLayout="column" fxLayoutGap="10px">
-            <div fxLayout="row wrap">
-                <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" 
-                fxFlex="14"
-                fxFlex.xl="25"
-                fxFlex.lg="50"
-                fxFlex.md="50"
-                fxFlex.sm="100"
-                fxFlex.xs="100" 
-                fxLayout="column" style="padding: 5px;">
-                    <app-filing-card [filingData]="filing"></app-filing-card>
-                </div>
-            </div>
-        </div>
-    </div> -->
-<!-- 
-    <div class="filing-card">
-        <div fxFlex fxLayout="column" fxLayoutGap="10px">
-            <div fxLayout="row wrap">
-                <div *ngFor="let filing of activeFilings.sort(sortByDueDate)" class="each-card"
-             style="padding: 5px;">
-                    <app-filing-card [filingData]="filing"></app-filing-card>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    
     <div class="row">
         <div class="each-card" *ngFor="let filing of activeFilings">
             <app-filing-card [filingData]="filing"></app-filing-card>
         </div>
     </div>
-    <!-- <div class="filing-card">
-        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
-
-       
-            <ng-container *ngFor="let filing of activeFilings.sort(sortByDueDate)">
-                <app-filing-card [filingData]="filing" fxFlex="0 1 calc(33.3% - 32px)"
-                fxFlex.lt-md="0 1 calc(50% - 32px)"
-                fxFlex.lt-sm="100%"></app-filing-card>
-            </ng-container>
-        </div>
-    </div> -->
+   
     
 
-    <motif-card class="no_data" >
+   <!--  <motif-card class="no_data" >
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card>-->
 
     <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
         <motif-card-body>
             <h5>No results found.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card> 
 
 </section>
 
-<section id='reports-history' [hidden]="!(tabIn == 1)">
+<section id='reports-history' [hidden]="!(tabIn ==9)">
     <div id="reports-history-heading">
-        <div class="search">
+        <!-- <div class="search">
             <motif-form-field>
                 <input #reportHistorySearch motifInput motifSearch type="text"
                     (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(reportHistorySearch)"
                     (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
             </motif-form-field>
-        </div>
+        </div> -->
     </div>
     <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
         <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"

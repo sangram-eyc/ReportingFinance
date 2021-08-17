@@ -4,22 +4,22 @@
             <!-- <h6 class="filing-name">{{name}} // {{period}}</h6> -->
             <div class="row">
                 <div class="col-md-4 col-sm-4">
-                     <div *ngIf="name.length >= filingWidth && period.length <= periodWidth" class="elli-wrap">
+                      <div  class="elli-wrap"> 
                         <motif-tooltip placement="top">
-                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">MES// NAME</span>
+                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">MES// {{name}}</span>
                             </h6>
                         </motif-tooltip>
                        
                     </div> 
                    
-                    <div *ngIf="name.length >= filingWidth && period.length >= periodWidth" class="elli-wrap">
+                    <!-- <div class="elli-wrap">
                         <motif-tooltip placement="top">
-                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis-period">// {{period}}</span>
+                            <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis-period">// asdasd</span>
                             </h6>
-                             // {{period}}
+                             // asdasd
                         </motif-tooltip>
                         
-                    </div>
+                    </div> -->
                 </div>
                <!--  <div class="col-md-6 col-sm-6">
                     <span class="filing-date-due">
@@ -43,18 +43,8 @@
                 </div>
                 <div class="col-md-5 col-sm-5">
                     <div class="card-column">
-                        <span class="column-header">FECHA</span>
-                       <!--  <div class="progress-indicator-container">
-                            <motif-progress-indicators>
-                                <motif-progress-step [status]="getStatus(1)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(2)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(3)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(4)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(5)"></motif-progress-step>
-                            </motif-progress-indicators>
-                            <div class="line"></div>
-                        </div> -->
-                        <span class="status-text">submmited by author</span>
+                        <span class="column-header">{{createdDate}}</span>
+                        <span class="status-text">submmited by {{author}}</span>
                     </div>
                 </div>
                <!--  <div class="col-md-4 col-sm-4">

@@ -13,62 +13,24 @@ export class FilingCardComponent implements OnInit {
   innerWidth: any;
   filingWidth = 15;
   periodWidth = 10;
+
+  author = '';
+  name = '';
+  createdDate = '';
+  downloadUrl = '';
   
   @Input()
   set filingData(filingData: object) {
     this._filingData = filingData;
-    this.dueDate = this._filingData.dueDate;
-    this.formatDate();
-    this.startDate = this._filingData.startDate;
-    this.comments = this._filingData.comments;
     this.name = this._filingData.name;
-    this.states = this._filingData.status;
-    this.period = this._filingData.period;
-    this.totalFunds = this._filingData.totalFunds;
-    this.setStatus();
+    this.author = this._filingData.author;
+    this.createdDate = this._filingData.createdDate;
+    this.downloadUrl = this._filingData.downloadUrl;
+ /* 
+    this.formatDate();
+    this.setStatus(); */
   };
-  startDate = '';
-  dueDate = '';
-  comments = [];
-  name = '';
-  period = '';
-  status = {
-    stage: '',
-    progress: '',
-    stageCode: ''
-  };
-  states: any[] = [];
-  totalFunds;
-  // states = [
-  //   {
-  //     stage: 'Fund Scoping',
-  //     progress: 'not-set',
-  //     displayOrder: 1
-  //   },
-  //   {
-  //     stage: 'Data Intake',
-  //     progress: 'not-set',
-  //     displayOrder: 1
-  //   },
-  //   {
-  //     stage: 'Reporting',
-  //     progress: 'not-set',
-  //     displayOrder: 1
-  //   },
-  //   {
-  //     stage: 'Client Review',
-  //     progress: 'not-set',
-  //     displayOrder: 1
-  //   },
-  //   {
-  //     stage: 'Submission',
-  //     progress: 'not-set',
-  //     displayOrder: 1
-  //   }
-  // ];
-  statusMessage = ''
-
-
+ 
   constructor(
     private router: Router,
     private filingService: TaxReportingFilingService
@@ -92,7 +54,7 @@ export class FilingCardComponent implements OnInit {
     }
   }
 
-  formatDate() {
+ /*  formatDate() {
     let due = new Date(this.dueDate);
     // console.log(due);
     // console.log(this.dueDate);
@@ -100,9 +62,9 @@ export class FilingCardComponent implements OnInit {
       + ('0' + due.getDate()).slice(-2) + '/'
       + due.getFullYear();
     this.dueDate = newdate;
-  }
+  } */
 
-  setStatus() {
+ /*  setStatus() {
     // let currentStatusFound = false;
     this.states.sort(this.sortStates);
     this.states.forEach(state => {
@@ -120,14 +82,14 @@ export class FilingCardComponent implements OnInit {
         state['progress'] = 'not-set'
       }
     });
-  }
+  } */
 
-  getStatus(index: number): string | null {
+ /*  getStatus(index: number): string | null {
     index = index - 1;
     return this.states[index]['progress'];
-  }
+  } */
 
-  routeToDetailsView() {
+ /*  routeToDetailsView() {
     // this.router.navigate(['/regulatory-filing-list/'+1]);
     this.filingService.setfilingData = this._filingData;
     switch (this.status.stageCode) {
@@ -147,7 +109,7 @@ export class FilingCardComponent implements OnInit {
         this.router.navigate(['/submission']);
     }
 
-  }
+  } */
 
   sortStates(a, b) {
     let stage1 = a.displayOrder;
