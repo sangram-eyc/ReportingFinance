@@ -11,12 +11,13 @@ export class ReportingTabsCardComponent implements OnInit {
   tabIn;
   @Output() messageEvent = new EventEmitter<string>();
   @Input() isDataInteake = false;
+  @Input() pageName;
   constructor(
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.tabIn = 2;
+    this.pageName == 'dataIntake' ? this.tabIn = 1: this.tabIn = 2;
   }
 
   reportTabChange(selectedTab){

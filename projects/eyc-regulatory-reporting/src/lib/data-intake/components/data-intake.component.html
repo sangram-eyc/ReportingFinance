@@ -1,7 +1,15 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [isDataInteake] ="true"></lib-reporting-tabs-card>
+<lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)" [isDataInteake] ="true"></lib-reporting-tabs-card>
 
-<div class="review-content-container">
+
+<div *ngIf="!enableTabs" class="intakeFilesWrapper">
+    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr" [buttonTxt]="'All exceptions'"></shared-lib-intake-files>
+</div>
+
+<div class="review-content-container" *ngIf="enableTabs">
+
+
+
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid 
@@ -63,10 +71,9 @@
             </ng-template>
     </section>
 
-    <section id="filingEntities" [hidden]="!(tabs==2)">
-
+<!--     <section id="filingEntities" [hidden]="!(tabs==2)">
+ -->
         
-        <shared-lib-intake-files [filesData]="filesListArr" [buttonTxt]="'Exceptions'"></shared-lib-intake-files>
         <!-- <ng-template #commentTemplate let-row>
             <div *ngIf="row.comments.length!==0" class="comments-background">
                 {{row.comments}}
@@ -97,8 +104,8 @@
         <!-- <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast> -->
-    </section>
-    <section id="dataset" [hidden]="!(tabs==3)">
+<!--     </section>
+ -->    <section id="dataset" [hidden]="!(tabs==2)">
         <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
             [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"

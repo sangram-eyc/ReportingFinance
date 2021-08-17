@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,6 +14,7 @@ export class IntakeFilesComponent implements OnInit {
   @Input() filesData;
   @Input() buttonTxt;
   @Input() redirectURL;
+  @Output() eventToParentFromIntakeFiles = new EventEmitter<any>();
 
   ngOnInit(): void {
   }
@@ -22,7 +23,7 @@ export class IntakeFilesComponent implements OnInit {
     if(this.redirectURL) {
       let url = '/'+this.redirectURL;
     this.router.navigate([url]);
-    }
+    }else { this.eventToParentFromIntakeFiles.emit(true); }
   }
 
 }

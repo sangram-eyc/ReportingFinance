@@ -558,6 +558,10 @@ a, .header-row-container, li, button:focus, ::ng-deep .motif-toggle-switch-conta
   box-shadow: none !important;
   outline: none !important;
 }
+.filesHeaderWrapper  button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
 
 .ag-theme-material input:focus {
   border-bottom-color: #23232F !important;
