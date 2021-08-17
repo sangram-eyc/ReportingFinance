@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
@@ -11,7 +11,7 @@ import {DataIntakeService} from '../services/data-intake.service';
   templateUrl: './data-intake.component.html',
   styleUrls: ['./data-intake.component.scss']
 })
-export class DataIntakeComponent implements OnInit {
+export class DataIntakeComponent implements OnInit, OnDestroy {
   status = {
     stage: 'Reporting',
     progress: 'in-progress'
@@ -21,12 +21,13 @@ export class DataIntakeComponent implements OnInit {
   gridApi;
   columnDefs;
   exceptionDefs;
-  tabs = 2;
+  tabs = 1;
   filingDetails:any;
   exceptionData;
   rowData = [];
   exceptionDetailCellRendererParams;
   filesListArr;
+  enableTabs = false;
 
   datasets = [];
   datasetsDefs;
@@ -54,6 +55,7 @@ export class DataIntakeComponent implements OnInit {
 
   ngOnInit(): void {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
+    this.getFiles();
   }
   
   @ViewChild('headerTemplate')
@@ -74,9 +76,9 @@ export class DataIntakeComponent implements OnInit {
   resolveDatasetsTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    if (this.tabs == 2) {
-      this.getFiles();
-    }
+    /* if (this.tabs == 2) {
+      this.getDatasets();
+    } */
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
@@ -92,14 +94,6 @@ export class DataIntakeComponent implements OnInit {
   }
 
   getFiles(){
-    /* this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.rowData = res['data'];
-      this.createEntitiesRowData();
-    },error=>{
-      this.rowData =[];
-      console.log("Client Review error");
-    }); */
-    
     this.service.getfilesList().subscribe(res => {
       this.filesListArr = res['data'];
     },error=>{
@@ -124,13 +118,18 @@ export class DataIntakeComponent implements OnInit {
   receiveMessage($event) {
     this.tabs = $event;
     if(this.tabs == 2){
-      this.getFiles();
-    } else if (this.tabs == 1) {
-     
-      this.getExceptionReports();
-    } else if (this.tabs == 3) {
       this.getDatasets();
-    }
+    } else if (this.tabs == 1) {
+      this.getExceptionReports();
+    } 
+    /* else if (this.tabs == 3) {
+      this.getDatasets();
+    } */
+  }
+
+  getIntakeDetails($event) {
+    this.enableTabs = $event;
+    this.receiveMessage(this.tabs);
   }
 
   createEntitiesRowData(): void {
@@ -493,6 +492,10 @@ export class DataIntakeComponent implements OnInit {
   datasetsReportRowsSelected(event) {
     console.log(event);
     this.datasetsSelectedRows = event;
+  }
+
+  ngOnDestroy() {
+    this.enableTabs = false;
   }
 
 }
