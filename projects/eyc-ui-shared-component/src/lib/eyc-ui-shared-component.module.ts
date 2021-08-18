@@ -7,12 +7,13 @@ import { DownloadModule } from './download/download.module';
 import {EycPowerbiModule} from '../lib/eyc-powerbi/eyc-powerbi.module';
 import { GridModule } from './grid/grid.module';
 import { IntakeFilesModule } from './intake-files/intake-files.module';
-
-
+import { TableHeaderRendererComponent } from './table-header-renderer/table-header-renderer.component'
+import { InlineSVGModule } from 'ng-inline-svg';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [TableHeaderRendererComponent],
   imports: [
     ModalModule,
     MotifButtonModule,
@@ -20,7 +21,9 @@ import { IntakeFilesModule } from './intake-files/intake-files.module';
     DownloadModule,
     EycPowerbiModule,
     GridModule,
-    IntakeFilesModule
+    IntakeFilesModule,
+    InlineSVGModule.forRoot(),
+    CommonModule
   ],
   exports: [
     ModalModule,
@@ -28,7 +31,8 @@ import { IntakeFilesModule } from './intake-files/intake-files.module';
     DownloadModule,
     EycPowerbiModule,
     GridModule,
-    IntakeFilesModule
+    IntakeFilesModule,
+    TableHeaderRendererComponent
   ]
 })
 export class EycUiSharedComponentModule { }
