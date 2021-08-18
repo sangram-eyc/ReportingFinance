@@ -32,7 +32,7 @@
             <div class="col-lg-2" [ngClass]="item.comments >= 1 ? 'comments' : 'nocomments' ">
                 
                 <span *ngIf="item.comments >= 1">{{item.comments}} Comments</span>
-                <span *ngIf="item.comments == 0 || item.comments == ''">-</span>
+                <span *ngIf="item.comments == 0 || item.comments == ''"></span>
             </div>
             <div class="col-lg-4 unres-head" *ngIf="item.unresolve_exception">
                 <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
