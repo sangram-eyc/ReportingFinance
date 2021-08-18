@@ -152,7 +152,7 @@ export class FundScopingComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Fund name',
+        headerName: 'Entity name',
         field: 'name',
         sortable: true,
         filter: true,

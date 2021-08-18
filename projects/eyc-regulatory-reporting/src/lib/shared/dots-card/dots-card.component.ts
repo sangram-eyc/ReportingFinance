@@ -131,7 +131,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
     this.states = [
       {
           "stageId": 21,
-          "stage": "Fund Scoping",
+          "stage": "Scoping",
           "stageCode": "FUND_SCOPING",
           "progress": "COMPLETED",
           "displayOrder": 1
