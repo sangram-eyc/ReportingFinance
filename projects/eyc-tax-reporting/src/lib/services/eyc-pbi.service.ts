@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {PBI_CONFIG} from '../config/tax-config-helper';
-import {EycRrSettingsService} from '../services/eyc-tax-settings.service';
+import {EycTaxSettingsService} from '../services/eyc-tax-settings.service';
 import {EycRrApiService } from '../services/eyc-tax-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EycPbiService {
-  constructor( private http: HttpClient, private settingService: EycRrSettingsService,
+  constructor( private http: HttpClient, private settingService: EycTaxSettingsService,
     private apiService: EycRrApiService) {}
 
   embedToken = (data) => {

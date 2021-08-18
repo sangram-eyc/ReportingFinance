@@ -6,7 +6,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
-import {EycRrSettingsService} from './services/eyc-tax-settings.service';
+import {EycTaxSettingsService} from './services/eyc-tax-settings.service';
 import { DotsCardComponent } from './shared/dots-card/dots-card.component';
 import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -66,7 +66,7 @@ export class EycTaxReportingModule {
     return {
       ngModule: EycTaxReportingModule,
       providers: [
-        EycRrSettingsService,
+        EycTaxSettingsService,
         {
           provide: 'env', // you can also use InjectionToken
           useValue: environment

@@ -48,8 +48,8 @@ task build(type: NpmTask) {
   
 }
 
-task build(type: NpmTask) {
-  println "Building UI"
+task eyc-tax-reporting(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
   args = ['run', 'eyc-tax-reporting']
   
 }

@@ -5,6 +5,12 @@
         padding: 0 !important;
     }
     
+    svg {
+        fill:none;
+        display: block;
+        height: 2.71429rem;
+        width: 2.71429rem; 
+    }
     .motif-card {
         // width: 422px;
         width: 100%;
@@ -19,17 +25,15 @@
             // justify-content: space-between;
             // align-items: center;
             // padding: 28px 20px 18px 23px;
-            min-height: 85px;
-            padding: 28px 20px 5px 22px;;
+            padding: 18px 20px 5px 22px;
             .elli-wrap {
                 // width: 67%;
             }
             .filing-name {
                 margin: 0;
-                font-weight: 700;
-                font-size: 16px;
+                font-weight: 600;
+                font-size: 14px;
                 line-height: 18px;
-                // width: 62%;
             }
             .eli-filing-name {
                 margin: 0;
@@ -80,7 +84,7 @@
             // padding-top: 0;
             // padding-left: 23px;
             // padding-bottom: 25px;
-            padding: 10px 22px 24px 22px;
+            padding: 0px 22px 24px 22px;
             ::ng-deep {
                 &:last-child {
                     padding: 0px;
@@ -93,7 +97,8 @@
                 display: flex;
                 flex-direction: column;
                 .status-text {
-                    font-weight: 700;
+                    font-weight: 500;
+                    font-size: 11px;
                 }
             }
             .comment-column {

@@ -1,7 +1,9 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import {EycRrSettingsService} from '../../services/eyc-tax-settings.service';
+import {EycTaxSettingsService} from '../../services/eyc-tax-settings.service';
 import {EycRrApiService} from '../../services/eyc-tax-api.service';
 import { BehaviorSubject } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class TaxReportingFilingService {
 
 
   constructor(
-    private apiService: EycRrApiService,private settingsService: EycRrSettingsService
+    private apiService: EycRrApiService,private settingsService: EycTaxSettingsService
   ) { }
 
     invokeFilingDetails(){
@@ -31,12 +33,7 @@ export class TaxReportingFilingService {
   getFilings() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
   }
-  getFilingsHistory(currentPage,noOfRecords) {
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
-    // After API integration will remove above line and uncomment below line
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
-  }
-
+ 
   getFilingSearch(noOfRecords) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_search}${noOfRecords}`);
   }

@@ -26,18 +26,22 @@
 }
 
 .client-title {
+  font:400 24px/32px EYInterstate !important;
+  font-family: EYInterstate;
   margin-bottom: 23px;
   font-family: $font;
   font-style: $font-style;
-  font-weight: 300;
-  font-size: 16px;
   line-height: 20px;
   color: #000000;
 }
 
-.eyc-rr-tabs {
+.card-title{
+  font: 499 18px/32px EYInterstate;
+  margin: 30px 0px 3px;
+}
+
+.eyc-tax-tabs {
   position: relative;
-  margin-top: 80px;
   button.motif-text-link {
       font-family: EYInterstate;
       font-size: 18px;

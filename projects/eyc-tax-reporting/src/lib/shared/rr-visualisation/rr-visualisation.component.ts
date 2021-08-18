@@ -4,7 +4,7 @@ import * as models from 'powerbi-models';
 import {EycPbiService} from '../../services/eyc-pbi.service';
 import {PBI_CONFIG, IS_THEME_APPLIED,IS_FY_FILTER,IS_PERIOD_FILTER} from '../../config/tax-config-helper';
 import powerbiTheme from '../../../assets/theme/eyc_2_theme.json';
-import {EycRrSettingsService} from '../../services/eyc-tax-settings.service';
+import {EycTaxSettingsService} from '../../services/eyc-tax-settings.service';
 import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../../config/tax-config-helper'
 @Component({
   selector: 'lib-rr-visualisation',
@@ -22,7 +22,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
   isReportPresent = false;
   authTokenInfo;
   embedTokenInfo;
-  constructor(private powerbiMappingService: EycPbiService,private regSettingsSvc: EycRrSettingsService) { }
+  constructor(private powerbiMappingService: EycPbiService,private regSettingsSvc: EycTaxSettingsService) { }
 
   ngOnInit() {
     console.log(this.selectedReportId, this.selectedFilling, this.selectedPeriod);

@@ -6,10 +6,10 @@
 </div>
 
 <div class="client-title">
-    Client ABC
+    {{nameReport}}
 </div>
 
-<div class="eyc-rr-tabs">
+<div class="eyc-tax-tabs">
     <motif-tab-bar>
         <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
             [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
@@ -33,7 +33,7 @@
         
         <div>
             <h3>View tax reporting in production cycles, management reporting, archived reports and data explorer</h3>
-            <h2>Management Report</h2>
+            <h2 class='card-title'>Management reports</h2>
             <!-- <button>Upload report</button> -->
         </div>
     </div>

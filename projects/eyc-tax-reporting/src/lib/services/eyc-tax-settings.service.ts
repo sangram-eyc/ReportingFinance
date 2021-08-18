@@ -5,7 +5,7 @@ import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/tax-config-helper'
 @Injectable({
   providedIn: 'root'
 })
-export class EycRrSettingsService {
+export class EycTaxSettingsService {
 
   constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction) { }
   public API_ENDPOINT = this.apiEndpoint.slice(-1) === "." ?

@@ -17,6 +17,7 @@ export class TaxReportingComponent implements OnInit {
     private customglobalService: CustomGlobalService
   ) { }
 
+  nameReport:string = 'Client ABC, Inc.';
   activeFilings: any[] = [];
   activeReports: any[] = []
   completedFilings: any[] = [];
@@ -75,7 +76,7 @@ export class TaxReportingComponent implements OnInit {
   ngOnInit(): void {
     this.tabIn = 2;
     this.getActiveFilingsData();
-    this.getCompletedFilingsData();
+    // this.getCompletedFilingsData();
   }
     
   reportTabChange(selectedTab) {
@@ -89,9 +90,11 @@ export class TaxReportingComponent implements OnInit {
   getActiveFilingsData() {
     
     let resp = [
-      {name: 'Management Report',author:'Author1',createdDate:'00/00/00',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Author2',createdDate:'00/00/00',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Author3',createdDate:'00/00/00',downloadUrl:'asdasd'}
+      {name: 'Management Report',author:'Janes Smith',createdDate:'06/28/12',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Janes Smith',createdDate:'07/28/12',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Janes Smith',createdDate:'08/28/12',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Janes Smith',createdDate:'09/28/12',downloadUrl:'asdasd'},
+      {name: 'Management Report',author:'Janes Smith',createdDate:'10/28/12',downloadUrl:'asdasd'}
     ];
   
     //  this.filingService.getFilings().subscribe(resp => {
@@ -113,24 +116,6 @@ export class TaxReportingComponent implements OnInit {
     // });
   }
 
-  getCompletedFilingsData() {
-    this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords).subscribe(resp => {
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      resp['data'].forEach((item) => {
-        const eachitem: any = {
-          name: item.filingName + ' // ' + item.period,
-          period: item.period,
-          dueDate: item.dueDate,
-          startDate: item.startDate,
-          comments: [],
-          status: item.filingStatus
-        };
-        this.completedFilings.push(eachitem);
-      });
-      this.createHistoryRowData();
-    })
-  }
 
   createHistoryRowData() {
    
@@ -214,11 +199,6 @@ export class TaxReportingComponent implements OnInit {
     ];
   }
 
-  searchActiveReports(input) {
-    this.activeFilings = this.activeReports.filter(item => item.name.toLowerCase().indexOf((input.el.nativeElement.value).toLowerCase()) !== -1)
-    this.activeReportsSearchNoDataAvilable = !!(this.activeFilings.length === 0);
-  }
-
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
     let pastedText = (clipboardData.getData('text')).split("");    
@@ -249,27 +229,6 @@ export class TaxReportingComponent implements OnInit {
     }
   }
 
-  // sortByDueDate(a, b) {
-  //   let date1 = new Date(a.dueDate)
-  //   let date2 = new Date(b.dueDate)
-  //   if (date1 > date2) {
-  //     return 1;
-  //   } else if (date1 < date2) {
-  //     return -1;
-  //   } else {
-  //     let filing1 = a.filingName.toLowerCase();
-  //     let filing2 = b.filingName.toLowerCase();
-  //     if (filing1 > filing2) {
-  //       return 1;
-  //     } else if (filing1 < filing2) {
-  //       return -1;
-  //     } else {
-  //     console.log(a, b);
-  //     return 0;
-  //     }
-  //   }
-  // }
-
   formatDate(timestamp) {
     let due = new Date(timestamp);
     const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
@@ -291,11 +250,11 @@ export class TaxReportingComponent implements OnInit {
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;
-    this.getCompletedFilingsData();
+    // this.getCompletedFilingsData();
   }
 
   handlePageChange(val: number): void {
     this.currentPage = val;
-    this.getCompletedFilingsData();
+    // this.getCompletedFilingsData();
   }
 }
