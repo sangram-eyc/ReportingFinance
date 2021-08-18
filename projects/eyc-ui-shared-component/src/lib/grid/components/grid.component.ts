@@ -101,6 +101,7 @@ export class GridComponent implements OnInit, OnChanges {
     console.log('CALLING SUBMIT SHARED GRID');
     await this.submitFunction();
     this.selectedRows = [];
+    this.gridApi.deselectAll();
     this.selectedRowEmitter.emit(this.selectedRows);
     this.buttonModal = false;
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
