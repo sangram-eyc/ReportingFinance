@@ -130,38 +130,38 @@ margin-left: 10px !important;
 
 
 .btn_addUser {
-    border: 0px;
+    // border: 0px;
     position: absolute;
     right: 57px;
     margin-top: -57px;
 }
-.btn_addUser:hover {
-    background-color: var(--btn-primary-bg-color);
-    border-color: var(--btn-primary-border-color);
-    color: var(--btn-primary-color);
-}
-.btn_save {
-    border: 0px;
-}
+// .btn_addUser:hover {
+//     background-color: var(--btn-primary-bg-color);
+//     border-color: var(--btn-primary-border-color);
+//     color: var(--btn-primary-color);
+// }
+// .btn_save {
+//     border: 0px;
+// }
 
-.btn_save:hover {
-    background-color: var(--btn-primary-bg-color);
-    border-color: var(--btn-primary-border-color);
-    color: var(--btn-primary-color);
-}
+// .btn_save:hover {
+//     background-color: var(--btn-primary-bg-color);
+//     border-color: var(--btn-primary-border-color);
+//     color: var(--btn-primary-color);
+// }
 
-.btn_close:hover {
-    border-color: var(--btn-secondary-border-color);
-    background-color: var(--btn-secondary-bg-color);
-    color: var(--btn-primary-color);
-}
+// .btn_close:hover {
+//     border-color: var(--btn-secondary-border-color);
+//     background-color: var(--btn-secondary-bg-color);
+//     color: var(--btn-primary-color);
+// }
 ::ng-deep .motif-form-field.motif-form-field-error .motif-input, .motif-form-field .motif-form-field-error .motif-input{
     border-bottom: 1px solid var(--form-element-border-color) !important;
 }
 
-::ng-deep .motif-modal-close-button-wrapper {
-    background-color: var(--modal-header-border-color) !important;
-}
+// ::ng-deep .motif-modal-close-button-wrapper {
+//     background-color: var(--modal-header-border-color) !important;
+// }
 
 ::ng-deep .motif-modal-content {
     width: 50% !important;
@@ -185,9 +185,9 @@ margin-left: 10px !important;
     }
 }
 
- ::ng-deep .motif-button path, .motif-button path:focus {
-    fill:  var(--btn-secondary-color) !important;
-  }
+//  ::ng-deep .motif-button path, .motif-button path:focus {
+//     fill:  var(--btn-secondary-color) !important;
+//   }
 
   ::ng-deep .motif-input.motif-search {
         padding: 0.9285714286rem 0.7142857143rem !important;
