@@ -104,5 +104,9 @@ export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
 
 
 export const customComparator = (valueA, valueB) => {
-	return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
-  };
+	if (valueA !== null || valueB !== null) {
+		return false;
+	} else {
+		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+	}
+};
