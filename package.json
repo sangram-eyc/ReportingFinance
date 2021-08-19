@@ -10,6 +10,7 @@
     "buildLibrary": "ng build --prod  eyc-regulatory-reporting",
     "eyc-ui-shared": "ng build --prod eyc-ui-shared-component",
     "eyc-data-intake": "ng build --prod eyc-data-intake",
+    "eyc-tax-reporting": "ng build --prod eyc-tax-reporting",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

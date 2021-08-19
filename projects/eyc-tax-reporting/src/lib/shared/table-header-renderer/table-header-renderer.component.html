@@ -1,0 +1,67 @@
+<ng-container *ngIf="params">
+    <div
+        class="motif-table-header-renderer"
+        role="button"
+        *ngIf="!params.column.colDef.headerComponentParams"
+    >
+        <div class="motif-header-name">{{ params.displayName }}</div>
+        <div [hidden]="!params.enableMenu" class="header-menu-button" (click)="onMenuClick($event)" (keydown.enter)="onMenuClick($event)">
+            <div class="motif-table-header-no-sort">
+                <div
+                    class="sort-svg"
+                    [inlineSVG]="
+                        '/assets/icons/navigation/ic_menu_24px.svg'
+                    "
+                ></div>
+            </div>
+        </div>
+        <div class="motif-table-header-icons" *ngIf="params.enableSorting">
+            <div class="motif-table-header-no-sort" *ngIf="sorted === ''">
+                <div
+                    class="sort-svg"
+                    [inlineSVG]="
+                        '/assets/icons/navigation/ic_arrow_drop_up_24px.svg'
+                    "
+                ></div>
+                <div
+                    class="sort-svg"
+                    [inlineSVG]="
+                        '/assets/icons/navigation/ic_arrow_drop_down_24px.svg'
+                    "
+                ></div>
+            </div>
+            <div
+                *ngIf="sorted == 'asc'"
+                class="sort-svg"
+                [inlineSVG]="
+                    '/assets/icons/navigation/ic_arrow_drop_up_24px.svg'
+                "
+            ></div>
+            <div
+                *ngIf="sorted == 'desc'"
+                class="sort-svg"
+                [inlineSVG]="
+                    '/assets/icons/navigation/ic_arrow_drop_down_24px.svg'
+                "
+            ></div>
+        </div>
+    </div>
+
+    <div
+        class="motif-table-header-renderer"
+        *ngIf="params.column.colDef.headerComponentParams"
+    >
+        <div class="motif-table-header-end-icons">
+            <ng-container
+                [ngTemplateOutlet]="
+                    params.column.colDef.headerComponentParams.ngTemplate
+                        ? params.column.colDef.headerComponentParams.ngTemplate
+                        : DefaultTemplate
+                "
+            ></ng-container>
+        </div>
+    </div>
+
+    <!-- DEFAULT RENDERING TEMPLATE -->
+    <ng-template #DefaultTemplate></ng-template>
+</ng-container>

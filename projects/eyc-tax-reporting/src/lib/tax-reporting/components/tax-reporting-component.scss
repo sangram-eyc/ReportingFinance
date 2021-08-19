@@ -1,0 +1,301 @@
+@import '../../../styles/variables.scss';
+
+.page-header {
+  margin-top: 25px;
+}
+
+.page-header h3 {
+  font-weight: 700;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  color: #2E2E38;
+  margin-bottom: 8px;
+}
+
+.page-subheader {
+  margin-bottom: 24px;
+  font-family: $font;
+  font-style: $font-style;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+
+.client-title {
+  font:400 24px/32px EYInterstate !important;
+  font-family: EYInterstate;
+  margin-bottom: 23px;
+  font-family: $font;
+  font-style: $font-style;
+  line-height: 20px;
+  color: #000000;
+}
+
+.card-title{
+  font: 499 18px/32px EYInterstate;
+  margin: 30px 0px 3px;
+}
+
+.eyc-tax-tabs {
+  position: relative;
+  button.motif-text-link {
+      font-family: EYInterstate;
+      font-size: 18px;
+      line-height: 20px;
+      align-items: center;
+      text-align: center;
+      color: #23232F !important;
+      padding: .85714rem 1.6rem .7rem 1.6rem !important;
+      }
+      button.motif-active.motif-text-link{
+          font-family: EYInterstate;
+          font-size: 18px;
+          line-height:20px;
+          color: #23232F;
+          font-weight: initial !important;
+          border-bottom: 6px solid !important;
+      }
+      button.motif-text-link:hover, button.motif-text-link:focus, button.motif-text-link:active {
+          box-shadow: none !important;
+          border-bottom: 6px solid !important;
+      }
+}
+
+#active-reports {
+  position: relative;
+  #reports-history-heading {
+    margin-bottom: 6px;
+    margin-top: 20px;
+    float: right;
+    width: 100%;
+    .search {
+      float: right;
+      .motif-form-field input{
+        width: 228px;
+      }
+    }
+  }
+  .filing-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .card {
+      margin: 8px;
+      // flex: 1 1 422px;
+    }
+  }
+
+}
+
+#reports-history {
+  position: relative;
+  #reports-history-heading {
+    margin-bottom: 12px;
+    margin-top: 20px;
+    float: right;
+    width: 100%;
+    .search {
+      float: right;
+      .motif-form-field input{
+        width: 228px;
+      }
+    }
+  }
+  .pagination {
+    display: flex;
+    background: #fff;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 15px;
+    margin-top: 15px;
+    .page-description {
+      font-family: EYInterstate;
+      .page-number {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+
+
+#grid-wrapper {
+  ::ng-deep {
+    .ag-root-wrapper {
+      border: 1px solid #EAEAF2 !important;
+    }
+    ::ng-deep .ag-body-viewport {
+      min-height: 150px !important;
+    }
+    
+    ::ng-deep .ag-header {
+      height: 49px !important;
+      min-height: 49px !important;
+    }
+    .motif-header-name {
+      font-family: EYInterstate !important;
+      font-style: normal  !important;
+      font-weight: 700  !important;
+      font-size: 16px  !important;
+      line-height: 20px  !important;
+      color: #2E2E38  !important;
+    }
+    .ag-center-cols-container {
+      width: auto !important;
+    }
+    .ag-center-cols-clipper {
+      min-height: unset !important;
+    }
+    .ag-horizontal-left-spacer {
+      display: none !important;
+    }
+    .ag-header {
+      font-family: EYInterstate !important;
+      font-style: normal  !important;
+      font-weight: 700  !important;
+      font-size: 16px  !important;
+      line-height: 20px  !important;
+      color: #2E2E38  !important;
+      background: #ffffff !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      border-bottom: 1px solid #EAEAF2 !important;
+    }
+    .ag-pinned-left-header {
+      border-right: none !important;
+    }
+    .ag-row {
+      background: #ffffff !important;
+      border-bottom: 1px solid #E7E7EA !important;
+      .ag-cell {
+        display: flex !important;
+        align-items: center !important;
+        font-family: EYInterstate !important;
+      }
+    }
+    .actions-button-cell {
+      padding: 0 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      border-right: none !important;
+      overflow: visible !important;
+    }
+    .motif-table {
+      .ag-row {
+            background: #FFFFFF !important;
+      }
+      .ag-cell-value {
+        font-family: EYInterstate !important;
+        font-style: normal  !important;
+        font-weight: 400  !important;
+        font-size: 14px  !important;
+        line-height: 20px  !important;
+        color: #2E2E38  !important;
+      }
+    }
+    .ag-paging-panel {
+      border-top: none !important;
+      font-family: EYInterstate !important;
+      font-size: 14px !important;
+      height: 69px !important;
+    }
+  }
+
+}
+.no_data {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+    font-weight: bold;
+  }
+}
+
+::ng-deep .custom_comments {
+  background: #2b2828;
+  width: 0px !important;
+  padding: 0px 16px !important;
+  height: 26px;
+  border-radius: 22px;
+  color: #fff;
+  margin: 24px;
+  justify-content: center;
+}
+
+.motif-pagination-select-wrapper {
+  position: relative;
+  text-align: right;
+  top: rem(-5);
+  right: rem(60);
+}
+
+.motif-dropdown {
+  position: absolute !important;
+  top: 9px;
+  right: 7px;
+
+  &.motif-pagination-select {
+    position: relative !important;
+    bottom: 55px;
+    right: 350px;
+    top: unset;
+
+      .motif-dropdown-trigger {
+          line-height: unset;
+          width: unset;
+
+          .motif-icon-button {
+              display: flex;
+          }
+      }
+  }
+}
+
+::ng-deep .motif-card:hover {
+  box-shadow: none !important;
+}
+.each-card {
+  margin-bottom: 12px;
+  padding: 0px 5px;
+}
+
+@media screen and (min-width: 300px) {
+  .each-card {
+     width: 100% !important;
+   }
+ }
+@media screen and (min-width: 1000px) {
+ .each-card {
+    width: 25% !important;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .each-card {
+     width: 33.33% !important;
+   }
+ }
+
+ @media screen and (min-width: 1950px) {
+  .each-card {
+     width: 25% !important;
+   }
+ }
+
+ @media screen and (min-width: 2600px) {
+  .each-card {
+     width: 20% !important;
+   }
+ }
+
+ @media screen and (min-width: 2800px) {
+  .each-card {
+     width: 14% !important;
+   }
+ }

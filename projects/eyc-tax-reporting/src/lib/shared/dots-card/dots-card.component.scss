@@ -1,0 +1,188 @@
+.dots-header-container {
+    h3 {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 38px;
+    color: #1A1A24;
+    }
+    .date-info {
+        display: flex;
+        font-family: EYInterstate;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 25px;
+        color: #2E2E38;
+    }
+    motif-icon.motif-icon.cust-date-motif-icon {
+        margin-right: 5px;
+    }
+    ::ng-deep .motif-icon.motif-icon.cust-date-motif-icon .motif-icon-wrap .motif-icon-content svg{
+        fill: #737374;
+    }
+}
+.card-header-wrapper {
+    margin-top: 5px;
+}
+.dots-container {
+
+    position: relative;
+    top: 60px;
+    left: 130px;
+    height: 55px;
+
+    .row {
+        margin: 0 auto !important;
+    }
+
+  motif-progress-step {
+    width: 16% !important;
+  }
+  
+  motif-progress-step.no-cls-progress {
+        ::ng-deep .motif-step-container .step {
+            width: 96% !important;
+        }
+    }
+
+    motif-progress-step.progress-active {
+        ::ng-deep .motif-step-container .step-info .step-data-container .first-line {
+            font-weight: bold !important;
+        }
+
+    } 
+
+    motif-progress-step.last-item-class {
+        ::ng-deep .motif-step-container .step {
+            background-color: transparent !important;
+            border: 0px !important;
+        }
+    }
+
+
+
+    ::ng-deep {
+           .step-info {
+            top: -23px;
+            position: relative;
+            margin-left: -14px;
+            // cursor: pointer;
+            }
+
+           .motif-progress-step {
+            margin-left: 15px !important;
+            }
+
+           .motif-step-container .step {
+            height: 0px !important;
+            border: 1px solid #C4C4CD !important;
+            display: block !important; 
+
+            }
+
+           .motif-step-container .step-info .step-dot {
+            width: 32px !important;
+            height: 32px !important;
+            }
+
+            .motif-icon.motif-icon.completed-step-icon {
+            width: 32px !important;
+            height: 32px !important;
+            left: -15px;
+            position: relative;
+            top: 2px;
+            }
+
+           .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
+            width: 18px !important;
+            height: 18px !important;
+            left: 5px !important;
+            top: 5px !important;
+            cursor: pointer;
+            }
+            .motif-step-container .step-info .step-dot.in-progress {
+            border: 2px solid #000000 !important;
+            background: #FFFFFF !important;
+            }
+            .motif-step-container .step-info .step-dot .inner {
+            visibility: visible !important;
+            }
+
+            .motif-step-container .step-info .step-dot.completed {
+            // background-color: #F2F2F2 !important;
+            background: #FFFFFF !important;
+            border: 2px solid #000000 !important;
+            }
+            .motif-step-container .step-info svg {
+            //  fill: var(--icon-fill-color) !important;
+            fill: #000000 !important;
+            cursor: pointer;
+            }
+
+        .motif-step-container .step-info .step-data-container .first-line {
+            font-family: EYInterstate !important;
+            font-style: normal !important;
+            font-weight: normal !important;
+            font-size: 12px !important;
+            line-height: 16px !important;
+            text-align: center;
+            color: #2E2E38;
+            position: absolute !important;
+            top: 37px !important;
+            margin-left: -50px !important;
+        }
+        .motif-step-container .step-info .step-dot.not-set {
+            border: 2px solid #AAAAB1 !important;
+            box-sizing: border-box !important;
+            border-radius: 109.091px !important;
+            background: #F2F2F2 !important;
+        }
+        .motif-step-container .step-info .step-data-container .first-line {
+            // left: 49px;
+            position: relative;
+        }
+        .motif-step-container .step-info .step-data-container .completed {
+            cursor: pointer;
+        }
+        .motif-step-container .step-info .step-data-container .in-progress {
+            cursor: pointer;
+        }
+        motif-progress-step.cust-fund .motif-step-container .step-info .step-data-container .first-line {
+            left: 30px;
+        }
+        motif-progress-step.cust-intake .motif-step-container .step-info .step-data-container .first-line {
+            left: 50px;
+        }
+       motif-progress-step.cust-report .motif-step-container .step-info .step-data-container .first-line {
+            left: 40px;
+        }
+        motif-progress-step.cust-review .motif-step-container .step-info .step-data-container .first-line {
+            left: 31px;
+        }
+        motif-progress-step.last-item-class .motif-step-container .step-info .step-data-container .first-line {
+            left: 34px;
+        }
+
+        .motif-step-container .step.in-progress, .motif-step-container .step.completed {
+            background-color: #C4C4CD !important;
+        }
+    }
+
+    
+    
+
+}
+
+.breadcrumb-container {
+    margin-top: 24px;
+  
+    .breadcrumb-first {
+      ::ng-deep {
+        a {
+          color: #155CB4 !important;
+        }
+      }
+    }
+  }
