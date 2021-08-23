@@ -1,0 +1,101 @@
+.rolesWrapper {
+
+    .role {
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-weight: normal !important;
+        font-size: 16px !important;
+        line-height: 22px !important;
+        height: 22px;
+    }
+
+    ::ng-deep {
+        .motif-accordion-header:hover, .motif-accordion-header :hover {
+            background-color: transparent !important;
+            color: #000;
+        }
+        .motif-accordion-header-icons svg {
+            fill: #2E2E38 !important;
+        }
+        
+        .motif-accordion-header.motif-expanded:focus{
+            border: 0px !important;
+        }
+        .motif-accordion-header.motif-expanded{
+            border: 1px solid #E1E1E6;
+        }
+        .motif-accordion {
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+        .motif-accordion-content.expanded {
+            background: #FFFFFF !important;
+            border: 1px solid #E1E1E6;
+        }
+        .motif-toggle-switch-handle {
+            left: auto !important;
+        }
+        .motif-toggle-switch-container.checked .motif-toggle-switch-handle {
+            left: 1.38571rem !important;
+        }
+    }
+
+    .description {
+        border-bottom: 1px dashed #C4C4CD;
+        padding: 10px 0px 10px 0px;
+    }
+    .feature {
+        width: 33.333%;
+    }
+    .feature-name {
+        font-weight: 500;
+        font-size: 16px;    
+        line-height: 25px;
+        color: #2E2E38;
+    }
+    .permission {
+        display: flex;
+        justify-content: space-between;
+
+        .permission-name {
+            color: #747480;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            display: block;
+        }
+        .toggle {
+            width: 88px;
+            text-align: end;
+            ::ng-deep  *:focus {
+                box-shadow: none !important;
+                
+            }
+            .permission-on {
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 14px;
+                color: #2E2E38;
+            }
+            .permission-off {
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 14px;
+                color: #747480; 
+            }
+        }
+        
+    }
+    
+    .item {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+        -webkit-column-gap: 1.25rem;
+        -moz-column-gap: 1.25rem;
+        column-gap: 1.25rem;
+    }
+    .each-item {
+        margin: 10px;
+    }
+}

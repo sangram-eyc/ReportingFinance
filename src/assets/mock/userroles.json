@@ -1,0 +1,132 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "roleName": "Production Manager",
+            "roleDescription": "Data Preparer lorem ipsum role title and description",
+            "features": [
+                {
+                    "featureName": "Onboarding",
+                    "permissions": [
+                        {
+                            "permissionName": "Upload New Documents",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Comments",
+                            "isActive": true
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Validations",
+                    "permissions": [
+                        {
+                            "permissionName": "View Validations",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Approve Draft Rules",
+                            "isActive": false
+                        },
+                        {
+                            "permissionName": "Comments",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Create New Rules",
+                            "isActive": false
+                        },
+                        {
+                            "permissionName": "Update existing Rules",
+                            "isActive": false
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Mapping",
+                    "permissions": [
+                        {
+                            "permissionName": "Create New  Mapping",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Update Existing Mapping",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Comments",
+                            "isActive": true
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Data  Operations",
+                    "permissions": [
+                        {
+                            "permissionName": "View Platform Metrics",
+                            "isActive": true
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Data Quality",
+                    "permissions": [
+                        {
+                            "permissionName": "View Metrics",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Configure Output/Dashboard",
+                            "isActive": false
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Data Catalog",
+                    "permissions": [
+                        {
+                            "permissionName": "View Catalog",
+                            "isActive": true
+                        }
+                    ]
+                },
+                {
+                    "featureName": "Master Data",
+                    "permissions": [
+                        {
+                            "permissionName": "Add/Edit Entity ",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Add/Edit Partner ",
+                            "isActive": true
+                        },
+                        {
+                            "permissionName": "Comments",
+                            "isActive": true
+                        }
+                    ]
+                }
+
+            ]
+        },
+        {
+            "roleName": "Dataops Generalist",
+            "roleDescription": "Data Preparer lorem ipsum role title and description",
+            "features": []
+        },
+        {
+            "roleName": "Dataops Specialist",
+            "roleDescription": "Data Preparer lorem ipsum role title and description",
+            "features": []
+        },
+        {
+            "roleName": "Client Manager",
+            "roleDescription": "Data Preparer lorem ipsum role title and description",
+            "features": []
+        }
+    ]
+}

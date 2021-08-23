@@ -1,0 +1,66 @@
+<div class="rolesWrapper">
+    <h4 class="role">User Roles</h4>
+
+    <motif-accordion id="example-1" *ngFor="let item of roles;index as i;">
+        <motif-accordion-header>
+            {{item.roleName}}
+        </motif-accordion-header>
+        <motif-accordion-content>
+            <p class="description">{{item.roleDescription}}</p>
+            <div class="row">
+                <div class="col-md-4" *ngFor ="let feature of item.features">
+                    <h5 class="feature-name">{{feature.featureName}}</h5>
+                    <div class="permission" *ngFor ="let p of feature.permissions">
+                        <span class="permission-name">{{p.permissionName}}</span>
+                        <div class="toggle">
+                            <motif-toggle-switch [hideLabels]="true" [(ngModel)]="p.isActive" (ngModelChange)="onChangePermission($event, p)"></motif-toggle-switch>
+                            <span *ngIf="p.isActive" class="permission-on">On</span>
+                            <span *ngIf="!p.isActive" class="permission-off">Off</span>
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+         
+            <!-- <div class="col-lg-4">
+                <h5 class="feature-name">Data  Operations</h5>
+                <div class="permission">
+                    <span class="permission-name">View Platform Metrics</span>
+                    <div class="toggle">
+                        <motif-toggle-switch [hideLabels]="true" [(ngModel)]="value2"></motif-toggle-switch>
+                        <span *ngIf="value2" class="permission-on">On</span>
+                        <span *ngIf="!value2" class="permission-off">Off</span>
+                    </div>
+                </div>
+            </div>  -->
+            <!-- <div class="feature-container">
+                <div class="feature" *ngFor ="let feature of item.features">
+                    <h5 class="feature-name">{{feature.featureName}}</h5>
+                    <div class="permission" *ngFor ="let p of feature.permissions">
+                        <span class="permission-name">{{p.permissionName}}</span>
+                        <div class="toggle">
+                            <motif-toggle-switch [hideLabels]="true" [(ngModel)]="p.isActive"></motif-toggle-switch>
+                            <span *ngIf="p.isActive" class="permission-on">On</span>
+                            <span *ngIf="!p.isActive" class="permission-off">Off</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+                
+               
+                
+
+                <!-- <div class="col-lg-4">
+                    <h5 class="feature-name">Data  Operations</h5>
+                    <div class="permission">
+                        <span class="permission-name">View Platform Metrics</span>
+                        <div class="toggle">
+                            <motif-toggle-switch [hideLabels]="true" [(ngModel)]="value2"></motif-toggle-switch>
+                            <span *ngIf="value2" class="permission-on">On</span>
+                            <span *ngIf="!value2" class="permission-off">Off</span>
+                        </div>
+                    </div>
+                </div> -->
+        </motif-accordion-content>
+    </motif-accordion>
+</div>
