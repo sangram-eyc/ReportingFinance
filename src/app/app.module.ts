@@ -68,6 +68,7 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
   providers: [
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+  { provide:"apiEndpoint2",  useValue: environment.apiEndpoint2},
   { provide:"rrproduction",  useValue: environment.production},
   { provide:"taxProduction",  useValue: taxenvironment.production},
   {
