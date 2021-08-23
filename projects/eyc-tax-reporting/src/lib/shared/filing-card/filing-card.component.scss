@@ -150,10 +150,10 @@
     
         .filing-card-footer {
             display: flex;
-            justify-content: space-between;
             margin-bottom: 22px;
-            padding-left: 23px;
+            padding-left: 8px;
             padding-right: 22px;
+            align-items: center;
             .footer-status {
                 border: 1px solid #23232F;
                 border-radius: 16px;
@@ -169,6 +169,10 @@
                     min-height: 31px;
                     height: 31px;
                 }
+            }
+            svg {
+                fill:darkblue;
+                height: 1.11429rem;
             }
         }
     }

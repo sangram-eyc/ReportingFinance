@@ -68,6 +68,7 @@ import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-i
   providers: [
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
+  { provide:"apiEndpoint2",  useValue: environment.apiEndpoint2},
   { provide:"rrproduction",  useValue: environment.production},
   {
     provide: HTTP_INTERCEPTORS,
