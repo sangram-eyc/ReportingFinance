@@ -7,7 +7,8 @@
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Teams</button>
     <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
     <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button>
-</motif-tab-bar>
+    <button motifButton (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn == 4 ? 'motif-active' : ''">Admin</button>
+  </motif-tab-bar>
 
 
 <app-users *ngIf="tabIn == 2"></app-users>
@@ -105,3 +106,4 @@
       <motif-toast [type]="'success'" [show]="showToastAfterAddTeam">New team added successfully</motif-toast>
 </div>
 <div *ngIf="tabIn == 3"><br>Filings</div>
+<div *ngIf="tabIn == 4"><br><app-user-roles></app-user-roles></div>

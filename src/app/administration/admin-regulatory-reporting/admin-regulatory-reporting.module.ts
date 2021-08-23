@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
 import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
 import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.component';
+import { UserRolesModule } from '../user-roles/user-roles.module';
 
 
 
@@ -34,7 +35,8 @@ import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.com
     HttpClientModule,
     MotifIconModule,
     EycRegulatoryReportingModule,
-    EycUiSharedComponentModule
+    EycUiSharedComponentModule,
+    UserRolesModule
   ]
 })
 export class AdminRegulatoryReportingModule { }
