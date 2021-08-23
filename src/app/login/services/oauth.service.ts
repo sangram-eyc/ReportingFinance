@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import {SettingsService} from '../../services/settings.service';
 import { Router} from '@angular/router';
 import {ApiService} from '../../services/api.service';
+import { IS_SURE_FOOT } from './../../services/settings-helpers';
 
 
 
@@ -46,7 +47,7 @@ export class OauthService {
 		// console.log('inside getAccessToken');
 		// console.log(this.oauthService.getAccessToken());
 		this.storageService.setToken(this.oauthService.getAccessToken());
-		this.router.navigate(['/home']);
+		IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
 	}
 
 	
