@@ -7,14 +7,17 @@ import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/tax-config-helper'
 })
 export class EycTaxSettingsService {
 
-  constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction) { }
+  constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction, @Inject('apiEndpoint2') private apiEndpoint2) { }
   public API_ENDPOINT = this.apiEndpoint.slice(-1) === "." ?
     this.apiEndpoint.substr(0, this.apiEndpoint.length - 1) : this.apiEndpoint;
+  public API_ENDPOINT2 = this.apiEndpoint2.slice(-1) === "." ?
+    this.apiEndpoint2.substr(0, this.apiEndpoint2.length - 1) : this.apiEndpoint2;
   public production = this.rrproduction;
 
   get regReportingFiling(): any {
     const regulatory_Reporting = {
-      filing_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=active' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
+      filing_details: this.rrproduction ? this.API_ENDPOINT2 + 'gatewayService/api/v2/taxreporting/managementReports' : this.API_ENDPOINT2 +  'gatewayService/api/v2/taxreporting/managementReports',
+      //filing_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=active' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       filing_history: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=completed' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       filing_search: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/searchFilingDetails?filter=completed&' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       rr_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/exceptionReports.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exceptionReports.json',

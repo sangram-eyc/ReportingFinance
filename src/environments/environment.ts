@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  //apiEndpoint :'http://localhost:4200/',
-  apiEndpoint : 'https://10.48.234.20/qa31/',
-  production: true,
+  apiEndpoint :'http://localhost:4200/',
+  apiEndpoint2 :'https://10.48.234.20/qa32/',
+  //apiEndpoint : 'https://10.48.234.20/qa31/',
+  production: false,
   SECURITY_ENABLED:true,
   SERVICE_URL:"https://10.48.234.20/qa31/",
   /*temp variable needs to be removed after API integration */
