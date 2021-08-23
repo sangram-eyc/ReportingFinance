@@ -110,3 +110,5 @@ export const customComparator = (valueA, valueB) => {
 		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
 	}
 };
+
+export const IS_SURE_FOOT = false;
