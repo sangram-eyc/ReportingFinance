@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
-// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MotifModule, MotifAvatarModule,MotifFormsModule,MotifProgressBarModule } from '@ey-xd/ng-motif';
 import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
@@ -29,6 +28,7 @@ import { APP_INITIALIZER } from '@angular/core';
 import { SettingsService } from './services/settings.service';
 import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
 import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-intake.module';
+import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment';
 
 
 @NgModule({
@@ -46,7 +46,6 @@ import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-i
     MatSidenavModule,
     MatToolbarModule,
     MotifProgressBarModule,
-    // MatProgressSpinnerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MotifModule,
@@ -65,10 +64,12 @@ import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-i
     EycDataIntakeModule
    
   ],
+  
   providers: [
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
+  { provide:"taxProduction",  useValue: taxenvironment.production},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
