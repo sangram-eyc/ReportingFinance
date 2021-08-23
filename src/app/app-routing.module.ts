@@ -17,26 +17,27 @@ import { SubmissionComponent } from 'projects/eyc-regulatory-reporting/src/lib/s
 import { DataExplorerForReportingAndClientComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
 import {EycTeamDetailsComponent} from '../app/administration/admin-regulatory-reporting/eyc-team-details/eyc-team-details.component'
 import { ProcessingExceptionComponent } from 'projects/eyc-data-intake/src/lib/processing-exception/components/processing-exception.component';
+import { AuthGuardService } from './services/auth-guard.service';
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'administration', component: AdministrationComponent},
+  {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
+  {path: 'administration', component: AdministrationComponent, canActivate : [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'eyComply', component: LoginComponent},
-  {path: 'admin-rr-dashboard', component: AdminRegulatoryReportingComponent},
-  {path: 'notification', component: DashboardNotificationComponent},
-  {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent},
-  {path: 'app-tax-reporting', component:TaxReportingComponent},
-  {path: 'data-intake-landing', component: DataIntakeLandingComponent},
-  {path: 'fund-scoping', component: FundScopingComponent},
-  {path: 'data-intake', component: DataIntakeComponent},
-  {path: 'client-review', component: ClientReviewComponent},
-  {path: 'regulatory-reporting', component: RrReportingComponent},
-  {path: 'submission', component: SubmissionComponent},
-  {path: 'user-details/:userId', component: UserDetailsComponent },
-  {path: 'team-details/:teamId', component: EycTeamDetailsComponent},
-  {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent},
-  {path: 'processing-exceptions', component: ProcessingExceptionComponent},
+  {path: 'admin-rr-dashboard', component: AdminRegulatoryReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
+  {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
+  {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
+  {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
+  {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},
+  {path: 'client-review', component: ClientReviewComponent, canActivate : [AuthGuardService]},
+  {path: 'regulatory-reporting', component: RrReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'submission', component: SubmissionComponent, canActivate : [AuthGuardService]},
+  {path: 'user-details/:userId', component: UserDetailsComponent , canActivate : [AuthGuardService]},
+  {path: 'team-details/:teamId', component: EycTeamDetailsComponent, canActivate : [AuthGuardService]},
+  {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
+  {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: '**', component: LoginComponent},
 ];
 
