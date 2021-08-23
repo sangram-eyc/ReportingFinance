@@ -4,7 +4,6 @@
 
 export const environment = {
   apiEndpoint :'http://localhost:4200/',
-  apiEndpoint2 :'https://10.48.234.20/qa32/',
   //apiEndpoint : 'https://10.48.234.20/qa31/',
   production: false,
   SECURITY_ENABLED:true,
