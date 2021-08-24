@@ -96,7 +96,7 @@
         <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
     </ng-template>
 
-    <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+<!--     <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
 
         <motif-pagination>
             <button motifIconButton size="small" aria-label="Go to first page"
@@ -122,7 +122,7 @@
         <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
             (paginationSelectChange)="updatePaginationSize($event.value)">
         </motif-pagination-select>
-    </div>
+    </div> -->
 
 
     <motif-card class="no_data" *ngIf="noCompletedDataAvilable">

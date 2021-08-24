@@ -44,4 +44,8 @@ export class TaxReportingFilingService {
     return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.filing_status}${filingId}/status`)
   }
 
+/*  getProductionCycles(){
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.production_cycles}`);  
+  }  */
+
 }
