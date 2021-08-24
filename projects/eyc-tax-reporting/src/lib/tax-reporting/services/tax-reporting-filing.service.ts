@@ -31,17 +31,17 @@ export class TaxReportingFilingService {
     }
 
   getFilings() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.filing_details}`);
   }
  
   getFilingSearch(noOfRecords) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_search}${noOfRecords}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.filing_search}${noOfRecords}`);
   }
 
   getFilingStatus(filingId) {
     // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}`)
   // After API integration will remove above line and uncomment below line
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}${filingId}/status`)
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.filing_status}${filingId}/status`)
   }
 
 }

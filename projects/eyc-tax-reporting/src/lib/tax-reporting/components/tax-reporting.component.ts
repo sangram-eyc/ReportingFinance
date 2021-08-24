@@ -74,7 +74,7 @@ export class TaxReportingComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.tabIn = 2;
+    this.tabIn = 1;
     this.getActiveFilingsData();
     // this.getCompletedFilingsData();
   }
@@ -89,31 +89,30 @@ export class TaxReportingComponent implements OnInit {
 
   getActiveFilingsData() {
     
-    let resp = [
+    /* let resp = [
       {name: 'Management Report',author:'Janes Smith',createdDate:'06/28/12',downloadUrl:'asdasd'},
       {name: 'Management Report',author:'Janes Smith',createdDate:'07/28/12',downloadUrl:'asdasd'},
       {name: 'Management Report',author:'Janes Smith',createdDate:'08/28/12',downloadUrl:'asdasd'},
       {name: 'Management Report',author:'Janes Smith',createdDate:'09/28/12',downloadUrl:'asdasd'},
       {name: 'Management Report',author:'Janes Smith',createdDate:'10/28/12',downloadUrl:'asdasd'}
-    ];
+    ]; */
   
-    //  this.filingService.getFilings().subscribe(resp => {
-      this.filingResp.push(resp);
-
-      resp.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
-      resp.forEach((item) => {
-        const eachitem: any = {
-           name: item.name,
-           author: item.author,
-           createdDate: item.createdDate,
-           downloadUrl: item.downloadUrl
-        };
-        this.activeFilings.push(eachitem);
-        this.activeReports.push(eachitem);
+      this.filingService.getFilings().subscribe(resp => {
+        this.filingResp.push(resp);
+        this.filingResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
+        this.filingResp[0].data.forEach((item) => {
+          const eachitem: any = {
+            name: item.name,
+            author: item.author,
+            createdDate: item.createdDate,
+            downloadUrl: item.downloadUrl
+          };
+          this.activeFilings.push(eachitem);
+          this.activeReports.push(eachitem);
+        });
+        this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
+        this.createHistoryRowData();
       });
-       this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
-       this.createHistoryRowData();
-    // });
   }
 
 
