@@ -11,7 +11,7 @@ export class ProductionCylcesService {
   constructor(private apiService: EycRrApiService,private settingsService: EycTaxSettingsService) { }
 
   getProductionCycles(){
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.production_cycles}`);  
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles}`);  
   }
 
 }
