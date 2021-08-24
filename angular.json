@@ -50,6 +50,11 @@
                 "input": "projects/eyc-data-intake/src/assets",
                 "output": "assets/eyc-data-intake"
               },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-tax-reporting/src/assets",
+                "output": "assets/eyc-tax-reporting"
+              },
               "src/silent-refresh.html"
             ],
             "styles": [
