@@ -14,7 +14,8 @@ export class EycTaxSettingsService {
 
   get taxReportingFiling(): any {
     const tax_Reporting = {
-      filing_details: this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/filings.json',
+      filing_details: this.production ? this.API_ENDPOINT + 'taxReportingCoreService/api/v2/taxreporting/managementReports': this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/filings.json',
+      production_cycles:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/productionCycles': this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductionCyclesList.json',
     }
 
     

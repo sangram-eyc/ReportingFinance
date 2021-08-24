@@ -56,8 +56,9 @@
 
 </section>
 
-<section id='reports-history' [hidden]="!(tabIn ==9)">
+<section id='reports-history' [hidden]="!(tabIn == 1)">
     <div id="reports-history-heading">
+    <h4 class="fw-bold">Production cycles list view</h4>
         <!-- <div class="search">
             <motif-form-field>
                 <input #reportHistorySearch motifInput motifSearch type="text"
@@ -71,7 +72,9 @@
             [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
             [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
 
-
+            <ng-template #productTemplate let-row>
+                <button class="btn btn-link" (click)="getProdCycleDetail(row)" >{{row.name}}</button>
+            </ng-template>
     </div>
 
     <motif-card class="no_data" *ngIf="searchNoDataAvilable">
@@ -89,7 +92,7 @@
         <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
     </ng-template>
 
-    <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+<!--     <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
 
         <motif-pagination>
             <button motifIconButton size="small" aria-label="Go to first page"
@@ -115,7 +118,7 @@
         <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
             (paginationSelectChange)="updatePaginationSize($event.value)">
         </motif-pagination-select>
-    </div>
+    </div> -->
 
 
     <motif-card class="no_data" *ngIf="noCompletedDataAvilable">

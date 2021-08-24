@@ -4,6 +4,8 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/tax-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
+import { ProductionCylcesService } from '../services/production-cylces.service';
+
 @Component({
   selector: 'lib-tax-reporting',
   templateUrl: './tax-reporting-component.html',
@@ -14,7 +16,8 @@ export class TaxReportingComponent implements OnInit {
   tabIn;
   constructor(
     private filingService: TaxReportingFilingService,
-    private customglobalService: CustomGlobalService
+    private customglobalService: CustomGlobalService,
+    private productcyclesService: ProductionCylcesService
   ) { }
 
   nameReport:string = 'Client ABC, Inc.';
@@ -44,6 +47,8 @@ export class TaxReportingComponent implements OnInit {
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
+  @ViewChild('productTemplate')
+  productTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -76,7 +81,7 @@ export class TaxReportingComponent implements OnInit {
   ngOnInit(): void {
     this.tabIn = 1;
     this.getActiveFilingsData();
-    // this.getCompletedFilingsData();
+    //this.getCompletedProductCyclesData();
   }
     
   reportTabChange(selectedTab) {
@@ -84,7 +89,7 @@ export class TaxReportingComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
+    this.getCompletedProductCyclesData();
   }
 
   getActiveFilingsData() {
@@ -115,6 +120,22 @@ export class TaxReportingComponent implements OnInit {
       });
   }
 
+  getCompletedProductCyclesData() {
+    this.completedFilings = [];
+
+    this.productcyclesService.getProductionCycles().subscribe(resp => {    
+      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;       
+      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+      resp['data'].forEach((item) => {
+        const eachitem: any = {
+          name: item.name,
+          id: item.id
+        };
+        this.completedFilings.push(eachitem);
+      });
+      this.createHistoryRowData();
+    })
+  }
 
   createHistoryRowData() {
    
@@ -122,79 +143,26 @@ export class TaxReportingComponent implements OnInit {
     this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        comments: filing.comments.length,
-        dueDate: this.formatDate(filing.dueDate),
-        subDate: '-',
-        exceptions: 0,
-        resolved: 0
+        id: filing.id
       })
     });
     this.columnDefs = [
       {
-        headerName: '',
+        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
+          ngTemplate: this.productTemplate,
         },
-        field: 'template',
-        minWidth: 43,
-        width: 43,
-        sortable: false,
-        cellClass: 'actions-button-cell',
-        pinned: 'left'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Filing Report Name',
+        headerName: 'Production cycle name',
         field: 'name',
         sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 240,
+        filter: false,       
+        resizeable: true, 
+        minWidth: 640,
         sort:'asc',
         comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Comments',
-        field: 'comments',
-        sortable: true,
-        filter: true,
-        minWidth: 140,
-        cellClass: 'custom_comments'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Due date',
-        field: 'dueDate',
-        sortable: true,
-        filter: true,
-        minWidth: 130,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Submission date',
-        field: 'subDate',
-        sortable: true,
-        filter: true,
-        minWidth: 180
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Exceptions',
-        field: 'exceptions',
-        sortable: true,
-        filter: true,
-        minWidth: 140
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Resolved',
-        field: 'resolved',
-        sortable: true,
-        filter: true,
-        minWidth: 140
-      },
+       
+      }
     ];
   }
 
@@ -247,13 +215,17 @@ export class TaxReportingComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   };
 
-  updatePaginationSize(newPageSize: number) {
+/*   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;
-    // this.getCompletedFilingsData();
+     this.getCompletedProductCyclesData();
   }
 
   handlePageChange(val: number): void {
     this.currentPage = val;
-    // this.getCompletedFilingsData();
-  }
+    this.getCompletedProductCyclesData();
+  } */
+
+  getProdCycleDetail(row){
+    console.log("Show details->", row)
+ }
 }
