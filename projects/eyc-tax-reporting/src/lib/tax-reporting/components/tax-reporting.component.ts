@@ -98,9 +98,9 @@ export class TaxReportingComponent implements OnInit {
     ]; */
   
       this.filingService.getFilings().subscribe(resp => {
-        this.filingResp.push(resp);
-        resp.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
-        resp.forEach((item) => {
+        this.filingResp.push(resp.data);
+        this.filingResp.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
+        this.filingResp.forEach((item) => {
           const eachitem: any = {
             name: item.name,
             author: item.author,

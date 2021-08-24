@@ -70,6 +70,7 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"apiEndpoint2",  useValue: environment.apiEndpoint2},
   { provide:"rrproduction",  useValue: environment.production},
+  { provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
   { provide:"taxProduction",  useValue: taxenvironment.production},
   {
     provide: HTTP_INTERCEPTORS,
