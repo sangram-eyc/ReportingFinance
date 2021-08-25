@@ -49,6 +49,8 @@ export class TaxReportingComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('productTemplate')
   productTemplate: TemplateRef<any>;
+  @ViewChild('statusTracker')
+  statusTracker: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -129,7 +131,8 @@ export class TaxReportingComponent implements OnInit {
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.name,
-          id: item.id
+          id: item.id,
+          statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
         };
         this.completedFilings.push(eachitem);
       });
@@ -143,7 +146,8 @@ export class TaxReportingComponent implements OnInit {
     this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id
+        id: filing.id,
+        statusTracker: filing.statusTracker
       })
     });
     this.columnDefs = [
@@ -158,10 +162,23 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 640,
+        minWidth: 1300,
         sort:'asc',
-        comparator: customComparator
-       
+        comparator: customComparator      
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.statusTracker,
+        },
+        headerName: 'Status tracker',
+        field: 'statusTracker',
+        sortable: true,
+        filter: false,
+        wrapText: true,
+        autoHeight: true,
+        width: 200
       }
     ];
   }
@@ -214,16 +231,6 @@ export class TaxReportingComponent implements OnInit {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
   };
-
-/*   updatePaginationSize(newPageSize: number) {
-    this.noOfCompletdFilingRecords = newPageSize;
-     this.getCompletedProductCyclesData();
-  }
-
-  handlePageChange(val: number): void {
-    this.currentPage = val;
-    this.getCompletedProductCyclesData();
-  } */
 
   getProdCycleDetail(row){
     console.log("Show details->", row)
