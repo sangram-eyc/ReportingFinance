@@ -3,13 +3,15 @@
 <div class="page-header">
     <h1 class="motif-h1">Regulatory reporting</h1>
 </div>
-<motif-tab-bar>
-    <button motifButton (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Teams</button>
-    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
-    <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button>
-    <button motifButton (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn == 4 ? 'motif-active' : ''">Admin</button>
+<motif-tab-bar *ngIf="!is_Tax_Reporting">
+    <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn === 1 ? 'motif-active' : ''">Teams</button>
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
+    <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button>
+    <button motifButton (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn === 4 ? 'motif-active' : ''">Admin</button>
   </motif-tab-bar>
-
+  <motif-tab-bar *ngIf="is_Tax_Reporting">
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
+  </motif-tab-bar>
 
 <app-users *ngIf="tabIn == 2"></app-users>
 

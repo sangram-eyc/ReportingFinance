@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-// import { UploadComponent } from './../../../../projects/eyc-ui-shared-component/src/lib/upload/components/upload.component';
+import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+import {IS_SURE_FOOT} from '../../services/settings-helpers';
 
 @Component({
   selector: 'app-administration',
@@ -9,9 +9,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AdministrationComponent implements OnInit {
 
-  /* filesList: any = [];
-  @ViewChild(UploadComponent) private uploadChild: UploadComponent; */
-
+is_Tax_Reporting = IS_SURE_FOOT;
   constructor(
     private router: Router,
 
@@ -24,23 +22,6 @@ export class AdministrationComponent implements OnInit {
     this.router.navigate(['/admin-rr-dashboard']);
   }
 
- /*  uploadedFiles(emitiedFiles) {
-    this.filesList = emitiedFiles;
-  }
-
-  attachDocument() {
-    let files = [];
-    const formData: any = new FormData();
-    files = this.filesList;
-    for (let i = 0; i < files.length; i++) {
-      formData.append('file', files[i]._file, files[i]._file.name);
-    }
-
-    // once files has been uploaded clear queque
-    alert(this.filesList.length + ' File(s) has been uploaded successfully');
-    this.filesList = [];
-    this.uploadChild.clearUploadQueue();
-    
-  } */
+ 
 
 }
