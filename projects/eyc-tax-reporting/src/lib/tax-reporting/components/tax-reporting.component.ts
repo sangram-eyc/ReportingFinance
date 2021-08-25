@@ -125,8 +125,7 @@ export class TaxReportingComponent implements OnInit {
   getCompletedProductCyclesData() {
     this.completedFilings = [];
 
-    this.productcyclesService.getProductionCycles().subscribe(resp => {    
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;       
+    this.productcyclesService.getProductionCycles().subscribe(resp => {         
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
@@ -162,7 +161,7 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 1300,
+        minWidth: 500,
         sort:'asc',
         comparator: customComparator      
       },
