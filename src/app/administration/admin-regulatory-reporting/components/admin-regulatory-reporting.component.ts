@@ -4,9 +4,10 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {customComparator} from '../../../services/settings-helpers';
+import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -28,7 +29,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   roles = ['L1 Reviewer', 'L2 Reviewer', 'L3 Reviewer']
   assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
   showToastAfterAddTeam = false;
- 
+  is_Tax_Reporting = IS_SURE_FOOT;
   constructor(
     private teamsService: TeamsService,
     private router: Router,
@@ -40,7 +41,13 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   actionSection: TemplateRef<any>;
 
   ngOnInit(): void {
-    sessionStorage.getItem("adminTab") ?  this.tabIn =  sessionStorage.getItem("adminTab") :  this.tabIn = 1;
+    if (!this.is_Tax_Reporting) {
+      sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
+    }
+    else {
+      this.tabIn = 2;
+    }
+   
     this.getTeamList();
 
     this.addTeamForm = this._createTeam()

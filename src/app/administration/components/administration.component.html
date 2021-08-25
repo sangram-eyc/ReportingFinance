@@ -4,8 +4,12 @@
 <div class="admin-container">
     <div class="sub-header"><h4>Subscribed modules</h4></div>
     <motif-card>
-        <div class="card-block">
+        <div *ngIf="!is_Tax_Reporting" class="card-block">
             Regulatory Reporting
+            <br><span>Last modified 5 days ago</span>
+        </div>
+        <div *ngIf="is_Tax_Reporting" class="card-block">
+            Tax Reporting
             <br><span>Last modified 5 days ago</span>
         </div>
         <div class="card-button">
@@ -13,5 +17,3 @@
         </div>
     </motif-card>
 </div>
-<!-- <lib-upload (uploadedFilesEmitter)="uploadedFiles($event)"></lib-upload>
-<button *ngIf="this.filesList.length > 0" motifButton color="primary" (click)="attachDocument()">Upload</button> -->
