@@ -5,6 +5,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import {customComparator} from '../../config/tax-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
 import { ProductionCylcesService } from '../services/production-cylces.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'lib-tax-reporting',
@@ -17,8 +18,10 @@ export class TaxReportingComponent implements OnInit {
   constructor(
     private filingService: TaxReportingFilingService,
     private customglobalService: CustomGlobalService,
-    private productcyclesService: ProductionCylcesService
-  ) { }
+    private productcyclesService: ProductionCylcesService,
+    private router: Router,
+  ) { 
+   } 
 
   nameReport:string = 'Client ABC, Inc.';
   activeFilings: any[] = [];
@@ -233,5 +236,8 @@ export class TaxReportingComponent implements OnInit {
 
   getProdCycleDetail(row){
     console.log("Show details->", row)
- }
-}
+    // this.router.navigate(['/cicle-details/' + row.id + row.name]);
+    this.router.navigate(['/cicle-details/', row.id + '/' + row.name ]);
+    // this.router.navigate(['/cicle-details/', {id: row.id, name: row.name}]);
+  }  
+  }

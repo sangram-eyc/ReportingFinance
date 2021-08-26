@@ -5,10 +5,6 @@
     View tax reporting in production cycles, management reporting, archived reports and data explorer
 </div>
 
-<!--<div class="client-title">
-    {{nameReport}}
-</div>-->
-
 <div class="eyc-tax-tabs">
     <motif-tab-bar>
         <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
@@ -20,17 +16,8 @@
 
 <section id='active-reports' [hidden]="!(tabIn == 2)">
     <div id="reports-history-heading">
-       <!--  <div class="search">
-            <motif-form-field>
-                <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
-                    (keyup)="searchActiveReports(activeReports)" (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
-            </motif-form-field>
-        </div> -->
-        
         <div>
-            <!--<h3>View tax reporting in production cycles, management reporting, archived reports and data explorer</h3>-->
             <h2 class='card-title'>Management reports</h2>
-            <!-- <button>Upload report</button> -->
         </div>
     </div>
     
@@ -39,14 +26,6 @@
             <app-filing-card [filingData]="filing"></app-filing-card>
         </div>
     </div>
-   
-    
-
-   <!--  <motif-card class="no_data" >
-        <motif-card-body>
-            <h5>Your search has returned no results. Please adjust and try again.</h5>
-        </motif-card-body>
-    </motif-card>-->
 
     <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
         <motif-card-body>
@@ -59,13 +38,6 @@
 <section id='reports-history' [hidden]="!(tabIn == 1)">
     <div id="reports-history-heading">
     <h2 class="card-title">Production cycles list view</h2>
-        <!-- <div class="search">
-            <motif-form-field>
-                <input #reportHistorySearch motifInput motifSearch type="text"
-                    (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(reportHistorySearch)"
-                    (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
-            </motif-form-field>
-        </div> -->
     </div>
     <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
         <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
