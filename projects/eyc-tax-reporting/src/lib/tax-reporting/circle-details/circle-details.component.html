@@ -1,0 +1,24 @@
+ <div class="production-cycle-details-wrapper">
+  
+  <div class="back-wrapper">
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp;  Tax Reporting</span>
+  </div> 
+
+  <div class="production-cycle-details-header">
+    <h1>Cycle Details</h1>
+  </div>
+
+  <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+        <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
+            [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
+            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
+
+            <ng-template #productTemplate let-row>
+                <button class="btn btn-link">{{row.name}}</button>
+                <button class="btn btn-link">{{row.downloadUrl}}</button>
+            </ng-template>
+
+           
+    </div>
+</div>

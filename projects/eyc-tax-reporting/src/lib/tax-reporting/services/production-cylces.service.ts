@@ -13,5 +13,8 @@ export class ProductionCylcesService {
   getProductionCycles(){
     return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles}`);  
   }
+  getProductionCyclesDetails(){
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles_details}`);  
+  }
 
 }
