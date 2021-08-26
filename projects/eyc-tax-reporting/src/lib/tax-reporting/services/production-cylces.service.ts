@@ -6,15 +6,21 @@ import {EycRrApiService} from '../../services/eyc-tax-api.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductionCylcesService {
 
   constructor(private apiService: EycRrApiService,private settingsService: EycTaxSettingsService) { }
 
-  getProductionCycles(){
+   getProductionCycles(){
     return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles}`);  
   }
-  getProductionCyclesDetails(){
-    return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles_details}`);  
-  }
 
+  getProductionCyclesDetails(id:any){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles_details}/${id}`);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingFiling.production_cycles_details}`);
+    }
+  }
 }

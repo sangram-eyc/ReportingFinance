@@ -19,8 +19,9 @@ export class TaxReportingComponent implements OnInit {
     private filingService: TaxReportingFilingService,
     private customglobalService: CustomGlobalService,
     private productcyclesService: ProductionCylcesService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) { 
+   } 
 
   nameReport:string = 'Client ABC, Inc.';
   activeFilings: any[] = [];
@@ -235,6 +236,8 @@ export class TaxReportingComponent implements OnInit {
 
   getProdCycleDetail(row){
     console.log("Show details->", row)
-    this.router.navigate(['/cicle-details/' + row.id]);
- }
-}
+    // this.router.navigate(['/cicle-details/' + row.id + row.name]);
+    this.router.navigate(['/cicle-details/', row.id + '/' + row.name ]);
+    // this.router.navigate(['/cicle-details/', {id: row.id, name: row.name}]);
+  }  
+  }

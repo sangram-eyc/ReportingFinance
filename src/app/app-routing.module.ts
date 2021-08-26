@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
-  {path: 'cicle-details/:id', component:CircleDetailComponent , canActivate : [AuthGuardService]},
+  {path: 'cicle-details/:id',component:CircleDetailComponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},
