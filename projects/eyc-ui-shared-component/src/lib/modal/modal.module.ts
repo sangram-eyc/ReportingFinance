@@ -8,12 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VisualisationModalComponent } from './visualisation-modal/visualisation-modal.component';
 import { UploadModule } from '../upload/upload.module';
 import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 
 @NgModule({
   declarations: [
     ModalComponent,
-    VisualisationModalComponent
+    VisualisationModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
     EycPowerbiModule
   ],
   exports: [
-    ModalComponent
+    ModalComponent,
+    ErrorModalComponent
   ]
 })
 export class ModalModule { }

@@ -16,3 +16,4 @@ export * from './lib/intake-files/intake-files.module';
 export * from './lib/grid/components/grid.component';
 export * from './lib/services/custom-global.service';
 export * from './lib/table-header-renderer/table-header-renderer.component';
+export * from './lib/modal/error-modal/error-modal.component';

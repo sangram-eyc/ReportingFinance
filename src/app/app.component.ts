@@ -2,8 +2,10 @@ import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewC
 import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { timeStamp } from 'console';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
+import { ModuleLevelPermissionService } from './services/module-level-permission.service';
 import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT } from './services/settings-helpers';
 import {SettingsService} from './services/settings.service';
 
@@ -28,12 +30,20 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   is_Sure_Foot = IS_SURE_FOOT;
   @ViewChild('notification', { static: false }) notificationCard: ElementRef;
   @ViewChild('notificationicon', { static: false }) notificationIcon: ElementRef;
+  permission = {
+    isDataIntake: false,
+    isTaxReporting: false,
+    isAdmin: false,
+    isRegReporting: false
+  };
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService, 
     private router: Router,
     private cdRef : ChangeDetectorRef,
-    private settingsService: SettingsService){
+    private settingsService: SettingsService,
+    public moduleLevelPermission: ModuleLevelPermissionService
+    ){
     // To hide header and footer from login page
   
     this.router.events.subscribe(
@@ -48,6 +58,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
        this.router.navigate(['home'])
     }
+    this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
+      this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
+      this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
+      this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+      this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+    });
   }
 
  
