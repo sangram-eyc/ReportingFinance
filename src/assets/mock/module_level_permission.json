@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": {
+    "userDetails":
+    {
+    "userId":1,
+    "userEmail":"debabrata.dash@gds.ey.com",
+    "userFirst":"Debabrata",
+    "userLast":"Dash",
+    "isActive":true
+    },
+    "modules": ["Data Intake","Tax Reporting","Admin","Reg Reporting"]
+    },
+    "error": null
+}
+  
