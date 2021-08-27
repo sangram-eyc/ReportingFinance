@@ -85,16 +85,20 @@ export class TaxReportingComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabIn = 1;
+    this.getCompletedProductCyclesData();
     this.getActiveFilingsData();
-    //this.getCompletedProductCyclesData();
   }
     
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    if(selectedTab == 2){
+      //the screen is moved one pixel to make the card tooltip work.
+      window.scroll({top:1});
+    }
   }
 
   ngAfterViewInit(): void {
-    this.getCompletedProductCyclesData();
+    //this.getCompletedProductCyclesData();
   }
 
   getActiveFilingsData() {
@@ -164,7 +168,7 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 500,
+        width: 500,
         sort:'asc',
         comparator: customComparator      
       },
@@ -180,7 +184,7 @@ export class TaxReportingComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 200
+        width: 500
       }
     ];
   }
