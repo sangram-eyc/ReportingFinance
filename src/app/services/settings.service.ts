@@ -109,6 +109,8 @@ setToken = (value) => {
 		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
+    sessionStorage.removeItem('permissionList');
+    sessionStorage.removeItem('moduleLevelPermission');
   }
   
   public get name() {
@@ -155,5 +157,4 @@ setToken = (value) => {
   }
 
 }
-
 
