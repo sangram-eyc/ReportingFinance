@@ -31,7 +31,9 @@ export class EycRrSettingsService {
       di_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
       di_files: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
       files_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/intake-files-list.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/intake-files-list.json',
-      datasets_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/datasets.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/datasets.json'
+      datasets_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/datasets.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/datasets.json',
+      rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
+
     }
 
     return regulatory_Reporting;

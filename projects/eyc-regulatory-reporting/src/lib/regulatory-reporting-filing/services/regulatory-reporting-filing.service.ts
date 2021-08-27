@@ -47,4 +47,8 @@ export class RegulatoryReportingFilingService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}${filingId}/status`)
   }
 
+  getPermissionsList() {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_permission_list}`);
+  }
+
 }
