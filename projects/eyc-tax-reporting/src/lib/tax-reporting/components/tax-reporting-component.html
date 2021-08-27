@@ -42,7 +42,7 @@
     <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
         <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
             [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
-            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
+            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="true"></ag-grid-angular>
 
             <ng-template #productTemplate let-row>
                 <button class="btn btn-link" (click)="getProdCycleDetail(row)" >{{row.name}}</button>
