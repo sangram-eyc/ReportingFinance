@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
         description: description,
         footer: {
           style: "start",
-          YesButton: "Okay"
+          YesButton: "OK"
         },
       }
     });
