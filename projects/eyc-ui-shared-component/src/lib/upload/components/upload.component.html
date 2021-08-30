@@ -1,3 +1,4 @@
+<div class="upload-field">
 <motif-form-field>
   <motif-file-upload [uploader]="uploaderURL" [(ngModel)]="ngModelQueue" [multiple]="true"
     (change)="filesUploaded($event)">
@@ -8,6 +9,7 @@
   </motif-file-upload>
  <motif-error *ngIf="uploadError">{{ uploadErrorMsg }}</motif-error>
 </motif-form-field>
+</div>
 
 <div class="files-list">
   <div *ngFor="let document of uploaderURL.queue; let i = index"> 

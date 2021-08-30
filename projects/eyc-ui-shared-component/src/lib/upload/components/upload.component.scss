@@ -28,6 +28,9 @@
     display: inline-block;
     position: absolute;
 }
+#del-file-cls:hover {
+    cursor: pointer;
+}
 .files-list-name {
     left: 20px;
     position: relative;
@@ -40,6 +43,12 @@ font-size: 14px;
 line-height: 22px;
 text-align: right;
 color: #2E2E38;
+}
+.uploadLable:hover {
+    cursor: pointer;
+}
+.upload-field {
+    width: 100%;
 }
 
 
