@@ -5,6 +5,8 @@ import {customComparator} from '../../config/tax-config-helper';
 import { Location } from '@angular/common';
 import { ProductionCylcesService } from '../services/production-cylces.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import {ErrorModalComponent} from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'circle-details',
@@ -16,7 +18,8 @@ export class CircleDetailComponent implements OnInit {
   constructor(
     private productcyclesService: ProductionCylcesService,
     private location: Location,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
    pageName:string = 'Cycle Details';
@@ -111,7 +114,7 @@ export class CircleDetailComponent implements OnInit {
 
    getCompletedProductCyclesData(id:any) {
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;       
+      if(resp['success'] === true){
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
          const eachitem: any = {
@@ -121,7 +124,11 @@ export class CircleDetailComponent implements OnInit {
          this.completedFilings.push(eachitem);
        });
        this.createHistoryRowData();
-     })
+      }else{
+        this.getModalError(resp);
+      }
+
+     });
    }
 
    createHistoryRowData() {
@@ -168,5 +175,22 @@ export class CircleDetailComponent implements OnInit {
        
       }
     ];
+  }
+
+  getModalError(resp){
+    let errCod = resp['error'] != null ? resp['error'].errorCode : "404";
+    let msgErr = resp['error'] != null ? resp['error'].message : "Error not found.";
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      width: '500px',
+      data: {
+        type: "Error",
+        header: "Error",
+        description: "Error Code: " + errCod + " Message: " + msgErr,
+        footer: {
+          style: "end",
+          YesButton: "Ok"                       
+        }
+      }
+    });
   }
 }
