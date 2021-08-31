@@ -3,10 +3,13 @@
         <motif-card-header>
             <div class="row">
                 <div class="col-md-4 col-sm-4">
-                      <div  class="elli-wrap"> 
-                            <h6><span class="filing-name ellipsis">{{createdDate | date: 'MMM' | uppercase}} // {{name}}</span>
-                            </h6>
-                    </div> 
+                    <h6 *ngIf="name.length <= filingWidth"><span class="filing-name ellipsis">{{name}}</span></h6>
+                            <div *ngIf="name.length > filingWidth" class="elli-wrap">
+                                <motif-tooltip placement="top">
+                                    <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span></h6>
+                                    {{name}} 
+                                </motif-tooltip>                              
+                            </div>                    
                 </div>
             </div>
         </motif-card-header>

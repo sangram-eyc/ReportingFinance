@@ -5,6 +5,9 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import {customComparator} from '../../config/tax-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
 import { ProductionCylcesService } from '../services/production-cylces.service';
+import {Router} from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import {ErrorModalComponent} from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-tax-reporting',
@@ -17,8 +20,11 @@ export class TaxReportingComponent implements OnInit {
   constructor(
     private filingService: TaxReportingFilingService,
     private customglobalService: CustomGlobalService,
-    private productcyclesService: ProductionCylcesService
-  ) { }
+    private productcyclesService: ProductionCylcesService,
+    private router: Router,
+    private dialog: MatDialog
+  ) { 
+   } 
 
   nameReport:string = 'Client ABC, Inc.';
   activeFilings: any[] = [];
@@ -49,6 +55,8 @@ export class TaxReportingComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('productTemplate')
   productTemplate: TemplateRef<any>;
+  @ViewChild('statusTracker')
+  statusTracker: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -70,8 +78,8 @@ export class TaxReportingComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 10,
-    name: '10',
+    value: 20,
+    name: '20',
     id: 0
   };
 
@@ -80,29 +88,25 @@ export class TaxReportingComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabIn = 1;
+    this.getCompletedProductCyclesData();
     this.getActiveFilingsData();
-    //this.getCompletedProductCyclesData();
   }
     
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    if(selectedTab == 2){
+      //the screen is moved one pixel to make the card tooltip work.
+      window.scroll({top:1});
+    }
   }
 
   ngAfterViewInit(): void {
-    this.getCompletedProductCyclesData();
+    //this.getCompletedProductCyclesData();
   }
 
   getActiveFilingsData() {
-    
-    /* let resp = [
-      {name: 'Management Report',author:'Janes Smith',createdDate:'06/28/12',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Janes Smith',createdDate:'07/28/12',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Janes Smith',createdDate:'08/28/12',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Janes Smith',createdDate:'09/28/12',downloadUrl:'asdasd'},
-      {name: 'Management Report',author:'Janes Smith',createdDate:'10/28/12',downloadUrl:'asdasd'}
-    ]; */
-  
       this.filingService.getFilings().subscribe(resp => {
+        if(resp['success'] === true){
         this.filingResp.push(resp);
         this.filingResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
         this.filingResp[0].data.forEach((item) => {
@@ -117,24 +121,30 @@ export class TaxReportingComponent implements OnInit {
         });
         this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
         this.createHistoryRowData();
+      }else{
+        this.getModalError(resp);
+      }     
       });
   }
 
   getCompletedProductCyclesData() {
     this.completedFilings = [];
-
-    this.productcyclesService.getProductionCycles().subscribe(resp => {    
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;       
+    this.productcyclesService.getProductionCycles().subscribe(resp => {   
+      if(resp['success'] === true){
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.name,
-          id: item.id
+          id: item.id,
+          statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
         };
         this.completedFilings.push(eachitem);
       });
       this.createHistoryRowData();
-    })
+    }else{
+      this.getModalError(resp);
+    }
+    });
   }
 
   createHistoryRowData() {
@@ -143,7 +153,8 @@ export class TaxReportingComponent implements OnInit {
     this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id
+        id: filing.id,
+        statusTracker: filing.statusTracker
       })
     });
     this.columnDefs = [
@@ -158,10 +169,23 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 640,
+        width: 500,
         sort:'asc',
-        comparator: customComparator
-       
+        comparator: customComparator      
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.statusTracker,
+        },
+        headerName: 'Status tracker',
+        field: 'statusTracker',
+        sortable: true,
+        filter: false,
+        wrapText: true,
+        autoHeight: true,
+        width: 500
       }
     ];
   }
@@ -215,17 +239,28 @@ export class TaxReportingComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   };
 
-/*   updatePaginationSize(newPageSize: number) {
-    this.noOfCompletdFilingRecords = newPageSize;
-     this.getCompletedProductCyclesData();
-  }
-
-  handlePageChange(val: number): void {
-    this.currentPage = val;
-    this.getCompletedProductCyclesData();
-  } */
-
   getProdCycleDetail(row){
     console.log("Show details->", row)
- }
+    // this.router.navigate(['/cicle-details/' + row.id + row.name]);
+    this.router.navigate(['/cicle-details/', row.id + '/' + row.name ]);
+    // this.router.navigate(['/cicle-details/', {id: row.id, name: row.name}]);
+  } 
+  
+  getModalError(resp){
+    let errCod = resp['error'] != null ? resp['error'].errorCode : "404";
+    let msgErr = resp['error'] != null ? resp['error'].message : "Error not found.";
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      width: '500px',
+      data: {
+        type: "Error",
+        header: "Error",
+        description: "Error Code: " + errCod + " Message: " + msgErr,
+        footer: {
+          style: "end",
+          YesButton: "Ok"                       
+        }
+      }
+    });
+  }
+
 }

@@ -4,6 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/rr-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
+
 @Component({
   selector: 'lib-regulatory-reporting-filing',
   templateUrl: './regulatory-reporting-filing.component.html',
@@ -76,6 +77,12 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     this.tabIn = 1;
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
+
+    if (sessionStorage.getItem("permissionList") === null) {
+      this.filingService.getPermissionsList().subscribe(resp => {
+      sessionStorage.setItem("permissionList", JSON.stringify(resp.data));
+      });
+    }
   }
 
   reportTabChange(selectedTab) {

@@ -86,15 +86,19 @@
     }
 }
 
-
+#intake_files {
+    ::ng-deep {
+        .motif-accordion-header {
+            min-height: 66px !important;
+            padding: 12px 1px 1px 0 !important;
+        } 
+    } 
+}
 ::ng-deep {
     .motif-accordion-header-content {
         width: 100% !important;
     }
-    .motif-accordion-header {
-        min-height: 66px !important;
-        padding: 12px 1px 1px 0 !important;
-    }
+    
     .motif-accordion-header:hover, .motif-accordion-header :hover {
         background-color: transparent !important;
     }

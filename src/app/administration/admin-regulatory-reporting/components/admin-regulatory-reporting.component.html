@@ -1,8 +1,10 @@
 <motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team has been deleted successfully</motif-toast>
 
 <div class="page-header">
-    <h1 class="motif-h1">Regulatory reporting</h1>
+    <h1 *ngIf="!is_Tax_Reporting" class="motif-h1">Regulatory reporting</h1>
+    <h1 *ngIf="is_Tax_Reporting" class="motif-h1">Tax Reporting</h1>
 </div>
+
 <motif-tab-bar *ngIf="!is_Tax_Reporting">
     <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn === 1 ? 'motif-active' : ''">Teams</button>
     <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>

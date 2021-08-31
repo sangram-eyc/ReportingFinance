@@ -17,6 +17,7 @@ import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.component';
+import { CircleDetailComponent } from './tax-reporting/circle-details/circle-details.component';
 
 
 
@@ -51,6 +52,7 @@ import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.
   ],
   declarations: [
     TaxReportingComponent,
+    CircleDetailComponent,
     FilingCardComponent,
     TableHeaderRendererComponent,
     DotsCardComponent,

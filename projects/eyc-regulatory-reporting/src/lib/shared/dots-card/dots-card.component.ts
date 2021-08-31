@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-dots-card',
@@ -27,7 +28,8 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public router: Router,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    private permissions: PermissionService
   ) { }
 
   ngOnInit(): void {
@@ -215,7 +217,13 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   disState(index: number): boolean | null {
-    return this.states[index].disabled;
+    if( index == 1) {
+      if(!this.permissions.validatePermission('intake', 'view') || this.states[index].disabled) {
+        return true;
+      }
+    } else {
+      return this.states[index].disabled;
+    }
   }
 
   handleStepClick(pageUrl, enableRoute) { // For clickable steps

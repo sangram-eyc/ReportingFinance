@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { PermissionService } from 'eyc-ui-shared-component';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filing-card',
@@ -71,7 +73,8 @@ export class FilingCardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    public permissions: PermissionService
   ) { }
 
   ngOnInit(): void {
@@ -127,6 +130,35 @@ export class FilingCardComponent implements OnInit {
     return this.states[index]['progress'];
   }
 
+
+  preapreStage(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING": return 'scoping';
+      case "DATA_INTAKE":  return 'intake';
+      case "REPORTING":  return 'reporting';
+      case "CLIENT_REVIEW": return 'clientReview';
+      case "SUBMISSION": return 'submission';
+    }
+  }
+  preapreRouting(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING":
+        this.router.navigate(['/fund-scoping']);
+        break;
+      case "DATA_INTAKE":
+          this.router.navigate(['/data-intake']);
+          break;
+      case "REPORTING":
+        this.router.navigate(['/regulatory-reporting']);
+        break;
+      case "CLIENT_REVIEW":
+        this.router.navigate(['/client-review']);
+        break;
+      case "SUBMISSION":
+        this.router.navigate(['/submission']);
+    }
+  }
+
   routeToDetailsView() {
     // this.router.navigate(['/regulatory-filing-list/'+1]);
     this.filingService.setfilingData = this._filingData;
@@ -135,7 +167,17 @@ export class FilingCardComponent implements OnInit {
         this.router.navigate(['/fund-scoping']);
         break;
       case "DATA_INTAKE":
-        this.router.navigate(['/data-intake']);
+        if(this.permissions.validatePermission('intake', 'view')) {
+          this.router.navigate(['/data-intake']);
+        } else {
+            const dataIntakeIndex = this._filingData.status.findIndex(item => item.stageCode === this.status.stageCode);
+            for(let i=dataIntakeIndex; i < this._filingData.status.length; i++) {
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), 'view')) {
+                this.preapreRouting(this._filingData.status[i].stageCode);
+                return;
+               }  
+            }
+        }
         break;
       case "REPORTING":
         this.router.navigate(['/regulatory-reporting']);

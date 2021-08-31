@@ -47,6 +47,8 @@ export class GridComponent implements OnInit, OnChanges {
       }
     }
   };
+  @Input() permissionToPrimaryButton = true;
+  @Input() permissionToSecondaryButton = true;
   @Input() rowData: any;
   @Input() disableAddMemberButton = true;
   @Input() columnDefs: any;

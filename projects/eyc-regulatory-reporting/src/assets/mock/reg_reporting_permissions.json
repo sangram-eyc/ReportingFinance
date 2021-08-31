@@ -1,0 +1,45 @@
+{
+   "success":true,
+   "message":"",
+   "corelationId":null,
+   "data":{
+   "scoping":["view","approve"],
+   "intake":[
+        "view",
+        "viewComments",
+        "addComments",
+        "approveException",
+        "resolveException",
+        "approveDataSet",
+        "rejectDataSet"
+      ],
+      "reporting":[
+        "view",
+        "viewComments",
+        "addComments",
+        "approveException",
+        "resolveException",
+        "approveFilingEntity",
+        "resolveFilingEntity",
+        "dataExplorer"
+      ],
+      "clinetReview":[
+        "view",
+        "viewComments",
+        "addComments",
+        "approveException",
+        "resolveException",
+        "approveFilingEntity",
+        "resolveFilingEntity",
+        "dataExplorer"
+      ],
+      "submission":[
+        "view",
+        "downloadFiles",
+        "completeFiling"
+      ]
+ 
+   },
+     
+   "error":null
+ }

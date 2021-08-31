@@ -5,6 +5,8 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {DataIntakeService} from '../services/data-intake.service';
+import { PermissionService } from 'eyc-ui-shared-component';
+
 
 @Component({
   selector: 'lib-data-intake',
@@ -51,7 +53,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   constructor(
     private service: DataIntakeService,
     private filingService: RegulatoryReportingFilingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public permissions: PermissionService
   ) { }
 
   ngOnInit(): void {
