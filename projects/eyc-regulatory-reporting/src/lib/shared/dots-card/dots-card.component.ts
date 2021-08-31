@@ -221,6 +221,14 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       if(!this.permissions.validatePermission('intake', 'view') || this.states[index].disabled) {
         return true;
       }
+    } else if( index == 2) {
+      if(!this.permissions.validatePermission('reporting', 'view') || this.states[index].disabled) {
+        return true;
+      }
+    }else if( index == 3) {
+      if(!this.permissions.validatePermission('clinetReview', 'view') || this.states[index].disabled) {
+        return true;
+      }
     } else {
       return this.states[index].disabled;
     }

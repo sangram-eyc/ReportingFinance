@@ -111,6 +111,7 @@ setToken = (value) => {
 		sessionStorage.removeItem('session');
     sessionStorage.removeItem('permissionList');
     sessionStorage.removeItem('moduleLevelPermission');
+    sessionStorage.removeItem('userEmail');
   }
   
   public get name() {

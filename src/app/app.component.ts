@@ -58,11 +58,24 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
        this.router.navigate(['home'])
     }
+    
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
-      this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
-      this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
-      this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
-      this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+      setTimeout(() => {
+        const userEmail = sessionStorage.getItem('userEmail');
+      
+        if (userEmail.endsWith('ey.com')) {
+          this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
+          this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+        } else {
+          this.permission.isDataIntake = false;
+          this.permission.isAdmin = false;
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isTaxReporting = false;
+        }
+      }, 100)
+      
     });
   }
 
@@ -81,6 +94,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         
       
         const uname = this.oauthservice.getIdentityClaims();
+        sessionStorage.setItem("userEmail", uname['unique_name']);
         if (uname) {
           this.userGivenName = uname['given_name'];
           this.loginName = uname['name'];
