@@ -241,9 +241,7 @@ export class TaxReportingComponent implements OnInit {
 
   getProdCycleDetail(row){
     console.log("Show details->", row)
-    // this.router.navigate(['/cicle-details/' + row.id + row.name]);
-    this.router.navigate(['/cicle-details/', row.id + '/' + row.name ]);
-    // this.router.navigate(['/cicle-details/', {id: row.id, name: row.name}]);
+    this.router.navigate(['cicle-details',row.id,row.name]);
   } 
   
   getModalError(resp){
