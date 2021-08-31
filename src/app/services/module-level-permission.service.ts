@@ -25,7 +25,6 @@ export class ModuleLevelPermissionService {
   }
 
   checkPermission(module) {
-    console.log("module",module);
     const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
     if(permissions){
       return permissions.modules.indexOf(module) > -1;

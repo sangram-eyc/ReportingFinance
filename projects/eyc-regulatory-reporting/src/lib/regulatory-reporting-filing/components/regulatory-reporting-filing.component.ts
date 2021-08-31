@@ -4,6 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/rr-config-helper';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
@@ -15,7 +16,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   tabIn;
   constructor(
     private filingService: RegulatoryReportingFilingService,
-    private customglobalService: CustomGlobalService
+    private customglobalService: CustomGlobalService,
+    private oauthservice: OAuthService
   ) { }
 
   activeFilings: any[] = [];
@@ -77,10 +79,16 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     this.tabIn = 1;
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
-
     if (sessionStorage.getItem("permissionList") === null) {
       this.filingService.getPermissionsList().subscribe(resp => {
-      sessionStorage.setItem("permissionList", JSON.stringify(resp.data));
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail.endsWith('ey.com')) {
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        } else {
+          resp.data.features.intake.splice(5, 2);
+          resp.data.features.reporting.shift();
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        }
       });
     }
   }

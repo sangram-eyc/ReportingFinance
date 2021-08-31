@@ -1,10 +1,16 @@
 {
-   "success":true,
-   "message":"",
-   "corelationId":null,
-   "data":{
-   "scoping":["view","approve"],
-   "intake":[
+  "success": true,
+  "message": "",
+  "corelationId": null,
+  "data": {
+    "userEmail": "Suhas.Srinidhi@gds.ey.com",
+    "moduleName": "Regulatory Reporting",
+    "features": {
+      "scoping": [
+        "view",
+        "approve"
+      ],
+      "intake": [
         "view",
         "viewComments",
         "addComments",
@@ -13,7 +19,7 @@
         "approveDataSet",
         "rejectDataSet"
       ],
-      "reporting":[
+      "reporting": [
         "view",
         "viewComments",
         "addComments",
@@ -23,7 +29,7 @@
         "resolveFilingEntity",
         "dataExplorer"
       ],
-      "clinetReview":[
+      "clinetReview": [
         "view",
         "viewComments",
         "addComments",
@@ -33,13 +39,12 @@
         "resolveFilingEntity",
         "dataExplorer"
       ],
-      "submission":[
+      "submission": [
         "view",
         "downloadFiles",
         "completeFiling"
       ]
- 
-   },
-     
-   "error":null
- }
+    }
+  },
+  "error": null
+}
