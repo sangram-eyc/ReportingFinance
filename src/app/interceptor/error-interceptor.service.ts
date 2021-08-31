@@ -10,7 +10,8 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ErrorAlertComponent } from '../dialogs/error-alert/error-alert.component';
-
+import {EyServerError} from '../../../projects/eyc-tax-reporting/src/lib/tax-reporting/models/EyServerError'
+import {EyDataError} from '../../../projects/eyc-tax-reporting/src/lib/tax-reporting/models/EyDataError'
 
 @Injectable()
 export class ErrorInterceptorService implements HttpInterceptor {
@@ -26,7 +27,18 @@ export class ErrorInterceptorService implements HttpInterceptor {
             if (error.error instanceof ErrorEvent) {
               // client-side error
               errorMessage = `Error: ${error.error.message}`;
-            } else {
+            } else if(error.error instanceof EyServerError){
+               
+              let data: EyDataError = new EyDataError();
+              data.status = error.status.toString();
+              data.statusText = "There was an error processing your request: " + error.error.errorCode;
+              data.error.message = error.error.message;
+             
+              this.launchErrorDialog(data);
+              errorMessage = `Error: ${error.error.message}`;
+              return throwError(errorMessage);
+
+            }else {
               // server-side error
               // temp check will be refractored with the user modal user story
               if (error.error.message) {
@@ -51,6 +63,8 @@ export class ErrorInterceptorService implements HttpInterceptor {
           }
         }));
   }
+
+  
 
   private launchErrorDialog(error): void {
     const config = new MatDialogConfig();

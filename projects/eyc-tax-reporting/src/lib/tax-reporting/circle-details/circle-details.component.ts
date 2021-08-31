@@ -114,7 +114,6 @@ export class CircleDetailComponent implements OnInit {
 
    getCompletedProductCyclesData(id:any) {
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
-      if(resp['success'] === true){
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
          const eachitem: any = {
@@ -124,10 +123,6 @@ export class CircleDetailComponent implements OnInit {
          this.completedFilings.push(eachitem);
        });
        this.createHistoryRowData();
-      }else{
-        this.getModalError(resp);
-      }
-
      });
    }
 
