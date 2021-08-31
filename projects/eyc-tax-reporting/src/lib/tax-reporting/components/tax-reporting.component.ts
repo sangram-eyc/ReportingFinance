@@ -105,7 +105,8 @@ export class TaxReportingComponent implements OnInit {
   }
 
   getActiveFilingsData() {
-      this.filingService.getFilings().subscribe(resp => {       
+      this.filingService.getFilings().subscribe(resp => {
+        if(resp['success'] === true){
         this.filingResp.push(resp);
         this.filingResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
         this.filingResp[0].data.forEach((item) => {
@@ -120,12 +121,16 @@ export class TaxReportingComponent implements OnInit {
         });
         this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
         this.createHistoryRowData();
+      }else{
+        this.getModalError(resp);
+      }     
       });
   }
 
   getCompletedProductCyclesData() {
     this.completedFilings = [];
     this.productcyclesService.getProductionCycles().subscribe(resp => {   
+      if(resp['success'] === true){
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
@@ -136,6 +141,9 @@ export class TaxReportingComponent implements OnInit {
         this.completedFilings.push(eachitem);
       });
       this.createHistoryRowData();
+    }else{
+      this.getModalError(resp);
+    }
     });
   }
 
