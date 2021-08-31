@@ -47,7 +47,8 @@ export class OauthService {
 		// console.log('inside getAccessToken');
 		// console.log(this.oauthService.getAccessToken());
 		this.storageService.setToken(this.oauthService.getAccessToken());
-		IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+		this.router.navigate(['/home']);
 	}
 
 	
