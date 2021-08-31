@@ -3,7 +3,7 @@
 
 
 <div *ngIf="!enableTabs" class="intakeFilesWrapper">
-    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr" [buttonTxt]="'All exceptions'"></shared-lib-intake-files>
+    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr" [buttonTxt]="'All exceptions'" [filesDatasets]="filesDatasets" (datasetEvent)="getFileDataSet($event)"></shared-lib-intake-files>
 </div>
 
 <div class="review-content-container" *ngIf="enableTabs">

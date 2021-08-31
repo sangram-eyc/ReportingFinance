@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {formatDate} from '@angular/common';
 import { DataIntakeLandingService } from './../services/data-intake-landing.service';
+import { ProcessingExceptionService } from '../../processing-exception/services/processing-exception.service';
 
 @Component({
   selector: 'lib-data-intake-landing',
@@ -12,7 +13,8 @@ export class DataIntakeLandingComponent implements OnInit {
   curDate;
   presentDate;
   filesListArr;
-  constructor(private service: DataIntakeLandingService) { }
+  filesDatasets = {};
+  constructor(private service: DataIntakeLandingService, public processingService: ProcessingExceptionService) { }
 
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
@@ -23,6 +25,17 @@ export class DataIntakeLandingComponent implements OnInit {
   getIntakeFilesList() {
     this.service.getIntakeFilesList().subscribe(res => {
       this.filesListArr = res['data'];
+    });
+  }
+
+  getDataSet(event) {
+    let index = event.index;
+    console.log('INDEX', index);
+    this.processingService.getDataSets().subscribe(res => {
+      this.filesDatasets[index] = res['data'];
+    },error=>{
+      this.filesDatasets[index] = [];
+      console.log("Dataset error");
     });
   }
 

@@ -29,6 +29,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   filesListArr;
   enableTabs = false;
 
+  filesDatasets = {};
   datasets = [];
   datasetsDefs;
   submitDatasets;
@@ -112,7 +113,17 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.datasets =[];
       console.log("Datasets error");
     });
+  }
 
+  getFileDataSet(event) {
+    let index = event.index;
+    console.log('INDEX', index);
+    this.service.getDatasetsrecords().subscribe(res => {
+      this.filesDatasets[index] = res['data'];
+    },error=>{
+      this.filesDatasets[index] = [];
+      console.log("Dataset error");
+    });
   }
 
   receiveMessage($event) {

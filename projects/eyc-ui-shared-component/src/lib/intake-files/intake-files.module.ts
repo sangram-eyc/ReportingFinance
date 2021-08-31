@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MotifModule, MotifButtonModule,  MotifIconModule, MotifAccordionModule } from '@ey-xd/ng-motif';
 import { IntakeFilesComponent } from './components/intake-files.component';
+import { GridModule } from '../grid/grid.module';
 
 
 
@@ -12,7 +13,8 @@ import { IntakeFilesComponent } from './components/intake-files.component';
     MotifAccordionModule,
     MotifModule,
     MotifButtonModule,
-    MotifIconModule
+    MotifIconModule,
+    GridModule
   ],
   exports: [IntakeFilesComponent]
 })
