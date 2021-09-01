@@ -63,7 +63,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const userEmail = sessionStorage.getItem('userEmail');
       
-        if (userEmail.endsWith('ey.com')) {
+        if (userEmail.endsWith('ey.com') || userEmail === 'myeyazure.ping0448@eyscetesteu.com' || userEmail === 'myeyazure.ping0445@eyscetesteu.com') {
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
