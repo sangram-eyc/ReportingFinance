@@ -9,4 +9,4 @@
     {{ curDate }}
 </div>
 
-<shared-lib-intake-files [filesData]="filesListArr" [buttonTxt]="'All exceptions'" [redirectURL]="'processing-exceptions'"></shared-lib-intake-files>
+<shared-lib-intake-files [filesData]="filesListArr" [buttonTxt]="'All exceptions'" [redirectURL]="'processing-exceptions'" [filesDatasets]="filesDatasets" (datasetEvent)="getDataSet($event)"></shared-lib-intake-files>
