@@ -63,12 +63,21 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const userEmail = sessionStorage.getItem('userEmail');
       
-        if (userEmail.endsWith('ey.com') || userEmail === 'myeyazure.ping0448@eyscetesteu.com' || userEmail === 'myeyazure.ping0445@eyscetesteu.com') {
+        if (userEmail.endsWith('ey.com')) {
+          console.log('Internal User');
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
-        } else {
+        }
+        else if (userEmail === 'myeyazure.ping0448@eyscetesteu.com' || userEmail === 'myeyazure.ping0445@eyscetesteu.com') {
+          console.log('PING User');
+          this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
+          this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+        } else { 
+          console.log('external User');
           this.permission.isDataIntake = false;
           this.permission.isAdmin = false;
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
