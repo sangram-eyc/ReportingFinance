@@ -90,7 +90,8 @@ export class CircleDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.productCycleParams = params.id
+      this.productCycleName = params.name
+      this.productCycleId = params.id
     });
   }
     
@@ -104,11 +105,6 @@ export class CircleDetailComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    let productCycleParamsArr =  this.productCycleParams.split('/')
-    this.productCycleId = productCycleParamsArr[0]
-    this.productCycleName = productCycleParamsArr[1]
-    console.log(this.productCycleId)
-    console.log(this.productCycleName)
     this.getCompletedProductCyclesData(this.productCycleId);
   }
 
