@@ -70,7 +70,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         }
-        else if (userEmail === 'myeyazure.ping0448@eyscetesteu.com' || userEmail === 'myeyazure.ping0445@eyscetesteu.com') {
+        else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
           console.log('PING User');
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');

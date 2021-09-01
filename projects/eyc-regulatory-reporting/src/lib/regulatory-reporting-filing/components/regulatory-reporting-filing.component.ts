@@ -82,7 +82,9 @@ export class RegulatoryReportingFilingComponent implements OnInit {
     if (sessionStorage.getItem("permissionList") === null) {
       this.filingService.getPermissionsList().subscribe(resp => {
         const userEmail = sessionStorage.getItem('userEmail');
-        if (userEmail.endsWith('ey.com') || userEmail === 'myeyazure.ping0448@eyscetesteu.com' || userEmail === 'myeyazure.ping0445@eyscetesteu.com') {
+        if (userEmail.endsWith('ey.com')) {
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        } else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
           sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
         } else {
           resp.data.features.intake.splice(5, 2);
