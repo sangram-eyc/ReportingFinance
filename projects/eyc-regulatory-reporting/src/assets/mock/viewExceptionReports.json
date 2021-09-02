@@ -1,0 +1,127 @@
+{
+    "success": true,
+	"message": "sucess",
+	"data": [
+        {
+            "exceptionId": 1,
+            "File": "Alpha Corporate Bond Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 7,
+            "approved": false,
+            "mytask": true,
+            "Creation Date": "2021-07-16"
+        },
+        {
+            "exceptionId": 2,
+            "File": "Alpha Municipal Bond Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": "",
+            "approved": true,
+            "mytask": false,
+            "Creation Date": "2021-07-22"
+        },
+        {
+            "exceptionId": 3,
+            "File": "Alpha Fixed Income Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 10,
+            "approved": false,
+            "mytask": true,
+            "Creation Date": "2021-05-29"
+        },
+        {
+            "exceptionId": 4,
+            "File": "Alpha Global Opportunities Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false,
+            "mytask": true,
+            "Creation Date": "2021-02-29"
+        },
+        {
+            "exceptionId": 5,
+            "File": "Alpha Emerging Markets Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 5,
+            "approved": false,
+            "mytask": false,
+            "Creation Date": "2021-08-18"
+        },
+        {
+            "exceptionId": 6,
+            "File": "Alpha Multi-Asset Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false,
+            "mytask": false,
+            "Creation Date": "2021-04-17"
+        },
+        {
+            "exceptionId": 15,
+            "File": "Beta Emerging Markets Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 6,
+            "approved": false,
+            "mytask": false,
+            "Creation Date": "2021-07-12"
+        },
+        {
+            "exceptionId": 16,
+            "File": "Beta Multi-Asset Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 8,
+            "approved": false,
+            "mytask": false,
+            "Creation Date": "2021-05-29"
+        },
+        {
+            "exceptionId": 17,
+            "File": "Beta High-Yeild Income Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": true,
+            "mytask": false,
+            "Creation Date": "2021-05-23"
+        },
+        {
+            "exceptionId": 19,
+            "File": "Beta Total Return Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": [],
+            "approved": false,
+            "mytask": false,
+            "Creation Date": "2021-05-30"
+        },
+        {
+            "exceptionId": 20,
+            "File": "Beta Technology Fund",
+            "Exception Report": "Transformation and Review",
+            "resolve_exception": "--",
+            "reviewLevel": "--",
+            "comments": 10,
+            "approved": true,
+            "mytask": true,
+            "Creation Date": "2021-05-10"
+        }
+    ]
+}

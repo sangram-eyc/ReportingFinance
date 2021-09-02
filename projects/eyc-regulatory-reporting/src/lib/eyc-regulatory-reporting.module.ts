@@ -14,6 +14,7 @@ import { FundScopingComponent } from './fund-scoping/components/fund-scoping.com
 import { ClientReviewComponent } from './client-review/components/client-review.component';
 import { SubmissionComponent } from './submission/components/submission.component';
 import { RrReportingComponent } from './rr-reporting/components/rr-reporting.component';
+import { ViewExceptionReportsComponent } from './shared/view-exception-reports/components/view-exception-reports.component';
 import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
 import { DataExplorerForReportingAndClientComponent } from './data-explorer-for-reporting-and-client/components/data-explorer-for-reporting-and-client/data-explorer-for-reporting-and-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +26,7 @@ import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from
 import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 
+ 
 
 
 
@@ -69,8 +71,10 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
     ReportingTabsCardComponent,
     DataExplorerForReportingAndClientComponent,
     RrVisualisationComponent,
-    GridComponent
+    GridComponent,
+    ViewExceptionReportsComponent
   ],
+  /* providers: [EycRrApiService, EycPbiService], */
   exports: [RegulatoryReportingFilingComponent, GridComponent]
 })
 export class EycRegulatoryReportingModule {

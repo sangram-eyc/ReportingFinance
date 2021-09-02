@@ -112,3 +112,4 @@ export const customComparator = (valueA, valueB) => {
 };
 
 export const IS_SURE_FOOT = false;
+export const HIDE_HOME_PAGE = false;

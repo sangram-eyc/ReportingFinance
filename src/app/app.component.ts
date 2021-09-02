@@ -6,7 +6,7 @@ import { timeStamp } from 'console';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
-import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT } from './services/settings-helpers';
+import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
 import {SettingsService} from './services/settings.service';
 
 
@@ -28,6 +28,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   notifFlag = false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
+  hide_home_page = HIDE_HOME_PAGE;
   @ViewChild('notification', { static: false }) notificationCard: ElementRef;
   @ViewChild('notificationicon', { static: false }) notificationIcon: ElementRef;
   permission = {

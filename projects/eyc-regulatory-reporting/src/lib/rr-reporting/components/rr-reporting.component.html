@@ -34,6 +34,14 @@
                 <motif-icon [src]="'/assets/icons/action/ic_assignment_24px.svg'"></motif-icon>
             </div>
         </ng-template>
+        <ng-template #expandExceptionTemplate let-row>
+        <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{ row.exceptionReportName}}</div>
+        </ng-template>
+        <ng-template #viewDetTemplate let-row>
+            <div>
+                <motif-icon [src]="'/assets/icons/navigation/ic_expand_more_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+            </div>
+        </ng-template>
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">

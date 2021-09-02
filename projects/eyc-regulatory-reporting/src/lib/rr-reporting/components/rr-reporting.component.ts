@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
 //import { GridComponent } from 'eyc-ui-shared-component';
 import {customComparator} from '../../config/rr-config-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -18,7 +19,8 @@ export class RrReportingComponent implements OnInit {
   constructor(
     private rrservice: RrReportingService,
     private filingService: RegulatoryReportingFilingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
   ) { }
 
   tabs = 2;
@@ -73,7 +75,13 @@ export class RrReportingComponent implements OnInit {
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>
   @ViewChild('myTasksExceptionTemplate')
-  myTasksExceptionTemplate: TemplateRef<any>
+  myTasksExceptionTemplate: TemplateRef<any>;
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
+
+  
   
   ngOnInit(): void {
 
@@ -210,6 +218,10 @@ export class RrReportingComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.expandExceptionTemplate,
+          },
           headerName: 'Exception Report Name',
           field: 'exceptionReportName',
           sortable: true,
@@ -258,6 +270,14 @@ export class RrReportingComponent implements OnInit {
           filter: true,
           width: 155
         },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.viewDetTemplate,
+          },
+          width: 50
+        }
       ];
   
     
@@ -498,4 +518,8 @@ export class RrReportingComponent implements OnInit {
     this.showComments = true;
   }
 
+  routeToExceptionDetailsPage(event:any) {
+    this.filingService.setExceptionData = event;
+    this.router.navigate(['/view-exception-reports']);
+  }
 }

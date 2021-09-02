@@ -171,5 +171,5 @@ describe('RegulatoryReportingFilingService', () => {
     req.flush(filingStatus);
     httpMock.verify();
   });
-
+  
 });

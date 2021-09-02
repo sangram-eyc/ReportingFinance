@@ -5,6 +5,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-client-review',
@@ -20,7 +21,8 @@ export class ClientReviewComponent implements OnInit {
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
     ) { }
 
   tabs = 2;
@@ -70,6 +72,10 @@ export class ClientReviewComponent implements OnInit {
   commentExceptionTemplate: TemplateRef<any>
   @ViewChild('myTasksExceptionTemplate')
   myTasksExceptionTemplate: TemplateRef<any>
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
     this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
@@ -213,6 +219,10 @@ export class ClientReviewComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.expandExceptionTemplate,
+          },
           headerName: 'Exception Report Name',
           field: 'exceptionReportName',
           sortable: true,
@@ -261,6 +271,14 @@ export class ClientReviewComponent implements OnInit {
           filter: true,
           width: 155
         },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.viewDetTemplate,
+          },
+          width: 50
+        }
       ];
   }
 
@@ -462,5 +480,9 @@ export class ClientReviewComponent implements OnInit {
       console.log("Comments error");
     });
     this.showComments = true;
+
+  routeToExceptionDetailsPage(event:any) {
+    this.filingService.setExceptionData = event;
+    this.router.navigate(['/view-exception-reports']);
   }
 }
