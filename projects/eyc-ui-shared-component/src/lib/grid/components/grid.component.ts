@@ -113,7 +113,7 @@ export class GridComponent implements OnInit, OnChanges {
   }
 
   openDialog() {
-    if(this.buttonText === "Add team" || this.buttonText === "Add member") {
+    if(this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer") {
       this.newEventToParent.emit();
       return;
     }

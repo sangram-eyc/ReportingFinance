@@ -24,6 +24,7 @@ import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
+import { ViewExceptionReportsComponent } from './shared/view-exception-reports/view-exception-reports.component';
 
 
 
@@ -69,7 +70,8 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
     ReportingTabsCardComponent,
     DataExplorerForReportingAndClientComponent,
     RrVisualisationComponent,
-    GridComponent
+    GridComponent,
+    ViewExceptionReportsComponent
   ],
   exports: [RegulatoryReportingFilingComponent, GridComponent]
 })
