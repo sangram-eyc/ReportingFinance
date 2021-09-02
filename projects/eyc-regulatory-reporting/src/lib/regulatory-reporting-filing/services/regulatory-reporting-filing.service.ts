@@ -10,6 +10,7 @@ export class RegulatoryReportingFilingService {
  
   filingData: any;
   @Output() dotcardStatusDetails = new EventEmitter<any>();
+  exceptionData: any;
 
 
   constructor(
@@ -28,27 +29,35 @@ export class RegulatoryReportingFilingService {
       return this.filingData;
     }
 
-  getFilings() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
-  }
-  getFilingsHistory(currentPage,noOfRecords) {
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
+    set setExceptionData(data) {
+      this.exceptionData = data;
+    }
+
+    get getExceptionData() {
+      return this.exceptionData;
+    }
+
+    getFilings() {
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
+    }
+    getFilingsHistory(currentPage,noOfRecords) {
+      // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
+      // After API integration will remove above line and uncomment below line
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
+    }
+  
+    getFilingSearch(noOfRecords) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_search}${noOfRecords}`);
+    }
+  
+    getFilingStatus(filingId) {
+      // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}`)
     // After API integration will remove above line and uncomment below line
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
-  }
-
-  getFilingSearch(noOfRecords) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_search}${noOfRecords}`);
-  }
-
-  getFilingStatus(filingId) {
-    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}`)
-  // After API integration will remove above line and uncomment below line
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}${filingId}/status`)
-  }
-
-  getPermissionsList() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_permission_list}`);
-  }
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_status}${filingId}/status`)
+    }
+  
+    getPermissionsList() {
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_permission_list}`);
+    }
 
 }
