@@ -61,7 +61,7 @@ export class IntakeFilesComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Reg Report',
+        headerName: 'Report',
         field: 'reg_reporting',
         sortable: true,
         filter: false,
