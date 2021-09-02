@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
-import { IS_SURE_FOOT, SESSION_ID_TOKEN } from '../../services/settings-helpers';
+import { IS_SURE_FOOT, SESSION_ID_TOKEN, HIDE_HOME_PAGE } from '../../services/settings-helpers';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
@@ -39,6 +39,9 @@ export class HomeComponent implements OnInit {
       this.moduleLevelPermission.invokeModulePermissionDetails();
       if(IS_SURE_FOOT) {
         this.router.navigate(['/app-tax-reporting'])
+      }
+      else {
+        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
       }
     });
   }
