@@ -74,7 +74,7 @@
     <section id="sidenav">
       <ul id="sidenav-list">
 
-        <li [hidden]="is_Sure_Foot" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
+        <li *ngIf="hide_home_page" [hidden]="is_Sure_Foot" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="home" routerLinkActive="active">
           <motif-icon [src]="'/assets/icons/action/ic_dashboard_24px.svg'"></motif-icon>
           <span>Home</span>
         </li>

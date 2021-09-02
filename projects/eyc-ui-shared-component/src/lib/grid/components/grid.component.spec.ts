@@ -21,5 +21,5 @@ describe('GridComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });
