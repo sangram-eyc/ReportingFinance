@@ -10,6 +10,7 @@ import { IntakeFilesModule } from './intake-files/intake-files.module';
 import { TableHeaderRendererComponent } from './table-header-renderer/table-header-renderer.component'
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CommonModule } from '@angular/common';
+import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
     DownloadModule,
     EycPowerbiModule,
     GridModule,
+    CommentSideMenuModule,
     IntakeFilesModule,
     InlineSVGModule.forRoot(),
     CommonModule
@@ -31,6 +33,7 @@ import { CommonModule } from '@angular/common';
     DownloadModule,
     EycPowerbiModule,
     GridModule,
+    CommentSideMenuModule,
     IntakeFilesModule,
     TableHeaderRendererComponent
   ]

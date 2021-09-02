@@ -1,0 +1,42 @@
+<div class="comment-side-menu" *ngIf="show">
+
+    <div class="comment-menu-header">
+        <h3 class="comment-menu-header-title">Comments</h3>
+        <button
+            class="comment-icon-button"
+            motifIconButton
+            aria-label="Close Comment Menu"
+            title="Close Comment Menu"
+            (click)="closeComments()"
+        >
+            <motif-icon
+                [src]="'/assets/icons/navigation/ic_close_24px.svg'"
+            ></motif-icon>
+        </button>
+      </div>
+      <div class="comment-filing-period">{{filingName}}</div>
+      
+      <div class="comment-list">
+        <div class="comment-container" *ngFor="let comment of commentsData">
+          <div class="comment-header">
+            <div class="comment-user">
+              <div class="header-avatar">
+                <motif-avatar [userName]="comment.authorFirstName + ' ' + comment.authorLastName" status="none"></motif-avatar>
+              </div>
+              <span class="comment-name">{{comment.authorFirstName}} {{comment.authorLastName}}</span>
+            </div>
+            <span class="comment-time">{{formatDate(comment.timestamp)}}</span>
+          </div>
+          <div class="comment-text">
+            {{comment.commentText}}
+          </div>
+          <div class="comment-attachment" *ngIf="comment.attachments.length > 0">
+            <motif-icon [src]="'/assets/icons/editor/ic_insert_drive_file_24px.svg'"></motif-icon>
+          </div>  
+        </div>
+      </div>
+      <div class="comment-menu-footer">
+        <button motifButton color="secondary" (click)="closeComments()">Close</button>
+      </div>
+
+</div>

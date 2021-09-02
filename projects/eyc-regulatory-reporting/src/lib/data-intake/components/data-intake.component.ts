@@ -30,6 +30,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exceptionDetailCellRendererParams;
   filesListArr;
   enableTabs = false;
+  showComments = false;
+  commentsData;
+  commentsName;
 
   filesDatasets = {};
   datasets = [];
@@ -510,6 +513,19 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.enableTabs = false;
+  }
+
+  openComments(event = null) {
+    console.log('OPEN COMMENTS');
+    this.commentsData = [];
+    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+    this.service.getComments('filing', 2).subscribe(res => {
+      this.commentsData = res['data'];
+    },error=>{
+      this.commentsData =[];
+      console.log("Comments error");
+    });
+    this.showComments = true;
   }
 
 }

@@ -27,5 +27,9 @@ export class DataIntakeService {
   getDatasetsrecords() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`)
   }
+
+  getComments(type, id) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
+  }
  
 }

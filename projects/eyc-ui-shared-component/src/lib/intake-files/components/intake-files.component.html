@@ -58,7 +58,7 @@
         ></lib-shared-grid>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background">
+            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="commentClicked()">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">

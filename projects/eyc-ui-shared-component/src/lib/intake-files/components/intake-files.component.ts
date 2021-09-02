@@ -20,6 +20,7 @@ export class IntakeFilesComponent implements OnInit {
   @Input() filesDatasets;
   @Output() eventToParentFromIntakeFiles = new EventEmitter<any>();
   @Output() datasetEvent = new EventEmitter<any>();
+  @Output() commentClickEvent = new EventEmitter<any>();
 
   columnDefs;
 
@@ -116,6 +117,10 @@ export class IntakeFilesComponent implements OnInit {
 
       console.log('FILES DATASETS',this.filesDatasets);
     }
+  }
+
+  commentClicked() {
+    this.commentClickEvent.emit();
   }
 
 }

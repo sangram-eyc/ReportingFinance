@@ -3,7 +3,7 @@
 
 
 <div *ngIf="!enableTabs" class="intakeFilesWrapper">
-    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr" [buttonTxt]="'All exceptions'" [filesDatasets]="filesDatasets" (datasetEvent)="getFileDataSet($event)"></shared-lib-intake-files>
+    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr" [buttonTxt]="'All exceptions'" [filesDatasets]="filesDatasets" (datasetEvent)="getFileDataSet($event)" (commentClickEvent)="openComments($event)"></shared-lib-intake-files>
 </div>
 
 <div class="review-content-container" *ngIf="enableTabs">
@@ -27,7 +27,7 @@
 
         
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments.length!==0 && permissions.validatePermission('intake', 'viewComments')" class="comments-background">
+            <div *ngIf="row.comments.length!==0 && permissions.validatePermission('intake', 'viewComments')" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
@@ -120,7 +120,7 @@
             </div>
         </ng-template>
         <ng-template #commentDatasetsTemplate let-row>
-            <div *ngIf="row.comments.length!==0 && permissions.validatePermission('intake', 'viewComments')" class="comments-background">
+            <div *ngIf="row.comments.length!==0 && permissions.validatePermission('intake', 'viewComments')" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
@@ -138,4 +138,5 @@
         </ng-template>
     </section>
 </div>
+<lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName"></lib-comment-side-menu>
 

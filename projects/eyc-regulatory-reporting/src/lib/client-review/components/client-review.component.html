@@ -18,10 +18,10 @@
             [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent) = "onClickMyTask($event)"
         ></lib-shared-grid>
-
+        
         
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background">
+            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
@@ -65,7 +65,7 @@
         </ng-template>
         
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background">
+            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
@@ -96,3 +96,5 @@
         </motif-toast>
     </section>
 </div>
+
+<lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName"></lib-comment-side-menu>

@@ -1,0 +1,97 @@
+.comment-side-menu {
+    background: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 100%;
+    z-index: 2;
+    padding-top: 56px;
+    border-left: 1px solid #D8D8D8;
+    overflow: auto;
+}
+.comment-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-height: rem(60);
+    // padding: 16px 16px 8px 16px;
+    border-bottom: 1px solid #D8D8D8;
+    button {
+      margin-left: auto;
+      padding: 16px;
+      ::ng-deep {
+        svg {
+          fill: #2E2E38;
+        }
+      }
+    }
+    button:hover {
+      background-color: #e1e1e6;
+    }
+  }
+  
+  .comment-menu-footer {
+    padding: 16px;
+    border-top: 1px solid #D8D8D8;
+    // position: absolute;
+    // bottom: 0;
+    width: 100%;
+  }
+  
+  .comment-menu-header-title {
+    font-size: 24px;
+    line-height: 16px;
+    margin: 0;
+    padding-top: 8px;
+    padding-left: 16px;
+    // padding-bottom: 8px;
+  }
+  
+  .comment-filing-period {
+    font-size: 16px;
+    line-height: 22px;
+    padding-top: 28px;
+    padding-left: 16px;
+    padding-bottom: 28px;
+  }
+
+  .comment-list {
+    overflow: auto;
+    height: calc(100% - 78px - 57px - 69px);
+  }
+  
+  .comment-container {
+    padding-left: 16px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      .comment-user {
+        display: flex;
+        align-items: center;
+        .header-avatar {
+          margin-right: 8px;
+        }
+        .comment-name {
+          color: #2E2E38;
+        }
+      }
+      .comment-time {
+        font-size: 12px;
+        color: #747480;
+      }
+    }
+    .comment-text {
+      color: #2E2E38;
+      overflow-wrap: break-word;
+    }
+    .comment-attachment {
+      margin-left: auto;
+      width: 20px;
+    }
+  }
