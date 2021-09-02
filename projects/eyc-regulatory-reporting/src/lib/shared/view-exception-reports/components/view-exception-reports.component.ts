@@ -1,9 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { RegulatoryReportingFilingService } from '../../../../src/lib/regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { RegulatoryReportingFilingService } from './../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {customComparator} from '../../config/rr-config-helper';
-import { ViewExceptionReportsService } from './services/view-exception-reports.service';
+import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
+import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 
 
 @Component({
