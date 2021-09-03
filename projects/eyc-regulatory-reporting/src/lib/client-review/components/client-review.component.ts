@@ -480,7 +480,8 @@ export class ClientReviewComponent implements OnInit {
       console.log("Comments error");
     });
     this.showComments = true;
-
+  }
+  
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports']);
