@@ -49,9 +49,13 @@ export class IntakeFilesComponent implements OnInit {
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Dataset',
+        headerName: 'File Name',
         field: 'exceptionFile',
         sortable: true,
+        filter: false,
+        wrapText: true,
+        autoHeight: true,
+        width: 400
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -59,6 +63,8 @@ export class IntakeFilesComponent implements OnInit {
         field: 'reviewLevel',
         sortable: true,
         filter: false,
+        wrapText: true,
+        autoHeight: true
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -66,6 +72,8 @@ export class IntakeFilesComponent implements OnInit {
         field: 'reg_reporting',
         sortable: true,
         filter: false,
+        wrapText: true,
+        autoHeight: true
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -73,6 +81,8 @@ export class IntakeFilesComponent implements OnInit {
         field: 'source',
         sortable: true,
         filter: false,
+        wrapText: true,
+        autoHeight: true
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -106,6 +116,16 @@ export class IntakeFilesComponent implements OnInit {
         field: 'resolve_exception',
         sortable: true,
         filter: false,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Dataset',
+        field: 'exceptionFile',
+        sortable: true,
+        wrapText: true,
+        autoHeight: true,
+        filter: false,
+        width: 400
       }
     ];
   }

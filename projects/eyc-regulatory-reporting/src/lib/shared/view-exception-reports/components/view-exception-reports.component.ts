@@ -67,7 +67,8 @@ export class ViewExceptionReportsComponent implements OnInit {
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
             ngTemplate: this.commentExceptionTemplate,
-          }, sortable: true, autoHeight: true
+          }, sortable: true, autoHeight: true,
+          wrapText: true
         });
       }
       else {
@@ -75,8 +76,11 @@ export class ViewExceptionReportsComponent implements OnInit {
           field: `${property}`,
           headerName: `${property}`,
           headerComponentFramework: TableHeaderRendererComponent,
-          sortable: true, autoHeight: true,
-          width: 250
+          sortable: true,
+          autoHeight: true,
+          width: 250,
+          wrapText: true,
+          filter: true
         });
       }
     }

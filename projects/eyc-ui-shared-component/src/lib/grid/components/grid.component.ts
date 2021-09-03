@@ -92,6 +92,8 @@ export class GridComponent implements OnInit, OnChanges {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
     }
+
+    this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
   }
 
 
