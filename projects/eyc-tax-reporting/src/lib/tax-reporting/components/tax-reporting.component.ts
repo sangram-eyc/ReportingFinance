@@ -7,7 +7,7 @@ import { CustomGlobalService } from 'eyc-ui-shared-component';
 import { ProductionCylcesService } from '../services/production-cylces.service';
 import {Router} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {ErrorModalComponent} from 'eyc-ui-shared-component';
+
 
 @Component({
   selector: 'lib-tax-reporting',
@@ -88,25 +88,26 @@ export class TaxReportingComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabIn = 1;
-    this.getCompletedProductCyclesData();
-    this.getActiveFilingsData();
+    this.getCompletedProductCyclesData();  
   }
     
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
-    if(selectedTab == 2){
-      //the screen is moved one pixel to make the card tooltip work.
-      window.scroll({top:1});
+    if(selectedTab == 1){
+      this.getCompletedProductCyclesData();
+    }
+    else if(selectedTab == 2){
+      this.getActiveFilingsData();
     }
   }
 
   ngAfterViewInit(): void {
-    //this.getCompletedProductCyclesData();
+   
   }
 
   getActiveFilingsData() {
-      this.filingService.getFilings().subscribe(resp => {
-        if(resp['success'] === true){
+    this.activeFilings = [];
+    this.filingService.getFilings().subscribe(resp => {
         this.filingResp.push(resp);
         this.filingResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
         this.filingResp[0].data.forEach((item) => {
@@ -120,17 +121,13 @@ export class TaxReportingComponent implements OnInit {
           this.activeReports.push(eachitem);
         });
         this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
-        this.createHistoryRowData();
-      }else{
-        this.getModalError(resp);
-      }     
+        this.createHistoryRowData();    
       });
   }
 
   getCompletedProductCyclesData() {
     this.completedFilings = [];
     this.productcyclesService.getProductionCycles().subscribe(resp => {   
-      if(resp['success'] === true){
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
@@ -141,9 +138,6 @@ export class TaxReportingComponent implements OnInit {
         this.completedFilings.push(eachitem);
       });
       this.createHistoryRowData();
-    }else{
-      this.getModalError(resp);
-    }
     });
   }
 
@@ -243,22 +237,4 @@ export class TaxReportingComponent implements OnInit {
     console.log("Show details->", row)
     this.router.navigate(['cicle-details',row.id,row.name]);
   } 
-  
-  getModalError(resp){
-    let errCod = resp['error'] != null ? resp['error'].errorCode : "404";
-    let msgErr = resp['error'] != null ? resp['error'].message : "Error not found.";
-    const dialogRef = this.dialog.open(ErrorModalComponent, {
-      width: '500px',
-      data: {
-        type: "Error",
-        header: "Error",
-        description: "Error Code: " + errCod + " Message: " + msgErr,
-        footer: {
-          style: "end",
-          YesButton: "Ok"                       
-        }
-      }
-    });
-  }
-
 }
