@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { FilingCardComponent } from './filing-card.component';
+import { TaxCardComponent } from './tax-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { environment } from '../../../../../../src/environments/environment';
 describe('FilingCardComponent', () => {
-  let component: FilingCardComponent;
-  let fixture: ComponentFixture<FilingCardComponent>;
+  let component: TaxCardComponent;
+  let fixture: ComponentFixture<TaxCardComponent>;
   let router = {
     navigate: jasmine.createSpy('navigate'),
     url: jasmine.createSpy('url')

@@ -6,7 +6,7 @@ import { Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EycRrApiService {
+export class EycApiService {
 
   constructor(private httpClient: HttpClient,) { }
   private setHeaders() {

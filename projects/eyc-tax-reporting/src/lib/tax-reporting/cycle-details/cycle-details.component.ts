@@ -1,22 +1,21 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {customComparator} from '../../config/tax-config-helper';
 import { Location } from '@angular/common';
-import { ProductionCylcesService } from '../services/production-cylces.service';
+import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorModalComponent} from 'eyc-ui-shared-component';
 
 @Component({
-  selector: 'circle-details',
-  templateUrl: './circle-details.component.html',
-  styleUrls: ['./circle-details.component.scss']
+  selector: 'cycle-details',
+  templateUrl: './cycle-details.component.html',
+  styleUrls: ['./cycle-details.component.scss']
 })
-export class CircleDetailComponent implements OnInit {
+export class CycleDetailComponent implements OnInit {
 
   constructor(
-    private productcyclesService: ProductionCylcesService,
+    private productcyclesService: ProductionCycleService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog
@@ -144,8 +143,7 @@ export class CircleDetailComponent implements OnInit {
         filter: false,       
         resizeable: true, 
         minWidth: 500,
-        sort:'asc',
-        comparator: customComparator
+        sort:'asc'
        
       },
       {
@@ -161,8 +159,7 @@ export class CircleDetailComponent implements OnInit {
         filter: false,        
         resizeable: true, 
         minWidth: 500,
-        sort:'asc',
-        comparator: customComparator
+        sort:'asc'
        
       }
     ];

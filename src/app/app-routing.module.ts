@@ -7,7 +7,7 @@ import { AdminRegulatoryReportingComponent } from './administration/admin-regula
 import {DashboardNotificationComponent} from './notification/dashboard-notification/dashboard-notification.component';
 import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import {TaxReportingComponent} from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/components/tax-reporting.component';
-import { CircleDetailComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/circle-details/circle-details.component';
+import { CycleDetailComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/cycle-details/cycle-details.component';
 import { DataIntakeLandingComponent } from '../../projects/eyc-data-intake/src/lib/data-intake-landing/components/data-intake-landing.component'
 import { UserDetailsComponent } from './administration/user-details/components/user-details.component';
 import { FundScopingComponent } from 'projects/eyc-regulatory-reporting/src/lib/fund-scoping/components/fund-scoping.component';
@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
-  {path: 'cicle-details/:id/:name',component:CircleDetailComponent , canActivate : [AuthGuardService]},
+  {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},

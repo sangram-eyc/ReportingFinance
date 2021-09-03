@@ -1,5 +1,5 @@
 
-.filing-wrapper {
+.report-wrapper {
 
     .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
         padding: 0 !important;
@@ -29,13 +29,13 @@
             .elli-wrap {
                 // width: 67%;
             }
-            .filing-name {
+            .report-name {
                 margin: 0;
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 18px;
             }
-            .eli-filing-name {
+            .eli-report-name {
                 margin: 0;
                 font-weight: 700;
                 font-size: 16px;
@@ -44,7 +44,7 @@
                 /* position: absolute;
                 margin-top: 25px; */
             }
-            span.filing-name.ellipsis {
+            span.report-name.ellipsis {
                 flex: 1;
                 white-space: nowrap;
                 overflow: hidden;
@@ -52,7 +52,7 @@
                 display: block;
                 width: 140px;
             }
-            span.filing-name.ellipsis-period {
+            span.report-name.ellipsis-period {
                 flex: 1;
                 white-space: nowrap;
                 overflow: hidden;
@@ -60,7 +60,7 @@
                 display: block;
                 width: 114px;
             }
-            .filing-date-due {
+            .report-date-due {
                 display: flex;
                 align-items: center;
                 font-size: 12px;
@@ -104,7 +104,7 @@
             .comment-column {
                 padding: 0 10px;
                 float: right;
-                .filing-comment {
+                .report-comment {
                     padding: 0;
                     display: flex;
                     align-items: center;
@@ -148,7 +148,7 @@
             }
         }
     
-        .filing-card-footer {
+        .report-card-footer {
             display: flex;
             margin-bottom: 22px;
             padding-left: 8px;
@@ -296,19 +296,19 @@
        
       }
       @media screen and (min-width: 1200px) {
-         span.filing-name.ellipsis {
+         span.report-name.ellipsis {
             width: 200px !important;
         }
-        span.filing-name.ellipsis-period {
+        span.report-name.ellipsis-period {
             width: 200px !important;
         }
        }
       
        @media screen and (min-width: 1950px) {
-        span.filing-name.ellipsis {
+        span.report-name.ellipsis {
             width: 241px !important;
         }
-        span.filing-name.ellipsis-period {
+        span.report-name.ellipsis-period {
             width: 200px !important;
         }
        }
@@ -322,17 +322,17 @@
        }   
     
        @media screen and (min-width: 850px) and (max-width: 1000px) {
-        span.filing-name.ellipsis {
+        span.report-name.ellipsis {
             width: 230px !important;
         }
-        span.filing-name.ellipsis-period {
+        span.report-name.ellipsis-period {
             width: 200px !important;
         }
     }
 }
 
 @media screen and (min-width: 990px) and (max-width: 1070px) {
-    .filing-wrapper .motif-card .motif-card-header .filing-date-due {
+    .report-wrapper .motif-card .motif-card-header .report-date-due {
         font-size: 10px;
     }
    }
