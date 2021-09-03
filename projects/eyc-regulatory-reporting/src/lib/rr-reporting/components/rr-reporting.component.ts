@@ -29,7 +29,9 @@ export class RrReportingComponent implements OnInit {
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
   modalMessage:any;
-
+  showComments = false;
+  commentsData;
+  commentsName;
   status = {
     stage: 'Reporting',
     progress: 'in-progress'
@@ -502,6 +504,18 @@ export class RrReportingComponent implements OnInit {
     } else {
       this.exceptionData = this.exceptionDataForFilter
     }
+  }
+
+  openComments() {
+    this.commentsData = [];
+    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+    this.rrservice.getComments('filing', 2).subscribe(res => {
+      this.commentsData = res['data'];
+    },error=>{
+      this.commentsData =[];
+      console.log("Comments error");
+    });
+    this.showComments = true;
   }
 
   routeToExceptionDetailsPage(event:any) {

@@ -26,4 +26,8 @@ export class ClientReviewService {
   approvefilingEntities(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_client_review_filing_entities}`, data);
   }
+
+  getComments(type, id) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
+  }
 }

@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 export class ClientReviewComponent implements OnInit {
 
   filingDetails:any;
+  commentsData;
+  commentsName;
+  showComments = false;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -466,6 +469,17 @@ export class ClientReviewComponent implements OnInit {
       this.exceptionData = this.exceptionDataForFilter
     }
   }
+
+  openComments() {
+    this.commentsData = [];
+    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+    this.service.getComments('filing', 2).subscribe(res => {
+      this.commentsData = res['data'];
+    },error=>{
+      this.commentsData =[];
+      console.log("Comments error");
+    });
+    this.showComments = true;
 
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;

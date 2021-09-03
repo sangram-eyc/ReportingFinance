@@ -13,4 +13,8 @@ export class DataIntakeLandingService {
   getIntakeFilesList() {
     return this.httpClient.get('assets/eyc-data-intake/mock/intake-files-list.json');
   }
+
+  getComments() {
+    return this.httpClient.get('assets/eyc-data-intake/mock/comments.json');
+  }
 }

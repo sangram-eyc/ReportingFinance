@@ -418,6 +418,12 @@ li.header-avatar {
   position: relative;
   // margin-bottom: 5px;
   top: 17px;
+  ::ng-deep .motif-avatar.status-online {
+    border-color: #F6F6FA !important;
+  }
+  ::ng-deep .motif-avatar.size-small .motif-avatar-initials {
+    background: inherit !important;
+  }
 }
 li.singn-out {
   top: 10px;
@@ -728,13 +734,7 @@ ul#user-info {
 {
   border: 1px solid #E7E7EA;
 }
-::ng-deep .motif-avatar.status-online {
-  border-color: #F6F6FA !important;
-}
-::ng-deep .motif-avatar.size-small .motif-avatar-initials {
-  background: inherit !important;
-  
-}
+
 
 .notification-button 
 {

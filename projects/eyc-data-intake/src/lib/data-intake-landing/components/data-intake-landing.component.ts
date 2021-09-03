@@ -14,6 +14,9 @@ export class DataIntakeLandingComponent implements OnInit {
   presentDate;
   filesListArr;
   filesDatasets = {};
+  commentsData;
+  commentsName;
+  showComments = false;
   constructor(private service: DataIntakeLandingService, public processingService: ProcessingExceptionService) { }
 
   ngOnInit(): void {
@@ -49,5 +52,17 @@ export class DataIntakeLandingComponent implements OnInit {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() + 1);
     this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+  }
+  openComments(event) {
+    console.log('OPEN COMMENTS');
+    this.commentsData = [];
+    this.commentsName = 'Data Intake';
+    this.service.getComments().subscribe(res => {
+      this.commentsData = res['data'];
+    },error=>{
+      this.commentsData =[];
+      console.log("Comments error");
+    });
+    this.showComments = true;
   }
 }

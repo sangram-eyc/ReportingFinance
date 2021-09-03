@@ -164,6 +164,7 @@
     height: 30px;
     margin-top: 4px;
     margin-right: 10px;
+    cursor: pointer;
 
 }
 .commentTemplate {
@@ -201,7 +202,9 @@
         fill: #85858a !important;
     }
 }
+
 .exceptionRouteCls {
     color: #155CB4;
     cursor: pointer;
 }
+
