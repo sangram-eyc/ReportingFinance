@@ -39,6 +39,8 @@ export class TaxReportingComponent implements OnInit {
   activeReportsSearchNoDataAvilable = false;
   noCompletedDataAvilable = false;
   noActivatedDataAvilable = false;
+  calledProductCyclesList = false;
+  calledManagementReport = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
@@ -106,6 +108,9 @@ export class TaxReportingComponent implements OnInit {
   }
 
   getActiveFilingsData() {
+     if(this.calledManagementReport === false){
+      this.calledManagementReport = true;
+      this.activeReport = []; 
       this.reportService.reportsData().subscribe(resp => {
         this.reportResp.push(resp);
         this.reportResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
@@ -122,26 +127,29 @@ export class TaxReportingComponent implements OnInit {
         this.activeReport = this.customglobalService.sortFilings(this.activeReport)
         this.createHistoryRowData();   
       });
+     }
   }
 
   getCompletedProductCyclesData() {
-    this.completedReports = [];
-    this.productcyclesService.getProductionCycles().subscribe(resp => {   
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      resp['data'].forEach((item) => {
-        const eachitem: any = {
-          name: item.name,
-          id: item.id,
-          statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
-        };
-        this.completedReports.push(eachitem);
+    if(this.calledProductCyclesList === false){
+      this.calledProductCyclesList = true;
+      this.completedReports = [];
+      this.productcyclesService.getProductionCycles().subscribe(resp => {   
+        resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+        resp['data'].forEach((item) => {
+          const eachitem: any = {
+            name: item.name,
+            id: item.id,
+            statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
+          };
+          this.completedReports.push(eachitem);
+        });
+        this.createHistoryRowData();
       });
-      this.createHistoryRowData();
-    });
+    }
   }
 
-  createHistoryRowData() {
-   
+  createHistoryRowData() {  
     this.rowData = [];
     this.completedReports.forEach(filing => {
       this.rowData.push({
