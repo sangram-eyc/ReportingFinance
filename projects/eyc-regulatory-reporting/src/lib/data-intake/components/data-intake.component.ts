@@ -4,9 +4,9 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {DataIntakeService} from '../services/data-intake.service';
+import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-
+import { customComparator } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-data-intake',
@@ -24,7 +24,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   columnDefs;
   exceptionDefs;
   tabs = 1;
-  filingDetails:any;
+  filingDetails: any;
   exceptionData;
   rowData = [];
   exceptionDetailCellRendererParams;
@@ -64,7 +64,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
     this.getFiles();
   }
-  
+
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
@@ -83,27 +83,29 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   resolveDatasetsTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
+    console.log(this.filingDetails);
+
     /* if (this.tabs == 2) {
       this.getDatasets();
     } */
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.exceptionData = res['data'];
+      this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
       console.log(this.exceptionData);
       this.createEntitiesRowData();
-      
-    },error=>{
-      this.exceptionData =[];
+
+    }, error => {
+      this.exceptionData = [];
       console.log("Client Review error");
     });
 
   }
 
-  getFiles(){
+  getFiles() {
     this.service.getfilesList().subscribe(res => {
-      this.filesListArr = res['data'];
-    },error=>{
+      this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    }, error => {
       console.log("files list error");
     });
 
@@ -111,12 +113,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getDatasets() {
     this.service.getDatasetsrecords().subscribe(res => {
-      this.datasets = res['data'];
+      this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
       console.log(this.datasets);
       this.createEntitiesRowData();
-      
-    },error=>{
-      this.datasets =[];
+
+    }, error => {
+      this.datasets = [];
       console.log("Datasets error");
     });
   }
@@ -125,8 +127,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     let index = event.index;
     console.log('INDEX', index);
     this.service.getDatasetsrecords().subscribe(res => {
-      this.filesDatasets[index] = res['data'];
-    },error=>{
+      this.filesDatasets[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    }, error => {
       this.filesDatasets[index] = [];
       console.log("Dataset error");
     });
@@ -134,11 +136,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   receiveMessage($event) {
     this.tabs = $event;
-    if(this.tabs == 2){
+    if (this.tabs == 2) {
       this.getDatasets();
     } else if (this.tabs == 1) {
       this.getExceptionReports();
-    } 
+    }
     /* else if (this.tabs == 3) {
       this.getDatasets();
     } */
@@ -150,182 +152,109 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   createEntitiesRowData(): void {
-    const customComparator = (valueA, valueB) => {
-      return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
-    };
-      /* this.columnDefs = [
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'template',
-          headerName: '',
-          width: 70,
-          sortable: false,
-          pinned: 'left'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Entity Group',
-          field: 'entityGroup',
-          sortable: true,
-          filter: true,
-          sort:'asc',
-          comparator: customComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Entity Name',
-          field: 'entityName',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          sort:'asc',
-          comparator: customComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Resolved/Exception',
-          field: 'resolve_exception',
-          sortable: true,
-          filter: true,
-          width: 210,
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Review Level',
-          field: 'reviewLevel',
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'My Tasks',
-          field: 'myTasks',
-          sortable: true,
-          filter: true,
-          width: 140
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          sortable: true,
-          filter: true,
-          width: 155,
-        },
-      ]; */
 
-      this.exceptionDefs = [
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'template',
-          headerName: '',
-          width: 70,
-          sortable: false,
-          pinned: 'left'
+    this.exceptionDefs = [
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dropdownTemplate,
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Due',
-          field: 'exceptionDue',
-          sortable: true,
-          filter: true,
-          sort:'asc',
-          comparator: customComparator,
-          autoHeight: true,
-         wrapText: true,
-         width: 130
+        field: 'template',
+        headerName: '',
+        width: 70,
+        sortable: false,
+        pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Due',
+        field: 'exceptionDue',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 130
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'File',
+        field: 'exceptionFile',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 300
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exception Report Type',
+        field: 'exceptionReportType',
+        sortable: true,
+        filter: true,
+        sort: 'asc',
+        comparator: customComparator,
+        autoHeight: true,
+        wrapText: true,
+        width: 250
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exception Report Name',
+        field: 'exceptionReportName',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true,
+        width: 250,
+        sort: 'asc',
+        comparator: customComparator
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.commentExceptionTemplate,
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'File',
-          field: 'exceptionFile',
-          sortable: true,
-          filter: true,
-          sort:'asc',
-          comparator: customComparator,
-          autoHeight: true,
-         wrapText: true,
-         width: 150
+        headerName: 'Comments',
+        field: 'comments',
+        sortable: true,
+        filter: true,
+        width: 150
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.resolveExceptionTemplate,
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Exception Report Type',
-          field: 'exceptionReportType',
-          sortable: true,
-          filter: true,
-          sort:'asc',
-          comparator: customComparator,
-          autoHeight: true,
-         wrapText: true,
-         width: 250
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Exception Report Name',
-          field: 'exceptionReportName',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 250,
-          sort:'asc',
-          comparator: customComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentExceptionTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          sortable: true,
-          filter: true,
-          width: 150
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.resolveExceptionTemplate,
-          },
-          headerName: 'Resolved',
-          field: 'resolve_exception',
-          sortable: true,
-          filter: true,
-          width: 200,
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Exceptions',
-          field: 'exceptions',
-          sortable: true,
-          filter: true,
-          width: 200,
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Review Level',
-          field: 'reviewLevel',
-          sortable: true,
-          filter: true,
-        },
-        
-      ];
+        headerName: 'Resolved',
+        field: 'resolve_exception',
+        sortable: true,
+        filter: true,
+        width: 200,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exceptions',
+        field: 'exceptions',
+        sortable: true,
+        filter: true,
+        width: 200,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Review Level',
+        field: 'reviewLevel',
+        sortable: true,
+        filter: true,
+      },
+
+    ];
 
     this.datasetsDefs = [
       {
@@ -362,7 +291,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         comparator: customComparator,
         autoHeight: true,
         wrapText: true,
-        width: 150
+        width: 300
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -392,7 +321,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
-          ngTemplate: this.commentExceptionTemplate,
+          ngTemplate: this.commentDatasetsTemplate,
         },
         headerName: 'Comments',
         field: 'comments',
@@ -454,7 +383,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
             label: "Assign to (Optional)",
             formControl: 'assignTo',
             type: "select",
-            data:[
+            data: [
               { name: "Test1", id: 1 },
               { name: "Test2", id: 2 },
               { name: "Test3", id: 3 },
@@ -462,8 +391,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
             ]
           },
           isTextarea: true,
-          textareaDetails:{
-            label:"Comment (required)",
+          textareaDetails: {
+            label: "Comment (required)",
             formControl: 'comment',
             type: "textarea",
             validation: true,
@@ -480,26 +409,74 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed', result);
-      if(result.button === "Submit") {
+      if (result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
         console.log(obj);
-        
+
       } else {
         console.log(result);
       }
     });
   }
 
-  addComment()
-  {
-    
+  addCommentToDatasets() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data: [
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails: {
+            label: "Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed', result);
+      if (result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+
+      } else {
+        console.log(result);
+      }
+    });
   }
 
-  onSubmitApproveDatasets(){
+  onSubmitApproveDatasets() {
     this.datasetsSelectedRows.forEach(ele => {
       this.datasets[this.datasets.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
     });
@@ -521,8 +498,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
     this.service.getComments('filing', 2).subscribe(res => {
       this.commentsData = res['data'];
-    },error=>{
-      this.commentsData =[];
+    }, error => {
+      this.commentsData = [];
       console.log("Comments error");
     });
     this.showComments = true;

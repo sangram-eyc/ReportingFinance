@@ -1,0 +1,71 @@
+{
+    "success": true,
+    "message": "success",
+    "data": [
+        {
+            "reg_reporting": "CBI FDI",
+            "regulationReportingDate": "2020-12-31",
+            "ReportingDate": "2021-01-06",
+            "RegulationDueDate": "2021-04-29",
+            "exceptionDue2": 4,
+            "businessDayText": "BD",
+            "filesReceived": 4,
+            "unresolve_exception": 0.0,
+            "totalFiles": 5,
+            "comments": 0,
+            "exceptionDue": "BD4"
+        },
+        {
+            "reg_reporting": "CTA PR",
+            "regulationReportingDate": "2021-06-30",
+            "ReportingDate": "2021-07-21",
+            "RegulationDueDate": "2021-08-17",
+            "exceptionDue2": 15,
+            "businessDayText": "BD",
+            "filesReceived": 13,
+            "unresolve_exception": 0.0,
+            "totalFiles": 20,
+            "comments": 0,
+            "exceptionDue": "BD15"
+        },
+        {
+            "reg_reporting": "FRY 11 Quarterly",
+            "regulationReportingDate": "2021-06-30",
+            "ReportingDate": "2021-07-21",
+            "RegulationDueDate": "2021-08-30",
+            "exceptionDue2": 15,
+            "businessDayText": "BD",
+            "filesReceived": 26,
+            "unresolve_exception": 0.0,
+            "totalFiles": 30,
+            "comments": 0,
+            "exceptionDue": "BD15"
+        },
+        {
+            "reg_reporting": "Form PF HF",
+            "regulationReportingDate": "2021-06-30",
+            "ReportingDate": "2021-07-21",
+            "RegulationDueDate": "2021-08-30",
+            "exceptionDue2": 15,
+            "businessDayText": "BD",
+            "filesReceived": 25,
+            "unresolve_exception": 0.0,
+            "totalFiles": 30,
+            "comments": 0,
+            "exceptionDue": "BD15"
+        },
+        {
+            "reg_reporting": "HK Quarterly Statistics",
+            "regulationReportingDate": "2021-06-30",
+            "ReportingDate": "2021-07-07",
+            "RegulationDueDate": "2021-07-15",
+            "exceptionDue2": 5,
+            "businessDayText": "BD",
+            "filesReceived": 4,
+            "unresolve_exception": 0.0,
+            "totalFiles": 4,
+            "comments": 0,
+            "exceptionDue": "BD5"
+        }
+    ]
+}
