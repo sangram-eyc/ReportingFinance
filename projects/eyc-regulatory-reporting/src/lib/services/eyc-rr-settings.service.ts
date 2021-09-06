@@ -17,7 +17,7 @@ export class EycRrSettingsService {
       filing_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=active' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       filing_history: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=completed' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       filing_search: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/searchFilingDetails?filter=completed&' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
-      rr_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/exceptionReports.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exceptionReports.json',
+      rr_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionReportsByFilingId?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exceptionReports.json',
       rr_filing_entities: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity?stage=Reporting' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
       approve_rr_filing_entities: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/entity': this.API_ENDPOINT +  '',
       client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity?stage=Client review' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
@@ -34,7 +34,7 @@ export class EycRrSettingsService {
       datasets_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/FDI_exception_details.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/FDI_exception_details.json',
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
       rr_comments: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
-      view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
+      view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionResults?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
     }
 
     return regulatory_Reporting;
