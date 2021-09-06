@@ -13,7 +13,7 @@ export class RrReportingService {
   ) { }
 
   getExceptionReports(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}filingName=${filingName}&period=${period}`);
     // After backend API up will remove above line and uncomment below line
   }
 

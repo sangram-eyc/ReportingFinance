@@ -44,7 +44,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionReportName).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
 
