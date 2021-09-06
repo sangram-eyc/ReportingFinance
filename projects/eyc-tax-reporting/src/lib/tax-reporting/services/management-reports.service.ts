@@ -6,17 +6,17 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TaxReportingService {
+export class ManagementReportsService {
 
   filingData: any;
-  @Output() dotcardStatusDetails = new EventEmitter<any>();
+ 
 
 
   constructor(
     private apiService: EycApiService, private settingsService: EycTaxSettingsService
   ) { }
 
-  getFilings() {
+  reportsData() {
     return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.management_report}`);
   }
 

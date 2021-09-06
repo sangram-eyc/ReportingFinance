@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
-import { TaxReportingService } from '../services/tax-reporting.service';
+import { ManagementReportsService } from '../services/management-reports.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 
@@ -18,7 +18,7 @@ export class TaxReportingComponent implements OnInit {
 
   tabIn;
   constructor(
-    private reportService: TaxReportingService,
+    private reportService: ManagementReportsService,
     private customglobalService: CustomGlobalService,
     private productcyclesService: ProductionCycleService,
     private router: Router,
@@ -106,7 +106,7 @@ export class TaxReportingComponent implements OnInit {
   }
 
   getActiveFilingsData() {
-      this.reportService.getFilings().subscribe(resp => {
+      this.reportService.reportsData().subscribe(resp => {
         this.reportResp.push(resp);
         this.reportResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
         this.reportResp[0].data.forEach((item) => {

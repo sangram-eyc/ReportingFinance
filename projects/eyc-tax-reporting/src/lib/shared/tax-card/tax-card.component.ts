@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaxReportingService } from '../../tax-reporting/services/tax-reporting.service';
+import { ManagementReportsService } from '../../tax-reporting/services/management-reports.service';
 
 @Component({
   selector: 'app-tax-card',
@@ -34,7 +34,7 @@ export class TaxCardComponent implements OnInit {
  
   constructor(
     private router: Router,
-    private reportService: TaxReportingService
+    private reportService: ManagementReportsService
   ) { }
 
   ngOnInit(): void {
