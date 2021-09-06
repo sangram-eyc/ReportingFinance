@@ -42,10 +42,10 @@
             </div>
             <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
                
-                    <div class="result_complete" *ngIf="row.exceptions == row.resolve_exception">
+                    <div class="result_complete" *ngIf="row.exceptions == row.resolve_exception && (row.exceptions != 0)">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
                     </div>
-                    <div class="result_warning" *ngIf="row.exceptions != row.resolve_exception">
+                    <div class="result_warning" *ngIf="row.exceptions != row.resolve_exception && (row.resolve_exception != 0)">
                     <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
                     </div>
                
