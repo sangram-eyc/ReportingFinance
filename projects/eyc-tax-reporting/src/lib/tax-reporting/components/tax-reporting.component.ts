@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
-import { TaxReportingFilingService } from '../services/tax-reporting-filing.service';
+import { ManagementReportsService } from '../services/management-reports.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {customComparator} from '../../config/tax-config-helper';
+
 import { CustomGlobalService } from 'eyc-ui-shared-component';
-import { ProductionCylcesService } from '../services/production-cylces.service';
+import { ProductionCycleService } from '../services/production-cycle.service';
 import {Router} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -18,19 +18,19 @@ export class TaxReportingComponent implements OnInit {
 
   tabIn;
   constructor(
-    private filingService: TaxReportingFilingService,
+    private reportService: ManagementReportsService,
     private customglobalService: CustomGlobalService,
-    private productcyclesService: ProductionCylcesService,
+    private productcyclesService: ProductionCycleService,
     private router: Router,
     private dialog: MatDialog
   ) { 
    } 
 
   nameReport:string = 'Client ABC, Inc.';
-  activeFilings: any[] = [];
+  activeReport: any[] = [];
   activeReports: any[] = []
-  completedFilings: any[] = [];
-  filingResp: any[] = [];
+  completedReports: any[] = [];
+  reportResp: any[] = [];
 
   noOfCompletdFilingRecords = 10;
   currentPage = 0;
@@ -106,27 +106,26 @@ export class TaxReportingComponent implements OnInit {
   }
 
   getActiveFilingsData() {
-    this.activeFilings = [];
-    this.filingService.getFilings().subscribe(resp => {
-        this.filingResp.push(resp);
-        this.filingResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
-        this.filingResp[0].data.forEach((item) => {
+      this.reportService.reportsData().subscribe(resp => {
+        this.reportResp.push(resp);
+        this.reportResp[0].data.length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
+        this.reportResp[0].data.forEach((item) => {
           const eachitem: any = {
             name: item.name,
             author: item.author,
             createdDate: item.createdDate,
             downloadUrl: item.downloadUrl
           };
-          this.activeFilings.push(eachitem);
+          this.activeReport.push(eachitem);
           this.activeReports.push(eachitem);
         });
-        this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
-        this.createHistoryRowData();    
+        this.activeReport = this.customglobalService.sortFilings(this.activeReport)
+        this.createHistoryRowData();   
       });
   }
 
   getCompletedProductCyclesData() {
-    this.completedFilings = [];
+    this.completedReports = [];
     this.productcyclesService.getProductionCycles().subscribe(resp => {   
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
@@ -135,7 +134,7 @@ export class TaxReportingComponent implements OnInit {
           id: item.id,
           statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
         };
-        this.completedFilings.push(eachitem);
+        this.completedReports.push(eachitem);
       });
       this.createHistoryRowData();
     });
@@ -144,7 +143,7 @@ export class TaxReportingComponent implements OnInit {
   createHistoryRowData() {
    
     this.rowData = [];
-    this.completedFilings.forEach(filing => {
+    this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
         id: filing.id,
@@ -164,8 +163,7 @@ export class TaxReportingComponent implements OnInit {
         filter: false,       
         resizeable: true, 
         width: 500,
-        sort:'asc',
-        comparator: customComparator      
+        sort:'asc'   
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -235,6 +233,6 @@ export class TaxReportingComponent implements OnInit {
 
   getProdCycleDetail(row){
     console.log("Show details->", row)
-    this.router.navigate(['cicle-details',row.id,row.name]);
+    this.router.navigate(['cycle-details',row.id,row.name]);
   } 
 }

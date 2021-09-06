@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, SimpleChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { TaxReportingFilingService } from '../../tax-reporting/services/tax-reporting-filing.service';
+import { ManagementReportsService } from '../../tax-reporting/services/management-reports.service';
 
 @Component({
-  selector: 'app-filing-card',
-  templateUrl: './filing-card.component.html',
-  styleUrls: ['./filing-card.component.scss']
+  selector: 'app-tax-card',
+  templateUrl: './tax-card.component.html',
+  styleUrls: ['./tax-card.component.scss']
 })
-export class FilingCardComponent implements OnInit {
+export class TaxCardComponent implements OnInit {
 
-  private _filingData;
+  private _reportData;
   innerWidth: any;
-  filingWidth = 15;
+  reportWidth = 15;
   periodWidth = 10;
 
   author = '';
@@ -20,12 +20,12 @@ export class FilingCardComponent implements OnInit {
   downloadUrl = '';
   
   @Input()
-  set filingData(filingData: object) {
-    this._filingData = filingData;
-    this.name = this._filingData.name;
-    this.author = this._filingData.author;
-    this.createdDate = this._filingData.createdDate;
-    this.downloadUrl = this._filingData.downloadUrl;
+  set reportData(reportData: object) {
+    this._reportData = reportData;
+    this.name = this._reportData.name;
+    this.author = this._reportData.author;
+    this.createdDate = this._reportData.createdDate;
+    this.downloadUrl = this._reportData.downloadUrl;
     
  /* 
     this.formatDate();
@@ -34,23 +34,23 @@ export class FilingCardComponent implements OnInit {
  
   constructor(
     private router: Router,
-    private filingService: TaxReportingFilingService
+    private reportService: ManagementReportsService
   ) { }
 
   ngOnInit(): void {
     console.log(window.innerWidth);
     this.innerWidth = window.innerWidth;
     if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.filingWidth = 25;
+      this.reportWidth = 25;
       this.periodWidth = 20
     } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.filingWidth = 25;
+      this.reportWidth = 25;
       this.periodWidth = 16
     } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      this.filingWidth = 30;
+      this.reportWidth = 30;
       this.periodWidth = 20
     }else {
-      this.filingWidth = 15;
+      this.reportWidth = 15;
       this.periodWidth = 10
     }
   }
@@ -74,17 +74,17 @@ export class FilingCardComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     console.log(this.innerWidth);
     if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.filingWidth = 25;
+      this.reportWidth = 25;
       this.periodWidth = 20
     } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.filingWidth = 25;
+      this.reportWidth = 25;
       this.periodWidth = 16
     } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
       console.log("inside 1600");
-      this.filingWidth = 30;
+      this.reportWidth = 30;
       this.periodWidth = 20
     }else {
-      this.filingWidth = 15;
+      this.reportWidth = 15;
       this.periodWidth = 10
     }
   }

@@ -1,31 +1,19 @@
 import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilingCardComponent } from './shared/filing-card/filing-card.component';
-import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
-import { AgGridModule } from 'ag-grid-angular';
+import { TaxCardComponent } from './shared/tax-card/tax-card.component';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
+import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule  } from '@ey-xd/ng-motif';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
 import {EycTaxSettingsService} from './services/eyc-tax-settings.service';
-import { DotsCardComponent } from './shared/dots-card/dots-card.component';
-import { ReportingTabsCardComponent } from './shared/reporting-tabs-card/components/reporting-tabs-card.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import {EycRrApiService} from './services/eyc-tax-api.service';
-import { RrVisualisationComponent } from './shared/rr-visualisation/rr-visualisation.component';
-import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.component';
-import { CircleDetailComponent } from './tax-reporting/circle-details/circle-details.component';
-
-
-
+import { CycleDetailComponent } from './tax-reporting/cycle-details/cycle-details.component';
 
 
 @NgModule({
   imports: [
-    AgGridModule.withComponents([]),
     CommonModule,
     MotifTooltipModule,
     MotifCardModule,
@@ -39,12 +27,9 @@ import { CircleDetailComponent } from './tax-reporting/circle-details/circle-det
     HttpClientModule,
     MotifPaginationModule,
     MotifBreadcrumbModule,
-    FormsModule,
     MotifChipModule,
     MotifModalModule,
     MotifToastModule,
-    MotifDropdownModule,
-    ReactiveFormsModule,
     FlexLayoutModule,
     EycUiSharedComponentModule
     
@@ -52,12 +37,9 @@ import { CircleDetailComponent } from './tax-reporting/circle-details/circle-det
   ],
   declarations: [
     TaxReportingComponent,
-    CircleDetailComponent,
-    FilingCardComponent,
-    TableHeaderRendererComponent,
-    DotsCardComponent,
-    ReportingTabsCardComponent,
-    RrVisualisationComponent
+    CycleDetailComponent,
+    TaxCardComponent,
+    TableHeaderRendererComponent
   ],
   exports: [TaxReportingComponent]
 })

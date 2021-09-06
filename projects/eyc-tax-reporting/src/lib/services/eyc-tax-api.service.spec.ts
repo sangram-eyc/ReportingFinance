@@ -2,16 +2,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { EycRrApiService } from './eyc-rr-api.service';
+import { EycApiService } from './eyc-tax-api.service';
 
 describe('EycRrApiService', () => {
-  let service: EycRrApiService;
+  let service: EycApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
     });
-    service = TestBed.inject(EycRrApiService);
+    service = TestBed.inject(EycApiService);
   });
 
   it('should be created', () => {
