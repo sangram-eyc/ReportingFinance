@@ -34,6 +34,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
+      this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
