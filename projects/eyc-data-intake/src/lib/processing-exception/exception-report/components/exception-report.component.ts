@@ -203,7 +203,7 @@ export class ExceptionReportComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "EXCEPTION_REPORT",
+        entityType: "DATA_EXCEPTION_REPORT",
         forms: {
           isSelect: false,
           selectDetails: {

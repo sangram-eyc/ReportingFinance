@@ -14,7 +14,7 @@ export class SettingService {
 
   get regReportingFiling(): any {
     const regulatory_Reporting = {
-      add_comment: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentaryService/comment' : this.API_ENDPOINT + 'gatewayService/api/v2/commentaryService/comment',
+      add_comment: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment',
       upload: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload',
     }
     return regulatory_Reporting;
