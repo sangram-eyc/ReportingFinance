@@ -355,13 +355,15 @@ export class ClientReviewComponent implements OnInit {
     // }, 5000);
   }
 
-  addComment() {
+  addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
+        entityId: row.entityId,
+        entityType: "FILING_ENTITY",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -401,20 +403,23 @@ export class ClientReviewComponent implements OnInit {
           files: result.data.files
         }
         console.log(obj);
-        
+        this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].comments = 1;
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }
     });
   }
 
-  addCommentToException() {
+  addCommentToException(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
+        entityId: row.exceptionId,
+        entityType: "EXCEPTION_REPORT",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -454,7 +459,8 @@ export class ClientReviewComponent implements OnInit {
           files: result.data.files
         }
         console.log(obj);
-        
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }

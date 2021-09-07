@@ -22,7 +22,7 @@
             <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
-                        (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
+                        (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
             </div>
         </ng-template>
@@ -88,7 +88,7 @@
             <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
-                        (click)="addCommentToDatasets()">
+                        (click)="addCommentToDatasets(row)">
                         <span class="plus">+</span>
                     </motif-icon>
                 </div>

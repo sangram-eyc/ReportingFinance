@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EycRrCommentApiService } from '../../services/eyc-rr-comment-api.service';
 
 @Component({
   selector: 'lib-modal',
@@ -19,17 +20,20 @@ export class ModalComponent implements OnInit {
   ];
 
   filesList: any = [];
+  toastSuccessMessage = "Comment added successfully";
+  showToastAfterSubmit = false;
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commentService: EycRrCommentApiService
   ) {
     dialogRef.disableClose = true;
     console.log(data);
     this.modalDetails = data;
     if (this.modalDetails.type === "ConfirmationTextUpload") {
       this.ConfirmationTextUpload = true;
-      if(this.modalDetails.forms?.isSelect === true){
+      if (this.modalDetails.forms?.isSelect === true) {
         this.modalForm = this.fb.group({
           assignTo: [''],
           comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator]],
@@ -41,15 +45,15 @@ export class ModalComponent implements OnInit {
           files: ['']
         });
       }
-      
-  
+
+
     } else {
       this.ConfirmationTextUpload = false;
     }
   }
 
   ngOnInit(): void {
-    
+
   }
 
   close(): void {
@@ -58,7 +62,46 @@ export class ModalComponent implements OnInit {
 
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
-      this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+      const commentObj = {
+        "comment": this.modalForm.get('comment').value,
+        "entityId": this.modalDetails.entityId,
+        "entityType": this.modalDetails.entityType,
+      };
+
+      this.commentService.addComment(commentObj).subscribe(res => {
+        console.log(res);
+        if (this.filesList.length) {
+          const userEmail = sessionStorage.getItem('userEmail');
+          let formData = new FormData();
+          formData.append('application', "REG");
+          formData.append('entityId', this.modalDetails.entityId);
+          formData.append('entityType', "COMMENT");
+          formData.append('mode', "SYNC");
+          formData.append('uploadedBy', userEmail);
+          this.filesList.forEach(element => {
+            console.log(element);
+            formData.append('files', element.file.rawFile);
+          });
+          this.commentService.uploadFile(formData).subscribe(uploadRes => {
+            console.log(uploadRes);
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+          }, uploadError => {
+            console.log(uploadError);
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+          });
+        } else {
+          // this.showToastAfterSubmit = !this.showToastAfterSubmit;
+          // setTimeout(() => {
+          //   this.showToastAfterSubmit = !this.showToastAfterSubmit;
+          // }, 5000);
+          this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+        }
+
+      }, error => {
+        console.log(error);
+
+      });
+      // this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
     } else {
       this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
     }

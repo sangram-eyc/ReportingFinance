@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from './component/modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { MotifButtonModule, MotifFormsModule, MotifIconModule   } from '@ey-xd/ng-motif';
+import { MotifButtonModule, MotifFormsModule, MotifIconModule, MotifToastModule   } from '@ey-xd/ng-motif';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NoSanitizePipe } from "../pipes/noSanitize.pipe";
 import { VisualisationModalComponent } from './visualisation-modal/visualisation-modal.component';
@@ -26,7 +26,8 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
     FormsModule,
     MotifIconModule ,
     UploadModule,
-    EycPowerbiModule
+    EycPowerbiModule,
+    MotifToastModule
   ],
   exports: [
     ModalComponent,

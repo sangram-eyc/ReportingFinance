@@ -3,12 +3,12 @@
     [detailCellRendererParams]="exceptionDetailCellRendererParams"></lib-shared-grid>
 
 <ng-template #commentExceptionTemplate let-row>
-    <div *ngIf="row.comments.length!==0" class="comments-background">
+    <div *ngIf="row.comments!==0" class="comments-background">
         {{row.comments}}
     </div>
-    <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+    <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
         <div class="add_icon">
-            <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span
                     class="plus">+</span></motif-icon>
         </div>
     </div>

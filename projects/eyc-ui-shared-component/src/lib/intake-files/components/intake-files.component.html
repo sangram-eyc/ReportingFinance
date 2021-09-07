@@ -58,10 +58,10 @@
         ></lib-shared-grid>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="commentClicked()">
+            <div *ngIf="row.comments!==0" class="comments-background" (click)="commentClicked()">
                 {{row.comments}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"><span
                             class="plus">+</span></motif-icon>
