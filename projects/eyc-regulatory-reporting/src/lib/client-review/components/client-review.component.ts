@@ -403,7 +403,7 @@ export class ClientReviewComponent implements OnInit {
           files: result.data.files
         }
         console.log(obj);
-        this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].comments = 1;
+        this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
         this.createEntitiesRowData();
       } else {
         console.log(result);
