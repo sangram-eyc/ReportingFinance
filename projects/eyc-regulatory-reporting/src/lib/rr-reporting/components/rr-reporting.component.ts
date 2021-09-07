@@ -455,7 +455,7 @@ export class RrReportingComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "EXCEPTION_REPORT",
+        entityType: "ANSWER_EXCEPTION_REPORT",
         forms: {
           isSelect: false,
           selectDetails: {
