@@ -160,13 +160,15 @@ export class DataSetsComponent implements OnInit {
   }
 
 
-  addCommentToException() {
+  addCommentToException(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
+        entityId: row.exceptionId,
+        entityType: "DATASET",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -206,7 +208,8 @@ export class DataSetsComponent implements OnInit {
           files: result.data.files
         }
         console.log(obj);
-
+        this.rowData[this.rowData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }

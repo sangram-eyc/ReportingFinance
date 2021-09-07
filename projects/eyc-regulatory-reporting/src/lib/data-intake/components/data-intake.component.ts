@@ -370,13 +370,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.gridApi = params.api;
   }
 
-  addCommentToException() {
+  addCommentToException(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
+        entityId: row.exceptionId,
+        entityType: "EXCEPTION_REPORT",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -416,20 +418,23 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }
     });
   }
 
-  addCommentToDatasets() {
+  addCommentToDatasets(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
+        entityId: row.exceptionId,
+        entityType: "DATASET",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -469,7 +474,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-
+        this.datasets[this.datasets.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }

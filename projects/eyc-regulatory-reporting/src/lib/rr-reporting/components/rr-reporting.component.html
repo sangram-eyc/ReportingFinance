@@ -20,12 +20,12 @@
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="openComments()">
+            <div *ngIf="row.comments!==0" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon">
-                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException()"><span class="plus">+</span></motif-icon>
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
             </div>
         </ng-template>
@@ -100,12 +100,12 @@
         </ng-template>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments.length!==0" class="comments-background" (click)="openComments()">
-                {{row.comments}}
+            <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments()">
+                {{row.commentsCount}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.commentsCount===0 || !row.commentsCount">
                 <div class="add_icon">
-                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment()"><span class="plus">+</span></motif-icon>
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span class="plus">+</span></motif-icon>
                 </div>
             </div>
         </ng-template>
