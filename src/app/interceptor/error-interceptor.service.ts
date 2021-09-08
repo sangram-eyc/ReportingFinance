@@ -26,7 +26,12 @@ export class ErrorInterceptorService implements HttpInterceptor {
             if (error.error instanceof ErrorEvent) {
               // client-side error
               errorMessage = `Error: ${error.error.message}`;
-            } else {
+            } else if(error.error != null && error.error.error != null && error.error.error.errorCode.includes('TX-')){            
+              let eycError = error.error.error;
+              errorMessage = `Error Code: ${eycError.errorCode}\nMessage: ${eycError.message}`;
+              this.launchErrorDialog(errorMessage);
+              return throwError(errorMessage);
+            }else {
               // server-side error
               // temp check will be refractored with the user modal user story
               if (error.error.message) {

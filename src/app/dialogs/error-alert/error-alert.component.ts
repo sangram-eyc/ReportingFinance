@@ -36,8 +36,8 @@ export class ErrorAlertComponent implements OnInit {
           this.errorMessage = 'Access is denied.';
         }
         else {
-          this.statusCode = '404';
-          this.statusText = 'Request retuns a invalid response';
+          //this.statusCode = '404';
+          this.statusText = 'There was an error processing your request';
           this.errorMessage = this.data;
         }
        
