@@ -144,7 +144,6 @@ export class CycleDetailComponent implements OnInit {
         resizeable: true, 
         minWidth: 500,
         sort:'asc'
-       
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -153,14 +152,11 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.urlDownload,
         },
         headerName: 'Actions',
-        // cellClass: 'ag-right-aligned-cell',
-        field: 'downloadUrl',
         sortable: true,
         filter: false,        
         resizeable: true, 
         minWidth: 500,
         sort:'asc'
-       
       }
     ];
   }
