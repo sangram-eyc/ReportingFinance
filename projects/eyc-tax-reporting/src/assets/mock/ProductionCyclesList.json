@@ -5,223 +5,131 @@
     "data": [
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BFADB874A-C2A8-4F64-86A5-51932CF91D1B%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B826214A4-1985-4E4E-8591-ECE7B1B6F7D6%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B8E2A8529-FABC-487D-BF60-A79BD763036F%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B1C59C957-EB78-4E12-9DB8-4930070BC5F2%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BF30091FD-E688-415F-93BE-9D31FBCB151A%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS",
-            "statusTracker": null
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y",
-            "statusTracker": null
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ",
-            "statusTracker": null
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BFADB874A-C2A8-4F64-86A5-51932CF91D1B%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B826214A4-1985-4E4E-8591-ECE7B1B6F7D6%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B8E2A8529-FABC-487D-BF60-A79BD763036F%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B1C59C957-EB78-4E12-9DB8-4930070BC5F2%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BF30091FD-E688-415F-93BE-9D31FBCB151A%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS",
-            "statusTracker": null
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y",
-            "statusTracker": null
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ",
-            "statusTracker": null
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BFADB874A-C2A8-4F64-86A5-51932CF91D1B%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B826214A4-1985-4E4E-8591-ECE7B1B6F7D6%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B8E2A8529-FABC-487D-BF60-A79BD763036F%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B1C59C957-EB78-4E12-9DB8-4930070BC5F2%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BF30091FD-E688-415F-93BE-9D31FBCB151A%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS",
-            "statusTracker": null
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y",
-            "statusTracker": null
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ",
-            "statusTracker": null
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BFADB874A-C2A8-4F64-86A5-51932CF91D1B%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B826214A4-1985-4E4E-8591-ECE7B1B6F7D6%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B8E2A8529-FABC-487D-BF60-A79BD763036F%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7B1C59C957-EB78-4E12-9DB8-4930070BC5F2%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ",
-            "statusTracker": {
-                "name": "Status Tracker - Test.xlsx",
-                "webUrl": "https://eyus.sharepoint.com/sites/SurefootTesting/_layouts/15/Doc.aspx?sourcedoc=%7BF30091FD-E688-415F-93BE-9D31FBCB151A%7D&file=Status%20Tracker%20-%20Test.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
-            }
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS",
-            "statusTracker": null
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y",
-            "statusTracker": null
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ",
-            "statusTracker": null
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
         }
     ],
     "error": null

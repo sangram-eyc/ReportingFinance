@@ -139,8 +139,7 @@ export class TaxReportingComponent implements OnInit {
         resp['data'].forEach((item) => {
           const eachitem: any = {
             name: item.name,
-            id: item.id,
-            statusTracker: item.statusTracker != null ? item.statusTracker.webUrl: null
+            id: item.id
           };
           this.completedReports.push(eachitem);
         });
@@ -154,8 +153,7 @@ export class TaxReportingComponent implements OnInit {
     this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id,
-        statusTracker: filing.statusTracker
+        id: filing.id
       })
     });
     this.columnDefs = [
@@ -168,7 +166,7 @@ export class TaxReportingComponent implements OnInit {
         headerName: 'Production cycle name',
         field: 'name',
         sortable: true,
-        filter: false,       
+        filter: true,       
         resizeable: true, 
         width: 500,
         sort:'asc'   
@@ -242,4 +240,14 @@ export class TaxReportingComponent implements OnInit {
     console.log("Show details->", row)
     this.router.navigate(['cycle-details',row.id,row.name]);
   } 
+
+  getStatusTracker(row){
+    let urlStatusTracker = '';
+    this.productcyclesService.getStatusTrackerLink(row.id).subscribe(resp => {   
+      urlStatusTracker = resp['data'][0].webUrl;
+      console.log("data Url-->", resp);
+      console.log("Url-->", urlStatusTracker);
+      window.open(urlStatusTracker);
+    });    
+  }
 }

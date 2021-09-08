@@ -23,4 +23,13 @@ export class ProductionCycleService {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_details}`);
     }
   }
+
+  getStatusTrackerLink(id:any){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_statusTracker}/${id}/status-tracker`);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_statusTracker}`);
+    }
+  }
 }
