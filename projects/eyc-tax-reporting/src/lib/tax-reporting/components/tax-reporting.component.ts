@@ -180,7 +180,6 @@ export class TaxReportingComponent implements OnInit {
           ngTemplate: this.statusTracker,
         },
         headerName: 'Status tracker',
-        field: 'statusTracker',
         sortable: true,
         filter: false,
         wrapText: true,
