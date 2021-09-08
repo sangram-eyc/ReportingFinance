@@ -244,9 +244,8 @@ export class TaxReportingComponent implements OnInit {
   getStatusTracker(row){
     let urlStatusTracker = '';
     this.productcyclesService.getStatusTrackerLink(row.id).subscribe(resp => {   
-      urlStatusTracker = resp['data'][0].webUrl;
       console.log("data Url-->", resp);
-      console.log("Url-->", urlStatusTracker);
+      urlStatusTracker = resp['data'].webUrl;    
       window.open(urlStatusTracker);
     });    
   }
