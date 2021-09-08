@@ -61,12 +61,12 @@
             <div *ngIf="row.comments!==0" class="comments-background" (click)="commentClicked()">
                 {{row.comments}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"><span
                             class="plus">+</span></motif-icon>
                 </div>
-            </div>
+            </div> -->
         </ng-template>
         
         <ng-template #unresolveTemplate let-row>
