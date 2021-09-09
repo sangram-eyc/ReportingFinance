@@ -6,7 +6,8 @@ import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regu
 import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {customComparator} from '../../../services/settings-helpers';
+import { customComparator } from 'eyc-ui-shared-component';
+
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
