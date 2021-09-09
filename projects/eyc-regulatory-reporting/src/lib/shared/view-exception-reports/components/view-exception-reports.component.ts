@@ -79,7 +79,7 @@ export class ViewExceptionReportsComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           sortable: true,
           autoHeight: true,
-          width: 250,
+          width: 320,
           wrapText: true,
           filter: true
         });
