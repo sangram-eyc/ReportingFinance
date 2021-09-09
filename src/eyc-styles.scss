@@ -402,7 +402,7 @@ button.mat-menu-item{
 /* Absolute Center Spinner */
 .loading {
   position: fixed;
-  z-index: 1001;
+  z-index: 99999;
   height: 2em;
   width: 2em;
   overflow: show;
@@ -583,6 +583,7 @@ a, .header-row-container, li, button:focus, ::ng-deep .motif-toggle-switch-conta
 } */
 .indeterminated-spinner-container .spinner:before {
 left: 0px !important;
+z-index: 99999 !important;
 }
 
 .motif-progress-bar.motif-progress-bar-circle, .motif-progress-bar .motif-progress-bar-circle {
@@ -595,7 +596,7 @@ left: 0px !important;
 /* Absolute Center Spinner */
 .revised-loading {
   position: fixed;
-  z-index: 999;
+  z-index: 99999;
   overflow: show;
   margin: auto;
   top: 0;
@@ -678,4 +679,7 @@ button.motif-select-trigger{
 }
 .motif-toggle-switch-container:focus-within {
   outline: none !important;
+}
+::ng-deep .indeterminated-spinner-container .spinner {
+ z-index: 99999 !important;
 }
