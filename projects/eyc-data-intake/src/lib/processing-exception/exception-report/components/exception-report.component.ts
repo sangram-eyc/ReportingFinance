@@ -2,9 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ProcessingExceptionService } from '../../services/processing-exception.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent , customComparator} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
-import { customComparator } from './../../../../../../../projects/eyc-ui-shared-component/src/lib/shared-helper';
 
 @Component({
   selector: 'lib-exception-report',
