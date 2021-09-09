@@ -104,12 +104,15 @@ export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
 
 
 export const customComparator = (valueA, valueB) => {
-	if (valueA !== null || valueB !== null) {
+	if (valueA == null) {
+		return false;
+	}
+	else if (valueB == null) {
 		return false;
 	} else {
 		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
 	}
-};
+}; 
 
 export const IS_SURE_FOOT = false;
 export const HIDE_HOME_PAGE = false;
