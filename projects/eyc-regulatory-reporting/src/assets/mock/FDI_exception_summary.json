@@ -16,7 +16,7 @@
             "exceptionDue": "BD4"
         },
         {
-            "reg_reporting": "CTA PR",
+            "reg_reporting": "CTAPR",
             "regulationReportingDate": "2021-06-30",
             "ReportingDate": "2021-07-21",
             "RegulationDueDate": "2021-08-17",
@@ -29,7 +29,7 @@
             "exceptionDue": "BD15"
         },
         {
-            "reg_reporting": "FRY 11 Quarterly",
+            "reg_reporting": "FRY 11_Quarterly",
             "regulationReportingDate": "2021-06-30",
             "ReportingDate": "2021-07-21",
             "RegulationDueDate": "2021-08-30",
@@ -42,7 +42,7 @@
             "exceptionDue": "BD15"
         },
         {
-            "reg_reporting": "Form PF - HF",
+            "reg_reporting": "Form PF - Hedge Funds",
             "regulationReportingDate": "2021-06-30",
             "ReportingDate": "2021-07-21",
             "RegulationDueDate": "2021-08-30",

@@ -50,7 +50,7 @@
       },
       {
          "filingId": 21,
-         "filingName": "Form PF - HF",
+         "filingName": "Form PF - Hedge Funds",
          "totalFunds": 4,
          "filingStatus": [
             {
@@ -95,7 +95,7 @@
       },
       {
          "filingId": 22,
-         "filingName": "FRY 11 Quarterly",
+         "filingName": "FRY 11_Quarterly",
          "totalFunds": 3,
          "filingStatus": [
             {
@@ -185,7 +185,7 @@
       },
       {
          "filingId": 23,
-         "filingName": "CTA PR",
+         "filingName": "CTAPR",
          "totalFunds": 3,
          "filingStatus": [
             {
