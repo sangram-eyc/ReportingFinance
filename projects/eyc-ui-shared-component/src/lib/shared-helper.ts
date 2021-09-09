@@ -14,3 +14,15 @@ export const data_exception_report = 'DATA_EXCEPTION_REPORT';
 export const filing_entity = 'FILING_ENTITY';
 export const filing = 'FILING';
 export const line_item = 'LINE_ITEM';
+
+
+export const customComparator = (valueA, valueB) => {
+	if (valueA == null) {
+		return false;
+	}
+	else if (valueB == null) {
+		return false;
+	} else {
+		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+	}
+}; 

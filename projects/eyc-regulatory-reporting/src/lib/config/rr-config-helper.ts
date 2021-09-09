@@ -32,10 +32,13 @@ export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
 /*PBI Theme file settings */
 
 export const customComparator = (valueA, valueB) => {
-  if (valueA !== null || valueB !== null) {
-    return false;
-  } else {
-    return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
-  }
-};
+	if (valueA == null) {
+		return false;
+	}
+	else if (valueB == null) {
+		return false;
+	} else {
+		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+	}
+}; 
 

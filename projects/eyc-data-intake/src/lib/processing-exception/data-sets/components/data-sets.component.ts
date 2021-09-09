@@ -4,6 +4,8 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import { customComparator } from './../../../../../../../projects/eyc-ui-shared-component/src/lib/shared-helper';
+
 
 
 @Component({
@@ -54,10 +56,10 @@ export class DataSetsComponent implements OnInit {
 
 
   createEntitiesRowData(): void {
-    const customComparator = (valueA, valueB) => {
+    /* const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
     };
-
+ */
     this.exceptionDefs = [
      /*  {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -93,7 +95,7 @@ export class DataSetsComponent implements OnInit {
         comparator: customComparator,
         autoHeight: true,
         wrapText: true,
-        width: 150,
+        width: 300,
         // cellClass: 'custom-file',
       },
       {
