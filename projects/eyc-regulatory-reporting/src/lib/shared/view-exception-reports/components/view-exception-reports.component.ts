@@ -3,6 +3,7 @@ import { RegulatoryReportingFilingService } from './../../../regulatory-reportin
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   gridApi;
   exceptionAnswersDefs;
   exceptionAnswersData;
+  dataIntakeData;
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
@@ -29,10 +31,24 @@ export class ViewExceptionReportsComponent implements OnInit {
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
-  ) { }
+    private router: Router
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation.extras.state) {
+      const state = navigation.extras.state as {dataIntakeData: string};
+      this.dataIntakeData = state.dataIntakeData;
+    }
+   }
 
   ngOnInit(): void {
-    if (this.filingService.getFilingData) {
+    if (this.dataIntakeData) {
+      console.log('Date Intake Module',this.dataIntakeData);
+      this.exceptionReportName = this.dataIntakeData.exceptionReportName;
+      this.filingId = this.dataIntakeData.filingId;
+      this.dueDate = this.dataIntakeData.dueDate;
+      this.filingName = this.dataIntakeData.filingName;
+    }
+    else if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
       this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
@@ -41,16 +57,25 @@ export class ViewExceptionReportsComponent implements OnInit {
       // console.log(this.filingService.getExceptionData);
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
     }
-    this.getAnswerExceptionReports();
+    if(this.dataIntakeData) {
+      this.getExceptionMock();
+    } else {
+      this.getAnswerExceptionReports();
+    }
   }
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionReportName).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
-
     });
+  }
 
+  getExceptionMock() {
+    this.viewService.getExceptionMock().subscribe(res => {
+      this.exceptionAnswersData = res.data;
+      this.createEntitiesRowData();
+    });
   }
 
   createEntitiesRowData(): void {

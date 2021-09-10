@@ -515,7 +515,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
 
   routeToExceptionDetailsPage(event:any) {
-    event.exceptionReportName = event.exceptionFile;
+    // event.exceptionReportName = event.exceptionFile;
     this.filingService.setExceptionData = event;
     console.log(event);
     this.router.navigate(['/view-exception-reports']);
