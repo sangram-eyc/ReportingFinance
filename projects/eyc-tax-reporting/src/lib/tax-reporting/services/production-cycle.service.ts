@@ -32,4 +32,13 @@ export class ProductionCycleService {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_statusTracker}`);
     }
   }
+
+  getDownloadFile(id:any, name:any){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_downloadFile_}/${id}/content?name=:${name}`);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_downloadFile}`);
+    }
+  }
 }

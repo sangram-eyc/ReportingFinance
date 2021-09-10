@@ -20,8 +20,8 @@
   </ng-template>
 
   <ng-template #urlDownload let-row>
-    <div class="ml-4" *ngIf="row.downloadUrl != null">
-      <a href="{{row.downloadUrl}}" target="_blank">
+    <div class="ml-4" *ngIf="row.hasContent">
+      <a (click)="getDownloadFile(row)">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
           x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve"
           stroke="darkblue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="darkblue">
