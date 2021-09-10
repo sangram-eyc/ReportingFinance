@@ -89,6 +89,12 @@
             </div>   
         </ng-template>
 
+        <ng-template #viewDetTemplate let-row>
+            <div>
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+
     </motif-accordion-content>
 </motif-accordion>
 

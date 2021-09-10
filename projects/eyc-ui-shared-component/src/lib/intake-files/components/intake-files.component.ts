@@ -21,6 +21,7 @@ export class IntakeFilesComponent implements OnInit {
   @Output() eventToParentFromIntakeFiles = new EventEmitter<any>();
   @Output() datasetEvent = new EventEmitter<any>();
   @Output() commentClickEvent = new EventEmitter<any>();
+  @Output() routeToExceptionDetailsEvent = new EventEmitter<any>();
 
   columnDefs;
 
@@ -34,6 +35,8 @@ export class IntakeFilesComponent implements OnInit {
   unresolveTemplate: TemplateRef<any>;
   @ViewChild('resolveTemplate')
   resolveTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
   }
@@ -126,6 +129,14 @@ export class IntakeFilesComponent implements OnInit {
         field: 'resolve_exception',
         sortable: true,
         filter: false,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
       }
     ];
   }
@@ -141,6 +152,12 @@ export class IntakeFilesComponent implements OnInit {
 
   commentClicked() {
     this.commentClickEvent.emit();
+  }
+
+  routeToExceptionDetailsPage(event:any) {
+    this.routeToExceptionDetailsEvent.emit(event);
+    // this.filingService.setExceptionData = event;
+    // this.router.navigate(['/view-exception-reports']);
   }
 
 }

@@ -7,6 +7,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { customComparator } from '../../config/rr-config-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-data-intake',
@@ -57,7 +58,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     private service: DataIntakeService,
     private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -509,6 +511,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       console.log("Comments error");
     });
     this.showComments = true;
+  }
+
+
+  routeToExceptionDetailsPage(event:any) {
+    event.exceptionReportName = event.exceptionFile;
+    this.filingService.setExceptionData = event;
+    console.log(event);
+    this.router.navigate(['/view-exception-reports']);
+    
   }
 
 }
