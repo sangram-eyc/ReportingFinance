@@ -8,7 +8,7 @@
             [columnDefs]="exceptionDefs" 
             [rowData]="exceptionData" 
             rowSelection="multiple" 
-            [submitFunction]="submitTest" 
+            [submitFunction]="submitException" 
             [modalMessage]="modalMessage" 
             buttonPosition="left" 
             [masterDetail]="true"
@@ -17,6 +17,7 @@
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
             [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent) = "onClickMyTask($event)"
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)"
         ></lib-shared-grid>
         
         
