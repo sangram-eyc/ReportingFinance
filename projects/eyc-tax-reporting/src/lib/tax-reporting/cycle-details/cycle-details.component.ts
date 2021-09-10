@@ -35,8 +35,8 @@ export class CycleDetailComponent implements OnInit {
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
-  noCompletedDataAvilable = false;
-  noActivatedDataAvilable = false;
+/*   noCompletedDataAvilable = false;
+  noActivatedDataAvilable = false; */
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
@@ -107,13 +107,21 @@ export class CycleDetailComponent implements OnInit {
     this.getCompletedProductCyclesData(this.productCycleId);
   }
 
+  getDownloadFile(row){
+    let urlDownloadfile = '';
+    this.productcyclesService.getDownloadFile(row.id,row.name).subscribe(resp => {    
+      urlDownloadfile = resp['data'].downloadUrl;    
+      window.open(urlDownloadfile);
+     });
+  }
+
    getCompletedProductCyclesData(id:any) {
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
-      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
          const eachitem: any = {
            name: item.name,
-           downloadUrl: item.downloadUrl
+           hasContent: item.hasContent,
+           id: item.id
          };
          this.completedFilings.push(eachitem);
        });
@@ -122,14 +130,16 @@ export class CycleDetailComponent implements OnInit {
    }
 
    createHistoryRowData() {
-   
      this.rowData = [];
      this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        downloadUrl: filing.downloadUrl
+        hasContent: filing.hasContent,
+        id:filing.id
       })
     });
+
+  
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,

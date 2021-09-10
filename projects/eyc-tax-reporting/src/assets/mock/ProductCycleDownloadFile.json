@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "name2": "FundName.zip",
+            "downloadUrl": "www.somedomain.com/FundName.xslx"
+        }
+    ],
+    "error": null
+}
