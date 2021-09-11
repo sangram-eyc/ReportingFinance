@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {formatDate} from '@angular/common';
 import { DataIntakeLandingService } from './../services/data-intake-landing.service';
 import { ProcessingExceptionService } from '../../processing-exception/services/processing-exception.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'lib-data-intake-landing',
@@ -17,7 +18,11 @@ export class DataIntakeLandingComponent implements OnInit {
   commentsData;
   commentsName;
   showComments = false;
-  constructor(private service: DataIntakeLandingService, public processingService: ProcessingExceptionService) { }
+  constructor(
+    private service: DataIntakeLandingService,
+    public processingService: ProcessingExceptionService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
@@ -65,4 +70,18 @@ export class DataIntakeLandingComponent implements OnInit {
     });
     this.showComments = true;
   }
+
+
+  routeToExceptionDetailsPage(event:any) {
+    event.exceptionReportName = event.exceptionFile;
+    console.log(event);
+    const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
+      filingName: event.reg_reporting,
+      dueDate: event.exceptionDue,
+      filingId: event.exceptionId,
+      exceptionReportName: event.exceptionFile
+    }}};
+    this.router.navigate(['/view-exception-reports'], navigationExtras);
+  }
+
 }

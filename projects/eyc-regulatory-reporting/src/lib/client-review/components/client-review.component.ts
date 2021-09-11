@@ -45,19 +45,20 @@ export class ClientReviewComponent implements OnInit {
   exceptionDataForFilter = [];
   exceptionDefaultColDef;
   exceptionDetailCellRendererParams;
+  exceptionReportRows;
   rowData = [];
   submitFunction;
-  submitTest;
+  submitException;
   exceptionModalConfig = {
-    width: '400px',
+    width: '550px',
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "THIS IS A TEST!",
+      description: "Are you sure you want to approve these exception reports? This will advance them to the next reviewer.",
       footer: {
         style: "start",
-        YesButton: "Yes",
-        NoButton: "No"
+        YesButton: "Continue",
+        NoButton: "Cancel"
       }
     }
   };
@@ -79,7 +80,7 @@ export class ClientReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
-    this.submitTest = this.onSubmitTest.bind(this);
+    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
   }
 
   getExceptionReports() {
@@ -303,10 +304,11 @@ export class ClientReviewComponent implements OnInit {
     if(this.tabs == 2){
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve these exception reports? This will advance them to the next reviewer.';
       this.getExceptionReports();
     }
   }
+  
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
@@ -314,11 +316,6 @@ export class ClientReviewComponent implements OnInit {
     if (this.tabs == 2) {
       this.getFilingEntities();
     }
-  }
-
-  onSubmitTest() {
-    console.log('This is being called from the shared grid component');
-    console.log(this);
   }
 
   onSubmitApproveFilingEntities() {
@@ -353,6 +350,19 @@ export class ClientReviewComponent implements OnInit {
     // setTimeout(() => {
     //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
     // }, 5000);
+  }
+
+  onSubmitApproveExceptionReports() {
+    console.log(this.exceptionReportRows);
+    this.exceptionReportRows.forEach(ele => {
+      this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    });
+    this.createEntitiesRowData();
+  }
+
+  exceptionReportRowsSelected(event) {
+    console.log(event);
+    this.exceptionReportRows = event;
   }
 
   addComment(row) {
