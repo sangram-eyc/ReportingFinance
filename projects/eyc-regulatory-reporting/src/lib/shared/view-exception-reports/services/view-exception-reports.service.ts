@@ -18,4 +18,8 @@ export class ViewExceptionReportsService {
   getAnswerExceptionReports(filingName, period, exceptionName) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}exceptionReport=${exceptionName}&filingName=${filingName}&period=${period}`);
   }
+
+  getExceptionMock() {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}`)
+  }
 }
