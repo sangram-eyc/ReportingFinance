@@ -20,6 +20,6 @@ export class ViewExceptionReportsService {
   }
 
   getExceptionMock() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}`)
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}`);
   }
 }

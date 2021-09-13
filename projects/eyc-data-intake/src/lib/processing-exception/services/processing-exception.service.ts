@@ -14,6 +14,6 @@ export class ProcessingExceptionService {
     return this.httpClient.get('assets/eyc-data-intake/mock/data-intake-ER.json');
   }
   getDataSets() {
-    return this.httpClient.get('assets/eyc-data-intake/mock/data-sets.json');
+    return this.httpClient.get('assets/eyc-data-intake/mock/exception_details_9-9.json');
   }
 }

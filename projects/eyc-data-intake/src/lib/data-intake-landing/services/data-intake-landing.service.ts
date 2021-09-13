@@ -11,7 +11,7 @@ export class DataIntakeLandingService {
   ) { }
 
   getIntakeFilesList() {
-    return this.httpClient.get('assets/eyc-data-intake/mock/intake-files-list.json');
+    return this.httpClient.get('assets/eyc-data-intake/mock/exception_summary_9-9.json');
   }
 
   getComments() {
