@@ -20,12 +20,10 @@
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 || permissions.validatePermission('reporting', 'addComments')" class="comments-background">
+            <div *ngIf="row.comments!==0 || permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <div *ngIf="row.comments!==0" class="comments-background" (click)="openComments()">
-                {{row.comments}}
-            </div>
+           
             <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments || permissions.validatePermission('reporting', 'addComments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
