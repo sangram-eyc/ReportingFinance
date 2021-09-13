@@ -237,7 +237,7 @@ export class ClientReviewComponent implements OnInit {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Resolved/Exception',
-          field: 'resolve_exception',
+          field: 'resolveOrException',
           sortable: true,
           filter: true,
           width: 210,

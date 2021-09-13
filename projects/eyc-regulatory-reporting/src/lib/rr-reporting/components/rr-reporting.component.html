@@ -24,7 +24,7 @@
                 {{row.comments}}
             </div>
            
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments || permissions.validatePermission('reporting', 'addComments')">
+            <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('reporting', 'addComments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -104,7 +104,7 @@
             <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments()">
                 {{row.commentsCount}}
             </div>
-            <div class="commentTemplate" *ngIf="row.commentsCount===0 || !row.commentsCount || permissions.validatePermission('reporting', 'addComments')">
+            <div class="commentTemplate" *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('reporting', 'addComments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span class="plus">+</span></motif-icon>
                 </div>
