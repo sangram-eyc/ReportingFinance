@@ -8,6 +8,7 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 //import { GridComponent } from 'eyc-ui-shared-component';
 import {customComparator} from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
+import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -21,6 +22,7 @@ export class RrReportingComponent implements OnInit {
     private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     private router: Router,
+    public permissions: PermissionService,
   ) { }
 
   tabs = 2;

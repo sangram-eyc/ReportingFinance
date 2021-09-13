@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-reporting-tabs-card',
@@ -13,7 +14,8 @@ export class ReportingTabsCardComponent implements OnInit {
   @Input() isDataInteake = false;
   @Input() pageName;
   constructor(
-    private router: Router
+    private router: Router,
+    public permissions: PermissionService,
   ) { }
 
   ngOnInit(): void {
