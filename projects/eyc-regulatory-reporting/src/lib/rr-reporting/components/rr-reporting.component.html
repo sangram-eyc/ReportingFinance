@@ -20,7 +20,7 @@
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openComments()">
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openExceptionsComments(row)">
                 {{row.comments}}
             </div>
            
