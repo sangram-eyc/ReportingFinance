@@ -15,7 +15,11 @@ export class EycRrCommentApiService {
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_comment}`, data);
   }
 
-  uploadFile(data) {
+  uploadFile(data) { 
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.upload}`, data);
+  }
+  
+  listComments(entityId) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityId);
   }
 }

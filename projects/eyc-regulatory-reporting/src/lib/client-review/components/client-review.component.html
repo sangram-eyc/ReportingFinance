@@ -22,7 +22,7 @@
         
         
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0" class="comments-background" (click)="openComments()">
+            <div *ngIf="row.comments!==0" class="comments-background" (click)="openExceptionsComments(row)">
                 {{row.comments}}
             </div>
             <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
@@ -74,7 +74,7 @@
         </ng-template>
         
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments()">
+            <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments(row)">
                 {{row.commentsCount}}
             </div>
             <div class="commentTemplate" *ngIf="row.commentsCount===0 || !row.commentsCount">
@@ -106,4 +106,4 @@
     </section>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [filingName]="commentsName"></lib-comment-side-menu>
