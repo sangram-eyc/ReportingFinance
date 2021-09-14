@@ -9,17 +9,21 @@ import { PermissionService } from 'eyc-ui-shared-component';
 })
 export class ReportingTabsCardComponent implements OnInit {
 
-  tabIn;
+ 
   @Output() messageEvent = new EventEmitter<string>();
   @Input() isDataInteake = false;
   @Input() pageName;
+  @Input() tabIn:any = 2;
   constructor(
     private router: Router,
     public permissions: PermissionService,
   ) { }
 
   ngOnInit(): void {
-    this.pageName == 'dataIntake' ? this.tabIn = 1: this.tabIn = 2;
+
+    if(this.pageName == 'dataIntake') {
+      this.tabIn = 1
+    }
   }
 
   reportTabChange(selectedTab){

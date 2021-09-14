@@ -1,10 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './client-review.component.html',
   styleUrls: ['./client-review.component.scss']
 })
-export class ClientReviewComponent implements OnInit {
+export class ClientReviewComponent implements OnInit, OnDestroy {
 
   filingDetails:any;
   commentsData;
@@ -23,9 +23,10 @@ export class ClientReviewComponent implements OnInit {
     private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     private router: Router,
+    public permissions: PermissionService
     ) { }
 
-  tabs = 2;
+  tabs;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
@@ -81,6 +82,12 @@ export class ClientReviewComponent implements OnInit {
   ngOnInit(): void {
     this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
+    sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
+
+  }
+
+  ngOnDestroy() {
+    sessionStorage.removeItem("reportingTab");
   }
 
   getExceptionReports() {
@@ -315,6 +322,9 @@ export class ClientReviewComponent implements OnInit {
     // this.getFilingEntities();
     if (this.tabs == 2) {
       this.getFilingEntities();
+    }
+    if (this.tabs == 1) {
+      this.getExceptionReports();
     }
   }
 
