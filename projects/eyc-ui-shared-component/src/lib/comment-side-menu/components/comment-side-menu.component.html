@@ -25,13 +25,18 @@
               </div>
               <span class="comment-name">{{comment.authorFirstName}} {{comment.authorLastName}}</span>
             </div>
-            <span class="comment-time">{{formatDate(comment.timeStamp)}}</span>
+            <span class="comment-time">{{formatDate(comment.timestamp)}}</span>
           </div>
           <div class="comment-text">
             {{comment.commentText}}
           </div>
-          <div class="comment-attachment" *ngIf="comment.attachments.length > 0">
-            <motif-icon [src]="'/assets/icons/editor/ic_insert_drive_file_24px.svg'"></motif-icon>
+          <div class="comment-attachment" *ngFor="let file of comment.attachments">
+            <div class="filenamecls">
+              {{ file.fileName}}
+            </div>
+            <div class="downloadcls">
+              <motif-icon [src]="'/assets/icons/editor/ic_insert_drive_file_24px.svg'" (click)="downloadFile(file.storageFileName, file.fileName)"></motif-icon>
+            </div>
           </div>  
         </div>
       </div>
