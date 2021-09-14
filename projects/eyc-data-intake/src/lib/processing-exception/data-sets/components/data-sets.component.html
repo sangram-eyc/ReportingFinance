@@ -6,19 +6,19 @@
     <div *ngIf="row.comments!==0" class="comments-background">
         {{row.comments}}
     </div>
-    <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+    <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span
                     class="plus">+</span></motif-icon>
         </div>
-    </div>
+    </div> -->
 </ng-template>
 
 <ng-template #unresolveExceptionTemplate let-row>
     <div>
         {{row.unresolve_exception}}
     </div>
-    <div class="unresolve-Exception" *ngIf="!row.result">
+    <div class="unresolve-Exception" *ngIf="row.exceptions == row.unresolve_exception && (row.exceptions != 0)">
         <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
     </div>
 </ng-template>
@@ -27,8 +27,10 @@
     <div>
         {{row.resolve_exception}}
     </div>
-    <div class="resolve-Exception" *ngIf="row.result">
-        <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+    <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
+        <div class="result_complete" *ngIf="row.exceptions == row.resolve_exception && (row.exceptions != 0)">
+            <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+        </div>
     </div>
 </ng-template>
 
