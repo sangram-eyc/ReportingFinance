@@ -33,6 +33,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() displayCheckBox = false;
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
+  @Input() noData = 'No results found';
   @Input() submitFunction: () => void;
   @Input() modalConfig = {
     width: '400px',

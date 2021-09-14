@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -15,7 +15,7 @@ import { PermissionService } from 'eyc-ui-shared-component';
   templateUrl: './rr-reporting.component.html',
   styleUrls: ['./rr-reporting.component.scss']
 })
-export class RrReportingComponent implements OnInit {
+export class RrReportingComponent implements OnInit, OnDestroy {
 
   constructor(
     private rrservice: RrReportingService,
@@ -25,7 +25,7 @@ export class RrReportingComponent implements OnInit {
     public permissions: PermissionService,
   ) { }
 
-  tabs = 2;
+  tabs;
   selectedRows = [];
   exceptionReportRows;
   approveFilingEntitiesModal = false;
@@ -91,6 +91,12 @@ export class RrReportingComponent implements OnInit {
    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
    this.submitTest = this.onSubmitTest.bind(this);
    console.log(this.filingDetails);
+   sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
+  //  this.getExceptionReports();
+  }
+
+  ngOnDestroy() {
+    sessionStorage.removeItem("reportingTab");
   }
 
   getExceptionReports() {
@@ -329,10 +335,10 @@ export class RrReportingComponent implements OnInit {
     console.log("receiveFilingDetails",event);
     
     this.filingDetails = event;
-  /*   if (this.tabs == 1) {
+    if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
       this.getExceptionReports();
-    } */
+    } 
     if (this.tabs == 2) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
       this.getFilingEntities();

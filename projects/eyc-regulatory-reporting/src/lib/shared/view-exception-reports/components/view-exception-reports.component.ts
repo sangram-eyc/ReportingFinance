@@ -4,6 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
@@ -56,6 +58,8 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingId = this.filingService.getFilingData.filingId;
       // console.log(this.filingService.getExceptionData);
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
+
+      sessionStorage.setItem("reportingTab", '1'); 
     }
     if(this.dataIntakeData) {
       this.getExceptionMock();
@@ -128,5 +132,8 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   redirecttoDataExplorer(event) {
     console.log('Data explorer');
+  }
+  backtoParent() {
+    this.location.back();
   }
 }
