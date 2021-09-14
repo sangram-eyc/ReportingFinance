@@ -21,12 +21,12 @@
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
-            </div>
+            </div> -->
         </ng-template>
         <ng-template #resolveExceptionTemplate let-row>
             <div>
@@ -87,14 +87,14 @@
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToDatasets(row)">
                         <span class="plus">+</span>
                     </motif-icon>
                 </div>
-            </div>
+            </div> -->
         </ng-template>
         <ng-template #resolveDatasetsTemplate let-row>
             {{row.resolve_exception}}
