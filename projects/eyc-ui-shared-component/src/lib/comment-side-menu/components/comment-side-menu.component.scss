@@ -91,7 +91,16 @@
       overflow-wrap: break-word;
     }
     .comment-attachment {
-      margin-left: auto;
-      width: 20px;
+      width: 100%;
+      display: flex;
+      margin-top: 10px;
+    }
+    .filenamecls {
+      width: 80%;
+    }
+    .downloadcls {
+      width: 20%;
+      cursor: pointer;
+      // margin-left: auto;
     }
   }

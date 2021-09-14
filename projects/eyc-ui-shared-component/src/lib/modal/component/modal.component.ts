@@ -74,7 +74,7 @@ export class ModalComponent implements OnInit {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
           formData.append('application', "REG");
-          formData.append('entityId', this.modalDetails.entityId);
+          formData.append('entityId', res['data']['commentId']);
           formData.append('entityType', "COMMENT");
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);

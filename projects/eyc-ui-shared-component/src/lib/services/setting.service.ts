@@ -17,6 +17,7 @@ export class SettingService {
       add_comment: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment',
       list_comments: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comments/entity/' : this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comments/entity/',
       upload: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload',
+      download: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download',
     }
     return regulatory_Reporting;
   }
