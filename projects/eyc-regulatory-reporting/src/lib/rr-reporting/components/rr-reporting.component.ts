@@ -26,6 +26,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   ) { }
 
   tabs;
+  entityId;
   selectedRows = [];
   exceptionReportRows;
   approveFilingEntitiesModal = false;
@@ -520,16 +521,27 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     }
   }
 
-  openComments() {
-    this.commentsData = [];
-    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-    this.rrservice.getComments('filing', 2).subscribe(res => {
+  openComments(row) {
+    console.log(row);
+      // this.commentsData = [];
+     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     this.showComments = true;
+     this.entityId = row.entityId;
+     console.log(this.entityId);
+    /*this.rrservice.getComments('filing', 2).subscribe(res => {
       this.commentsData = res['data'];
     },error=>{
       this.commentsData =[];
       console.log("Comments error");
-    });
-    this.showComments = true;
+    }); */
+    
+  }
+  openExceptionsComments(row) {
+    console.log(row);
+    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     this.showComments = true;
+     this.entityId = row.exceptionId;
+     console.log(this.entityId)
   }
 
   routeToExceptionDetailsPage(event:any) {

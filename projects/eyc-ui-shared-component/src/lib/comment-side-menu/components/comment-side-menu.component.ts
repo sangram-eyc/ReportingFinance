@@ -1,16 +1,19 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
-
+import { EycRrCommentApiService } from '../../services/eyc-rr-comment-api.service';
 @Component({
   selector: 'lib-comment-side-menu',
   templateUrl: './comment-side-menu.component.html',
   styleUrls: ['./comment-side-menu.component.scss']
 })
+
+
 export class CommentSideMenuComponent implements OnInit, OnDestroy {
 
   appContainer;
   @Input() commentsData;
   @Input() filingName;
   @Input() show: boolean;
+  @Input() entityId;
 
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   // private _show: boolean;
@@ -24,7 +27,9 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   //     return this._show;
   // }
 
-  constructor() {
+  constructor(
+    private commentService: EycRrCommentApiService
+  ) {
     this.appContainer = document.getElementById('main-container');
   }
 
@@ -34,6 +39,12 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
+    console.log(this.entityId);
+    if(this.entityId) {
+      this.commentService.listComments(this.entityId).subscribe(resp => {
+        this.commentsData = resp['data']
+      });
+    }
     if (changes.show) {
       this.viewComments();
     }

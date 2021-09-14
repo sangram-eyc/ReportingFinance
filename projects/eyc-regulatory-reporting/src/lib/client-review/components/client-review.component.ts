@@ -27,6 +27,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     ) { }
 
   tabs;
+  entityId;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
@@ -496,16 +497,25 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  openComments() {
-    this.commentsData = [];
-    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-    this.service.getComments('filing', 2).subscribe(res => {
+
+  openComments(row) {
+     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     this.showComments = true;
+     this.entityId = row.entityId;
+
+    /*this.rrservice.getComments('filing', 2).subscribe(res => {
       this.commentsData = res['data'];
     },error=>{
       this.commentsData =[];
       console.log("Comments error");
-    });
-    this.showComments = true;
+    }); */
+    
+  }
+  openExceptionsComments(row) {
+    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     this.showComments = true;
+     this.entityId = row.exceptionId;
+    
   }
   
   routeToExceptionDetailsPage(event:any) {
