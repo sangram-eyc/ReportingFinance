@@ -40,7 +40,7 @@ export class DataIntakeLandingComponent implements OnInit {
     let index = event.index;
     console.log('INDEX', index);
     this.processingService.getDataSets().subscribe(res => {
-      this.filesDatasets[index] = res['data'];
+      this.filesDatasets[index] = res['data'].filter(item => item.reg_reporting == this.filesListArr[index].reg_reporting);;
     },error=>{
       this.filesDatasets[index] = [];
       console.log("Dataset error");
