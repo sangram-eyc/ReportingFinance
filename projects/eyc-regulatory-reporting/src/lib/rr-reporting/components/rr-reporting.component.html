@@ -113,5 +113,5 @@
     </section>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [filingName]="commentsName"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [filingName]="commentsName" (commentAddedEmitter)="getFilingEntities()"></lib-comment-side-menu>
 
