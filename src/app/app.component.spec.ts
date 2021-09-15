@@ -76,5 +76,4 @@ describe('AppComponent', () => {
     let msg = component.onMessage(Event);
     expect(msg).toBeFalsy();
   });
-
 });

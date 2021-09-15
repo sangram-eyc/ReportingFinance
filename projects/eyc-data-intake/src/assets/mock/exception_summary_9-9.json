@@ -12,7 +12,7 @@
             "filesReceived": 4,
             "unresolve_exception": 0.0,
             "totalFiles": 4,
-            "comments": 0.0,
+            "comments": 0,
             "exceptionDue": "BD4"
         },
         {
@@ -22,10 +22,10 @@
             "RegulationDueDate": "2021-08-17",
             "exceptionDue2": 15,
             "businessDayText": "BD",
-            "filesReceived": 38,
+            "filesReceived": 36,
             "unresolve_exception": 0.0,
-            "totalFiles": 39,
-            "comments": 0.0,
+            "totalFiles": 36,
+            "comments": 0,
             "exceptionDue": "BD15"
         },
         {
@@ -38,7 +38,7 @@
             "filesReceived": 45,
             "unresolve_exception": 0.0,
             "totalFiles": 46,
-            "comments": 0.0,
+            "comments": 0,
             "exceptionDue": "BD15"
         },
         {
@@ -48,10 +48,10 @@
             "RegulationDueDate": "2021-08-30",
             "exceptionDue2": 15,
             "businessDayText": "BD",
-            "filesReceived": 39,
+            "filesReceived": 40,
             "unresolve_exception": 0.0,
-            "totalFiles": 52,
-            "comments": 0.0,
+            "totalFiles": 50,
+            "comments": 0,
             "exceptionDue": "BD15"
         },
         {
@@ -64,7 +64,7 @@
             "filesReceived": 5,
             "unresolve_exception": 0.0,
             "totalFiles": 5,
-            "comments": 0.0,
+            "comments": 0,
             "exceptionDue": "BD5"
         }
     ]
