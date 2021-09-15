@@ -115,6 +115,11 @@ export class CycleDetailComponent implements OnInit {
      });
   }
 
+  createComment(){
+    console.log("task-comment-page")
+    // this.router.navigate(['cycle-details',row.id,row.name]);
+  }
+
    getCompletedProductCyclesData(id:any) {
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
       resp['data'].forEach((item) => {
