@@ -22,4 +22,8 @@ export class SubmissionService {
     // return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/'+id+'.xml',  { headers , responseType: 'blob' as 'json' , observe: 'response' });
   }
 
+  completeFiling(filingId) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.complete_filing}${filingId}/complete`)
+  }
+
 }
