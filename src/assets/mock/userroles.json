@@ -1,132 +1,1331 @@
 {
     "success": true,
-    "message": "",
+    "message": "Role Module Feature details returned successfully",
     "corelationId": null,
-    "data": [
-        {
-            "roleName": "Production Manager",
-            "roleDescription": "Data Preparer lorem ipsum role title and description",
-            "features": [
-                {
-                    "featureName": "Onboarding",
-                    "permissions": [
-                        {
-                            "permissionName": "Upload New Documents",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Comments",
-                            "isActive": true
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Validations",
-                    "permissions": [
-                        {
-                            "permissionName": "View Validations",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Approve Draft Rules",
-                            "isActive": false
-                        },
-                        {
-                            "permissionName": "Comments",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Create New Rules",
-                            "isActive": false
-                        },
-                        {
-                            "permissionName": "Update existing Rules",
-                            "isActive": false
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Mapping",
-                    "permissions": [
-                        {
-                            "permissionName": "Create New  Mapping",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Update Existing Mapping",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Comments",
-                            "isActive": true
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Data  Operations",
-                    "permissions": [
-                        {
-                            "permissionName": "View Platform Metrics",
-                            "isActive": true
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Data Quality",
-                    "permissions": [
-                        {
-                            "permissionName": "View Metrics",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Configure Output/Dashboard",
-                            "isActive": false
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Data Catalog",
-                    "permissions": [
-                        {
-                            "permissionName": "View Catalog",
-                            "isActive": true
-                        }
-                    ]
-                },
-                {
-                    "featureName": "Master Data",
-                    "permissions": [
-                        {
-                            "permissionName": "Add/Edit Entity ",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Add/Edit Partner ",
-                            "isActive": true
-                        },
-                        {
-                            "permissionName": "Comments",
-                            "isActive": true
-                        }
-                    ]
-                }
-
-            ]
-        },
-        {
-            "roleName": "Dataops Generalist",
-            "roleDescription": "Data Preparer lorem ipsum role title and description",
-            "features": []
-        },
-        {
-            "roleName": "Dataops Specialist",
-            "roleDescription": "Data Preparer lorem ipsum role title and description",
-            "features": []
-        },
-        {
-            "roleName": "Client Manager",
-            "roleDescription": "Data Preparer lorem ipsum role title and description",
-            "features": []
+    "data": {
+        "moduleName": "Regulatory Reporting",
+        "roleModuleFeatures": {
+            "Admin": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "Client Manager": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "Client Reviewer Level 1": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "Client Reviewer Level 2": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "EY Manager": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": true
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": true
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": true
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": true
+                    }
+                ]
+            },
+            "EY Reviewer Level 1": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "EY Reviewer Level 2": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "Generalist": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "Specialist": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": true
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": true
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": true
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            },
+            "User Management Admin": {
+                "Client Review": [
+                    {
+                        "moduleFeatureId": 10,
+                        "featureGroup": "Client Review",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 16,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Client Review",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 17,
+                        "featureGroup": "Client Review",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 18,
+                        "featureGroup": "Client Review",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 19,
+                        "featureGroup": "Client Review",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    }
+                ],
+                "Submission": [
+                    {
+                        "moduleFeatureId": 20,
+                        "featureGroup": "Submission",
+                        "featureName": "View Submission",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 11,
+                        "featureGroup": "Submission",
+                        "featureName": "Download Reports",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 12,
+                        "featureGroup": "Submission",
+                        "featureName": "Complete Filings",
+                        "enabled": false
+                    }
+                ],
+                "Data Intake": [
+                    {
+                        "moduleFeatureId": 13,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Data Intake",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 3,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 4,
+                        "featureGroup": "Data Intake",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 5,
+                        "featureGroup": "Data Intake",
+                        "featureName": "Status Change",
+                        "enabled": false
+                    }
+                ],
+                "Fund Scoping": [
+                    {
+                        "moduleFeatureId": 1,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "View Fund Scoping",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 2,
+                        "featureGroup": "Fund Scoping",
+                        "featureName": "Approve Fund Scoping",
+                        "enabled": false
+                    }
+                ],
+                "Reporting": [
+                    {
+                        "moduleFeatureId": 6,
+                        "featureGroup": "Reporting",
+                        "featureName": "Add Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 7,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Comments",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 8,
+                        "featureGroup": "Reporting",
+                        "featureName": "Status Exception Change",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 9,
+                        "featureGroup": "Reporting",
+                        "featureName": "Data Explorer",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 14,
+                        "featureGroup": "Reporting",
+                        "featureName": "View Reporting",
+                        "enabled": false
+                    },
+                    {
+                        "moduleFeatureId": 15,
+                        "featureGroup": "Reporting",
+                        "featureName": "Filing Entity Status Change",
+                        "enabled": false
+                    }
+                ]
+            }
         }
-    ]
+    },
+    "error": null
 }

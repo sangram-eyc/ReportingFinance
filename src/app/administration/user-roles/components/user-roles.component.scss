@@ -67,7 +67,7 @@
             font-family: EYInterstate !important;
         }
         .toggle {
-            width: 88px;
+            width: 105px;
             text-align: end;
             ::ng-deep  *:focus {
                 box-shadow: none !important;
@@ -91,4 +91,11 @@
         
     }
 
+    .save_cancel_btns {
+        display: flex;
+        justify-content: end;
+        .save {
+            margin-right: 10px;
+        }
+    }
 }

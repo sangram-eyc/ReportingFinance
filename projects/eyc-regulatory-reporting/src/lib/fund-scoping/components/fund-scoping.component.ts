@@ -5,6 +5,7 @@ import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import {customComparator} from '../../config/rr-config-helper';
+import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-fund-scoping',
@@ -15,7 +16,8 @@ export class FundScopingComponent implements OnInit {
 
   constructor(
     private fundScopingService: FundScopingService,
-    private filingService: RegulatoryReportingFilingService
+    private filingService: RegulatoryReportingFilingService,
+    public permissions: PermissionService
   ) { }
 
   filingDetails: any;

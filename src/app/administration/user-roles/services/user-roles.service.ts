@@ -11,7 +11,11 @@ export class UserRolesService {
     private apiService: ApiService
   ) { }
 
-  getRolesList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.roles.roles_list}`);
+  getRolesList(moduleName) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.roles.roles_list}?module=` + moduleName);
+  }
+
+  updateRoles(data) {
+    return this.apiService.invokePostAPI(`${userAdminstration.roles.update_roles}`, data)
   }
 }

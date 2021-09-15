@@ -68,20 +68,20 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           console.log('Internal User');
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
-          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         }
         else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
           console.log('PING User');
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
-          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         } else { 
           console.log('external User');
           this.permission.isDataIntake = false;
           this.permission.isAdmin = false;
-          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Reg Reporting');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = false;
         }
       }, 100)

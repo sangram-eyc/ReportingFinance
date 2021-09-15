@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserRolesComponent } from './components/user-roles.component';
-import { MotifAccordionModule, MotifFormsModule } from '@ey-xd/ng-motif';
+import { MotifAccordionModule, MotifButtonModule, MotifFormsModule, MotifToastModule } from '@ey-xd/ng-motif';
 import { FormsModule } from '@angular/forms';
 
 
@@ -12,7 +12,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MotifAccordionModule,
     MotifFormsModule,
-    FormsModule
+    FormsModule,
+    MotifButtonModule,
+    MotifToastModule
   ],
   exports: [UserRolesComponent]
 })

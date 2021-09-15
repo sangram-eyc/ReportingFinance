@@ -217,16 +217,24 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   disState(index: number): boolean | null {
-    if( index == 1) {
-      if(!this.permissions.validatePermission('intake', 'view') || this.states[index].disabled) {
+    if (index == 0) {
+      if (!this.permissions.validatePermission('Fund Scoping', 'View Fund Scoping') || this.states[index].disabled) {
         return true;
       }
-    } else if( index == 2) {
-      if(!this.permissions.validatePermission('reporting', 'view') || this.states[index].disabled) {
+    } else if (index == 1) {
+      if (!this.permissions.validatePermission('Data Intake', 'View Data Intake') || this.states[index].disabled) {
         return true;
       }
-    }else if( index == 3) {
-      if(!this.permissions.validatePermission('clinetReview', 'view') || this.states[index].disabled) {
+    } else if (index == 2) {
+      if (!this.permissions.validatePermission('Reporting', 'View Reporting') || this.states[index].disabled) {
+        return true;
+      }
+    } else if (index == 3) {
+      if (!this.permissions.validatePermission('Client Review', 'View Client Review') || this.states[index].disabled) {
+        return true;
+      }
+    } else if (index == 4) {
+      if (!this.permissions.validatePermission('Submission', 'View Submission') || this.states[index].disabled) {
         return true;
       }
     } else {
