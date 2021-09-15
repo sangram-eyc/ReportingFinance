@@ -8,7 +8,7 @@ import {customComparator} from '../../config/rr-config-helper';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
-
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class SubmissionComponent implements OnInit {
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private filingService: RegulatoryReportingFilingService
     ) { }
 
 
@@ -200,7 +201,7 @@ export class SubmissionComponent implements OnInit {
       console.log('The dialog was closed', result);
       if (result.button == 'Yes') {
         this.service.completeFiling(this.filingDetails.filingId).subscribe(resp => {
-          this.childDot.updateSubmissionStatus();
+          this.filingService.invokeFilingDetails();
           this.filingStatusChangeMsg = 'Filing has been completed';
           this.enableComplete = true;
           this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
