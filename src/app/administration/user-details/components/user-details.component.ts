@@ -43,30 +43,13 @@ export class UserDetailsComponent implements OnInit {
 
   getUsersData() {
 
-    // Below code will inly work,if it is a local environment reading data from json
-     /* if(this.isLocal){
-      this.userService.getUsersList().subscribe(resp => {
-          this.userResp.push(resp);
-        this.userResp[0].forEach((item) => {
-          this.usersListArr.push(item);
-        });
-        const currentTaskIndex = this.usersListArr.findIndex(task => task.userId == this.curentUserId);
-        this.userInfo = this.usersListArr[currentTaskIndex];
-        this.fullname = this.userInfo.userLastName+ ' '+ this.userInfo.userFirstName;
-        this.editUserForm.patchValue({
-          userFirstName: this.userInfo.userFirstName.trim(),
-          userLastName: this.userInfo.userLastName.trim(),
-          userEmail: this.userInfo.userEmail.trim()
-          });
-
-      });
-    }  */
+    
     this.userService.userDetails(this.curentUserId).subscribe(resp => {
       this.userInfo = resp.data;
       this.fullname = this.userInfo.userLastName + ' ' + this.userInfo.userFirstName;
       this.editUserForm.patchValue({
-        first: this.userInfo.userFirstName.trim(),
-        last: this.userInfo.userLastName.trim(),
+        firstName: this.userInfo.userFirstName.trim(),
+        lastName: this.userInfo.userLastName.trim(),
         email: this.userInfo.userEmail.trim()
       });
 
@@ -77,8 +60,8 @@ export class UserDetailsComponent implements OnInit {
 
   private _updateUser() {
     return this.formBuilder.group({
-      first: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      last: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
       email: ['', [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z.]+\\.[a-zA-Z]{2,6}'), Validators.maxLength(250)]]
     });
   }
@@ -105,8 +88,8 @@ export class UserDetailsComponent implements OnInit {
   cancelForm() {
     this.showToastAfterEditUser = false;
     this.editUserForm.patchValue({
-      first: this.userInfo.userFirstName.trim(),
-      last: this.userInfo.userLastName.trim(),
+      firstName: this.userInfo.userFirstName.trim(),
+      lastName: this.userInfo.userLastName.trim(),
       email: this.userInfo.userEmail.trim()
     });
     this.enableEditor = !this.enableEditor;

@@ -9,8 +9,15 @@ export const userAdminstration = {
         view_User_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/user' : environment.apiEndpoint + 'assets/mock/userInfo.json',
     },
     teams: {
-        teams_list: environment.production ?  environment.apiEndpoint + 'assets/mock/teams.json' : environment.apiEndpoint + 'assets/mock/teams.json',
-        teams_member_list: environment.production ?  environment.apiEndpoint + 'assets/mock/teammember.json' : environment.apiEndpoint + 'assets/mock/teammember.json'
+        add_team: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/team' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/team',
+        delete_team: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/team/' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/team/',
+        teams_list: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teams' : environment.apiEndpoint + 'assets/mock/teams.json',
+        teams_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamDetails?teamId=' : environment.apiEndpoint + 'assets/mock/teams.json',
+        teamUpdate: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamUpdate' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamUpdate',
+        deleteTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember',
+        addTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember',
+        roles: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/roles?module=' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/roles?module=',
+
     },
     roles: {
         roles_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/roleModuleFeatures' : environment.apiEndpoint + 'assets/mock/userroles.json',

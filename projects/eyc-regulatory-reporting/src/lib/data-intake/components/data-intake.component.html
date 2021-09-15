@@ -17,12 +17,12 @@
             [button]="false" [detailCellRendererParams]="exceptionDetailCellRendererParams"></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('intake', 'viewComments')"
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
-                <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
+                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -69,8 +69,8 @@
             [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('intake', 'approveDataSet')"
-            [permissionToSecondaryButton]="this.permissions.validatePermission('intake', 'rejectDataSet')">
+            [permissionToPrimaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')"
+            [permissionToSecondaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')">
         </lib-shared-grid>
 
         <ng-template #datasetsDropdownTemplate let-row>
@@ -83,12 +83,12 @@
             </div>
         </ng-template>
         <ng-template #commentDatasetsTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('intake', 'viewComments')"
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
             <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
-                <div class="add_icon" *ngIf="permissions.validatePermission('intake', 'addComments')">
+                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToDatasets(row)">
                         <span class="plus">+</span>

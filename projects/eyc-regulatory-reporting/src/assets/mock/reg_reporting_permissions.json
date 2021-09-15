@@ -6,43 +6,47 @@
     "userEmail": "Suhas.Srinidhi@gds.ey.com",
     "moduleName": "Regulatory Reporting",
     "features": {
-      "scoping": [
-        "view",
+      "Fund Scoping": [
+        "View Fund Scoping",
         "approve"
       ],
-      "intake": [
-        "view",
-        "viewComments",
-        "addComments",
+      "Data Intake": [
+        "View Data Intake",
+        "View Comments",
+        "Add Comments",
         "approveException",
         "resolveException",
-        "approveDataSet",
-        "rejectDataSet"
+        "Dataset Status Change Approve"
       ],
-      "reporting": [
-        "view",
-        "viewComments",
-        "addComments",
-        "approveException",
-        "resolveException",
-        "approveFilingEntity",
-        "resolveFilingEntity",
-        "dataExplorer"
-      ],
-      "clinetReview": [
-        "view",
-        "viewComments",
-        "addComments",
+      "Reporting": [
+        "View Reporting",
+        "View Comments",
+        "Add Comments",
         "approveException",
         "resolveException",
         "approveFilingEntity",
         "resolveFilingEntity",
-        "dataExplorer"
+        "Data Explorer",
+        "Exception Status Change Resolve",
+        "Filing Entity Status Change Resolve"
+        
       ],
-      "submission": [
-        "view",
-        "downloadFiles",
-        "completeFiling"
+      "Client Review": [
+        "View Client Review",
+        "View Comments",
+        "Add Comments",
+        "approveException",
+        "resolveException",
+        "approveFilingEntity",
+        "resolveFilingEntity",
+        "Data Explorer",
+        "Exception Status Change Resolve",
+        "Filing Entity Status Change Resolve"
+      ],
+      "Submission": [
+        "View Submission",
+        "Download Files",
+        "Complete Filing"
       ]
     }
   },

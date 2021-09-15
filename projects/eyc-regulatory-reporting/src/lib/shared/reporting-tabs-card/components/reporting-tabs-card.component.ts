@@ -14,6 +14,7 @@ export class ReportingTabsCardComponent implements OnInit {
   @Input() isDataInteake = false;
   @Input() pageName;
   @Input() tabIn:any = 2;
+  @Input() dataExpPermission = true;
   constructor(
     private router: Router,
     public permissions: PermissionService,
