@@ -1,5 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { EycRrCommentApiService } from '../../services/eyc-rr-comment-api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../../modal/component/modal.component';
 import * as FileSaver from 'file-saver';
 @Component({
   selector: 'lib-comment-side-menu',
@@ -11,12 +13,16 @@ import * as FileSaver from 'file-saver';
 export class CommentSideMenuComponent implements OnInit, OnDestroy {
 
   appContainer;
+  formattedTimes = [];
   @Input() commentsData;
   @Input() filingName;
   @Input() show: boolean;
   @Input() entityId;
+  @Input() entityType;
+
 
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() commentAddedEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   // private _show: boolean;
 
   // @Input() set show(value: boolean) {
@@ -29,7 +35,8 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   // }
 
   constructor(
-    private commentService: EycRrCommentApiService
+    private commentService: EycRrCommentApiService,
+    public dialog: MatDialog,
   ) {
     this.appContainer = document.getElementById('main-container');
   }
@@ -44,6 +51,11 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
     if(this.entityId) {
       this.commentService.listComments(this.entityId).subscribe(resp => {
         this.commentsData = resp['data']
+        this.formattedTimes = [];
+        this.commentsData.forEach(comment => {
+          this.formattedTimes.push(this.formatDate(comment.timeStamp));
+          console.log(this.formattedTimes);
+        });
       });
     }
     if (changes.show) {
@@ -75,6 +87,72 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
     this.appContainer.style.paddingRight = '0';
     this.show = false;
     this.showChange.emit(this.show);
+  }
+
+  addComment() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
+        entityId: this.entityId,
+        entityType: this.entityType,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed', result);
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log('DIALOG CLOSE RESULT', result);
+        console.log(obj);
+        this.commentAddedEmitter.emit(true);
+        this.commentService.listComments(this.entityId).subscribe(resp => {
+          this.commentsData = resp['data'];
+          this.formattedTimes = [];
+          this.commentsData.forEach(comment => {
+          this.formattedTimes.push(this.formatDate(comment.timeStamp));
+          console.log(this.formattedTimes);
+        });
+        });
+        // this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
+        // this.createEntitiesRowData();
+      } else {
+        console.log(result);
+      }
+    });
   }
 
   formatDate(timestamp) {

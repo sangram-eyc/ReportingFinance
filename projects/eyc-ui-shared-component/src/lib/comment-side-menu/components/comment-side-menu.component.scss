@@ -59,7 +59,7 @@
 
   .comment-list {
     overflow: auto;
-    height: calc(100% - 78px - 57px - 69px);
+    height: calc(100% - 78px - 57px - 69px - 76px);
   }
   
   .comment-container {
@@ -103,4 +103,11 @@
       cursor: pointer;
       // margin-left: auto;
     }
+  }
+
+  .new-comment-button {
+    width: 124px;
+    height: 44px;
+    margin-left: 16px;
+    margin-bottom: 32px;
   }
