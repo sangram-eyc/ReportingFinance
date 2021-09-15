@@ -481,3 +481,8 @@ motif-icon.motif-icon.user-edit {
   }
 }
 
+.grid-actions {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
