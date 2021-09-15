@@ -5,10 +5,10 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
 // import { SharedDownloadService } from './../../../../../eyc-ui-shared-component/src/lib/download/services/shared-download.service'
 import {customComparator} from '../../config/rr-config-helper';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
-
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 
 @Component({
@@ -22,7 +22,10 @@ export class SubmissionComponent implements OnInit {
 
   constructor(
     private service: SubmissionService,
-    private dialog: MatDialog,) { }
+    private dialog: MatDialog,
+    public permissions: PermissionService,
+    private filingService: RegulatoryReportingFilingService
+    ) { }
 
 
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -196,16 +199,16 @@ export class SubmissionComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if(result.button == 'Yes') {
-        console.log(this.filingName);
-        console.log( this.period);
-        this.childDot.updateSubmissionStatus();
-        this.filingStatusChangeMsg = 'Filing has been completed';
-        this.enableComplete = true;
-        this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
-      setTimeout(() => {
-        this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
-      }, 5000);
+      if (result.button == 'Yes') {
+        this.service.completeFiling(this.filingDetails.filingId).subscribe(resp => {
+          this.filingService.invokeFilingDetails();
+          this.filingStatusChangeMsg = 'Filing has been completed';
+          this.enableComplete = true;
+          this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+          setTimeout(() => {
+            this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+          }, 5000);
+        });
       }
     });
   
