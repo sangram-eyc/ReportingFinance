@@ -20,7 +20,7 @@
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openExceptionsComments(row)">
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openComments(row)">
                 {{row.comments}}
             </div>
            
@@ -113,5 +113,5 @@
     </section>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [filingName]="commentsName" (commentAddedEmitter)="getFilingEntities()"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 

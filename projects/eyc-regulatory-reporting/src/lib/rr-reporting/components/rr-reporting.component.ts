@@ -35,6 +35,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   showComments = false;
   commentsData;
   commentsName;
+  commentEntityType;
   status = {
     stage: 'Reporting',
     progress: 'in-progress'
@@ -525,8 +526,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     console.log(row);
       // this.commentsData = [];
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     if (this.tabs == 2) {
+      this.commentEntityType = 'FILING_ENTITY';
+      this.entityId = row.entityId;
+     } else {
+      this.commentEntityType = 'ANSWER_EXCEPTION_REPORT'
+      this.entityId = row.exceptionId;
+     }
      this.showComments = true;
-     this.entityId = row.entityId;
      console.log(this.entityId);
     /*this.rrservice.getComments('filing', 2).subscribe(res => {
       this.commentsData = res['data'];
@@ -536,12 +543,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     }); */
     
   }
-  openExceptionsComments(row) {
-    console.log(row);
-    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-     this.showComments = true;
-     this.entityId = row.exceptionId;
-     console.log(this.entityId)
+
+  commentAdded() {
+    if (this.tabs==2) {
+      this.getFilingEntities();
+    } else {
+      this.getExceptionReports();
+    }
   }
 
   routeToExceptionDetailsPage(event:any) {

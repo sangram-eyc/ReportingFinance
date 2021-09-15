@@ -17,6 +17,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   filingDetails:any;
   commentsData;
   commentsName;
+  commentEntityType
   showComments = false;
   constructor(
     private service: ClientReviewService,
@@ -500,9 +501,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   openComments(row) {
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+     if (this.tabs == 2) {
+      this.commentEntityType = 'FILING_ENTITY';
+      this.entityId = row.entityId;
+     } else {
+      this.commentEntityType = 'ANSWER_EXCEPTION_REPORT'
+      this.entityId = row.exceptionId;
+     }
      this.showComments = true;
-     this.entityId = row.entityId;
-
     /*this.rrservice.getComments('filing', 2).subscribe(res => {
       this.commentsData = res['data'];
     },error=>{
@@ -511,11 +517,13 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     }); */
     
   }
-  openExceptionsComments(row) {
-    this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-     this.showComments = true;
-     this.entityId = row.exceptionId;
-    
+
+  commentAdded() {
+    if (this.tabs==2) {
+      this.getFilingEntities();
+    } else {
+      this.getExceptionReports();
+    }
   }
   
   routeToExceptionDetailsPage(event:any) {

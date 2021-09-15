@@ -18,6 +18,8 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   @Input() filingName;
   @Input() show: boolean;
   @Input() entityId;
+  @Input() entityType;
+
 
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() commentAddedEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -95,7 +97,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: this.entityId,
-        entityType: "FILING_ENTITY",
+        entityType: this.entityType,
         forms: {
           isSelect: false,
           selectDetails: {
