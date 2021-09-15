@@ -31,7 +31,7 @@
             {{teamInfo?.teamName}} 
           </div>
           <div class="col-md-7  label-value">
-            {{teamInfo?.description}}
+            {{teamInfo?.teamDescription}}
           </div>
           <div class="col-md-12 lablel-heading cust-col-role">
             Role
@@ -73,8 +73,8 @@
           </div>
           <div class="col-md-7">
             <motif-form-field>
-              <textarea motifInput class="motif-textarea" formControlName="description"></textarea>
-              <motif-error *ngIf="editTeamForm.get('description').hasError('maxlength')">Description can be max 250 characters long
+              <textarea motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
               </motif-error>
             </motif-form-field>
           </div>
@@ -85,8 +85,8 @@
           <div class="col-md-5 cust-col-role-value">
             <motif-form-field>
               <motif-select formControlName="role" aria-label="Aria Label" >
-                <motif-option *ngFor="let item of roleList;index as i;" [value]="item.role">
-                  {{item.roleName}}</motif-option>
+                <motif-option *ngFor="let item of roleList;index as i;" [value]="item">
+                  {{item}}</motif-option>
               </motif-select>
             </motif-form-field>
           </div>
@@ -134,7 +134,7 @@
               <motif-form-field>
                 <label motifLabel class="select-label">Select</label>
                 <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
-                  <motif-option [value]="member" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
+                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
                   <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
                 </motif-select>
                 <motif-error *ngIf="

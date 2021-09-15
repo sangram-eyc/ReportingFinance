@@ -58,28 +58,28 @@
           </div>
           <div class="col-md-6 cust-col-colour cust-row-st">
             <motif-form-field>
-              <input motifInput type="text" aria-label="Username Form Field" formControlName="first" />
-              <motif-error *ngIf="editUserForm.get('first').hasError('required')">Please provide a first name!
+              <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
+              <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('first').hasError('pattern')">First name must contain only characters
+              <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only characters
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('first').hasError('maxlength')">First name can be max 250
+              <motif-error *ngIf="editUserForm.get('firstName').hasError('maxlength')">First name can be max 250
                 characters long</motif-error>
-              <motif-error *ngIf="editUserForm.get('first').hasError('whitespace')">Please enter valid data
+              <motif-error *ngIf="editUserForm.get('firstName').hasError('whitespace')">Please enter valid data
               </motif-error>
 
             </motif-form-field>
           </div>
           <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
             <motif-form-field>
-              <input motifInput type="text" aria-label="Email Form Field" formControlName="last" />
-              <motif-error *ngIf="editUserForm.get('last').hasError('required')">Please provide a last name!
+              <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('required')">Please provide a last name!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('last').hasError('pattern')">Last name must contain only characters!
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('last').hasError('maxlength')">Last name can be max 250 characters
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters
                 long</motif-error>
-              <motif-error *ngIf="editUserForm.get('last').hasError('whitespace')">Please enter valid data
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('whitespace')">Please enter valid data
               </motif-error>
             </motif-form-field>
           </div>
