@@ -20,7 +20,7 @@
   </ng-template>
 
   <ng-template #urlDownload let-row>
-    <div class="ml-4" *ngIf="row.hasContent">
+    <div class="ml-4 grid-actions" *ngIf="row.hasContent">
       <a (click)="getDownloadFile(row)">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
           x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve"
@@ -31,6 +31,11 @@
             d="M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32 C432,423.168,424.832,416,416,416z" />
         </svg>
       </a>
+
+      <a (click)="createComment()">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAl0lEQVRIiWNgGAUkAA8GBobHDAwM/ynEDxkYGNywWfCICobD8H1sFsAkKQHMUDP+wASYKDSQIKC5BSwE5IkNMkZcEtT2AYaDCPkAp8uI1Teo44Ao3w3ZOICDIZvRsKaix1Ca3ALuNwMDQzg+Wz0YKC9R/0Dpf6R7mjAoR7KIJhYgW0IzC2CWwC1gpoEFRxkgqegADczGBADWA1owfhpmmQAAAABJRU5ErkJggg=="/>   
+      </a>
+     
     </div>
   </ng-template>
 </div>
