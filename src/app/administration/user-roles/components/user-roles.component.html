@@ -1,26 +1,37 @@
 <div class="rolesWrapper">
     <h4 class="role">User Roles</h4>
 
-    <motif-accordion class="roleaccordion" *ngFor="let item of roles;index as i;">
+    <motif-accordion class="roleaccordion" *ngFor="let item of roles?.roleModuleFeatures | keyvalue"
+        (open)="openAccord($event, item.key)" (close)="closeAccord($event, item.key)">
         <motif-accordion-header>
-            {{item.roleName}}
+            {{item.key}}
         </motif-accordion-header>
         <motif-accordion-content>
-            <p class="description">{{item.roleDescription}}</p>
+            <!-- <p class="description">{{item.roleDescription}}</p> -->
             <div class="row">
-                <div class="col-md-4 feature" *ngFor="let feature of item.features">
-                    <h5 class="feature-name">{{feature.featureName}}</h5>
-                    <div class="permission" *ngFor="let p of feature.permissions">
-                        <span class="permission-name">{{p.permissionName}}</span>
+                <div class="col-md-4 feature" *ngFor="let feature of item.value | keyvalue">
+                    <h5 class="feature-name">{{feature.key}}</h5>
+                    <div class="permission" *ngFor="let p of feature.value">
+                        <span class="permission-name">{{p?.featureName}}</span>
                         <div class="toggle">
-                            <motif-toggle-switch [hideLabels]="true" [(ngModel)]="p.isActive"
-                                (ngModelChange)="onChangePermission($event, p)"></motif-toggle-switch>
-                            <span *ngIf="p.isActive" class="permission-on">On</span>
-                            <span *ngIf="!p.isActive" class="permission-off">Off</span>
+                            <motif-toggle-switch [hideLabels]="true" [(ngModel)]="p.enabled"
+                                (change)="onChangePermission($event, p, item.key)"></motif-toggle-switch>
+                            <span *ngIf="p.enabled" class="permission-on">On</span>
+                            <span *ngIf="!p.enabled" class="permission-off">Off</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 save_cancel_btns">
+                    <button motifButton class="save" color="primary" (click)="onSave(item.key)"
+                        [disabled]="!selectedPermission[item.key]['moduleFeatureIds'].length">Save</button>
+
+                    <!-- <button motifButton color="secondary" (click)="onCancel(item.key)"
+                        [disabled]="!selectedPermission[item.key]['moduleFeatureIds'].length">Cancel</button> -->
                 </div>
             </div>
         </motif-accordion-content>
     </motif-accordion>
 </div>
+<motif-toast [type]="'success'" [show]="showToastAfterRolesUpdate">Roles updated successfully</motif-toast>

@@ -1,18 +1,20 @@
 {
-    "success": true,
-    "message": "",
-    "corelationId": null,
-    "data": {
-    "userDetails":
-    {
-    "userId":1,
-    "userEmail":"debabrata.dash@gds.ey.com",
-    "userFirst":"Debabrata",
-    "userLast":"Dash",
-    "isActive":true
-    },
-    "modules": ["Data Intake","Tax Reporting","Admin","Reg Reporting"]
-    },
-    "error": null
+	"success": true,
+	"message": "User Module details returned successfully",
+	"corelationId": null,
+	"data": {
+		"userId": 4,
+		"userEmail": "Suhas.Srinidhi@gds.ey.com",
+		"firstName": "Suhas",
+		"lastName": "Srinidhi",
+		"userType": "INTERNAL",
+		"userModules": {
+			"All": 5,
+			"Regulatory Reporting": 3,
+			"Admin":2,
+			"Tax Reporting": 4,
+			"Data Intake": 1
+		}
+},
+	"error": null
 }
-  

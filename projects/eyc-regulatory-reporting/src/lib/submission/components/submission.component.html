@@ -1,7 +1,7 @@
 <lib-dots-card (filingDetails)="receiveFilingDetails($event)" (fileStatus)="getFileStatus($event)"></lib-dots-card>
 
 <div class="mark-button-comp">
-    <button motifButton color="primary" size="large" (click)="statusUpdateToComplete()" [disabled]= "enableComplete">Mark filing complete</button>
+    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing')" motifButton color="primary" size="large" (click)="statusUpdateToComplete()" [disabled]= "enableComplete">Mark filing complete</button>
 </div>
 
 <motif-toast [type]="'success'" [show]="showToastAfterDownload">{{ downloadMsg }} </motif-toast>
@@ -9,7 +9,7 @@
 
 <div class="submission-content-container">
     <div class="approve-button">
-      <button motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
+      <button *ngIf="permissions.validatePermission('Submission', 'Download Files')" motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
 <!--  <lib-download [buttonLabel]="'Download selected'" [downloadFilesList]="selectedRows" (downloadFilesEmitter)="donwloadFilesOnSelected($event)"></lib-download>    </div>
  -->    <section id="xml-files-list">
        

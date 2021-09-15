@@ -26,24 +26,56 @@ export class HomeComponent implements OnInit {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
     }
+
     this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {
       this.moduleLevelPermissionData = res['data'];
-      if (!res['data']['userDetails']) {
+      if (!res['data']) {
         this.openErrorModal("Access Denied", "User is not a valid user. Please contact admin.");
-      } else if (!res['data']['userDetails'].isActive) {
-        this.openErrorModal("Access Denied", "User is not a active user. Please contact admin.");
-      } else if (!res['data']['modules'].length) {
+      }
+      // else if (!res['data']['userDetails'].isActive) {
+      //   this.openErrorModal("Access Denied", "User is not a active user. Please contact admin.");
+      // }
+      else if (res['data']['userModules'] && Object.keys(res['data']['userModules']).length === 0 && res['data']['userModules'].constructor === Object) {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact admin.");
-      }
-      sessionStorage.setItem("moduleLevelPermission", JSON.stringify(res['data']));
-      this.moduleLevelPermission.invokeModulePermissionDetails();
-      if(IS_SURE_FOOT) {
-        this.router.navigate(['/app-tax-reporting'])
-      }
-      else {
-        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
+      } else {
+        sessionStorage.setItem("moduleLevelPermission", JSON.stringify(res['data']));
+        this.moduleLevelPermission.invokeModulePermissionDetails();
+        if (!res['data'].userModules.hasOwnProperty('All')) {
+          this.permissionList()
+        } else {
+          this.navigation();
+        }
       }
     });
+  }
+
+  permissionList() {
+    if (sessionStorage.getItem("permissionList") === null) {
+      this.moduleLevelPermission.getPermissionsList().subscribe(resp => {
+        this.navigation();
+        const userEmail = sessionStorage.getItem('userEmail');
+        if (userEmail.endsWith('ey.com')) {
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        } else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        } else {
+          resp.data.features.intake.splice(5, 2);
+          resp.data.features.reporting.shift();
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        }
+      });
+    } else {
+      this.navigation();
+    }
+  }
+
+  navigation() {
+    if (IS_SURE_FOOT) {
+      this.router.navigate(['/app-tax-reporting'])
+    }
+    else {
+      HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
+    }
   }
 
   openErrorModal(header, description) {
@@ -59,7 +91,7 @@ export class HomeComponent implements OnInit {
         },
       }
     });
-    if (!this.moduleLevelPermissionData['userDetails']) {
+    if (!this.moduleLevelPermissionData) {
       setTimeout(() => {
         dialogRef.close();
       }, 30000);

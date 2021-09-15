@@ -27,11 +27,19 @@ export class ModuleLevelPermissionService {
   checkPermission(module) {
     const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
     if(permissions){
-      return permissions.modules.indexOf(module) > -1;
+      if(permissions.userModules.hasOwnProperty('All')){
+        return true;
+      } else {
+        return permissions.userModules.hasOwnProperty(module);
+      }
     } else {
       this.settingsService.logoff();
       this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       return false;
     }
+  }
+
+  getPermissionsList() {
+    return this.apiService.invokeGetAPI(`${authorization.rr_permission_list}?module=Regulatory Reporting`);
   }
 }

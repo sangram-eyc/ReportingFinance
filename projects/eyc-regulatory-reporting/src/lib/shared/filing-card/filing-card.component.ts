@@ -133,13 +133,23 @@ export class FilingCardComponent implements OnInit {
 
   preapreStage(stageCode) {
     switch (stageCode) {
-      case "FUND_SCOPING": return 'scoping';
-      case "DATA_INTAKE":  return 'intake';
-      case "REPORTING":  return 'reporting';
-      case "CLIENT_REVIEW": return 'clientReview';
-      case "SUBMISSION": return 'submission';
+      case "FUND_SCOPING": return 'Fund Scoping';
+      case "DATA_INTAKE":  return 'Data Intake';
+      case "REPORTING":  return 'Reporting';
+      case "CLIENT_REVIEW": return 'Client Review';
+      case "SUBMISSION": return 'Submission';
     }
   }
+  preapreViewFeature(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING": return 'View Fund Scoping';
+      case "DATA_INTAKE":  return 'View Data Intake';
+      case "REPORTING":  return 'View Reporting';
+      case "CLIENT_REVIEW": return 'View Client Review';
+      case "SUBMISSION": return 'View Submission';
+    }
+  }
+
   preapreRouting(stageCode) {
     switch (stageCode) {
       case "FUND_SCOPING":
@@ -164,15 +174,25 @@ export class FilingCardComponent implements OnInit {
     this.filingService.setfilingData = this._filingData;
     switch (this.status.stageCode) {
       case "FUND_SCOPING":
-        this.router.navigate(['/fund-scoping']);
+        if(this.permissions.validatePermission('Fund Scoping', 'View Fund Scoping')) {
+          this.router.navigate(['/fund-scoping']);
+        } else {
+            const dataIntakeIndex = this._filingData.status.findIndex(item => item.stageCode === this.status.stageCode);
+            for(let i=dataIntakeIndex; i < this._filingData.status.length; i++) {
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
+                this.preapreRouting(this._filingData.status[i].stageCode);
+                return;
+               }  
+            }
+        }
         break;
       case "DATA_INTAKE":
-        if(this.permissions.validatePermission('intake', 'view')) {
+        if(this.permissions.validatePermission('Data Intake', 'View Data Intake')) {
           this.router.navigate(['/data-intake']);
         } else {
             const dataIntakeIndex = this._filingData.status.findIndex(item => item.stageCode === this.status.stageCode);
             for(let i=dataIntakeIndex; i < this._filingData.status.length; i++) {
-               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), 'view')) {
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
                }  
@@ -180,13 +200,46 @@ export class FilingCardComponent implements OnInit {
         }
         break;
       case "REPORTING":
-        this.router.navigate(['/regulatory-reporting']);
+        if(this.permissions.validatePermission('Reporting', 'View Reporting')) {
+          this.router.navigate(['/regulatory-reporting']);
+        } else {
+            const dataIntakeIndex = this._filingData.status.findIndex(item => item.stageCode === this.status.stageCode);
+            for(let i=dataIntakeIndex; i < this._filingData.status.length; i++) {
+              console.log(dataIntakeIndex);
+              
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
+                this.preapreRouting(this._filingData.status[i].stageCode);
+                return;
+               }  
+            }
+        }
         break;
       case "CLIENT_REVIEW":
-        this.router.navigate(['/client-review']);
+        if(this.permissions.validatePermission('Client Review', 'View Client Review')) {
+          this.router.navigate(['/client-review']);
+        } else {
+            const dataIntakeIndex = this._filingData.status.findIndex(item => item.stageCode === this.status.stageCode);
+            for(let i=dataIntakeIndex; i < this._filingData.status.length; i++) {
+              console.log(dataIntakeIndex);
+              
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
+                this.preapreRouting(this._filingData.status[i].stageCode);
+                return;
+               }  
+            }
+        }
         break;
       case "SUBMISSION":
-        this.router.navigate(['/submission']);
+        if(this.permissions.validatePermission('Submission', 'View Submission')) {
+          this.router.navigate(['/submission']);
+        } else {
+            for(let i=0; i < this._filingData.status.length; i++) {
+               if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
+                this.preapreRouting(this._filingData.status[i].stageCode);
+                return;
+               }  
+            }
+        }
     }
 
   }

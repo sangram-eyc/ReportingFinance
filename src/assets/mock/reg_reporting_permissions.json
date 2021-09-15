@@ -1,0 +1,56 @@
+{
+  "success": true,
+  "message": "",
+  "corelationId": null,
+  "data": {
+    "userEmail": "Suhas.Srinidhi@gds.ey.com",
+    "moduleName": "Regulatory Reporting",
+    "features": {
+      "Fund Scoping": [
+        "View Fund Scoping",
+        "Approve Fund Scoping",
+        "EY Approve Fund Scoping",
+        "Client Approve Fund Scoping",
+        "Client Confirm Fund Scoping"
+      ],
+      "Data Intake": [
+        "View Data Intake",
+        "View Comments",
+        "Add Comments",
+        "approveException",
+        "resolveException",
+        "Dataset Status Change Approve"
+      ],
+      "Reporting": [
+        "View Reporting",
+        "View Comments",
+        "Add Comments",
+        "approveException",
+        "resolveException",
+        "approveFilingEntity",
+        "resolveFilingEntity",
+        "Data Explorer",
+        "Exception Status Change Resolve",
+        "Filing Entity Status Change Resolve"
+      ],
+      "Client Review": [
+        "View Client Review",
+        "View Comments",
+        "Add Comments",
+        "approveException",
+        "resolveException",
+        "approveFilingEntity",
+        "resolveFilingEntity",
+        "Data Explorer",
+        "Exception Status Change Resolve",
+        "Filing Entity Status Change Resolve"
+      ],
+      "Submission": [
+        "View Submission",
+        "Download Files",
+        "Complete Filing"
+      ]
+    }
+  },
+  "error": null
+}
