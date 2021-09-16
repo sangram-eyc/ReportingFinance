@@ -281,7 +281,7 @@ export class FilingCardComponent implements OnInit {
       width: '400px',
       data: {
         header: "Access Denied",
-        description: "User does not have access to any view stage. Please contact admin.",
+        description: "You do not have access to view the filing. Please contact an administrator.",
         footer: {
           style: "start",
           YesButton: "OK"
