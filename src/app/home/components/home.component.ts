@@ -30,13 +30,13 @@ export class HomeComponent implements OnInit {
     this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {
       this.moduleLevelPermissionData = res['data'];
       if (!res['data']) {
-        this.openErrorModal("Access Denied", "User is not a valid user. Please contact admin.");
+        this.openErrorModal("Access Denied", "User is not a valid user. Please contact an administrator.");
       }
       // else if (!res['data']['userDetails'].isActive) {
-      //   this.openErrorModal("Access Denied", "User is not a active user. Please contact admin.");
+      //   this.openErrorModal("Access Denied", "User is not a active user. Please contact an administrator.");
       // }
       else if (res['data']['userModules'] && Object.keys(res['data']['userModules']).length === 0 && res['data']['userModules'].constructor === Object) {
-        this.openErrorModal("Access Denied", "User does not have access to any module. Please contact admin.");
+        this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
         sessionStorage.setItem("moduleLevelPermission", JSON.stringify(res['data']));
         this.moduleLevelPermission.invokeModulePermissionDetails();

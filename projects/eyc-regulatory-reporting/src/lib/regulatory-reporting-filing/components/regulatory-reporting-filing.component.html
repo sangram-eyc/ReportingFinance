@@ -116,6 +116,12 @@
         <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
     </ng-template>
 
+    <ng-template #commentTemplate let-row>
+        <div *ngIf="row.comments!==0" class="comments-background">
+            {{row.comments}}
+        </div>
+    </ng-template>
+
     <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
 
         <motif-pagination>
