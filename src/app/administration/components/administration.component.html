@@ -3,17 +3,33 @@
 </div>
 <div class="admin-container">
     <div class="sub-header"><h4>Subscribed modules</h4></div>
-    <motif-card>
-        <div *ngIf="!is_Tax_Reporting" class="card-block">
-            Regulatory Reporting
-            <br><span>Last modified 5 days ago</span>
-        </div>
-        <div *ngIf="is_Tax_Reporting" class="card-block">
-            Tax Reporting
-            <br><span>Last modified 5 days ago</span>
-        </div>
-        <div class="card-button">
-           <button motifButton color="primary-alt" (click)="routeAdminRR()">View</button>
-        </div>
-    </motif-card>
+    <div class="sub-module-container">
+        <motif-card *ngIf="!is_Tax_Reporting" >
+            <div class="card-block">
+                Regulatory Reporting
+                <br><span>Last modified 5 days ago</span>
+            </div>
+            <div class="card-button">
+               <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Regulatory Reporting', moduleId: 2})">View</button>
+            </div>
+        </motif-card>
+        <motif-card *ngIf="is_Tax_Reporting">
+            <div class="card-block">
+                Tax Reporting
+                <br><span>Last modified 5 days ago</span>
+            </div>
+            <div class="card-button">
+               <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Tax Reporting', moduleId: 4})">View</button>
+            </div>
+        </motif-card>
+        <motif-card *ngIf="!is_Tax_Reporting">
+            <div class="card-block">
+                Data Intake
+                <br><span>Last modified 5 days ago</span>
+            </div>
+            <div class="card-button">
+                <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Data Intake', moduleId: 3})">View</button>
+             </div>
+        </motif-card>
+    </div>
 </div>

@@ -10,6 +10,7 @@ import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
+import { AdministrationService } from '@default/administration/services/administration.service';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -20,11 +21,15 @@ export class EycTeamDetailsComponent implements OnInit {
 
   constructor(private location: Location,
     private teamService: TeamsService,
+    private adminService: AdministrationService,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private dialog: MatDialog,
     private formBuilder: FormBuilder) {
     this.editTeamForm = this._updateTeam();
+    const module = adminService.getCurrentModule;
+    this.module = module.moduleName;
+    this.moduleId = module.moduleId; 
   }
 
   @ViewChild('actionSection')
@@ -58,8 +63,8 @@ export class EycTeamDetailsComponent implements OnInit {
   allUsers = []
   multiSelectValues = [];
   presentRole;
-  module = 'Regulatory Reporting';
-  moduleId = 2;
+  module;
+  moduleId;
 
 
   ngOnInit(): void {

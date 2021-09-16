@@ -21,16 +21,16 @@ export class TeamsService {
     return this.TeamsData;
   }
   
-  getTeamsList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}?module=Regulatory%20Reporting`);
+  getTeamsList(moduleName) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}?module=`+moduleName);
   }
 
   getTeamsDetails(teamId) {
     return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_Details}`+teamId);
   }
 
-  getRoles(module) {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.roles}`+module);
+  getRoles(moduleName) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.roles}`+moduleName);
   }
 
   addTeam(teamData) {
