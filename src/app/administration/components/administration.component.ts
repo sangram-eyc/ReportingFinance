@@ -27,7 +27,7 @@ is_Tax_Reporting = IS_SURE_FOOT;
 
   routeAdmin(module) {
     //should use this generic method for future modules
-    this.service.module = module;
+    this.service.setCurrentModule = module;
     this.router.navigate(['/admin-rr-dashboard']);
   }
 
