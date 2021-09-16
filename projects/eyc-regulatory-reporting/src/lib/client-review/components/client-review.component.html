@@ -75,7 +75,7 @@
         </ng-template>
         
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments(row)">
+            <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Client Review', 'View Comments')" class="comments-background" (click)="openComments(row)">
                 {{row.commentsCount}}
             </div>
             <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('Client Review', 'Add Comments')">
