@@ -247,12 +247,14 @@ ngOnDestroy() {
 }
 
 public noWhitespaceValidator(control: FormControl) {
-  if (control.value.length === 0) {
-    return false;
-  } else {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
+  if(control.value) {
+    if (control.value.length === 0) {
+      return false;
+    } else {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    }
   }
 }
 }
