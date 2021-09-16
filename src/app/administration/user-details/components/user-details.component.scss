@@ -18,18 +18,17 @@
         font-size: 14px;
         line-height: 20px;
         text-align: center;
-        color: #2E2E38 !important;
+        // color: #2E2E38 !important;
         // border: 0px;
     }
 
-    // .save-submit:hover {
-    //    background-color: var(--btn-primary-bg-color);
-    // //    color: var(--btn-primary-color);
-    // }
+    /* .save-submit:hover {
+       color: var(--btn-primary-color);
+    } */
 
-    // button.motif-button.save-submit.dis-button:hover {
-    //     background-color: var(--btn-primary-disabled-bg-color) !important;
-    // }
+    button.motif-button.save-submit.dis-button:hover {
+        background-color: var(--btn-primary-disabled-bg-color) !important;
+    }
     
     .btn_close {
         width: 80px !important;
