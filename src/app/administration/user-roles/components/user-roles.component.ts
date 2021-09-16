@@ -27,6 +27,7 @@ export class UserRolesComponent implements OnInit {
   getRolesList() {
     this.service.getRolesList(this.moduleName).subscribe(res => {
       this.roles = res['data'];
+      console.log(this.roles);
       const moduleId = 2;
       for (const property in res['data'].roleModuleFeatures) {
         this.selectedPermission[property] = {
@@ -39,7 +40,7 @@ export class UserRolesComponent implements OnInit {
   }
 
   onChangePermission(event, permission, rolename) {
-    if (this.selectedPermission.hasOwnProperty(rolename) && (this.isValidPermission !== 0)) {
+    if (this.selectedPermission.hasOwnProperty(rolename)) {
       if (this.selectedPermission[rolename]['moduleFeatureIds'].includes(permission.moduleFeatureId)) {
         this.selectedPermission[rolename]['moduleFeatureIds'].splice(this.selectedPermission[rolename]['moduleFeatureIds'].findIndex(item => item === permission.moduleFeatureId), 1);
       } else {
