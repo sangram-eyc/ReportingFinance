@@ -114,5 +114,5 @@
     </section>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Reporting', 'Add Comments')" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 
