@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { count } from 'rxjs/operators';
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filing-card',
@@ -74,7 +76,8 @@ export class FilingCardComponent implements OnInit {
   constructor(
     private router: Router,
     private filingService: RegulatoryReportingFilingService,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -182,7 +185,10 @@ export class FilingCardComponent implements OnInit {
                if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
-               }  
+              }
+              if ((i+1) ===this._filingData.status.length) {
+                 this.errorModalPopup();
+               }
             }
         }
         break;
@@ -195,7 +201,10 @@ export class FilingCardComponent implements OnInit {
                if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
-               }  
+               } 
+               if ((i+1) ===this._filingData.status.length) {
+                this.errorModalPopup();
+              } 
             }
         }
         break;
@@ -210,7 +219,10 @@ export class FilingCardComponent implements OnInit {
                if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
-               }  
+               }
+               if ((i+1) ===this._filingData.status.length) {
+                this.errorModalPopup();
+              }  
             }
         }
         break;
@@ -225,7 +237,10 @@ export class FilingCardComponent implements OnInit {
                if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
-               }  
+               } 
+               if ((i+1) ===this._filingData.status.length) {
+                this.errorModalPopup();
+              } 
             }
         }
         break;
@@ -237,7 +252,10 @@ export class FilingCardComponent implements OnInit {
                if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[i].stageCode), this.preapreViewFeature(this._filingData.status[i].stageCode))) {
                 this.preapreRouting(this._filingData.status[i].stageCode);
                 return;
-               }  
+               } 
+               if ((i+1) ===this._filingData.status.length) {
+                this.errorModalPopup();
+              } 
             }
         }
     }
@@ -257,10 +275,28 @@ export class FilingCardComponent implements OnInit {
     }
   }
 
+  errorModalPopup() {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: "Access Denied",
+        description: "User does not have access to any view stage. Please contact admin.",
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth);
+    // console.log(this.innerWidth);
     if(this.innerWidth > 850 && this.innerWidth < 1000) {
       this.filingWidth = 25;
       this.periodWidth = 20
@@ -268,7 +304,7 @@ export class FilingCardComponent implements OnInit {
       this.filingWidth = 25;
       this.periodWidth = 16
     } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      console.log("inside 1600");
+      // console.log("inside 1600");
       this.filingWidth = 30;
       this.periodWidth = 20
     }else {
