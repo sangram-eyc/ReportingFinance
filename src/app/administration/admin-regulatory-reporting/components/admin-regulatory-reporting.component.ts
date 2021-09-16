@@ -7,6 +7,7 @@ import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { customComparator } from 'eyc-ui-shared-component';
+import { AdministrationService } from '@default/administration/services/administration.service';
 
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 @Component({
@@ -31,13 +32,20 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
   showToastAfterAddTeam = false;
   is_Tax_Reporting = IS_SURE_FOOT;
-  module = 'Regulatory Reporting';
+  moduleName;
+  moduleId;
   constructor(
     private teamsService: TeamsService,
+    private adminService: AdministrationService,
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder
-  ) { }
+  ) {
+    const module = adminService.getCurrentModule;
+    this.moduleName = module.moduleName;
+    this.moduleId = module.moduleId; 
+    console.log('Current Module: ', module);
+  }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -51,7 +59,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     }
    
     this.getTeamList();
-    this.teamsService.getRoles(this.module).subscribe(resp => {
+    this.teamsService.getRoles(this.moduleName).subscribe(resp => {
       this.roles = resp['data'];
     })
 
@@ -84,7 +92,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   }
 
   getTeamList() {
-    this.teamsService.getTeamsList().subscribe(resp => {
+    this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
     this.createTeamsRowData();
@@ -206,7 +214,7 @@ editTeams(row) {
       "teamName": obj.teamName,
       "roleName": obj.role,
       "teamDescription": obj.description,
-      "moduleName": this.module,
+      "moduleName": this.moduleName,
       "assignments": obj.assignments
     }
     

@@ -16,6 +16,8 @@
     border: 1px solid #C4C4CD !important;
     height: 154px !important;
     width: 342px !important;
+    position: relative;
+    margin-right: 16px;
 }
 
  .admin-container {
@@ -30,16 +32,18 @@ font-size: 24px !important;
 line-height: 32px !important;
 color: #2E2E38 !important;
 }
+.sub-module-container {
+    display: flex;
+}
 .card-button {
     width: 102px;
     position: absolute;
-    top: 150px;
-    left: 210px;
+    bottom: 19px;
+    right: 27px;
 }
 .card-block {
-    position: absolute;
-    top: 70px;
-    left: 20px;
+    padding-top: 24px;
+    padding-left: 16px;
     font-family: EYInterstate;
     font-size: 14px;
     line-height: 20px;
