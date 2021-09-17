@@ -33,9 +33,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
             let eycError = error.error.error;
             errorMessage = `Error Code: ${eycError.errorCode}\nMessage: ${eycError.message}`;
             if (eycError.errorCode == 500 && eycError.message == "Authorization Error :500 :Could not authorize the user. Invalid user ") {
-              this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
-            } else if (eycError.message.includes("User does not exist with id")) {
-              this.openErrorModal("Access Denied", "User is not a active user. Please contact an administrator.");
+              this.openErrorModal("Access Denied", "User does not have access to any module or is inactive. Please contact the administrator.");
             } else {
               this.openErrorModal("Access Denied", eycError.message);
             }
