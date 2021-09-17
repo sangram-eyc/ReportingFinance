@@ -85,6 +85,10 @@
                 {
                   "replace": "src/environments/eyc-regulatory-reporting/environment-rr-dev.ts",
                   "with": "src/environments/eyc-regulatory-reporting/environment-rr.prod.ts"
+                },
+                {
+                  "replace": "src/environments/eyc-tax-reporting/tax-environment.ts",
+                  "with": "src/environments/eyc-tax-reporting/tax-environment.prod.ts"
                 }
               ],
               "optimization": true,
