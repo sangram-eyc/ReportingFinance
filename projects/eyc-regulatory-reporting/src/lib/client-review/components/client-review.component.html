@@ -2,6 +2,10 @@
 <lib-reporting-tabs-card (messageEvent)="receiveMessage($event)"  [tabIn]="tabs" [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-reporting-tabs-card>
 <div class="review-content-container">
 
+    <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+    </motif-toast>
+
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid 
             gridStyle="first"
@@ -78,7 +82,7 @@
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Client Review', 'View Comments')" class="comments-background" (click)="openComments(row)">
                 {{row.commentsCount}}
             </div>
-            <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('Client Review', 'Add Comments')">
+            <div class="commentTemplate" *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span class="plus">+</span></motif-icon>
                 </div>

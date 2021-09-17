@@ -32,6 +32,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
+  showToastAfterApproveExceptionReports = false;
   modalMessage:any;
 
   status = {
@@ -93,7 +94,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports() {
-    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
       console.log(this.exceptionData);
@@ -350,26 +351,36 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       }, 5000);
     });
-
-    // this.selectedRows.forEach(ele => {
-    //   this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
-    // });
-    // this.createEntitiesRowData();
-    // this.selectedRows = [];
-    // this.filingService.invokeFilingDetails();
-    // this.approveFilingEntitiesModal = false;
-    // this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    // setTimeout(() => {
-    //   this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
-    // }, 5000);
   }
 
   onSubmitApproveExceptionReports() {
+
     console.log(this.exceptionReportRows);
+    const filingDetails = this.filingDetails;
+    let selectedFiling = {
+      "exceptionReportIds": this.exceptionReportRows.map(({ exceptionId }) => exceptionId),
+      "filingName": this.filingDetails.filingName,
+      "period": this.filingDetails.period,
+      "stage": "Client review"
+    };
+    this.service.approveAnswerExceptions(selectedFiling).subscribe(res => {
+      res['data']['answerExceptions'].forEach(ele => {
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+      });
+      this.createEntitiesRowData();
+      this.exceptionReportRows = [];
+      this.filingService.invokeFilingDetails();
+      this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      setTimeout(() => {
+        this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      }, 5000);
+    });
+
+    /* console.log(this.exceptionReportRows);
     this.exceptionReportRows.forEach(ele => {
       this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
     });
-    this.createEntitiesRowData();
+    this.createEntitiesRowData(); */
   }
 
   exceptionReportRowsSelected(event) {

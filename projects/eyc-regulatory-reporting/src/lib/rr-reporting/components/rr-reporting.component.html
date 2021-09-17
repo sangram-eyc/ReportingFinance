@@ -2,6 +2,9 @@
 <lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [dataExpPermission]="permissions.validatePermission('Reporting', 'Data Explorer')"></lib-reporting-tabs-card>
 <div class="reporting-content-container">
 
+<motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+</motif-toast>
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid 

@@ -128,7 +128,7 @@ export class GridComponent implements OnInit, OnChanges {
         console.log('Calling Submit ...');
         this.submit();
       } else {
-        console.log(result);
+        // console.log(result);
       }
     });
   }
@@ -138,9 +138,9 @@ export class GridComponent implements OnInit, OnChanges {
   }
 
   onRowSelected(event: any): void {
-    console.log('Search',this.search);
-    console.log('Button',this.button);
-    console.log('Position',this.buttonPosition);
+    // console.log('Search',this.search);
+    // console.log('Button',this.button);
+    // console.log('Position',this.buttonPosition);
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows =selectedArr.filter(item => item.approved === false);
@@ -169,8 +169,8 @@ export class GridComponent implements OnInit, OnChanges {
   searchGrid(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
-    console.log(this.search);
-    console.log(this.rowData);
+    // console.log(this.search);
+    // console.log(this.rowData);
   }
 
   searchFilingValidation(event) {

@@ -34,7 +34,7 @@ describe('AdministrationComponent', () => {
 
   it('should navigate to admin dashboard page', () => {
     component.routeAdminRR()
-    expect(router.navigate).toHaveBeenCalledWith(['/admin-rr-dashboard']);
+    expect(router.navigate).toHaveBeenCalledWith(['/admin-dashboard']);
   })
 
 });
