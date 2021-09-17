@@ -61,7 +61,7 @@ export class UserRolesComponent implements OnInit {
       setTimeout(() => {
         this.showToastAfterRolesUpdate = !this.showToastAfterRolesUpdate;
       }, 5000);
-      this.selectedPermission[roleName]['moduleFeatureIds'] = [];
+      // this.selectedPermission[roleName]['moduleFeatureIds'] = [];
     });
   }
 
