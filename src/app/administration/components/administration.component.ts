@@ -21,14 +21,14 @@ is_Tax_Reporting = IS_SURE_FOOT;
 
   routeAdminRR(){
     this.service.module = 'Regulatory Reporting';
-    this.router.navigate(['/admin-rr-dashboard']);
+    this.router.navigate(['/admin-dashboard']);
   }
 
 
   routeAdmin(module) {
     //should use this generic method for future modules
     this.service.setCurrentModule = module;
-    this.router.navigate(['/admin-rr-dashboard']);
+    this.router.navigate(['/admin-dashboard']);
   }
 
  
