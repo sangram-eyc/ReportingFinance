@@ -46,6 +46,8 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
+  @ViewChild('commentTemplate')
+  commentTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -187,12 +189,15 @@ export class RegulatoryReportingFilingComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
         headerName: 'Comments',
         field: 'comments',
         sortable: true,
         filter: true,
         minWidth: 140,
-        cellClass: 'custom_comments'
+        cellRendererParams: {
+            ngTemplate: this.commentTemplate,
+          }
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

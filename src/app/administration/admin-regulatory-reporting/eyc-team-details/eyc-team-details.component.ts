@@ -1,15 +1,16 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { environment } from './../../../../environments/environment';
-import {IS_TEAM_DETAILS_EDITABLE,customComparator} from '../../../services/settings-helpers';
+import { IS_TEAM_DETAILS_EDITABLE, customComparator } from '../../../services/settings-helpers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {TeamsService} from '../services/teams.service';
+import { TeamsService } from '../services/teams.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
+import { AdministrationService } from '@default/administration/services/administration.service';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -19,13 +20,17 @@ export class EycTeamDetailsComponent implements OnInit {
 
 
   constructor(private location: Location,
-              private teamService: TeamsService,
-              private activatedRoute: ActivatedRoute,
-              private userService: UsersService,
-              private dialog: MatDialog,
-              private formBuilder: FormBuilder) {
-                this.editTeamForm = this._updateTeam();
-               }
+    private teamService: TeamsService,
+    private adminService: AdministrationService,
+    private activatedRoute: ActivatedRoute,
+    private userService: UsersService,
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder) {
+    this.editTeamForm = this._updateTeam();
+    const module = adminService.getCurrentModule;
+    this.module = module.moduleName;
+    this.moduleId = module.moduleId; 
+  }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -41,23 +46,13 @@ export class EycTeamDetailsComponent implements OnInit {
   teamResp: any[] = [];
   teamsData;
   is_editable = IS_TEAM_DETAILS_EDITABLE;
-  roleList =  [
-        {
-            role: 1,
-            roleName: 'L1 Reviewer'
-        },
-        {
-            role: 2,
-            roleName: 'L2 Reviewer',
-        }
-
-    ];
+  roleList = [];
   columnDefs;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   tabIn;
   gridApi;
-  teamsMemberData;
+  teamsMemberData: any[] = [];
   displayCheckBox = true;
   showToastAfterDeleteTeams = false;
 
@@ -68,20 +63,29 @@ export class EycTeamDetailsComponent implements OnInit {
   allUsers = []
   multiSelectValues = [];
   presentRole;
+  module;
+  moduleId;
 
 
   ngOnInit(): void {
+    if (this.teamService.getTeamDetailsData) {
+      this.teamInfo = this.teamService.getTeamDetailsData;
+    } else {
+      this.location.back();
+    }
+
     this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
+      this.getTeamDetailsData();
     });
     this.tabIn = 1;
-    this.getTeamsData();
-    this.getTeamMemberDetails();
-    // this.getUsersList();
+    this.teamService.getRoles(this.module).subscribe(resp => {
+      this.roleList = resp['data'];
+    })
     this.addTeamMemberForm = this._createTeamMembers();
   }
 
-  private _createTeamMembers () {
+  private _createTeamMembers() {
     return this.formBuilder.group({
       members: ['', [Validators.required]],
     });
@@ -98,50 +102,35 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   getUsersList() {
-    if(this.isLocal) {
-      this.userService.getUsersList().subscribe(resp => {
-        this.allUsers = resp.data
-        this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
-      });
-    }
-  }
 
-  getTeamsData() {
-
-    // Below code will inly work,if it is a local environment reading data from json
-      if (this.isLocal){
-      this.teamService.getTeamsDetailsList().subscribe(resp => {
-          this.teamResp.push(resp);
-          this.teamResp[0].data.forEach((item) => {
-          this.teamsListArr.push(item);
-        });
-          this.teamInfo =  this.teamsListArr.filter(task => task.teamId == this.curentTeamId)[0];
-          this.teamsListArr.splice( this.teamsListArr.findIndex(item => item.teamName === this.teamInfo.teamName),1);
-          this.presentRole = this.teamInfo.role === 'L1 Reviewer' ? this.presentRole = 1 : this.presentRole = 2;
-          if (this.teamInfo)
-        {
-          this.editTeamForm.patchValue({
-            teamName: this.teamInfo.teamName.trim(),
-            role: this.presentRole,
-            description: this.teamInfo.description.trim()
-            });
-        }
-
-      });
-    }
+    this.userService.getUsersList().subscribe(resp => {
+      this.allUsers = resp.data
+      this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
+    });
 
   }
 
-  getTeamMemberDetails() {
-    // Below code will inly work,if it is a local environment reading data from json
-    if (this.isLocal) {
-      this.teamService.getTeamMemberList().subscribe(resp => {
-        this.getUsersList();
-        this.teamsMemberData = resp.data;
+  getTeamDetailsData() {
+    this.teamService.getTeamsDetails(this.curentTeamId).subscribe(resp => {
+      this.editTeamForm.patchValue({
+        teamName: this.teamInfo.teamName.trim(),
+        role: this.teamInfo.role.trim(),
+        teamDescription: this.teamInfo.teamDescription.trim()
       });
-      this. createTeamsRowData();
-    }
+      this.getUsersList();
+      this.teamsMemberData = [];
+      resp['data'].teamMembers.forEach((element, i) => {
+        this.teamsMemberData.push({
+          userId: element.userId,
+          userEmail: element.userEmail,
+          memberName: element.userFirstName + ' ' + element.userLastName
+        })
+      });
+
+      this.createTeamsRowData();
+    });
   }
+
 
   editAct($event) {
     return {
@@ -160,19 +149,19 @@ export class EycTeamDetailsComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 370,
-        sort:'asc',
+        sort: 'asc',
         comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Email',
-        field: 'memberEmail',
+        field: 'userEmail',
         sortable: true,
         filter: false,
         wrapText: true,
         autoHeight: true,
         width: 370,
-        sort:'asc',
+        sort: 'asc',
         comparator: customComparator
       },
       {
@@ -181,70 +170,81 @@ export class EycTeamDetailsComponent implements OnInit {
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: this.editAct.bind(this),
         headerName: 'Actions',
-        field: 'Actions',
+        field: 'userId',
         sortable: false,
         filter: false,
       }
     ];
 
-}
-
-adminTabChange(selectedTab){
-  this.tabIn = selectedTab;
-}
-
-private _updateTeam() {
-  return this.formBuilder.group({
-    teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
-    role: ['', [Validators.required]],
-    description: ['', Validators.maxLength(250)],
-  });
-}
-
-public noWhitespaceValidator(control: FormControl) {
-  if (control.value.length === 0) {
-    return false;
-  } else {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
   }
-}
+
+  adminTabChange(selectedTab) {
+    this.tabIn = selectedTab;
+  }
+
+  private _updateTeam() {
+    return this.formBuilder.group({
+      teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
+      role: ['', [Validators.required]],
+      teamDescription: ['', Validators.maxLength(250)],
+    });
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    if (control.value.length === 0) {
+      return false;
+    } else {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    }
+  }
 
 
 
-onSubmitEditTeamForm(form: FormGroup) {
-  const obj = this.editTeamForm.getRawValue();
-  if (this.editTeamForm.valid) {
-    this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
+  onSubmitEditTeamForm(form: FormGroup) {
+    const obj = this.editTeamForm.getRawValue();
+    if (this.editTeamForm.valid) {
+      this.enableEditor = !this.enableEditor;
+      this.disableAddMemberButton = !this.disableAddMemberButton;
+      const team = {
+        "teamName": obj.teamName,
+        "roleName": obj.role,
+        "teamDescription": obj.teamDescription,
+        "moduleId": this.moduleId,
+        "teamId": this.curentTeamId
+      }
+      this.teamInfo = [];
+      this.teamService.EditTeam(team).subscribe(resp => {
+        this.teamInfo = resp['data'];
+        this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
+        setTimeout(() => {
+          this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
+        }, 5000);
+      });
+    }
+  }
+
+  teamDuplicateCheck(event) {
+    let teamDupcheck = this.teamsListArr.findIndex(item => item.teamName === event);
+    if (teamDupcheck != -1) {
+      this.editTeamForm.controls['teamName'].setErrors({ 'teamDuplicate': true });
+    }
+  }
+
+  cancelForm() {
+    this.showToastAfterEditTeam = false;
+    this.editTeamForm.patchValue({
+      teamName: this.teamInfo.teamName.trim(),
+      role: this.teamInfo.role.trim(),
+      teamDescription: this.teamInfo.teamDescription.trim()
+    });
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
-    setTimeout(() => {
-    this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
-    }, 5000);
   }
-}
-
-teamDuplicateCheck(event){
-  let teamDupcheck = this.teamsListArr.findIndex(item => item.teamName === event);
-  if(teamDupcheck != -1) {
-    this.editTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
-  }
-}
-  
-cancelForm() {
-  this.showToastAfterEditTeam = false;
-  this.editTeamForm.patchValue({
-    teamName: this.teamInfo.teamName.trim(),
-    // role: this.presentRole,
-    description: this.teamInfo.description.trim()
-  });
-  this.enableEditor = !this.enableEditor;
-  this.disableAddMemberButton = !this.disableAddMemberButton;
-}
 
 
-  deleteTeamMember(row){
+  deleteTeamMember(row) {
 
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
@@ -264,19 +264,27 @@ cancelForm() {
       console.log('The dialog was closed', result);
       if (result.button == 'Yes') {
 
-      const teamsList = this.teamsMemberData;
+        const deleteTeam = {
+          "teamId": this.curentTeamId,
+          "userId": [row.userId]
+        }
 
-      this.teamsMemberData = [];
-      teamsList.splice(teamsList.findIndex(item => item.teamMemberId === row.teamMemberId), 1);
-      teamsList.forEach(ele => {
-        this.teamsMemberData.push(ele);
-      });
-      this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
+        this.teamService.deleteTeamMember(deleteTeam).subscribe(resp => {
+          const teamsList = this.teamsMemberData;
+          this.teamsMemberData = [];
+          teamsList.splice(teamsList.findIndex(item => item.userId === row.userId), 1);
+          teamsList.forEach(ele => {
+            this.teamsMemberData.push(ele);
+          });
+          this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
 
-      this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
-      setTimeout(() => {
           this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
-        }, 5000);
+          setTimeout(() => {
+            this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+          }, 5000);
+
+        });
+
       }
     });
   }
@@ -288,31 +296,27 @@ cancelForm() {
   onSubmitNewTeamMembers() {
     const obj = this.addTeamMemberForm.getRawValue();
     this.addTeamMemberModal = false
-    // below code will change after api integration
     const teamMembersToAdd = {
-      "members": obj.members,
+      "teamId": Number(this.curentTeamId),
+      "userId": obj.members
     }
-    const teamsList = this.teamsMemberData;
-    this.teamsMemberData = [];
-    teamsList.forEach(ele => {
-      this.teamsMemberData.push(ele);
-    });
-    console.log('TEAM MEMBERS TO ADD', teamMembersToAdd);
-    teamMembersToAdd.members.forEach((element, i) => {
-      this.teamsMemberData.push({
-        teamMemberId: this.teamsMemberData.length + i,
-        memberEmail: element.userEmail,
-        memberName: element.userFirstName + ' ' + element.userLastName
-      })
-    });
-    this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail ===item2.memberEmail));
-    this.addTeamMemberForm.reset();
-    // this.addTeamMemberForm = this._createTeamMembers();
-    console.log('AFTER FORM RESET', this.addTeamMemberForm);
-    this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
-    setTimeout(() => {
+    this.teamService.addTeamMemebr(teamMembersToAdd).subscribe(resp => {
+      this.teamsMemberData = [];
+      resp['data'].forEach((element, i) => {
+        this.teamsMemberData.push({
+          userId: element.userId,
+          userEmail: element.userEmail,
+          memberName: element.userFirstName + ' ' + element.userLastName
+        })
+      });
+      this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
+      this.addTeamMemberForm.reset();
+      console.log('AFTER FORM RESET', this.addTeamMemberForm);
       this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
-    }, 5000);
+      setTimeout(() => {
+        this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
+      }, 5000);
+    });
   }
 
   closeTeamMemberModal() {
@@ -336,12 +340,12 @@ cancelForm() {
 
   logEvent(event: any, type: string, model: any) {
     console.log(
-        `Select Component Type: ${type}`,
-        ' | $event output: ',
-        event,
-        ' | model value: ',
-        model
+      `Select Component Type: ${type}`,
+      ' | $event output: ',
+      event,
+      ' | model value: ',
+      model
     );
-}
+  }
 
 }

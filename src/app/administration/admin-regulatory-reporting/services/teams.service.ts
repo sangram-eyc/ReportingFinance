@@ -5,19 +5,47 @@ import { userAdminstration } from '../../../helper/api-config-helper';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class TeamsService {
+
+  TeamsData: any;
 
   constructor(private apiService: ApiService) { }
 
-  getTeamsList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}`);
+  set setTeamDetailsData(data) {
+    this.TeamsData = data;
   }
 
-  getTeamsDetailsList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}`);
+  get getTeamDetailsData() {
+    return this.TeamsData;
+  }
+  
+  getTeamsList(moduleName) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}?module=`+moduleName);
   }
 
-  getTeamMemberList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_member_list}`);
+  getTeamsDetails(teamId) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_Details}`+teamId);
+  }
+
+  getRoles(moduleName) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.roles}`+moduleName);
+  }
+
+  addTeam(teamData) {
+    return this.apiService.invokePostAPI(`${userAdminstration.teams.add_team}`,teamData);
+  }
+  deleteTeam(teamId) {
+    return this.apiService.invokeDeleteAPI(`${userAdminstration.teams.delete_team}`+teamId);
+  }
+  addTeamMemebr(teamMemberData) {
+    return this.apiService.invokePostAPI(`${userAdminstration.teams.addTeamMemeber}`,teamMemberData);
+  }
+  deleteTeamMember(memberData) {
+    return this.apiService.invokePostAPI(`${userAdminstration.teams.deleteTeamMemeber}`, memberData);
+  }
+  EditTeam(teamData) {
+    return this.apiService.invokePostAPI(`${userAdminstration.teams.teamUpdate}`,teamData);
   }
 }

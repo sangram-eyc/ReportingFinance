@@ -10,7 +10,6 @@ export class LoaderInterceptor implements HttpInterceptor {
     private count = 0;
     constructor(public loaderService: LoaderService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(req);
         if (this.count === 0) {
             this.loaderService.show();
         }

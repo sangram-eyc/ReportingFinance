@@ -4,7 +4,7 @@
   </div>
   <div class="modal-body">
     <ng-container>
-      <h3>Error: {{statusCode}} - {{statusText}}</h3>
+      <h3>Error Code: {{errorCode}} </h3>
       <p> {{errorMessage}} </p>
       <ul>
           <li *ngFor="let error of errorList; let i=index;">{{i + 1}}.) {{error}}</li>

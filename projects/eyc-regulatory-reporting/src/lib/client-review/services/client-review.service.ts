@@ -12,8 +12,8 @@ export class ClientReviewService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getExceptionReports(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}&filingName=${filingName}&period=${period}`);
+  getExceptionReports(filingName, period, stage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}&filingName=${filingName}&period=${period}&stage=${stage}`);
     // After backend API up will remove above line and uncomment below line
   }
   
@@ -25,6 +25,10 @@ export class ClientReviewService {
 
   approvefilingEntities(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_client_review_filing_entities}`, data);
+  }
+
+  approveAnswerExceptions(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_answer_exceptions}`, data);
   }
 
   getComments(type, id) {

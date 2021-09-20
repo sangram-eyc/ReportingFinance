@@ -251,6 +251,15 @@
   margin-bottom: 12px;
   padding: 0px 5px;
 }
+.comments-background {
+  background-color: black;
+  color: white !important;
+  border-radius: 50px;
+  padding: 0px 17px !important;
+  height: 37px;
+  margin-top: 4px;
+  margin-right: 10px;
+}
 
 @media screen and (min-width: 300px) {
   .each-card {

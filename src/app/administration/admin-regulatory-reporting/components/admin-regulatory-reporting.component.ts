@@ -7,6 +7,7 @@ import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { customComparator } from 'eyc-ui-shared-component';
+import { AdministrationService } from '@default/administration/services/administration.service';
 
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 @Component({
@@ -27,16 +28,24 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   
   addTeamModal = false;
   addTeamForm: FormGroup;
-  roles = ['L1 Reviewer', 'L2 Reviewer', 'L3 Reviewer']
+  roles = []
   assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
   showToastAfterAddTeam = false;
   is_Tax_Reporting = IS_SURE_FOOT;
+  moduleName;
+  moduleId;
   constructor(
     private teamsService: TeamsService,
+    private adminService: AdministrationService,
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder
-  ) { }
+  ) {
+    const module = adminService.getCurrentModule;
+    this.moduleName = module.moduleName;
+    this.moduleId = module.moduleId; 
+    console.log('Current Module: ', module);
+  }
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
@@ -50,6 +59,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     }
    
     this.getTeamList();
+    this.teamsService.getRoles(this.moduleName).subscribe(resp => {
+      this.roles = resp['data'];
+    })
 
     this.addTeamForm = this._createTeam()
   }
@@ -80,7 +92,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   }
 
   getTeamList() {
-    this.teamsService.getTeamsList().subscribe(resp => {
+    this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
     this.createTeamsRowData();
@@ -117,7 +129,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Assignments',
-        field: 'assignments',
+        field: 'numberOfAssignments',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -128,7 +140,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Members',
-        field: 'members',
+        field: 'numberOfTeamMembers',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -168,24 +180,24 @@ deleteTeams(row){
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed', result);
     if(result.button == 'Yes') {
-
-    const teamsList = this.teamsData;
-    this.teamsData = [];
-    teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId),1);
-    teamsList.forEach(ele => {
-      this.teamsData.push(ele);
-    });
-    
+    this.teamsService.deleteTeam(row.teamId).subscribe(resp => {
+      const teamsList = this.teamsData;
+      this.teamsData = [];
+      teamsList.splice(teamsList.findIndex(item => item.teamId === row.teamId),1);
+      teamsList.forEach(ele => {
+        this.teamsData.push(ele);
+      });
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
         this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
-      }, 5000);
+      }, 5000);  });
     }
   });
 
   
 }
 editTeams(row) {
+  this.teamsService.setTeamDetailsData = row;
   this.router.navigate(['/team-details/' + row.teamId]);
 }
 
@@ -197,32 +209,32 @@ editTeams(row) {
     const obj = this.addTeamForm.getRawValue();
     this.addTeamModal = false
     // below code will change after api integration
-    const team = {
-      "teamId": this.teamsData.length + 1,
-      "teamName": obj.teamName,
-      "role": obj.role,
-      "assignments": obj.assignments.length,
-      "members": 2
-    }
-    const addedTeam = {
-      teamName:obj.teamName,
-      role: obj.role,
-      assignments: obj.assignments,
-      description: escape(obj.description)
-    }
-    console.log(addedTeam);
     
-    const teamsList = this.teamsData;
-    this.teamsData = [];
-    teamsList.push(team);
-    teamsList.forEach(ele => {
-      this.teamsData.push(ele);
-    });
-    this.addTeamForm.reset();
+    const team = {
+      "teamName": obj.teamName,
+      "roleName": obj.role,
+      "teamDescription": obj.description,
+      "moduleName": this.moduleName,
+      "assignments": obj.assignments
+    }
+    
+    this.teamsService.addTeam(team).subscribe(resp => {
+      const teamsList = this.teamsData;
+      this.teamsData = [];
+      teamsList.push(resp['data']);
+      teamsList.forEach(ele => {
+        this.teamsData.push(ele);
+      });
+
+      this.addTeamForm.reset();
     this.showToastAfterAddTeam = !this.showToastAfterAddTeam;
     setTimeout(() => {
       this.showToastAfterAddTeam = !this.showToastAfterAddTeam;
     }, 5000);
+      
+    });
+
+    
 
   }
 
@@ -243,12 +255,14 @@ ngOnDestroy() {
 }
 
 public noWhitespaceValidator(control: FormControl) {
-  if (control.value.length === 0) {
-    return false;
-  } else {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
+  if(control.value) {
+    if (control.value.length === 0) {
+      return false;
+    } else {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    }
   }
 }
 }

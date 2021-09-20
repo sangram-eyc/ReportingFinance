@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'administration', component: AdministrationComponent, canActivate : [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'eyComply', component: LoginComponent},
-  {path: 'admin-rr-dashboard', component: AdminRegulatoryReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'admin-dashboard', component: AdminRegulatoryReportingComponent, canActivate : [AuthGuardService]},
   {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},

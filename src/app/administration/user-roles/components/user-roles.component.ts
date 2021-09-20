@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdministrationService } from '@default/administration/services/administration.service';
 import { UserRolesService } from '../services/user-roles.service';
 
 @Component({
@@ -15,10 +16,16 @@ export class UserRolesComponent implements OnInit {
   selectedPermission: any = {};
   isValidPermission = 0;
   showToastAfterRolesUpdate = false;
-  moduleName = "Regulatory Reporting";
+  moduleName;
+  moduleId;
   constructor(
-    private service: UserRolesService
-  ) { }
+    private service: UserRolesService,
+    private adminService: AdministrationService,
+  ) { 
+    const module = adminService.getCurrentModule;
+    this.moduleName = module.moduleName;
+    this.moduleId = module.moduleId; 
+  }
 
   ngOnInit(): void {
     this.getRolesList();
@@ -27,11 +34,11 @@ export class UserRolesComponent implements OnInit {
   getRolesList() {
     this.service.getRolesList(this.moduleName).subscribe(res => {
       this.roles = res['data'];
-      const moduleId = 2;
+      console.log(this.roles);
       for (const property in res['data'].roleModuleFeatures) {
         this.selectedPermission[property] = {
           "moduleFeatureIds": [],
-          "moduleId": moduleId,
+          "moduleId": this.moduleId,
           "roleName": property
         }
       }
@@ -39,7 +46,7 @@ export class UserRolesComponent implements OnInit {
   }
 
   onChangePermission(event, permission, rolename) {
-    if (this.selectedPermission.hasOwnProperty(rolename) && (this.isValidPermission !== 0)) {
+    if (this.selectedPermission.hasOwnProperty(rolename)) {
       if (this.selectedPermission[rolename]['moduleFeatureIds'].includes(permission.moduleFeatureId)) {
         this.selectedPermission[rolename]['moduleFeatureIds'].splice(this.selectedPermission[rolename]['moduleFeatureIds'].findIndex(item => item === permission.moduleFeatureId), 1);
       } else {
@@ -54,7 +61,7 @@ export class UserRolesComponent implements OnInit {
       setTimeout(() => {
         this.showToastAfterRolesUpdate = !this.showToastAfterRolesUpdate;
       }, 5000);
-      this.selectedPermission[roleName]['moduleFeatureIds'] = [];
+      // this.selectedPermission[roleName]['moduleFeatureIds'] = [];
     });
   }
 

@@ -1,7 +1,10 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs"></lib-reporting-tabs-card>
+<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [dataExpPermission]="permissions.validatePermission('Reporting', 'Data Explorer')"></lib-reporting-tabs-card>
 <div class="reporting-content-container">
 
+<motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+</motif-toast>
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid 
@@ -15,16 +18,17 @@
             [masterDetail]="true"
             [isToggle]= "true"
             [modalConfig]="exceptionModalConfig"
+            [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             (toggleEventToParent) = "onClickMyTask($event)"
         ></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('reporting', 'addComments')" class="comments-background" (click)="openComments(row)">
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('Reporting', 'View Comments')" class="comments-background" (click)="openComments(row)">
                 {{row.comments}}
             </div>
            
-            <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('reporting', 'addComments')">
+            <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('Reporting', 'Add Comments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -59,8 +63,8 @@
         ></lib-shared-grid> -->
         <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" [modalMessage]="modalMessage" buttonPosition="left"></lib-grid> -->
         <div class="approve-button">
-            <button motifButton color="primary" size="large" (click)="approveFilingEntitiesModal = true;"
-                [disabled]="selectedRows.length==0 || permissions.validatePermission('reporting', 'approval')">Approve selected</button>
+            <button *ngIf="permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')" motifButton color="primary" size="large" (click)="approveFilingEntitiesModal = true;"
+                [disabled]="selectedRows.length==0">Approve selected</button>
         </div>
         <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
             headerCheckboxSelection: isFirstColumn,
@@ -101,10 +105,10 @@
         </ng-template>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.commentsCount!==0" class="comments-background" (click)="openComments(row)">
+            <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Reporting', 'View Comments')" class="comments-background" (click)="openComments(row)">
                 {{row.commentsCount}}
             </div>
-            <div class="commentTemplate" *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('reporting', 'addComments')">
+            <div class="commentTemplate" *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Reporting', 'Add Comments')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -113,5 +117,5 @@
     </section>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Reporting', 'Add Comments')" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 
