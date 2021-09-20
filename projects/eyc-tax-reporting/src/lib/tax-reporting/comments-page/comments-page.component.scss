@@ -486,4 +486,25 @@
     flex-direction: row;
     cursor: pointer;
   }
+
+  .btn-width-auto{
+    width: auto;
+  }
+
+  .pointer-link{
+    cursor: pointer;
+  }
+
+  .add-comment-icon{
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .msg-new-comment{
+    font-family: EYInterstate;
+    color: #747580;
+  }
   
