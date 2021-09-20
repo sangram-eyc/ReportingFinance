@@ -3,9 +3,10 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { Location } from '@angular/common';
 import { ProductionCycleService } from '../services/production-cycle.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorModalComponent} from 'eyc-ui-shared-component';
+
 
 @Component({
   selector: 'cycle-details',
@@ -18,7 +19,8 @@ export class CycleDetailComponent implements OnInit {
     private productcyclesService: ProductionCycleService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router:Router
   ) {}
 
    pageName:string = 'Cycle Details';
@@ -115,9 +117,9 @@ export class CycleDetailComponent implements OnInit {
      });
   }
 
-  createComment(){
-    console.log("task-comment-page")
-    // this.router.navigate(['cycle-details',row.id,row.name]);
+  createComment(row){
+    console.log("Comments-Landing")
+    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName]);
   }
 
    getCompletedProductCyclesData(id:any) {

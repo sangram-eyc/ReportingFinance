@@ -10,6 +10,7 @@ import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.component';
 import { CycleDetailComponent } from './tax-reporting/cycle-details/cycle-details.component';
+import { CommentsPagecomponent } from './tax-reporting/comments-page/comments-page.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CycleDetailComponent } from './tax-reporting/cycle-details/cycle-detail
     TaxReportingComponent,
     CycleDetailComponent,
     TaxCardComponent,
-    TableHeaderRendererComponent
+    TableHeaderRendererComponent,
+    CommentsPagecomponent
   ],
   exports: [TaxReportingComponent]
 })
