@@ -58,7 +58,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve these exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve these exception reports?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -314,7 +314,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     if(this.tabs == 2){
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve these exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve these exception reports?';
       this.getExceptionReports();
     }
   }
