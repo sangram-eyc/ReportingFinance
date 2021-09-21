@@ -1,0 +1,56 @@
+<div *ngIf="showModal">
+    <div class="modal-header">
+        <h3 class="modal-title" [innerHTML]="modalDetails.header | noSanitize"></h3>
+        <button type="button" class="close" (click)="close()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <ng-container>
+            <div class="description-text" [innerHTML]="modalDetails.description | noSanitize"></div>
+            <!-- {{modalDetails.description}} -->
+        </ng-container>
+        <div *ngIf="ConfirmationTextUpload">
+    
+    
+    
+            <form [formGroup]="modalForm">
+                <motif-form-field *ngIf="modalDetails.forms?.isSelect">
+                    <label motifLabel class="select-label">{{modalDetails.forms.selectDetails.label}}</label>
+                    <motif-select aria-label="Please select an option" formControlName="assignTo">
+                        <motif-option *ngFor="let item of modalDetails.forms.selectDetails.data;index as i;"
+                            [value]="item.id">{{item.name}}</motif-option>
+                    </motif-select>
+                </motif-form-field>
+    
+                <motif-form-field>
+                    <label motifLabel>{{modalDetails.forms.textareaDetails.label}}</label>
+                    <textarea motifInput class="motif-textarea" formControlName="comment"></textarea>
+                </motif-form-field>
+                <motif-error *ngIf="
+            modalForm.get('comment').hasError('required') &&
+            modalForm.get('comment').touched">{{modalDetails.forms.textareaDetails.validationMessage}}</motif-error>
+                <motif-error *ngIf="
+            modalForm.get('comment').hasError('maxlength')">Comment can be max 250
+                    characters long
+                </motif-error>
+                <motif-error *ngIf="modalForm.get('comment').hasError('whitespace') &&
+                modalForm.get('comment').touched">Please enter valid data</motif-error>
+                <lib-upload (uploadedFilesEmitter)="uploadedFiles($event)"></lib-upload>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal-footer {{modalDetails.footer.style}}">
+        <button *ngIf="!ConfirmationTextUpload" motifButton class="approve-yes" color="primary"
+            (click)="onClickYes()">{{modalDetails.footer.YesButton}}</button>
+    
+        <button *ngIf="ConfirmationTextUpload" motifButton class="approve-yes" color="primary" (click)="onClickYes()"
+            [disabled]="modalForm.invalid">{{modalDetails.footer.YesButton}}</button>
+    
+        <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>
+    </div>
+    </div>
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+        {{toastSuccessMessage}} 
+        <button type="button" class="close" (click)="closeToast()">&times;</button>
+    </motif-toast>
+    
