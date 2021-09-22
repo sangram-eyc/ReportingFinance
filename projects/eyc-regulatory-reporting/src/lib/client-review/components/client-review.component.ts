@@ -145,7 +145,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
-        {
+        /* {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
           field: 'entityGroup',
@@ -153,7 +153,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           sort:'asc',
           comparator: customComparator
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Name',
@@ -174,7 +174,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-        {
+       /*  {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
@@ -188,7 +188,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 140
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -252,7 +252,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-        {
+       /*  {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
@@ -269,7 +269,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           field: 'mytask',
           sortable: true,
           filter: true,
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,

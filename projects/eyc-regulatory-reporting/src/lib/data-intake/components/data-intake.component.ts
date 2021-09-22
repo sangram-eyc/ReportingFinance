@@ -215,7 +215,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 250,
         sort: 'asc',
         comparator: customComparator
-      },
+      }/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -227,7 +227,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150
-      },
+      } */,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -247,14 +247,14 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 200,
-      },
+      }/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Review Level',
         field: 'reviewLevel',
         sortable: true,
         filter: true,
-      },
+      }, */
 
     ];
 
@@ -318,7 +318,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 150,
         sort: 'asc',
         comparator: customComparator
-      },
+      }/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -330,7 +330,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150
-      },
+      } */,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -343,21 +343,21 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         filter: true,
         width: 150,
       },
-      {
+     /* {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
         field: 'exceptions',
         sortable: true,
         filter: true,
         width: 150,
-      },
+      } ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Review Level',
         field: 'reviewLevel',
         sortable: true,
         filter: true,
-      },
+      } */,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Version',
