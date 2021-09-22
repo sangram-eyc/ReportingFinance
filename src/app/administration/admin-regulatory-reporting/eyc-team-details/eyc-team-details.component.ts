@@ -69,7 +69,12 @@ export class EycTeamDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
-      this.teamInfo = this.teamService.getTeamDetailsData;
+      const teamInfoObj = this.teamService.getTeamDetailsData;
+      this.teamInfo = {
+        "teamName": teamInfoObj.teamName,
+        "teamDescription": unescape(teamInfoObj.teamDescription),
+        "role": teamInfoObj.role
+      }
     } else {
       this.location.back();
     }
@@ -210,13 +215,19 @@ export class EycTeamDetailsComponent implements OnInit {
       const team = {
         "teamName": obj.teamName,
         "roleName": obj.role,
-        "teamDescription": obj.teamDescription,
+        "teamDescription": escape(obj.teamDescription),
         "moduleId": this.moduleId,
         "teamId": this.curentTeamId
       }
       this.teamInfo = [];
       this.teamService.EditTeam(team).subscribe(resp => {
-        this.teamInfo = resp['data'];
+        // this.teamInfo = resp['data'];
+        const teamInfoObj = resp['data'];
+        this.teamInfo = {
+          "teamName": teamInfoObj.teamName,
+          "teamDescription": unescape(teamInfoObj.teamDescription),
+          "role": teamInfoObj.role
+        }
         this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
         setTimeout(() => {
           this.showToastAfterEditTeam = !this.showToastAfterEditTeam;

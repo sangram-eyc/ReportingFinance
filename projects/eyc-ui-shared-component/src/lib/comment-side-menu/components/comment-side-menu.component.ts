@@ -54,6 +54,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         this.commentsData = resp['data']
         this.formattedTimes = [];
         this.commentsData.forEach(comment => {
+          comment.commentText = unescape(comment.commentText);
           this.formattedTimes.push(this.formatDate(comment.timeStamp));
           console.log(this.formattedTimes);
         });
@@ -144,9 +145,10 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
           this.commentsData = resp['data'];
           this.formattedTimes = [];
           this.commentsData.forEach(comment => {
-          this.formattedTimes.push(this.formatDate(comment.timeStamp));
-          console.log(this.formattedTimes);
-        });
+            comment.commentText = unescape(comment.commentText);
+            this.formattedTimes.push(this.formatDate(comment.timeStamp));
+            console.log(this.formattedTimes);
+          });
         });
         // this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
         // this.createEntitiesRowData();

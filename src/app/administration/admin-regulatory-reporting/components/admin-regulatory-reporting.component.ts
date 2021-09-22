@@ -213,7 +213,7 @@ editTeams(row) {
     const team = {
       "teamName": obj.teamName,
       "roleName": obj.role,
-      "teamDescription": obj.description,
+      "teamDescription": escape(obj.description),
       "moduleName": this.moduleName,
       "assignments": obj.assignments
     }

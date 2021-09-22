@@ -63,7 +63,7 @@ export class ModalComponent implements OnInit {
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
       const commentObj = {
-        "comment": this.modalForm.get('comment').value,
+        "comment": escape(this.modalForm.get('comment').value),
         "entityId": this.modalDetails.entityId,
         "entityType": this.modalDetails.entityType,
       };
