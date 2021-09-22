@@ -113,7 +113,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
               }
               self.setFilter(self.filters);
             });
-          self.report.applyTheme({theme:powerbiTheme});
+          self.report.applyTheme({themeJson:powerbiTheme});
 
         });
       }, error => {
