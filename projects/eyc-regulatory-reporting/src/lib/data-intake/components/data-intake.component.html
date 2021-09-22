@@ -65,12 +65,20 @@
     </section>
 
     <section id="dataset" [hidden]="!(tabs==2)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
             [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')"
             [permissionToSecondaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')">
+        </lib-shared-grid> -->
+
+        <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
+            [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
+            [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
+            (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
+            [permissionToPrimaryButton]="false"
+            [permissionToSecondaryButton]="false">
         </lib-shared-grid>
 
         <ng-template #datasetsDropdownTemplate let-row>

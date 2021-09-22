@@ -141,7 +141,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
-        {
+        /* {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
           field: 'entityGroup',
@@ -149,7 +149,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           filter: true,
           sort:'asc',
          comparator: customComparator
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Name',
@@ -169,7 +169,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 210,
-        },
+        }/* ,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
@@ -184,7 +184,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 140
-        },
+        } */,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -251,7 +251,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-        {
+        /* {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
@@ -268,7 +268,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'mytask',
           sortable: true,
           filter: true,
-        },
+        } */,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,

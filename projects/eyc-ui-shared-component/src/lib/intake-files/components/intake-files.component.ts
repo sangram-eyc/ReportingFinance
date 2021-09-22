@@ -96,7 +96,7 @@ export class IntakeFilesComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true
-      },
+      }/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -137,7 +137,7 @@ export class IntakeFilesComponent implements OnInit {
           ngTemplate: this.viewDetTemplate,
         },
         width: 50
-      }
+      } */
     ];
   }
 
