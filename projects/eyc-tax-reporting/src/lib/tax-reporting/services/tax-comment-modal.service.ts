@@ -35,4 +35,5 @@ export class TaxCommentModalService {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
     }  
   }
+
 }
