@@ -138,6 +138,7 @@ setToken = (value) => {
       //An Http Get to my API to get the available authdetails
       // if (!sessionStorage.getItem(SESSION_ID_TOKEN)) {
         const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
           'X-Correlation-ID': uuid()
           })
       this.http.get(`${authorization.auth_Details}`, {headers: headers}).subscribe(res => {
