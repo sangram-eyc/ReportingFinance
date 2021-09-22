@@ -29,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     console.log('url : ' + urlString);
                     request = request.clone({
                         headers: new HttpHeaders({
-                            
+                            'X-Correlation-ID': uuid()
                             //    Authorization: `Bearer ${currentUserToken}`
                             
                         }),
