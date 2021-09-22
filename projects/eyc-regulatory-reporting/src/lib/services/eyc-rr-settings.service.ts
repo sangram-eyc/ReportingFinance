@@ -36,6 +36,7 @@ export class EycRrSettingsService {
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
       rr_comments: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
       view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionResults?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
+      view_exception_report_results: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
       complete_filing: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/',
     }
 

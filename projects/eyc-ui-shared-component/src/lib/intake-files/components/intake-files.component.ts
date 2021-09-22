@@ -35,8 +35,6 @@ export class IntakeFilesComponent implements OnInit {
   unresolveTemplate: TemplateRef<any>;
   @ViewChild('resolveTemplate')
   resolveTemplate: TemplateRef<any>;
-  @ViewChild('viewDetTemplate')
-  viewDetTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
   }

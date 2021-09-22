@@ -4,6 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { ModalComponent , customComparator} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'lib-exception-report',
@@ -36,9 +37,14 @@ export class ExceptionReportComponent implements OnInit {
   resolveExceptionTemplate: TemplateRef<any>;
   @ViewChild('resultTemplate')
   resultTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
 
   constructor(
     private service: ProcessingExceptionService,
+    private router: Router,
     public dialog: MatDialog
   ) { }
 
@@ -98,6 +104,10 @@ export class ExceptionReportComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.expandExceptionTemplate,
+        },
         headerName: 'File',
         field: 'exceptionFile',
         sortable: true,
@@ -191,7 +201,14 @@ export class ExceptionReportComponent implements OnInit {
         sort: 'asc',
         comparator: customComparator
       },
-
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
+      } 
     ];
   }
 
@@ -249,5 +266,19 @@ export class ExceptionReportComponent implements OnInit {
         console.log(result);
       }
     });
+  }
+
+  routeToExceptionDetailsPage(event:any) {
+    event.exceptionReportName = event.exceptionFile;
+    console.log(event);
+    const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
+      filingName: event.reg_reporting,
+      dueDate: event.exceptionDue,
+      filingId: event.exceptionId,
+      exceptionReportName: event.exceptionFile,
+      parentModule: 'Data Intake',
+      period: null
+    }}};
+    this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
 }

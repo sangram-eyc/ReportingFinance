@@ -24,6 +24,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   exceptionAnswersDefs;
   exceptionAnswersData;
   dataIntakeData;
+  parentModule;
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
@@ -49,6 +50,10 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingId = this.dataIntakeData.filingId;
       this.dueDate = this.dataIntakeData.dueDate;
       this.filingName = this.dataIntakeData.filingName;
+      this.parentModule = this.dataIntakeData.parentModule;
+      if (this.parentModule === 'Regulatory Reporting') {
+        this.period = this.dataIntakeData.period;
+      }
     }
     else if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
@@ -58,11 +63,11 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingId = this.filingService.getFilingData.filingId;
       // console.log(this.filingService.getExceptionData);
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
-
+      this.parentModule = 'Regulatory Reporting'
       sessionStorage.setItem("reportingTab", '1'); 
     }
     if(this.dataIntakeData) {
-      this.getExceptionMock();
+      this.getExceptionResults();
     } else {
       this.getAnswerExceptionReports();
     }
@@ -75,8 +80,8 @@ export class ViewExceptionReportsComponent implements OnInit {
     });
   }
 
-  getExceptionMock() {
-    this.viewService.getExceptionMock().subscribe(res => {
+  getExceptionResults() {
+    this.viewService.getExceptionResults().subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
     });
