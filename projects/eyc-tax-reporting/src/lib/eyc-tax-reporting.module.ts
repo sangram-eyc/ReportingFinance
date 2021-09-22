@@ -6,12 +6,13 @@ import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
 import {EycTaxSettingsService} from './services/eyc-tax-settings.service';
-import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
+import {FlexLayoutModule } from'@angular/flex-layout';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.component';
 import { CycleDetailComponent } from './tax-reporting/cycle-details/cycle-details.component';
 import { CommentsPagecomponent } from './tax-reporting/comments-page/comments-page.component';
 import { TaxCommentModalComponent } from './shared/tax-comment-modal/tax-comment-modal.component';
+import { TaskCommentComponent } from './tax-reporting/task-comment/task-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -46,7 +47,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TaxCardComponent,
     TableHeaderRendererComponent,
     CommentsPagecomponent,
-    TaxCommentModalComponent
+    TaxCommentModalComponent,
+    TaskCommentComponent
   ],
   exports: [TaxReportingComponent]
 })

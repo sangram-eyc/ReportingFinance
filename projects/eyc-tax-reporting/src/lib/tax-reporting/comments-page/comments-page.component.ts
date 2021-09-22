@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TaxCommentModalService } from '../../tax-reporting/services/tax-comment-modal.service';
 
 @Component({
   selector: 'comments-page',
@@ -15,23 +16,53 @@ export class CommentsPagecomponent implements OnInit {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private commentService: TaxCommentModalService
+  ) { }
 
-  pageName:string = 'Comments-Page';
-  fundName; 
+  isData: boolean = false;
+  completedComments: any[] = [];
+  pageName: string = 'Comments-Page';
+  fundName;
   productCycleId;
   productCycleName;
 
   ngOnInit(): void {
+    //Get the production-cycle-details values
     this.activatedRoute.params.subscribe(params => {
       this.fundName = params.name
       this.productCycleId = params.id
       this.productCycleName = params.prodCycleName
     });
+    //Get all the comments related with the selected Production-Cycle and Fund.
+    this.getComments()
   }
 
-  backtoCycleView(){
+  getComments() {
+    this.commentService.getCommentsData().subscribe(resp => {
+      resp['data'].length === 0 ? this.isData = false : this.isData = true;
+      resp['data'].forEach((item) => {
+        const eachitem: any = {
+          id: item.id,
+          entityId: item.entityId,
+          entityType: item.entityType,
+          description: item.description,
+          status: item.status,
+          priority: item.priority,
+          target: item.target,
+          company: item.company,
+          createdBy: item.createdBy,
+          createdDate: item.createdDate,
+          tags: item.tags,
+          replyCount: item.replyCount,
+          attachmentCount: item.attachmentCount
+        };
+        this.completedComments.push(eachitem);
+      })
+    })
+  }
+
+  backtoCycleView() {
     this.location.back();
   }
 
@@ -62,8 +93,8 @@ export class CommentsPagecomponent implements OnInit {
       }
     });
 
-     dialogRef.afterClosed().subscribe(result => {     
-       console.log('The dialog was closed', result);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
       if (result.button === "Submit") {
         const obj = {
           comment: escape(result.data.comment),
@@ -72,8 +103,8 @@ export class CommentsPagecomponent implements OnInit {
         //Refresh comments
         console.log('Obj after closed-->', obj);
       } else {
-        console.log('result afterClosed',result);
+        console.log('result afterClosed', result);
       }
-    }); 
+    });
   }
 }

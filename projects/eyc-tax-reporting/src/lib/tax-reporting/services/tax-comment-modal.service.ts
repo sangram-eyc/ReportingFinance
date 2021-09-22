@@ -26,4 +26,14 @@ export class TaxCommentModalService {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
     }     
   }
+
+  getCommentsData(){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
+    }  
+  }
+
 }

@@ -21,6 +21,7 @@ export class EycTaxSettingsService {
       production_cycles_downloadFile: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles/funds' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductCycleDownloadFile.json',
       add_comment: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       upload: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
+      comments_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json'
     }
 
     return tax_Reporting;
