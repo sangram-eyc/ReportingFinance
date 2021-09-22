@@ -1,0 +1,362 @@
+
+.comment-wrapper {
+
+    .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
+        padding: 0 !important;
+    }
+
+    .task-comment{
+        color: #2E2E38;
+        font-family: EYInterstate;
+        .author{
+            font-size: 16px;
+            line-height: 25px;
+        }
+        .creation-date{
+            font-size: 12px;
+            line-height: 25px;
+        }
+        .description{
+            font-size: 14px;
+            line-height: 22px;
+        }
+    }
+    
+    svg {
+        fill:none;
+        display: block;
+        height: 2.71429rem;
+        width: 2.71429rem; 
+    }
+    .motif-card {
+        // width: 422px;
+        width: 100%;
+        font-family: EYInterstate;
+        border: 1px solid #747480 !important;
+        // padding: 10px;
+        // margin-right: 22px;
+    
+        .motif-card-header {
+            border: none;
+            // display: flex;
+            // justify-content: space-between;
+            // align-items: center;
+            // padding: 28px 20px 18px 23px;
+            padding: 18px 20px 5px 22px;
+            .elli-wrap {
+                // width: 67%;
+            }
+            .report-name {
+                margin: 0;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 18px;
+            }
+            .eli-report-name {
+                margin: 0;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 5px;
+                // width: 62%;
+                /* position: absolute;
+                margin-top: 25px; */
+            }
+            span.report-name.ellipsis {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                width: 140px;
+            }
+            span.report-name.ellipsis-period {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                width: 114px;
+            }
+            .report-date-due {
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                justify-content: flex-end;
+                .motif-icon {
+                    margin-right: 4px;
+                    width: 12px;
+                    cursor: default;
+                    ::ng-deep {
+                        svg {
+                            fill: #6F6F7A;
+                        }
+                      }
+                }
+            }
+        }
+    
+        .motif-card-body {
+            // display: flex;
+            // justify-content: space-between;
+            // padding-top: 0;
+            // padding-left: 23px;
+            // padding-bottom: 25px;
+            padding: 0px 22px 24px 22px;
+            ::ng-deep {
+                &:last-child {
+                    padding: 0px;
+                }
+            }
+            span {
+                padding: 0;
+            }
+            .card-column {
+                display: flex;
+                flex-direction: column;
+                .status-text {
+                    font-weight: 500;
+                    font-size: 11px;
+                }
+            }
+
+            .card-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .comment-column {
+                padding: 0 10px;
+                float: right;
+                .report-comment {
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+                    font-weight: 700;
+                    color: rgba(0, 0, 0, 0.5);
+                    .motif-icon {
+                        padding: 0;
+                        margin-right: 8px;
+                        width: 18px;
+                        ::ng-deep {
+                            svg {
+                                box-sizing: unset;
+                                fill: rgba(0, 0, 0, 0.5);
+                            }
+                        }
+                        .motif-icon-wrap {
+                            padding: 0 !important;
+                        }
+                    }
+                }
+                .blue-comment {
+                    color: #155CB4;
+                    .motif-icon {
+                        ::ng-deep {
+                            svg {
+                                fill: #155CB4;
+                            }
+                        }
+                    }
+                }
+            }
+            .column-header {
+                font-size: 14px;
+                line-height: 20px;
+                color: #747480;
+            }
+            .fund-number {
+                font-weight: 700;
+                font-size: 32px;
+                line-height: 48px;
+            }
+        }
+    
+        .report-card-footer {
+            display: flex;
+            margin-bottom: 22px;
+            padding-left: 8px;
+            padding-right: 22px;
+            align-items: center;
+            .footer-status {
+                border: 1px solid #23232F;
+                border-radius: 16px;
+                padding: 0px 11px;
+                height: 22px;
+                font-family: 'EYInterstateLight';
+                font-weight: 700;
+                font-size: 12px;
+            }
+            .card-button {
+                .motif-button {
+                    width: 66px;
+                    min-height: 31px;
+                    height: 31px;
+                }
+            }
+            svg {
+                fill:darkblue;
+                height: 1.11429rem;
+            }
+        }
+    }
+    
+    
+    
+    .progress-indicator-container {
+        position: relative;
+        max-width: 10rem;
+        ::ng-deep {
+            .motif-steps-container {
+                position: relative;
+                z-index: 2;
+            }
+        }
+        .line {
+            height: 1px;
+            background-color: #C4C4CD;
+            position: absolute;
+            width: 80%;
+            top: 61%;
+            left: 10px;
+            z-index: 0;
+        }
+    }
+    
+    ::ng-deep {
+        .motif-step-container {
+            .step {
+                height: 1px !important;
+                &.in-progress, &.completed, &.not-set {
+                    background-color: #C4C4CD !important;
+                    display: none !important;
+                }
+            }
+            .step-info {
+                .step-dot {
+                    flex-shrink: 0 !important;
+                    &.completed {
+                        background-color: #FFFFFF !important;
+                    }
+                    &.not-set {
+                        border: 1px solid #C4C4CD !important;
+                        background-color: #FFFFFF !important
+                    }
+                    &.in-progress {
+                        // border: 1px solid #34C768 !important;
+                        // background-color: #34C768 !important;
+                    }
+                    .inner {
+                        visibility: hidden !important;
+                    }
+                }
+    
+                svg {
+                    fill: #000000 !important;
+                }
+            }
+            .completed-step-icon {
+                flex-shrink: 0;
+            }
+        }
+    }
+    .only-period-ellipsis {
+        // display: flex;
+    }
+    
+    ::ng-deep {
+        .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
+            // width: 66% !important;
+            // height: 66% !important;
+            // left: 16% !important;
+            // top: 17% !important;
+            // visibility: visible !important;
+            width: 0.63rem !important;
+            height: 0.63rem !important;
+            left: auto !important;
+            top: auto !important;
+            visibility: visible !important;
+            margin: auto;
+            border-radius: 49% !important;
+        }
+        .motif-step-container .step-info .step-dot.in-progress {
+            border: 1px solid #000000 !important;
+            background: #FFFFFF !important;
+        }
+       /*  .motif-tooltip {
+            width: 100% !important;
+        } */
+        .motif-icon.motif-tooltip-close {
+            display: none !important;
+        }
+        .motif-tooltip-trigger {
+            cursor: context-menu !important;
+        }
+        .motif-step-container .step-info .step-dot {
+            height: 1.24rem !important;
+            width: 1.24rem !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        .motif-step-container .completed-step-icon {
+            width: .78571rem !important;
+            height: .78571rem !important;
+            margin-left: -1.02857rem !important;
+            margin-top: .19rem !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        .motif-tooltip .motif-tooltip-inner{
+            padding: .85714rem 1rem .85714rem 1rem !important;
+        }
+        .motif-tooltip.color-default .motif-tooltip-close-button {
+            display: none;
+        }
+    }
+    @media screen and (min-width: 300px) {
+        
+       }
+      @media screen and (min-width: 1000px) {
+       
+      }
+      @media screen and (min-width: 1200px) {
+         span.report-name.ellipsis {
+            width: 200px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 1950px) {
+        span.report-name.ellipsis {
+            width: 241px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 2600px) {
+        
+       }
+      
+       @media screen and (min-width: 2800px) {
+        
+       }   
+    
+       @media screen and (min-width: 850px) and (max-width: 1000px) {
+        span.report-name.ellipsis {
+            width: 230px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+    }
+}
+
+@media screen and (min-width: 990px) and (max-width: 1070px) {
+    .report-wrapper .motif-card .motif-card-header .report-date-due {
+        font-size: 10px;
+    }
+   }
+

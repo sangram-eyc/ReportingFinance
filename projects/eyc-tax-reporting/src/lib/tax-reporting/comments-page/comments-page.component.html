@@ -4,13 +4,17 @@
       <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
         (click)="backtoCycleView()"></motif-icon>
       &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span style="font-weight: 400;">Production
-          Cycles | {{productCycleName}}</span>&nbsp;&nbsp;>&nbsp;&nbsp;Comments</span>
+          Cycles | {{productCycleName}}</span>&nbsp;&nbsp;>&nbsp;&nbsp;{{fundName}} | Comments</span>
     </div>
   
-    <div >
-      <span class="card-title">{{fundName}}</span>
+    <div class='card-title'>
+      <span class="card-title-text">{{fundName}}</span>
     </div>
   
+    <div class="page-subheader">
+      You change deliverable view with the dropdown selection above
+    </div>
+
     <motif-card>
       <motif-card-body class='body-comments'>       
         <div class="row">
@@ -34,7 +38,7 @@
           </div>
         </div>
         
-        <div class="row mt-5 mb-5"> <!-- an ngIf must be used to show this row -->
+        <div *ngIf="!isData" class="row mt-5 mb-5"> <!-- an ngIf must be used to show this row -->
           <div class="col-md-3 col-sm-3 mt-5 mb-5">
             <div class="card-column">
               <!-- to take up space -->
@@ -58,6 +62,12 @@
             </div>           
           </div>
         </div>
+
+        <!-- Task component -->
+          <div *ngFor="let comment of completedComments">
+            <app-task-comment  [TaskCommentData]='comment'></app-task-comment>
+          </div>
+        <!-- Task component -->
         
       </motif-card-body>
     </motif-card>

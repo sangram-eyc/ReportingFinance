@@ -12,6 +12,7 @@ import { TaxReportingComponent } from './tax-reporting/components/tax-reporting.
 import { CycleDetailComponent } from './tax-reporting/cycle-details/cycle-details.component';
 import { CommentsPagecomponent } from './tax-reporting/comments-page/comments-page.component';
 import { TaxCommentModalComponent } from './shared/tax-comment-modal/tax-comment-modal.component';
+import { TaskCommentComponent } from './tax-reporting/task-comment/task-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -46,7 +47,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TaxCardComponent,
     TableHeaderRendererComponent,
     CommentsPagecomponent,
-    TaxCommentModalComponent
+    TaxCommentModalComponent,
+    TaskCommentComponent
   ],
   exports: [TaxReportingComponent]
 })
