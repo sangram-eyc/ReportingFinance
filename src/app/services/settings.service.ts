@@ -5,8 +5,9 @@ import { environment } from '../../environments/environment';
 import { OAuthService} from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import {authConfig} from '../login/helpers'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {authorization} from '../helper/api-config-helper';
+import { v4 as uuid } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -136,7 +137,11 @@ setToken = (value) => {
     return new Promise((resolve, reject) => {
       //An Http Get to my API to get the available authdetails
       // if (!sessionStorage.getItem(SESSION_ID_TOKEN)) {
-      this.http.get(`${authorization.auth_Details}`).subscribe(res => {
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'X-Correlation-ID': uuid()
+          })
+      this.http.get(`${authorization.auth_Details}`, {headers: headers}).subscribe(res => {
         //set the authdetails to authconfig to initialize the implict login
         this.authdetails = res;
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;

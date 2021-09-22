@@ -58,7 +58,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve these exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve these exception reports?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -145,7 +145,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
-        {
+        /* {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
           field: 'entityGroup',
@@ -153,7 +153,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           sort:'asc',
           comparator: customComparator
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Name',
@@ -174,7 +174,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-        {
+       /*  {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
@@ -188,7 +188,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 140
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -252,7 +252,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-        {
+       /*  {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
@@ -269,7 +269,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           field: 'mytask',
           sortable: true,
           filter: true,
-        },
+        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -314,7 +314,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     if(this.tabs == 2){
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve these exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve these exception reports?';
       this.getExceptionReports();
     }
   }

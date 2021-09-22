@@ -1,71 +1,110 @@
 {
-    "success":true,
-    "message":"success",
-    "data":[
-       {
-          "reg_reporting":"CBI FDI",
-          "regulationReportingDate":"2020-12-31",
-          "ReportingDate":"2021-01-06",
-          "RegulationDueDate":"2021-04-29",
-          "exceptionDue2":4,
-          "businessDayText":"BD",
-          "filesReceived":4,
-          "unresolve_exception":0.0,
-          "totalFiles":4,
-          "comments":0.0,
-          "exceptionDue":"BD4"
-       },
-       {
-          "reg_reporting":"CTAPR",
-          "regulationReportingDate":"2021-06-30",
-          "ReportingDate":"2021-07-21",
-          "RegulationDueDate":"2021-08-17",
-          "exceptionDue2":15,
-          "businessDayText":"BD",
-          "filesReceived":36,
-          "unresolve_exception":0.0,
-          "totalFiles":36,
-          "comments":0.0,
-          "exceptionDue":"BD15"
-       },
-       {
-          "reg_reporting":"FRY 11_Quarterly",
-          "regulationReportingDate":"2021-06-30",
-          "ReportingDate":"2021-07-21",
-          "RegulationDueDate":"2021-08-30",
-          "exceptionDue2":15,
-          "businessDayText":"BD",
-          "filesReceived":36,
-          "unresolve_exception":0.0,
-          "totalFiles":37,
-          "comments":0.0,
-          "exceptionDue":"BD15"
-       },
-       {
-          "reg_reporting":"Form PF - Hedge Funds",
-          "regulationReportingDate":"2021-06-30",
-          "ReportingDate":"2021-07-21",
-          "RegulationDueDate":"2021-08-30",
-          "exceptionDue2":15,
-          "businessDayText":"BD",
-          "filesReceived":50,
-          "unresolve_exception":0.0,
-          "totalFiles":52,
-          "comments":0.0,
-          "exceptionDue":"BD15"
-       },
-       {
-          "reg_reporting":"HK Quarterly Statistics",
-          "regulationReportingDate":"2021-06-30",
-          "ReportingDate":"2021-07-07",
-          "RegulationDueDate":"2021-07-15",
-          "exceptionDue2":5,
-          "businessDayText":"BD",
-          "filesReceived":5,
-          "unresolve_exception":0.0,
-          "totalFiles":5,
-          "comments":0.0,
-          "exceptionDue":"BD5"
-       }
-    ]
- }
+   "success": true,
+   "message": "success",
+   "data": [
+      {
+         "reg_reporting": "CBI FDI",
+         "regulationReportingDate": "2020-12-31",
+         "ReportingDate": "2021-01-06",
+         "RegulationDueDate": "2021-04-29",
+         "exceptionDue2": 4,
+         "businessDayText": "BD",
+         "filesReceived": 4,
+         "unresolve_exception": 0.0,
+         "totalFiles": 4,
+         "comments": 0.0,
+         "exceptionDue": "BD4"
+      },
+      {
+         "reg_reporting": "CTAPR",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-21",
+         "RegulationDueDate": "2021-08-17",
+         "exceptionDue2": 15,
+         "businessDayText": "BD",
+         "filesReceived": 36,
+         "unresolve_exception": 0.0,
+         "totalFiles": 36,
+         "comments": 0.0,
+         "exceptionDue": "BD15"
+      },
+      {
+         "reg_reporting": "FR 11_Quarterly",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-14",
+         "RegulationDueDate": "2021-08-30",
+         "exceptionDue2": 10,
+         "businessDayText": "BD",
+         "filesReceived": 0,
+         "unresolve_exception": 0.0,
+         "totalFiles": 1,
+         "comments": 0.0,
+         "exceptionDue": "BD10"
+      },
+      {
+         "reg_reporting": "FR 2314_Quarterly",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-21",
+         "RegulationDueDate": "2021-08-30",
+         "exceptionDue2": 15,
+         "businessDayText": "BD",
+         "filesReceived": 24,
+         "unresolve_exception": 0.0,
+         "totalFiles": 29,
+         "comments": 0.0,
+         "exceptionDue": "BD15"
+      },
+      {
+         "reg_reporting": "FRY 11_Quarterly",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-21",
+         "RegulationDueDate": "2021-08-30",
+         "exceptionDue2": 15,
+         "businessDayText": "BD",
+         "filesReceived": 30,
+         "unresolve_exception": 0.0,
+         "totalFiles": 33,
+         "comments": 0.0,
+         "exceptionDue": "BD15"
+      },
+      {
+         "reg_reporting": "FRY 2314_Quarterly",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-21",
+         "RegulationDueDate": "2021-08-30",
+         "exceptionDue2": 15,
+         "businessDayText": "BD",
+         "filesReceived": 8,
+         "unresolve_exception": 0.0,
+         "totalFiles": 8,
+         "comments": 0.0,
+         "exceptionDue": "BD15"
+      },
+      {
+         "reg_reporting": "Form PF - Hedge Funds",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-21",
+         "RegulationDueDate": "2021-08-30",
+         "exceptionDue2": 15,
+         "businessDayText": "BD",
+         "filesReceived": 50,
+         "unresolve_exception": 0.0,
+         "totalFiles": 52,
+         "comments": 0.0,
+         "exceptionDue": "BD15"
+      },
+      {
+         "reg_reporting": "HK Quarterly Statistics",
+         "regulationReportingDate": "2021-06-30",
+         "ReportingDate": "2021-07-07",
+         "RegulationDueDate": "2021-07-15",
+         "exceptionDue2": 5,
+         "businessDayText": "BD",
+         "filesReceived": 5,
+         "unresolve_exception": 0.0,
+         "totalFiles": 5,
+         "comments": 0.0,
+         "exceptionDue": "BD5"
+      }
+   ]
+}

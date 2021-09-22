@@ -31,5 +31,14 @@
                 <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Data Intake', moduleId: 3})">View</button>
              </div>
         </motif-card>
+        <motif-card *ngIf="!is_Tax_Reporting">
+            <div class="card-block">
+                Administration
+                <br><span>Last modified 5 days ago</span>
+            </div>
+            <div class="card-button">
+                <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Admin', moduleId: 1})">View</button>
+             </div>
+        </motif-card>
     </div>
 </div>
