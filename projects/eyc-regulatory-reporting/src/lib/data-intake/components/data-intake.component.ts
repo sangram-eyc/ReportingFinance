@@ -7,7 +7,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { customComparator } from '../../config/rr-config-helper';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'lib-data-intake',
@@ -83,6 +83,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   commentDatasetsTemplate: TemplateRef<any>;
   @ViewChild('resolveDatasetsTemplate')
   resolveDatasetsTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log(this.filingDetails);
@@ -182,6 +186,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.expandExceptionTemplate,
+        },
         headerName: 'File',
         field: 'exceptionFile',
         sortable: true,
@@ -247,7 +255,16 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 200,
-      }/* ,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
+      } 
+      /* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Review Level',
@@ -515,11 +532,17 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
 
   routeToExceptionDetailsPage(event:any) {
-    // event.exceptionReportName = event.exceptionFile;
-    this.filingService.setExceptionData = event;
+    event.exceptionReportName = event.exceptionFile;
     console.log(event);
-    this.router.navigate(['/view-exception-reports']);
-    
+    const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
+      filingName: event.reg_reporting,
+      dueDate: event.exceptionDue,
+      filingId: event.exceptionId,
+      exceptionReportName: event.exceptionFile,
+      parentModule: 'Regulatory Reporting',
+      period: this.filingDetails.period
+    }}};
+    this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
 
 }

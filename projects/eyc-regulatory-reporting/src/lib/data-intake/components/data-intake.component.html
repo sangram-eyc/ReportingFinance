@@ -62,6 +62,14 @@
                 </motif-icon>
             </div>
         </ng-template>
+        <ng-template #viewDetTemplate let-row>
+            <div class="view-det-arrow">
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #expandExceptionTemplate let-row>
+            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.exceptionFile}}</div>
+        </ng-template>
     </section>
 
     <section id="dataset" [hidden]="!(tabs==2)">
