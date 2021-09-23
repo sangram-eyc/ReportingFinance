@@ -219,6 +219,7 @@ export class EycTeamDetailsComponent implements OnInit {
         "moduleId": this.moduleId,
         "teamId": this.curentTeamId
       }
+      const dupTeamInfo = this.teamInfo;
       this.teamInfo = [];
       this.teamService.EditTeam(team).subscribe(resp => {
         // this.teamInfo = resp['data'];
@@ -232,6 +233,15 @@ export class EycTeamDetailsComponent implements OnInit {
         setTimeout(() => {
           this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
         }, 5000);
+      }, error => {
+        const teamDup = {
+          "teamName": dupTeamInfo['teamName'],
+          "role": dupTeamInfo['role'],
+          "teamDescription": escape(dupTeamInfo['teamDescription']),
+          "moduleId": this.moduleId,
+          "teamId": this.curentTeamId
+        }
+        this.teamInfo = teamDup;
       });
     }
   }
