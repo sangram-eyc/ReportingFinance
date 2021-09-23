@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
+import { customComparator } from '../../shared-helper';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 
 @Component({
@@ -58,7 +59,8 @@ export class IntakeFilesComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         filter: false,
-        width: 300
+        width: 300,
+        comparator: customComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -68,7 +70,8 @@ export class IntakeFilesComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 400
+        width: 400,
+        comparator: customComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
