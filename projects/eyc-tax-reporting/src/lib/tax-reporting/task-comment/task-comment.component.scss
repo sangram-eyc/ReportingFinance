@@ -1,6 +1,6 @@
 
 .comment-wrapper {
-
+    height: 100%;
     .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
         padding: 0 !important;
     }
@@ -29,13 +29,13 @@
         width: 2.71429rem; 
     }
     .motif-card {
-        // width: 422px;
+        height: 100% !important;
         width: 100%;
         font-family: EYInterstate;
-        border: 1px solid #747480 !important;
+        border: 1px solid #c4c4cd !important;
         // padding: 10px;
         // margin-right: 22px;
-    
+
         .motif-card-header {
             border: none;
             // display: flex;
@@ -100,13 +100,13 @@
             // justify-content: space-between;
             // padding-top: 0;
             // padding-left: 23px;
-            // padding-bottom: 25px;
-            padding: 0px 22px 24px 22px;
-            ::ng-deep {
+             padding-bottom: 25px;
+             padding: 0px 22px 24px 22px;
+             ::ng-deep {
                 &:last-child {
                     padding: 0px;
                 }
-            }
+            } 
             span {
                 padding: 0;
             }

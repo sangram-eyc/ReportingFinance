@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TaxCommentModalService } from '../../tax-reporting/services/tax-comment-modal.service';
+import { TaxCommentService } from '../../tax-reporting/services/tax-comment.service'
 
 @Component({
   selector: 'lib-tax-comment-modal',
@@ -22,7 +22,7 @@ export class TaxCommentModalComponent implements OnInit {
     public dialogRef: MatDialogRef<TaxCommentModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private commentService: TaxCommentModalService) {
+    private commentService: TaxCommentService) {
       dialogRef.disableClose = true;
       console.log(data);
       this.modalDetails = data;

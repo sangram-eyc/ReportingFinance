@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { TaxCommentModalService } from '../../tax-reporting/services/tax-comment-modal.service';
+import { TaxCommentService } from '../services/tax-comment.service';
 
 @Component({
   selector: 'comments-page',
@@ -17,7 +17,7 @@ export class CommentsPagecomponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private commentService: TaxCommentModalService
+    private commentService: TaxCommentService
   ) { }
 
   isData: boolean = false;
@@ -39,7 +39,9 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   getComments() {
+    this.completedComments = [];
     this.commentService.getCommentsData().subscribe(resp => {
+      console.log("call all comments", resp);
       resp['data'].length === 0 ? this.isData = false : this.isData = true;
       resp['data'].forEach((item) => {
         const eachitem: any = {
@@ -96,12 +98,8 @@ export class CommentsPagecomponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result.button === "Submit") {
-        const obj = {
-          comment: escape(result.data.comment),
-          files: result.data.files
-        }
         //Refresh comments
-        console.log('Obj after closed-->', obj);
+        this.getComments();
       } else {
         console.log('result afterClosed', result);
       }

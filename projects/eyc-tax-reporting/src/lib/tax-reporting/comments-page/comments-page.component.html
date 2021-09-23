@@ -16,12 +16,13 @@
     </div>
 
     <motif-card>
-      <motif-card-body class='body-comments'>       
+      <motif-card-body>
+      
         <div class="row">
-          <div class="col-md-12 col-sm-12 mb-3">
+          <div class="col-md-12 col-sm-12 mb-3 padding-left-comment">
             <h4>Comments</h4>
           </div>
-          <div class="col-md-3 col-sm-3">
+          <div class="col-md-3 col-sm-3 padding-left-comment">
             <div class="card-column">
               <button motifButton color="primary-alt" class="btn-width-auto" (click)="addCommentToFund()">New Comment</button>
             </div>           
@@ -37,7 +38,6 @@
             </div>           
           </div>
         </div>
-        
 
         <div *ngIf="!isData" class="row mt-5 mb-5"> <!-- an ngIf must be used to show this row -->
           <div class="col-md-3 col-sm-3 mt-5 mb-5">
@@ -65,11 +65,13 @@
         </div>
         
         <!-- Task component -->
-          <div *ngFor="let comment of completedComments">
+        <div class="section-list-comments row">
+          <div class="each-element" *ngFor="let comment of completedComments">
             <app-task-comment  [TaskCommentData]='comment'></app-task-comment>
           </div>
+        </div >
         <!-- Task component -->
-        
+      
       </motif-card-body>
     </motif-card>
   
