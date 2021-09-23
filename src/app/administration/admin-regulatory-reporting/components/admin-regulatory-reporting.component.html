@@ -1,21 +1,14 @@
 <motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team has been deleted successfully</motif-toast>
 
 <div class="page-header">
-  <ng-container *ngIf="moduleName === 'Regulatory Reporting'">
-    <h1 *ngIf="!is_Tax_Reporting" class="motif-h1">Regulatory reporting</h1>
-    <h1 *ngIf="is_Tax_Reporting" class="motif-h1">Tax Reporting</h1>
-  </ng-container>
-  <h1 *ngIf="moduleName !== 'Regulatory Reporting'" class="motif-h1">{{moduleName}}</h1>
+  <h1 class="motif-h1">{{moduleName}}</h1>
 </div>
 
-<motif-tab-bar *ngIf="!is_Tax_Reporting">
+<motif-tab-bar>
     <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn === 1 ? 'motif-active' : ''">Teams</button>
     <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
-    <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button>
+    <button motifButton *ngIf="moduleId == 2" (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button>
     <button motifButton (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn === 4 ? 'motif-active' : ''">Admin</button>
-</motif-tab-bar>
-<motif-tab-bar *ngIf="is_Tax_Reporting">
-  <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
 </motif-tab-bar>
 
 <app-users *ngIf="tabIn == 2"></app-users>
