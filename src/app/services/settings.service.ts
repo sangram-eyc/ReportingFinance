@@ -113,6 +113,7 @@ setToken = (value) => {
     sessionStorage.removeItem('permissionList');
     sessionStorage.removeItem('moduleLevelPermission');
     sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('inActivityTime');
   }
   
   public get name() {
@@ -144,6 +145,7 @@ setToken = (value) => {
       this.http.get(`${authorization.auth_Details}`, {headers: headers}).subscribe(res => {
         //set the authdetails to authconfig to initialize the implict login
         this.authdetails = res;
+        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '600000');
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
         authConfig.redirectUri = environment.production ?  this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;

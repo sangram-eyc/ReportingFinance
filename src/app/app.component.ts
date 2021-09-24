@@ -8,6 +8,8 @@ import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
 import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
 import {SettingsService} from './services/settings.service';
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -18,6 +20,9 @@ import {SettingsService} from './services/settings.service';
 })
 export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit {
   title = 'eyc-ServiceEngine-UI';
+  timeoutId;
+  count = 0;
+  inActivityTime;
   mini = false;
   userGivenName;
   opensubmenu = '';
@@ -43,7 +48,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private router: Router,
     private cdRef : ChangeDetectorRef,
     private settingsService: SettingsService,
-    public moduleLevelPermission: ModuleLevelPermissionService
+    public moduleLevelPermission: ModuleLevelPermissionService,
+    public dialog: MatDialog,
     ){
     // To hide header and footer from login page
   
@@ -53,6 +59,34 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
          this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
+
+      
+  }
+
+  checkTimeOut() {
+    this.inActivityTime = sessionStorage.getItem("inActivityTime");
+    this.timeoutId = setTimeout(() => {
+      this.openErrorModal("Inactivity", "You will be logged out due to inactivity");
+    }, this.inActivityTime);
+  }
+
+  openErrorModal(header, description) {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: header,
+        description: description,
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.settingsService.logoff();
+      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+    });
   }
 
   ngOnInit(): void {
@@ -97,12 +131,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
 
   ngAfterViewChecked() {
-
     setTimeout(() => {
-
       if (this.settingsService.isUserLoggedin()) {
-        
-      
+        this.count++;
+        if(this.count == 1){
+          this.checkTimeOut();
+        }
         const uname = this.oauthservice.getIdentityClaims();
         sessionStorage.setItem("userEmail", uname['unique_name']);
         if (uname) {
@@ -110,9 +144,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.loginName = uname['name'];
         }
       }
-
     }, 0);
-
   }
 
 
@@ -167,6 +199,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }
   }
 
+  @HostListener('window:keydown', ['$event'])
+  @HostListener('window:mousedown', ['$event'])
+  public checkUserActivity(event) {
+    clearTimeout(this.timeoutId);
+    this.checkTimeOut();
+  }
+ 
   
 
   toggleSubMenu(toggleId) {
