@@ -191,13 +191,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   // Add user end here
   // Remove user start here
   deleteUser() {
-    const userList = this.usersListArr;
-    this.usersListArr = [];
-    this.rowData = [];
-    const index = userList.indexOf(this.selectedUser);
-    userList.splice(index, 1);
     this.showDeleteUserModal = false;
     this.userService.removeUser(this.selectedUser['userId']).subscribe(resp => {
+      
+      const userList = this.usersListArr;
+      this.usersListArr = [];
+      this.rowData = [];
+      const index = userList.indexOf(this.selectedUser);
+      userList.splice(index, 1);
+
       userList.forEach(ele => {
         this.usersListArr.push(ele);
         this.rowData = this.usersListArr;
