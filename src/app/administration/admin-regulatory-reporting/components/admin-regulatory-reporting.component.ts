@@ -70,7 +70,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return this.fb.group({
       teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
       role: ['', [Validators.required]],
-      assignments: [''],
+      // assignments: [''],
       description: ['', [Validators.maxLength(250)]]
     });
   }
@@ -215,7 +215,7 @@ editTeams(row) {
       "roleName": obj.role,
       "teamDescription": escape(obj.description),
       "moduleName": this.moduleName,
-      "assignments": obj.assignments
+      // "assignments": obj.assignments
     }
     
     this.teamsService.addTeam(team).subscribe(resp => {
