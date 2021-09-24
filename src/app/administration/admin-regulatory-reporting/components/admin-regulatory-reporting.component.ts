@@ -51,12 +51,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   actionSection: TemplateRef<any>;
 
   ngOnInit(): void {
-    if (!this.is_Tax_Reporting) {
-      sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
-    }
-    else {
-      this.tabIn = 2;
-    }
+    sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
    
     this.getTeamList();
     this.teamsService.getRoles(this.moduleName).subscribe(resp => {
