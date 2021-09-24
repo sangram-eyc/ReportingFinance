@@ -85,6 +85,9 @@ export class HomeComponent implements OnInit {
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Regulatory Reporting')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
 
+      } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Tax Reporting')) {
+        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-tax-reporting']);
+
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Data Intake')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/data-intake-landing']);
 
