@@ -73,7 +73,9 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
 
           this.form.get('questionId').valueChanges.subscribe(res => {
             this.PBIReportId = "";
-            if (res) {
+            console.log("on question change res > ", res);
+            console.log('changed question value > ',  this.form.get('questionId').value);
+            if (this.form.get('questionId').value == res) {
               this.getPowerBIReportID();
               this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
               this.selectedPeriod = this.form.get('period').value;
