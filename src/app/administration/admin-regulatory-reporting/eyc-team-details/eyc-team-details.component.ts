@@ -242,6 +242,13 @@ export class EycTeamDetailsComponent implements OnInit {
           "teamId": this.curentTeamId
         }
         this.teamInfo = teamDup;
+
+        this.editTeamForm.patchValue({​​​​​​​​
+          teamName:this.teamInfo.teamName.trim(),
+          role:this.teamInfo.role.trim(),
+          teamDescription:this.teamInfo.teamDescription.trim()
+          }​​​​​​​​);
+          
       });
     }
   }
