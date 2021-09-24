@@ -24,14 +24,14 @@ export class CommentsPagecomponent implements OnInit {
   completedComments: any[] = [];
   pageName: string = 'Comments-Page';
   fundName;
-  productCycleId;
+  fundId;
   productCycleName;
 
   ngOnInit(): void {
     //Get the production-cycle-details values
     this.activatedRoute.params.subscribe(params => {
       this.fundName = params.name
-      this.productCycleId = params.id
+      this.fundId = params.id
       this.productCycleName = params.prodCycleName
     });
     //Get all the comments related with the selected Production-Cycle and Fund.
@@ -40,7 +40,7 @@ export class CommentsPagecomponent implements OnInit {
 
   getComments() {
     this.completedComments = [];
-    this.commentService.getCommentsData().subscribe(resp => {
+    this.commentService.getCommentsData(this.fundId).subscribe(resp => {
       console.log("call all comments", resp);
       resp['data'].length === 0 ? this.isData = false : this.isData = true;
       resp['data'].forEach((item) => {
