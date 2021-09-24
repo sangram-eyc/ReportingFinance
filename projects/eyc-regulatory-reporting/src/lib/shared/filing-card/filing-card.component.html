@@ -8,7 +8,7 @@
                     <h6 class="filing-name" *ngIf="name.length <= filingWidth && period.length <= periodWidth">{{name}} // {{period}}</h6>
     
     
-                    <div *ngIf="name.length >= filingWidth && period.length <= periodWidth" class="elli-wrap">
+                    <div *ngIf="name.length > filingWidth && period.length < periodWidth" class="elli-wrap">
                         <motif-tooltip placement="top">
                             <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span><span class="filing-name ">// {{period}}</span>
                             </h6>
@@ -16,7 +16,7 @@
                         </motif-tooltip>
                         <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
                     </div>
-                    <div *ngIf="period.length >= periodWidth && name.length <= filingWidth" class="elli-wrap">
+                    <div *ngIf="period.length > periodWidth && name.length < filingWidth" class="elli-wrap">
                         <motif-tooltip placement="top">
                             <h6 motifTooltipTrigger aria-label="tooltip" class="only-period-ellipsis"><span class="filing-name ">{{name}} </span><span class="filing-name ellipsis-period"> // {{period}}</span>
                             </h6>
@@ -24,7 +24,7 @@
                         </motif-tooltip>
                         <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
                     </div>
-                    <div *ngIf="name.length >= filingWidth && period.length >= periodWidth" class="elli-wrap">
+                    <div *ngIf="name.length > filingWidth && period.length > periodWidth" class="elli-wrap">
                         <motif-tooltip placement="top">
                             <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{name}}</span><span class="filing-name ellipsis-period">// {{period}}</span>
                             </h6>
