@@ -586,7 +586,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     console.log(event);
     const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
       filingName: event.reg_reporting,
-      dueDate: event.exceptionDue,
+      dueDate: this.filingDetails.dueDate,
       filingId: event.exceptionId,
       exceptionReportName: event.exceptionFile,
       parentModule: 'Regulatory Reporting',
