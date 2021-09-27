@@ -101,10 +101,10 @@
   <motif-tab-bar>
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
-    <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
+    <!-- <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
       [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
     <button motifButton (click)="adminTabChange(3)" class="motif-text-link"
-      [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button>
+      [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
 
