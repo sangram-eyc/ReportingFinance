@@ -1,5 +1,8 @@
 <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData" rowSelection="multiple"
-    buttonPosition="left" [masterDetail]="false" [displayCheckBox]="true" [button]="false"
+    buttonPosition="left" [masterDetail]="false"
+    [submitFunction]="submitException" 
+    [modalConfig]="exceptionModalConfig"
+    (selectedRowEmitter)="exceptionReportRowsSelected($event)"
     [detailCellRendererParams]="exceptionDetailCellRendererParams"></lib-shared-grid>
 
 <ng-template #commentExceptionTemplate let-row>
@@ -45,7 +48,10 @@
 
 <ng-template #dropdownTemplate let-row>
     <div class="dropdownTemplate">
-        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
+        <motif-icon class="complete" *ngIf="row.approved == true"
+            [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+            tabindex="0">
         </motif-icon>
     </div>
 </ng-template>
