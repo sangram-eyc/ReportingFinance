@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
@@ -39,7 +39,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     private adminService: AdministrationService,
     private router: Router,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public permissions: PermissionService
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -239,7 +240,7 @@ editTeams(row) {
   }
 
   teamDuplicateCheck(event){
-    let teamDupcheck = this.teamsData.findIndex(item => item.teamName === event);
+    let teamDupcheck = this.teamsData.findIndex(item => item.teamName.toLowerCase() === event.toLowerCase());
     if(teamDupcheck != -1) {
       this.addTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
     }
