@@ -360,3 +360,33 @@
     }
    }
 
+
+ 
+   .mat-chip-p{
+    background: white !important;
+    border: 1px solid;
+    min-height: 24px;
+    min-width: 75px;
+    padding:0px;
+    margin:0 !important;
+    margin-right: 7px !important;
+  
+    .mat-chip-text{
+        color: #2E2E38;
+        font-family: EYInterstate;
+        font-size: 12px;
+        line-height: 24px;
+        margin-left:8px;
+    }
+   }
+
+   .mat-chip-p:hover{
+    background: white !important;
+}
+
+   .icon-cross{
+    width: 1.9rem !important;
+   }
+   .icon-arrow{
+    width: 1.9rem !important;
+   }

@@ -15,6 +15,8 @@ import { TaxCommentModalComponent } from './shared/tax-comment-modal/tax-comment
 import { TaskCommentComponent } from './tax-reporting/task-comment/task-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @NgModule({
   imports: [
@@ -37,9 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FlexLayoutModule,
     EycUiSharedComponentModule,
     ReactiveFormsModule,
-    FormsModule
-    
-    
+    FormsModule,
+    MatChipsModule
   ],
   declarations: [
     TaxReportingComponent,
