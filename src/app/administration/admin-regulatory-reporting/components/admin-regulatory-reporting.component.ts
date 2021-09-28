@@ -8,7 +8,7 @@ import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { customComparator } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
-
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 @Component({
   selector: 'app-admin-regulatory-reporting',
@@ -55,9 +55,11 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
    
     this.getTeamList();
-    this.teamsService.getRoles(this.moduleName).subscribe(resp => {
-      this.roles = resp['data'];
-    })
+    if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
+      this.teamsService.getRoles(this.moduleName).subscribe(resp => {
+        this.roles = resp['data'];
+      });
+    }
 
     this.addTeamForm = this._createTeam()
   }
@@ -88,10 +90,14 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   }
 
   getTeamList() {
-    this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
+    if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
+      this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
-    this.createTeamsRowData();
+      this.createTeamsRowData();
+    } else {
+      this.openErrorModal("Access Denied", "User does not have access to view teams. Please contact an administrator.");
+    }
   }
 
   
@@ -260,5 +266,23 @@ public noWhitespaceValidator(control: FormControl) {
       return isValid ? null : { whitespace: true };
     }
   }
+}
+
+openErrorModal(header, description) {
+  const dialogRef = this.dialog.open(ErrorModalComponent, {
+    disableClose: true,
+    width: '400px',
+    data: {
+      header: header,
+      description: description,
+      footer: {
+        style: "start",
+        YesButton: "OK"
+      },
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+
+  });
 }
 }

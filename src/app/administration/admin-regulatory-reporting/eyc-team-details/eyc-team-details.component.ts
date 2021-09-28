@@ -85,9 +85,11 @@ export class EycTeamDetailsComponent implements OnInit {
       this.getTeamDetailsData();
     });
     this.tabIn = 1;
-    this.teamService.getRoles(this.module).subscribe(resp => {
-      this.roleList = resp['data'];
-    })
+    if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
+      this.teamService.getRoles(this.module).subscribe(resp => {
+        this.roleList = resp['data'];
+      })
+    }
     this.addTeamMemberForm = this._createTeamMembers();
   }
 
@@ -108,12 +110,12 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   getUsersList() {
-
+    if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
     this.userService.getUsersList().subscribe(resp => {
       this.allUsers = resp.data
       this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
     });
-
+  }
   }
 
   getTeamDetailsData() {
