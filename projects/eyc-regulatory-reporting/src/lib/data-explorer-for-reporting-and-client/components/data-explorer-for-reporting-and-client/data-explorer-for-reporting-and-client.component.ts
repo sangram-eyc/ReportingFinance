@@ -101,7 +101,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
   getPBIQuestions() {
     this.pbiServices.getPBIQuestion(this.filingName?.formId).subscribe(resp => {
       this.pbiQuestionList = resp['data'];
-      this.pbiQuestionList.sort(this.sortPBIQuestion)
+      // this.pbiQuestionList.sort(this.sortPBIQuestion)
       console.log(this.pbiQuestionList);
       this.form.patchValue({
         questionId: this.pbiQuestionList[0].id
