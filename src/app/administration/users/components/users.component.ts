@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
-
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public permissions: PermissionService,
-    private adminService: AdministrationService
+    private adminService: AdministrationService,
+    public dialog: MatDialog
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -59,25 +61,29 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   getUsersData() {
-
-    this.userService.getUsersList().subscribe(resp => {
-      this.userResp =[];
-      this.usersListArr= [];
-      this.userResp.push(resp.data);
-      this.userResp[0].forEach((item) => {
-        const eachitem: any = {
-          name: item.userLastName + ', ' + item.userFirstName,
-          email: item.userEmail,
-          teams: 0,
-          userId: item.userId,
-          options: '',
-        };
-        this.usersListArr.push(eachitem);
-        //this.rowData = this.usersListArr;
-        this.gridApi.setRowData(this.usersListArr);
+    if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
+      this.userService.getUsersList().subscribe(resp => {
+        this.userResp =[];
+        this.usersListArr= [];
+        this.userResp.push(resp.data);
+        this.userResp[0].forEach((item) => {
+          const eachitem: any = {
+            name: item.userLastName + ', ' + item.userFirstName,
+            email: item.userEmail,
+            teams: 0,
+            userId: item.userId,
+            options: '',
+          };
+          this.usersListArr.push(eachitem);
+          //this.rowData = this.usersListArr;
+          this.gridApi.setRowData(this.usersListArr);
+        });
+  
       });
-
-    });
+    } else {
+      this.openErrorModal("Access Denied", "User does not have access to view users. Please contact an administrator.");
+    }
+    
 
   }
 
@@ -256,4 +262,22 @@ export class UsersComponent implements OnInit, AfterViewInit {
       }
     });
   } 
+
+  openErrorModal(header, description) {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: header,
+        description: description,
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+  
+    });
+  }
 }
