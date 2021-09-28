@@ -26,7 +26,8 @@
                 <div *ngIf="!search"></div>
             </div>
         </div>
-
+        <div [hidden]="!permissionToShowDataTable">
+        
         <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
             [rowData]="rowData"
             [defaultColDef]="{}"
@@ -56,7 +57,7 @@
                 <h5>{{noData}}.</h5>
             </motif-card-body>
         </motif-card>
-
+    </div>
     </section>
     
     <motif-modal [show]="buttonModal" (close)="buttonModal = false">
