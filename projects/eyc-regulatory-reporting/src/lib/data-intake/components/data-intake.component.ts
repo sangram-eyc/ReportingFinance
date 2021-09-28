@@ -60,7 +60,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve the selected exception reports?",
       footer: {
         style: "start",
         YesButton: "Continue",
