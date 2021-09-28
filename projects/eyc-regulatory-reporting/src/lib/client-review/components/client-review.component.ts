@@ -174,13 +174,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 210,
         },
-       /*  {
+        {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
           sortable: true,
           filter: true,
         },
+         /*,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'My Tasks',

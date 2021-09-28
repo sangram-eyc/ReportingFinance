@@ -169,7 +169,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 210,
-        }/* ,
+        },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
@@ -177,6 +177,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
         },
+        /* ,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'My Tasks',
