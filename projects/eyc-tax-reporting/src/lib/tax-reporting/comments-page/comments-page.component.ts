@@ -78,6 +78,15 @@ export class CommentsPagecomponent implements OnInit {
         entityId: 11, //send value from html
         entityType: "DATA_COMMENT_TAX",
         forms: {
+          isSelect: true,
+          selectDetails: {
+            label: "Scope",
+            formControl: 'assignTo',
+            type: "select",
+            data: [
+              { name: this.fundName, id: '1' },
+            ]
+          },
           isTextarea: true,
           textareaDetails: {
             label: "Comment (required)",
@@ -89,7 +98,7 @@ export class CommentsPagecomponent implements OnInit {
         },
         footer: {
           style: "start",
-          YesButton: "Submit",
+          YesButton: "Post",
           NoButton: "Cancel"
         }
       }

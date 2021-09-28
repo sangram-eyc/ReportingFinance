@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { truncate } from 'fs';
 import { TaxCommentService } from '../../tax-reporting/services/tax-comment.service'
 
 @Component({
@@ -17,6 +18,8 @@ export class TaxCommentModalComponent implements OnInit {
   toastSuccessMessage = "Comment added successfully";
   showToastAfterSubmit = false;
   showModal = true;
+  markCritical: boolean = false;
+  editReq: boolean = false;
 
   constructor(    
     public dialogRef: MatDialogRef<TaxCommentModalComponent>,
@@ -29,7 +32,12 @@ export class TaxCommentModalComponent implements OnInit {
       if (this.modalDetails.type === "ConfirmationTextUpload") {
         this.ConfirmationTextUpload = true;
         this.modalForm = this.fb.group({
+          sendTo: ['EY'],
           comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator]],
+          edit:[false],
+          assignTo:['1'],
+          critical: [false],
+          IncludeDebrief : [false],
           files: ['']
         });
       } else {
@@ -45,15 +53,25 @@ export class TaxCommentModalComponent implements OnInit {
   }
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
+ 
+      console.log('sendTo-->', this.modalForm.get('sendTo').value);
+      console.log('Edit-->', this.modalForm.get('edit').value);
+      console.log('comment-->', this.modalForm.get('comment').value);
+      console.log('mark critical-->', this.modalForm.get('critical').value); 
+      console.log('IncludeDebrief-->', this.modalForm.get('IncludeDebrief').value); 
+      console.log('Formulario-->', this.modalForm);
       const commentObj = {
-        "comment": this.modalForm.get('comment').value,
-        "entityId": this.modalDetails.entityId,
-        "entityType": this.modalDetails.entityType,
+        "description": this.modalForm.get('comment').value,
+        "priority": "critical",
+        "target": "EY",
+        "tags": [1, 2]
+       /*  "entityId": this.modalDetails.entityId,
+        "entityType": this.modalDetails.entityType, */
       };
 
       this.commentService.addComment(commentObj).subscribe(res => {
         console.log("Result addComment-->",res);
-        console.log("filesList.length-->",this.filesList.length);
+        console.log("filesList.length-->",this.filesList.length); 
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
@@ -115,6 +133,18 @@ export class TaxCommentModalComponent implements OnInit {
   closeToast(){
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
     this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
+  }
+
+  setMarkCritical(){
+    this.markCritical = !this.markCritical;
+  }
+
+  setEditRequired(){
+    this.editReq = !this.editReq;
+    this.modalForm.patchValue({
+      edit: this.editReq
+    });
+    
   }
 
 }
