@@ -28,7 +28,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   filingDetails: any;
   exceptionData;
   rowData = [];
+  exceptionReportRows;
   exceptionDetailCellRendererParams;
+  submitException;
   filesListArr;
   enableTabs = false;
   showComments = false;
@@ -53,6 +55,19 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       }
     }
   };
+  exceptionModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
 
   constructor(
     private service: DataIntakeService,
@@ -64,6 +79,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
+    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     this.getFiles();
   }
 
@@ -157,6 +173,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.receiveMessage(this.tabs);
   }
 
+  exceptionReportRowsSelected(event) {
+    console.log(event);
+    this.exceptionReportRows = event;
+  }
+
   createEntitiesRowData(): void {
 
     this.exceptionDefs = [
@@ -166,7 +187,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         cellRendererParams: {
           ngTemplate: this.dropdownTemplate,
         },
-        field: 'template',
+        field: 'approved',
         headerName: '',
         width: 70,
         sortable: false,
@@ -508,6 +529,35 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.createEntitiesRowData();
   }
 
+  onSubmitApproveExceptionReports() {
+    console.log(this.exceptionReportRows);
+    // const filingDetails = this.filingDetails;
+    // let selectedFiling = {
+    //   "exceptionReportIds": this.exceptionReportRows.map(({ exceptionId }) => exceptionId),
+    //   "filingName": this.filingDetails.filingName,
+    //   "period": this.filingDetails.period,
+    //   "stage": "Reporting"
+    // };
+    // this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
+    //   res['data']['answerExceptions'].forEach(ele => {
+    //     this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    //   });
+    //   this.createEntitiesRowData();
+    //   this.exceptionReportRows = [];
+    //   this.filingService.invokeFilingDetails();
+    //   this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+    //   setTimeout(() => {
+    //     this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+    //   }, 5000);
+    // });
+    this.exceptionReportRows.forEach(ele => {
+      this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    }); 
+    console.log(this.exceptionData);
+    this.createEntitiesRowData();
+    this.exceptionReportRows = [];
+  }
+
   datasetsReportRowsSelected(event) {
     console.log(event);
     this.datasetsSelectedRows = event;
@@ -536,7 +586,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     console.log(event);
     const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
       filingName: event.reg_reporting,
-      dueDate: event.exceptionDue,
+      dueDate: this.filingDetails.dueDate,
       filingId: event.exceptionId,
       exceptionReportName: event.exceptionFile,
       parentModule: 'Regulatory Reporting',

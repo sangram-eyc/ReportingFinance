@@ -53,6 +53,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.parentModule = this.dataIntakeData.parentModule;
       if (this.parentModule === 'Regulatory Reporting') {
         this.period = this.dataIntakeData.period;
+        this.formatDate();
       }
     }
     else if (this.filingService.getFilingData) {
