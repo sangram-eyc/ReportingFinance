@@ -10,6 +10,7 @@ import { customComparator } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
+import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -40,7 +41,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    public moduleLevelPermission: ModuleLevelPermissionService
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -56,9 +58,13 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
    
     this.getTeamList();
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
+      if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Roles')) {
       this.teamsService.getRoles(this.moduleName).subscribe(resp => {
         this.roles = resp['data'];
       });
+    } else {
+      this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
+    }
     }
 
     this.addTeamForm = this._createTeam()
