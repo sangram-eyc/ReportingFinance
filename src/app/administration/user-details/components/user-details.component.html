@@ -6,7 +6,7 @@
   </div>
   <div class="user-info-header">
     <h3>User info</h3>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'"  [class.disabled]="!is_editable" class="user-edit" *ngIf="!enableEditor && userInfo"
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'"  [class.disabled]="!is_editable" class="user-edit" *ngIf="!enableEditor && userInfo && this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Update User')"
       (click)="enableEditForm()">
       <span *ngIf="!enableEditor && userInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>

@@ -7,7 +7,7 @@
   <div class="user-info-header">
     <h3>Team Details</h3>
     <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
-      *ngIf="!enableEditor && teamInfo" (click)="enableEditForm()">
+      *ngIf="!enableEditor && teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')" (click)="enableEditForm()">
       <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
     <div class="edit-form" *ngIf="enableEditor">

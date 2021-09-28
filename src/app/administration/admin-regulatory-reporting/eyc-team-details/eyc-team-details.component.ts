@@ -8,7 +8,7 @@ import { TeamsService } from '../services/teams.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
 import { AdministrationService } from '@default/administration/services/administration.service';
 @Component({
@@ -25,7 +25,8 @@ export class EycTeamDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public permissions: PermissionService) {
     this.editTeamForm = this._updateTeam();
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;

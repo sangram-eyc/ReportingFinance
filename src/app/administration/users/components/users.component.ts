@@ -5,6 +5,8 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
+import { PermissionService } from 'eyc-ui-shared-component';
+import { AdministrationService } from '@default/administration/services/administration.service';
 
 
 
@@ -22,12 +24,18 @@ export class UsersComponent implements OnInit, AfterViewInit {
   showDeleteUserModal = false;
   showToastAfterDeleteUser = false;
   selectedUser: any;
+  moduleName;
 
   constructor(
     private userService: UsersService,
     private router: Router,
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,
+    public permissions: PermissionService,
+    private adminService: AdministrationService
+  ) {
+    const module = adminService.getCurrentModule;
+    this.moduleName = module.moduleName;
+   }
 
   usersListArr: any[] = [];
 

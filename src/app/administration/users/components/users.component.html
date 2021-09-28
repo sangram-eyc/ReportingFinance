@@ -6,10 +6,10 @@
     </motif-form-field> -->
     &nbsp;
   </div>
-  <button motifButton class="btn_addUser" (click)="showAddUserModal = true" color="primary" size="medium">
+  <button *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')" motifButton class="btn_addUser" (click)="showAddUserModal = true" color="primary" size="medium">
     <motif-icon [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>Add User
   </button>
-  <div class="frame-padding">
+  <div class="frame-padding" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')">
     <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" [pagination]="false" paginationPageSize="10" (gridReady)="handleGridReady($event)">
     </motif-table>
     <ng-template #headerTemplate>
@@ -19,7 +19,7 @@
     <ng-template #actionSection let-row>
       <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editUser(row)">
       </motif-icon>
-      <div class="delete-icon" (click)="onClickDeleteUserIcon(row)">
+      <div class="delete-icon" (click)="onClickDeleteUserIcon(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Delete Users')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
