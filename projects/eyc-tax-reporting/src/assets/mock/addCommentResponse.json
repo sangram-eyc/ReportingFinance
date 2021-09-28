@@ -2,6 +2,19 @@
     "success": true,
     "message": "",
     "corelationId": null,
-    "data": null,
+    "data": {
+        "id": 123,
+        "entityId": 111,
+        "description": "Please fix the file. Calculations are wrong",
+        "status": "open",
+        "priority": "critical",
+        "target": "EY",
+        "company": "Client",
+        "createdBy": "some.user@client.company.com",
+        "createdDate": "2021-09-21T00:00:00Z",
+        "tags": ["Edit Required", "Include in cycle debrief"],
+        "replyCount": 0,
+        "attachmentCount": 0
+    },
     "error": null
 }
