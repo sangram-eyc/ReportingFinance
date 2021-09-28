@@ -17,7 +17,8 @@
             [submitFunction]="submitException" 
             [modalConfig]="exceptionModalConfig"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"></lib-shared-grid>
+            [detailCellRendererParams]="exceptionDetailCellRendererParams"
+            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')"></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
             <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
