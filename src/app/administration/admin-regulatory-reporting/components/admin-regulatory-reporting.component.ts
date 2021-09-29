@@ -220,7 +220,7 @@ editTeams(row) {
     // below code will change after api integration
     
     const team = {
-      "teamName": obj.teamName,
+      "teamName": obj.teamName.trim(),
       "roleName": obj.role,
       "teamDescription": escape(obj.description),
       "moduleName": this.moduleName,
