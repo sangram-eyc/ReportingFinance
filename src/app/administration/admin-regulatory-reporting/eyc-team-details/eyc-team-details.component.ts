@@ -216,7 +216,7 @@ export class EycTeamDetailsComponent implements OnInit {
       this.enableEditor = !this.enableEditor;
       this.disableAddMemberButton = !this.disableAddMemberButton;
       const team = {
-        "teamName": obj.teamName,
+        "teamName": obj.teamName.trim(),
         "roleName": obj.role,
         "teamDescription": escape(obj.teamDescription),
         "moduleId": this.moduleId,
@@ -228,7 +228,7 @@ export class EycTeamDetailsComponent implements OnInit {
         // this.teamInfo = resp['data'];
         const teamInfoObj = resp['data'];
         this.teamInfo = {
-          "teamName": teamInfoObj.teamName,
+          "teamName": teamInfoObj.teamName.trim(),
           "teamDescription": unescape(teamInfoObj.teamDescription),
           "role": teamInfoObj.role
         }
@@ -238,7 +238,7 @@ export class EycTeamDetailsComponent implements OnInit {
         }, 5000);
       }, error => {
         const teamDup = {
-          "teamName": dupTeamInfo['teamName'],
+          "teamName": dupTeamInfo['teamName'].trim(),
           "role": dupTeamInfo['role'],
           "teamDescription": escape(dupTeamInfo['teamDescription']),
           "moduleId": this.moduleId,
