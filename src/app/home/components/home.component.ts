@@ -57,16 +57,7 @@ export class HomeComponent implements OnInit {
     if (sessionStorage.getItem("permissionList") === null) {
       this.moduleLevelPermission.getPermissionsList().subscribe(resp => {
         this.navigation();
-        const userEmail = sessionStorage.getItem('userEmail');
-        if (userEmail.endsWith('ey.com')) {
-          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-        } else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
-          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-        } else {
-          resp.data.features.intake.splice(5, 2);
-          resp.data.features.reporting.shift();
-          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-        }
+        sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
       });
     } else {
       this.navigation();
