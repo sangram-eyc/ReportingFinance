@@ -240,7 +240,7 @@ export class EycTeamDetailsComponent implements OnInit {
         const teamDup = {
           "teamName": dupTeamInfo['teamName'].trim(),
           "role": dupTeamInfo['role'],
-          "teamDescription": escape(dupTeamInfo['teamDescription']),
+          "teamDescription": unescape(dupTeamInfo['teamDescription']),
           "moduleId": this.moduleId,
           "teamId": this.curentTeamId
         }
