@@ -75,8 +75,8 @@ export class CommentsPagecomponent implements OnInit {
         type: "ConfirmationTextUpload",
         header: "New comment",
         description: ``,
-        entityId: 11, //send value from html
-        entityType: "DATA_COMMENT_TAX",
+        entityId: this.fundId,
+        entityType: "funds",
         forms: {
           isSelect: true,
           selectDetails: {
@@ -106,8 +106,8 @@ export class CommentsPagecomponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if (result.button === "Submit") {
-        //Refresh comments
+      if (result.button === "Post") {
+        //Refresh comments Submit
         this.getComments();
       } else {
         console.log('result afterClosed', result);
