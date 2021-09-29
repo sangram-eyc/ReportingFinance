@@ -55,16 +55,17 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
-   
-    this.getTeamList();
-    if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
-      if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Roles')) {
-      this.teamsService.getRoles(this.moduleName).subscribe(resp => {
-        this.roles = resp['data'];
-      });
-    } else {
-      this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
-    }
+    if (this.tabIn == 1) {
+      this.getTeamList();
+      if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
+        if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Roles')) {
+          this.teamsService.getRoles(this.moduleName).subscribe(resp => {
+            this.roles = resp['data'];
+          });
+        } else {
+          this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
+        }
+      }
     }
 
     this.addTeamForm = this._createTeam()
