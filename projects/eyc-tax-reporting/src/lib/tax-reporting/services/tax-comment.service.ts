@@ -9,10 +9,10 @@ export class TaxCommentService {
 
   constructor(private apiService: EycApiService,private settingsService: EycTaxSettingsService) { }
   
-  addComment(data) {
+  addComment(data, entityId) {
     if (this.settingsService.production) {
       //when the api is ready
-      //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+      //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}/funds/${entityId}/tasks`, data);
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
     } 
     else{

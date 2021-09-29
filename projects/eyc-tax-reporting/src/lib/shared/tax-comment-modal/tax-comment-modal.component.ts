@@ -20,6 +20,7 @@ export class TaxCommentModalComponent implements OnInit {
   showModal = true;
   markCritical: boolean = false;
   editReq: boolean = false;
+  TagsToSend: any = [];
 
   constructor(    
     public dialogRef: MatDialogRef<TaxCommentModalComponent>,
@@ -53,30 +54,34 @@ export class TaxCommentModalComponent implements OnInit {
   }
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
- 
-      console.log('sendTo-->', this.modalForm.get('sendTo').value);
-      console.log('Edit-->', this.modalForm.get('edit').value);
-      console.log('comment-->', this.modalForm.get('comment').value);
-      console.log('mark critical-->', this.modalForm.get('critical').value); 
-      console.log('IncludeDebrief-->', this.modalForm.get('IncludeDebrief').value); 
-      console.log('Formulario-->', this.modalForm);
+
+      console.log('Form-->', this.modalForm);
+       
+      if(this.modalForm.get('edit').value){
+        this.TagsToSend.push(1);
+      }
+
+      if(this.modalForm.get('IncludeDebrief').value){
+        this.TagsToSend.push(2);
+      }
+
       const commentObj = {
         "description": this.modalForm.get('comment').value,
-        "priority": "critical",
-        "target": "EY",
-        "tags": [1, 2]
-       /*  "entityId": this.modalDetails.entityId,
-        "entityType": this.modalDetails.entityType, */
+        "priority": this.modalForm.get('critical').value ? "critical": "normal",
+        "target": this.modalForm.get('sendTo').value,
+        "tags": this.TagsToSend
       };
 
-      this.commentService.addComment(commentObj).subscribe(res => {
+      console.log('CommentObj-->', commentObj);
+      console.log('entityId-->', this.modalDetails.entityId);
+      this.commentService.addComment(commentObj, this.modalDetails.entityId).subscribe(res => {
         console.log("Result addComment-->",res);
         console.log("filesList.length-->",this.filesList.length); 
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
           formData.append('application', "TAX");
-          //formData.append('entityId', res['data']['commentId']);
+          formData.append('entityId', res['data']['id']);
           formData.append('entityType', "COMMENT");
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);
@@ -143,8 +148,7 @@ export class TaxCommentModalComponent implements OnInit {
     this.editReq = !this.editReq;
     this.modalForm.patchValue({
       edit: this.editReq
-    });
-    
+    });    
   }
 
 }
