@@ -22,7 +22,7 @@ export class FilingCardComponent implements OnInit {
   set filingData(filingData: object) {
     this._filingData = filingData;
     this.dueDate = this._filingData.dueDate;
-    this.formatDate();
+    // this.formatDate();
     this.startDate = this._filingData.startDate;
     this.comments = this._filingData.comments;
     this.name = this._filingData.name;
