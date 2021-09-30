@@ -36,7 +36,7 @@
                 <div class="col-md-6 col-sm-6">
                     <span class="filing-date-due">
                         <motif-icon [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Filing due
-                        {{dueDate}}
+                        {{dueDate  | date: 'M/d/yyyy' }}
                     </span>
     
                 </div>
