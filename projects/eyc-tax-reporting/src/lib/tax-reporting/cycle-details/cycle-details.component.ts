@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {ErrorModalComponent} from 'eyc-ui-shared-component';
 
 
+
 @Component({
   selector: 'cycle-details',
   templateUrl: './cycle-details.component.html',
@@ -59,7 +60,8 @@ export class CycleDetailComponent implements OnInit {
   @ViewChild('urlDownload')
   urlDownload: TemplateRef<any>;
 
- 
+  @ViewChild('datasetsDropdownTemplate')
+  datasetsDropdownTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -88,12 +90,31 @@ export class CycleDetailComponent implements OnInit {
 
   pageSize;
 
+  submitDatasets;
+  datasetsModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
+  exceptionDetailCellRendererParams;
+  datasetsSelectedRows;
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
       this.productCycleId = params.id
     });
+
+    this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
   }
     
  onGridReady(params) {
@@ -128,7 +149,10 @@ export class CycleDetailComponent implements OnInit {
          const eachitem: any = {
            name: item.name,
            hasContent: item.hasContent,
-           id: item.id
+           id: item.id,
+           approved: item.approvedBack === true ? true :(item.CommentsCount > 0 ? true:false),
+           CommentsCount: item.CommentsCount,
+           approvedBack: item.approvedBack 
          };
          this.completedFilings.push(eachitem);
        });
@@ -142,12 +166,27 @@ export class CycleDetailComponent implements OnInit {
       this.rowData.push({
         name: filing.name,
         hasContent: filing.hasContent,
-        id:filing.id
+        id:filing.id,
+        approved:filing.approved,
+        CommentsCount:filing.CommentsCount,
+        approvedBack:filing.approvedBack
       })
     });
 
   
     this.columnDefs = [
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.datasetsDropdownTemplate,
+        },
+        field: 'template',
+        headerName: '',
+        width: 70,
+        sortable: false,
+        pinned: 'left',
+      },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -194,4 +233,25 @@ export class CycleDetailComponent implements OnInit {
       }
     });
   }
+
+ datasetsReportRowsSelected(event) {
+  console.log('dataset emiter',  event);
+  this.datasetsSelectedRows = event;
+}
+
+onSubmitApproveDatasets() {
+  console.log('dataset de prueba -->', this.datasetsSelectedRows); 
+  this.datasetsSelectedRows.forEach(ele => { 
+    this.rowData[this.rowData.findIndex(item => item.id === ele.id)].approvedBack = true;
+  }); 
+  console.log('row data submit-->', this.rowData)
+  //this.rowData = [];
+  //this.createHistoryRowData();
+  //this.getCompletedProductCyclesData(this.productCycleId);
+}
+
+handleGridReady(params) {
+  this.gridApi = params.api;
+} 
+
 }
