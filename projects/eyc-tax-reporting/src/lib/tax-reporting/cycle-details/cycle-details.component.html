@@ -11,9 +11,32 @@
     <h1>{{pageName}}</h1>
   </div>
 
-  <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
+ <!--  <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
     [pagination]="true" gridStyle="first" buttonPosition="left" [displayCheckBox]="true" [button]="false">
-  </lib-shared-grid>
+  </lib-shared-grid> -->
+
+  <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+  [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
+  [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
+  (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
+  [permissionToPrimaryButton]="true"
+  [permissionToSecondaryButton]="false">
+</lib-shared-grid>
+
+<ng-template #datasetsDropdownTemplate let-row>
+
+  <div class="complete" *ngIf="row.approvedBack === true">
+    <motif-icon [src]="'../../../assets/eyc-tax-reporting/mock/icons/ic-approved-entity.svg'">
+      <!-- /assets/icons/action/ic_done_24px.svg -->
+    </motif-icon>
+  </div>
+
+  <div class="complete" *ngIf="row.approvedBack === false && row.CommentsCount > 0">
+    <motif-icon [src]="'../../../assets/eyc-tax-reporting/mock/icons/ic-checbox-disabled.svg'">   
+    </motif-icon>
+  </div>
+
+</ng-template>
 
   <ng-template #fundName let-row>
     <span class="fund-name">{{row.name}}</span>
