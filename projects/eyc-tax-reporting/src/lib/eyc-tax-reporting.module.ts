@@ -14,8 +14,8 @@ import { CommentsPagecomponent } from './tax-reporting/comments-page/comments-pa
 import { TaxCommentModalComponent } from './shared/tax-comment-modal/tax-comment-modal.component';
 import { TaskCommentComponent } from './tax-reporting/task-comment/task-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import {MatChipsModule} from '@angular/material/chips';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import {MatChipsModule} from '@angular/material/chips';
     EycUiSharedComponentModule,
     ReactiveFormsModule,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonModule
   ],
   declarations: [
     TaxReportingComponent,

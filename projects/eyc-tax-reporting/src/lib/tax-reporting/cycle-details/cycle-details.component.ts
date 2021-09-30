@@ -59,6 +59,10 @@ export class CycleDetailComponent implements OnInit {
   fundName: TemplateRef<any>;
   @ViewChild('urlDownload')
   urlDownload: TemplateRef<any>;
+  @ViewChild('openCommentEY')
+  openCommentEY: TemplateRef<any>;
+  @ViewChild('openCommentClient')
+  openCommentClient: TemplateRef<any>;
 
   @ViewChild('datasetsDropdownTemplate')
   datasetsDropdownTemplate: TemplateRef<any>;
@@ -152,7 +156,9 @@ export class CycleDetailComponent implements OnInit {
            id: item.id,
            approved: item.approvedBack === true ? true :(item.CommentsCount > 0 ? true:false),
            CommentsCount: item.CommentsCount,
-           approvedBack: item.approvedBack 
+           approvedBack: item.approvedBack, 
+           commentsEY:item.commentsEY,
+           commentsClient:item.commentsClient
          };
          this.completedFilings.push(eachitem);
        });
@@ -169,7 +175,9 @@ export class CycleDetailComponent implements OnInit {
         id:filing.id,
         approved:filing.approved,
         CommentsCount:filing.CommentsCount,
-        approvedBack:filing.approvedBack
+        approvedBack:filing.approvedBack,
+        commentsEY:filing.commentsEY,
+        commentsClient:filing.commentsClient
       })
     });
 
@@ -198,7 +206,33 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 500,
+        minWidth: 300,
+        sort:'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.openCommentEY,
+        },
+        headerName: 'Open comments (EY)',
+        sortable: true,
+        filter: false,        
+        resizeable: true, 
+        minWidth: 300,
+        sort:'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.openCommentClient,
+        },
+        headerName: 'Open comments (Client)',
+        sortable: true,
+        filter: false,        
+        resizeable: true, 
+        minWidth: 300,
         sort:'asc'
       },
       {
@@ -211,7 +245,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: false,        
         resizeable: true, 
-        minWidth: 500,
+        minWidth: 300,
         sort:'asc'
       }
     ];

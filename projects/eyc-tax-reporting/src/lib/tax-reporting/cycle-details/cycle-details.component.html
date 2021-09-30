@@ -61,4 +61,17 @@
      
     </div>
   </ng-template>
+
+  <ng-template #openCommentEY let-row>
+      <button class='counter-item' [ngClass]="row.commentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
+      {{row.commentsEY}}
+      </button>
+  </ng-template>
+
+  <ng-template #openCommentClient let-row>
+      <button class='counter-item' [ngClass]="row.commentsClient > 0 ? 'has-count': 'zero-count'" color="primary">
+        {{row.commentsClient}}
+      </button>
+  </ng-template>
 </div>
+

@@ -487,3 +487,25 @@ motif-icon.motif-icon.user-edit {
   cursor: pointer;
 }
 
+.counter-item{
+  left: 0%;
+  background: #FFFFFF;
+  border: 1px solid #C4C4CD;
+  box-sizing: border-box;
+  border-radius: 16px;
+  height: 22px;
+  width: 30px;
+  box-shadow: 0px 0px 0px 0px;
+  line-height: 0px;
+}
+
+.has-count{
+  background: black;
+  color:white;
+}
+
+.zero-count{
+  background:white;
+  color:black;
+}
+  
