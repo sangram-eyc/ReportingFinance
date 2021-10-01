@@ -3,7 +3,7 @@
    "message": "success",
    "data": [
       {
-         "reg_reporting": "AIFMD_30 day",
+         "reg_reporting": "AIFMD_30 Day",
          "regulationReportingDate": "2021-06-30",
          "ReportingDate": "2021-07-21",
          "RegulationDueDate": "2021-07-30",
@@ -16,7 +16,7 @@
          "exceptionDue": "BD15"
       },
       {
-         "reg_reporting": "AIFMD_45 day",
+         "reg_reporting": "AIFMD_45 Day",
          "regulationReportingDate": "2021-06-30",
          "ReportingDate": "2021-07-21",
          "RegulationDueDate": "2021-08-14",
