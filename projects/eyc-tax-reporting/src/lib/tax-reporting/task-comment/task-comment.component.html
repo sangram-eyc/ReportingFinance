@@ -1,5 +1,6 @@
 <div class="comment-wrapper">
     <motif-card>
+
         <div class="row mt-2 mb-4">      
           <mat-chip-list [selectable]="false">
                 <span class="margin-from-card">From {{target}}</span>
@@ -81,7 +82,8 @@
         <motif-card-body>
             <div class="row">
                 <div class="col-md-1 col-sm-1 card-column">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class='office-icon' width="32" height="32" viewBox="0 0 32 32" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd"
                             d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
                             fill="#87D3F2" />
@@ -93,10 +95,83 @@
 
                 <div class="col-md-9 col-sm-9 card-column task-comment">
                     <span class='author'>{{createdBy}}</span>
-                    <span class='creation-date'>{{createdDate}}</span><br>
+                    <span class='creation-date'>{{createdDate}}</span>
                     <span class='description'>{{description}}</span>
                 </div>
             </div>
+
+
+            <!--           Desplegar reply comments    
+    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5575 0.442383L5 3.87738L8.4425 0.442383L9.5 1.49988L5 5.99988L0.5 1.49988L1.5575 0.442383Z" fill="#155CB4"/>
+                        </svg>
+                    </a>
+                
+                
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                    </div>
+                  </div> 
+-->     
+            <a> 1 REPLY</a>
+           
+            <a *ngIf='showReplyCommentButton' (click)="ReplyComment()">
+                <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class='reply-icon'>
+                    <path d="M7 4V0L0 7L7 14V9.9C12 9.9 15.5 11.5 18 15C17 10 14 5 7 4Z" fill="#155CB4" />
+                </svg>
+            </a>
+
+            <div *ngIf='showReplyComment' class="row reply-comment">
+                <div class="col-md-1 col-sm-1 card-column ">
+                    
+
+
+                  
+                    <svg  class='ey-icon' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
+                            fill="#2E2E3C" />
+                        <path
+                            d="M8.86137 21.9218H12.4705V19.8419H8.86137V18.2515H12.8376L11.5224 15.9881H5.89453V25.7756H13.8469V23.5123H8.86137V21.9218Z"
+                            fill="#F6F6FA" />
+                        <path
+                            d="M20.1174 15.9881L18.3128 19.169L16.4777 15.9881H12.9297L16.6918 21.9218V25.7756H19.8727V21.9218L23.6348 15.9881H20.1174Z"
+                            fill="#F6F6FA" />
+                        <path d="M5.89453 12.6236L25.7754 9.38152V5.89471L5.89453 12.6236Z" fill="#FFE600" />
+                    </svg>
+
+                </div>
+
+                <div class="col-md-9 col-sm-9 card-column task-comment">
+                    <textarea class="form-control reply-comment-text" rows="3"></textarea>
+                    <span class="comment-status-text">COMMENT STATUS
+                        <svg class='info_icon' width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.99967 1.33334C4.31967 1.33334 1.33301 4.32001 1.33301 8.00001C1.33301 11.68 4.31967 14.6667 7.99967 14.6667C11.6797 14.6667 14.6663 11.68 14.6663 8.00001C14.6663 4.32001 11.6797 1.33334 7.99967 1.33334ZM7.99967 11.3333C7.63301 11.3333 7.33301 11.0333 7.33301 10.6667V8.00001C7.33301 7.63334 7.63301 7.33334 7.99967 7.33334C8.36634 7.33334 8.66634 7.63334 8.66634 8.00001V10.6667C8.66634 11.0333 8.36634 11.3333 7.99967 11.3333ZM8.66634 6.00001H7.33301V4.66668H8.66634V6.00001Z"
+                                fill="#2E2E38" />
+                        </svg>
+                    </span>
+                    <mat-radio-group class='comments-reply-status-button' aria-label="Select an option">
+                        <mat-radio-button value="1">Open</mat-radio-button>
+                        <mat-radio-button value="2" style="margin-left: 15px;">Accepted</mat-radio-button>
+                        <mat-radio-button value="2" style="margin-left: 15px;" >Declined</mat-radio-button>
+                      </mat-radio-group>
+                    <div class='comments-reply-actions'>
+                        <button motifButton color="primary-alt">Post</button>
+                        <button motifButton (click)="ReplyComment()" color="primary-alt" style="margin-left: 2px;">Cancel</button>
+                    </div>   
+                </div>
+            </div>
+
+
         </motif-card-body>
     </motif-card>
 </div>
+
+
+
+    

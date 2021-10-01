@@ -18,6 +18,8 @@ export class TaskCommentComponent implements OnInit {
   status:any;
   target:any;
   idTask:any;
+  showReplyComment:boolean = false;
+  showReplyCommentButton:boolean = true;
 
   constructor(
     private router: Router,
@@ -49,4 +51,8 @@ export class TaskCommentComponent implements OnInit {
       });
   }
 
+  ReplyComment(){
+    this.showReplyComment = !this.showReplyComment
+    this.showReplyCommentButton = !this.showReplyCommentButton
+  }
 }
