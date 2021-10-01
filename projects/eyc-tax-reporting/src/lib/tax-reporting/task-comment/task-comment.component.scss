@@ -289,7 +289,7 @@
             display: none !important;
         }
         .motif-tooltip-trigger {
-            cursor: context-menu !important;
+             cursor: pointer !important;
         }
         .motif-step-container .step-info .step-dot {
             height: 1.24rem !important;
@@ -306,10 +306,14 @@
             justify-content: center !important;
         }
         .motif-tooltip .motif-tooltip-inner{
-            padding: .85714rem 1rem .85714rem 1rem !important;
+            padding: .85714rem 0px .85714rem 0px !important;
         }
         .motif-tooltip.color-default .motif-tooltip-close-button {
             display: none;
+        }
+
+        .motif-tooltip #arrow::before{
+            border: 11px solid white;
         }
     }
     @media screen and (min-width: 300px) {
@@ -380,13 +384,130 @@
     }
    }
 
-   .mat-chip-p:hover{
+/*    .mat-chip-p:hover{
     background: white !important;
-}
+} */
 
-   .icon-cross{
+.icon-cross{
     width: 1.9rem !important;
+    cursor: pointer;
    }
    .icon-arrow{
     width: 1.9rem !important;
    }
+
+   .margin-from-card{
+       margin-right: 2rem;
+   }
+
+   .margin-left-btns{
+       margin-left: auto;
+   }
+
+  /* Toolip */
+.report-name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .eli-report-name {
+    margin: 0;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 5px;
+  }
+  span.report-name.ellipsis {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 140px;
+  }
+  span.report-name.ellipsis-period {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 114px;
+  }
+  
+  ::ng-deep #tooltip{
+    position: absolute !important;
+    inset: 32px auto auto 47px !important;
+    margin: 0px !important;
+    width: 240px;
+    padding: initial;
+  
+  }
+  
+  ::ng-deep #arrow{
+    position: absolute !important;
+    left: 12px !important;
+    color: white !important;
+  }
+  
+  /* End Toolip */
+  
+  .icon-accept{
+    height: 36px !important;
+    width: 50px !important;
+    margin-left: auto;
+  }
+  
+  .icon-decline{
+    height: 61px !important;
+    width: 68px !important;
+  }
+  
+  .text-accept {
+    margin-left: inherit;
+    
+  }
+  
+  .font-text-tooltip{
+    font-size: small;
+    color: black;
+  }
+    
+  ::nd-deep .motif-tooltip-inner{
+    padding: 0.85714rem 0px 0.85714rem 0px !important;
+  }
+  
+  .div-icon-accept {
+    height: 31px;
+    margin-left: inherit;
+  }
+
+.pad-r{
+    padding-right: initial !important;
+    padding-top: 5px !important;
+}
+
+.open-background{
+ background-color: #FF9831 !important;
+}
+
+.accepted-background{
+    background: #168736 !important;
+
+    .mat-chip-text{
+        color: white !important;
+    }
+}
+
+.declined-background{
+    background: #B9251C !important;
+    .mat-chip-text{
+        color: white !important;
+    }
+}
+
+.row-hover:hover{
+    background-color: #F0F0F0;
+    cursor: pointer;
+}
+    
+  

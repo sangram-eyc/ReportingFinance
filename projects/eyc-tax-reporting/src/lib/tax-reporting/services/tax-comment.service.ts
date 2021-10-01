@@ -41,4 +41,15 @@ export class TaxCommentService {
     }  
   }
 
+  updateTaskStatus(id, data){
+    if(this.settingsService.production){
+      //when the api is ready
+      //return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.update_task_status}/tasks/${id}/status`, data);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_task_status}`);
+    }
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_task_status}`);
+    }
+  }
+
 }
