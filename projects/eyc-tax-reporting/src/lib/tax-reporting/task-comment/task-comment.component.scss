@@ -17,8 +17,11 @@
             line-height: 25px;
         }
         .description{
-            font-size: 14px;
+            color: #2E2E38;
+            font-family: 'EYInterstateLight';
+            font-size: 14px;        
             line-height: 22px;
+            margin-top: 13px;
         }
     }
     
@@ -511,3 +514,71 @@
 }
     
   
+   .reply-icon{
+    width: 24px !important;;    
+    height: 24px !important;;
+   }
+
+   .reply-comment{
+        margin-top:10px;
+        margin-left:20px;
+   }
+
+   .reply-comment-text{
+    background: #EAEAF2;
+    max-width: 664px;
+    height: 60px;
+    left: 104px;
+    top: 0px;
+    border: transparent;
+
+    
+    font-family: 'EYInterstateLight';
+    font-size: 14px;        
+    line-height: 22px;
+   
+   }
+
+   .comment-status-text{
+    font-family: EYInterstate;
+    font-size: 10px;
+    letter-spacing: 1.25px;
+    color: #2E2E38;
+    font-weight: 600;
+    width: fit-content;
+    margin-top: 12px;
+    margin-bottom: 10px;
+   }
+
+   .info_icon{
+    height: 16px !important;
+    width: 16px !important;
+    display: inline !important;
+   }
+
+   .ey-icon{
+    height: 32px !important;
+    width: 32px !important;
+   }
+
+   .comments-reply-actions{
+       display: flex;
+   }
+
+   .comments-reply-status-button{
+        margin-bottom: 17px;
+   }
+
+   .comments-reply-status-button mat-radio-button{
+    font-family: 'EYInterstateLight';
+    font-size: 14px;
+   }
+
+   .comments-reply-status-button > .mat-radio-label-content{
+       margin-left:6px !important;
+   }
+
+   .comments-reply-actions button{
+       width: 95px;
+       height: 44px;
+   }

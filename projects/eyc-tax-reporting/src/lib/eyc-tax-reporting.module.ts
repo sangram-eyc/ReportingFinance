@@ -16,6 +16,7 @@ import { TaskCommentComponent } from './tax-reporting/task-comment/task-comment.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatButtonModule} from '@angular/material/button';
     ReactiveFormsModule,
     FormsModule,
     MatChipsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule
   ],
   declarations: [
     TaxReportingComponent,
