@@ -17,6 +17,10 @@ export class TaskCommentComponent implements OnInit {
   description:any;
   status:any;
   target:any;
+  company:any;
+  editRequired:any;
+  includeDebrief:any;
+  priority:number;
   idTask:any;
   showReplyComment:boolean = false;
   showReplyCommentButton:boolean = true;
@@ -31,9 +35,14 @@ export class TaskCommentComponent implements OnInit {
     this.createdDate = this.TaskCommentData.createdDate;
     this.createdBy = this.TaskCommentData.createdBy;
     this.description = this.TaskCommentData.description;
-    this.status = this.TaskCommentData.status;
-    this.target = this.TaskCommentData.target;
+    this.status = this.TaskCommentData.status.toLowerCase();
+    this.target = this.TaskCommentData.target.toLowerCase();
+    this.company = this.TaskCommentData.company.toLowerCase();
+    this.priority = this.TaskCommentData.priority;
     this.idTask = this.TaskCommentData.id;
+    const tags = this.TaskCommentData.tags;
+    this.editRequired = tags.find(tag => tag.id === 1);
+    this.includeDebrief = tags.find(tag => tag.id === 2);
     console.log('task-comments-data-receiving',this.TaskCommentData)
   }
 
@@ -54,5 +63,9 @@ export class TaskCommentComponent implements OnInit {
   ReplyComment(){
     this.showReplyComment = !this.showReplyComment
     this.showReplyCommentButton = !this.showReplyCommentButton
+  }
+
+  capitalizeFirstLetter(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }
