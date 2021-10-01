@@ -64,11 +64,12 @@ export class TaxCommentModalComponent implements OnInit {
       if(this.modalForm.get('IncludeDebrief').value){
         this.TagsToSend.push(2);
       }
-
+  
       const commentObj = {
         "description": this.modalForm.get('comment').value,
-        "priority": this.modalForm.get('critical').value ? "critical": "normal",
-        "target": this.modalForm.get('sendTo').value,
+        "status": "open",
+        "priority": this.modalForm.get('critical').value ? 1: 0,
+        "target": this.modalForm.get('sendTo').value.toLowerCase(),
         "tags": this.TagsToSend
       };
 
