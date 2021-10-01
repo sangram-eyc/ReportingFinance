@@ -11,9 +11,7 @@ export class TaxCommentService {
   
   addComment(data, entityId) {
     if (this.settingsService.production) {
-      //when the api is ready
-      //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}/funds/${entityId}/tasks`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}/funds/${entityId}/tasks`, data);
     } 
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
