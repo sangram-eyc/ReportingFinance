@@ -31,8 +31,7 @@ export class TaxCommentService {
 
   getCommentsData(id){
     if (this.settingsService.production) {
-      // return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/funds/${id}/tasks`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/funds/${id}/tasks`);
     } 
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
