@@ -40,7 +40,7 @@ export class CommentsPagecomponent implements OnInit {
 
   getComments() {
     this.completedComments = [];
-    this.commentService.getCommentsData(this.fundId).subscribe(resp => {
+    this.commentService.getTasksData(this.fundId).subscribe(resp => {
       console.log("call all comments", resp);
       resp['data'].length === 0 ? this.isData = false : this.isData = true;
       resp['data'].forEach((item) => {

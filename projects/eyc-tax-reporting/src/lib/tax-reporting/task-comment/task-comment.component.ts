@@ -24,6 +24,7 @@ export class TaskCommentComponent implements OnInit {
   idTask:any;
   showReplyComment:boolean = false;
   showReplyCommentButton:boolean = true;
+  statusSelected:string ='open';
 
   constructor(
     private router: Router,
@@ -60,7 +61,18 @@ export class TaskCommentComponent implements OnInit {
       });
   }
 
+
   ReplyComment(){
+    this.showReplyNewComment()
+    this.setStatusComment(this.statusSelected)
+    // this.createNewComment()
+  }
+
+  cancelReplyComment(){
+    this.showReplyNewComment();
+  }
+  
+  showReplyNewComment(){
     this.showReplyComment = !this.showReplyComment
     this.showReplyCommentButton = !this.showReplyCommentButton
   }

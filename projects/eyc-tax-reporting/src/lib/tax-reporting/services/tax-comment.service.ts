@@ -9,14 +9,24 @@ export class TaxCommentService {
 
   constructor(private apiService: EycApiService,private settingsService: EycTaxSettingsService) { }
   
-  addComment(data, entityId) {
+  addTask(data, entityId) {
     if (this.settingsService.production) {
-      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}/funds/${entityId}/tasks`, data);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_task}/funds/${entityId}/tasks`, data);
     } 
     else{
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_task}`);
     }   
   }
+
+  addComment(data) {
+    if (this.settingsService.production) {
+    return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+  }
+  else{
+    return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+  }
+}
+
 
   uploadFile(data) { 
     if (this.settingsService.production) {
@@ -29,14 +39,23 @@ export class TaxCommentService {
     }     
   }
 
-  getCommentsData(id){
+  getTasksData(id){
     if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/funds/${id}/tasks`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_list}/funds/${id}/tasks`);
     } 
     else{
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_list}`);
     }  
   }
+
+   getCommentsData(entityId){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`+entityId);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`);
+    }  
+  } 
 
   updateTaskStatus(id, data){
     if(this.settingsService.production){
@@ -47,6 +66,10 @@ export class TaxCommentService {
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_task_status}`);
     }
+  }
+
+  listComments(entityId) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`+entityId);
   }
 
 }
