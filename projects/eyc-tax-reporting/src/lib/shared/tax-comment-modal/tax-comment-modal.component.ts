@@ -75,8 +75,8 @@ export class TaxCommentModalComponent implements OnInit {
 
       console.log('CommentObj-->', commentObj);
       console.log('entityId-->', this.modalDetails.entityId);
-      this.commentService.addComment(commentObj, this.modalDetails.entityId).subscribe(res => {
-        console.log("Result addComment-->",res);
+      this.commentService.addTask(commentObj, this.modalDetails.entityId).subscribe(res => {
+        console.log("Result addTask-->",res);
         console.log("filesList.length-->",this.filesList.length); 
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
