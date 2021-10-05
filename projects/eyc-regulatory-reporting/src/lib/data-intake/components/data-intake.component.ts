@@ -345,7 +345,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         wrapText: true,
         width: 150
       },
-      {
+      /*{
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Client',
         field: 'client',
@@ -356,7 +356,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 150,
         sort: 'asc',
         comparator: customComparator
-      }/* ,
+      } ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -368,7 +368,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150
-      } */,
+      } */
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
