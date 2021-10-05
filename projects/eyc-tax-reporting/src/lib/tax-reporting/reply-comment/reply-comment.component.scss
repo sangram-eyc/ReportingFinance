@@ -1,8 +1,17 @@
-.comment-wrapper-new{
+.reply-comment-wrapper{
     height: 100%;
-    .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
-        padding: 0 !important;
+    margin-left: 19px;
+    // margin-bottom: 25px;
+    .motif-card-body:last-child, .motif-card-body:last-child {
+        padding: 0 !important;   
+        margin-bottom: 25px !important;    
     }
+
+    ::ng-deep{
+        .row>* {
+            padding-left: 0px !important;
+        }
+    } 
 
     .task-comment{
         color: #2E2E38;
@@ -20,7 +29,7 @@
             font-family: 'EYInterstateLight';
             font-size: 14px;        
             line-height: 22px;
-            margin-top: 13px;
+            //margin-top: 13px;
         }
     }
     
@@ -34,69 +43,10 @@
         height: 100% !important;
         width: 100%;
         font-family: EYInterstate;
-        border: 1px solid #c4c4cd !important;
+        border: 1px solid white !important;
         // padding: 10px;
         // margin-right: 22px;
-
-        .motif-card-header {
-            border: none;
-            // display: flex;
-            // justify-content: space-between;
-            // align-items: center;
-            // padding: 28px 20px 18px 23px;
-            padding: 18px 20px 5px 22px;
-            .elli-wrap {
-                // width: 67%;
-            }
-            .report-name {
-                margin: 0;
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 18px;
-            }
-            .eli-report-name {
-                margin: 0;
-                font-weight: 700;
-                font-size: 16px;
-                line-height: 5px;
-                // width: 62%;
-                /* position: absolute;
-                margin-top: 25px; */
-            }
-            span.report-name.ellipsis {
-                flex: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: block;
-                width: 140px;
-            }
-            span.report-name.ellipsis-period {
-                flex: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: block;
-                width: 114px;
-            }
-            .report-date-due {
-                display: flex;
-                align-items: center;
-                font-size: 12px;
-                justify-content: flex-end;
-                .motif-icon {
-                    margin-right: 4px;
-                    width: 12px;
-                    cursor: default;
-                    ::ng-deep {
-                        svg {
-                            fill: #6F6F7A;
-                        }
-                      }
-                }
-            }
-        }
-    
+  
         .motif-card-body {
             // display: flex;
             // justify-content: space-between;
@@ -115,6 +65,7 @@
             .card-column {
                 display: flex;
                 flex-direction: column;
+                flex-wrap: wrap-reverse;
                 .status-text {
                     font-weight: 500;
                     font-size: 11px;
@@ -126,41 +77,6 @@
                 flex-direction: row;
             }
 
-            .comment-column {
-                padding: 0 10px;
-                float: right;
-                .report-comment {
-                    padding: 0;
-                    display: flex;
-                    align-items: center;
-                    font-weight: 700;
-                    color: rgba(0, 0, 0, 0.5);
-                    .motif-icon {
-                        padding: 0;
-                        margin-right: 8px;
-                        width: 18px;
-                        ::ng-deep {
-                            svg {
-                                box-sizing: unset;
-                                fill: rgba(0, 0, 0, 0.5);
-                            }
-                        }
-                        .motif-icon-wrap {
-                            padding: 0 !important;
-                        }
-                    }
-                }
-                .blue-comment {
-                    color: #155CB4;
-                    .motif-icon {
-                        ::ng-deep {
-                            svg {
-                                fill: #155CB4;
-                            }
-                        }
-                    }
-                }
-            }
             .column-header {
                 font-size: 14px;
                 line-height: 20px;
@@ -170,34 +86,6 @@
                 font-weight: 700;
                 font-size: 32px;
                 line-height: 48px;
-            }
-        }
-    
-        .report-card-footer {
-            display: flex;
-            margin-bottom: 22px;
-            padding-left: 8px;
-            padding-right: 22px;
-            align-items: center;
-            .footer-status {
-                border: 1px solid #23232F;
-                border-radius: 16px;
-                padding: 0px 11px;
-                height: 22px;
-                font-family: 'EYInterstateLight';
-                font-weight: 700;
-                font-size: 12px;
-            }
-            .card-button {
-                .motif-button {
-                    width: 66px;
-                    min-height: 31px;
-                    height: 31px;
-                }
-            }
-            svg {
-                fill:darkblue;
-                height: 1.11429rem;
             }
         }
     }
@@ -639,53 +527,3 @@
 
     
 }
-
-::ng-deep .toast-replays{
-
-     .motif-toast{
-
-        height: 50px !important;
-        padding-left: 0px !important;
-        padding-top: inherit !important;
-        padding-bottom: inherit !important;
-        margin-top: 15px !important;   
-    }
-
-    .motif-icon-content{
-
-        padding: initial !important;
-        margin-top: -19px !important;
-
-        svg{
-            padding: initial !important;
-        }
-    }
-
-.close {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-    filter: alpha(opacity=50);
-    position: relative;
-    height: 50px;
-    width: 50px;
-    font-size: 25px;
-  }
-
-  button.close:hover {
-    background-color: var(--modal-header-border-color) !important;
-  }
-  
-  button.close {
-    -webkit-appearance: none;
-    padding: 0;
-    cursor: pointer;
-    background: 0 0;
-    border: 0;
-    left:14px;
-  } 
-
-}
-
-
-

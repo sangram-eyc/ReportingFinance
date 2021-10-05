@@ -23,7 +23,7 @@ export class TaxCommentService {
     return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
   }
   else{
-    return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+    return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
   }
 }
 
@@ -48,15 +48,6 @@ export class TaxCommentService {
     }  
   }
 
-   getCommentsData(entityId){
-    if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`+entityId);
-    } 
-    else{
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`);
-    }  
-  } 
-
   updateTaskStatus(id, data){
     if(this.settingsService.production){
       //when the api is ready
@@ -69,7 +60,12 @@ export class TaxCommentService {
   }
 
   listComments(entityId) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_comments}`+entityId);
+    if(this.settingsService.production){      
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/TASK/${entityId}/comments`);
+    }
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
+    }
   }
 
 }
