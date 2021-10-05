@@ -32,10 +32,10 @@ export class TaxCommentService {
     if (this.settingsService.production) {
       //when the api is ready
       //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.upload}`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.upload}`);
     } 
     else{
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.upload}`);
     }     
   }
 
