@@ -52,7 +52,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Dataset',
-        field: 'fileDomain',
+        field: 'dataset',
         sortable: true,
         wrapText: true,
         autoHeight: true,
@@ -63,7 +63,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File Name',
-        field: 'exceptionFile',
+        field: 'fileName',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -74,7 +74,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Status',
-        field: 'reviewLevel',
+        field: 'status',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -83,7 +83,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Report',
-        field: 'reg_reporting',
+        field: 'report',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -144,7 +144,7 @@ export class IntakeFilesComponent implements OnInit {
 
   openAccord(index, event) {
     if (this.filesDatasets[index] === undefined) {
-      this.datasetEvent.emit({index: index});
+      this.datasetEvent.emit({index: index, event: event});
       this.createRowData();
 
       console.log('FILES DATASETS',this.filesDatasets);
