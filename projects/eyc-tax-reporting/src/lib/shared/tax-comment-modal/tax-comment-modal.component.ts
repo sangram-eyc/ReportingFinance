@@ -108,7 +108,7 @@ export class TaxCommentModalComponent implements OnInit {
            setTimeout(() => {
              this.showToastAfterSubmit = !this.showToastAfterSubmit;      
              this.dialogRef.close({ button: this.modalDetails.footer.YesButton });         
-           }, 4000);            
+           }, 4000);         
         }
       }, error => {
         console.log(error);

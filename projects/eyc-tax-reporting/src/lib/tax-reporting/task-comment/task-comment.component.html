@@ -1,4 +1,4 @@
-<div class="comment-wrapper">
+<div class="comment-wrapper-new">
     <motif-card>
 
         <div class="row mt-2 mb-4">      
@@ -126,8 +126,32 @@
                     </div>
                   </div> 
 -->     
-            <a> 1 REPLY</a>
-           
+
+        <div *ngIf="replyCount > 0 || replyCount == 0" class="row">
+              <div *ngIf="arrowReplay" class="col-md-1 col-sm-1">
+                <svg (click)="getListComments()" class="arrow-replays" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5575 0.442383L5 3.87738L8.4425 0.442383L9.5 1.49988L5 5.99988L0.5 1.49988L1.5575 0.442383Z" fill="#155CB4"/>
+                </svg>                
+              </div>
+
+              <div *ngIf="!arrowReplay" class="col-md-1 col-sm-1">
+                <svg (click)="getListComments()" class="arrow-replays" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.4425 5.55762L5 2.12262L1.5575 5.55762L0.5 4.50012L5 0.000116909L9.5 4.50012L8.4425 5.55762Z" fill="#155CB4"/>
+                    </svg>                   
+              </div>
+
+              <div class="col-md-3 col-sm-3">
+                <span (click)="getListComments()" class="text-replay">{{replyCount}} Reply</span> 
+              </div>
+
+              <div *ngIf="!arrowReplay">
+                <div class="each-element" *ngFor="let replyComment of replyData">
+                    <lib-reply-comment  [ReplyCommentData]='replyComment'></lib-reply-comment>
+                  </div>
+              </div>
+
+        </div>
+                    
             <a *ngIf='showReplyCommentButton' (click)="showReplyNewComment()">
                 <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class='reply-icon'>
@@ -135,12 +159,10 @@
                 </svg>
             </a>
 
+            <form [formGroup]="ReplayForm">
             <div *ngIf='showReplyComment' class="row reply-comment">
-                <div class="col-md-1 col-sm-1 card-column ">
-                    
-
-
-                  
+                
+                <div class="col-md-1 col-sm-1 card-column">                                     
                     <svg  class='ey-icon' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
@@ -153,11 +175,23 @@
                             fill="#F6F6FA" />
                         <path d="M5.89453 12.6236L25.7754 9.38152V5.89471L5.89453 12.6236Z" fill="#FFE600" />
                     </svg>
-
                 </div>
-
+               
                 <div class="col-md-9 col-sm-9 card-column task-comment">
-                    <textarea class="form-control reply-comment-text" rows="3"></textarea>
+                    <motif-form-field>
+                      <label motifLabel>Comment (required)</label>
+                      <textarea motifInput class="motif-textarea" rows="3" formControlName="comment"></textarea>
+                    </motif-form-field>
+                    <motif-error *ngIf="
+                        ReplayForm.get('comment').hasError('required') &&
+                        ReplayForm.get('comment').touched">Comment is required
+                    </motif-error>
+                    <motif-error *ngIf="ReplayForm.get('comment').hasError('maxlength')">
+                        Comment can be max 250 characters long
+                    </motif-error>
+                    <motif-error *ngIf="ReplayForm.get('comment').hasError('whitespace') &&
+                    ReplayForm.get('comment').touched">Please enter valid data</motif-error>
+                    
                     <span class="comment-status-text">COMMENT STATUS
                         <svg class='info_icon' width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -166,23 +200,42 @@
                                 fill="#2E2E38" />
                         </svg>
                     </span>
-                    <mat-radio-group  [(ngModel)]="statusSelected" class='comments-reply-status-button' aria-label="Select an option">
-                        <mat-radio-button [value]="'open'">Open</mat-radio-button>
-                        <mat-radio-button [value]="'accepted'" style="margin-left: 15px;">Accepted</mat-radio-button>
-                        <mat-radio-button [value]="'declined'" style="margin-left: 15px;" >Declined</mat-radio-button>
-                    </mat-radio-group> 
+                    <motif-form-field>              
+                        <div class="radio-item mb-2">
+                            <input type="radio" id="open" formControlName="statusReplay" name="statusReplay" value="open">
+                            <label for="open">Open</label>
+                        </div>                   
+                        <div class="radio-item mb-2">
+                            <input type="radio" id="accepted" formControlName="statusReplay" name="statusReplay" value="accepted">
+                            <label for="accepted">Accepted</label>
+                        </div>
+                        <div class="radio-item mb-2">
+                            <input type="radio" id="declined" formControlName="statusReplay" name="statusReplay" value="declined">
+                            <label for="declined">Declined</label>
+                        </div>
+                        <div class="radio-item mb-2"></div>
+                    </motif-form-field> 
 
                     <div class='comments-reply-actions'>
-                        <button motifButton (click)="ReplyComment()" color="primary-alt">Post</button>
+                        <button [disabled]="ReplayForm.invalid" motifButton (click)="ReplyComment()" color="primary-alt">Post</button>
                         <button motifButton (click)="cancelReplyComment()" color="primary-alt" style="margin-left: 2px;">Cancel</button>
                     </div>   
                 </div>
+            
             </div>
-
-
+        </form>
         </motif-card-body>
     </motif-card>
 </div>
+
+<div class="toast-replays">
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+        {{toastSuccessMessage}} 
+        <button type="button" class="close" (click)="closeToast()">&times;</button>
+    </motif-toast>
+</div>
+
+
 
 
 

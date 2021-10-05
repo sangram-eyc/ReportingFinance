@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
+import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comment.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {MatRadioModule} from '@angular/material/radio';
     TableHeaderRendererComponent,
     CommentsPagecomponent,
     TaxCommentModalComponent,
-    TaskCommentComponent
+    TaskCommentComponent,
+    ReplyCommentComponent
   ],
   exports: [TaxReportingComponent]
 })
