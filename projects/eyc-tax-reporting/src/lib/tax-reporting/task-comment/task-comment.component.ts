@@ -66,7 +66,7 @@ export class TaskCommentComponent implements OnInit {
     //this.replyCount = this.TaskCommentData.replyCount;
     console.log('task-comments-data-receiving',this.TaskCommentData)
     //Tempo
-    this.commentService.listComments(this.entityId).subscribe(resp => {     
+    this.commentService.listComments(this.idTask).subscribe(resp => {     
       this.replyData = resp['data'];
       this.replyCount = this.replyData.length;
     });
@@ -157,7 +157,7 @@ export class TaskCommentComponent implements OnInit {
   getListComments(){
     this.arrowReplay = !this.arrowReplay;   
     if(this.arrowReplay === false){
-      this.commentService.listComments(this.entityId).subscribe(resp => {     
+      this.commentService.listComments(this.idTask).subscribe(resp => {     
         this.replyData = resp['data'];
           this.replyData.forEach(comment => {
             comment.commentText = unescape(comment.commentText);
