@@ -37,7 +37,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   commentsData;
   commentsName;
 
-  filesDatasets = {};
+  bdFilesList = {};
   datasets = [];
   datasetsDefs;
   submitDatasets;
@@ -80,7 +80,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
-    this.getFiles();
   }
 
   @ViewChild('headerTemplate')
@@ -105,8 +104,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    console.log(this.filingDetails);
-
+    console.log('FILING DETAILS', this.filingDetails);
+    this.getFiles();
     /* if (this.tabs == 2) {
       this.getDatasets();
     } */
@@ -125,8 +124,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getFiles() {
-    this.service.getfilesList().subscribe(res => {
-      this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    console.log('FILING DETAILS', this.filingDetails);
+    this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.filesListArr = res['data'];
+      console.log('EXCEPTION SUMMARY', this.filesListArr);
     }, error => {
       console.log("files list error");
     });
@@ -145,13 +146,13 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getFileDataSet(event) {
+  getBDFilesList(event) {
     let index = event.index;
-    console.log('INDEX', index);
-    this.service.getDatasetsrecords().subscribe(res => {
-      this.filesDatasets[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    console.log('INDEX', event);
+    this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
+      this.bdFilesList[index] = res['data'];
     }, error => {
-      this.filesDatasets[index] = [];
+      this.bdFilesList[index] = [];
       console.log("Dataset error");
     });
   }

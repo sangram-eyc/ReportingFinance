@@ -20,12 +20,17 @@ export class DataIntakeService {
     // After backend API up will remove above line and uncomment below line
    
   }
-  getfilesList() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
+  getfilesList(filingName, period) {
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.exception_summary}filingName=${filingName}&period=${period}`);
+  }
+
+  getBDFilesList(filingName, lastFileDueDate, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.bd_files_list}filingName=${filingName}&lastFileDueDate=${lastFileDueDate}&period=${period}`);
   }
 
   getDatasetsrecords() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`)
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`);
   }
 
   getComments(type, id) {

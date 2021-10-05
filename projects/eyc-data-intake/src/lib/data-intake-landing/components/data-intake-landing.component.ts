@@ -14,7 +14,7 @@ export class DataIntakeLandingComponent implements OnInit {
   curDate;
   presentDate;
   filesListArr;
-  filesDatasets = {};
+  bdFilesList = {};
   commentsData;
   commentsName;
   showComments = false;
@@ -39,10 +39,10 @@ export class DataIntakeLandingComponent implements OnInit {
   getDataSet(event) {
     let index = event.index;
     console.log('INDEX', index);
-    this.processingService.getDataSets().subscribe(res => {
-      this.filesDatasets[index] = res['data'].filter(item => item.reg_reporting == this.filesListArr[index].reg_reporting);;
+    this.processingService.getBDFilesList().subscribe(res => {
+      this.bdFilesList[index] = res['data'];
     },error=>{
-      this.filesDatasets[index] = [];
+      this.bdFilesList[index] = [];
       console.log("Dataset error");
     });
   }
