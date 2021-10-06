@@ -106,19 +106,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
     this.getFiles();
-    /* if (this.tabs == 2) {
-      this.getDatasets();
-    } */
+    if(sessionStorage.getItem("enableTabsIntake")) {
+      this.enableTabs = true;
+      this.getExceptionReports();
+      this.tabs == 1;
+    }
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      // this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      this.exceptionData = res['data'];
       console.log(this.exceptionData);
       this.createEntitiesRowData();
 
     }, error => {
       this.exceptionData = [];
-      console.log("Client Review error");
+      console.log("exception data error");
     });
 
   }
@@ -197,7 +200,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
-        field: 'exceptionDue',
+        field: 'due',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -213,7 +216,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.expandExceptionTemplate,
         },
         headerName: 'File',
-        field: 'exceptionFile',
+        field: 'file',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -265,7 +268,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.resolveExceptionTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolve_exception',
+        field: 'resolvedCount',
         sortable: true,
         filter: true,
         width: 200,
@@ -273,7 +276,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
-        field: 'exceptions',
+        field: 'exceptionCount',
         sortable: true,
         filter: true,
         width: 200,
@@ -566,6 +569,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.enableTabs = false;
+    sessionStorage.removeItem("enableTabsIntake");
   }
 
   openComments(event = null) {
@@ -583,15 +587,16 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
 
   routeToExceptionDetailsPage(event:any) {
-    event.exceptionReportName = event.exceptionFile;
+    event.exceptionReportName = event.file;
     console.log(event);
     const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
-      filingName: event.reg_reporting,
+      filingName: this.filingDetails.filingName,
       dueDate: this.filingDetails.dueDate,
       filingId: event.exceptionId,
-      exceptionReportName: event.exceptionFile,
+      exceptionReportName: event.file,
       parentModule: 'Regulatory Reporting',
-      period: this.filingDetails.period
+      period: this.filingDetails.period,
+      ruleExceptionId: event.ruleExceptionId
     }}};
     this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
