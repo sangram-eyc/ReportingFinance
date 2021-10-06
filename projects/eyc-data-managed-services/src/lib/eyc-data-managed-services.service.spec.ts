@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EycDataManagementServicesService } from './eyc-data-management-services.service';
+import { EycDataManagementServicesService } from './eyc-data-managed-services.service';
 
 describe('EycDataManagementServicesService', () => {
   let service: EycDataManagementServicesService;

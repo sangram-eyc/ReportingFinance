@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
-import { EycDataManagementServicesComponent } from './eyc-data-management-services.component';
+import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
 
 
 

@@ -39,9 +39,9 @@
         "dist/eyc-tax-reporting/eyc-tax-reporting",
         "dist/eyc-tax-reporting"
       ],
-      "eyc-data-management-services": [
-        "dist/eyc-data-management-services/eyc-data-management-services",
-        "dist/eyc-data-management-services"
+      "eyc-data-managed-services": [
+        "dist/eyc-data-managed-services/eyc-data-managed-services",
+        "dist/eyc-data-managed-services"
       ]
     },
     "resolveJsonModule": true,

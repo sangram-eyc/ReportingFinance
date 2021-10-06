@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-eyc-data-management-services',
+  selector: 'lib-eyc-data-managed-services',
   template: `
   <motif-card class="no_data mt-5">
   <motif-card-body>
