@@ -3,10 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const taxenvironment = {
-    //apiEndpoint : 'http://localhost:4200/',
-    apiEndpoint : 'https://10.48.234.20/qa32/',
-    production: true,
-    SECURITY_ENABLED:true,
+    apiEndpoint : 'http://localhost:4200/',
+    production: false,
+    SECURITY_ENABLED: true,
+  SERVICE_URL: "https://10.48.234.20/qa32/",
   };
   
   /*

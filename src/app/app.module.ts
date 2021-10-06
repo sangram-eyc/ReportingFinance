@@ -29,7 +29,7 @@ import { SettingsService } from './services/settings.service';
 import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
 import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-intake.module';
 import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment';
-
+ import {EycDataManagementServicesModule} from 'projects/eyc-data-management-services/src/lib/eyc-data-management-services.module';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,8 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
     OAuthModule.forRoot(),
     MatDialogModule,
     EycUiSharedComponentModule,
-    EycDataIntakeModule
+    EycDataIntakeModule,
+    EycDataManagementServicesModule
    
   ],
   
