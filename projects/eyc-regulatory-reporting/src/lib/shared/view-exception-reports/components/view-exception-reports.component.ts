@@ -19,6 +19,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   period;
   filingName;
   exceptionReportName;
+  stage;
 
   gridApi;
   exceptionAnswersDefs;
@@ -55,6 +56,7 @@ export class ViewExceptionReportsComponent implements OnInit {
         this.period = this.dataIntakeData.period;
         this.formatDate();
       }
+      this.stage = 'intake';
     }
     else if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
@@ -64,7 +66,8 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingId = this.filingService.getFilingData.filingId;
       // console.log(this.filingService.getExceptionData);
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
-      this.parentModule = 'Regulatory Reporting'
+      this.parentModule = 'Regulatory Reporting';
+      this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '1'); 
     }
     if(this.dataIntakeData) {
@@ -82,7 +85,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getExceptionResults() {
-    this.viewService.getExceptionResults().subscribe(res => {
+    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
     });
@@ -139,7 +142,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   redirecttoDataExplorer(event) {
     console.log('Data explorer');
   }
-  backtoParent() {
+  backtoParent(stage) {
+    stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
     this.location.back();
   }
 }

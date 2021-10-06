@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -11,7 +11,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   templateUrl: './regulatory-reporting-filing.component.html',
   styleUrls: ['./regulatory-reporting-filing.component.scss']
 })
-export class RegulatoryReportingFilingComponent implements OnInit {
+export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   tabIn;
   constructor(
@@ -104,6 +104,11 @@ export class RegulatoryReportingFilingComponent implements OnInit {
   ngAfterViewInit(): void {
 
   }
+
+  ngOnDestroy() {
+    sessionStorage.removeItem("enableTabsIntake");
+  }
+
 
   getActiveFilingsData() {
     this.filingService.getFilings().subscribe(resp => {

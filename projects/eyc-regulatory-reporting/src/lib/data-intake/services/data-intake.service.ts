@@ -11,7 +11,7 @@ export class DataIntakeService {
   constructor(private apiService: EycRrApiService, private settingsService: EycRrSettingsService) { }
 
   getExceptionReports(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}filingName=${filingName}&period=${period}`);
     // After backend API up will remove above line and uncomment below line
   }
   
