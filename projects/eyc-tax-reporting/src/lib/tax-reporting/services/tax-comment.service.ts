@@ -68,4 +68,22 @@ export class TaxCommentService {
     }
   }
 
+  deleteTag(idTask, tagId){
+    if(this.settingsService.production){      
+      return this.apiService.invokeDeleteAPI(`${this.settingsService.taxReporting.delete_tag}/tasks/${idTask}/tags/${tagId}`);
+    }
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_tag}`);
+    }
+  }
+
+  deletePriority(idTask, data){
+    if(this.settingsService.production){      
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.delete_priority}/tasks/${idTask}/priority`, data);
+    }
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_priority}`);
+    }
+  }
+
 }

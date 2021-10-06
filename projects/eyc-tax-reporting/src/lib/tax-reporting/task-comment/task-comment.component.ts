@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { TaxCommentService } from '../services/tax-comment.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'app-task-comment',
@@ -35,11 +37,13 @@ export class TaskCommentComponent implements OnInit {
   replyCount:any;
   replyData:any = [];
   formattedTimes = [];
+  criticalTag:string = "Critical";
 
   constructor(
     private router: Router,
     private commentService: TaxCommentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog,
   ) {
 
     this.ReplayForm = this.fb.group({
@@ -193,4 +197,65 @@ export class TaskCommentComponent implements OnInit {
       }
     }
   }
+
+  deleteTag(tagName:any, tagId:any){
+    const dialogRef = this.dialog.open(ModalComponent, {
+      id:'delete-tag',   
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: tagName + " status",
+        description: "Are you sure want to remove the " + tagName + " tag from this comment? if you select yes, no further edits are required to close the comment.",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The deleteTag dialog was closed', result);
+      if(result.button == 'Yes') {
+        this.commentService.deleteTag(this.idTask, tagId).subscribe(resp => {
+          console.log('response delete tag', resp);
+          this.editRequired = tagId == 1 ? null : this.editRequired;
+          this.includeDebrief = tagId == 2 ? null : this.includeDebrief;
+        });   
+      }
+    });
+  }
+
+  deletePriority(tagName:any){
+    const dialogRef = this.dialog.open(ModalComponent, {
+      id:'delete-tag',   
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: tagName + " status",
+        description: "Are you sure want to remove the " + tagName + " tag from this comment? if you select yes, no further edits are required to close the comment.",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The deletePriority dialog was closed', result);
+      if(result.button == 'Yes') {
+        const data = {
+          "priority": 0
+        }
+        this.commentService.deletePriority(this.idTask, data).subscribe(resp => {
+          this.priority = 0;
+          console.log('response delete tag', resp);                   
+        });   
+      }
+    });
+  }
+
+
+
 }

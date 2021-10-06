@@ -687,5 +687,20 @@
 
 }
 
+::ng-deep #delete-tag{
+
+    .motif-button[color=primary] {
+        background-color: #fff;
+        border-color: var(--btn-primary-border-color);
+        color: var(--btn-primary-color);
+    }
+
+    .motif-button:hover{
+        background-color:#2e2e38;
+        border-color: var(--btn-primary-border-color);
+        color: #fff;
+    }
+} 
+
 
 

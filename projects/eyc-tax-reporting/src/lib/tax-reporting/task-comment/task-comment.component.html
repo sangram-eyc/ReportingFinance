@@ -57,7 +57,7 @@
                     <span class='mat-chip-text'>
                         {{editRequired.name}}
                     </span>
-                    <svg class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="deleteTag(editRequired.name, editRequired.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
@@ -68,7 +68,7 @@
                     <span class='mat-chip-text'>
                         {{includeDebrief.name}}
                     </span>
-                    <svg class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="deleteTag(includeDebrief.name, includeDebrief.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
@@ -79,9 +79,9 @@
                 <mat-chip *ngIf="priority === 1" class='mat-chip-p'>
                     <!-- ngif status critical -->
                     <span class='mat-chip-text'>
-                        Critical
+                        {{criticalTag}}
                     </span>
-                    <svg class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="deletePriority(criticalTag)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
@@ -110,22 +110,6 @@
                     <span class='description'>{{description}}</span>
                 </div>
             </div>
-
-
-            <!--           Desplegar reply comments    
-    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.5575 0.442383L5 3.87738L8.4425 0.442383L9.5 1.49988L5 5.99988L0.5 1.49988L1.5575 0.442383Z" fill="#155CB4"/>
-                        </svg>
-                    </a>
-                
-                
-                  <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                  </div> 
--->     
 
         <div *ngIf="replyCount > 0 || replyCount == 0" class="row">
               <div *ngIf="arrowReplay" class="col-md-1 col-sm-1">
