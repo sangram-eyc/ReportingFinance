@@ -37,4 +37,7 @@ export class DataIntakeService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
   }
  
+  approveExceptionReports(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_intake_exception_report}`, data);
+  }
 }

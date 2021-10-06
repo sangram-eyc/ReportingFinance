@@ -126,3 +126,7 @@
 </div>
 <lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName">
 </lib-comment-side-menu>
+
+<motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+    </motif-toast>
