@@ -154,7 +154,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     let index = event.index;
     console.log('INDEX', event);
     this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
-      this.bdFilesList[index] = res['data'];
+      this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
     }, error => {
       this.bdFilesList[index] = [];
       console.log("Dataset error");
