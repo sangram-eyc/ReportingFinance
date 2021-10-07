@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-eyc-data-managed-services',
-  template: `
-  <motif-card class="no_data mt-5">
-  <motif-card-body>
-      <h5>Motif DMS cards work.</h5>
-  </motif-card-body>
- 
-</motif-card>
-  `,
+  template: `<lib-data-intake></lib-data-intake>`,
   styles: [
   ]
 })

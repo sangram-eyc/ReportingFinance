@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule  } from '@ey-xd/ng-motif';
 import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
+import { DataIntakeComponent } from './data-intake/data-intake.component';
 
 
 
 @NgModule({
-  declarations: [EycDataManagementServicesComponent],
+  declarations: [EycDataManagementServicesComponent, DataIntakeComponent],
   imports: [
+    CommonModule,
     MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule,MotifDropdownModule
   ],
   exports: [EycDataManagementServicesComponent]
