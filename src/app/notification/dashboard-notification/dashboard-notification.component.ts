@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-notification.component.scss']
 })
 export class DashboardNotificationComponent implements OnInit {
-  searchModel= 'Search Notifications';
+  searchModel= '';
   searchTypeHead=[];
   constructor() { }
 
