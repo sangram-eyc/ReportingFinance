@@ -28,7 +28,7 @@
                     Files received<span> -  {{item.filesReceived}} of  {{item.filesExpected}} </span>
                 </div>
                 <div class="col-lg-1 late">
-                    Late<span> - 0 </span>
+                    Late<span> - {{item.lateFiles}} </span>
                 </div>
                 <div class="col-lg-2" [ngClass]="item.comments >= 1 ? 'comments' : 'nocomments' ">
                     
