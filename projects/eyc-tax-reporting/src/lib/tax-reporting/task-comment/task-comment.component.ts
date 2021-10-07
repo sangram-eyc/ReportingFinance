@@ -67,14 +67,8 @@ export class TaskCommentComponent implements OnInit {
     this.includeDebrief = tags.find(tag => tag.id === 2);
     this.entityId = this.TaskCommentData.entityId;
     this.entityType = this.TaskCommentData.entityType;
-    //this.replyCount = this.TaskCommentData.replyCount;
+    this.replyCount = this.TaskCommentData.replyCount;
     console.log('task-comments-data-receiving',this.TaskCommentData)
-    //Tempo
-    this.commentService.listComments(this.idTask).subscribe(resp => {     
-      this.replyData = resp['data'];
-      this.replyCount = this.replyData.length;
-    });
-
   }
 
   setStatusComment(_status){
