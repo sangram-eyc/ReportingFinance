@@ -79,7 +79,7 @@ export class TaskCommentComponent implements OnInit {
       };     
       this.commentService.updateTaskStatus(this.idTask, objData).subscribe(res => {
         console.log('response update status', res);
-        this.status = res['data'].status;
+        this.status = res['data'].status.toLowerCase();
       }, error => {
         console.log('Error update status', error);
       });
@@ -107,7 +107,7 @@ export class TaskCommentComponent implements OnInit {
       };
       this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resp => {
         console.log('response update status', resp);
-        this.status = resp['data'].status;
+        this.status = resp['data'].status.toLowerCase();
         this.replyCount = this.replyCount + 1
         this.showToastAfterSubmit = true;
         setTimeout(() => {        
