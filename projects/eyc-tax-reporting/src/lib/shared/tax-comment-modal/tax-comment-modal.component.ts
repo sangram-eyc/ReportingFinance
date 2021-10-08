@@ -83,7 +83,7 @@ export class TaxCommentModalComponent implements OnInit {
           let formData = new FormData();
           formData.append('application', "TAX");
           formData.append('entityId', res['data']['id']);
-          formData.append('entityType', "COMMENT");
+          formData.append('entityType', "Task");
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);
           this.filesList.forEach(element => {

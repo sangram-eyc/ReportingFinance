@@ -30,9 +30,7 @@ export class TaxCommentService {
 
   uploadFile(data) { 
     if (this.settingsService.production) {
-      //when the api is ready
-      //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.upload}`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.upload}`);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.upload}`, data);
     } 
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.upload}`);
