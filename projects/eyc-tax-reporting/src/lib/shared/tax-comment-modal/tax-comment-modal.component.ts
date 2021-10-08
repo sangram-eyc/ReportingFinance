@@ -77,13 +77,14 @@ export class TaxCommentModalComponent implements OnInit {
       console.log('entityId-->', this.modalDetails.entityId);
       this.commentService.addTask(commentObj, this.modalDetails.entityId).subscribe(res => {
         console.log("Result addTask-->",res);
+        console.log("id task", res['data']['id']);
         console.log("filesList.length-->",this.filesList.length); 
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
           formData.append('application', "TAX");
           formData.append('entityId', res['data']['id']);
-          formData.append('entityType', "Task");
+          formData.append('entityType', "TASK");
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);
           this.filesList.forEach(element => {
