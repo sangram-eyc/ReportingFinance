@@ -154,11 +154,10 @@ export class CycleDetailComponent implements OnInit {
            name: item.name,
            hasContent: item.hasContent,
            id: item.id,
-           approved: item.approvedBack === true ? true :(item.CommentsCount > 0 ? true:false),
-           CommentsCount: item.CommentsCount,
-           approvedBack: item.approvedBack, 
-           commentsEY:item.commentsEY,
-           commentsClient:item.commentsClient
+           approved: item.status === 'approved' ? true : (( item.openCommentsEY > 0 || item.openCommentClient > 0) ? true:false),
+           approvedBack: item.status === 'approved' ? true : false, 
+           openCommentsEY:item.openCommentsEY,
+           openCommentsClient:item.openCommentsClient
          };
          this.completedFilings.push(eachitem);
        });
@@ -174,10 +173,9 @@ export class CycleDetailComponent implements OnInit {
         hasContent: filing.hasContent,
         id:filing.id,
         approved:filing.approved,
-        CommentsCount:filing.CommentsCount,
         approvedBack:filing.approvedBack,
-        commentsEY:filing.commentsEY,
-        commentsClient:filing.commentsClient
+        openCommentsEY:filing.openCommentsEY,
+        openCommentsClient:filing.openCommentsClient
       })
     });
 

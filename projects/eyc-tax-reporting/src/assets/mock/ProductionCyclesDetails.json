@@ -7,64 +7,57 @@
             "name": "Fund 1",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": true,
-            "CommentsCount": 2,
-            "commentsEY":"0",
-            "commentsClient":"0"
+            "status": "open",
+            "openCommentsEY":"0",
+            "openCommentsClient":"0"
         },
         {
             "name": "Fund 2",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": false,
-            "CommentsCount": 0,
-            "commentsEY":"5",
-            "commentsClient":"2"
+            "status": "open",
+            "openCommentsEY":"5",
+            "openCommentsClient":"2"
         },
         {
             "name": "Fund 3",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": true,
-            "CommentsCount": 2,
-            "commentsEY":"0",
-            "commentsClient":"1"
+            "status": "approved",
+            "openCommentsEY":"0",
+            "openCommentsClient":"1"
         },
         {
             "name": "Fund 4",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": false,
-            "CommentsCount": 0,
-            "commentsEY":"10",
-            "commentsClient":"10"
+            "status": "open",
+            "openCommentsEY":"10",
+            "openCommentsClient":"10"
         },
         {
             "name": "Fund 5",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": false,
-            "CommentsCount": 2,
-            "commentsEY":"0",
-            "commentsClient":"0"
+            "status": "open",
+            "openCommentsEY":"0",
+            "openCommentsClient":"0"
         },
         {
             "name": "Fund 6",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": false,
-            "CommentsCount": 2,
-            "commentsEY":"0",
-            "commentsClient":"0"
+            "status": "approved",
+            "openCommentsEY":"0",
+            "openCommentsClient":"0"
         },
         {
             "name": "Fund 7",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "approvedBack": false,
-            "CommentsCount": 2,
-            "commentsEY":"0",
-            "commentsClient":"0"
+            "status": "approved",
+            "openCommentsEY":"0",
+            "openCommentsClient":"0"
         }
       
     ],
