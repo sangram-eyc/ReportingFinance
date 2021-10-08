@@ -2,7 +2,7 @@ import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaxCardComponent } from './shared/tax-card/tax-card.component';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
-import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule  } from '@ey-xd/ng-motif';
+import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifAvatarModule  } from '@ey-xd/ng-motif';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
 import {EycTaxSettingsService} from './services/eyc-tax-settings.service';
@@ -44,7 +44,8 @@ import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comme
     FormsModule,
     MatChipsModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MotifAvatarModule
   ],
   declarations: [
     TaxReportingComponent,
