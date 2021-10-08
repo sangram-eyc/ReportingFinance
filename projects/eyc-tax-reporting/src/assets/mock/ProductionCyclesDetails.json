@@ -9,7 +9,39 @@
             "hasContent": true,         
             "status": "open",
             "openCommentsEY":"0",
-            "openCommentsClient":"0"
+            "openCommentsClient":"0",
+            "assignedUsers": [
+                {
+                    "id": 123, 
+                    "userEmail": "Jonnathan.Caballero@email.com", 
+                    "userFistName": "Jonnathan", 
+                    "userLastName": "Caballero" 
+                },
+                {
+                    "id": 2202,
+                    "userEmail": "Diego.Morini@email.com", 
+                    "userFistName": "Diego", 
+                    "userLastName": "Morini" 
+                },
+                {
+                    "id": 3303,
+                    "userEmail": "Gaston.Silva@email.com", 
+                    "userFistName": "Gaston", 
+                    "userLastName": "Silva" 
+                },
+                {
+                    "id": 3304,
+                    "userEmail": "Diego.Garavito@email.com", 
+                    "userFistName": "Diego", 
+                    "userLastName": "Garavito" 
+                },
+                {
+                    "id": 3305,
+                    "userEmail": "Gabriel.Loy@email.com", 
+                    "userFistName": "Gabriel", 
+                    "userLastName": "Loy" 
+                }
+            ]
         },
         {
             "name": "Fund 2",
@@ -17,7 +49,33 @@
             "hasContent": true,         
             "status": "open",
             "openCommentsEY":"5",
-            "openCommentsClient":"2"
+            "openCommentsClient":"2",
+            "assignedUsers":[
+                {
+                    "id": 123, 
+                    "userEmail": "Jonnathan.Caballero@email.com", 
+                    "userFistName": "Jonnathan", 
+                    "userLastName": "Caballero" 
+                },
+                {
+                    "id": 2202,
+                    "userEmail": "Diego.Morini@email.com", 
+                    "userFistName": "Diego", 
+                    "userLastName": "Morini" 
+                },
+                {
+                    "id": 3303,
+                    "userEmail": "Gaston.Silva@email.com", 
+                    "userFistName": "Gaston", 
+                    "userLastName": "Silva" 
+                },
+                {
+                    "id": 3304,
+                    "userEmail": "Diego.Garavito@email.com", 
+                    "userFistName": "Diego", 
+                    "userLastName": "Garavito" 
+                }
+            ]
         },
         {
             "name": "Fund 3",
@@ -25,7 +83,8 @@
             "hasContent": true,         
             "status": "approved",
             "openCommentsEY":"0",
-            "openCommentsClient":"1"
+            "openCommentsClient":"1",
+            "assignedUsers":[]
         },
         {
             "name": "Fund 4",
@@ -33,7 +92,8 @@
             "hasContent": true,         
             "status": "open",
             "openCommentsEY":"10",
-            "openCommentsClient":"10"
+            "openCommentsClient":"10",
+            "assignedUsers":[]
         },
         {
             "name": "Fund 5",
@@ -41,7 +101,8 @@
             "hasContent": true,         
             "status": "open",
             "openCommentsEY":"0",
-            "openCommentsClient":"0"
+            "openCommentsClient":"0",
+            "assignedUsers":[]
         },
         {
             "name": "Fund 6",
@@ -49,7 +110,9 @@
             "hasContent": true,         
             "status": "approved",
             "openCommentsEY":"0",
-            "openCommentsClient":"0"
+            "openCommentsClient":"0",
+            "assignedUsers":[]
+
         },
         {
             "name": "Fund 7",
@@ -57,9 +120,10 @@
             "hasContent": true,         
             "status": "approved",
             "openCommentsEY":"0",
-            "openCommentsClient":"0"
+            "openCommentsClient":"0",
+            "assignedUsers":[]
+
         }
-      
     ],
     "error": null
 }

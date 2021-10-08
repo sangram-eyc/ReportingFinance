@@ -63,9 +63,10 @@ export class CycleDetailComponent implements OnInit {
   openCommentEY: TemplateRef<any>;
   @ViewChild('openCommentClient')
   openCommentClient: TemplateRef<any>;
-
   @ViewChild('datasetsDropdownTemplate')
   datasetsDropdownTemplate: TemplateRef<any>;
+  @ViewChild('assignedToTemplate')
+  assignedToTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -110,6 +111,7 @@ export class CycleDetailComponent implements OnInit {
   };
   exceptionDetailCellRendererParams;
   datasetsSelectedRows;
+  startClass = true;
 
 
   ngOnInit(): void {
@@ -157,7 +159,8 @@ export class CycleDetailComponent implements OnInit {
            approved: item.status === 'approved' ? true : (( item.openCommentsEY > 0 || item.openCommentClient > 0) ? true:false),
            approvedBack: item.status === 'approved' ? true : false, 
            openCommentsEY:item.openCommentsEY,
-           openCommentsClient:item.openCommentsClient
+           openCommentsClient:item.openCommentsClient,
+           assignedTo:item.assignedUsers == null ? [] : item.assignedUsers
          };
          this.completedFilings.push(eachitem);
        });
@@ -175,7 +178,8 @@ export class CycleDetailComponent implements OnInit {
         approved:filing.approved,
         approvedBack:filing.approvedBack,
         openCommentsEY:filing.openCommentsEY,
-        openCommentsClient:filing.openCommentsClient
+        openCommentsClient:filing.openCommentsClient,
+        assignedTo:filing.assignedTo
       })
     });
 
@@ -201,6 +205,20 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Fund Name',
         field: 'name',
+        sortable: true,
+        filter: false,       
+        resizeable: true, 
+        minWidth: 300,
+        sort:'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.assignedToTemplate,
+        },
+        headerName: 'Assigned to',
+        field: 'assignedTo',
         sortable: true,
         filter: false,       
         resizeable: true, 
@@ -285,5 +303,9 @@ onSubmitApproveDatasets() {
 handleGridReady(params) {
   this.gridApi = params.api;
 } 
+
+changeClass(){
+  this.startClass = !this.startClass;
+}
 
 }
