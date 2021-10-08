@@ -58,8 +58,8 @@ export class TaskCommentComponent implements OnInit {
     this.createdBy = this.TaskCommentData.createdBy;
     this.description = this.TaskCommentData.description;
     this.status = this.TaskCommentData.status.toLowerCase();
-    this.target = this.TaskCommentData.target.toLowerCase();
-    this.company = this.TaskCommentData.company.toLowerCase();
+    this.target = this.formatTarget(this.TaskCommentData.target);
+    this.company = this.formatTarget(this.TaskCommentData.company);
     this.priority = this.TaskCommentData.priority;
     this.idTask = this.TaskCommentData.id;
     const tags = this.TaskCommentData.tags;
@@ -132,6 +132,10 @@ export class TaskCommentComponent implements OnInit {
 
   capitalizeFirstLetter(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  formatTarget(target) {
+    return target === 'EY' ? target : target.toLowerCase();
   }
 
   public noWhitespaceValidator(control: FormControl) {
