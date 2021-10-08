@@ -20,7 +20,7 @@ export class EycTaxSettingsService {
       production_cycles_statusTracker: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/StatusTrackerLinks.json',
       production_cycles_downloadFile: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles/funds' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductCycleDownloadFile.json',
       add_task: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
-      upload: this.production ? this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
+      upload: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       tasks_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
       add_comment: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       comments_list: this.production ? this.API_ENDPOINT + 'commentaryService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
