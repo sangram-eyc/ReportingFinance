@@ -4,7 +4,7 @@
     "corelationId": null,
     "data": {
         "id": 123,
-        "status": "open"
+        "status": "declined"
     },
     "error": null
 }

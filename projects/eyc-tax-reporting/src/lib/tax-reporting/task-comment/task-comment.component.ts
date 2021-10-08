@@ -71,8 +71,7 @@ export class TaskCommentComponent implements OnInit {
     console.log('task-comments-data-receiving',this.TaskCommentData)
   }
 
-  setStatusComment(_status){
-   this.status = _status;
+  setStatusComment(_status){ 
     console.log('set status comment-->', _status);    
     console.log('this.idTask-->', this.idTask); 
       const objData = {
@@ -80,6 +79,7 @@ export class TaskCommentComponent implements OnInit {
       };     
       this.commentService.updateTaskStatus(this.idTask, objData).subscribe(res => {
         console.log('response update status', res);
+        this.status = res['data'].status;
       }, error => {
         console.log('Error update status', error);
       });
@@ -101,12 +101,13 @@ export class TaskCommentComponent implements OnInit {
     this.commentService.addComment(commentObj).subscribe(res =>{
       console.log('Reponse add Replay -->',res);
       let newStatus = this.ReplayForm.get('statusReplay').value;
+      console.log('newStatus -->',newStatus);
       const objStatus = {
         "status": newStatus
       };
-      this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resStatus => {
-        console.log('response update status', resStatus);
-        this.status = objStatus.status;
+      this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resp => {
+        console.log('response update status', resp);
+        this.status = resp['data'].status;
         this.replyCount = this.replyCount + 1
         this.showToastAfterSubmit = true;
         setTimeout(() => {        
