@@ -139,9 +139,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getDatasets() {
-    this.service.getDatasetsrecords().subscribe(res => {
-      this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      console.log(this.datasets);
+    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.datasets = res['data'];
+      console.log('DATASETS:', this.datasets);
       this.createEntitiesRowData();
 
     }, error => {
@@ -302,22 +302,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     ];
 
     this.datasetsDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.datasetsDropdownTemplate,
-        },
-        field: 'template',
-        headerName: '',
-        width: 70,
-        sortable: false,
-        pinned: 'left'
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.datasetsDropdownTemplate,
+      //   },
+      //   field: 'approved',
+      //   headerName: '',
+      //   width: 70,
+      //   sortable: false,
+      //   pinned: 'left'
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
-        field: 'exceptionDue',
+        field: 'due',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -329,7 +329,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File',
-        field: 'exceptionFile',
+        field: 'file',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -378,10 +378,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
+          ngTemplate: this.resolveDatasetsTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolve_exception',
+        field: 'resolved',
         sortable: true,
         filter: true,
         width: 150,
