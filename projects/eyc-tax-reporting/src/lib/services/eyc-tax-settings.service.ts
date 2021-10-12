@@ -26,7 +26,8 @@ export class EycTaxSettingsService {
       comments_list: this.production ? this.API_ENDPOINT + 'commentaryService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
       update_task_status: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
       delete_tag: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
-      delete_priority : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json'
+      delete_priority : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
+      list_users_to_add : this.production ? this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/usersToAddToFund.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/usersToAddToFund.json'
     }
 
     return tax_Reporting;

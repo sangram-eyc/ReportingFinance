@@ -539,6 +539,33 @@ motif-icon.motif-icon.user-edit {
   }
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
+::ng-deep #add-user-modal{
+
+  .motif-button[color=primary] {
+      background-color: #fff;
+      border-color: var(--btn-primary-border-color);
+      color: var(--btn-primary-color);
+  }
+
+  .motif-button:hover{
+      background-color:#2e2e38;
+      border-color: var(--btn-primary-border-color);
+      color: #fff;
+  }
+
+  .motif-button[color=primary]:disabled {
+    background-color: var(--btn-primary-disabled-bg-color);
+    border-color: var(--btn-primary-disabled-border-color);
+    color: var(--btn-primary-disabled-color); 
+    cursor: not-allowed;
+  }
+} 
+
+
 
 
 

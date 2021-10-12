@@ -18,6 +18,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comment.component';
+import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/assign-users-modal.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comme
     CommentsPagecomponent,
     TaxCommentModalComponent,
     TaskCommentComponent,
-    ReplyCommentComponent
+    ReplyCommentComponent,
+    AssignUsersModalComponent
   ],
   exports: [TaxReportingComponent]
 })
