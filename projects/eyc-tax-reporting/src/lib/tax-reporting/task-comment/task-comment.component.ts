@@ -124,6 +124,10 @@ export class TaskCommentComponent implements OnInit {
 
   cancelReplyComment(){
     this.showReplyNewComment();
+    this.ReplayForm.patchValue({
+      comment: '',
+      statusReplay: 'open'
+    });
   }
   
   showReplyNewComment(){
