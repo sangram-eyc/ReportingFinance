@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h3 class="modal-title" [innerHTML]="modalDetails.header | noSanitize"></h3>
+    <button type="button" class="close" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+ 
+ <div class="content-table-users">
+    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+    [masterDetail]="false"
+    [detailCellRendererParams]="exceptionDetailCellRendererParams"
+    (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="false"
+    [permissionToPrimaryButton]="false"
+    [permissionToSecondaryButton]="false">
+  </lib-shared-grid>
+
+  <ng-template #userName let-row>
+      <div class="header-avatar">
+        <motif-avatar [userName]="row.name" status="none"></motif-avatar>       
+      </div>     
+     <span class="mt-2">{{row.name}}</span> 
+    </ng-template>
+ </div>
+
+</div>
+
+<div class="modal-footer {{modalDetails.footer.style}}">
+   <!--  <button *ngIf="!ConfirmationTextUpload" motifButton class="approve-yes" color="primary"
+        (click)="onClickYes()">{{modalDetails.footer.YesButton}}</button> -->
+
+     <button motifButton class="approve-yes" color="primary" (click)="onClickYes()"
+        [disabled]="disabledBtn">{{modalDetails.footer.YesButton}}</button> 
+
+    <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>
+</div>

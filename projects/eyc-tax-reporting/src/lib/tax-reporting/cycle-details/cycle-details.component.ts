@@ -6,6 +6,8 @@ import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorModalComponent} from 'eyc-ui-shared-component';
+import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
+import { identifierName } from '@angular/compiler';
 
 
 
@@ -306,6 +308,36 @@ handleGridReady(params) {
 
 changeClass(){
   this.startClass = !this.startClass;
+}
+
+addUsersToFund(id:any) {
+  const dialogRef = this.dialog.open(AssignUsersModalComponent, {
+    id:'add-user-modal',
+    width: '500px',
+    data: {
+      type: "ConfirmationTextUpload",
+      header: "Update Assignment",
+      description: ``,
+      entityId: id,
+      entityType: "funds",
+      forms: { },
+      footer: {
+        style: "start",
+        YesButton: "Save",
+        NoButton: "Cancel"
+      }
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed', result);
+    if (result.button === "Save") {
+      //Refresh comments Submit
+      //this.getComments();
+    } else {
+      console.log('result afterClosed', result);
+    }
+  });
 }
 
 }

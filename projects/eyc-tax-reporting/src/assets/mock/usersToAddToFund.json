@@ -1,0 +1,50 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "id": 123, 
+            "userEmail": "Jonnathan.Caballero@email.com", 
+            "userFistName": "Jonnathan", 
+            "userLastName": "Caballero" 
+        },
+        {
+            "id": 2202,
+            "userEmail": "Diego.Morini@email.com", 
+            "userFistName": "Diego", 
+            "userLastName": "Morini" 
+        },
+        {
+            "id": 3303,
+            "userEmail": "Gaston.Silva@email.com", 
+            "userFistName": "Gaston", 
+            "userLastName": "Silva" 
+        },
+        {
+            "id": 3304,
+            "userEmail": "Diego.Garavito@email.com", 
+            "userFistName": "Diego", 
+            "userLastName": "Garavito" 
+        },
+        {
+            "id": 3305,
+            "userEmail": "Francisco.Carmona@email.com", 
+            "userFistName": "Francisco", 
+            "userLastName": "Garavito" 
+        },
+        {
+            "id": 3306,
+            "userEmail": "Jesus.Toscano@email.com", 
+            "userFistName": "Jesus", 
+            "userLastName": "Toscano" 
+        },
+        {
+            "id": 3307,
+            "userEmail": "Fabian.Laborato@email.com", 
+            "userFistName": "Fabian", 
+            "userLastName": "Laborato" 
+        }
+    ],
+    "error": null
+}
