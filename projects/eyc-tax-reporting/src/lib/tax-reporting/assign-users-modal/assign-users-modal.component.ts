@@ -14,6 +14,9 @@ export class AssignUsersModalComponent implements OnInit {
   modalDetails;
   ConfirmationTextUpload = true;
   disabledBtn = true;
+  toastSuccessMessage = "Users added successfully";
+  showModal = true;
+  showToastAfterSubmit = false;
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -28,6 +31,10 @@ export class AssignUsersModalComponent implements OnInit {
   completedData: any[] = [];
   datasetsSelectedRows;
   exceptionDetailCellRendererParams;
+  searchNoDataAvilable;
+  chk = false;
+  initialUsers:any = [];
+  selectedUsers:any = [];
 
   @ViewChild('datasetsDropdownTemplate')
   datasetsDropdownTemplate: TemplateRef<any>;
@@ -41,10 +48,11 @@ export class AssignUsersModalComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    this.getListUsers();   
   }
 
-  ngAfterViewInit(): void {
-    this.getListUsers();
+  ngAfterViewInit(): void {  
+
   }
 
   close(): void {
@@ -52,46 +60,66 @@ export class AssignUsersModalComponent implements OnInit {
   }
 
   onClickYes() {
-   //do something  
-  }
+   console.log('Users selected->', this.selectedUsers);
+   console.log('Fund id ->', this.modalDetails.idFund);  
+   const usersToAdd = {
+    "users": this.selectedUsers
+    };
+
+  this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
+      console.log('response addUsersToFund', resp);
+      this.showModal = false;
+      this.showToastAfterSubmit = !this.showToastAfterSubmit;
+      setTimeout(() => {
+        this.showToastAfterSubmit = !this.showToastAfterSubmit;      
+        this.dialogRef.close({ button: this.modalDetails.footer.YesButton });         
+      }, 2000); 
+  }, error => {
+    console.log('response addUsersToFund', error);
+  });
+}
 
   getListUsers(){
     this.assignmentsService.listUserToAdd().subscribe(resp =>{
       console.log('response->', resp);
       resp['data'].forEach((item) => {
         const eachitem: any = {
-          id: item.id,
+          id: item.userId,
           userEmail: item.userEmail,
-          userFistName: item.userFistName,
+          userFirstName: item.userFirstName,
           userLastName: item.userLastName,
-          approved:false     
+          approved:true,
+          check: this.modalDetails.fundsAssign[0].assignedTo.findIndex(x=> x.id === item.userId) === -1 ? false:true    
         };
-        this.completedData.push(eachitem);    
+        this.completedData.push(eachitem);
+        if(eachitem.check){
+          this.initialUsers.push(item.userId);
+          this.selectedUsers.push(item.userId);
+        }           
     });
     this.createListUserToAddRowData();
     });
   }
 
   createListUserToAddRowData(){  
-  console.log('data->', this.completedData);
-
     this.rowData = [];
     this.completedData.forEach(row => {
      this.rowData.push({
       id: row.id,
       userEmail: row.userEmail,
-      name: row.userFistName + ' ' + row.userLastName,
-      approved:row.approved  
+      name: row.userFirstName + ' ' + row.userLastName,
+      approved:row.approved,
+      check:row.check  
      })
    });
 
     this.columnDefs = [
       {
-/*         headerComponentFramework: TableHeaderRendererComponent,
+        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.datasetsDropdownTemplate,
-        }, */
+        }, 
         field: 'template',
         headerName: '',
         width: 70,
@@ -115,24 +143,50 @@ export class AssignUsersModalComponent implements OnInit {
     ]
   }
 
-  datasetsReportRowsSelected(event) {
-    console.log('dataset emiter',  event);
-    this.datasetsSelectedRows = event;
-    console.log('len->', this.datasetsSelectedRows.length);
-    if(this.datasetsSelectedRows.length > 0){    
-      this.disabledBtn = false
-    }else{
-      this.disabledBtn = true
-    }
-  }
-
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
   }
 
-  submitDatasets(){
-    console.log('submit...');
-  }
+  changeCheck(_id){   
+   let index = this.rowData.findIndex(x=> x.id == _id);
+   this.rowData[index].check = !this.rowData[index].check;
+   
+    if(this.rowData[index].check == false){
+      let indexArr = this.selectedUsers.indexOf(_id);
+      if(indexArr !== -1){
+        this.selectedUsers.splice(indexArr, 1);
+      }      
+    }else{
+      this.selectedUsers.push(this.rowData[index].id)
+    } 
+    this.disabledBtn = this.arrayCompare(this.initialUsers, this.selectedUsers);
+ }
+
+ arrayCompare(_arr1, _arr2) {
+  if (
+    !Array.isArray(_arr1)
+    || !Array.isArray(_arr2)
+    || _arr1.length !== _arr2.length
+    ) {
+      return false;
+    }
+  
+  // .concat() to not mutate arguments
+  const arr1 = _arr1.concat().sort();
+  const arr2 = _arr2.concat().sort();
+  
+  for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+          return false;
+       }
+  } 
+  return true;
+}
+
+closeToast(){
+  this.showToastAfterSubmit = !this.showToastAfterSubmit;
+  this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
+}
 
 }
