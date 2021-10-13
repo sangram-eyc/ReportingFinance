@@ -323,17 +323,14 @@ changeClass(){
   this.startClass = !this.startClass;
 }
 
-addUsersToFund(id:any) {
+addUsersToFund(_id:any) {
   const dialogRef = this.dialog.open(AssignUsersModalComponent, {
     id:'add-user-modal',
     width: '500px',
     data: {
-      type: "ConfirmationTextUpload",
+      fundsAssign : this.rowData.filter(x => x.id === _id),
       header: "Update Assignment",
-      description: ``,
-      entityId: id,
-      entityType: "funds",
-      forms: { },
+      idFund: _id,
       footer: {
         style: "start",
         YesButton: "Save",
@@ -343,10 +340,9 @@ addUsersToFund(id:any) {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed', result);
+    console.log('add-user-modal was closed', result);
     if (result.button === "Save") {
-      //Refresh comments Submit
-      //this.getComments();
+      this.getCompletedProductCyclesData(this.productCycleId);
     } else {
       console.log('result afterClosed', result);
     }

@@ -4,46 +4,40 @@
     "corelationId": null,
     "data": [
         {
-            "id": 123, 
+            "userId": 123, 
             "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFistName": "Jonnathan", 
+            "userFirstName": "Jonnathan", 
             "userLastName": "Caballero" 
         },
         {
-            "id": 2202,
+            "userId": 2202,
             "userEmail": "Diego.Morini@email.com", 
-            "userFistName": "Diego", 
+            "userFirstName": "Diego", 
             "userLastName": "Morini" 
         },
         {
-            "id": 3303,
+            "userId": 3303,
             "userEmail": "Gaston.Silva@email.com", 
-            "userFistName": "Gaston", 
+            "userFirstName": "Gaston", 
             "userLastName": "Silva" 
         },
         {
-            "id": 3304,
+            "userId": 3304,
             "userEmail": "Diego.Garavito@email.com", 
-            "userFistName": "Diego", 
+            "userFirstName": "Diego", 
             "userLastName": "Garavito" 
         },
         {
-            "id": 3305,
-            "userEmail": "Francisco.Carmona@email.com", 
-            "userFistName": "Francisco", 
-            "userLastName": "Garavito" 
+            "userId": 3305,
+            "userEmail": "Gabriel.Loy@email.com", 
+            "userFirstName": "Gabriel", 
+            "userLastName": "Loy" 
         },
         {
-            "id": 3306,
-            "userEmail": "Jesus.Toscano@email.com", 
-            "userFistName": "Jesus", 
-            "userLastName": "Toscano" 
-        },
-        {
-            "id": 3307,
-            "userEmail": "Fabian.Laborato@email.com", 
-            "userFistName": "Fabian", 
-            "userLastName": "Laborato" 
+            "userId": 3306,
+            "userEmail": "Juan.Perez@email.com", 
+            "userFirstName": "Juan", 
+            "userLastName": "Perez" 
         }
     ],
     "error": null

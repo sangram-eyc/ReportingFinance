@@ -531,6 +531,7 @@ motif-icon.motif-icon.user-edit {
 
   #tooltip{
     margin-top: -5px !important;
+    width: max-content;
   }
 
   .motif-icon.motif-tooltip-close {
@@ -564,6 +565,38 @@ motif-icon.motif-icon.user-edit {
     cursor: not-allowed;
   }
 } 
+
+.div-icon{
+  margin-right: inherit;
+}
+
+.div-msg{
+  margin-left: inherit;
+}
+
+.text-tooltip{
+  font-size: small;
+}
+
+::ng-deep .margin-tooltip-v2{
+  #tooltip{
+    margin-top: 5px !important;
+    width: max-content;
+  }
+
+  .motif-icon.motif-tooltip-close {
+    display: none !important;
+  }
+
+  .motif-tooltip-close-button{
+    pointer-events: none !important;
+  }
+}
+
+.row-assignm:hover{
+  background-color: #F0F0F0;
+  cursor: pointer;
+}
 
 
 
