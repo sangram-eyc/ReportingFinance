@@ -86,6 +86,7 @@
         </lib-shared-grid> -->
 
         <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
+            [displayCheckBox]="true"
             [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
@@ -117,7 +118,9 @@
             </div> -->
         </ng-template>
         <ng-template #resolveDatasetsTemplate let-row>
-            {{row.resolve_exception}}
+            <div>
+                {{row.resolved}}
+            </div>
             <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
                 <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
             </div>
