@@ -55,6 +55,11 @@
                 "input": "projects/eyc-tax-reporting/src/assets",
                 "output": "assets/eyc-tax-reporting"
               },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-tax-reporting/src/assets/mock/icons",
+                "output": "assets/eyc-tax-reporting/icons/"
+              },
               "src/silent-refresh.html"
             ],
             "styles": [
