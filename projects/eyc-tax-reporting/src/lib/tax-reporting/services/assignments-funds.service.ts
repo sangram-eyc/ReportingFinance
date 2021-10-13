@@ -20,7 +20,7 @@ export class AssignmentsFundsService {
 
   addUsersToFund(fundId:any, data:any) {
     if(this.settingsService.production){    
-      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.add_users_to_fund}/fund/${fundId}/assignments`, data);
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.add_users_to_fund}/funds/${fundId}/users`, data);
     }
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.list_users_to_add}`);
