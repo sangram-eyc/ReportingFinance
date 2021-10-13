@@ -212,7 +212,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: false,       
         resizeable: true, 
-        minWidth: 300,
+        minWidth: 400,
         sort:'asc'
       },
       {
