@@ -11,8 +11,13 @@
       <span class="card-title-text">{{fundName}}</span>
     </div>
   
-    <div class="page-subheader">
+    <!-- <div class="page-subheader">
       You change deliverable view with the dropdown selection above
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 mb-3 padding-left-comment">You change deliverable view with the dropdown selection above</div>
+      <div class="col-md-6 col-sm-6 mb-3" style="text-align: right;"><span class="pull-right"><button motifButton class="approve-button" color="primary" size="large" style="display: inline;" [disabled]='aceptApprove' (click)="approveToFund()">Approve</button></span></div>
     </div>
 
     <motif-card>

@@ -26,13 +26,13 @@
 <ng-template #datasetsDropdownTemplate let-row>
 
   <div class="complete" *ngIf="row.approvedBack === true">
-    <motif-icon [src]="'../../../assets/eyc-tax-reporting/mock/icons/ic-approved-entity.svg'">
+    <motif-icon [src]="'/assets/eyc-tax-reporting/icons/ic-approved-entity.svg'">
       <!-- /assets/icons/action/ic_done_24px.svg -->
     </motif-icon>
   </div>
 
   <div class="complete" *ngIf="row.approvedBack === false && (row.openCommentsEY > 0 || row.openCommentClient > 0) ">
-    <motif-icon [src]="'../../../assets/eyc-tax-reporting/mock/icons/ic-checbox-disabled.svg'">   
+    <motif-icon [src]="'/assets/eyc-tax-reporting/icons/ic-checbox-disabled.svg'">   
     </motif-icon>
   </div>
 

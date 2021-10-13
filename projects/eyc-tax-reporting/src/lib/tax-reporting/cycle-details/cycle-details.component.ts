@@ -40,6 +40,7 @@ export class CycleDetailComponent implements OnInit {
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
+  iDs = "";
 /*   noCompletedDataAvilable = false;
   noActivatedDataAvilable = false; */
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -148,10 +149,11 @@ export class CycleDetailComponent implements OnInit {
 
   createComment(row){
     console.log("Comments-Landing")
-    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName]);
+    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.approved,row.openCommentsEY,row.openCommentsClient]);
   }
 
    getCompletedProductCyclesData(id:any) {
+     this.completedFilings = [];
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
       resp['data'].forEach((item) => {
          const eachitem: any = {
@@ -294,12 +296,23 @@ export class CycleDetailComponent implements OnInit {
 onSubmitApproveDatasets() {
   console.log('dataset de prueba -->', this.datasetsSelectedRows); 
   this.datasetsSelectedRows.forEach(ele => { 
+    if (this.iDs == "") {
+      this.iDs = ele.id 
+    } else {
+      this.iDs = this.iDs + "," + ele.id 
+    }   
     this.rowData[this.rowData.findIndex(item => item.id === ele.id)].approvedBack = true;
   }); 
+  let body = '{ "status": "APPROVED" }';
+  this.productcyclesService.putApproveEntities(this.iDs, body).subscribe(resp => {
+    console.log(resp);
+      setTimeout(() => {
+      console.log(resp);
+    }, 5000); 
+  });
   console.log('row data submit-->', this.rowData)
-  //this.rowData = [];
   //this.createHistoryRowData();
-  //this.getCompletedProductCyclesData(this.productCycleId);
+  this.getCompletedProductCyclesData(this.productCycleId);
 }
 
 handleGridReady(params) {

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxCommentService } from '../services/tax-comment.service';
+import { ProductionCycleService } from '../services/production-cycle.service';
 
 @Component({
   selector: 'comments-page',
@@ -17,7 +18,8 @@ export class CommentsPagecomponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private commentService: TaxCommentService
+    private commentService: TaxCommentService,
+    private productcyclesService: ProductionCycleService,
   ) { }
 
   isData: boolean = false;
@@ -26,6 +28,7 @@ export class CommentsPagecomponent implements OnInit {
   fundName;
   fundId;
   productCycleName;
+  aceptApprove = false;
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -33,8 +36,11 @@ export class CommentsPagecomponent implements OnInit {
       this.fundName = params.name
       this.fundId = params.id
       this.productCycleName = params.prodCycleName
+      this.aceptApprove = params.status == "true" ? true : (( params.openCommentsEY > 0 || params.openCommentClient > 0) ? true:false);
+      console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.
+    
     this.getComments()
   }
 
@@ -109,6 +115,40 @@ export class CommentsPagecomponent implements OnInit {
       if (result.button === "Post") {
         //Refresh comments Submit
         this.getComments();
+      } else {
+        console.log('result afterClosed', result);
+      }
+    });
+  }
+
+  approveToFund() {
+    const dialogRef = this.dialog.open(TaxCommentModalComponent, {
+      width: '550px',
+      data: {
+        type: "Confirmation",
+        header: "Approve Selected",
+        description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button === "Post") {
+        //Refresh comments Submit
+        this.aceptApprove = false;
+        let body = '{ "status": "APPROVED" }';
+        this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
+          console.log(resp);
+            setTimeout(() => {
+            console.log(resp);
+          }, 5000); 
+        });
+        //this.getComments();
       } else {
         console.log('result afterClosed', result);
       }
