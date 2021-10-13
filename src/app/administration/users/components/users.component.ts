@@ -124,14 +124,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
           sort:'asc',
           comparator: customComparator
         },
-        {
-          width: 90,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Teams',
-          field: 'teams',
-          sortable: true,
-          filter: true,
-        },
+        // {
+        //   width: 90,
+        //   headerComponentFramework: MotifTableHeaderRendererComponent,
+        //   headerName: 'Teams',
+        //   field: 'teams',
+        //   sortable: true,
+        //   filter: true,
+        // },
         {
           width: 80,
           headerComponentFramework: MotifTableHeaderRendererComponent,
