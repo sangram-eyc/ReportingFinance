@@ -58,3 +58,38 @@ color: #2E2E38;
   height: 202px !important;
   width: 202px !important;
 }
+
+.summary-dashboard-card{
+  width: 220px;
+  height: 491px;
+  left: 310px;
+  top: 242px;
+  background: #FFFFFF;
+  /* Grey / 200 */
+  padding: 18px 20px 5px 22px;
+  border: 1px solid #EAEAF2;
+  box-sizing: border-box;
+}
+.review-by-group-card{
+  width: 220px;
+  height: 264px;
+  left: 310px;
+  top: 793px;
+  padding: 18px 20px 5px 22px;
+  background: #FFFFFF;
+  /* Grey / 200 */
+  border: 1px solid #EAEAF2;
+  box-sizing: border-box;
+}
+.comment-card {
+  width: 766px;
+  height: 1042px;
+  left: 651px;
+  top: 242px;
+  padding: 18px 20px 5px 22px;
+  /* Primary / White */
+  background: #FFFFFF;
+  /* Grey / 200 */
+  border: 1px solid #EAEAF2;
+  box-sizing: border-box;
+}
