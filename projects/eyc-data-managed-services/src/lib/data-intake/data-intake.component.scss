@@ -53,3 +53,8 @@ color: #2E2E38;
     border-bottom: 3.8px solid !important;
   }
 }
+
+::ng-deep .donut-chart > svg {
+  height: 202px !important;
+  width: 202px !important;
+}

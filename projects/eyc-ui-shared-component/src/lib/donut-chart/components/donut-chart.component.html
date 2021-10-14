@@ -1,0 +1,9 @@
+<div id="donut" class="donut-chart" ></div>
+
+<div class="donut-summary">
+    <div class="flexbox" *ngFor="let fileSummariesText of fileSummaries; let i=index; trackBy: trackItem">
+        <div class="legend" [style.background]="_colors[i]"> </div>
+        <div class="legend-text"> {{fileSummariesText}}</div>
+        <div class="legend-value">{{ (_data && _data.length >= 0) ? _data[i] : "" }}</div>
+    </div>
+</div>

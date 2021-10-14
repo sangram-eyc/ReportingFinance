@@ -1,0 +1,46 @@
+.donut-summary {
+  margin: 30px 0 0 0;
+  width: 13.5em;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  margin: 0 0 11px 0;
+}
+
+.legend {
+  width: 9.9px;
+  height: 9.9px;
+  border-radius: 50%;
+}
+
+.legend-text {
+  flex: 1;
+  width: 55px;
+  height: 16px;
+  left: calc(50% - 55px/2 - 31px);
+  top: calc(50% - 16px/2 - 0.5px);
+  font-family: EYInterstate;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: -0.07px;
+  color: #747480;
+  margin-left: 6.1px;
+  white-space: nowrap;
+}
+
+.legend-value {
+  flex: 0 0 50px;
+  width: 57px;
+  height: 16px;
+  right: -12px;
+  top: 0.5px;
+  font-family: EYInterstate;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: right;
+  letter-spacing: -0.07px;
+  color: #747480;
+}
+
