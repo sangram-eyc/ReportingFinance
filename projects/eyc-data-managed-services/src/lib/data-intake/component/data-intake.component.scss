@@ -7,12 +7,15 @@
   right: 0;
 }
 
-*{
-  h1,h6{
+* {
+
+  h1,
+  h6 {
     padding: 0;
     margin: 0;
   }
 }
+
 .heading-4 {
   font-family: EYInterstate;
   font-weight: bold;
@@ -23,18 +26,19 @@
   color: #2e2e38;
 }
 
-.heading-6{
-font-family: EYInterstate;
-font-weight: bold;
-font-size: 16px;
-line-height: 18px;
-display: flex;
-align-items: center;
-color: #2E2E38;
+.heading-6 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #2E2E38;
 }
 
 .eyc-dms-tabs {
   position: relative;
+
   button.motif-text-link {
     font-family: EYInterstate;
     font-size: 14px !important;
@@ -43,9 +47,11 @@ color: #2E2E38;
     text-align: center;
     color: #2E2E38 !important;
   }
+
   button.motif-active.motif-text-link {
     border-bottom: 3.8px solid !important;
   }
+
   button.motif-text-link:hover,
   button.motif-text-link:focus,
   button.motif-text-link:active {
@@ -54,20 +60,37 @@ color: #2E2E38;
   }
 }
 
-::ng-deep .donut-chart > svg {
+::ng-deep .donut-chart>svg {
   height: 202px !important;
   width: 202px !important;
 }
-.donut-chart-card{
- display: flex;
- align-items: center;
- padding-top: 6.0882800608828vh;
- min-height: 74.73363774733637vh;
+
+.donut-chart-card {
+  display: flex;
+  align-items: center;
+  padding-top: 6.0882800608828vh;
+  min-height: 74.73363774733637vh;
 }
-.bar-chart-card{
+
+.bar-chart-card {
   min-height: 158.59969558599695vh;
 }
 
-.review-group-card{
+.review-group-card {
   min-height: 40.182648401826484vh;
+}
+
+::ng-deep .summary-dashboard>.motif-card-body :last-child {
+  padding: 0 !important;
+  line-height: 1.0rem !important;
+}
+
+.review-all {
+  font-family: EYInterstate;
+  font-size: 14px;
+  margin: 37px 0 35px 0;
+}
+
+.icon-size {
+  font-size: 16px;
 }
