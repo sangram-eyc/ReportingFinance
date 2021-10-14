@@ -13,35 +13,32 @@
  </div>
  <section id='data-intake' [hidden]="!(tabIn == 1)">
     <div class="motif-row">
-       <div class="motif-col-xs-1 ">
+       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
           <!-- Card Summary Dashboard Start -->
           <div class="mt-3 mb-3" >
              <h6 class="heading-6">Summary Dashboard</h6>
           </div>
-          <motif-card class="no_data summary-dashboard-card">
-             <motif-card-body >
-                <h5>Motif DMS cards .</h5>
-                <lib-donut-chart id="donutchart" [data]="dataFetch" [fileSummaries]= "fileSummaries"> </lib-donut-chart>
-             </motif-card-body>
+          <motif-card class="donut-chart-card no_data">
+             <lib-donut-chart id="donutchart" [data]="dataFetch" [fileSummaries]= "fileSummaries"> </lib-donut-chart>
           </motif-card>
           <!-- end  -->
           <!-- Card Review by group Start  -->
           <div class="mt-3 mb-3">
              <h6 class="heading-6">Review by group</h6>
           </div>
-          <motif-card class="no_data review-by-group-card">
+          <motif-card class="review-group-card no_data">
              <motif-card-body>
                 <h5>Motif DMS cards work.</h5>
              </motif-card-body>
           </motif-card>
           <!-- end  -->
        </div>
-       <div class="motif-col-xs-3">
+       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
           <!-- Provide Stack bar chart Start  -->
           <div class="mt-3 mb-3">
              <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6>
           </div>
-          <motif-card class="no_data comment-card" >
+          <motif-card class="bar-chart-card no_data">
              <motif-card-body>
                 <h5>Motif DMS cards work.</h5>
              </motif-card-body>

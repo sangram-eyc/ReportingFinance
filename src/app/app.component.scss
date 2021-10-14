@@ -134,8 +134,8 @@ main {
 }
 
 #main-container {
-  max-width: calc(100% - 286px); //viewport width minus sidenav 
-  margin-left: 286px; //sidenav width
+  max-width: calc(100% - 284px); //viewport width minus sidenav 
+  margin-left: 284px; //sidenav width
   overflow-x: hidden;
 }
 
@@ -152,8 +152,8 @@ main {
 }
 
 .main-section {
-    margin-left: 41px;
-    margin-right: 37px;
+    margin-left: 24px;
+    margin-right: 24px;
     flex: 1;
     min-height: calc(100vh - 130px)
 }
@@ -463,7 +463,7 @@ ul#user-info {
 #sidenav {
   background-color: #2E2E38;
   color: white;
-  width: 286px;
+  width: 284px;
   height: 100%;
   min-height: 100vh;
   // transition: all .3s ease;
