@@ -35,6 +35,7 @@ export class TaskCommentComponent implements OnInit {
   toastSuccessMessage = "Comment added successfully";
   arrowReplay = true;
   replyCount:any;
+  attachmentsCount:any='10';
   replyData:any = [];
   formattedTimes = [];
   criticalTag:string = "Critical";
@@ -68,6 +69,8 @@ export class TaskCommentComponent implements OnInit {
     this.entityId = this.TaskCommentData.entityId;
     this.entityType = this.TaskCommentData.entityType;
     this.replyCount = this.TaskCommentData.replyCount;
+    // this.attachmentsCount = this.TaskCommentData.attachmentsCount;
+    //Descomentar cuando se termine el back-end.
     console.log('task-comments-data-receiving',this.TaskCommentData)
   }
 

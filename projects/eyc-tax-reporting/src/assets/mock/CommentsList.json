@@ -31,7 +31,7 @@
         "createdDate": "2021-09-21T00:00:00Z",
         "tags": [],
         "replyCount": 8,
-        "attachmentCount": 0
+        "attachmentCount": 4
     },
     {
         "id": 12345,
@@ -46,7 +46,7 @@
         "createdDate": "2021-09-21T00:00:00Z",
         "tags": [],
         "replyCount": 0,
-        "attachmentCount": 0
+        "attachmentCount": 6
     },
     {
         "id": 123456,
@@ -61,7 +61,7 @@
         "createdDate": "2021-09-21T00:00:00Z",
         "tags": [{"id": 1, "name":"Edit Required"}],
         "replyCount": 0,
-        "attachmentCount": 0
+        "attachmentCount": 3
     },
     {
         "id": 1234567,
@@ -76,7 +76,7 @@
         "createdDate": "2021-09-21T00:00:00Z",
         "tags": [{"id": 2, "name":"Include in cycle debrief"}],
         "replyCount": 0,
-        "attachmentCount": 0
+        "attachmentCount": 7
     }
      
    ],

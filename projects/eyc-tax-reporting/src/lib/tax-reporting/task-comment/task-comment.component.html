@@ -126,8 +126,21 @@
                     </svg>                   
               </div>
 
-              <div class="col-md-3 col-sm-3">
+              <div class="col-md-1 col-sm-1">
                 <span (click)="getListComments()" class="text-replay">{{replyCount}} Reply</span> 
+              </div>
+              <div class="col-md-2 col-sm-2 card-row">
+                <svg class='attachment-icon'width="21" height="22"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0)">
+                    <path d="M16.8233 10.7306L10.7262 16.8278C9.55451 17.9995 7.65644 17.9995 6.48473 16.8278C5.31302 15.6561 5.31302 13.758 6.48473 12.5863L13.112 5.95898C13.8437 5.22732 15.0313 5.22732 15.763 5.95898C16.4946 6.69063 16.4946 7.87825 15.763 8.6099L10.196 14.1768C9.90443 14.4684 9.42726 14.4684 9.13566 14.1768C8.84406 13.8852 8.84406 13.4081 9.13566 13.1165L14.1724 8.07972L13.3771 7.28444L8.34038 12.3212C7.60873 13.0529 7.60873 14.2405 8.34038 14.9721C9.07204 15.7038 10.2597 15.7038 10.9913 14.9721L16.5583 9.40518C17.73 8.23347 17.73 6.33541 16.5583 5.1637C15.3865 3.99199 13.4885 3.99199 12.3168 5.1637L5.68946 11.791C4.07769 13.4028 4.07769 16.0113 5.68946 17.6231C7.30122 19.2348 9.90973 19.2348 11.5215 17.6231L17.6186 11.5259L16.8233 10.7306Z" fill="#2E2E3C"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0">
+                    <rect width="18.0836" height="10.9452" fill="white" transform="translate(0 13.5239) rotate(-45)"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+                    <span style="font-weight: 800;">{{attachmentsCount}}</span>
               </div>
 
               <div *ngIf="!arrowReplay">
