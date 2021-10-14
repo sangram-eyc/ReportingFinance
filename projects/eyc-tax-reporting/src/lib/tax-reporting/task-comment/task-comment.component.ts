@@ -33,9 +33,9 @@ export class TaskCommentComponent implements OnInit {
   entityType:any;
   showToastAfterSubmit = false;
   toastSuccessMessage = "Comment added successfully";
-  arrowReplay = true;
+  showReplies = false;
   replyCount:any;
-  attachmentsCount:any='10';
+  attachmentsCount:any=0;
   replyData:any = [];
   formattedTimes = [];
   criticalTag:string = "Critical";
@@ -113,10 +113,11 @@ export class TaskCommentComponent implements OnInit {
         this.status = resp['data'].status.toLowerCase();
         this.replyCount = this.replyCount + 1
         this.showToastAfterSubmit = true;
+        this.replyData = [];
         setTimeout(() => {        
           this.closeToast();       
         }, 4000);
-        this.arrowReplay = true; 
+        this.showReplies = false; 
       }, error => {
         console.log('Error update status', error);
       });
@@ -134,8 +135,9 @@ export class TaskCommentComponent implements OnInit {
   }
   
   showReplyNewComment(){
+    this.showReplies = false;
     this.showReplyComment = !this.showReplyComment
-    this.showReplyCommentButton = !this.showReplyCommentButton
+    //this.showReplyCommentButton = !this.showReplyCommentButton
   }
 
   capitalizeFirstLetter(text) {
@@ -165,8 +167,9 @@ export class TaskCommentComponent implements OnInit {
   }
 
   getListComments(){
-    this.arrowReplay = !this.arrowReplay;   
-    if(this.arrowReplay === false){
+    this.showReplies = !this.showReplies;
+    this.showReplyComment = false; 
+    if(this.showReplies === true && this.replyData.length == 0){
       this.commentService.listComments(this.idTask).subscribe(resp => {     
         this.replyData = resp['data'];
           this.replyData.forEach(comment => {
@@ -261,7 +264,6 @@ export class TaskCommentComponent implements OnInit {
       }
     });
   }
-
 
 
 }

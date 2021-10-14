@@ -54,25 +54,25 @@
                 {
                     "id": 123, 
                     "userEmail": "Jonnathan.Caballero@email.com", 
-                    "userFistName": "Jonnathan", 
+                    "userFirstName": "Jonnathan", 
                     "userLastName": "Caballero" 
                 },
                 {
                     "id": 2202,
                     "userEmail": "Diego.Morini@email.com", 
-                    "userFistName": "Diego", 
+                    "userFirstName": "Diego", 
                     "userLastName": "Morini" 
                 },
                 {
                     "id": 3303,
                     "userEmail": "Gaston.Silva@email.com", 
-                    "userFistName": "Gaston", 
+                    "userFirstName": "Gaston", 
                     "userLastName": "Silva" 
                 },
                 {
                     "id": 3304,
                     "userEmail": "Diego.Garavito@email.com", 
-                    "userFistName": "Diego", 
+                    "userFirstName": "Diego", 
                     "userLastName": "Garavito" 
                 }
             ]
