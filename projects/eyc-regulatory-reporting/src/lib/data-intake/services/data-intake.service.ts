@@ -29,12 +29,15 @@ export class DataIntakeService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.bd_files_list}filingName=${filingName}&lastFileDueDate=${lastFileDueDate}&period=${period}`);
   }
 
-  getDatasetsrecords() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`);
+  getDatasetsrecords(filingName, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}filingName=${filingName}&period=${period}`);
   }
 
   getComments(type, id) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
   }
  
+  approveExceptionReports(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_intake_exception_report}`, data);
+  }
 }

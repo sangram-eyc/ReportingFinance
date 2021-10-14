@@ -34,15 +34,15 @@
         </ng-template>
         <ng-template #resolveExceptionTemplate let-row>
             <div>
-                {{row.resolve_exception}}
+                {{row.resolvedCount}}
             </div>
-            <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
+            <div class="resolve-Exception" *ngIf="row.exceptionCount">
 
-                <div class="result_complete" *ngIf="row.exceptions == row.resolve_exception && (row.exceptions != 0)">
+                <div class="result_complete" *ngIf="row.exceptionCount == row.resolvedCount && (row.exceptionCount != 0)">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
                 </div>
                 <div class="result_warning"
-                    *ngIf="row.exceptions != row.resolve_exception && (row.resolve_exception != 0)">
+                    *ngIf="row.exceptionCount != row.resolvedCount && (row.exceptionCount != 0)">
                     <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
                 </div>
             </div>
@@ -50,16 +50,16 @@
         <ng-template #dropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-            <div class="result_complete"
-                *ngIf="row.isExceptionResolved && (row.exceptions != 0) && row.exceptions == row.resolve_exception">
+            <!-- <div class="result_complete"
+                *ngIf="row.isExceptionResolved && (row.exceptionCount != 0) && row.exceptionCount == row.resolvedCount">
                 <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
-            </div>
+            </div> -->
             <!-- <div class="result_warning" *ngIf="!row.isExceptionResolved && (row.exceptions != 0)">
                 <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
             </div> -->
-            <div class="result_warning" *ngIf="row.exceptions != row.resolve_exception">
+            <!-- <div class="result_warning" *ngIf="row.exceptionCount != row.resolvedCount">
                 <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
-            </div>
+            </div> -->
             <div class="dropdownTemplate">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
@@ -86,6 +86,7 @@
         </lib-shared-grid> -->
 
         <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
+            [displayCheckBox]="true"
             [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
@@ -117,7 +118,9 @@
             </div> -->
         </ng-template>
         <ng-template #resolveDatasetsTemplate let-row>
-            {{row.resolve_exception}}
+            <div>
+                {{row.resolved}}
+            </div>
             <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
                 <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
             </div>
@@ -126,3 +129,7 @@
 </div>
 <lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName">
 </lib-comment-side-menu>
+
+<motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+    </motif-toast>

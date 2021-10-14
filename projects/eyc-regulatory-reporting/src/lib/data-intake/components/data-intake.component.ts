@@ -68,6 +68,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       }
     }
   };
+  showToastAfterApproveExceptionReports = false;
 
   constructor(
     private service: DataIntakeService,
@@ -138,9 +139,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getDatasets() {
-    this.service.getDatasetsrecords().subscribe(res => {
-      this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      console.log(this.datasets);
+    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.datasets = res['data'];
+      console.log('DATASETS:', this.datasets);
       this.createEntitiesRowData();
 
     }, error => {
@@ -153,7 +154,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     let index = event.index;
     console.log('INDEX', event);
     this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
-      this.bdFilesList[index] = res['data'];
+      this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
     }, error => {
       this.bdFilesList[index] = [];
       console.log("Dataset error");
@@ -301,22 +302,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     ];
 
     this.datasetsDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.datasetsDropdownTemplate,
-        },
-        field: 'template',
-        headerName: '',
-        width: 70,
-        sortable: false,
-        pinned: 'left'
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.datasetsDropdownTemplate,
+      //   },
+      //   field: 'approved',
+      //   headerName: '',
+      //   width: 70,
+      //   sortable: false,
+      //   pinned: 'left'
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
-        field: 'exceptionDue',
+        field: 'due',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -328,7 +329,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File',
-        field: 'exceptionFile',
+        field: 'file',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -377,10 +378,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
+          ngTemplate: this.resolveDatasetsTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolve_exception',
+        field: 'resolved',
         sortable: true,
         filter: true,
         width: 150,
@@ -534,32 +535,31 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   onSubmitApproveExceptionReports() {
-    console.log(this.exceptionReportRows);
-    // const filingDetails = this.filingDetails;
-    // let selectedFiling = {
-    //   "exceptionReportIds": this.exceptionReportRows.map(({ exceptionId }) => exceptionId),
-    //   "filingName": this.filingDetails.filingName,
-    //   "period": this.filingDetails.period,
-    //   "stage": "Reporting"
-    // };
-    // this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
-    //   res['data']['answerExceptions'].forEach(ele => {
-    //     this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
-    //   });
-    //   this.createEntitiesRowData();
-    //   this.exceptionReportRows = [];
-    //   this.filingService.invokeFilingDetails();
-    //   this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
-    //   setTimeout(() => {
-    //     this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
-    //   }, 5000);
-    // });
-    this.exceptionReportRows.forEach(ele => {
-      this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
-    }); 
-    console.log(this.exceptionData);
-    this.createEntitiesRowData();
-    this.exceptionReportRows = [];
+    console.log("exceptionReportRows", this.exceptionReportRows);
+    let selectedExceptionRows = this.exceptionReportRows
+    let selectedFiling = {
+      "exceptionReportIds": this.exceptionReportRows.map(({ ruleExceptionId }) => ruleExceptionId),
+      "filingName": this.filingDetails.filingName,
+      "period": this.filingDetails.period,
+      "stage": "Intake"
+    };
+    this.service.approveExceptionReports(selectedFiling).subscribe(res => {
+      console.log("approved response",res);
+      console.log(this.exceptionReportRows);
+      console.log(selectedExceptionRows);
+      selectedExceptionRows.forEach(ele => {
+        this.exceptionData[this.exceptionData.findIndex(item => item.ruleExceptionId === ele.ruleExceptionId)].approved = true;
+      }); 
+      console.log(this.exceptionData);
+      this.createEntitiesRowData();
+      this.exceptionReportRows = [];
+      this.filingService.invokeFilingDetails();
+      this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      setTimeout(() => {
+        this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      }, 5000);
+    });
+    
   }
 
   datasetsReportRowsSelected(event) {
