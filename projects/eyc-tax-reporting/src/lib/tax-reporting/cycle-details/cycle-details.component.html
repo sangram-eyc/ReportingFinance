@@ -111,7 +111,7 @@
         <motif-tooltip placement="bottom" >
             <h4 motifTooltipTrigger aria-label="tooltip" class="link-assigned"><b>+{{row.assignedTo.length-2}}</b></h4>
              <div *ngFor="let item of row.assignedTo; let x = index" >
-               <span *ngIf="x > 1">{{item.userFistName + " " + item.userLastName}}</span>
+               <span *ngIf="x > 1">{{item.userFirstName + " " + item.userLastName}}</span>
              </div>          
         </motif-tooltip>                              
     </div> 

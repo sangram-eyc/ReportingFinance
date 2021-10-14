@@ -643,6 +643,7 @@
       .attachment-icon{
         color: #2E2E3C;
         width: 1.8rem !important;
+        cursor: pointer;
         span{
             margin-top: 9px;
             margin-left:2px;
@@ -712,6 +713,16 @@
         color: #fff;
     }
 } 
+
+.icon-replay{
+    width: 65px !important;
+    cursor: pointer;
+}
+
+.icon-replay-expand{
+    width: 18px !important;
+    cursor: pointer;
+}
 
 
 
