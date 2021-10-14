@@ -1,59 +1,89 @@
 <div class="page-header">
     <h1 class="heading-4">Data Managed Services</h1>
-</div>
-
-<div class="eyc-dms-tabs">
+ </div>
+ <div class="eyc-dms-tabs">
     <motif-tab-bar>
-        <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
-            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
-        <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trands & Insights</button>
-        <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
-            [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button>
+       <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+       [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
+       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+       [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trands & Insights</button>
+       <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+       [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button>
     </motif-tab-bar>
-</div>
-<section id='data-intake' [hidden]="!(tabIn == 1)">
+ </div>
+ <section id='data-intake' [hidden]="!(tabIn == 1)">
     <div class="motif-row">
-        <div class="motif-col-xs-1 ">
-            <!-- Card Summary Dashboard Start -->
-            <div class="mt-3 mb-3"><h6 class="heading-6">Summary Dashboard</h6></div>
-            <motif-card class="no_data">
-                <motif-card-body>
-                    <h5>Motif DMS cards work.</h5>
-                    <lib-donut-chart id="donutchart" [data]="dataFetch" [fileSummaries]= "fileSummaries"> </lib-donut-chart>
-                </motif-card-body>
-
-            </motif-card>
-            <!-- end  -->
-            <!-- Card Review by group Start  -->
-            <div class="mt-3 mb-3"><h6 class="heading-6">Review by group</h6></div>
-            
-            <motif-card class="no_data">
-                <motif-card-body>
-                    <h5>Motif DMS cards work.</h5>
-                </motif-card-body>
-
-            </motif-card>
-            <!-- end  -->
-        </div>
-        <div class="motif-col-xs-3">
-            <!-- Provide Stack bar chart Start  -->
-            <div class="mt-3 mb-3"><h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6></div>
-            <motif-card class="no_data">
-                <motif-card-body>
-                    <h5>Motif DMS cards work.</h5>
-                </motif-card-body>
-
-            </motif-card>
-            <!-- end  -->
-        </div>
+       <div class="motif-col-xs-1 ">
+          <!-- Card Summary Dashboard Start -->
+          <div class="mt-3 mb-3" >
+             <h6 class="heading-6">Summary Dashboard</h6>
+          </div>
+          <motif-card class="no_data"
+             style="
+             width: 220px;
+             height: 491px;
+             left: 310px;
+             top: 242px;
+             background: #FFFFFF;
+             /* Grey / 200 */
+             padding: 18px 20px 5px 22px;
+             border: 1px solid #EAEAF2;
+             box-sizing: border-box;"
+             >
+             <motif-card-body >
+                <h5>Motif DMS cards .</h5>
+                <lib-donut-chart id="donutchart" [data]="dataFetch" [fileSummaries]= "fileSummaries"> </lib-donut-chart>
+             </motif-card-body>
+          </motif-card>
+          <!-- end  -->
+          <!-- Card Review by group Start  -->
+          <div class="mt-3 mb-3">
+             <h6 class="heading-6">Review by group</h6>
+          </div>
+          <motif-card class="no_data" 
+             style="
+             width: 220px;
+             height: 264px;
+             left: 310px;
+             top: 793px;
+             padding: 18px 20px 5px 22px;
+             background: #FFFFFF;
+             /* Grey / 200 */
+             border: 1px solid #EAEAF2;
+             box-sizing: border-box;
+             ">
+             <motif-card-body>
+                <h5>Motif DMS cards work.</h5>
+             </motif-card-body>
+          </motif-card>
+          <!-- end  -->
+       </div>
+       <div class="motif-col-xs-3">
+          <!-- Provide Stack bar chart Start  -->
+          <div class="mt-3 mb-3">
+             <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6>
+          </div>
+          <motif-card class="no_data" style="
+             width: 766px;
+             height: 1042px;
+             left: 651px;
+             top: 242px;
+             padding: 18px 20px 5px 22px;
+             /* Primary / White */
+             background: #FFFFFF;
+             /* Grey / 200 */
+             border: 1px solid #EAEAF2;
+             box-sizing: border-box;">
+             <motif-card-body>
+                <h5>Motif DMS cards work.</h5>
+             </motif-card-body>
+          </motif-card>
+          <!-- end  -->
+       </div>
     </div>
-</section>
-
-<section id='trands-insights' [hidden]="!(tabIn == 2)">
-
-</section>
-
-<section id='api-catalog' [hidden]="!(tabIn == 3)">
-
-</section>
+ </section>
+ <section id='trands-insights' [hidden]="!(tabIn == 2)">
+ </section>
+ <!--  -->
+ <section id='api-catalog' [hidden]="!(tabIn == 3)">
+ </section>
