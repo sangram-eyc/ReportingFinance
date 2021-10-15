@@ -46,6 +46,15 @@ export class TaxCommentService {
     }  
   }
 
+ /*  getTasksAttachmentsData(id){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_attachments_list}/task/${id}/files`);
+    } 
+    else{
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_attachments_list}`);
+    }  
+  } */
+
   updateTaskStatus(idTask, data){
     if(this.settingsService.production){
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.update_task_status}/tasks/${idTask}/status`, data);

@@ -1,84 +1,140 @@
 {
-   "success": true,
-   "message": "",
-   "corelationId": null,
-   "data": [
-    {
-        "id": 123,
-        "entityId": 111,
-        "entityType": "Fund",
-        "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-        "status": "open",
-        "priority": 0,
-        "target": "EY",
-        "company": "CLIENT",
-        "createdBy": "Patrick Mahomes",
-        "createdDate": "2021-09-21T00:00:00Z",
-        "tags": [{"id": 1, "name":"Edit Required"}, {"id": 2, "name":"Include in cycle debrief"}],
-        "replyCount": 7,
-        "attachmentCount": 0
-    },
-    {
-        "id": 1234,
-        "entityId": 111,
-        "entityType": "Fund",
-        "description": "Please fix the file. Calculations are wrong 1234",
-        "status": "open",
-        "priority": 1,
-        "target": "CLIENT",
-        "company": "EY",
-        "createdBy": "David Miller",
-        "createdDate": "2021-09-21T00:00:00Z",
-        "tags": [],
-        "replyCount": 8,
-        "attachmentCount": 4
-    },
-    {
-        "id": 12345,
-        "entityId": 111,
-        "entityType": "Fund",
-        "description": "Please fix the file. Calculations are wrong 12345",
-        "status": "open",
-        "priority": 0,
-        "target": "CLIENT",
-        "company": "CLIENT",
-        "createdBy": "Eric Taylor",
-        "createdDate": "2021-09-21T00:00:00Z",
-        "tags": [],
-        "replyCount": 0,
-        "attachmentCount": 6
-    },
-    {
-        "id": 123456,
-        "entityId": 111,
-        "entityType": "Fund",
-        "description": "Please fix the file. Calculations are wrong 123456",
-        "status": "accepted",
-        "priority": 1,
-        "target": "EY",
-        "company": "CLIENT",
-        "createdBy": "Michael Brown",
-        "createdDate": "2021-09-21T00:00:00Z",
-        "tags": [{"id": 1, "name":"Edit Required"}],
-        "replyCount": 0,
-        "attachmentCount": 3
-    },
-    {
-        "id": 1234567,
-        "entityId": 111,
-        "entityType": "Fund",
-        "description": "Please fix the file. Calculations are wrong 1234567",
-        "status": "declined",
-        "priority": 1,
-        "target": "CLIENT",
-        "company": "EY",
-        "createdBy": "Michael Brown",
-        "createdDate": "2021-09-21T00:00:00Z",
-        "tags": [{"id": 2, "name":"Include in cycle debrief"}],
-        "replyCount": 0,
-        "attachmentCount": 7
-    }
-     
-   ],
-   "error": null
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "id": 123,
+            "entityId": 111,
+            "entityType": "Fund",
+            "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+            "status": "open",
+            "priority": 0,
+            "target": "EY",
+            "company": "CLIENT",
+            "createdBy": "Patrick Mahomes",
+            "createdDate": "2021-09-21T00:00:00Z",
+            "tags": [
+                {
+                    "id": 1,
+                    "name": "Edit Required"
+                },
+                {
+                    "id": 2,
+                    "name": "Include in cycle debrief"
+                }
+            ],
+            "replyCount": 7,
+            "attachmentsCount": 0
+        },
+        {
+            "id": 1234,
+            "entityId": 111,
+            "entityType": "Fund",
+            "description": "Please fix the file. Calculations are wrong 1234",
+            "status": "open",
+            "priority": 1,
+            "target": "CLIENT",
+            "company": "EY",
+            "createdBy": "David Miller",
+            "createdDate": "2021-09-21T00:00:00Z",
+            "tags": [],
+            "replyCount": 8,
+            "attachmentsCount": 0,
+            "attachments": [
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                }
+            ]
+        },
+        {
+            "id": 12345,
+            "entityId": 111,
+            "entityType": "Fund",
+            "description": "Please fix the file. Calculations are wrong 12345",
+            "status": "open",
+            "priority": 0,
+            "target": "CLIENT",
+            "company": "CLIENT",
+            "createdBy": "Eric Taylor",
+            "createdDate": "2021-09-21T00:00:00Z",
+            "tags": [],
+            "replyCount": 0,
+            "attachmentsCount": 5,
+            "attachments": [
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                },
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                },
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                }
+            ]
+        },
+        {
+            "id": 123456,
+            "entityId": 111,
+            "entityType": "Fund",
+            "description": "Please fix the file. Calculations are wrong 123456",
+            "status": "accepted",
+            "priority": 1,
+            "target": "EY",
+            "company": "CLIENT",
+            "createdBy": "Michael Brown",
+            "createdDate": "2021-09-21T00:00:00Z",
+            "tags": [
+                {
+                    "id": 1,
+                    "name": "Edit Required"
+                }
+            ],
+            "replyCount": 0,
+            "attachmentsCount": 8,
+            "attachments": [
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "SOME_FILE",
+                    "attachmentId": 1
+                }
+            ]
+        },
+        {
+            "id": 1234567,
+            "entityId": 111,
+            "entityType": "Fund",
+            "description": "Please fix the file. Calculations are wrong 1234567",
+            "status": "declined",
+            "priority": 1,
+            "target": "CLIENT",
+            "company": "EY",
+            "createdBy": "Michael Brown",
+            "createdDate": "2021-09-21T00:00:00Z",
+            "tags": [
+                {
+                    "id": 2,
+                    "name": "Include in cycle debrief"
+                }
+            ],
+            "replyCount": 0,
+            "attachmentsCount": 9,
+            "attachments": [
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "SOME_FILE",
+                    "attachmentId": 1
+                }
+            ]
+        }
+    ],
+    "error": null
 }

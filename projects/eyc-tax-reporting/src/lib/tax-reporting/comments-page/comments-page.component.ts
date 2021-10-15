@@ -63,7 +63,8 @@ export class CommentsPagecomponent implements OnInit {
           createdDate: item.createdDate,
           tags: item.tags,
           replyCount: item.replyCount,
-          attachmentCount: item.attachmentCount
+          attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
+          attachments:item.attachments 
         };
         this.completedComments.push(eachitem);
       })
