@@ -89,7 +89,7 @@ export class AssignUsersModalComponent implements OnInit {
           userFirstName: item.userFirstName,
           userLastName: item.userLastName,
           approved:true,
-          check: this.modalDetails.fundsAssign[0].assignedTo.findIndex(x=> x.id === item.userId) === -1 ? false:true    
+          check: this.modalDetails.fundsAssign[0].assignedTo.findIndex(x=> x.userId === item.userId) === -1 ? false:true    
         };
         this.completedData.push(eachitem);
         if(eachitem.check){

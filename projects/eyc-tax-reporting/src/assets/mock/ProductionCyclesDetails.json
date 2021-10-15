@@ -12,31 +12,31 @@
             "openCommentsClient":"0",
             "assignedUsers": [
                 {
-                    "id": 123, 
+                    "userId": 123, 
                     "userEmail": "Jonnathan.Caballero@email.com", 
                     "userFirstName": "Jonnathan", 
                     "userLastName": "Caballero" 
                 },
                 {
-                    "id": 2202,
+                    "userId": 2202,
                     "userEmail": "Diego.Morini@email.com", 
                     "userFirstName": "Diego", 
                     "userLastName": "Morini" 
                 },
                 {
-                    "id": 3303,
+                    "userId": 3303,
                     "userEmail": "Gaston.Silva@email.com", 
                     "userFirstName": "Gaston", 
                     "userLastName": "Silva" 
                 },
                 {
-                    "id": 3304,
+                    "userId": 3304,
                     "userEmail": "Diego.Garavito@email.com", 
                     "userFirstName": "Diego", 
                     "userLastName": "Garavito" 
                 },
                 {
-                    "id": 3305,
+                    "userId": 3305,
                     "userEmail": "Gabriel.Loy@email.com", 
                     "userFirstName": "Gabriel", 
                     "userLastName": "Loy" 
@@ -52,25 +52,25 @@
             "openCommentsClient":"2",
             "assignedUsers":[
                 {
-                    "id": 123, 
+                    "userId": 123, 
                     "userEmail": "Jonnathan.Caballero@email.com", 
                     "userFirstName": "Jonnathan", 
                     "userLastName": "Caballero" 
                 },
                 {
-                    "id": 2202,
+                    "userId": 2202,
                     "userEmail": "Diego.Morini@email.com", 
                     "userFirstName": "Diego", 
                     "userLastName": "Morini" 
                 },
                 {
-                    "id": 3303,
+                    "userId": 3303,
                     "userEmail": "Gaston.Silva@email.com", 
                     "userFirstName": "Gaston", 
                     "userLastName": "Silva" 
                 },
                 {
-                    "id": 3304,
+                    "userId": 3304,
                     "userEmail": "Diego.Garavito@email.com", 
                     "userFirstName": "Diego", 
                     "userLastName": "Garavito" 
@@ -84,7 +84,14 @@
             "status": "approved",
             "openCommentsEY":"0",
             "openCommentsClient":"1",
-            "assignedUsers":[]
+            "assignedUsers":[
+                {
+
+                "userId": 123, 
+                "userEmail": "Jonnathan.Caballerov2@email.com", 
+                "userFirstName": "Jonnathan", 
+                "userLastName": "Caballerov2" 
+                }]
         },
         {
             "name": "Fund 4",
@@ -93,7 +100,19 @@
             "status": "open",
             "openCommentsEY":"10",
             "openCommentsClient":"10",
-            "assignedUsers":[]
+            "assignedUsers":[
+                {
+                "userId": 123, 
+                "userEmail": "Jonnathan.Caballero@email.com", 
+                "userFirstName": "Jonnathan", 
+                "userLastName": "Caballero" 
+            },
+            {
+                "userId": 2202,
+                "userEmail": "Diego.Morini@email.com", 
+                "userFirstName": "Diego", 
+                "userLastName": "Morini" 
+            }]
         },
         {
             "name": "Fund 5",
