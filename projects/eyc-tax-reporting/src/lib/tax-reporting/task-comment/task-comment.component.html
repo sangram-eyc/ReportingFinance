@@ -107,9 +107,26 @@
                 <div class="col-md-9 col-sm-9 card-column task-comment">
                     <span class='author'>{{createdBy}}</span>
                     <span class='creation-date'>
-                        {{createdDate | date: 'MM/dd/yy'}} | {{createdDate | date: ' hh:mm z'}} 
-                    </span> 
-                    <span class='description'>{{description}}</span>
+                        {{createdDate | date: 'MM/dd/yy'}} | {{createdDate | date: ' hh:mm z'}}
+                    </span>
+                    <span class='description mb-2'>{{description}}</span>
+                    <div class="card-row" *ngFor="let attachment of attachments">
+                        <svg class='attach_file' width="23" height="23" viewBox="0 0 23 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_2820:12062)">
+                                <path
+                                    d="M15.8146 9.85546L10.543 15.1271C9.52992 16.1401 7.88885 16.1401 6.87579 15.1271C5.86273 14.114 5.86273 12.4729 6.87579 11.4599L12.6058 5.72987C13.2384 5.09728 14.2652 5.09728 14.8978 5.72987C15.5304 6.36246 15.5304 7.38927 14.8978 8.02186L10.0846 12.8351C9.83246 13.0872 9.4199 13.0872 9.16778 12.8351C8.91567 12.5829 8.91567 12.1704 9.16778 11.9183L13.5226 7.56346L12.835 6.87587L8.48019 11.2307C7.84759 11.8633 7.84759 12.8901 8.48019 13.5227C9.11278 14.1552 10.1396 14.1552 10.7722 13.5227L15.5854 8.70946C16.5984 7.6964 16.5984 6.05533 15.5854 5.04227C14.5723 4.0292 12.9312 4.0292 11.9182 5.04227L6.18819 10.7723C4.79465 12.1658 4.79465 14.4211 6.18819 15.8147C7.58172 17.2082 9.83705 17.2082 11.2306 15.8147L16.5022 10.5431L15.8146 9.85546Z"
+                                    fill="#155CB4" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2820:12062">
+                                    <rect width="15.5586" height="15.5586" fill="white"
+                                        transform="translate(0 11.0015) rotate(-45)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <span class='attachments'>{{attachment?.fileName}}</span>
+                    </div>
                 </div>
             </div>
 
