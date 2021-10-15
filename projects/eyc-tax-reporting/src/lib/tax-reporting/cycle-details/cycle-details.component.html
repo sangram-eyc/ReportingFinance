@@ -107,9 +107,9 @@
       </div>     
     </div>
   
-    <div class="margin-tooltip mt-2" *ngIf="row.assignedTo.length > 0">
+    <div class="margin-tooltip mt-2" *ngIf="row.assignedTo.length > 1">
         <motif-tooltip placement="bottom" >
-            <h4 motifTooltipTrigger aria-label="tooltip" class="link-assigned"><b>+{{row.assignedTo.length-2}}</b></h4>
+            <h4 motifTooltipTrigger aria-label="tooltip" class="link-assigned"><b *ngIf="row.assignedTo.length > 2">+{{row.assignedTo.length-2}}</b></h4>
              <div *ngFor="let item of row.assignedTo; let x = index" >
                <span *ngIf="x > 1">{{item.userFirstName + " " + item.userLastName}}</span>
              </div>          
