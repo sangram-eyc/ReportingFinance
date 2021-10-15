@@ -142,7 +142,7 @@ export class CommentsPagecomponent implements OnInit {
       if (result.button === "Post") {
         //Refresh comments Submit
         this.aceptApprove = false;
-        let body = '{ "status": "APPROVED" }';
+        const body = { "status": "APPROVED" };
         this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
           console.log(resp);
             setTimeout(() => {

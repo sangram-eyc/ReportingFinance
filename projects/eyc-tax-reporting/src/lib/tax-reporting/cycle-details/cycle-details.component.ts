@@ -91,8 +91,8 @@ export class CycleDetailComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 20,
-    name: '20',
+    value: 10,
+    name: '10',
     id: 0
   };
 
@@ -303,7 +303,7 @@ onSubmitApproveDatasets() {
     }   
     this.rowData[this.rowData.findIndex(item => item.id === ele.id)].approvedBack = true;
   }); 
-  let body = '{ "status": "APPROVED" }';
+  const body = { "status": "APPROVED" };
   this.productcyclesService.putApproveEntities(this.iDs, body).subscribe(resp => {
     console.log(resp);
       setTimeout(() => {
