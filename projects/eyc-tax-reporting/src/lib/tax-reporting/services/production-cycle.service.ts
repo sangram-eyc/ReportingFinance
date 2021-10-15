@@ -45,7 +45,7 @@ export class ProductionCycleService {
   putApproveEntities(ids:any, bodyJson:any){
     //console.log(ids + " -- " + this.settingsService.taxReporting.production_cycles);
     if (this.settingsService.production) {
-      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}?fundIds=:${ids}`, bodyJson); 
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}?fundIds=${ids}`, bodyJson); 
     }
     else{
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}`, bodyJson);      
