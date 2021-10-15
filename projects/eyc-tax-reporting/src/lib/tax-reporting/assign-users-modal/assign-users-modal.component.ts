@@ -63,7 +63,7 @@ export class AssignUsersModalComponent implements OnInit {
    console.log('Users selected->', this.selectedUsers);
    console.log('Fund id ->', this.modalDetails.idFund);  
    const usersToAdd = {
-    "users": this.selectedUsers
+    "userIds": this.selectedUsers
     };
 
   this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
