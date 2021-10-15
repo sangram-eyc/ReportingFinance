@@ -139,10 +139,11 @@ export class CommentsPagecomponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if (result.button === "Post") {
+      if (result.button === "Continue") {
         //Refresh comments Submit
         this.aceptApprove = false;
         const body = { "status": "APPROVED" };
+        console.log("Fund: " + this.fundId)
         this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
           console.log(resp);
             setTimeout(() => {
@@ -150,6 +151,7 @@ export class CommentsPagecomponent implements OnInit {
           }, 5000); 
         });
         //this.getComments();
+        console.log("Fund: " + this.fundId)
       } else {
         console.log('result afterClosed', result);
       }
