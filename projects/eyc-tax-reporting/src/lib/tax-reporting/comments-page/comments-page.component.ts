@@ -29,6 +29,8 @@ export class CommentsPagecomponent implements OnInit {
   fundId;
   productCycleName;
   aceptApprove = false;
+  toastSuccessMessage = "Approved successfully";
+  showToastAfterSubmit = false;
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -140,15 +142,16 @@ export class CommentsPagecomponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result.button === "Continue") {
-        //Refresh comments Submit
-        this.aceptApprove = false;
+        //Refresh comments Submit       
         const body = { "status": "APPROVED" };
         console.log("Fund: " + this.fundId)
         this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
           console.log(resp);
-            setTimeout(() => {
-            console.log(resp);
-          }, 5000); 
+          this.aceptApprove = true;
+          this.showToastAfterSubmit = true;
+           setTimeout(() => {
+            this.closeToast();
+          }, 4000); 
         });
         //this.getComments();
         console.log("Fund: " + this.fundId)
@@ -156,5 +159,9 @@ export class CommentsPagecomponent implements OnInit {
         console.log('result afterClosed', result);
       }
     });
+  }
+
+  closeToast(){
+    this.showToastAfterSubmit = false;
   }
 }

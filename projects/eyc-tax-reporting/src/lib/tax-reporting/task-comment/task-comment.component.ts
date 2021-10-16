@@ -170,7 +170,7 @@ export class TaskCommentComponent implements OnInit {
   getListComments(){
     this.showReplies = !this.showReplies;
     this.showReplyComment = false; 
-    if(this.showReplies === true && this.replyData.length == 0){
+    if(this.replyData.length === 0 && this.replyCount > 0){
       this.commentService.listComments(this.idTask).subscribe(resp => {     
         this.replyData = resp['data'];
           this.replyData.forEach(comment => {

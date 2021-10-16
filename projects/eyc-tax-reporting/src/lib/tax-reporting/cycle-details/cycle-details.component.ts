@@ -319,10 +319,6 @@ handleGridReady(params) {
   this.gridApi = params.api;
 } 
 
-changeClass(){
-  this.startClass = !this.startClass;
-}
-
 addUsersToFund(_id:any) {
   const dialogRef = this.dialog.open(AssignUsersModalComponent, {
     id:'add-user-modal',

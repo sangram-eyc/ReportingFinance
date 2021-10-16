@@ -561,6 +561,53 @@
 .padding-left-comment{
   padding-left: 1rem;
 }
+
+::ng-deep .toast-approved{
+
+     .motif-toast{
+
+        height: 50px !important;
+        padding-left: 0px !important;
+        padding-top: inherit !important;
+        padding-bottom: inherit !important;
+        margin-top: 15px !important;   
+    }
+
+    .motif-icon-content{
+
+        padding: initial !important;
+        margin-top: 2px !important;
+
+        svg{
+            padding: initial !important;
+        }
+    }
+
+.close {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    position: relative;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+  }
+
+  button.close:hover {
+    background-color: var(--modal-header-border-color) !important;
+  }
+  
+  button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    left:14px;
+  } 
+
+}
   
 
   
