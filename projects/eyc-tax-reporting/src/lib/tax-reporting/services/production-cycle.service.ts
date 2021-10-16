@@ -48,7 +48,8 @@ export class ProductionCycleService {
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}?fundIds=${ids}`, bodyJson); 
     }
     else{
-      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}`, bodyJson);      
+      //To test locally you must return a get
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_details}`);    
     }
   }
 
