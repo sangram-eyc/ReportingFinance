@@ -78,6 +78,10 @@
 
 .review-group-card {
   min-height: 40.182648401826484vh;
+  
+  .motif-card-body {
+    padding: 1.71429rem 1.71429rem 2rem !important;
+  }
 }
 
 .review-all {
@@ -88,4 +92,69 @@
 
 .icon-size {
   font-size: 16px;
+}
+
+::ng-deep .review-by-group {
+  width: 100%;
+  // margin: 33px 0 0 24px;
+}
+
+::ng-deep .review-number {
+  font-family: EYInterstate;
+  font-size: 28px;
+  line-height: 20px;
+  color: #2E2E38;
+  padding: 19px 0 0 0 !important;
+  .material-icons {
+    padding: 0 !important;
+  }
+}
+
+::ng-deep .review-by-group-heading {
+  margin-bottom: 19px;
+  margin-top: 13px;
+  padding: 8px 0 14px 0 !important;
+  line-height: 1.57143rem;
+  font-family: EYInterstate;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2E2E38;
+  // height: 40px;
+
+  span {
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 22px;
+    color: #155CB4;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+}
+
+::ng-deep .review-by-group-search {
+  margin-bottom: 19px;
+  margin-top: 13px;
+  padding: 0 0 !important;
+  line-height: 1.57143rem;
+  font-family: EYInterstate;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2E2E38;
+  span {
+    padding-left: 3px !important;
+  }
+}
+
+.review-lines {
+  border: 1px solid #E1E1E6;
+  transform: rotate(180deg);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 16px 0px;
+}
+
+.text-align-right {
+  text-align: right !important;
 }

@@ -62,7 +62,6 @@ export class DonutChartComponent {
       .attr('fill', d => color(d.data[0]))
       .attr("stroke", "white")
       .style("stroke-width", "2px")
-      .style("opacity", 0.7);
 
     svg.append("text")
       .attr("text-anchor", "middle")
