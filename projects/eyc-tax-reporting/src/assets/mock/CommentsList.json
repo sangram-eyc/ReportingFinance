@@ -43,9 +43,9 @@
             "attachmentsCount": 0,
             "attachments": [
                 {
-                    "storageFileName": "SOME_STORAGE_FILE_NAME",
-                    "fileName": "File_name_012345589.xls",
-                    "attachmentId": 1
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
                 }
             ]
         },
@@ -65,14 +65,14 @@
             "attachmentsCount": 5,
             "attachments": [
                 {
-                    "storageFileName": "SOME_STORAGE_FILE_NAME",
-                    "fileName": "File_name_012345589.xls",
-                    "attachmentId": 1
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
                 },
                 {
-                    "storageFileName": "SOME_STORAGE_FILE_NAME",
-                    "fileName": "File_name_012345589.xls",
-                    "attachmentId": 1
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
                 },
                 {
                     "storageFileName": "SOME_STORAGE_FILE_NAME",
@@ -102,9 +102,9 @@
             "attachmentsCount": 8,
             "attachments": [
                 {
-                    "storageFileName": "SOME_STORAGE_FILE_NAME",
-                    "fileName": "SOME_FILE",
-                    "attachmentId": 1
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
                 }
             ]
         },
@@ -129,9 +129,9 @@
             "attachmentsCount": 9,
             "attachments": [
                 {
-                    "storageFileName": "SOME_STORAGE_FILE_NAME",
-                    "fileName": "SOME_FILE",
-                    "attachmentId": 1
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
                 }
             ]
         }

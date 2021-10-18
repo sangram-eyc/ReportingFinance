@@ -4,6 +4,7 @@ import { TaxCommentService } from '../services/tax-comment.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-task-comment',
@@ -264,6 +265,37 @@ export class TaskCommentComponent implements OnInit {
         });   
       }
     });
+  }
+
+  downloadFile(fileName, downloadfilename) {
+    const type = fileName.split('.').pop();
+    const requestobj = {
+      "fileName": fileName,
+      "fileType": type.toUpperCase()
+    }
+
+    this.commentService.downloadFile(requestobj).subscribe(resp => {
+        const data = this.base64ToBlob(resp['data']['fileContent']);
+        console.log('k1 > filename >', fileName);
+        FileSaver.saveAs(data, downloadfilename);
+    });  
+  }
+
+  public base64ToBlob(b64Data, contentType='text/xml', sliceSize=512) {
+    b64Data = b64Data.replace(/\s/g, ''); //IE compatibility...
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        let byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        let byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, {type: contentType});
   }
 
 

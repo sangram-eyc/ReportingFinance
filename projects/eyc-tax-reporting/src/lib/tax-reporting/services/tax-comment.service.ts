@@ -1,93 +1,93 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import {EycTaxSettingsService} from '../../services/eyc-tax-settings.service';
-import {EycApiService} from '../../services/eyc-tax-api.service';
+import { EycTaxSettingsService } from '../../services/eyc-tax-settings.service';
+import { EycApiService } from '../../services/eyc-tax-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaxCommentService {
 
-  constructor(private apiService: EycApiService,private settingsService: EycTaxSettingsService) { }
-  
+  constructor(private apiService: EycApiService, private settingsService: EycTaxSettingsService) { }
+
   addTask(data, entityId) {
     if (this.settingsService.production) {
       return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_task}/funds/${entityId}/tasks`, data);
-    } 
-    else{
+    }
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_task}`);
-    }   
+    }
   }
 
   addComment(data) {
     if (this.settingsService.production) {
-    return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.add_comment}`, data);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
+    }
   }
-  else{
-    return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_comment}`);
-  }
-}
 
 
-  uploadFile(data) { 
+  uploadFile(data) {
     if (this.settingsService.production) {
       return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.upload}`, data);
-    } 
-    else{
+    }
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.upload}`);
-    }     
+    }
   }
 
-  getTasksData(id){
+  getTasksData(id) {
     if (this.settingsService.production) {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_list}/funds/${id}/tasks`);
-    } 
-    else{
+    }
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_list}`);
-    }  
+    }
   }
 
- /*  getTasksAttachmentsData(id){
+  updateTaskStatus(idTask, data) {
     if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_attachments_list}/task/${id}/files`);
-    } 
-    else{
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.tasks_attachments_list}`);
-    }  
-  } */
-
-  updateTaskStatus(idTask, data){
-    if(this.settingsService.production){
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.update_task_status}/tasks/${idTask}/status`, data);
     }
-    else{
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_task_status}`);
     }
   }
 
   listComments(entityId) {
-    if(this.settingsService.production){      
+    if (this.settingsService.production) {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/TASK/${entityId}/comments`);
     }
-    else{
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
     }
   }
 
-  deleteTag(idTask, tagId){
-    if(this.settingsService.production){      
+  deleteTag(idTask, tagId) {
+    if (this.settingsService.production) {
       return this.apiService.invokeDeleteAPI(`${this.settingsService.taxReporting.delete_tag}/tasks/${idTask}/tags/${tagId}`);
     }
-    else{
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_tag}`);
     }
   }
 
-  deletePriority(idTask, data){
-    if(this.settingsService.production){      
+  deletePriority(idTask, data) {
+    if (this.settingsService.production) {
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.delete_priority}/tasks/${idTask}/priority`, data);
     }
-    else{
+    else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_priority}`);
+    }
+  }
+
+  downloadFile(data) {
+    if (this.settingsService.production) {
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.download}`, data);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.download}`);
     }
   }
 
