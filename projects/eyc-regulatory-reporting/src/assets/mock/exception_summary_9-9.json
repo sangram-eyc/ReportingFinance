@@ -11,9 +11,9 @@
          "businessDayText": "BD",
          "filesReceived": 0,
          "unresolve_exception": 0.0,
-         "filesExpected": 41,
+         "totalFiles": 41,
          "comments": 0.0,
-         "dueDate": "BD36"
+         "exceptionDue": "BD36"
       },
       {
          "reg_reporting": "CPO PQR - Advisor level",
@@ -24,9 +24,9 @@
          "businessDayText": "BD",
          "filesReceived": 5,
          "unresolve_exception": 0.0,
-         "filesExpected": 48,
+         "totalFiles": 48,
          "comments": 0.0,
-         "dueDate": "BD41"
+         "exceptionDue": "BD41"
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -37,9 +37,9 @@
          "businessDayText": "BD",
          "filesReceived": 10,
          "unresolve_exception": 0.0,
-         "filesExpected": 54,
+         "totalFiles": 54,
          "comments": 0.0,
-         "dueDate": "BD38"
+         "exceptionDue": "BD38"
       },
       {
          "reg_reporting": "CTAPR",
@@ -50,9 +50,9 @@
          "businessDayText": "BD",
          "filesReceived": 7,
          "unresolve_exception": 0.0,
-         "filesExpected": 37,
+         "totalFiles": 37,
          "comments": 0.0,
-         "dueDate": "BD35"
+         "exceptionDue": "BD35"
       },
       {
          "reg_reporting": "FR 2314 Quarterly",
@@ -63,9 +63,9 @@
          "businessDayText": "BD",
          "filesReceived": 6,
          "unresolve_exception": 0.0,
-         "filesExpected": 20,
+         "totalFiles": 20,
          "comments": 0.0,
-         "dueDate": "BD32"
+         "exceptionDue": "BD32"
       },
       {
          "reg_reporting": "FRY 11 Quarterly",
@@ -76,9 +76,9 @@
          "businessDayText": "BD",
          "filesReceived": 7,
          "unresolve_exception": 0.0,
-         "filesExpected": 33,
+         "totalFiles": 33,
          "comments": 0.0,
-         "dueDate": "BD40"
+         "exceptionDue": "BD40"
       },
       {
          "reg_reporting": "Form PF - HF",
@@ -89,9 +89,9 @@
          "businessDayText": "BD",
          "filesReceived": 12,
          "unresolve_exception": 0.0,
-         "filesExpected": 58,
+         "totalFiles": 58,
          "comments": 0.0,
-         "dueDate": "BD45"
+         "exceptionDue": "BD45"
       }
    ]
 }
