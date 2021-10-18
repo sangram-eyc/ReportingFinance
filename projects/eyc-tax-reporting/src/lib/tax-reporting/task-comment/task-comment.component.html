@@ -110,7 +110,7 @@
                         {{createdDate | date: 'MM/dd/yy'}} | {{createdDate | date: ' hh:mm z'}}
                     </span>
                     <span class='description mb-2'>{{description}}</span>
-                    <div class="card-row" *ngFor="let attachment of attachments">
+                    <div class="card-row" *ngFor="let file of attachments">
                         <svg class='attach_file' width="23" height="23" viewBox="0 0 23 23" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2820:12062)">
@@ -125,7 +125,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <span class='attachments'>{{attachment?.fileName}}</span>
+                        <span (click)="downloadFile(file.storageFileName, file.fileName)" class='attachments'>{{file?.fileName}}</span>
                     </div>
                 </div>
             </div>
