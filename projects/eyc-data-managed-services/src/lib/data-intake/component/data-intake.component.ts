@@ -19,8 +19,6 @@ export class DataIntakeComponent implements OnInit {
   constructor(private dataManagedService: DataManagedService) { }
 
   ngOnInit(): void {
-    // this.dataFetch = [400, 50, 50, 50, 50];
-    // this.fileSummaries = ["No Issue", "Medium / low priority issues", "High priority issues", "Missing files, past due", "Files not received"];
     this.getFileSummuries();
   }
 
@@ -30,8 +28,8 @@ export class DataIntakeComponent implements OnInit {
 
   getFileSummuries() {
     this.dataManagedService.getFileSummaryList().subscribe(dataSummuries => {
-      this.fileSummaries = [{ "label": "No Issue", "value": 400 }, { "label": "Medium / low priority issues", "value": 50 }, { "label": "High priority issues", "value": 50 }, { "label": "Missing files, past due", "value": 50 }, { "label": "Files not received", "value": 50 }];
-      console.log(this.fileSummaries);
+      this.fileSummaries = dataSummuries.data['dataSeries'];
+      // this.fileSummaries = [{ "label": "No Issue", "value": 400 }, { "label": "Medium / low priority issues", "value": 50 }, { "label": "High priority issues", "value": 50 }, { "label": "Missing files, past due", "value": 50 }, { "label": "Files not received", "value": 50 }];
     });
   }
 
