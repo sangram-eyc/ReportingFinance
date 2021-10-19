@@ -8,11 +8,17 @@
             "entityId": 111,
             "entityType": "Fund",
             "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-            "status": "open",
+            "status": "OPEN",
             "priority": 0,
             "target": "EY",
             "company": "CLIENT",
-            "createdBy": "Patrick Mahomes",
+            "author": {
+                "userId": null,
+                "userEmail": "Patrick.Mahomes@ey.com",
+                "userFirstName": "Patrick",
+                "userLastName": "Mahomes"
+            },
+            "createdBy": "Patrick.Mahomes@ey.com",
             "createdDate": "2021-09-21T00:00:00Z",
             "tags": [
                 {
@@ -32,11 +38,17 @@
             "entityId": 111,
             "entityType": "Fund",
             "description": "Please fix the file. Calculations are wrong 1234",
-            "status": "open",
+            "status": "OPEN",
             "priority": 1,
             "target": "CLIENT",
             "company": "EY",
-            "createdBy": "David Miller",
+            "author": {
+                "userId": null,
+                "userEmail": "David.Miller@ey.com",
+                "userFirstName": "David",
+                "userLastName": "Miller"
+            },
+            "createdBy": "David.Miller@ey.com",
             "createdDate": "2021-09-21T00:00:00Z",
             "tags": [],
             "replyCount": 8,
@@ -54,11 +66,17 @@
             "entityId": 111,
             "entityType": "Fund",
             "description": "Please fix the file. Calculations are wrong 12345",
-            "status": "open",
+            "status": "OPEN",
             "priority": 0,
             "target": "CLIENT",
             "company": "CLIENT",
-            "createdBy": "Eric Taylor",
+            "author": {
+                "userId": null,
+                "userEmail": "Eric.Taylor@ey.com",
+                "userFirstName": "Eric",
+                "userLastName": "Taylor"
+            },
+            "createdBy": "Eric.Taylor@ey.com",
             "createdDate": "2021-09-21T00:00:00Z",
             "tags": [],
             "replyCount": 0,
@@ -86,11 +104,17 @@
             "entityId": 111,
             "entityType": "Fund",
             "description": "Please fix the file. Calculations are wrong 123456",
-            "status": "accepted",
+            "status": "ACCEPTED",
             "priority": 1,
             "target": "EY",
             "company": "CLIENT",
-            "createdBy": "Michael Brown",
+            "author": {
+                "userId": null,
+                "userEmail": "Michael.Brown@ey.com",
+                "userFirstName": "Michael",
+                "userLastName": "Brown"
+            },
+            "createdBy": "Michael.Brown@ey.com",
             "createdDate": "2021-09-21T00:00:00Z",
             "tags": [
                 {
@@ -113,11 +137,12 @@
             "entityId": 111,
             "entityType": "Fund",
             "description": "Please fix the file. Calculations are wrong 1234567",
-            "status": "declined",
+            "status": "DECLINED",
             "priority": 1,
             "target": "CLIENT",
             "company": "EY",
-            "createdBy": "Michael Brown",
+            "author": null,
+            "createdBy": "Michael.Brown@ey.com",
             "createdDate": "2021-09-21T00:00:00Z",
             "tags": [
                 {

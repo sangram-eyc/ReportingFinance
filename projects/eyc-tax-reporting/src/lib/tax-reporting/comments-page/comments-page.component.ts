@@ -61,6 +61,7 @@ export class CommentsPagecomponent implements OnInit {
           priority: item.priority,
           target: item.target,
           company: item.company,
+          author: item.author,
           createdBy: item.createdBy,
           createdDate: item.createdDate,
           tags: item.tags,
