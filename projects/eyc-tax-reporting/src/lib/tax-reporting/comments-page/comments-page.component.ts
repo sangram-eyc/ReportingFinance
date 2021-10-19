@@ -29,7 +29,7 @@ export class CommentsPagecomponent implements OnInit {
   fundId;
   productCycleName;
   aceptApprove = false;
-  toastSuccessMessage = "Approved successfully";
+  toastSuccessMessage = '';
   showToastAfterSubmit = false;
 
   ngOnInit(): void {
@@ -117,6 +117,11 @@ export class CommentsPagecomponent implements OnInit {
       console.log('The dialog was closed', result);
       if (result.button === "Post") {
         //Refresh comments Submit
+        this.toastSuccessMessage = "Comment added successfully";
+        this.showToastAfterSubmit = true;
+        setTimeout(() => {
+          this.showToastAfterSubmit = false;       
+        }, 4000); 
         this.getComments();
       } else {
         console.log('result afterClosed', result);
@@ -148,6 +153,7 @@ export class CommentsPagecomponent implements OnInit {
         this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
           console.log(resp);
           this.aceptApprove = true;
+          this.toastSuccessMessage = "Approved successfully";
           this.showToastAfterSubmit = true;
            setTimeout(() => {
             this.closeToast();
