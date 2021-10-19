@@ -210,13 +210,17 @@ export class TaskCommentComponent implements OnInit {
   }
 
   deleteTag(tagName:any, tagId:any){
+    let message = tagName.toLowerCase().startsWith('edit') ? 
+    "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment? if you select yes, no further edits are required to close the comment.":
+    "Are you sure to remove the " + tagName.toLowerCase() + " tag from this comment?";
+
     const dialogRef = this.dialog.open(ModalComponent, {
       id:'delete-tag',   
       width: '500px',
       data: {
         type: "Confirmation",
         header: tagName + " status",
-        description: "Are you sure want to remove the " + tagName + " tag from this comment? if you select yes, no further edits are required to close the comment.",
+        description: message,
         footer: {
           style: "start",
           YesButton: "Yes",
@@ -244,7 +248,7 @@ export class TaskCommentComponent implements OnInit {
       data: {
         type: "Confirmation",
         header: tagName + " status",
-        description: "Are you sure want to remove the " + tagName + " tag from this comment? if you select yes, no further edits are required to close the comment.",
+        description: "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment?",
         footer: {
           style: "start",
           YesButton: "Yes",
