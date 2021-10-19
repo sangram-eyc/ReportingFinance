@@ -56,9 +56,8 @@ export class TaskCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createdBy = this.TaskCommentData.createdBy;
     this.createdDate = this.TaskCommentData.createdDate;
-    this.createdBy = this.TaskCommentData.createdBy;
+    this.createdBy = this.getCreatedBy(this.TaskCommentData.author, this.TaskCommentData.createdBy);
     this.description = this.TaskCommentData.description;
     this.status = this.TaskCommentData.status.toLowerCase();
     this.target = this.formatTarget(this.TaskCommentData.target);
@@ -74,6 +73,12 @@ export class TaskCommentComponent implements OnInit {
     this.attachmentsCount = this.TaskCommentData.attachmentsCount;
     this.attachments = this.TaskCommentData.attachments;
     console.log('task-comments-data-receiving',this.TaskCommentData)
+  }
+
+  getCreatedBy(author: { userFirstName: string; userLastName: string; }, createdBy: string) {
+    return !!author 
+        ? author.userFirstName + ' ' + author.userLastName
+        : createdBy;
   }
 
   setStatusComment(_status){ 
