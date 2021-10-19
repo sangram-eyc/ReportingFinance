@@ -19,11 +19,13 @@ export class ViewExceptionReportsComponent implements OnInit {
   period;
   filingName;
   exceptionReportName;
+  stage;
 
   gridApi;
   exceptionAnswersDefs;
   exceptionAnswersData;
   dataIntakeData;
+  parentModule;
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
@@ -49,34 +51,41 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingId = this.dataIntakeData.filingId;
       this.dueDate = this.dataIntakeData.dueDate;
       this.filingName = this.dataIntakeData.filingName;
+      this.parentModule = this.dataIntakeData.parentModule;
+      if (this.parentModule === 'Regulatory Reporting') {
+        this.period = this.dataIntakeData.period;
+        // this.formatDate();
+      }
+      this.stage = 'intake';
     }
     else if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
-      this.formatDate();
+      // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
       // console.log(this.filingService.getExceptionData);
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
-
+      this.parentModule = 'Regulatory Reporting';
+      this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '1'); 
     }
     if(this.dataIntakeData) {
-      this.getExceptionMock();
+      this.getExceptionResults();
     } else {
       this.getAnswerExceptionReports();
     }
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, encodeURIComponent(this.filingService.getExceptionData.exceptionReportName)).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
     });
   }
 
-  getExceptionMock() {
-    this.viewService.getExceptionMock().subscribe(res => {
+  getExceptionResults() {
+    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
     });
@@ -133,7 +142,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   redirecttoDataExplorer(event) {
     console.log('Data explorer');
   }
-  backtoParent() {
+  backtoParent(stage) {
+    stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
     this.location.back();
   }
 }

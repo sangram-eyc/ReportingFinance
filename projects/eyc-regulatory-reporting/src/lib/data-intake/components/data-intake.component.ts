@@ -7,7 +7,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { customComparator } from '../../config/rr-config-helper';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'lib-data-intake',
@@ -28,14 +28,16 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   filingDetails: any;
   exceptionData;
   rowData = [];
+  exceptionReportRows;
   exceptionDetailCellRendererParams;
+  submitException;
   filesListArr;
   enableTabs = false;
   showComments = false;
   commentsData;
   commentsName;
 
-  filesDatasets = {};
+  bdFilesList = {};
   datasets = [];
   datasetsDefs;
   submitDatasets;
@@ -53,6 +55,20 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       }
     }
   };
+  exceptionModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected exception reports?",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
+  showToastAfterApproveExceptionReports = false;
 
   constructor(
     private service: DataIntakeService,
@@ -64,7 +80,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
-    this.getFiles();
+    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
   }
 
   @ViewChild('headerTemplate')
@@ -83,30 +99,39 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   commentDatasetsTemplate: TemplateRef<any>;
   @ViewChild('resolveDatasetsTemplate')
   resolveDatasetsTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    console.log(this.filingDetails);
-
-    /* if (this.tabs == 2) {
-      this.getDatasets();
-    } */
+    console.log('FILING DETAILS', this.filingDetails);
+    this.getFiles();
+    if(sessionStorage.getItem("enableTabsIntake")) {
+      this.enableTabs = true;
+      this.getExceptionReports();
+      this.tabs == 1;
+    }
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      // this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      this.exceptionData = res['data'];
       console.log(this.exceptionData);
       this.createEntitiesRowData();
 
     }, error => {
       this.exceptionData = [];
-      console.log("Client Review error");
+      console.log("exception data error");
     });
 
   }
 
   getFiles() {
-    this.service.getfilesList().subscribe(res => {
-      this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    console.log('FILING DETAILS', this.filingDetails);
+    this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.filesListArr = res['data'];
+      console.log('EXCEPTION SUMMARY', this.filesListArr);
     }, error => {
       console.log("files list error");
     });
@@ -114,9 +139,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getDatasets() {
-    this.service.getDatasetsrecords().subscribe(res => {
-      this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      console.log(this.datasets);
+    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+      this.datasets = res['data'];
+      console.log('DATASETS:', this.datasets);
       this.createEntitiesRowData();
 
     }, error => {
@@ -125,13 +150,13 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getFileDataSet(event) {
+  getBDFilesList(event) {
     let index = event.index;
-    console.log('INDEX', index);
-    this.service.getDatasetsrecords().subscribe(res => {
-      this.filesDatasets[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+    console.log('INDEX', event);
+    this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
+      this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
     }, error => {
-      this.filesDatasets[index] = [];
+      this.bdFilesList[index] = [];
       console.log("Dataset error");
     });
   }
@@ -153,6 +178,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.receiveMessage(this.tabs);
   }
 
+  exceptionReportRowsSelected(event) {
+    console.log(event);
+    this.exceptionReportRows = event;
+  }
+
   createEntitiesRowData(): void {
 
     this.exceptionDefs = [
@@ -162,7 +192,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         cellRendererParams: {
           ngTemplate: this.dropdownTemplate,
         },
-        field: 'template',
+        field: 'approved',
         headerName: '',
         width: 70,
         sortable: false,
@@ -171,7 +201,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
-        field: 'exceptionDue',
+        field: 'due',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -182,8 +212,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.expandExceptionTemplate,
+        },
         headerName: 'File',
-        field: 'exceptionFile',
+        field: 'file',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -235,7 +269,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.resolveExceptionTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolve_exception',
+        field: 'resolvedCount',
         sortable: true,
         filter: true,
         width: 200,
@@ -243,11 +277,20 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
-        field: 'exceptions',
+        field: 'exceptionCount',
         sortable: true,
         filter: true,
         width: 200,
-      }/* ,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
+      } 
+      /* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Review Level',
@@ -259,22 +302,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     ];
 
     this.datasetsDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.datasetsDropdownTemplate,
-        },
-        field: 'template',
-        headerName: '',
-        width: 70,
-        sortable: false,
-        pinned: 'left'
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.datasetsDropdownTemplate,
+      //   },
+      //   field: 'approved',
+      //   headerName: '',
+      //   width: 70,
+      //   sortable: false,
+      //   pinned: 'left'
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
-        field: 'exceptionDue',
+        field: 'due',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -286,7 +329,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File',
-        field: 'exceptionFile',
+        field: 'file',
         sortable: true,
         filter: true,
         sort: 'asc',
@@ -307,7 +350,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         wrapText: true,
         width: 150
       },
-      {
+      /*{
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Client',
         field: 'client',
@@ -318,7 +361,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 150,
         sort: 'asc',
         comparator: customComparator
-      }/* ,
+      } ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -330,15 +373,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150
-      } */,
+      } */
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
+          ngTemplate: this.resolveDatasetsTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolve_exception',
+        field: 'resolved',
         sortable: true,
         filter: true,
         width: 150,
@@ -491,6 +534,34 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.createEntitiesRowData();
   }
 
+  onSubmitApproveExceptionReports() {
+    console.log("exceptionReportRows", this.exceptionReportRows);
+    let selectedExceptionRows = this.exceptionReportRows
+    let selectedFiling = {
+      "exceptionReportIds": this.exceptionReportRows.map(({ ruleExceptionId }) => ruleExceptionId),
+      "filingName": this.filingDetails.filingName,
+      "period": this.filingDetails.period,
+      "stage": "Intake"
+    };
+    this.service.approveExceptionReports(selectedFiling).subscribe(res => {
+      console.log("approved response",res);
+      console.log(this.exceptionReportRows);
+      console.log(selectedExceptionRows);
+      selectedExceptionRows.forEach(ele => {
+        this.exceptionData[this.exceptionData.findIndex(item => item.ruleExceptionId === ele.ruleExceptionId)].approved = true;
+      }); 
+      console.log(this.exceptionData);
+      this.createEntitiesRowData();
+      this.exceptionReportRows = [];
+      this.filingService.invokeFilingDetails();
+      this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      setTimeout(() => {
+        this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      }, 5000);
+    });
+    
+  }
+
   datasetsReportRowsSelected(event) {
     console.log(event);
     this.datasetsSelectedRows = event;
@@ -498,6 +569,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.enableTabs = false;
+    sessionStorage.removeItem("enableTabsIntake");
   }
 
   openComments(event = null) {
@@ -515,11 +587,18 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
 
   routeToExceptionDetailsPage(event:any) {
-    // event.exceptionReportName = event.exceptionFile;
-    this.filingService.setExceptionData = event;
+    event.exceptionReportName = event.file;
     console.log(event);
-    this.router.navigate(['/view-exception-reports']);
-    
+    const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
+      filingName: this.filingDetails.filingName,
+      dueDate: this.filingDetails.dueDate,
+      filingId: event.exceptionId,
+      exceptionReportName: event.file,
+      parentModule: 'Regulatory Reporting',
+      period: this.filingDetails.period,
+      ruleExceptionId: event.ruleExceptionId
+    }}};
+    this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
 
 }

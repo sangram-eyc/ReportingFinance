@@ -28,4 +28,23 @@ export class PermissionService {
     }
   }
 
+  validateAllPermission = (sessionItemName ,module, task) => {
+    const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
+    if (permissions) {
+      if (permissions.userModules.hasOwnProperty('All')) {
+        return true;
+      } else {
+        const list = JSON.parse(sessionStorage.getItem(sessionItemName));
+        if (list) {
+          if (list.hasOwnProperty(module)) {
+            return list[module].indexOf(task) > -1;
+          } else {
+            return false;
+          }
+        } else {
+          return false
+        }
+      }
+    }
+  }
 }

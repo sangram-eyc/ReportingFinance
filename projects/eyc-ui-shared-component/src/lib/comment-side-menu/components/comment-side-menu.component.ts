@@ -50,7 +50,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
     console.log(changes);
     console.log(this.entityId);
     if(this.entityId) {
-      this.commentService.listComments(this.entityId).subscribe(resp => {
+      this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
         this.commentsData = resp['data']
         this.formattedTimes = [];
         this.commentsData.forEach(comment => {
@@ -141,7 +141,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         console.log('DIALOG CLOSE RESULT', result);
         console.log(obj);
         this.commentAddedEmitter.emit(true);
-        this.commentService.listComments(this.entityId).subscribe(resp => {
+        this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
           this.commentsData = resp['data'];
           this.formattedTimes = [];
           this.commentsData.forEach(comment => {

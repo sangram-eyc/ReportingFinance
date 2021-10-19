@@ -23,7 +23,7 @@ export class EycRrCommentApiService {
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.download}`, data);
   }
   
-  listComments(entityId) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityId);
+  listComments(entityId, entityType) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityType+'/'+entityId+'/comments');
   }
 }

@@ -4,7 +4,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
-import {customComparator} from '../../config/rr-config-helper';
+import { customComparator, customCompareStrIntMix } from '../../config/rr-config-helper';
 import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
@@ -142,7 +142,8 @@ export class FundScopingComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        maxWidth: 140
+        maxWidth: 140,
+        comparator: customCompareStrIntMix,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -150,7 +151,8 @@ export class FundScopingComponent implements OnInit {
         field: 'code',
         sortable: true,
         filter: true,
-        maxWidth: 140
+        maxWidth: 140,
+        comparator: customCompareStrIntMix,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

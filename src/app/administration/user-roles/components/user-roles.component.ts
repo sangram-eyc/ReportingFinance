@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministrationService } from '@default/administration/services/administration.service';
+import { PermissionService } from 'eyc-ui-shared-component';
 import { UserRolesService } from '../services/user-roles.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class UserRolesComponent implements OnInit {
   constructor(
     private service: UserRolesService,
     private adminService: AdministrationService,
+    public permissions: PermissionService
   ) { 
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;

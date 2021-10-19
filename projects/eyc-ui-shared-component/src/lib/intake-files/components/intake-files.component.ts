@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
+import { customComparator } from '../../shared-helper';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 
 @Component({
@@ -35,8 +36,6 @@ export class IntakeFilesComponent implements OnInit {
   unresolveTemplate: TemplateRef<any>;
   @ViewChild('resolveTemplate')
   resolveTemplate: TemplateRef<any>;
-  @ViewChild('viewDetTemplate')
-  viewDetTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
   }
@@ -53,27 +52,29 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Dataset',
-        field: 'fileDomain',
+        field: 'dataset',
         sortable: true,
         wrapText: true,
         autoHeight: true,
         filter: false,
-        width: 300
+        width: 300,
+        comparator: customComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File Name',
-        field: 'exceptionFile',
+        field: 'fileName',
         sortable: true,
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 400
+        width: 400,
+        comparator: customComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Status',
-        field: 'reviewLevel',
+        field: 'status',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -82,7 +83,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Report',
-        field: 'reg_reporting',
+        field: 'report',
         sortable: true,
         filter: false,
         wrapText: true,
@@ -143,7 +144,7 @@ export class IntakeFilesComponent implements OnInit {
 
   openAccord(index, event) {
     if (this.filesDatasets[index] === undefined) {
-      this.datasetEvent.emit({index: index});
+      this.datasetEvent.emit({index: index, event: event});
       this.createRowData();
 
       console.log('FILES DATASETS',this.filesDatasets);

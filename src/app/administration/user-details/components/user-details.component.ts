@@ -5,6 +5,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { environment } from './../../../../environments/environment';
 import {IS_USER_DETAILS_EDITABLE} from '../../../services/settings-helpers';
 import { Location } from '@angular/common';
+import { PermissionService } from 'eyc-ui-shared-component';
+import { AdministrationService } from '@default/administration/services/administration.service';
 
 @Component({
   selector: 'app-user-details',
@@ -13,14 +15,19 @@ import { Location } from '@angular/common';
 })
 export class UserDetailsComponent implements OnInit {
 
+  moduleName;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private formBuilder: FormBuilder,
-    private location: Location
+    private location: Location,
+    public permissions: PermissionService,
+    private adminService: AdministrationService
   ) {
     this.editUserForm = this._updateUser();
+    const module = adminService.getCurrentModule;
+    this.moduleName = module.moduleName;
   }
 
   usersListArr: any[] = [];
