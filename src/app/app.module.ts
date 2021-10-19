@@ -30,6 +30,7 @@ import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src
 import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-intake.module';
 import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment';
  import {EycDataManagementServicesModule} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.module';
+import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,8 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
   { provide:"rrproduction",  useValue: environment.production},
   { provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
   { provide:"taxProduction",  useValue: taxenvironment.production},
+  { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
+  { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

@@ -12,7 +12,7 @@ export class DonutChartComponent {
   @Input() margin: number = 30;
   _data: number[];
   _colors: string[] = ["#57E188", "#42C9C2", "#FF9831", "#FF736A", "#E7E7EA"];
-  @Input() fileSummaries: string[] = [];
+  fileSummaries: string[] = [];
   @Input() set colors(value: string[]) {
     if (value && value.length <= 0) {
       return;
@@ -24,7 +24,8 @@ export class DonutChartComponent {
     if (value && value.length <= 0) {
       return;
     }
-    this._data = value;
+    this.fileSummaries = value && value.map(filesSummary => filesSummary['label']);
+    this._data = value && value.map(files => files['value']);
     this.renderSVG();
   }
   totalFilesNumber: number = 600;
@@ -86,8 +87,8 @@ export class DonutChartComponent {
       .text(this.totalExpected);
   }
 
-  trackItem(index: number, item: any) {
-    return item.trackId;
+  trackItem(index: number) {
+    return index;
   }
 
 }
