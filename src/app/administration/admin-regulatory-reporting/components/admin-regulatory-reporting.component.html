@@ -7,20 +7,23 @@
 <motif-tab-bar>
     <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn === 1 ? 'motif-active' : ''">Teams</button>
     <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
-    <button motifButton *ngIf="moduleId == 2" (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button>
-    <button motifButton (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn === 4 ? 'motif-active' : ''">Admin</button>
+    <!-- <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button> -->
+    <button motifButton *ngIf="this.moduleLevelPermission.checkPermission('All')" (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn === 4 ? 'motif-active' : ''">Admin</button>
 </motif-tab-bar>
 
 <app-users *ngIf="tabIn == 2"></app-users>
 
 <div *ngIf="tabIn == 1">
 
-    <lib-shared-grid [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"></lib-shared-grid>
+    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
+    [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
+    [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
+    [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
         </motif-icon>
-        <div class="delete-icon" (click)="deleteTeams(row)">
+        <div class="delete-icon" (click)="deleteTeams(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Delete Teams')">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
@@ -72,7 +75,7 @@
                 </motif-form-field>
       
               </div>
-              <div class="motif-col-xs-4 motif-col-lg-6">
+            <!--   <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
                   <label motifLabel class="select-label">Assignment (Optional)</label>
                   <motif-select aria-label="Please select an option" [multiple]="true" formControlName="assignments">
@@ -82,7 +85,7 @@
                                     addTeamForm.get('assignments').hasError('required') &&
                                     addTeamForm.get('assignments').touched">Please provide a assignment!</motif-error>
                 </motif-form-field>
-              </div>
+              </div> -->
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Description (Optional)</label>

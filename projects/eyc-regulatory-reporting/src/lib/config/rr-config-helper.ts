@@ -42,3 +42,14 @@ export const customComparator = (valueA, valueB) => {
 	}
 }; 
 
+export const customCompareStrIntMix = (valueA, valueB) => {
+  if (valueA == null) {
+		return false;
+	}
+	else if (valueB == null) {
+		return false;
+	} else {
+    return valueA.localeCompare(valueB, undefined, {'numeric': true});
+  }
+}
+

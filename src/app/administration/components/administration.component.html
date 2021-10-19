@@ -4,16 +4,16 @@
 <div class="admin-container">
     <div class="sub-header"><h4>Subscribed modules</h4></div>
     <div class="sub-module-container">
-        <motif-card *ngIf="!is_Tax_Reporting" >
+        <motif-card *ngFor = "let module of modules">
             <div class="card-block">
-                Regulatory Reporting
+                {{module.moduleName}}
                 <br><span>Last modified 5 days ago</span>
             </div>
             <div class="card-button">
-               <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Regulatory Reporting', moduleId: 2})">View</button>
+               <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: module.moduleName, moduleId: module.moduleId})">View</button>
             </div>
         </motif-card>
-        <motif-card>
+       <!-- <motif-card>
             <div class="card-block">
                 Tax Reporting
                 <br><span>Last modified 5 days ago</span>
@@ -22,7 +22,7 @@
                <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Tax Reporting', moduleId: 4})">View</button>
             </div>
         </motif-card>
-        <motif-card *ngIf="!is_Tax_Reporting">
+         <motif-card *ngIf="!is_Tax_Reporting">
             <div class="card-block">
                 Data Intake
                 <br><span>Last modified 5 days ago</span>
@@ -39,6 +39,6 @@
             <div class="card-button">
                 <button motifButton color="primary-alt" (click)="routeAdmin({moduleName: 'Admin', moduleId: 1})">View</button>
              </div>
-        </motif-card>
+        </motif-card> -->
     </div>
 </div>

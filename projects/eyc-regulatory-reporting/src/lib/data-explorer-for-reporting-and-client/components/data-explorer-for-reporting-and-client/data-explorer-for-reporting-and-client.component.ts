@@ -73,6 +73,8 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
 
           this.form.get('questionId').valueChanges.subscribe(res => {
             this.PBIReportId = "";
+            console.log("on question change res > ", res);
+            console.log('changed question value > ',  this.form.controls.questionId.value);
             if (res) {
               this.getPowerBIReportID();
               this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
@@ -99,7 +101,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
   getPBIQuestions() {
     this.pbiServices.getPBIQuestion(this.filingName?.formId).subscribe(resp => {
       this.pbiQuestionList = resp['data'];
-      this.pbiQuestionList.sort(this.sortPBIQuestion)
+      // this.pbiQuestionList.sort(this.sortPBIQuestion)
       console.log(this.pbiQuestionList);
       this.form.patchValue({
         questionId: this.pbiQuestionList[0].id
@@ -134,7 +136,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
   }
 
   getPowerBIReportID() {
-    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.filingName?.formId, this.form.get('questionId').value).subscribe(res => {
+    this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.filingName?.formId, this.form.controls.questionId.value).subscribe(res => {
       console.log("PBI Response > ", res);
       this.PBIReportId = res['data'];
       console.log("PBIReportId", this.PBIReportId);

@@ -114,6 +114,10 @@
                 </div>
             </div>
         </ng-template>
+
+        <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
+            (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
+        </motif-toast>
     </section>
 </div>
 

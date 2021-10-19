@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from './../../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { customComparator } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
-
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
+import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -39,7 +40,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     private adminService: AdministrationService,
     private router: Router,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public permissions: PermissionService,
+    public moduleLevelPermission: ModuleLevelPermissionService
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -52,11 +55,18 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
-   
-    this.getTeamList();
-    this.teamsService.getRoles(this.moduleName).subscribe(resp => {
-      this.roles = resp['data'];
-    })
+    if (this.tabIn == 1) {
+      this.getTeamList();
+      if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
+        if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Roles')) {
+          this.teamsService.getRoles(this.moduleName).subscribe(resp => {
+            this.roles = resp['data'];
+          });
+        } else {
+          this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
+        }
+      }
+    }
 
     this.addTeamForm = this._createTeam()
   }
@@ -65,7 +75,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return this.fb.group({
       teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
       role: ['', [Validators.required]],
-      assignments: [''],
+      // assignments: [''],
       description: ['', [Validators.maxLength(250)]]
     });
   }
@@ -87,10 +97,14 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   }
 
   getTeamList() {
-    this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
+    if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
+      this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
-    this.createTeamsRowData();
+      this.createTeamsRowData();
+    } else {
+      this.openErrorModal("Access Denied", "User does not have access to view teams. Please contact an administrator.");
+    }
   }
 
   
@@ -206,11 +220,11 @@ editTeams(row) {
     // below code will change after api integration
     
     const team = {
-      "teamName": obj.teamName,
+      "teamName": obj.teamName.trim(),
       "roleName": obj.role,
       "teamDescription": escape(obj.description),
       "moduleName": this.moduleName,
-      "assignments": obj.assignments
+      // "assignments": obj.assignments
     }
     
     this.teamsService.addTeam(team).subscribe(resp => {
@@ -239,7 +253,7 @@ editTeams(row) {
   }
 
   teamDuplicateCheck(event){
-    let teamDupcheck = this.teamsData.findIndex(item => item.teamName === event);
+    let teamDupcheck = this.teamsData.findIndex(item => item.teamName.toLowerCase() === event.toLowerCase());
     if(teamDupcheck != -1) {
       this.addTeamForm.controls['teamName'].setErrors({'teamDuplicate': true});
     }
@@ -259,5 +273,23 @@ public noWhitespaceValidator(control: FormControl) {
       return isValid ? null : { whitespace: true };
     }
   }
+}
+
+openErrorModal(header, description) {
+  const dialogRef = this.dialog.open(ErrorModalComponent, {
+    disableClose: true,
+    width: '400px',
+    data: {
+      header: header,
+      description: description,
+      footer: {
+        style: "start",
+        YesButton: "OK"
+      },
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+
+  });
 }
 }

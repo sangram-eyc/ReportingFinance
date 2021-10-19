@@ -123,5 +123,5 @@ export const authConfig: AuthConfig = {
 	}, 
 	silentRefreshRedirectUri: "",
 	siletRefreshTimeout:0,
-	timeoutFactor:0,
+	timeoutFactor:0.25,
 };

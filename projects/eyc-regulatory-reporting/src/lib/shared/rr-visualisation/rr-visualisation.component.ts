@@ -89,7 +89,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
           const reportContainer = this.el.nativeElement as HTMLElement;
           this.report = (pbi.embed(reportContainer, embedConfig) as powerbi.Report);
           const self = this;
-          const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [] ;
+          const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
           //this.report.applyTheme({theme:powerbiTheme});
           this.report.on('loaded', function(event) {
             
@@ -100,7 +100,7 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
                 if (filter.target['column'] === 'FilingYear' && IS_FY_FILTER) {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
-                    filter['values'].push(pbifilters[1]);
+                    typeof pbifilters === 'string' ? filter['values'].push(pbifilters) : filter['values'].push(pbifilters[1]);
                   }
                 }
                 if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {

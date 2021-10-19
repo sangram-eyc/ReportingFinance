@@ -8,7 +8,7 @@ import { TeamsService } from '../services/teams.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
 import { AdministrationService } from '@default/administration/services/administration.service';
 @Component({
@@ -25,7 +25,8 @@ export class EycTeamDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public permissions: PermissionService) {
     this.editTeamForm = this._updateTeam();
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
@@ -84,9 +85,11 @@ export class EycTeamDetailsComponent implements OnInit {
       this.getTeamDetailsData();
     });
     this.tabIn = 1;
-    this.teamService.getRoles(this.module).subscribe(resp => {
-      this.roleList = resp['data'];
-    })
+    if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
+      this.teamService.getRoles(this.module).subscribe(resp => {
+        this.roleList = resp['data'];
+      })
+    }
     this.addTeamMemberForm = this._createTeamMembers();
   }
 
@@ -107,12 +110,12 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   getUsersList() {
-
+    if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
     this.userService.getUsersList().subscribe(resp => {
       this.allUsers = resp.data
       this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
     });
-
+  }
   }
 
   getTeamDetailsData() {
@@ -213,18 +216,19 @@ export class EycTeamDetailsComponent implements OnInit {
       this.enableEditor = !this.enableEditor;
       this.disableAddMemberButton = !this.disableAddMemberButton;
       const team = {
-        "teamName": obj.teamName,
+        "teamName": obj.teamName.trim(),
         "roleName": obj.role,
         "teamDescription": escape(obj.teamDescription),
         "moduleId": this.moduleId,
         "teamId": this.curentTeamId
       }
+      const dupTeamInfo = this.teamInfo;
       this.teamInfo = [];
       this.teamService.EditTeam(team).subscribe(resp => {
         // this.teamInfo = resp['data'];
         const teamInfoObj = resp['data'];
         this.teamInfo = {
-          "teamName": teamInfoObj.teamName,
+          "teamName": teamInfoObj.teamName.trim(),
           "teamDescription": unescape(teamInfoObj.teamDescription),
           "role": teamInfoObj.role
         }
@@ -232,6 +236,22 @@ export class EycTeamDetailsComponent implements OnInit {
         setTimeout(() => {
           this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
         }, 5000);
+      }, error => {
+        const teamDup = {
+          "teamName": dupTeamInfo['teamName'].trim(),
+          "role": dupTeamInfo['role'],
+          "teamDescription": unescape(dupTeamInfo['teamDescription']),
+          "moduleId": this.moduleId,
+          "teamId": this.curentTeamId
+        }
+        this.teamInfo = teamDup;
+
+        this.editTeamForm.patchValue({​​​​​​​​
+          teamName:this.teamInfo.teamName.trim(),
+          role:this.teamInfo.role.trim(),
+          teamDescription:this.teamInfo.teamDescription.trim()
+          }​​​​​​​​);
+          
       });
     }
   }

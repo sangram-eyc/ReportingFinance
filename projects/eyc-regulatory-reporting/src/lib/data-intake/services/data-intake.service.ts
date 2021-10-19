@@ -11,7 +11,7 @@ export class DataIntakeService {
   constructor(private apiService: EycRrApiService, private settingsService: EycRrSettingsService) { }
 
   getExceptionReports(filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}filingName=${filingName}&period=${period}`);
     // After backend API up will remove above line and uncomment below line
   }
   
@@ -20,16 +20,24 @@ export class DataIntakeService {
     // After backend API up will remove above line and uncomment below line
    
   }
-  getfilesList() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
+  getfilesList(filingName, period) {
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.files_list}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.exception_summary}filingName=${filingName}&period=${period}`);
   }
 
-  getDatasetsrecords() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`)
+  getBDFilesList(filingName, lastFileDueDate, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.bd_files_list}filingName=${filingName}&lastFileDueDate=${lastFileDueDate}&period=${period}`);
+  }
+
+  getDatasetsrecords(filingName, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}filingName=${filingName}&period=${period}`);
   }
 
   getComments(type, id) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
   }
  
+  approveExceptionReports(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_intake_exception_report}`, data);
+  }
 }

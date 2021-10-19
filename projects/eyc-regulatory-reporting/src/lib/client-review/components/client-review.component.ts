@@ -169,18 +169,19 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Resolved/Exception',
-          field: 'resolve_exception',
+          field: 'resolveException',
           sortable: true,
           filter: true,
           width: 210,
         },
-       /*  {
+        {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
           sortable: true,
           filter: true,
         },
+         /*,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'My Tasks',

@@ -4,6 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { ModalComponent , customComparator} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'lib-exception-report',
@@ -19,7 +20,22 @@ export class ExceptionReportComponent implements OnInit {
   exceptionDefs;
   filingDetails: any;
   rowData = [];
+  submitException;
+  exceptionReportRows;
   exceptionDetailCellRendererParams;
+  exceptionModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected exception reports?",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
 
 
   @ViewChild('headerTemplate')
@@ -36,13 +52,19 @@ export class ExceptionReportComponent implements OnInit {
   resolveExceptionTemplate: TemplateRef<any>;
   @ViewChild('resultTemplate')
   resultTemplate: TemplateRef<any>;
+  @ViewChild('viewDetTemplate')
+  viewDetTemplate: TemplateRef<any>;
+  @ViewChild('expandExceptionTemplate')
+  expandExceptionTemplate: TemplateRef<any>;
 
   constructor(
     private service: ProcessingExceptionService,
+    private router: Router,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     this.getExceptionReports();
   }
 
@@ -66,9 +88,9 @@ export class ExceptionReportComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.dropdownTemplate,
         },
-        field: 'template',
-        headerName: 'Actions',
-        width: 60,
+        field: 'approved',
+        headerName: '',
+        width: 70,
         sortable: false,
         pinned: 'left'
       },
@@ -98,6 +120,10 @@ export class ExceptionReportComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.expandExceptionTemplate,
+        },
         headerName: 'File',
         field: 'exceptionFile',
         sortable: true,
@@ -191,7 +217,20 @@ export class ExceptionReportComponent implements OnInit {
         sort: 'asc',
         comparator: customComparator
       },
-
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: '',
+        field: 'exceptionId',
+        hide: true
+      } 
     ];
   }
 
@@ -250,4 +289,53 @@ export class ExceptionReportComponent implements OnInit {
       }
     });
   }
+
+  routeToExceptionDetailsPage(event:any) {
+    event.exceptionReportName = event.exceptionFile;
+    console.log(event);
+    const navigationExtras: NavigationExtras = {state: {dataIntakeData: {
+      filingName: event.reg_reporting,
+      dueDate: event.exceptionDue,
+      filingId: event.exceptionId,
+      exceptionReportName: event.exceptionFile,
+      parentModule: 'Data Intake',
+      period: null
+    }}};
+    this.router.navigate(['/view-exception-reports'], navigationExtras);
+  }
+  exceptionReportRowsSelected(event) {
+    console.log(event);
+    this.exceptionReportRows = event;
+  }
+
+  onSubmitApproveExceptionReports() {
+    console.log(this.exceptionReportRows);
+    // const filingDetails = this.filingDetails;
+    // let selectedFiling = {
+    //   "exceptionReportIds": this.exceptionReportRows.map(({ exceptionId }) => exceptionId),
+    //   "filingName": this.filingDetails.filingName,
+    //   "period": this.filingDetails.period,
+    //   "stage": "Reporting"
+    // };
+    // this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
+    //   res['data']['answerExceptions'].forEach(ele => {
+    //     this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    //   });
+    //   this.createEntitiesRowData();
+    //   this.exceptionReportRows = [];
+    //   this.filingService.invokeFilingDetails();
+    //   this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+    //   setTimeout(() => {
+    //     this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+    //   }, 5000);
+    // });
+
+    this.exceptionReportRows.forEach(ele => {
+      this.rowData[this.rowData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+    }); 
+    console.log(this.rowData);
+    this.createEntitiesRowData();
+    this.exceptionReportRows = [];
+  }
+
 }
