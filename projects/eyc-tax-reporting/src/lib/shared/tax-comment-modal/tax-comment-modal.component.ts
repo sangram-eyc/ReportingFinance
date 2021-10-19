@@ -54,7 +54,7 @@ export class TaxCommentModalComponent implements OnInit {
   }
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
-      this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
+
       console.log('Form-->', this.modalForm);
        
       if(this.modalForm.get('edit').value){
@@ -93,14 +93,18 @@ export class TaxCommentModalComponent implements OnInit {
           });
             this.commentService.uploadFile(formData).subscribe(uploadRes => {
             console.log("uploadRes-->",uploadRes);
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
           }, uploadError => {
             console.log(uploadError);
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
           });
         } else {
-          console.log("There are no files to attach in the comment.");       
+          console.log("There are no files to attach in the comment.");
+          this.dialogRef.close({ button: this.modalDetails.footer.YesButton });       
         }
       }, error => {
         console.log(error);
+        this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
       });
     } else {
       this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
