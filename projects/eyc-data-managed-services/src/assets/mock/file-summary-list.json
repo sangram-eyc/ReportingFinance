@@ -5,8 +5,8 @@
         "totalCount": 600,
         "dataSeries": [
             {
-                "label": "No Issue",
-                "value": 400
+                "label": "No issue",
+                "value": 200
             },
             {
                 "label": "Medium / low priority issues",
