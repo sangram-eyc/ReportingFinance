@@ -8,10 +8,9 @@
 }
 
 * {
-
   h1,
-  h6 {
-    padding: 0;
+  h6,section {
+    padding: 0 !important;
     margin: 0;
   }
 }
@@ -33,7 +32,7 @@
   line-height: 18px;
   display: flex;
   align-items: center;
-  color: #2E2E38;
+  color: #2e2e38;
 }
 
 .eyc-dms-tabs {
@@ -45,7 +44,7 @@
     line-height: 20px !important;
     align-items: center;
     text-align: center;
-    color: #2E2E38 !important;
+    color: #2e2e38 !important;
   }
 
   button.motif-active.motif-text-link {
@@ -60,7 +59,106 @@
   }
 }
 
-::ng-deep .donut-chart>svg {
+.inner-tabs {
+  button.motif-text-link {
+    font-family: EYInterstate !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    align-items: center;
+    text-align: center;
+    color: #2e2e38 !important;
+  }
+
+  button.motif-active.motif-text-link {
+    border-bottom: 3.8px solid !important;
+  }
+
+  button.motif-text-link:hover,
+  button.motif-text-link:focus,
+  button.motif-text-link:active {
+    box-shadow: none !important;
+    border-bottom: 3.8px solid !important;
+  }
+  ::ng-deep .motif-tab-bar > .motif-tab-bar-wrapper {
+    border-bottom: none;
+    padding-top: 1.06544901065449vh;
+    padding-left: 2vw;
+  }
+}
+::ng-deep .motif-card-header {
+ padding: 0 !important;
+}
+
+.bar-chart-panel {
+  padding: 0;
+  font-family: EYInterstate;
+  font-size: 14px; //88%;
+  line-height: 20px;
+  color: #000000;
+  div{
+    padding-left:0;
+  }
+
+  .bar-chart-header {
+    padding-left: 6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 6.544901065449011vh;
+    .file-count {
+      font-size: 28px;
+      display: block;
+      padding-left: 0;
+      padding-bottom: 1.21765601217656vh;
+    }
+
+    .btn-secondary {
+    min-width: 8.125915080527086vw;
+    min-height: 6.69710806697108vh;
+    padding: 1.67427701674277vh 2.34vw;
+    color: #2E2E38;
+    }
+     
+    .motif-button[color=secondary]:hover,
+    .motif-button[color=secondary]:focus,
+    .motif-button[color=secondary]:active {
+      background-color: transparent !important;
+    }
+  }
+  .bar-chart-body {
+    margin-top: 5.327245053272451vh;
+    border-bottom: 1px solid #EAEAF2;
+    padding: 0 6px 9.284627092846272vh 6px;
+    .toast-card {
+      min-height: 6.9vh;
+      background: #ffffff;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.20287);
+      padding: 0;
+      display: flex;
+
+      .toast-icon {
+        width: 3.294289897510981vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        background: #57E188;
+        color: white;
+      }
+      .toast-card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        margin-left: 1.2445095168374818vw;
+      }
+    }
+  }
+}
+
+::ng-deep .donut-chart > svg {
   height: 202px !important;
   width: 202px !important;
 }
@@ -78,7 +176,7 @@
 
 .review-group-card {
   min-height: 40.182648401826484vh;
-  
+
   .motif-card-body {
     padding: 1.71429rem 1.71429rem 2rem !important;
   }
@@ -103,7 +201,7 @@
   font-family: EYInterstate;
   font-size: 28px;
   line-height: 20px;
-  color: #2E2E38;
+  color: #2e2e38;
   padding: 19px 0 0 0 !important;
   .material-icons {
     padding: 0 !important;
@@ -118,14 +216,14 @@
   font-family: EYInterstate;
   font-size: 14px;
   line-height: 20px;
-  color: #2E2E38;
+  color: #2e2e38;
   // height: 40px;
 
   span {
     font-family: EYInterstate;
     font-size: 14px;
     line-height: 22px;
-    color: #155CB4;
+    color: #155cb4;
     flex: none;
     order: 1;
     flex-grow: 0;
@@ -140,14 +238,14 @@
   font-family: EYInterstate;
   font-size: 14px;
   line-height: 20px;
-  color: #2E2E38;
+  color: #2e2e38;
   span {
     padding-left: 3px !important;
   }
 }
 
 .review-lines {
-  border: 1px solid #E1E1E6;
+  border: 1px solid #e1e1e6;
   transform: rotate(180deg);
   flex: none;
   order: 1;
