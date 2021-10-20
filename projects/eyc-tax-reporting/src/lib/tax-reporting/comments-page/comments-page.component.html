@@ -29,7 +29,7 @@
           </div>
           <div class="col-md-3 col-sm-3 padding-left-comment">
             <div class="card-column">
-              <button motifButton color="primary-alt" class="btn-width-auto" (click)="addCommentToFund()">New Comment</button>
+              <button motifButton color="primary-alt" class="btn-width-auto" (click)="addCommentToFund()" [disabled]="!permissions.validatePermission('Production Cycles', 'Add comments')">New Comment</button>
             </div>           
           </div>
           <div class="col-md-6 col-sm-6">
@@ -51,13 +51,23 @@
             </div>           
           </div>
           <div class="col-md-6 col-sm-6 mt-5 mb-5">
-            <div class="card-column">            
+            <div class="card-column" *ngIf="permissions.validatePermission('Production Cycles', 'Add comments')">            
               <a (click)="addCommentToFund()">
                 <svg class="add-comment-icon pointer-link" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M41.8337 4.33317C41.8337 2.0415 39.9587 0.166504 37.667 0.166504H4.33366C2.04199 0.166504 0.166992 2.0415 0.166992 4.33317V29.3332C0.166992 31.6248 2.04199 33.4998 4.33366 33.4998H33.5003L41.8337 41.8332V4.33317ZM37.667 31.7707L35.2295 29.3332H4.33366V4.33317H37.667V31.7707ZM23.0837 6.4165H18.917V14.7498H10.5837V18.9165H18.917V27.2498H23.0837V18.9165H31.417V14.7498H23.0837V6.4165Z" fill="#2E2E38"/>
                 </svg>
               </a>        
               <p class="msg-new-comment">
+                There are no comments to display. Click the icon or New comment button to create a new comment thread
+              </p>    
+            </div>
+            <div class="card-column" *ngIf="!permissions.validatePermission('Production Cycles', 'Add comments')">            
+              <a>
+                <svg class="add-comment-icon pointer-link" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M41.8337 4.33317C41.8337 2.0415 39.9587 0.166504 37.667 0.166504H4.33366C2.04199 0.166504 0.166992 2.0415 0.166992 4.33317V29.3332C0.166992 31.6248 2.04199 33.4998 4.33366 33.4998H33.5003L41.8337 41.8332V4.33317ZM37.667 31.7707L35.2295 29.3332H4.33366V4.33317H37.667V31.7707ZM23.0837 6.4165H18.917V14.7498H10.5837V18.9165H18.917V27.2498H23.0837V18.9165H31.417V14.7498H23.0837V6.4165Z" fill="#C4C4CD"/>
+                </svg>
+              </a>        
+              <p class="msg-new-comment" style="color: #C4C4CD;">
                 There are no comments to display. Click the icon or New comment button to create a new comment thread
               </p>    
             </div>
