@@ -1,4 +1,4 @@
-<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
+<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)" (filingStatusRes)="getFilingStatusDetails($event)"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
 
