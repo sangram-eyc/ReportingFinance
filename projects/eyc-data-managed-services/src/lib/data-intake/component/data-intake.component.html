@@ -36,11 +36,12 @@
                <table class="review-by-group">
                   <tr>
                      <td class="review-number">16</td>
-                     <td rowspan="2" class="review-by-group-search text-align-right"> 
+                     <td rowspan="2" class="review-by-group-search text-align-right">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
-                        </a></td>
+                        </a>
+                     </td>
                   </tr>
                   <tr>
                      <td class="review-by-group-heading">
@@ -51,11 +52,12 @@
                   </tr>
                   <tr>
                      <td class="review-number">24</td>
-                     <td rowspan="2" class="review-by-group-search text-align-right "> 
+                     <td rowspan="2" class="review-by-group-search text-align-right ">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
-                        </a></td>
+                        </a>
+                     </td>
                   </tr>
                   <tr>
                      <td class="review-by-group-heading">
@@ -66,11 +68,12 @@
                   </tr>
                   <tr>
                      <td class="review-number"><i class="material-icons">date_range</i></td>
-                     <td rowspan="2" class="review-by-group-search text-align-right"> 
+                     <td rowspan="2" class="review-by-group-search text-align-right">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
-                        </a></td>
+                        </a>
+                     </td>
                   </tr>
                   <tr>
                      <td class="review-by-group-heading">
@@ -87,8 +90,125 @@
             <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6>
          </div>
          <motif-card class="bar-chart-card no_data">
+            <motif-card-header>
+               <div class="inner-tabs">
+                  <motif-tab-bar>
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
+                        [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
+                        Provider
+                     </button>
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
+                        [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
+                        Data Domain
+                     </button>
+                  </motif-tab-bar>
+               </div>
+            </motif-card-header>
             <motif-card-body>
-               <h5>Motif DMS cards work.</h5>
+               <section id='data-provider' [hidden]="!(innerTabIn == 1)">
+                  <div class="bar-chart-panel">
+                     <div id="past-due">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="high-priority-issues">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="low-priority-issues">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+               <section id='data-domain' [hidden]="!(innerTabIn == 2)">
+                  <div class="bar-chart-panel">
+                     <div id="past-due-domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="high-priority-issues-domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="low-priority-issues--domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary" [disabled]="(totalFileCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">No files missing at the moment 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
             </motif-card-body>
          </motif-card>
          <!-- end  -->

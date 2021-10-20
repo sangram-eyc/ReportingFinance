@@ -8,7 +8,11 @@ import { DataManagedService } from '../services/data-managed.service';
 })
 export class DataIntakeComponent implements OnInit {
   tabIn: number = 1;
+  innerTabIn: number = 1;
   activeReports: any;
+  
+  // totalFileCount=50;
+  totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -24,6 +28,9 @@ export class DataIntakeComponent implements OnInit {
 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
+  }
+  innerTabChange(selectedTab) {
+    this.innerTabIn = selectedTab;
   }
 
   getFileSummuries() {
