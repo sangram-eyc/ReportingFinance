@@ -42,6 +42,7 @@ export class CycleDetailComponent implements OnInit {
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
   iDs = "";
+  
 /*   noCompletedDataAvilable = false;
   noActivatedDataAvilable = false; */
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -304,8 +305,11 @@ onSubmitApproveDatasets() {
     }   
     this.rowData[this.rowData.findIndex(item => item.id === ele.id)].approvedBack = true;
   }); 
-  const body = { "status": "APPROVED" };
-  this.productcyclesService.putApproveEntities(this.iDs, body).subscribe(resp => {
+  const body = {
+                "status": "approved", 
+                "fundIds": [this.iDs]
+               }
+  this.productcyclesService.putApproveEntities(body).subscribe(resp => {
     console.log(resp);
       setTimeout(() => {
       console.log(resp);

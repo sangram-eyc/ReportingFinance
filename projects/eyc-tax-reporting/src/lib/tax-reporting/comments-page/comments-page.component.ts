@@ -151,9 +151,11 @@ export class CommentsPagecomponent implements OnInit {
       console.log('The dialog was closed', result);
       if (result.button === "Continue") {
         //Refresh comments Submit       
-        const body = { "status": "APPROVED" };
-        console.log("Fund: " + this.fundId)
-        this.productcyclesService.putApproveEntities(this.fundId, body).subscribe(resp => {
+        const body = {
+          "status": "approved", 
+          "fundIds": [this.fundId]
+         }
+        this.productcyclesService.putApproveEntities(body).subscribe(resp => {
           console.log(resp);
           this.aceptApprove = true;
           this.toastSuccessMessage = "Approved successfully";
