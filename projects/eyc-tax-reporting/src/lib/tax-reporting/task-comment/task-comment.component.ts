@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { TaxCommentService } from '../services/tax-comment.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +14,8 @@ import * as FileSaver from 'file-saver';
 export class TaskCommentComponent implements OnInit {
 
   @Input() TaskCommentData:any;
+
+  @Output() onCommentStatusChanged: EventEmitter<string> = new EventEmitter<string>();
 
   Requestfrom:string = 'Client'
   createdBy:string = 'Patrick Mahomes'
@@ -90,6 +92,7 @@ export class TaskCommentComponent implements OnInit {
       this.commentService.updateTaskStatus(this.idTask, objData).subscribe(res => {
         console.log('response update status', res);
         this.status = res['data'].status.toLowerCase();
+        this.onCommentStatusChanged.emit(res['data']);
       }, error => {
         console.log('Error update status', error);
       });
