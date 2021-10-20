@@ -42,4 +42,8 @@ export class ModuleLevelPermissionService {
   getPermissionsList() {
     return this.apiService.invokeGetAPI(`${authorization.rr_permission_list}?module=Regulatory Reporting`);
   }
+
+  getPermissionsListByModule(module) {
+    return this.apiService.invokeGetAPI(`${authorization.rr_permission_list}?module=${module}`);
+  }
 }

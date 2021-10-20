@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {ErrorModalComponent} from 'eyc-ui-shared-component';
+import {ErrorModalComponent, PermissionService} from 'eyc-ui-shared-component';
 import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
 import { identifierName } from '@angular/compiler';
 
@@ -23,7 +23,8 @@ export class CycleDetailComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private router:Router
+    private router:Router,
+    public permissions: PermissionService
   ) {}
 
    pageName:string = 'Cycle Details';
