@@ -8,9 +8,9 @@ describe('DataIntakeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataIntakeComponent ]
+      declarations: [DataIntakeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,7 +8,8 @@ export class DataManagedSettingsService {
     @Inject('dataManagedProduction') private dataManagedProduction,
     @Inject('dataManagedEndPoint') private dataManagedEndPoint) { }
   public API_ENDPOINT = this.dataManagedEndPoint.slice(-1) === "." ?
-    this.dataManagedEndPoint.substr(0, this.dataManagedEndPoint.length - 1) : this.dataManagedEndPoint;
+    this.dataManagedEndPoint.substr(0, this.dataManagedEndPoint.length - 1) :
+    this.dataManagedEndPoint;
   public production = this.dataManagedProduction;
 
   get dataManagedServices(): any {

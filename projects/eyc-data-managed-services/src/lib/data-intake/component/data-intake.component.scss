@@ -8,8 +8,10 @@
 }
 
 * {
+
   h1,
-  h6,section {
+  h6,
+  section {
     padding: 0 !important;
     margin: 0;
   }
@@ -79,14 +81,16 @@
     box-shadow: none !important;
     border-bottom: 3.8px solid !important;
   }
-  ::ng-deep .motif-tab-bar > .motif-tab-bar-wrapper {
+
+  ::ng-deep .motif-tab-bar>.motif-tab-bar-wrapper {
     border-bottom: none;
     padding-top: 1.06544901065449vh;
     padding-left: 2vw;
   }
 }
+
 ::ng-deep .motif-card-header {
- padding: 0 !important;
+  padding: 0 !important;
 }
 
 .bar-chart-panel {
@@ -95,8 +99,9 @@
   font-size: 14px; //88%;
   line-height: 20px;
   color: #000000;
-  div{
-    padding-left:0;
+
+  div {
+    padding-left: 0;
   }
 
   .bar-chart-header {
@@ -105,6 +110,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: 6.544901065449011vh;
+
     .file-count {
       font-size: 28px;
       display: block;
@@ -113,22 +119,24 @@
     }
 
     .btn-secondary {
-    min-width: 8.125915080527086vw;
-    min-height: 6.69710806697108vh;
-    padding: 1.67427701674277vh 2.34vw;
-    color: #2E2E38;
+      min-width: 8.125915080527086vw;
+      min-height: 6.69710806697108vh;
+      padding: 1.67427701674277vh 2.34vw;
+      color: #2E2E38;
     }
-     
+
     .motif-button[color=secondary]:hover,
     .motif-button[color=secondary]:focus,
     .motif-button[color=secondary]:active {
       background-color: transparent !important;
     }
   }
+
   .bar-chart-body {
     margin-top: 5.327245053272451vh;
     border-bottom: 1px solid #EAEAF2;
     padding: 0 6px 9.284627092846272vh 6px;
+
     .toast-card {
       min-height: 6.9vh;
       background: #ffffff;
@@ -146,6 +154,7 @@
         background: #57E188;
         color: white;
       }
+
       .toast-card-body {
         display: flex;
         flex-direction: column;
@@ -158,7 +167,7 @@
   }
 }
 
-::ng-deep .donut-chart > svg {
+::ng-deep .donut-chart>svg {
   height: 202px !important;
   width: 202px !important;
 }
@@ -203,6 +212,7 @@
   line-height: 20px;
   color: #2e2e38;
   padding: 19px 0 0 0 !important;
+
   .material-icons {
     padding: 0 !important;
   }
@@ -239,6 +249,7 @@
   font-size: 14px;
   line-height: 20px;
   color: #2e2e38;
+
   span {
     padding-left: 3px !important;
   }
@@ -268,9 +279,10 @@
   color: #000000;
   left: -7px;
   position: relative;
+
   ::ng-deep {
-      .motif-icon {
-          cursor: pointer;
-      }
+    .motif-icon {
+      cursor: pointer;
+    }
   }
 }

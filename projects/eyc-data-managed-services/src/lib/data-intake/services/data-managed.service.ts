@@ -6,7 +6,7 @@ import { EycDataApiService } from './eyc-data-api.service';
   providedIn: 'root'
 })
 export class DataManagedService {
-  constructor( 
+  constructor(
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
   ) { }

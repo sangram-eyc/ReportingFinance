@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -10,9 +10,13 @@ export class DonutChartComponent {
   @Input() width: number = 202;
   @Input() height: number = 202;
   @Input() margin: number = 30;
+  // Mock API data stored in _data
   _data: number[];
+  // Color code for donut chart
   _colors: string[] = ["#57E188", "#42C9C2", "#FF9831", "#FF736A", "#E7E7EA"];
+  // fileSummaries used for legends iteration
   fileSummaries: string[] = [];
+
   @Input() set colors(value: string[]) {
     if (value && value.length <= 0) {
       return;
@@ -34,9 +38,12 @@ export class DonutChartComponent {
   @Input() totalFilesTextFontSize: number = 12;
   @Input() totalExpected: string = "EXPECTED";
 
+  // Create dynamic donut SVG as per data/api
   renderSVG() {
+    // Calculate TotalFileNumber 
     this.totalFilesNumber = this._data && this._data.reduce((total, index) => total + index);
-    const radius = Math.min(this.width, this.height) / 2 - this.margin;
+    const radius = Math.min(this.width, this.height) / 2 - this.margin; // radius as per figma
+
     d3.select("#donut").selectAll("*").remove();
     const svg = d3.select("#donut")
       .append("svg")
@@ -52,10 +59,11 @@ export class DonutChartComponent {
         this._data.map((d, index) => [String.fromCharCode(asciiStart + index), d])
         : [];
 
-    const color: any = d3.scaleOrdinal().range(this._colors);
+    const color: any = d3.scaleOrdinal().range(this._colors); // color code inject in radius
     const pie = d3.pie().value(d => d[1]);
-    const data_ready = pie(data_map as any);
+    const data_ready = pie(data_map as any); // data inject into donut chart
 
+    // Configure SVG for donut chart
     svg.selectAll('whatever')
       .data(data_ready)
       .join('path')
@@ -64,12 +72,14 @@ export class DonutChartComponent {
       .attr("stroke", "white")
       .style("stroke-width", "2px")
 
+    // Add TotalFileNumber into middle of donut chart as per figma
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesNumberFontSize}px`)
       .attr("style", "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing: -2.01152px; fill: #2E2E3C;")
       .text(this.totalFilesNumber);
 
+    // Add TotalFileText into middle of donut chart as per figma
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesTextFontSize}px`)
@@ -78,6 +88,7 @@ export class DonutChartComponent {
       .attr("y", "15")
       .text(this.totalFilesText);
 
+    // Add TotalExpectedText into middle of donut chart as per figma
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesTextFontSize}px`)

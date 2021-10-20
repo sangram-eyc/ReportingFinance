@@ -1,5 +1,7 @@
+<!-- Donut chart -->
 <div id="donut" class="donut-chart" ></div>
 
+<!-- Donut chart summaries with color legends -->
 <div class="donut-summary">
     <div class="flexbox" *ngFor="let fileSummariesText of fileSummaries; let i=index; trackBy: trackItem">
         <div class="legend" [style.background]="_colors[i]"> </div>
