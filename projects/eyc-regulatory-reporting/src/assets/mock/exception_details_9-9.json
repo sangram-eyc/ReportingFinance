@@ -3,7 +3,7 @@
     "message": "sucess",
     "data": [
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Stress Testing",
@@ -22,11 +22,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "AIMS-RMA-Market <AIMS-RMA-Market@ny.email.gs.com> Chang Liu <Chang.Liu@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 1,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS RMA Portfolio Liquidity",
@@ -45,11 +47,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Dietrich Mosel <dietrich.mosel@ny.email.gs.com>, AIMS-Frontline <Aims-Frontline@ny.email.gs.com>, AIMS Tech Helpdesk <AIMS-Tech-Helpdesk@ny.email.gs.com",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 2,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Balance Sheet",
@@ -68,11 +72,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "ajan@seic.com; dublings2@seic.com; Navya.Ashwath@ny.email.gs.com; am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 3,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS AIMS SEI Funding",
@@ -91,11 +97,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundadmins <am-hfsfundadmin@ny.email.gs.com>, Aishwarya Viswanathan <Aishwarya.Viswanathan@ny.email.gs.com>, Ashwati Jayakrishnan <Ashwati.Jayakrishnan>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 4,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS FX Transactions - Quarterly",
@@ -114,11 +122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "D Kim <D.Kim@ny.email.gs.com>, Billy Musselman <Billy.Musselman@ny.email.gs.com>, Cameron Boice <cameron.boice@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 5,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Credit Facility",
@@ -137,11 +147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "D Kim <D.Kim@ny.email.gs.com>, Billy Musselman <Billy.Musselman@ny.email.gs.com>, Cameron Boice <cameron.boice@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 6,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS MM Trades",
@@ -160,11 +172,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "D Kim <D.Kim@ny.email.gs.com>, Billy Musselman <Billy.Musselman@ny.email.gs.com>, Cameron Boice <cameron.boice@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 7,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Performance Template",
@@ -183,11 +197,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Ashwati Jayakrishnan <Ashwati.Jayakrishnan@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 8,
             "approved": false
         },
         {
-            "exceptionDue": "BD7",
+            "exceptionDue": "t+07",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Extract CR",
@@ -206,11 +222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-aice-tech-support@ny.email.gs.com",
+            "FileDueDate": "2021-10-07",
             "exceptionId": 9,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS SIC Mapping",
@@ -229,11 +247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 10,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS borrowing base",
@@ -252,11 +272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Edison Diaz <Edison.Diaz@ny.email.gs.com>, Todd Keeney <Todd.Keeney@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 11,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Eligible NAV",
@@ -275,11 +297,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Taylor Sand <Taylor.Sand@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 12,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Positions",
@@ -298,11 +322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "Michael Dunleavy,<Michael.DunLeavy@ny.email.gs.com>, Robert Wang <Robert.Wang@ny.email.gs.com>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 13,
             "approved": false
         },
         {
-            "exceptionDue": "BD36",
+            "exceptionDue": "t+36",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Positions Template",
@@ -321,11 +347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-05",
             "exceptionId": 14,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Aptitude Partners (Levered) Ireland",
@@ -344,11 +372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 15,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Aptitude Partners (Levered) Ltd",
@@ -367,11 +397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 16,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Aptitude Partners Fund LP",
@@ -390,11 +422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 17,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Aptitude Partners Ltd",
@@ -413,11 +447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 18,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Equity Long Short Managers",
@@ -436,11 +472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 19,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS G C Thematic Opp",
@@ -459,11 +497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 20,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Global Tactical Trading Managers",
@@ -482,11 +522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 21,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Managers (Diversified)",
@@ -505,11 +547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 22,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Opportunities Ltd",
@@ -528,11 +572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 23,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Select Marshall Wace",
@@ -551,11 +597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 24,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Select Millenium",
@@ -574,11 +622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 25,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Select Point72 Capital",
@@ -597,11 +647,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 26,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Hedge Fund Select WNTN Dedicated",
@@ -620,11 +672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 27,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Mount Vesey",
@@ -643,11 +697,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 28,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Multi Strat XII (Ireland)",
@@ -666,11 +722,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 29,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Multi Strat XIII (Ireland)",
@@ -689,11 +747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 30,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Princeton Fund Ltd",
@@ -712,11 +772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 31,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Select Opp ICAV Ireland",
@@ -735,11 +797,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 32,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Tactical Trading Mgrs (Managed Futures) Ltd",
@@ -758,11 +822,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "tlm.gsam@seic.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 33,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Investment Holdings Princeton",
@@ -781,11 +847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "ajan@seic.com; dublings2@seic.com; Navya.Ashwath@ny.email.gs.com; am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 34,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Balance Sheet Princeton Fund Ltd",
@@ -804,11 +872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "am-hfsfundadmins <am-hfsfundadmin@ny.email.gs.com>, Aishwarya Viswanathan <Aishwarya.Viswanathan@ny.email.gs.com>, Ashwati Jayakrishnan <Ashwati.Jayakrishnan>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 35,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS FOF Investment Holdings",
@@ -827,11 +897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "ajan@seic.com; dublings2@seic.com; Navya.Ashwath@ny.email.gs.com; am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 36,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Finalized Fund Performance",
@@ -850,11 +922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "ajan@seic.com; dublings2@seic.com; Navya.Ashwath@ny.email.gs.com; am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 37,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS FOX Final Data",
@@ -873,11 +947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundadmins <am-hfsfundadmin@ny.email.gs.com>, Aishwarya Viswanathan <Aishwarya.Viswanathan@ny.email.gs.com>, Ashwati Jayakrishnan <Ashwati.Jayakrishnan>",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 38,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS DTC Summary Report",
@@ -896,11 +972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "structured_funds_ta_services@bnymellon.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 39,
             "approved": false
         },
         {
-            "exceptionDue": "BD3",
+            "exceptionDue": "t+03",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS Static Template",
@@ -919,11 +997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-sysrisk@ny.email.gs.com",
+            "FileDueDate": "2021-10-03",
             "exceptionId": 40,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AIFMD HFS PSC 45 Day AIFs",
@@ -942,11 +1022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 41,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BDC_NAV&Performance Senior Credit NAVs",
@@ -965,11 +1047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-dhf-bdc, David.Humphrey@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 42,
             "approved": false
         },
         {
-            "exceptionDue": "BD37",
+            "exceptionDue": "t+37",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_AIFMD_AMD_Public_Direct_GRM_PortfolioLiquidity_PublishReport_FORM PF_09-30-2020_3943075995581477568_20210331_run_20211008.xlsx",
             "FilePattern": "Publish Report",
@@ -988,11 +1072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-global-risk-liquidity, Panagiota.Liatsou@ln.email.gs.com",
+            "FileDueDate": "2021-11-06",
             "exceptionId": 43,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Offshore Long Term Funds",
@@ -1011,11 +1097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "Yes",
+            "owner": "gs-am-strats-regulatory-requests.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 44,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Form PF Output",
@@ -1034,11 +1122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-strats-regulatory-requests.gs.com",
+            "FileDueDate": "2021-11-01",
             "exceptionId": 45,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GIPS Composites",
@@ -1057,11 +1147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-gips-composite",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 46,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_ShareClass_20210930_2021-10-08_10-37-29.csv",
             "FilePattern": "Radar Share Class",
@@ -1080,11 +1172,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 47,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "RADAR Account",
@@ -1103,11 +1197,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 48,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BDC_NAV&Performance",
@@ -1126,11 +1222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-ca-pf, Josue.Tlapale@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 49,
             "approved": false
         },
         {
-            "exceptionDue": "BD42",
+            "exceptionDue": "t+42",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI_Results",
@@ -1149,11 +1247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "AM-RMA-GLOBAL, Rahul.c.Jain@ny.email.gs.com",
+            "FileDueDate": "2021-11-11",
             "exceptionId": 50,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OPAL Form PF Performance Batch 1",
@@ -1172,11 +1272,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 51,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OPAL Form PF Performance Batch 2",
@@ -1195,11 +1297,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 52,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OPAL Form PF Performance Batch 3",
@@ -1218,11 +1322,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 53,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OPAL Form PF Performance Batch 4",
@@ -1241,11 +1347,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 54,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OPAL Form PF Performance Batch 5",
@@ -1264,11 +1372,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 55,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "DHF Filing Master Feeder NAV",
@@ -1287,11 +1397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "pr-security-partnerships, Ashley.Perez@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 56,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Form PF US Mutual Funds",
@@ -1310,11 +1422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 57,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Blocker Security",
@@ -1333,11 +1447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 58,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PF Strategy",
@@ -1356,11 +1472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 59,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Leveling GSAMI US DHF",
@@ -1379,11 +1497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 60,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Leveling SCF PC",
@@ -1402,11 +1522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 61,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Leveling US MF",
@@ -1425,11 +1547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 62,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Leveling LDN",
@@ -1448,11 +1572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 63,
             "approved": false
         },
         {
-            "exceptionDue": "BD37",
+            "exceptionDue": "t+37",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Credit Facility",
@@ -1471,11 +1597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Steven.colombo@gs.com\\nMike.durnin@gs.com",
+            "FileDueDate": "2021-11-06",
             "exceptionId": 64,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_AccountPV_20210930_2021-10-08_10-37-26.csv",
             "FilePattern": "Radar Account PV",
@@ -1494,11 +1622,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 65,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product Month 1",
@@ -1517,11 +1647,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 66,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product Month 2",
@@ -1540,11 +1672,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 67,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "FISH_Product_20210930_2021-10-07_20-30-27.csv",
             "FilePattern": "Fish Product Month 3",
@@ -1563,11 +1697,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 68,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product History Month 1",
@@ -1586,11 +1722,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 69,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product History Month 2",
@@ -1609,11 +1747,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 70,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "FISH_ProductHistory_20210930_2021-10-07_20-30-27.csv",
             "FilePattern": "Fish Product History Month 3",
@@ -1632,11 +1772,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 71,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "APEX Mbs Exposure",
@@ -1655,11 +1797,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 72,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "APEX Otc Exposure",
@@ -1678,11 +1822,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 73,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "APEX Repo Exposure",
@@ -1701,11 +1847,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 74,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SVS CCL Collateral",
@@ -1724,11 +1872,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 75,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SVS CLL Collateral",
@@ -1747,11 +1897,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 76,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Positions Month 1",
@@ -1770,11 +1922,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 77,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Positions Month 2",
@@ -1793,11 +1947,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 78,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "PMDB_Positions_20210930_2021-10-07_20-00-06.csv",
             "FilePattern": "PMDB Positions Month 3",
@@ -1816,11 +1972,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 79,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Transactions Month 1",
@@ -1839,11 +1997,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 80,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Transactions Month 2",
@@ -1862,11 +2022,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 81,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "PMDB_Transactions_20210930_2021-10-07_20-00-06.csv",
             "FilePattern": "PMDB Transactions Month 3",
@@ -1885,11 +2047,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 82,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "PMDB_Fx_Forwards_20210930_2021-10-07_20-00-06.csv",
             "FilePattern": "PMDB Fx Forwards Month 3",
@@ -1908,11 +2072,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 83,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Fx Forwards Month 2",
@@ -1931,11 +2097,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 84,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Fx Forwards Month 1",
@@ -1954,11 +2122,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 85,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PMDB Nav Summary",
@@ -1977,11 +2147,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 86,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "REG_RegAccount_20210915_2021-10-08_08-53-34.csv",
             "FilePattern": "Reg Reg Account",
@@ -2000,11 +2172,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 87,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_Broker_20210831_2021-10-05_23-40-50.csv",
             "FilePattern": "RADAR Broker",
@@ -2023,11 +2197,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 88,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "OPAL_Lake_Perf_Returns_20210930_2021-10-12_03-57-35.csv",
             "FilePattern": "OPAL Lake Perf Returns",
@@ -2046,11 +2222,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 89,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Static Data Template",
@@ -2069,11 +2247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-sysrisk@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 90,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_Fund_20210831_2021-10-05_23-40-50.csv",
             "FilePattern": "Radar Fund",
@@ -2092,11 +2272,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gsam-radar-support",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 91,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_Fund_Attributes_20210930_2021-10-08_10-37-29.csv",
             "FilePattern": "Radar Fund Attributes",
@@ -2115,11 +2297,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gsam-radar-support",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 92,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Form PF Scoping - Reg Entities In Scope",
@@ -2138,11 +2322,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 93,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Invest 1 Accounts Hedged Share Class",
@@ -2161,11 +2347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-sysrisk@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 94,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financial Statement GSIP PO Aggregated TB FS",
@@ -2184,11 +2372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 95,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financial Statement GSIP PO Aggregated TB Unfunded",
@@ -2207,11 +2397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 96,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Onshore TB",
@@ -2230,11 +2422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 97,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Offshore Holdings",
@@ -2253,11 +2447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 98,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Offshore SCSp",
@@ -2276,11 +2472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 99,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Unfunded Onshore Commits",
@@ -2299,11 +2497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 100,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Unfunded Offshore Commits",
@@ -2322,11 +2522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 101,
             "approved": false
         },
         {
-            "exceptionDue": "BD45",
+            "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Summary Performance",
@@ -2345,11 +2547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers-vp@gs.com",
+            "FileDueDate": "2021-11-14",
             "exceptionId": 102,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Onshore Cash",
@@ -2368,11 +2572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 103,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Onshore Table 1",
@@ -2391,11 +2597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 104,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Offshore Cash",
@@ -2414,11 +2622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 105,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Offshore Table 1",
@@ -2437,11 +2647,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 106,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Transactions Onshore",
@@ -2460,11 +2672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 107,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Transactions Offshore",
@@ -2483,11 +2697,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 108,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP Positions Credit",
@@ -2506,11 +2722,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sboyle@StateStreet.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 109,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP I Marks",
@@ -2529,11 +2747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gsip-controllers-team@gs.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 110,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GPOP II Sav Marks",
@@ -2552,11 +2772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gsip-controllers-team@gs.com",
+            "FileDueDate": "2021-11-09",
             "exceptionId": 111,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Form PF Scoping",
@@ -2575,11 +2797,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-peg-reg-controllers@gs.com ",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 112,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SIC Codes",
@@ -2598,11 +2822,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 113,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PF Mapping",
@@ -2621,11 +2847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 114,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Vitech Forest",
@@ -2644,11 +2872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 115,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Relationship Mandate Summary Report",
@@ -2667,11 +2897,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gsam-radar-support",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 116,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Q48-49 Investor Template",
@@ -2690,11 +2922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-sysrisk@gs.ocm ( Onshore\\/Offshore) pr-security-partnerships@gs.com (for DHF )",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 117,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CTAPR_AMD_Public_Direct_RegControllers_ReferenceData_Master Scoping_Q32021_0930_2nd Cut_Final_EY_20210930_run_20211011.xlsx",
             "FilePattern": "Master Scoping",
@@ -2713,11 +2947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 118,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "REG_EntitiesInScope_20210915_2021-10-08_08-53-34.csv",
             "FilePattern": "REG Entities In Scope",
@@ -2736,11 +2972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 119,
             "approved": false
         },
         {
-            "exceptionDue": "BD20",
+            "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "MBD Scoping",
@@ -2759,11 +2997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Cathy.hu@ny.email.gs.com,gs-peg-reg-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-20",
             "exceptionId": 120,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CTAPR_AMD_Public_Direct_RegControllers_ReferenceData_Static Data Template - Updated_20210930_run_20211011.xlsx",
             "FilePattern": "Static Data Template",
@@ -2782,11 +3022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Cathy.hu@ny.email.gs.com,gs-peg-reg-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 121,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BalanceSheet SecDB MTM Unsettled",
@@ -2805,11 +3047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-fa-reg@ny.email.gs.com, Aashi.gupta@ny.email.gs.com, Jose.Falomir@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 122,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BalanceSheet Managed Accounts SecDB MTM Unsettled",
@@ -2828,11 +3072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-fa-reg@ny.email.gs.com, Aashi.gupta@ny.email.gs.com, Jose.Falomir@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 123,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Accounts prod v",
@@ -2851,11 +3097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 124,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Sub advised funds",
@@ -2874,11 +3122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 125,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Account Trading Programs",
@@ -2897,11 +3147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 126,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Account Trading Programs",
@@ -2920,11 +3172,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 127,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Account Trading Programs",
@@ -2943,11 +3197,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 128,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_Account_20210930_2021-10-07_11-01-55.csv",
             "FilePattern": "RADAR Account",
@@ -2966,11 +3222,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 129,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "nfa_reg_memb",
@@ -2989,11 +3247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 130,
             "approved": false
         },
         {
-            "exceptionDue": "BD27",
+            "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GMS Managers",
@@ -3012,11 +3272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "edison.diaz@ny.email.gs.com",
+            "FileDueDate": "2021-10-27",
             "exceptionId": 131,
             "approved": false
         },
         {
-            "exceptionDue": "BD27",
+            "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Broker List template",
@@ -3035,11 +3297,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "NA, to be maintained at EY",
+            "FileDueDate": "2021-10-27",
             "exceptionId": 132,
             "approved": false
         },
         {
-            "exceptionDue": "BD27",
+            "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Broker List template",
@@ -3058,11 +3322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "NA, to be maintained at EY",
+            "FileDueDate": "2021-10-27",
             "exceptionId": 133,
             "approved": false
         },
         {
-            "exceptionDue": "BD20",
+            "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "MBD Broker List",
@@ -3081,11 +3347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Cathy.hu@ny.email.gs.com,gs-peg-reg-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-20",
             "exceptionId": 134,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "DHF AUM GAV NAV",
@@ -3104,11 +3372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "pr-Security-Partnerships@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 135,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "USMF CPOPQR NAV",
@@ -3127,11 +3397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-us-fundtreasury@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 136,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "LDN AUM Quarterly CFTC",
@@ -3150,11 +3422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-ldn-fundtreasury@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 137,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM HFS CPOPQR",
@@ -3173,11 +3447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 138,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PEG and MBD NAV",
@@ -3196,11 +3472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-29",
             "exceptionId": 139,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CVA Output",
@@ -3219,11 +3497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-fa-reg@ny.email.gs.com,Aashi.gupta@ny.email.gs.com, Jose.Falomir@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 140,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Cleared Swap",
@@ -3242,11 +3522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Kaba, Bekim [AM Public] <Bekim.Kaba@ny.email.gs.com>; Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 141,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Futures",
@@ -3265,11 +3547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Kaba, Bekim [AM Public] <Bekim.Kaba@ny.email.gs.com>; Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 142,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Forwards",
@@ -3288,11 +3572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Kaba, Bekim [AM Public] <Bekim.Kaba@ny.email.gs.com>; Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 143,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AllDerivs",
@@ -3311,11 +3597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 144,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AllDerivs",
@@ -3334,11 +3622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 145,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AllDerivs",
@@ -3357,11 +3647,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 146,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AllDerivs",
@@ -3380,11 +3672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 147,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3403,11 +3697,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 148,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3426,11 +3722,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 149,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3449,11 +3747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 150,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3472,11 +3772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 151,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3495,11 +3797,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 152,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3518,11 +3822,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 153,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Financials CFTC",
@@ -3541,11 +3847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>\\nKhinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 154,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Final CFTC Ratios",
@@ -3564,11 +3872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\nBuchanan, Tim [Controllers] <Tim.Buchanan@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 155,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Final CFTC Ratios",
@@ -3587,11 +3897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\nBuchanan, Tim [Controllers] <Tim.Buchanan@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 156,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Final CFTC Ratios",
@@ -3610,11 +3922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\nBuchanan, Tim [Controllers] <Tim.Buchanan@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 157,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Final CFTC Ratios",
@@ -3633,11 +3947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\nBuchanan, Tim [Controllers] <Tim.Buchanan@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 158,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Final CFTC Ratios",
@@ -3656,11 +3972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\nBuchanan, Tim [Controllers] <Tim.Buchanan@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 159,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSCO Final CFTC Ratios",
@@ -3679,11 +3997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Adam.Hawker@ny.email.gs.com,Mike.Maese@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 160,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fund Performance - Fund",
@@ -3702,11 +4022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 161,
             "approved": false
         },
         {
-            "exceptionDue": "BD34",
+            "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "HFS Derivative trading confirmation",
@@ -3725,11 +4047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-11-03",
             "exceptionId": 162,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CPOPQR_AMD_Public_Direct_RegControllers_ReferenceData_CFTC_Number_of_Pools_20210930_run_20211012.xlsx",
             "FilePattern": "CFTC Number of Pools",
@@ -3748,11 +4072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 163,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Manual Adjustment for LHJackson accounts",
@@ -3771,11 +4097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 164,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "OPAL_Lake_Perf_Returns_20210930_2021-10-07_20-00-06.csv",
             "FilePattern": "OPAL Lake Perf Returns",
@@ -3794,11 +4122,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "NA; File not used for CTA-PR",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 165,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "RADAR_Broker_20210930_2021-10-08_10-37-26.csv",
             "FilePattern": "RADAR Broker",
@@ -3817,11 +4147,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "NA; File not used for CTA-PR",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 166,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Trading Manager MM Alternatives",
@@ -3840,11 +4172,13 @@
             "FileVersion": null,
             "System\\/Manual": null,
             "PreprocessingFlag": "No",
+            "owner": "NA, file not being used for CTAPR",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 167,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Accounts Cleared Swaps",
@@ -3863,11 +4197,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Kaba, Bekim [AM Public] <Bekim.Kaba@ny.email.gs.com>; Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 168,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Separate Accounts Futures",
@@ -3886,11 +4222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Kaba, Bekim [AM Public] <Bekim.Kaba@ny.email.gs.com>; Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 169,
             "approved": false
         },
         {
-            "exceptionDue": "BD29",
+            "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CTAPR Mandate Codes",
@@ -3909,11 +4247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-29",
             "exceptionId": 170,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CTAPR_AMD_Public_Direct_RegControllers_ReferenceData_Master Scoping_Q32021_0930_2nd Cut_Final_EY_20210930_run_20211011.xlsx",
             "FilePattern": "Reg AUM Scope",
@@ -3932,11 +4272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-ft-bgl@internal.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 171,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "REG_EntitiesInScope_20210101_2021-10-08_08-04-34.csv",
             "FilePattern": "CPOPQR Scoping - REG Entities In Scope",
@@ -3955,11 +4297,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 172,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CTAPR_AMD_Public_Direct_RegControllers_ReferenceData_Static Data Template - Updated_20210930_run_20211011.xlsx",
             "FilePattern": "CPOPQR Static Data Template",
@@ -3978,11 +4322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-ft-bgl@internal.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 173,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GLAS_General_20210930_2021-10-11_04-05-56.csv",
             "FilePattern": "GLAS General",
@@ -4001,11 +4347,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 174,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Part 1 CPO Compliance Information Final Answers",
@@ -4024,11 +4372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Rebecca.Hampton@ny.email.gs.com; James.Wrenn@ny.email.gs.com\\ngs-am-compl-derivatives@internal.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 175,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "HCM Employees GSAM Backup Roster Committed",
@@ -4047,11 +4397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Barnard, Tom C [HCM] <Tom.Barnard@ny.ibd.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 176,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Investors Number of Equity Holders",
@@ -4070,11 +4422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "imd-india-lec <imd-india-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 177,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Reference Data Number of Equity Holders",
@@ -4093,11 +4447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 178,
             "approved": false
         },
         {
-            "exceptionDue": "BD8",
+            "exceptionDue": "t+08",
             "ReceiptStatus": "Received",
             "exceptionFile": "Quarterly_CFTC_CPOPQR_AMD_Public_Direct_RegControllers_ReferenceData_CFTC_Number_of_Pools_20210930_run_20211012.xlsx",
             "FilePattern": "CFTC Number of Pools",
@@ -4116,11 +4472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-ft-bgl@internal.email.gs.com",
+            "FileDueDate": "2021-10-08",
             "exceptionId": 179,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM GMS CPOPQR",
@@ -4139,11 +4497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "D, Vinod [Controllers] <Vinod.D@ny.email.gs.com>\\nam-gmsfundsadmin <am-gmsfundsadmin@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 180,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "COFI Eliminations",
@@ -4162,11 +4522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin\\nAshwati.Jayakrishnan@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 181,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM HFS CPOPQR",
@@ -4185,11 +4547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin\\nAshwati.Jayakrishnan@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 182,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM Fund Controllers DHF",
@@ -4208,11 +4572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "pr-Security-Partnerships@ny.email.gs.com",
+            "FileDueDate": "2021-11-07",
             "exceptionId": 183,
             "approved": false
         },
         {
-            "exceptionDue": "BD41",
+            "exceptionDue": "t+41",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM PEG CPOPQR",
@@ -4231,11 +4597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers",
+            "FileDueDate": "2021-11-10",
             "exceptionId": 184,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "NAV and Performance USMF CPOPQR",
@@ -4254,11 +4622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Ball, Jeff C [Controllers] <Jeff.Ball@ny.email.gs.com>\\nam-us-fundtreasury <am-us-fundtreasury@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 185,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AUM Template LDN",
@@ -4277,11 +4647,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Everett, Maggie B [Controllers] <Maggie.Everett@ln.email.gs.com>\\nam-ldn-fundtreasury <am-ldn-fundtreasury@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 186,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "DD Template LDN",
@@ -4300,11 +4672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Everett, Maggie B [Controllers] <Maggie.Everett@ln.email.gs.com>\\nam-ldn-fundtreasury <am-ldn-fundtreasury@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 187,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Late Trades Template LDN",
@@ -4323,11 +4697,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Everett, Maggie B [Controllers] <Maggie.Everett@ln.email.gs.com>\\nam-ldn-fundtreasury <am-ldn-fundtreasury@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 188,
             "approved": false
         },
         {
-            "exceptionDue": "BD20",
+            "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BDC DHF GAV NAV",
@@ -4346,11 +4722,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-dhf-bdc@ny.email.gs.com",
+            "FileDueDate": "2021-10-20",
             "exceptionId": 189,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Double Count AUMs Eliminations",
@@ -4369,11 +4747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin\\nAshwati.Jayakrishnan@ny.email.gs.com",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 190,
             "approved": false
         },
         {
-            "exceptionDue": "BD41",
+            "exceptionDue": "t+41",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Money Market Elimination",
@@ -4392,11 +4772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin\\nAshwati.Jayakrishnan@ny.email.gs.com",
+            "FileDueDate": "2021-11-10",
             "exceptionId": 191,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "DHF AUM 1261040 Holdings",
@@ -4415,11 +4797,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-peg-controllers",
+            "FileDueDate": "2021-11-07",
             "exceptionId": 192,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "DHF AUM 1261070 Holdings",
@@ -4438,11 +4822,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "NA- follow up query which is event driven",
+            "FileDueDate": "2021-11-07",
             "exceptionId": 193,
             "approved": false
         },
         {
-            "exceptionDue": "BD26",
+            "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Merged PVALs",
@@ -4461,11 +4847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "pr-Security-Partnerships@ny.email.gs.com",
+            "FileDueDate": "2021-10-26",
             "exceptionId": 194,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Received",
             "exceptionFile": "GSAM ETF 093021 STIF Holdings.xls",
             "FilePattern": "STIF Holdings",
@@ -4484,11 +4872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 195,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAV NAV Summary",
@@ -4507,11 +4897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "karolina.swiechowicz@bbh.com\\nmonika.kedziora@bbh.com\\ngsam.regulatory.reporting@bbh.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 196,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAM Affiliated Holdings",
@@ -4530,11 +4922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 197,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "RADAR Account",
@@ -4553,11 +4947,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 198,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Positions Cleared Swap",
@@ -4576,11 +4972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 199,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Positions Futures",
@@ -4599,11 +4997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>\\ngs-nypca-rmo <gs-nypca-rmo@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 200,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Repo All Derivs",
@@ -4622,11 +5022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>\\ngs-nypca-rmo <gs-nypca-rmo@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 201,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Coll Bal All Derivs",
@@ -4645,11 +5047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Bilal, Khadeejah [AM Public] <Khadeejah.Bilal@ny.email.gs.com>\\ngs-nypca-rmo <gs-nypca-rmo@ny.email.gs.com>",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 202,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "MBS All Derivs",
@@ -4668,11 +5072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 203,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "OTC All Derivs",
@@ -4691,11 +5097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 204,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAM Forwards",
@@ -4714,11 +5122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 205,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAM Future Swap Liquidity",
@@ -4737,11 +5147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-cftc-controllers@ny.email.gs.com",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 206,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "NDF Currency",
@@ -4760,11 +5172,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 207,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PL Financials CFTC",
@@ -4783,11 +5197,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "NA- one time upload and to be maintained in EY",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 208,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Variance Financials CFTC",
@@ -4806,11 +5222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-ft-bgl@internal.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 209,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Profitability Financials CFTC",
@@ -4829,11 +5247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 210,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Variance BS Financials CFTC",
@@ -4852,11 +5272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 211,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Current Ratio Financials CFTC",
@@ -4875,11 +5297,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 212,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BS Financials CFTC",
@@ -4898,11 +5322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 213,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI Ratios CFTC",
@@ -4921,11 +5347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 214,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GSAMI PL General Ledger CFTC",
@@ -4944,11 +5372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 215,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "FS Mapping GSAMI Final CFTC ratios",
@@ -4967,11 +5397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Khinvasara, Rishabh [Controllers] <Rishabh.Khinvasara@ny.email.gs.com>\\nGulati, Utkarsh [Controllers] <Utkarsh.Gulati@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 216,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Balance Sheet Essbase GSAMI Final",
@@ -4990,11 +5422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 217,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR FC LDN",
@@ -5013,11 +5447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 218,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR FC USMF",
@@ -5036,11 +5472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Fasoto, Mayowa [Controllers] <Mayowa.Fasoto@ln.email.gs.com>\\ngsami-lec <gsami-lec@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 219,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR temp EFS",
@@ -5059,11 +5497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-ldn-finrep@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 220,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Fund DHF",
@@ -5082,11 +5522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-us-fundtreasury@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 221,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Fund HFS",
@@ -5105,11 +5547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Staneva, Stefani [AM Public] <Stefani.Staneva@ln.email.gs.com>; Armbruster, Joerg [AM Public] <Joerg.Armbruster@ln.email.gs.com>; Meier, Philipp [AM Public] <Philipp.Meier@ln.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 222,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Fund USPS",
@@ -5128,11 +5572,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-vendor-oversight@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 223,
             "approved": false
         },
         {
-            "exceptionDue": "BD20",
+            "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Brokers List Unique Group Broker",
@@ -5151,11 +5597,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-vendor-oversight@ny.email.gs.com",
+            "FileDueDate": "2021-10-20",
             "exceptionId": 224,
             "approved": false
         },
         {
-            "exceptionDue": "BD20",
+            "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Grid Results Unique Group Broker",
@@ -5174,11 +5622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-vendor-oversight@ny.email.gs.com",
+            "FileDueDate": "2021-10-20",
             "exceptionId": 225,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Trading Manager MM Alternatives",
@@ -5197,11 +5647,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-nypca-rmo <gs-nypca-rmo@ny.email.gs.com>; Bilal, Khadeejah [AMD Public] <Khadeejah.Bilal@ny.email.gs.com>; Kaba, Bekim [AMD Public] <Bekim.Kaba@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 226,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Legal LDN",
@@ -5220,11 +5672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-nypca-rmo <gs-nypca-rmo@ny.email.gs.com>; Bilal, Khadeejah [AMD Public] <Khadeejah.Bilal@ny.email.gs.com>; Kaba, Bekim [AMD Public] <Bekim.Kaba@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 227,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Legal NYDHF",
@@ -5243,11 +5697,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Edison.Diaz@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 228,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Legal NYHFS",
@@ -5266,11 +5722,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Onasanya, Tunde [Legal] <Tunde.Onasanya@ln.email.gs.com>; Wareham, Amy [Legal] <Amy.Wareham@ln.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 229,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Legal NYMR",
@@ -5289,11 +5747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Chapin, Corey S [Legal] <Corey.Chapin@ny.email.gs.com>; Galaro, Dean [Legal] <Dean.Galaro@ny.email.gs.com>; Romanoff, Marc [Legal] <Marc.Romanoff@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 230,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR NYPublicFunds Funds",
@@ -5312,11 +5772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Ricketts, Polly [Legal] <Polly.Ricketts@ny.email.gs.com>; Bottoms, Laine R [Legal] <Laine.Bottoms@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 231,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Emma Entities",
@@ -5335,11 +5797,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "Chapin, Corey S [Legal] <Corey.Chapin@ny.email.gs.com>; Galaro, Dean [Legal] <Dean.Galaro@ny.email.gs.com>; Romanoff, Marc [Legal] <Marc.Romanoff@ny.email.gs.com>",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 232,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Updated for MM",
@@ -5358,11 +5822,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 233,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "File CFTC Broker List Template",
@@ -5381,11 +5847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "NA-This will be a master list maintained in EY",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 234,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Legal2Broker",
@@ -5404,11 +5872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Edison.Diaz@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 235,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool OPS2",
@@ -5427,11 +5897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Edison.Diaz@ny.email.gs.com",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 236,
             "approved": false
         },
         {
-            "exceptionDue": "BD23",
+            "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Fund DHF Custodian",
@@ -5450,11 +5922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Mccabe, George [CIMD] <george.mccabe@ny.email.gs.com>",
+            "FileDueDate": "2021-10-23",
             "exceptionId": 237,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Reference Data DHF Funds Custodian",
@@ -5473,11 +5947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Watkins, Emma [AMD Public] <Emma.Watkins@ny.email.gs.com>; Lorenzo, Sabrina M [AMD Public] <Sabrina.Lorenzo@ny.email.gs.com>; Cook, Chris J [AMD Public] <Christopher.Cook@ny.email.gs.com>; Parilli, Eduardo [AMD Public] <Eduardo.Parilli@ny.email.gs.com>",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 238,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Pool-Fund CPO-PQR",
@@ -5496,11 +5972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-vendor-oversight@ny.email.gs.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 239,
             "approved": false
         },
         {
-            "exceptionDue": "BD26",
+            "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Pool-Fund Full GSAM CPOPQR Template",
@@ -5519,11 +5997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Sieiro, Rodrigo <Rodrigo.Sieiro@statestreet.com>; Whelan, Louise <Louise.Whelan@statestreet.com>; Sceusi, Lauren <Lauren.Sceusi@statestreet.com>; Dubcenco, Gabriela <Gabriela.Dubcenco@statestreet.com>; GSIP <gsip@statestreet.com>; GSGO <GSGO@statestreet.com",
+            "FileDueDate": "2021-10-26",
             "exceptionId": 240,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GS Final Response",
@@ -5542,11 +6022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 241,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Pool-Fund CPOPQR temp FC HFS",
@@ -5565,11 +6047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "karolina.swiechowicz@bbh.com\\nmonika.kedziora@bbh.com\\ngsam.regulatory.reporting@bbh.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 242,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Pool-Fund CPOPQR temp USMF",
@@ -5588,11 +6072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-11-04",
             "exceptionId": 243,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Pool-Fund Fund Controllers DHF",
@@ -5611,11 +6097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-11-07",
             "exceptionId": 244,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "OPAL_Lake_Perf_Returns_20210930_2021-10-06_20-00-07.csv",
             "FilePattern": "OPAL Lake Perf Returns",
@@ -5634,11 +6122,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-imd-reg-controllers-ft-bgl@internal.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 245,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "CANVAS_Report_ROR_Funds_with_fihi_cusip_20210930_2021-10-11_20-01-07.csv",
             "FilePattern": "CANVAS Report ROR Funds with fihi cusip",
@@ -5657,11 +6147,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "pr-Security-Partnerships@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 246,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "CANVAS_Report_ROR_Funds_with_no_fihi_cusip_20210930_2021-10-11_20-01-23.csv",
             "FilePattern": "CANVAS Report ROR Funds with no fihi cusip",
@@ -5680,11 +6172,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 247,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Pool Fund Performance HFS",
@@ -5703,11 +6197,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 248,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR PRT Account Summary",
@@ -5726,11 +6222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 249,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "SVS_I1KeyExtract_SVS_I1KeyExtract_20210930_20211013-08-38-24.csv",
             "FilePattern": "SVS I1Key Extract",
@@ -5749,11 +6247,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "am-hfsfundsadmin@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 250,
             "approved": false
         },
         {
-            "exceptionDue": "BD26",
+            "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Forwards Full GSAM Schedule B",
@@ -5772,11 +6272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Shanbhag, Sowmya [AM Public] <Sowmya.Shanbhag@ny.email.gs.com>",
+            "FileDueDate": "2021-10-26",
             "exceptionId": 251,
             "approved": false
         },
         {
-            "exceptionDue": "BD26",
+            "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Consolidated Data Full GSAM Schedule B",
@@ -5795,11 +6297,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-26",
             "exceptionId": 252,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Asset and Accrual",
@@ -5818,11 +6322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "karolina.swiechowicz@bbh.com\\nmonika.kedziora@bbh.com\\ngsam.regulatory.reporting@bbh.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 253,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Trade Activity",
@@ -5841,11 +6347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "karolina.swiechowicz@bbh.com\\nmonika.kedziora@bbh.com\\ngsam.regulatory.reporting@bbh.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 254,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "FA Earn Income FIS",
@@ -5864,11 +6372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 255,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "FA Realized Capital Gain Loss",
@@ -5887,11 +6397,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-25",
             "exceptionId": 256,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Detail USIS MCH Part 2 Q11",
@@ -5910,11 +6422,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 257,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Detail FX Part 2 Q11",
@@ -5933,11 +6447,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "stephen.lenihen@bnymellon.com",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 258,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR YTD PL Goldman Part 2 Q11",
@@ -5956,11 +6472,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 259,
             "approved": false
         },
         {
-            "exceptionDue": "BD28",
+            "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR Summary Details Part 2 Q11",
@@ -5979,11 +6497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-28",
             "exceptionId": 260,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_PNL_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF PNL",
@@ -6002,11 +6522,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 261,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Settle_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF Settle",
@@ -6025,11 +6547,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "Lu, Yuanyuan (Charlotte) <YLu3@StateStreet.com>, Daniel, Joel <JCDaniel@StateStreet.com>; Carbonara, Frank <Frank.Carbonara@statestreet.com>; Ganapathi, Pushpa <Pushpa.Ganapathi@statestreet.com>",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 262,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_FX_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF FX",
@@ -6048,11 +6572,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 263,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Holdings_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF Holdings",
@@ -6071,11 +6597,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 264,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product Month 1",
@@ -6094,11 +6622,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 265,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product Month 2",
@@ -6117,11 +6647,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 266,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "FISH_Product_20210930_2021-10-07_20-30-14.csv",
             "FilePattern": "Fish Product Month 3",
@@ -6140,11 +6672,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 267,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product History Month 1",
@@ -6163,11 +6697,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 268,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product History Month 2",
@@ -6186,11 +6722,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 269,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Fish Product History Month 3",
@@ -6209,11 +6747,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 270,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "USMF AUM FSA038",
@@ -6232,11 +6772,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-30",
             "exceptionId": 271,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "FISH_ProductHistory_20210930_2021-10-07_20-30-27.csv",
             "FilePattern": "FISH Product History",
@@ -6255,11 +6797,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": "gs-am-reg-it@ny.email.gs.com",
+            "FileDueDate": "2021-10-01",
             "exceptionId": 272,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CPOPQR ROR Historical Data",
@@ -6278,11 +6822,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 273,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BHC Post Cutoff Trades",
@@ -6301,11 +6847,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-07",
             "exceptionId": 274,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Bank Loan",
@@ -6324,11 +6872,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-07",
             "exceptionId": 275,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "CCIFON Reds Payable",
@@ -6347,11 +6897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 276,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Gollc Redemptions Log",
@@ -6370,11 +6922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 277,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Goltd Redemptions Payable",
@@ -6393,11 +6947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 278,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Mrvltd Redemptions Log",
@@ -6416,11 +6972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 279,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BHC_1469",
@@ -6439,11 +6997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 280,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BHC_4391",
@@ -6462,11 +7022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 281,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "58S5 Fas 161 Breakdown Template",
@@ -6485,11 +7047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 282,
             "approved": false
         },
         {
-            "exceptionDue": "BD40",
+            "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "PSC SubsReds",
@@ -6508,11 +7072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-09",
             "exceptionId": 283,
             "approved": false
         },
         {
-            "exceptionDue": "BD38",
+            "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BHC Post Cutoff Trades",
@@ -6531,11 +7097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-07",
             "exceptionId": 284,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Re  Unfunded Commitment",
@@ -6554,11 +7122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 285,
             "approved": false
         },
         {
-            "exceptionDue": "BD30",
+            "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Re  Unfunded Commitment",
@@ -6577,11 +7147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-30",
             "exceptionId": 286,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "EOM_Rates_20210930_2021-10-05_17-07-19.csv",
             "FilePattern": "EOM_Rates",
@@ -6600,11 +7172,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 287,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Adjusted_TB_20210930_2021-10-11_21-01-39.csv",
             "FilePattern": "GAAP DHF Adjusted TB",
@@ -6623,11 +7197,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 288,
             "approved": false
         },
         {
-            "exceptionDue": "BD15",
+            "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Holdings Qtly Consolidated",
@@ -6646,11 +7222,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-15",
             "exceptionId": 289,
             "approved": false
         },
         {
-            "exceptionDue": "BD15",
+            "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "FX Qtly Consolidated",
@@ -6669,11 +7247,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-15",
             "exceptionId": 290,
             "approved": false
         },
         {
-            "exceptionDue": "BD15",
+            "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Duration Holdings Qtly Consolidated",
@@ -6692,11 +7272,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-15",
             "exceptionId": 291,
             "approved": false
         },
         {
-            "exceptionDue": "BD15",
+            "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Duration FX Qtly Consolidated",
@@ -6715,11 +7297,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-15",
             "exceptionId": 292,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "AssetandAccrual",
@@ -6738,11 +7322,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 293,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Trade Activity CC",
@@ -6761,11 +7347,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 294,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Fund_Signoff_Summary_20210930_2021-10-11_20-15-38.csv",
             "FilePattern": "GAAP DHF Signoff Summary",
@@ -6784,11 +7372,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 295,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_FX_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF FX",
@@ -6807,11 +7397,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 296,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Holdings_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF Holdings",
@@ -6830,11 +7422,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 297,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_JEF_20210930_2021-10-11_20-15-39.csv",
             "FilePattern": "GAAP DHF JEF",
@@ -6853,11 +7447,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 298,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_NAV_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF NAV",
@@ -6876,11 +7472,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 299,
             "approved": false
         },
         {
-            "exceptionDue": "BD10",
+            "exceptionDue": "t+10",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SRS US Mutual Funds",
@@ -6899,11 +7497,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-10",
             "exceptionId": 300,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Dwight Fund Transactions",
@@ -6922,11 +7522,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 301,
             "approved": false
         },
         {
-            "exceptionDue": "BD10",
+            "exceptionDue": "t+10",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SRS Dwight Funds",
@@ -6945,11 +7547,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-10",
             "exceptionId": 302,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAAP DHF PNL Month 1",
@@ -6968,11 +7572,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 303,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAAP DHF PNL Month 2",
@@ -6991,11 +7597,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 304,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "1469 JPY",
@@ -7014,11 +7622,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 305,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAAP DHF PNL Month 3",
@@ -7037,11 +7647,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 306,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "4391 FR 2314",
@@ -7060,11 +7672,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 307,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAAP DHF PNL Month 4",
@@ -7083,11 +7697,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 308,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "GAAP DHF PNL Month 5",
@@ -7106,11 +7722,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 309,
             "approved": false
         },
         {
-            "exceptionDue": "BD35",
+            "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "FAS 161 Breakdown Template per fund",
@@ -7129,11 +7747,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-04",
             "exceptionId": 310,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_PNL_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF PNL Month 6",
@@ -7152,11 +7772,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 311,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Settle_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF Settle",
@@ -7175,11 +7797,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 312,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "GAAP_DHF_Unsettled_20210930_2021-10-07_20-45-58.csv",
             "FilePattern": "GAAP DHF Unsettled",
@@ -7198,11 +7822,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 313,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "PMDB_Positions_20210630_2021-08-22_20-50-09.csv",
             "FilePattern": "PMDB Positions",
@@ -7221,11 +7847,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 314,
             "approved": false
         },
         {
-            "exceptionDue": "BD1",
+            "exceptionDue": "t+01",
             "ReceiptStatus": "Received",
             "exceptionFile": "FISH_Product_20210930_2021-10-07_20-30-27.csv",
             "FilePattern": "FISH Product",
@@ -7244,11 +7872,13 @@
             "FileVersion": null,
             "System\\/Manual": "System",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-01",
             "exceptionId": 315,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Investments Consolidated PVAL",
@@ -7267,11 +7897,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 316,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Spots Consolidated PVAL",
@@ -7290,11 +7922,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 317,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Swaps Consolidated PVAL",
@@ -7313,11 +7947,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 318,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Futures Consolidated PVAL",
@@ -7336,11 +7972,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 319,
             "approved": false
         },
         {
-            "exceptionDue": "BD32",
+            "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "Futures and Options Consolidated PVAL",
@@ -7359,11 +7997,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-11-01",
             "exceptionId": 320,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "BNY Swap Recon Files for each fund in scope",
@@ -7382,11 +8022,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 321,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SSB POI Files",
@@ -7405,11 +8047,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 322,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SSB SOP Files for each fund in scope",
@@ -7428,11 +8072,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 323,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SSB SAL Files for each fund in scope",
@@ -7451,11 +8097,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 324,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "SSB SOC Files for each fund in scope",
@@ -7474,11 +8122,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 325,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "TRR Files for each fund in scope",
@@ -7497,11 +8147,13 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 326,
             "approved": false
         },
         {
-            "exceptionDue": "BD25",
+            "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
             "exceptionFile": null,
             "FilePattern": "TRR Files for each fund in scope",
@@ -7520,6 +8172,8 @@
             "FileVersion": null,
             "System\\/Manual": "Manual",
             "PreprocessingFlag": "No",
+            "owner": null,
+            "FileDueDate": "2021-10-25",
             "exceptionId": 327,
             "approved": false
         }
