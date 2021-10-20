@@ -1,12 +1,12 @@
 <div class="user-details-wrapper">
   <div class="back-wrapper">
-    <!-- <motif-icon [src]="'/assets/icons/navigation/ic_arrow_back_24px.svg'" (click)="backtoUserAdmin()"></motif-icon>
-    &nbsp;|&nbsp;<span class="back-opt" (click)="backtoUserAdmin()">Back</span> -->
-    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoUserAdmin()"></motif-icon>&nbsp;<span class="back-opt">Back</span>
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoUserAdmin()"></motif-icon>&nbsp;<span class="back-opt">Back</span>
   </div>
   <div class="user-info-header">
     <h3>User info</h3>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'"  [class.disabled]="!is_editable" class="user-edit" *ngIf="!enableEditor && userInfo && this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Update Users')"
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+      *ngIf="!enableEditor && userInfo && this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Update Users')"
       (click)="enableEditForm()">
       <span *ngIf="!enableEditor && userInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
@@ -18,7 +18,7 @@
   </div>
   <div class="user-thumb" *ngIf="userInfo">
     <motif-avatar [userName]="fullname" *ngIf="fullname" size="large" status="online" class="user-thumb-icon">
-    </motif-avatar><span class="text-capitalize">{{userInfo?.userLastName+' '+userInfo?.userFirstName }}</span>
+    </motif-avatar><span class="text-capitalize">{{this.fullname}}</span>
   </div>
   <motif-toast [type]="'success'" [show]="showToastAfterEditUser">User edited successfully!</motif-toast>
   <div class="user-content-container" *ngIf="!enableEditor && userInfo">
@@ -31,7 +31,7 @@
           Last name
         </div>
         <div class="col-md-6 cust-col-colour cust-row-st">
-          <!--  {{ userInfo[0]?.firstName }} --> {{ userInfo?.userFirstName }}
+          {{ userInfo?.userFirstName }}
         </div>
         <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
           {{ userInfo?.userLastName }}
@@ -61,7 +61,8 @@
               <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
               <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only characters
+              <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only
+                characters
               </motif-error>
               <motif-error *ngIf="editUserForm.get('firstName').hasError('maxlength')">First name can be max 250
                 characters long</motif-error>
@@ -75,9 +76,11 @@
               <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
               <motif-error *ngIf="editUserForm.get('lastName').hasError('required')">Please provide a last name!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only characters!
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only
+                characters!
               </motif-error>
-              <motif-error *ngIf="editUserForm.get('lastName').hasError('maxlength')">Last name can be max 250 characters
+              <motif-error *ngIf="editUserForm.get('lastName').hasError('maxlength')">Last name can be max 250
+                characters
                 long</motif-error>
               <motif-error *ngIf="editUserForm.get('lastName').hasError('whitespace')">Please enter valid data
               </motif-error>
