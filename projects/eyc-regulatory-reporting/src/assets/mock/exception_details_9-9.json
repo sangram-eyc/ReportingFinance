@@ -5,7 +5,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Stress Testing",
             "FilePattern": "AIFMD HFS Stress Testing",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -30,7 +30,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS RMA Portfolio Liquidity",
             "FilePattern": "AIFMD HFS RMA Portfolio Liquidity",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -55,7 +55,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Balance Sheet",
             "FilePattern": "AIFMD HFS Balance Sheet",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -80,7 +80,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS AIMS SEI Funding",
             "FilePattern": "AIFMD HFS AIMS SEI Funding",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -105,7 +105,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS FX Transactions - Quarterly",
             "FilePattern": "AIFMD HFS FX Transactions - Quarterly",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -130,7 +130,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Credit Facility",
             "FilePattern": "AIFMD HFS Credit Facility",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -155,7 +155,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS MM Trades",
             "FilePattern": "AIFMD HFS MM Trades",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -180,7 +180,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Performance Template",
             "FilePattern": "AIFMD HFS Performance Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -205,7 +205,7 @@
         {
             "exceptionDue": "t+07",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Extract CR",
             "FilePattern": "AIFMD HFS Extract CR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -230,7 +230,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS SIC Mapping",
             "FilePattern": "AIFMD HFS SIC Mapping",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -255,7 +255,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS borrowing base",
             "FilePattern": "AIFMD HFS borrowing base",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -280,7 +280,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Eligible NAV",
             "FilePattern": "AIFMD HFS Eligible NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -305,7 +305,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Positions",
             "FilePattern": "AIFMD HFS Positions",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -330,7 +330,7 @@
         {
             "exceptionDue": "t+36",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Positions Template",
             "FilePattern": "AIFMD HFS Positions Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -355,7 +355,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Aptitude Partners (Levered) Ireland",
             "FilePattern": "AIFMD HFS Aptitude Partners (Levered) Ireland",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -380,7 +380,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Aptitude Partners (Levered) Ltd",
             "FilePattern": "AIFMD HFS Aptitude Partners (Levered) Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -405,7 +405,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Aptitude Partners Fund LP",
             "FilePattern": "AIFMD HFS Aptitude Partners Fund LP",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -430,7 +430,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Aptitude Partners Ltd",
             "FilePattern": "AIFMD HFS Aptitude Partners Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -455,7 +455,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Equity Long Short Managers",
             "FilePattern": "AIFMD HFS Equity Long Short Managers",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -480,7 +480,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS G C Thematic Opp",
             "FilePattern": "AIFMD HFS G C Thematic Opp",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -505,7 +505,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Global Tactical Trading Managers",
             "FilePattern": "AIFMD HFS Global Tactical Trading Managers",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -530,7 +530,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Managers (Diversified)",
             "FilePattern": "AIFMD HFS Hedge Fund Managers (Diversified)",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -555,7 +555,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Opportunities Ltd",
             "FilePattern": "AIFMD HFS Hedge Fund Opportunities Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -580,7 +580,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Select Marshall Wace",
             "FilePattern": "AIFMD HFS Hedge Fund Select Marshall Wace",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -605,7 +605,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Select Millenium",
             "FilePattern": "AIFMD HFS Hedge Fund Select Millenium",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -630,7 +630,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Select Point72 Capital",
             "FilePattern": "AIFMD HFS Hedge Fund Select Point72 Capital",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -655,7 +655,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Hedge Fund Select WNTN Dedicated",
             "FilePattern": "AIFMD HFS Hedge Fund Select WNTN Dedicated",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -680,7 +680,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Mount Vesey",
             "FilePattern": "AIFMD HFS Mount Vesey",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -705,7 +705,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Multi Strat XII (Ireland)",
             "FilePattern": "AIFMD HFS Multi Strat XII (Ireland)",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -730,7 +730,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Multi Strat XIII (Ireland)",
             "FilePattern": "AIFMD HFS Multi Strat XIII (Ireland)",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -755,7 +755,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Princeton Fund Ltd",
             "FilePattern": "AIFMD HFS Princeton Fund Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -780,7 +780,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Select Opp ICAV Ireland",
             "FilePattern": "AIFMD HFS Select Opp ICAV Ireland",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -805,7 +805,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Tactical Trading Mgrs (Managed Futures) Ltd",
             "FilePattern": "AIFMD HFS Tactical Trading Mgrs (Managed Futures) Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -830,7 +830,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Investment Holdings Princeton",
             "FilePattern": "AIFMD HFS Investment Holdings Princeton",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -855,7 +855,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Balance Sheet Princeton Fund Ltd",
             "FilePattern": "AIFMD HFS Balance Sheet Princeton Fund Ltd",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -880,7 +880,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS FOF Investment Holdings",
             "FilePattern": "AIFMD HFS FOF Investment Holdings",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -905,7 +905,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Finalized Fund Performance",
             "FilePattern": "AIFMD HFS Finalized Fund Performance",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -930,7 +930,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS FOX Final Data",
             "FilePattern": "AIFMD HFS FOX Final Data",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -955,7 +955,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS DTC Summary Report",
             "FilePattern": "AIFMD HFS DTC Summary Report",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -980,7 +980,7 @@
         {
             "exceptionDue": "t+03",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS Static Template",
             "FilePattern": "AIFMD HFS Static Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1005,7 +1005,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AIFMD HFS PSC 45 Day AIFs",
             "FilePattern": "AIFMD HFS PSC 45 Day AIFs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1030,7 +1030,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BDC_NAV&Performance Senior Credit NAVs",
             "FilePattern": "BDC_NAV&Performance Senior Credit NAVs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1080,7 +1080,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Offshore Long Term Funds",
             "FilePattern": "Offshore Long Term Funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1105,7 +1105,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Form PF Output",
             "FilePattern": "Form PF Output",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1130,7 +1130,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GIPS Composites",
             "FilePattern": "GIPS Composites",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1180,7 +1180,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "RADAR Account",
             "FilePattern": "RADAR Account",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1205,7 +1205,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BDC_NAV&Performance",
             "FilePattern": "BDC_NAV&Performance",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1230,7 +1230,7 @@
         {
             "exceptionDue": "t+42",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI_Results",
             "FilePattern": "GSAMI_Results",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1255,7 +1255,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OPAL Form PF Performance Batch 1",
             "FilePattern": "OPAL Form PF Performance Batch 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1280,7 +1280,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OPAL Form PF Performance Batch 2",
             "FilePattern": "OPAL Form PF Performance Batch 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1305,7 +1305,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OPAL Form PF Performance Batch 3",
             "FilePattern": "OPAL Form PF Performance Batch 3",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1330,7 +1330,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OPAL Form PF Performance Batch 4",
             "FilePattern": "OPAL Form PF Performance Batch 4",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1355,7 +1355,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OPAL Form PF Performance Batch 5",
             "FilePattern": "OPAL Form PF Performance Batch 5",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1380,7 +1380,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "DHF Filing Master Feeder NAV",
             "FilePattern": "DHF Filing Master Feeder NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1405,7 +1405,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Form PF US Mutual Funds",
             "FilePattern": "Form PF US Mutual Funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1430,7 +1430,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Blocker Security",
             "FilePattern": "Blocker Security",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1455,7 +1455,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PF Strategy",
             "FilePattern": "PF Strategy",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1480,7 +1480,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Leveling GSAMI US DHF",
             "FilePattern": "Leveling GSAMI US DHF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1505,7 +1505,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Leveling SCF PC",
             "FilePattern": "Leveling SCF PC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1530,7 +1530,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Leveling US MF",
             "FilePattern": "Leveling US MF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1555,7 +1555,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Leveling LDN",
             "FilePattern": "Leveling LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1580,7 +1580,7 @@
         {
             "exceptionDue": "t+37",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Credit Facility",
             "FilePattern": "Credit Facility",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1630,7 +1630,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product Month 1",
             "FilePattern": "Fish Product Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1655,7 +1655,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product Month 2",
             "FilePattern": "Fish Product Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1705,7 +1705,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product History Month 1",
             "FilePattern": "Fish Product History Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1730,7 +1730,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product History Month 2",
             "FilePattern": "Fish Product History Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1780,7 +1780,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "APEX Mbs Exposure",
             "FilePattern": "APEX Mbs Exposure",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1805,7 +1805,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "APEX Otc Exposure",
             "FilePattern": "APEX Otc Exposure",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1830,7 +1830,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "APEX Repo Exposure",
             "FilePattern": "APEX Repo Exposure",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1855,7 +1855,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SVS CCL Collateral",
             "FilePattern": "SVS CCL Collateral",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1880,7 +1880,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SVS CLL Collateral",
             "FilePattern": "SVS CLL Collateral",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1905,7 +1905,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Positions Month 1",
             "FilePattern": "PMDB Positions Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1930,7 +1930,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Positions Month 2",
             "FilePattern": "PMDB Positions Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -1980,7 +1980,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Transactions Month 1",
             "FilePattern": "PMDB Transactions Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2005,7 +2005,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Transactions Month 2",
             "FilePattern": "PMDB Transactions Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2080,7 +2080,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Fx Forwards Month 2",
             "FilePattern": "PMDB Fx Forwards Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2105,7 +2105,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Fx Forwards Month 1",
             "FilePattern": "PMDB Fx Forwards Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2130,7 +2130,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PMDB Nav Summary",
             "FilePattern": "PMDB Nav Summary",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2230,7 +2230,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Static Data Template",
             "FilePattern": "Static Data Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2305,7 +2305,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Form PF Scoping - Reg Entities In Scope",
             "FilePattern": "Form PF Scoping - Reg Entities In Scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2330,7 +2330,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Invest 1 Accounts Hedged Share Class",
             "FilePattern": "Invest 1 Accounts Hedged Share Class",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2355,7 +2355,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financial Statement GSIP PO Aggregated TB FS",
             "FilePattern": "Financial Statement GSIP PO Aggregated TB FS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2380,7 +2380,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financial Statement GSIP PO Aggregated TB Unfunded",
             "FilePattern": "Financial Statement GSIP PO Aggregated TB Unfunded",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2405,7 +2405,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Onshore TB",
             "FilePattern": "GPOP II Onshore TB",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2430,7 +2430,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Offshore Holdings",
             "FilePattern": "GPOP II Offshore Holdings",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2455,7 +2455,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Offshore SCSp",
             "FilePattern": "GPOP II Offshore SCSp",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2480,7 +2480,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Unfunded Onshore Commits",
             "FilePattern": "GPOP II Unfunded Onshore Commits",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2505,7 +2505,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Unfunded Offshore Commits",
             "FilePattern": "GPOP II Unfunded Offshore Commits",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2530,7 +2530,7 @@
         {
             "exceptionDue": "t+45",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Summary Performance",
             "FilePattern": "GPOP II Summary Performance",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2555,7 +2555,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Onshore Cash",
             "FilePattern": "GPOP Positions Onshore Cash",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2580,7 +2580,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Onshore Table 1",
             "FilePattern": "GPOP Positions Onshore Table 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2605,7 +2605,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Offshore Cash",
             "FilePattern": "GPOP Positions Offshore Cash",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2630,7 +2630,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Offshore Table 1",
             "FilePattern": "GPOP Positions Offshore Table 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2655,7 +2655,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Transactions Onshore",
             "FilePattern": "GPOP Positions Transactions Onshore",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2680,7 +2680,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Transactions Offshore",
             "FilePattern": "GPOP Positions Transactions Offshore",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2705,7 +2705,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP Positions Credit",
             "FilePattern": "GPOP Positions Credit",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2730,7 +2730,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP I Marks",
             "FilePattern": "GPOP I Marks",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2755,7 +2755,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GPOP II Sav Marks",
             "FilePattern": "GPOP II Sav Marks",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2780,7 +2780,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Form PF Scoping",
             "FilePattern": "Form PF Scoping",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2805,7 +2805,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SIC Codes",
             "FilePattern": "SIC Codes",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2830,7 +2830,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PF Mapping",
             "FilePattern": "PF Mapping",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2855,7 +2855,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Vitech Forest",
             "FilePattern": "Vitech Forest",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2880,7 +2880,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Relationship Mandate Summary Report",
             "FilePattern": "Relationship Mandate Summary Report",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2905,7 +2905,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Q48-49 Investor Template",
             "FilePattern": "Q48-49 Investor Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -2980,7 +2980,7 @@
         {
             "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "MBD Scoping",
             "FilePattern": "MBD Scoping",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3030,7 +3030,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BalanceSheet SecDB MTM Unsettled",
             "FilePattern": "BalanceSheet SecDB MTM Unsettled",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3055,7 +3055,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BalanceSheet Managed Accounts SecDB MTM Unsettled",
             "FilePattern": "BalanceSheet Managed Accounts SecDB MTM Unsettled",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3080,7 +3080,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Accounts prod v",
             "FilePattern": "Separate Accounts prod v",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3105,7 +3105,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Sub advised funds",
             "FilePattern": "Sub advised funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3130,7 +3130,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Account Trading Programs",
             "FilePattern": "Separate Account Trading Programs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3155,7 +3155,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Account Trading Programs",
             "FilePattern": "Separate Account Trading Programs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3180,7 +3180,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Account Trading Programs",
             "FilePattern": "Separate Account Trading Programs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3230,7 +3230,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "nfa_reg_memb",
             "FilePattern": "nfa_reg_memb",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3255,7 +3255,7 @@
         {
             "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GMS Managers",
             "FilePattern": "GMS Managers",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3280,7 +3280,7 @@
         {
             "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Broker List template",
             "FilePattern": "Broker List template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3305,7 +3305,7 @@
         {
             "exceptionDue": "t+27",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Broker List template",
             "FilePattern": "Broker List template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3330,7 +3330,7 @@
         {
             "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "MBD Broker List",
             "FilePattern": "MBD Broker List",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3355,7 +3355,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "DHF AUM GAV NAV",
             "FilePattern": "DHF AUM GAV NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3380,7 +3380,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "USMF CPOPQR NAV",
             "FilePattern": "USMF CPOPQR NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3405,7 +3405,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "LDN AUM Quarterly CFTC",
             "FilePattern": "LDN AUM Quarterly CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3430,7 +3430,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM HFS CPOPQR",
             "FilePattern": "AUM HFS CPOPQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3455,7 +3455,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PEG and MBD NAV",
             "FilePattern": "PEG and MBD NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3480,7 +3480,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CVA Output",
             "FilePattern": "CVA Output",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3505,7 +3505,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Cleared Swap",
             "FilePattern": "Cleared Swap",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3530,7 +3530,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Futures",
             "FilePattern": "Futures",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3555,7 +3555,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Forwards",
             "FilePattern": "Forwards",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3580,7 +3580,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AllDerivs",
             "FilePattern": "AllDerivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3605,7 +3605,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AllDerivs",
             "FilePattern": "AllDerivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3630,7 +3630,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AllDerivs",
             "FilePattern": "AllDerivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3655,7 +3655,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AllDerivs",
             "FilePattern": "AllDerivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3680,7 +3680,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3705,7 +3705,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3730,7 +3730,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3755,7 +3755,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3780,7 +3780,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3805,7 +3805,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3830,7 +3830,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Financials CFTC",
             "FilePattern": "Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3855,7 +3855,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Final CFTC Ratios",
             "FilePattern": "GSAMI Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3880,7 +3880,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Final CFTC Ratios",
             "FilePattern": "GSAMI Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3905,7 +3905,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Final CFTC Ratios",
             "FilePattern": "GSAMI Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3930,7 +3930,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Final CFTC Ratios",
             "FilePattern": "GSAMI Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3955,7 +3955,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Final CFTC Ratios",
             "FilePattern": "GSAMI Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -3980,7 +3980,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSCO Final CFTC Ratios",
             "FilePattern": "GSCO Final CFTC Ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4005,7 +4005,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fund Performance - Fund",
             "FilePattern": "Fund Performance - Fund",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4030,7 +4030,7 @@
         {
             "exceptionDue": "t+34",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "HFS Derivative trading confirmation",
             "FilePattern": "HFS Derivative trading confirmation",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4080,7 +4080,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Manual Adjustment for LHJackson accounts",
             "FilePattern": "Manual Adjustment for LHJackson accounts",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4155,7 +4155,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Trading Manager MM Alternatives",
             "FilePattern": "Trading Manager MM Alternatives",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4180,7 +4180,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Accounts Cleared Swaps",
             "FilePattern": "Separate Accounts Cleared Swaps",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4205,7 +4205,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Separate Accounts Futures",
             "FilePattern": "Separate Accounts Futures",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4230,7 +4230,7 @@
         {
             "exceptionDue": "t+29",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CTAPR Mandate Codes",
             "FilePattern": "CTAPR Mandate Codes",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4355,7 +4355,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Part 1 CPO Compliance Information Final Answers",
             "FilePattern": "Part 1 CPO Compliance Information Final Answers",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4380,7 +4380,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "HCM Employees GSAM Backup Roster Committed",
             "FilePattern": "HCM Employees GSAM Backup Roster Committed",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4405,7 +4405,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Investors Number of Equity Holders",
             "FilePattern": "Investors Number of Equity Holders",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4430,7 +4430,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Reference Data Number of Equity Holders",
             "FilePattern": "Reference Data Number of Equity Holders",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4480,7 +4480,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM GMS CPOPQR",
             "FilePattern": "AUM GMS CPOPQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4505,7 +4505,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "COFI Eliminations",
             "FilePattern": "COFI Eliminations",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4530,7 +4530,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM HFS CPOPQR",
             "FilePattern": "AUM HFS CPOPQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4555,7 +4555,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM Fund Controllers DHF",
             "FilePattern": "AUM Fund Controllers DHF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4580,7 +4580,7 @@
         {
             "exceptionDue": "t+41",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM PEG CPOPQR",
             "FilePattern": "AUM PEG CPOPQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4605,7 +4605,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "NAV and Performance USMF CPOPQR",
             "FilePattern": "NAV and Performance USMF CPOPQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4630,7 +4630,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AUM Template LDN",
             "FilePattern": "AUM Template LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4655,7 +4655,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "DD Template LDN",
             "FilePattern": "DD Template LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4680,7 +4680,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Late Trades Template LDN",
             "FilePattern": "Late Trades Template LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4705,7 +4705,7 @@
         {
             "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BDC DHF GAV NAV",
             "FilePattern": "BDC DHF GAV NAV",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4730,7 +4730,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Double Count AUMs Eliminations",
             "FilePattern": "Double Count AUMs Eliminations",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4755,7 +4755,7 @@
         {
             "exceptionDue": "t+41",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Money Market Elimination",
             "FilePattern": "Money Market Elimination",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4780,7 +4780,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "DHF AUM 1261040 Holdings",
             "FilePattern": "DHF AUM 1261040 Holdings",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4805,7 +4805,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "DHF AUM 1261070 Holdings",
             "FilePattern": "DHF AUM 1261070 Holdings",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4830,7 +4830,7 @@
         {
             "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Merged PVALs",
             "FilePattern": "Merged PVALs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4880,7 +4880,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAV NAV Summary",
             "FilePattern": "GAV NAV Summary",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4905,7 +4905,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAM Affiliated Holdings",
             "FilePattern": "GSAM Affiliated Holdings",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4930,7 +4930,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "RADAR Account",
             "FilePattern": "RADAR Account",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4955,7 +4955,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Positions Cleared Swap",
             "FilePattern": "Positions Cleared Swap",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -4980,7 +4980,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Positions Futures",
             "FilePattern": "Positions Futures",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5005,7 +5005,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Repo All Derivs",
             "FilePattern": "Repo All Derivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5030,7 +5030,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Coll Bal All Derivs",
             "FilePattern": "Coll Bal All Derivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5055,7 +5055,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "MBS All Derivs",
             "FilePattern": "MBS All Derivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5080,7 +5080,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "OTC All Derivs",
             "FilePattern": "OTC All Derivs",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5105,7 +5105,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAM Forwards",
             "FilePattern": "GSAM Forwards",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5130,7 +5130,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAM Future Swap Liquidity",
             "FilePattern": "GSAM Future Swap Liquidity",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5155,7 +5155,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "NDF Currency",
             "FilePattern": "NDF Currency",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5180,7 +5180,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PL Financials CFTC",
             "FilePattern": "PL Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5205,7 +5205,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Variance Financials CFTC",
             "FilePattern": "Variance Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5230,7 +5230,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Profitability Financials CFTC",
             "FilePattern": "Profitability Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5255,7 +5255,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Variance BS Financials CFTC",
             "FilePattern": "Variance BS Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5280,7 +5280,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Current Ratio Financials CFTC",
             "FilePattern": "Current Ratio Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5305,7 +5305,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BS Financials CFTC",
             "FilePattern": "BS Financials CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5330,7 +5330,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI Ratios CFTC",
             "FilePattern": "GSAMI Ratios CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5355,7 +5355,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GSAMI PL General Ledger CFTC",
             "FilePattern": "GSAMI PL General Ledger CFTC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5380,7 +5380,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "FS Mapping GSAMI Final CFTC ratios",
             "FilePattern": "FS Mapping GSAMI Final CFTC ratios",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5405,7 +5405,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Balance Sheet Essbase GSAMI Final",
             "FilePattern": "Balance Sheet Essbase GSAMI Final",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5430,7 +5430,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR FC LDN",
             "FilePattern": "CPOPQR FC LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5455,7 +5455,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR FC USMF",
             "FilePattern": "CPOPQR FC USMF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5480,7 +5480,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR temp EFS",
             "FilePattern": "CPOPQR temp EFS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5505,7 +5505,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Fund DHF",
             "FilePattern": "CPOPQR Pool Fund DHF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5530,7 +5530,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Fund HFS",
             "FilePattern": "CPOPQR Pool Fund HFS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5555,7 +5555,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Fund USPS",
             "FilePattern": "CPOPQR Pool Fund USPS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5580,7 +5580,7 @@
         {
             "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Brokers List Unique Group Broker",
             "FilePattern": "Brokers List Unique Group Broker",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5605,7 +5605,7 @@
         {
             "exceptionDue": "t+20",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Grid Results Unique Group Broker",
             "FilePattern": "Grid Results Unique Group Broker",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5630,7 +5630,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Trading Manager MM Alternatives",
             "FilePattern": "Trading Manager MM Alternatives",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5655,7 +5655,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Legal LDN",
             "FilePattern": "CPOPQR Legal LDN",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5680,7 +5680,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Legal NYDHF",
             "FilePattern": "CPOPQR Legal NYDHF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5705,7 +5705,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Legal NYHFS",
             "FilePattern": "CPOPQR Legal NYHFS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5730,7 +5730,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Legal NYMR",
             "FilePattern": "CPOPQR Legal NYMR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5755,7 +5755,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR NYPublicFunds Funds",
             "FilePattern": "CPOPQR NYPublicFunds Funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5780,7 +5780,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Emma Entities",
             "FilePattern": "Emma Entities",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5805,7 +5805,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Updated for MM",
             "FilePattern": "CPOPQR Updated for MM",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5830,7 +5830,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "File CFTC Broker List Template",
             "FilePattern": "File CFTC Broker List Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5855,7 +5855,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Legal2Broker",
             "FilePattern": "CPOPQR Pool Legal2Broker",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5880,7 +5880,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool OPS2",
             "FilePattern": "CPOPQR Pool OPS2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5905,7 +5905,7 @@
         {
             "exceptionDue": "t+23",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Fund DHF Custodian",
             "FilePattern": "CPOPQR Pool Fund DHF Custodian",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5930,7 +5930,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Reference Data DHF Funds Custodian",
             "FilePattern": "Reference Data DHF Funds Custodian",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5955,7 +5955,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Pool-Fund CPO-PQR",
             "FilePattern": "Pool-Fund CPO-PQR",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -5980,7 +5980,7 @@
         {
             "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Pool-Fund Full GSAM CPOPQR Template",
             "FilePattern": "Pool-Fund Full GSAM CPOPQR Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6005,7 +6005,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GS Final Response",
             "FilePattern": "GS Final Response",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6030,7 +6030,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Pool-Fund CPOPQR temp FC HFS",
             "FilePattern": "Pool-Fund CPOPQR temp FC HFS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6055,7 +6055,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Pool-Fund CPOPQR temp USMF",
             "FilePattern": "Pool-Fund CPOPQR temp USMF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6080,7 +6080,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Pool-Fund Fund Controllers DHF",
             "FilePattern": "Pool-Fund Fund Controllers DHF",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6180,7 +6180,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Pool Fund Performance HFS",
             "FilePattern": "CPOPQR Pool Fund Performance HFS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6205,7 +6205,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR PRT Account Summary",
             "FilePattern": "CPOPQR PRT Account Summary",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6255,7 +6255,7 @@
         {
             "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Forwards Full GSAM Schedule B",
             "FilePattern": "Forwards Full GSAM Schedule B",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6280,7 +6280,7 @@
         {
             "exceptionDue": "t+26",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Consolidated Data Full GSAM Schedule B",
             "FilePattern": "Consolidated Data Full GSAM Schedule B",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6305,7 +6305,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Asset and Accrual",
             "FilePattern": "Asset and Accrual",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6330,7 +6330,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Trade Activity",
             "FilePattern": "Trade Activity",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6355,7 +6355,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "FA Earn Income FIS",
             "FilePattern": "FA Earn Income FIS",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6380,7 +6380,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "FA Realized Capital Gain Loss",
             "FilePattern": "FA Realized Capital Gain Loss",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6405,7 +6405,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Detail USIS MCH Part 2 Q11",
             "FilePattern": "CPOPQR Detail USIS MCH Part 2 Q11",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6430,7 +6430,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Detail FX Part 2 Q11",
             "FilePattern": "CPOPQR Detail FX Part 2 Q11",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6455,7 +6455,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR YTD PL Goldman Part 2 Q11",
             "FilePattern": "CPOPQR YTD PL Goldman Part 2 Q11",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6480,7 +6480,7 @@
         {
             "exceptionDue": "t+28",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR Summary Details Part 2 Q11",
             "FilePattern": "CPOPQR Summary Details Part 2 Q11",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6605,7 +6605,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product Month 1",
             "FilePattern": "Fish Product Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6630,7 +6630,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product Month 2",
             "FilePattern": "Fish Product Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6680,7 +6680,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product History Month 1",
             "FilePattern": "Fish Product History Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6705,7 +6705,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product History Month 2",
             "FilePattern": "Fish Product History Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6730,7 +6730,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Fish Product History Month 3",
             "FilePattern": "Fish Product History Month 3",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6755,7 +6755,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "USMF AUM FSA038",
             "FilePattern": "USMF AUM FSA038",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6805,7 +6805,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CPOPQR ROR Historical Data",
             "FilePattern": "CPOPQR ROR Historical Data",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6830,7 +6830,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BHC Post Cutoff Trades",
             "FilePattern": "BHC Post Cutoff Trades",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6855,7 +6855,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Bank Loan",
             "FilePattern": "Bank Loan",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6880,7 +6880,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "CCIFON Reds Payable",
             "FilePattern": "CCIFON Reds Payable",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6905,7 +6905,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Gollc Redemptions Log",
             "FilePattern": "Gollc Redemptions Log",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6930,7 +6930,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Goltd Redemptions Payable",
             "FilePattern": "Goltd Redemptions Payable",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6955,7 +6955,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Mrvltd Redemptions Log",
             "FilePattern": "Mrvltd Redemptions Log",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -6980,7 +6980,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BHC_1469",
             "FilePattern": "BHC_1469",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7005,7 +7005,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BHC_4391",
             "FilePattern": "BHC_4391",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7030,7 +7030,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "58S5 Fas 161 Breakdown Template",
             "FilePattern": "58S5 Fas 161 Breakdown Template",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7055,7 +7055,7 @@
         {
             "exceptionDue": "t+40",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "PSC SubsReds",
             "FilePattern": "PSC SubsReds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7080,7 +7080,7 @@
         {
             "exceptionDue": "t+38",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BHC Post Cutoff Trades",
             "FilePattern": "BHC Post Cutoff Trades",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7105,7 +7105,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Re  Unfunded Commitment",
             "FilePattern": "Re  Unfunded Commitment",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7130,7 +7130,7 @@
         {
             "exceptionDue": "t+30",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Re  Unfunded Commitment",
             "FilePattern": "Re  Unfunded Commitment",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7205,7 +7205,7 @@
         {
             "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Holdings Qtly Consolidated",
             "FilePattern": "Holdings Qtly Consolidated",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7230,7 +7230,7 @@
         {
             "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "FX Qtly Consolidated",
             "FilePattern": "FX Qtly Consolidated",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7255,7 +7255,7 @@
         {
             "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Duration Holdings Qtly Consolidated",
             "FilePattern": "Duration Holdings Qtly Consolidated",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7280,7 +7280,7 @@
         {
             "exceptionDue": "t+15",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Duration FX Qtly Consolidated",
             "FilePattern": "Duration FX Qtly Consolidated",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7305,7 +7305,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "AssetandAccrual",
             "FilePattern": "AssetandAccrual",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7330,7 +7330,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Trade Activity CC",
             "FilePattern": "Trade Activity CC",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7480,7 +7480,7 @@
         {
             "exceptionDue": "t+10",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SRS US Mutual Funds",
             "FilePattern": "SRS US Mutual Funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7505,7 +7505,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Dwight Fund Transactions",
             "FilePattern": "Dwight Fund Transactions",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7530,7 +7530,7 @@
         {
             "exceptionDue": "t+10",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SRS Dwight Funds",
             "FilePattern": "SRS Dwight Funds",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7555,7 +7555,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAAP DHF PNL Month 1",
             "FilePattern": "GAAP DHF PNL Month 1",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7580,7 +7580,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAAP DHF PNL Month 2",
             "FilePattern": "GAAP DHF PNL Month 2",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7605,7 +7605,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "1469 JPY",
             "FilePattern": "1469 JPY",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7630,7 +7630,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAAP DHF PNL Month 3",
             "FilePattern": "GAAP DHF PNL Month 3",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7655,7 +7655,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "4391 FR 2314",
             "FilePattern": "4391 FR 2314",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7680,7 +7680,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAAP DHF PNL Month 4",
             "FilePattern": "GAAP DHF PNL Month 4",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7705,7 +7705,7 @@
         {
             "exceptionDue": "t+01",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "GAAP DHF PNL Month 5",
             "FilePattern": "GAAP DHF PNL Month 5",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7730,7 +7730,7 @@
         {
             "exceptionDue": "t+35",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "FAS 161 Breakdown Template per fund",
             "FilePattern": "FAS 161 Breakdown Template per fund",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7880,7 +7880,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Investments Consolidated PVAL",
             "FilePattern": "Investments Consolidated PVAL",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7905,7 +7905,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Spots Consolidated PVAL",
             "FilePattern": "Spots Consolidated PVAL",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7930,7 +7930,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Swaps Consolidated PVAL",
             "FilePattern": "Swaps Consolidated PVAL",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7955,7 +7955,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Futures Consolidated PVAL",
             "FilePattern": "Futures Consolidated PVAL",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -7980,7 +7980,7 @@
         {
             "exceptionDue": "t+32",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "Futures and Options Consolidated PVAL",
             "FilePattern": "Futures and Options Consolidated PVAL",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8005,7 +8005,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "BNY Swap Recon Files for each fund in scope",
             "FilePattern": "BNY Swap Recon Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8030,7 +8030,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SSB POI Files",
             "FilePattern": "SSB POI Files",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8055,7 +8055,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SSB SOP Files for each fund in scope",
             "FilePattern": "SSB SOP Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8080,7 +8080,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SSB SAL Files for each fund in scope",
             "FilePattern": "SSB SAL Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8105,7 +8105,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "SSB SOC Files for each fund in scope",
             "FilePattern": "SSB SOC Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8130,7 +8130,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "TRR Files for each fund in scope",
             "FilePattern": "TRR Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
@@ -8155,7 +8155,7 @@
         {
             "exceptionDue": "t+25",
             "ReceiptStatus": "Not Received",
-            "exceptionFile": null,
+            "exceptionFile": "TRR Files for each fund in scope",
             "FilePattern": "TRR Files for each fund in scope",
             "exceptions": 0.0,
             "exceptionReportType": null,
