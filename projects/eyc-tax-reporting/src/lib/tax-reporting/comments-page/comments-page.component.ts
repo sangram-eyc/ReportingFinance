@@ -5,6 +5,7 @@ import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-com
 import { MatDialog } from '@angular/material/dialog';
 import { TaxCommentService } from '../services/tax-comment.service';
 import { ProductionCycleService } from '../services/production-cycle.service';
+import { PermissionService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'comments-page',
@@ -20,6 +21,7 @@ export class CommentsPagecomponent implements OnInit {
     private dialog: MatDialog,
     private commentService: TaxCommentService,
     private productcyclesService: ProductionCycleService,
+    public permissions: PermissionService
   ) { }
 
   isData: boolean = false;
