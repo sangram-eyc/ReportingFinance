@@ -158,3 +158,21 @@
 .text-align-right {
   text-align: right !important;
 }
+
+.dateWrapper {
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  left: -7px;
+  position: relative;
+  ::ng-deep {
+      .motif-icon {
+          cursor: pointer;
+      }
+  }
+}

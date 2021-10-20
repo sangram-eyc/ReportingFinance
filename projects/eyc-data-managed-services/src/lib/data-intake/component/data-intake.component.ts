@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataManagedService } from '../services/data-managed.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'lib-data-intake',
@@ -16,9 +17,14 @@ export class DataIntakeComponent implements OnInit {
 
   dataFetch: number[];
   fileSummaries = [];
+  curDate;
+  presentDate;
+
   constructor(private dataManagedService: DataManagedService) { }
 
   ngOnInit(): void {
+    this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
+    this.presentDate =  new Date();
     this.getFileSummuries();
   }
 
@@ -31,6 +37,17 @@ export class DataIntakeComponent implements OnInit {
       this.fileSummaries = dataSummuries.data['dataSeries'];
       // this.fileSummaries = [{ "label": "No Issue", "value": 400 }, { "label": "Medium / low priority issues", "value": 50 }, { "label": "High priority issues", "value": 50 }, { "label": "Missing files, past due", "value": 50 }, { "label": "Files not received", "value": 50 }];
     });
+  }
+  dateSub(presentDate) {
+    let curDateVal = presentDate;
+    curDateVal.setMonth(curDateVal.getMonth() - 1);
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+
+  }
+  dateAdd(presentDate) {
+    let curDateVal = presentDate;
+    curDateVal.setMonth(curDateVal.getMonth() + 1);
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
   }
 
 }

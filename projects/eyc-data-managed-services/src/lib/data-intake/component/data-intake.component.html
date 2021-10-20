@@ -83,8 +83,16 @@
       </div>
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
          <!-- Provide Stack bar chart Start  -->
-         <div class="mt-3 mb-3">
-            <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6>
+         <div class="mt-2 mb-3 ">
+            <!-- <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6> -->
+            <div class="dateWrapper">
+               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)"></motif-icon>
+               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)"></motif-icon>
+               {{ curDate }}
+               <i class="material-icons">date_range</i>
+               <button motifButton color="primary-alt">Daily</button>
+               <button motifButton color="secondary">Monthly</button>
+           </div>
          </div>
          <motif-card class="bar-chart-card no_data">
             <motif-card-body>
