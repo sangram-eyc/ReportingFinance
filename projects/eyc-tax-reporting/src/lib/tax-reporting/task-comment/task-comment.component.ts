@@ -234,8 +234,8 @@ export class TaskCommentComponent implements OnInit {
 
   deleteTag(tagName:any, tagId:any){
     let message = tagName.toLowerCase().startsWith('edit') ? 
-    "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment? if you select yes, no further edits are required to close the comment.":
-    "Are you sure to remove the " + tagName.toLowerCase() + " tag from this comment?";
+    "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, no further edits are required to close the comment.":
+    "Are you sure to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, then this comment will be excluded from the cycle debrief.";
 
     const dialogRef = this.dialog.open(ModalComponent, {
       id:'delete-tag',   
