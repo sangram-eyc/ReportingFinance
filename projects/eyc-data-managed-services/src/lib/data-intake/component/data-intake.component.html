@@ -126,7 +126,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -160,7 +160,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -194,7 +194,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -231,7 +231,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -265,7 +265,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -299,7 +299,7 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
