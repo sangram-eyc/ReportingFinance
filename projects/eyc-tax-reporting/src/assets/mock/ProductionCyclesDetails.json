@@ -6,7 +6,7 @@
         {
             "name": "Fund 1",
             "id": "1ASKDJ10398ASKDJO",
-            "hasContent": true,         
+            "hasContent": false,         
             "status": "open",
             "openCommentsEY": 0,
             "openCommentsClient": 1,
