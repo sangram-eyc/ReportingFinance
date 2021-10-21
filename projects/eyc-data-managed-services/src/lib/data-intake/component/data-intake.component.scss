@@ -135,10 +135,17 @@
   .bar-chart-body {
     position: relative;
     border-bottom: 1px solid #EAEAF2;
-    padding: 0 6px 9.284627092846272vh 6px;
+    padding: 0 6px 6vh 6px;
 
     .chart-container{
-      height: 300px;
+      // height: 300px;
+      display: grid;
+      min-height: 300px;
+      margin-top: 10px;
+      margin-left: -30px;
+    }
+    ::ng-deep .ng-tns-c234-12{
+      padding-left: 0;
     }
     .toast-card {
       min-height: 6.9vh;

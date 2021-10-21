@@ -95,9 +95,9 @@ export class DataIntakeComponent implements OnInit {
   yScaleMax: number;
   showDataLabel: boolean = true;
   noBarWhenZero: boolean = true;
-  trimXAxisTicks: boolean = false;
-  trimYAxisTicks: boolean = false;
-  rotateXAxisTicks: boolean = false;
+  trimXAxisTicks: boolean = true;
+  trimYAxisTicks: boolean = true;
+  rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
   colorScheme;

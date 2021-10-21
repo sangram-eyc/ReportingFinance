@@ -128,7 +128,7 @@
                         <div class="bar-chart-body">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme"
+                                 [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
@@ -162,7 +162,7 @@
                         <div class="bar-chart-body">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme2"
+                                 [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
@@ -196,7 +196,7 @@
                         <div class="bar-chart-body border border-0">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme3"
+                                 [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
@@ -223,7 +223,7 @@
                </section>
                <section id='data-domain' [hidden]="!(innerTabIn == 2)">
                   <div class="bar-chart-panel">
-                     <div id="past-due-domain">
+                     <div id="past-due">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
@@ -233,7 +233,7 @@
                         <div class="bar-chart-body">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme"
+                                 [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
@@ -247,6 +247,7 @@
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
+
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -256,7 +257,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="high-priority-issues-domain">
+                     <div id="high-priority-issues">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
@@ -266,7 +267,7 @@
                         <div class="bar-chart-body">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme2"
+                                 [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
@@ -289,7 +290,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues--domain">
+                     <div id="low-priority-issues">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
                               issues</div>
@@ -300,7 +301,7 @@
                         <div class="bar-chart-body border border-0">
                            <div class="chart-container" #containerRef>
                               <eyc-charts-bar-vertical class="chart-container"
-                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme3"
+                                 [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
