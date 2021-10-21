@@ -137,7 +137,14 @@ export class TaskCommentComponent implements OnInit {
           console.log('Error update status', error);
         });
       }else{
-         console.log('you do not have permission to update the status.')
+         console.log('you do not have permission to update the status.');
+         this.replyCount = this.replyCount + 1
+         this.showToastAfterSubmit = true;
+         this.replyData = [];
+         setTimeout(() => {        
+          this.closeToast();       
+        }, 4000);
+        this.showReplies = false; 
       }
     }, error => {
       console.log('Error replay comment', error);
