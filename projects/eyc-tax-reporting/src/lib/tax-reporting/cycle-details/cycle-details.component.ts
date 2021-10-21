@@ -9,8 +9,6 @@ import {ErrorModalComponent, PermissionService} from 'eyc-ui-shared-component';
 import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
 import { identifierName } from '@angular/compiler';
 
-
-
 @Component({
   selector: 'cycle-details',
   templateUrl: './cycle-details.component.html',
@@ -35,6 +33,7 @@ export class CycleDetailComponent implements OnInit {
    productCycleId;
    productCycleName;
    productCycleParams:string;
+   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
 
   noOfCompletdFilingRecords = 10;
   currentPage = 0;
@@ -162,7 +161,7 @@ export class CycleDetailComponent implements OnInit {
            name: item.name,
            hasContent: item.hasContent,
            id: item.id,
-           approved: item.status === 'approved' ? true : (( item.openCommentsEY > 0 || item.openCommentClient > 0) ? true:false),
+           approved: !this.permissionApproval ? true : item.status === 'approved' ? true : (( item.openCommentsEY > 0 || item.openCommentClient > 0) ? true:false),
            approvedBack: item.status === 'approved' ? true : false, 
            openCommentsEY:item.openCommentsEY,
            openCommentsClient:item.openCommentsClient,
@@ -307,8 +306,9 @@ onSubmitApproveDatasets() {
   }); 
   const body = {
                 "status": "approved", 
-                "fundIds": [this.iDs]
+                "fundIds": this.iDs.split(',')
                }
+  console.log("body: ", body.fundIds);
   this.productcyclesService.putApproveEntities(body).subscribe(resp => {
     console.log(resp);
       setTimeout(() => {

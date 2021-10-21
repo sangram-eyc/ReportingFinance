@@ -33,6 +33,7 @@ export class CommentsPagecomponent implements OnInit {
   aceptApprove = false;
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
+  permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -40,7 +41,7 @@ export class CommentsPagecomponent implements OnInit {
       this.fundName = params.name
       this.fundId = params.id
       this.productCycleName = params.prodCycleName
-      this.aceptApprove = params.status == "true" ? true : (( params.openCommentsEY > 0 || params.openCommentClient > 0) ? true:false);
+      this.aceptApprove = params.status == "true" ? true : (( params.openCommentsEY > 0 || params.openCommentClient > 0) ? true: !this.permissionApproval ? true : false);
       console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.

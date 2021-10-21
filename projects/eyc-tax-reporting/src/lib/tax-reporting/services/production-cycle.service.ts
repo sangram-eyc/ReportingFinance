@@ -43,7 +43,7 @@ export class ProductionCycleService {
   }
 
   putApproveEntities(bodyJson:any){
-    console.log(bodyJson);
+    //console.log(bodyJson);
     if (this.settingsService.production) {
       return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.production_cycles_approveEntities}`, bodyJson); 
     }
