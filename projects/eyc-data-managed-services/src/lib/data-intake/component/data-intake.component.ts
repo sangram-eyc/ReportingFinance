@@ -84,8 +84,9 @@ export class DataIntakeComponent implements OnInit {
   xAxisLabel = 'Providers';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showGridLines = true;
-  barPadding = 30;
+  showXAxisGridLines=false;
+  showYAxisGridLines = true;
+  barPadding = 50;
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
@@ -96,10 +97,10 @@ export class DataIntakeComponent implements OnInit {
   showDataLabel: boolean = true;
   noBarWhenZero: boolean = true;
   trimXAxisTicks: boolean = true;
-  trimYAxisTicks: boolean = true;
+  //trimYAxisTicks: boolean = true;
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
-  maxYAxisTickLength: number = 16;
+  //maxYAxisTickLength: number = 16;
   colorScheme;
   colorScheme2;
   colorScheme3;

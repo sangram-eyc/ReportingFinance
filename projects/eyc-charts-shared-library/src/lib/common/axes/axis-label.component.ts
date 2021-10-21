@@ -55,7 +55,8 @@ export class AxisLabelComponent implements OnChanges {
         this.x = this.width / 2;
         break;
       case Orientation.Left:
-        this.y = -(this.offset + this.textHeight + this.margin);
+        // this.y = -(this.offset + this.textHeight + this.margin);
+        this.y = -(this.offset + this.margin);
         this.x = -this.height / 2;
         this.transform = 'rotate(270)';
         break;

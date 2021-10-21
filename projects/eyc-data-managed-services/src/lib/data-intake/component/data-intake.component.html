@@ -126,19 +126,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
@@ -160,19 +160,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
@@ -194,19 +194,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
@@ -223,7 +223,7 @@
                </section>
                <section id='data-domain' [hidden]="!(innerTabIn == 2)">
                   <div class="bar-chart-panel">
-                     <div id="past-due">
+                     <div id="past-due-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
@@ -231,19 +231,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
@@ -257,7 +257,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="high-priority-issues">
+                     <div id="high-priority-issues-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
@@ -265,19 +265,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme2"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
@@ -290,7 +290,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues">
+                     <div id="low-priority-issues-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
                               issues</div>
@@ -299,19 +299,19 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" #containerRef>
+                           <div class="chart-container">
                               <eyc-charts-bar-vertical class="chart-container"
                                  [scheme]="colorScheme3"
                                  [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [trimXAxisTicks]="trimXAxisTicks" 
                                  [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>

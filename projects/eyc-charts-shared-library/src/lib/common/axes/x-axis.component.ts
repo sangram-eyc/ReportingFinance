@@ -71,7 +71,7 @@ export class XAxisComponent implements OnChanges {
   labelOffset: number = 0;
   fill: string = 'none';
   stroke: string = 'stroke';
-  tickStroke: string = '#ccc';
+  tickStroke: string = '#747480';
   strokeWidth: string = 'none';
   padding: number = 5;
 
