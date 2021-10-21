@@ -81,20 +81,6 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     this.tabIn = 1;
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
-    // if (sessionStorage.getItem("permissionList") === null) {
-    //   this.filingService.getPermissionsList().subscribe(resp => {
-    //     const userEmail = sessionStorage.getItem('userEmail');
-    //     if (userEmail.endsWith('ey.com')) {
-    //       sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-    //     } else if (userEmail.indexOf('myeyazure.ping0448@eys') !== -1 || userEmail.indexOf('myeyazure.ping0445@eys') !== -1) {
-    //       sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-    //     } else {
-    //       resp.data.features.intake.splice(5, 2);
-    //       resp.data.features.reporting.shift();
-    //       sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-    //     }
-    //   });
-    // }
   }
 
   reportTabChange(selectedTab) {
