@@ -467,6 +467,14 @@
         color: white !important;
       }
       
+    ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
+        visibility: hidden !important;
+    }
+
+    ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
+        visibility:visible !important;
+    }
+
       /* End Toolip */
       
       .icon-accept{
