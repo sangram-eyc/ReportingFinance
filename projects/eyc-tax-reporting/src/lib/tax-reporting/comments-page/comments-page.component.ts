@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
@@ -27,10 +27,12 @@ export class CommentsPagecomponent implements OnInit {
   isData: boolean = false;
   completedComments: any[] = [];
   pageName: string = 'Comments-Page';
-  fundName;
-  fundId;
-  productCycleName;
-  aceptApprove = false;
+  fundName: string;
+  fundId: string;
+  productCycleName: string;
+  isApproved: boolean = false;
+  hasOpenComments: boolean = false;
+
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
@@ -41,7 +43,8 @@ export class CommentsPagecomponent implements OnInit {
       this.fundName = params.name
       this.fundId = params.id
       this.productCycleName = params.prodCycleName
-      this.aceptApprove = params.status == "true" ? true : (( params.openCommentsEY > 0 || params.openCommentClient > 0) ? true: !this.permissionApproval ? true : false);
+      this.isApproved = params.status === "approved";
+      this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
       console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.
@@ -54,7 +57,8 @@ export class CommentsPagecomponent implements OnInit {
     this.commentService.getTasksData(this.fundId).subscribe(resp => {
       console.log("call all comments", resp);
       resp['data'].length === 0 ? this.isData = false : this.isData = true;
-      resp['data'].forEach((item) => {
+      this.hasOpenComments = false;
+      resp['data'].forEach((item : any) => {
         const eachitem: any = {
           id: item.id,
           entityId: item.entityId,
@@ -73,8 +77,25 @@ export class CommentsPagecomponent implements OnInit {
           attachments:item.attachments 
         };
         this.completedComments.push(eachitem);
-      })
+        this.updateHasOpenComments(item.status);
+      });
     })
+  }
+
+  commentStatusUpdated(commentItem: { id: any; status: any; }) {
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      updatedComment.status = commentItem.status;
+    }
+    this.hasOpenComments = this.completedComments.some(item => this.isOpenStatus(item.status));
+  }
+
+  updateHasOpenComments(commentStatus: string) {
+    this.hasOpenComments = this.hasOpenComments || this.isOpenStatus(commentStatus);
+  } 
+
+  isOpenStatus(status: string): boolean {
+    return status.toLowerCase() === 'open'
   }
 
   backtoCycleView() {
@@ -158,7 +179,7 @@ export class CommentsPagecomponent implements OnInit {
          }
         this.productcyclesService.putApproveEntities(body).subscribe(resp => {
           console.log(resp);
-          this.aceptApprove = true;
+          this.isApproved = true;
           this.toastSuccessMessage = "Approved successfully";
           this.showToastAfterSubmit = true;
            setTimeout(() => {

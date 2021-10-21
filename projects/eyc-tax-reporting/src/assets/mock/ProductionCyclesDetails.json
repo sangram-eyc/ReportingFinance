@@ -8,8 +8,8 @@
             "id": "1ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "open",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 1,
             "assignedUsers": [
                 {
                     "userId": 123, 
@@ -48,8 +48,8 @@
             "id": "2ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "open",
-            "openCommentsEY":"5",
-            "openCommentsClient":"2",
+            "openCommentsEY": 5,
+            "openCommentsClient": 2,
             "assignedUsers":[
                 {
                     "userId": 123, 
@@ -82,8 +82,8 @@
             "id": "3ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"1",
+            "openCommentsEY": 0,
+            "openCommentsClient": 1,
             "assignedUsers":[
                 {
 
@@ -119,8 +119,8 @@
             "id": "5ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "open",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 5,
             "assignedUsers":[]
         },
         {
@@ -128,8 +128,8 @@
             "id": "6ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -138,8 +138,8 @@
             "id": "7ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -148,8 +148,8 @@
             "id": "ASKDJ10398ASKDJ1",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -158,8 +158,8 @@
             "id": "ASKDJ10398ASKDJq",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -168,8 +168,8 @@
             "id": "ASKDJ10398ASKrJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -178,8 +178,8 @@
             "id": "ASKDJ103f8ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -187,9 +187,9 @@
             "name": "Fund 12",
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
-            "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "status": "open",
+            "openCommentsEY": 1,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -198,8 +198,8 @@
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 1,
             "assignedUsers":[]
 
         },
@@ -208,8 +208,8 @@
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -218,8 +218,8 @@
             "id": "ASKDJ10398ASKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -228,8 +228,8 @@
             "id": "ASKDJ10398ASTTDJO",
             "hasContent": true,         
             "status": "OPEN",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -238,8 +238,8 @@
             "id": "ASKDJ10398PPKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -248,8 +248,8 @@
             "id": "ASKDJ10OO8ASKDJO",
             "hasContent": true,         
             "status": "OPEN",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -258,8 +258,8 @@
             "id": "ASKDJ10398ASKXJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -268,8 +268,8 @@
             "id": "ASKDJ1039JJSKDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -278,8 +278,8 @@
             "id": "ASKDJ10398ALLDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         },
@@ -288,8 +288,8 @@
             "id": "ASKDJ10398AJJDJO",
             "hasContent": true,         
             "status": "approved",
-            "openCommentsEY":"0",
-            "openCommentsClient":"0",
+            "openCommentsEY": 0,
+            "openCommentsClient": 0,
             "assignedUsers":[]
 
         }

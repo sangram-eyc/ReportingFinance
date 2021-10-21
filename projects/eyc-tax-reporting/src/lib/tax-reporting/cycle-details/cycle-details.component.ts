@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {ErrorModalComponent, PermissionService} from 'eyc-ui-shared-component';
+import {ErrorModalComponent, fileUploadHeading, PermissionService} from 'eyc-ui-shared-component';
 import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
 import { identifierName } from '@angular/compiler';
 
@@ -28,7 +28,7 @@ export class CycleDetailComponent implements OnInit {
    pageName:string = 'Cycle Details';
    activeFilings: any[] = [];
    activeReports: any[] = []
-   completedFilings: any[] = [];
+   completedFunds: any[] = [];
    filingResp: any[] = [];
    productCycleId;
    productCycleName;
@@ -150,41 +150,47 @@ export class CycleDetailComponent implements OnInit {
 
   createComment(row){
     console.log("Comments-Landing")
-    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.approved,row.openCommentsEY,row.openCommentsClient]);
+    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient]);
   }
 
    getCompletedProductCyclesData(id:any) {
-     this.completedFilings = [];
+     this.completedFunds = [];
      this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
       resp['data'].forEach((item) => {
-         const eachitem: any = {
-           name: item.name,
-           hasContent: item.hasContent,
-           id: item.id,
-           approved: !this.permissionApproval ? true : item.status === 'approved' ? true : (( item.openCommentsEY > 0 || item.openCommentClient > 0) ? true:false),
-           approvedBack: item.status === 'approved' ? true : false, 
-           openCommentsEY:item.openCommentsEY,
-           openCommentsClient:item.openCommentsClient,
-           assignedTo:item.assignedUsers == null ? [] : item.assignedUsers
-         };
-         this.completedFilings.push(eachitem);
-       });
-       this.createHistoryRowData();
+        const eachitem: any = {
+          name: item.name,
+          hasContent: item.hasContent,
+          id: item.id,
+          status : item.status,
+          approved: this.isApproved(item.status) || !this.permissionApproval || item.openCommentsEY > 0 || item.openCommentsClient > 0,
+          approvedBack: this.isApproved(item.status), 
+          openCommentsEY: item.openCommentsEY,
+          openCommentsClient: item.openCommentsClient,
+          assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
+        };
+        this.completedFunds.push(eachitem);
+      });
+       this.createFundRowData();
      });
    }
 
-   createHistoryRowData() {
+   isApproved(status: string): boolean {
+     return status.toLowerCase() === 'approved';
+   }
+
+   createFundRowData() {
      this.rowData = [];
-     this.completedFilings.forEach(filing => {
+     this.completedFunds.forEach(fund => {
       this.rowData.push({
-        name: filing.name,
-        hasContent: filing.hasContent,
-        id:filing.id,
-        approved:filing.approved,
-        approvedBack:filing.approvedBack,
-        openCommentsEY:filing.openCommentsEY,
-        openCommentsClient:filing.openCommentsClient,
-        assignedTo:filing.assignedTo
+        name: fund.name,
+        hasContent: fund.hasContent,
+        id:fund.id,
+        status: fund.status,
+        approved:fund.approved,
+        approvedBack:fund.approvedBack,
+        openCommentsEY:fund.openCommentsEY,
+        openCommentsClient:fund.openCommentsClient,
+        assignedTo:fund.assignedTo
       })
     });
 
@@ -301,8 +307,7 @@ onSubmitApproveDatasets() {
       this.iDs = ele.id 
     } else {
       this.iDs = this.iDs + "," + ele.id 
-    }   
-    this.rowData[this.rowData.findIndex(item => item.id === ele.id)].approvedBack = true;
+    }
   }); 
   const body = {
                 "status": "approved", 
