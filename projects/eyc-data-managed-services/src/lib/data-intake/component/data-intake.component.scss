@@ -290,12 +290,16 @@
   display: flex;
   align-items: center;
   color: #000000;
-  left: -7px;
+  left: 53.5%;
   position: relative;
-
+  top: 7px;
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
   }
 }
+
+::ng-deep .dateWrapper{
+  padding: 0 !important;
+ }
