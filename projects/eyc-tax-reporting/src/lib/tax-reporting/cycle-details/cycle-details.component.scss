@@ -146,6 +146,13 @@
   /* .btn_close:hover {
     background-color: var(--btn-secondary-bg-color);
   } */
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
+    visibility: hidden !important;
+ }
+
+::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
+    visibility:visible !important;
+ }
 }
 
 .back-wrapper {
@@ -591,6 +598,7 @@ motif-icon.motif-icon.user-edit {
   .motif-tooltip-close-button{
     pointer-events: none !important;
   }
+
 }
 
 .row-assignm:hover{
