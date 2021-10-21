@@ -43,7 +43,7 @@
         <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{ row.exceptionReportName}}</div>
         </ng-template>
         <ng-template #viewDetTemplate let-row>
-            <div>
+            <div class="view-det-arrow">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
