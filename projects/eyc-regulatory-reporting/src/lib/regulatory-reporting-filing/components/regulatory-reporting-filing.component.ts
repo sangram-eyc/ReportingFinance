@@ -26,7 +26,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   filingResp: any[] = [];
 
   noOfCompletdFilingRecords = 10;
-  currentPage = 0;
+  currentPage = 1;
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
@@ -137,7 +137,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   getCompletedFilingsData() {
     this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords).subscribe(resp => {
+    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
         const eachitem: any = {
