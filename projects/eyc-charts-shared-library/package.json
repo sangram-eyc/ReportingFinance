@@ -1,0 +1,31 @@
+{
+  "name": "eyc-charts-shared-library",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@angular/animations": ">=12.2.0",
+    "@angular/cdk": ">=12.2.0",
+    "@angular/forms": ">=12.2.0",
+    "@angular/platform-browser": ">=12.2.0",
+    "@angular/platform-browser-dynamic": ">=12.2.0",
+    "rxjs": "6.x"
+  },
+  "dependencies": {
+    "@types/d3": "^7.0.0",
+    "@types/d3-shape": "^2.0.0",
+    "d3": "^7.1.1",
+    "d3-array": "^2.9.1",
+    "d3-brush": "^2.1.0",
+    "d3-color": "^2.0.0",
+    "d3-format": "^2.0.0",
+    "d3-hierarchy": "^2.0.0",
+    "d3-interpolate": "^2.0.1",
+    "d3-scale": "^3.2.3",
+    "d3-selection": "^2.0.0",
+    "d3-shape": "^2.0.0",
+    "d3-time-format": "^3.0.0",
+    "d3-transition": "^2.0.0",
+    "tslib": "^2.3.0"
+  }
+}

@@ -126,6 +126,23 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
+
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -143,6 +160,22 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme2"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -161,6 +194,22 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme3"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -182,6 +231,22 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -199,6 +264,22 @@
                            </div>
                         </div>
                         <div class="bar-chart-body">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme2"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
@@ -217,6 +298,22 @@
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
+                           <div class="chart-container" #containerRef>
+                              <eyc-charts-bar-vertical class="chart-container"
+                                 [view]="[containerRef.offsetWidth, containerRef.offsetHeight]" [scheme]="colorScheme3"
+                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                              </eyc-charts-bar-vertical>
+                           </div>
                            <div class="toast-card" [hidden]="!(totalFileCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>

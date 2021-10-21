@@ -42,7 +42,13 @@
       "eyc-data-managed-services": [
         "dist/eyc-data-managed-services/eyc-data-managed-services",
         "dist/eyc-data-managed-services"
-      ]
+      ],
+      "eyc-charts-shared-library": [
+        "dist/eyc-charts-shared-library/eyc-charts-shared-library",
+        "dist/eyc-charts-shared-library",
+        "project/eyc-charts/src/public-api"
+      ],
+      "eyc-charts-shared-library/*": ["projects/eyc-charts-shared-library/src/lib/*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
