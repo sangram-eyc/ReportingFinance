@@ -73,8 +73,8 @@ export class YAxisComponent implements OnChanges {
   transform: string;
   labelOffset: number = 15;
   fill: string = 'none';
-  stroke: string = '#ccc';
-  tickStroke: string = '#ccc';
+  stroke: string = '#747480';
+  tickStroke: string = '#747480';
   strokeWidth: number = 1;
   padding: number = 5;
 

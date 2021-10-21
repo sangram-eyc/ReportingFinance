@@ -48,7 +48,7 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
   @Input() orient: Orientation;
   @Input() tickArguments: number[] = [5];
   @Input() tickValues: string[] | number[];
-  @Input() tickStroke: string = '#ccc';
+  @Input() tickStroke: string = '#747480';
   @Input() trimTicks: boolean = true;
   @Input() maxTickLength: number = 16;
   @Input() tickFormatting;

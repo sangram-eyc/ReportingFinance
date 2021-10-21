@@ -138,15 +138,17 @@
     padding: 0 6px 6vh 6px;
 
     .chart-container{
-      // height: 300px;
       display: grid;
       min-height: 300px;
       margin-top: 10px;
-      margin-left: -30px;
+      margin-left: -28px;
+      ::ng-deep .eyc-charts {
+        text {
+          fill: #747480 !important;
+        }
+      }
     }
-    ::ng-deep .ng-tns-c234-12{
-      padding-left: 0;
-    }
+
     .toast-card {
       min-height: 6.9vh;
       background: #ffffff;

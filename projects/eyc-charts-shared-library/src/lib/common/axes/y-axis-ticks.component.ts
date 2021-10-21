@@ -32,6 +32,7 @@ import { TextAnchor } from '../types/text-anchor.enum';
           [attr.y]="y1"
           [attr.text-anchor]="textAnchor"
           [style.font-size]="'12px'"
+          *ngIf="showTicks"
         >
           {{ tickTrim(tickFormat(tick)) }}
         </svg:text>
@@ -91,7 +92,7 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
   @Input() orient: Orientation;
   @Input() tickArguments: number[] = [5];
   @Input() tickValues: string[] | number[];
-  @Input() tickStroke = '#ccc';
+  @Input() tickStroke = '#747480';
   @Input() trimTicks: boolean = true;
   @Input() maxTickLength: number = 16;
   @Input() tickFormatting;
@@ -101,6 +102,7 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
   @Input() referenceLines;
   @Input() showRefLabels: boolean = false;
   @Input() showRefLines: boolean = false;
+  @Input() showTicks:boolean=false;
 
   @Output() dimensionsChanged = new EventEmitter();
 
