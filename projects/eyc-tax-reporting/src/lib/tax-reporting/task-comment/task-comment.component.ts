@@ -3,7 +3,7 @@ import { Data, Router } from '@angular/router';
 import { TaxCommentService } from '../services/tax-comment.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import * as FileSaver from 'file-saver';
 
 @Component({
@@ -44,11 +44,13 @@ export class TaskCommentComponent implements OnInit {
   formattedTimes = [];
   criticalTag:string = "Critical";
 
+
   constructor(
     private router: Router,
     private commentService: TaxCommentService,
     private fb: FormBuilder,
     private dialog: MatDialog,
+    public permissions: PermissionService
   ) {
 
     this.ReplayForm = this.fb.group({
@@ -56,6 +58,8 @@ export class TaskCommentComponent implements OnInit {
       statusReplay:['open']
     });
   }
+
+  permissionStatus= this.permissions.validatePermission('Production Cycles', 'Update task status');
 
   ngOnInit(): void {
     this.createdDate = this.TaskCommentData.createdDate;
@@ -74,7 +78,7 @@ export class TaskCommentComponent implements OnInit {
     this.replyCount = this.TaskCommentData.replyCount;
     this.attachmentsCount = this.TaskCommentData.attachmentsCount;
     this.attachments = this.TaskCommentData.attachments;
-    console.log('task-comments-data-receiving',this.TaskCommentData)
+    console.log('task-comments-data-receiving',this.TaskCommentData);   
   }
 
   getCreatedBy(author: { userFirstName: string; userLastName: string; }, createdBy: string) {
@@ -113,24 +117,28 @@ export class TaskCommentComponent implements OnInit {
 
     this.commentService.addComment(commentObj).subscribe(res =>{
       console.log('Reponse add Replay -->',res);
-      let newStatus = this.ReplayForm.get('statusReplay').value;
-      console.log('newStatus -->',newStatus);
-      const objStatus = {
-        "status": newStatus
-      };
-      this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resp => {
-        console.log('response update status', resp);
-        this.status = resp['data'].status.toLowerCase();
-        this.replyCount = this.replyCount + 1
-        this.showToastAfterSubmit = true;
-        this.replyData = [];
-        setTimeout(() => {        
-          this.closeToast();       
-        }, 4000);
-        this.showReplies = false; 
-      }, error => {
-        console.log('Error update status', error);
-      });
+      if(this.permissionStatus){
+        let newStatus = this.ReplayForm.get('statusReplay').value;
+        console.log('newStatus -->',newStatus);
+        const objStatus = {
+          "status": newStatus
+        };
+        this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resp => {
+          console.log('response update status', resp);
+          this.status = resp['data'].status.toLowerCase();
+          this.replyCount = this.replyCount + 1
+          this.showToastAfterSubmit = true;
+          this.replyData = [];
+          setTimeout(() => {        
+            this.closeToast();       
+          }, 4000);
+          this.showReplies = false; 
+        }, error => {
+          console.log('Error update status', error);
+        });
+      }else{
+         console.log('you do not have permission to update the status.')
+      }
     }, error => {
       console.log('Error replay comment', error);
     });
