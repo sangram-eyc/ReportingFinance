@@ -96,8 +96,8 @@
                </motif-icon>
                {{ curDate }}
                <i class="material-icons" for="datepicker">date_range</i>
-               <button motifButton color="primary-alt">Daily</button>
-               <button motifButton color="secondary">Monthly</button>
+               <button motifButton color="primary-alt" (click)="dailyManagedData()">Daily</button>
+               <button motifButton color="secondary"  (click)="monthyManagedData()">Monthly</button>
             </div>
          </div>
          <motif-card class="bar-chart-card no_data">

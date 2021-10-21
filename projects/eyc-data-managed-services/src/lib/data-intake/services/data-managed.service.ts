@@ -14,4 +14,12 @@ export class DataManagedService {
   getFileSummaryList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`);
   }
+
+  getDailyFileSummaryList() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list_daily}`);
+  }
+
+  getMonthlyFileSummaryList() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list_monthly}`);
+  }
 }

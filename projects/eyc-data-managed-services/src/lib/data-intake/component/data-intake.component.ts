@@ -158,4 +158,17 @@ export class DataIntakeComponent implements OnInit {
     this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
   }
 
+  dailyManagedData() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
+      this.fileSummaries = dataSummuries.data['dataSeries'];
+    });
+  }
+
+  monthyManagedData() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
+      this.fileSummaries = dataSummuries.data['dataSeries'];
+    });
+  }
 }
