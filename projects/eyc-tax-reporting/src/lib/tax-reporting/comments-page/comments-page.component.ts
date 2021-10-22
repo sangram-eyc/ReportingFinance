@@ -194,6 +194,14 @@ export class CommentsPagecomponent implements OnInit {
     });
   }
 
+  canAddComments(): boolean {
+    return !this.isApproved && this.permissions.validatePermission('Production Cycles', 'Add comments');
+  }
+
+  canApprove(): boolean {
+    return this.permissionApproval && !this.isApproved && !this.hasOpenComments;
+  }
+
   closeToast(){
     this.showToastAfterSubmit = false;
   }
