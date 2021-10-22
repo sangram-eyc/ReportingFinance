@@ -1,0 +1,50 @@
+<div *ngIf="showModal">
+<div class="modal-header">
+    <h3 class="modal-title" [innerHTML]="modalDetails.header | noSanitize"></h3>
+    <button type="button" class="close" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+ 
+ <div class="content-table-users">
+    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData"
+    [masterDetail]="false"
+    [detailCellRendererParams]="exceptionDetailCellRendererParams"
+    [displaySecondButton]="false"
+    [permissionToPrimaryButton]="false"
+    [permissionToSecondaryButton]="false">
+  </lib-shared-grid>
+
+  <ng-template #datasetsDropdownTemplate let-row>    
+  <label class="container-checkbox" *ngIf="row.check" (click)="changeCheck(row.id)" >
+      <input type="checkbox" id="row.id" name="row.name" [checked]="true" >
+      <span class="checkmark"></span>
+  </label> 
+
+  <label class="container-checkbox" *ngIf="row.check == false" (click)="changeCheck(row.id)">
+    <input type="checkbox" id="row.id" name="row.name" [checked]="false" >
+    <span class="checkmark"></span>
+  </label> 
+
+  </ng-template>
+
+  <ng-template #userName let-row>
+      <div class="header-avatar mt-2">
+        <motif-avatar [userName]="row.name" status="none"></motif-avatar>       
+      </div>     
+     <span class="mt-3">{{row.name}}</span> 
+  </ng-template>
+
+ </div>
+
+</div>
+
+<div class="modal-footer {{modalDetails.footer.style}}">
+     <button motifButton class="approve-yes" color="primary" (click)="onClickYes()"
+        [disabled]="disabledBtn">{{modalDetails.footer.YesButton}}</button> 
+    <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>
+</div>
+</div>
+<motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+  {{toastSuccessMessage}} 
+  <button type="button" class="close" (click)="closeToast()">&times;</button>
+</motif-toast>

@@ -146,6 +146,13 @@
   /* .btn_close:hover {
     background-color: var(--btn-secondary-bg-color);
   } */
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
+    visibility: hidden !important;
+ }
+
+::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
+    visibility:visible !important;
+ }
 }
 
 .back-wrapper {
@@ -481,3 +488,129 @@ motif-icon.motif-icon.user-edit {
   }
 }
 
+.grid-actions {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.counter-item{
+  left: 0%;
+  background: #FFFFFF;
+  border: 1px solid #C4C4CD;
+  box-sizing: border-box;
+  border-radius: 16px;
+  height: 22px;
+  width: 30px;
+  box-shadow: 0px 0px 0px 0px;
+  line-height: 0px;
+}
+
+.has-count{
+  background: black;
+  color:white;
+}
+
+.zero-count{
+  background:white;
+  color:black;
+}
+
+.assigned-btn {
+  height: 30px;
+  line-height: 30px;  
+  width: 30px;  
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.link-assigned{
+    color: #155CB4;
+    margin-top: 8px;  
+}
+
+::ng-deep .margin-tooltip{
+
+  #tooltip{
+    margin-top: -5px !important;
+    width: max-content;
+  }
+
+  .motif-icon.motif-tooltip-close {
+    display: none !important;
+    cursor: help !important;
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+::ng-deep #add-user-modal{
+
+  .motif-button[color=primary] {
+      background-color: #fff;
+      border-color: var(--btn-primary-border-color);
+      color: var(--btn-primary-color);
+  }
+
+  .motif-button:hover{
+      background-color:#2e2e38;
+      border-color: var(--btn-primary-border-color);
+      color: #fff;
+  }
+
+  .motif-button[color=primary]:disabled {
+    background-color: var(--btn-primary-disabled-bg-color);
+    border-color: var(--btn-primary-disabled-border-color);
+    color: var(--btn-primary-disabled-color); 
+    cursor: not-allowed;
+  }
+} 
+
+.div-icon{
+  margin-right: inherit;
+}
+
+.div-msg{
+  margin-left: inherit;
+}
+
+.text-tooltip{
+  font-size: small;
+}
+
+::ng-deep .margin-tooltip-v2{
+  #tooltip{
+    margin-top: 5px !important;
+    width: max-content;
+  }
+
+  .motif-icon.motif-tooltip-close {
+    display: none !important;
+  }
+
+  .motif-tooltip-close-button{
+    pointer-events: none !important;
+  }
+
+}
+
+.row-assignm:hover{
+  background-color: #F0F0F0;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+  

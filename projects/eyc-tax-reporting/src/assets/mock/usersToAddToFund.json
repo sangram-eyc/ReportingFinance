@@ -1,0 +1,44 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "userId": 123, 
+            "userEmail": "Jonnathan.Caballero@email.com", 
+            "userFirstName": "Jonnathan", 
+            "userLastName": "Caballero" 
+        },
+        {
+            "userId": 2202,
+            "userEmail": "Diego.Morini@email.com", 
+            "userFirstName": "Diego", 
+            "userLastName": "Morini" 
+        },
+        {
+            "userId": 3303,
+            "userEmail": "Gaston.Silva@email.com", 
+            "userFirstName": "Gaston", 
+            "userLastName": "Silva" 
+        },
+        {
+            "userId": 3304,
+            "userEmail": "Diego.Garavito@email.com", 
+            "userFirstName": "Diego", 
+            "userLastName": "Garavito" 
+        },
+        {
+            "userId": 3305,
+            "userEmail": "Gabriel.Loy@email.com", 
+            "userFirstName": "Gabriel", 
+            "userLastName": "Loy" 
+        },
+        {
+            "userId": 3306,
+            "userEmail": "Juan.Perez@email.com", 
+            "userFirstName": "Juan", 
+            "userLastName": "Perez" 
+        }
+    ],
+    "error": null
+}

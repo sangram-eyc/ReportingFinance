@@ -1,0 +1,103 @@
+<div *ngIf="showModal">
+    <div class="modal-header">
+        <h3 class="modal-title" [innerHTML]="modalDetails.header | noSanitize"></h3>
+        <button type="button" class="close" (click)="close()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <ng-container>
+            <div class="description-text" [innerHTML]="modalDetails.description | noSanitize"></div>
+            <!-- {{modalDetails.description}} -->
+        </ng-container>
+        <div *ngIf="ConfirmationTextUpload">   
+            <form [formGroup]="modalForm">
+               <motif-form-field>
+                    <label class="mb-0">Send comment to:</label><br>                
+                    <div class="radio-item mb-2">
+                        <input type="radio" id="eyid" formControlName="sendTo" name="sendTo" value="EY">
+                        <label for="eyid">EY</label>
+                    </div>                   
+                    <div class="radio-item mb-2">
+                        <input type="radio" id="clientid" formControlName="sendTo" name="sendTo" value="Client">
+                        <label for="clientid">Client</label>
+                    </div>
+                </motif-form-field> 
+
+                <motif-form-field *ngIf="modalDetails.forms?.isSelect">
+                    <label motifLabel class="select-label">{{modalDetails.forms.selectDetails.label}}</label>
+                    <motif-select aria-label="Please select an option" formControlName="assignTo" [disabled]="true">
+                        <motif-option *ngFor="let item of modalDetails.forms.selectDetails.data;index as i;"
+                            [value]="item.id">{{item.name}}</motif-option>
+                    </motif-select>
+                </motif-form-field>
+    
+                <motif-form-field>
+                    <div class="row">
+                        <div class="col-md-4 feature">                             
+                            <label class="mb-3">Edit Required</label><br>                                                              
+                                <div class="toggle">
+                                    <motif-toggle-switch (change)="setEditRequired()"></motif-toggle-switch>
+                                    <input class="invisible hide-input" type="text" id="editid" formControlName="edit" name="edit">                                
+                                </div>                                                         
+                        </div>
+                    </div>
+                </motif-form-field>
+
+                <motif-form-field>
+                    <label motifLabel>{{modalDetails.forms.textareaDetails.label}}</label>
+                    <textarea motifInput class="motif-textarea" formControlName="comment"></textarea>
+                </motif-form-field>
+                <motif-error *ngIf="
+                    modalForm.get('comment').hasError('required') &&
+                    modalForm.get('comment').touched">{{modalDetails.forms.textareaDetails.validationMessage}}
+                </motif-error>
+                <motif-error *ngIf="modalForm.get('comment').hasError('maxlength')">Comment can be max 250 characters long
+                </motif-error>
+                <motif-error *ngIf="modalForm.get('comment').hasError('whitespace') &&
+                modalForm.get('comment').touched">Please enter valid data</motif-error>
+                <lib-upload (uploadedFilesEmitter)="uploadedFiles($event)"></lib-upload>
+
+                <motif-form-field>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="container-checkbox">Mark as critical
+                                        <input type="checkbox" formControlName="critical" (change)="setMarkCritical()">
+                                        <span class="checkmark"></span>
+                                         <svg *ngIf="!markCritical" class="svg-icon-critical" width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11 3.99L18.53 17H3.47L11 3.99ZM11 0L0 19H22L11 0ZM12 14H10V16H12V14ZM12 8H10V12H12V8Z" fill="#2E2E38"/>
+                                        </svg> 
+                                        <svg *ngIf="markCritical" class="svg-icon-critical" width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 19H22L11 0L0 19ZM12 16H10V14H12V16ZM12 12H10V8H12V12Z" fill="#FF9831"/>
+                                        </svg>                                           
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label class="container-checkbox">Include in cycle debrief
+                                        <input type="checkbox" formControlName="IncludeDebrief">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motif-form-field>               
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal-footer {{modalDetails.footer.style}}">
+        <button *ngIf="!ConfirmationTextUpload" motifButton class="approve-yes" color="primary"
+            (click)="onClickYes()">{{modalDetails.footer.YesButton}}</button>
+    
+        <button *ngIf="ConfirmationTextUpload" motifButton class="approve-yes" color="primary" (click)="onClickYes()"
+            [disabled]="modalForm.invalid">{{modalDetails.footer.YesButton}}</button>
+    
+        <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>
+    </div>
+    </div>
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+        {{toastSuccessMessage}} 
+        <button type="button" class="close" (click)="closeToast()">&times;</button>
+    </motif-toast>
+    
