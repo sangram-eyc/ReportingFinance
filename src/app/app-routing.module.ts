@@ -8,6 +8,7 @@ import {DashboardNotificationComponent} from './notification/dashboard-notificat
 import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import {TaxReportingComponent} from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/components/tax-reporting.component';
 import { CycleDetailComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/cycle-details/cycle-details.component';
+import { CommentsPagecomponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-page/comments-page.component'; 
 import { DataIntakeLandingComponent } from '../../projects/eyc-data-intake/src/lib/data-intake-landing/components/data-intake-landing.component'
 import { UserDetailsComponent } from './administration/user-details/components/user-details.component';
 import { FundScopingComponent } from 'projects/eyc-regulatory-reporting/src/lib/fund-scoping/components/fund-scoping.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
+  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},

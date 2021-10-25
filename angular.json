@@ -60,6 +60,11 @@
                 "input": "projects/eyc-data-managed-services/src/assets",
                 "output": "assets/eyc-data-managed-services"
               },
+              {
+                "glob": "**/*",
+                "input": "projects/eyc-tax-reporting/src/assets/mock/icons",
+                "output": "assets/eyc-tax-reporting/icons/"
+              },
               "src/silent-refresh.html"
             ],
             "styles": [

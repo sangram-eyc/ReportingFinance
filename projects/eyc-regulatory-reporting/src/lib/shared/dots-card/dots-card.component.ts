@@ -19,6 +19,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() filingDetails = new EventEmitter<any>();
   @Output() fileStatus = new EventEmitter<any>();
+  @Output() filingStatusRes = new EventEmitter<any>();
   ngUnsubscribe = new Subject()
   dueDate: string;
   filingName: string;
@@ -87,7 +88,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   getFilingStatus() {
     this.filingService.getFilingStatus(this.filingId).subscribe(res => {
       this.states = res['data'];
-
+      this.filingStatusRes.emit(res['data']);
       this.states.forEach(item => {
         switch (item['stageCode']) {
           case "FUND_SCOPING":

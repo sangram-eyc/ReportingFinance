@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": {
+        "id": 123,
+        "status": "DECLINED"
+    },
+    "error": null
+}

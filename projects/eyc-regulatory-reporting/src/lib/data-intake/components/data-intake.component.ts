@@ -36,7 +36,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   showComments = false;
   commentsData;
   commentsName;
-
+  filingStatusStageId: any;
   bdFilesList = {};
   datasets = [];
   datasetsDefs;
@@ -534,6 +534,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.createEntitiesRowData();
   }
 
+  getFilingStatusDetails(event: any) {
+    let stage = event.find(item => item.stageCode == "DATA_INTAKE")
+    this.filingStatusStageId = stage.stageId
+  }
+
   onSubmitApproveExceptionReports() {
     console.log("exceptionReportRows", this.exceptionReportRows);
     let selectedExceptionRows = this.exceptionReportRows
@@ -541,7 +546,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       "exceptionReportIds": this.exceptionReportRows.map(({ ruleExceptionId }) => ruleExceptionId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
-      "stage": "Intake"
+      "stage": "Intake",
+      "filingStageId": this.filingStatusStageId
     };
     this.service.approveExceptionReports(selectedFiling).subscribe(res => {
       console.log("approved response",res);

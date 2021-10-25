@@ -42,7 +42,9 @@ export class HomeComponent implements OnInit {
         this.moduleLevelPermission.invokeModulePermissionDetails();
         if (!res['data'].userModules.hasOwnProperty('All')) {
           if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
-            this.permissionList();
+            this.permissionList('Regulatory Reporting');
+          }else if(res['data'].userModules.hasOwnProperty('Tax Reporting')){
+            this.permissionList('Tax Reporting');
           } else {
             this.navigation();  
           }
@@ -53,12 +55,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  permissionList() {
+  permissionList(_module) {
     if (sessionStorage.getItem("permissionList") === null) {
-      this.moduleLevelPermission.getPermissionsList().subscribe(resp => {
-        this.navigation();
-        sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-      });
+    
+        this.moduleLevelPermission.getPermissionsListByModule(_module).subscribe(resp => {
+          this.navigation();
+          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
+        });
+
     } else {
       this.navigation();
     }
@@ -75,6 +79,9 @@ export class HomeComponent implements OnInit {
 
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Regulatory Reporting')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
+
+      } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Tax Reporting')) {
+        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-tax-reporting']);
 
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Data Intake')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/data-intake-landing']);

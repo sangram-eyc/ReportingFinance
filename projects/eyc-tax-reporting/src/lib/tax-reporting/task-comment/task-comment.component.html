@@ -1,0 +1,317 @@
+<div class="comment-wrapper-new">
+    <motif-card>
+
+        <div class="row mt-2 mb-4">      
+          <mat-chip-list [selectable]="false">
+                <span class="margin-from-card">From {{company}}</span>
+                <mat-chip class='mat-chip-p' [ngClass]="{'open-background': status == 'open', 'accepted-background' : status == 'accepted', 'declined-background': status == 'declined'}" >
+                    <span class="mat-chip-text">
+                       {{capitalizeFirstLetter(status)}}
+                    </span>  
+                    
+                    <svg *ngIf="status != 'open'" class='icon-arrow margin-left-btns' width="10" height="7" viewBox="0 0 10 7" fill="none" 
+                    xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.825 0.658447L5 4.47511L1.175 0.658447L0 1.83345L5 6.83345L10 1.83345L8.825 0.658447Z" 
+                        fill="white"/>
+                    </svg>
+
+                    <motif-tooltip placement="bottom" class="pad-r" *ngIf="status == 'open'">                                            
+                        <svg motifTooltipTrigger class='icon-arrow margin-left-btns' width="10" height="7" viewBox="0 0 10 7" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.825 0.658447L5 4.47511L1.175 0.658447L0 1.83345L5 6.83345L10 1.83345L8.825 0.658447Z"
+                            fill="#2E2E38" />
+                        </svg>
+                            
+                        <div class="container">                         
+                          <div class="row" *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')">
+                            <div class="col-md-12 col-sm-12">
+                            <div class="row row-hover" (click)="setStatusComment('accepted')" >
+                                <div class="col-md-4 col-sm-4">
+                                    <svg class="icon-accept" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.99967 0.333496C3.31967 0.333496 0.333008 3.32016 0.333008 7.00016C0.333008 10.6802 3.31967 13.6668 6.99967 13.6668C10.6797 13.6668 13.6663 10.6802 13.6663 7.00016C13.6663 3.32016 10.6797 0.333496 6.99967 0.333496ZM6.99967 12.3335C4.05967 12.3335 1.66634 9.94016 1.66634 7.00016C1.66634 4.06016 4.05967 1.66683 6.99967 1.66683C9.93967 1.66683 12.333 4.06016 12.333 7.00016C12.333 9.94016 9.93967 12.3335 6.99967 12.3335ZM10.0597 4.0535L5.66634 8.44683L3.93967 6.72683L2.99967 7.66683L5.66634 10.3335L10.9997 5.00016L10.0597 4.0535Z" fill="#168736"/>
+                                    </svg>
+                                </div>
+                                <div class="col-md-8 col-sm-8 text-accept">
+                                    <h5 class="font-text-tooltip">Accept and close</h5>  
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row row-hover" (click)="setStatusComment('declined')">
+                                    <div class="col-md-4 col-sm-4">
+                                        <svg class="icon-accept" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M6.99967 0.333496C3.31301 0.333496 0.333008 3.3135 0.333008 7.00016C0.333008 10.6868 3.31301 13.6668 6.99967 13.6668C10.6863 13.6668 13.6663 10.6868 13.6663 7.00016C13.6663 3.3135 10.6863 0.333496 6.99967 0.333496ZM6.99967 12.3335C4.05967 12.3335 1.66634 9.94016 1.66634 7.00016C1.66634 4.06016 4.05967 1.66683 6.99967 1.66683C9.93967 1.66683 12.333 4.06016 12.333 7.00016C12.333 9.94016 9.93967 12.3335 6.99967 12.3335ZM9.39301 3.66683L6.99967 6.06016L4.60634 3.66683L3.66634 4.60683L6.05967 7.00016L3.66634 9.3935L4.60634 10.3335L6.99967 7.94016L9.39301 10.3335L10.333 9.3935L7.93967 7.00016L10.333 4.60683L9.39301 3.66683Z" fill="#B9251C"/>
+                                         </svg>
+                                      </div>
+                                      <div class="col-md-8 col-sm-8 text-accept">
+                                         <h5 class="font-text-tooltip">Decline and close</h5>  
+                                     </div>
+                                </div>
+                            </div>     
+                         </div>
+                         <div class="row" *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status')">
+                            <div class="col-md-12 col-sm-12" style="background-color:#F0F0F0 !important;">
+                            <div class="row" >
+                                <div class="col-md-4 col-sm-4">
+                                    <svg class="icon-accept" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.99967 0.333496C3.31967 0.333496 0.333008 3.32016 0.333008 7.00016C0.333008 10.6802 3.31967 13.6668 6.99967 13.6668C10.6797 13.6668 13.6663 10.6802 13.6663 7.00016C13.6663 3.32016 10.6797 0.333496 6.99967 0.333496ZM6.99967 12.3335C4.05967 12.3335 1.66634 9.94016 1.66634 7.00016C1.66634 4.06016 4.05967 1.66683 6.99967 1.66683C9.93967 1.66683 12.333 4.06016 12.333 7.00016C12.333 9.94016 9.93967 12.3335 6.99967 12.3335ZM10.0597 4.0535L5.66634 8.44683L3.93967 6.72683L2.99967 7.66683L5.66634 10.3335L10.9997 5.00016L10.0597 4.0535Z" fill="#168736"/>
+                                    </svg>
+                                </div>
+                                <div class="col-md-8 col-sm-8 text-accept">
+                                    <h5 class="font-text-tooltip">Accept and close</h5>  
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12" style="background-color:#F0F0F0 !important;">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4">
+                                        <svg class="icon-accept" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M6.99967 0.333496C3.31301 0.333496 0.333008 3.3135 0.333008 7.00016C0.333008 10.6868 3.31301 13.6668 6.99967 13.6668C10.6863 13.6668 13.6663 10.6868 13.6663 7.00016C13.6663 3.3135 10.6863 0.333496 6.99967 0.333496ZM6.99967 12.3335C4.05967 12.3335 1.66634 9.94016 1.66634 7.00016C1.66634 4.06016 4.05967 1.66683 6.99967 1.66683C9.93967 1.66683 12.333 4.06016 12.333 7.00016C12.333 9.94016 9.93967 12.3335 6.99967 12.3335ZM9.39301 3.66683L6.99967 6.06016L4.60634 3.66683L3.66634 4.60683L6.05967 7.00016L3.66634 9.3935L4.60634 10.3335L6.99967 7.94016L9.39301 10.3335L10.333 9.3935L7.93967 7.00016L10.333 4.60683L9.39301 3.66683Z" fill="#B9251C"/>
+                                         </svg>
+                                      </div>
+                                      <div class="col-md-8 col-sm-8 text-accept">
+                                         <h5 class="font-text-tooltip">Decline and close</h5>  
+                                     </div>
+                                </div>
+                            </div>     
+                         </div>                         
+                        </div>
+                    </motif-tooltip>             
+                </mat-chip>
+                <mat-chip *ngIf="!!editRequired" class='mat-chip-p'>
+                    <span class='mat-chip-text'>
+                        {{editRequired.name}}
+                    </span>
+                    <svg (click)="deleteTag(editRequired.name, editRequired.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
+                            fill="#2E2E38" />
+                    </svg>
+                </mat-chip>
+                <mat-chip *ngIf="!!includeDebrief" class='mat-chip-p'>
+                    <span class='mat-chip-text'>
+                        {{includeDebrief.name}}
+                    </span>
+                    <svg (click)="deleteTag(includeDebrief.name, includeDebrief.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
+                            fill="#2E2E38" />
+                    </svg>
+                </mat-chip>
+
+                <mat-chip *ngIf="priority === 1" class='mat-chip-p'>
+                    <!-- ngif status critical -->
+                    <span class='mat-chip-text'>
+                        {{criticalTag}}
+                    </span>
+                    <svg (click)="deletePriority(criticalTag)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
+                            fill="#2E2E38" />
+                    </svg>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <motif-card-body>
+            <div class="row">
+                <div class="col-md-1 col-sm-1 card-column">
+                    <svg class='office-icon' width="32" height="32" viewBox="0 0 32 32" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
+                            fill="#87D3F2" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 11H26V25H6V7H16V11ZM8 23H10V21H8V23ZM10 19H8V17H10V19ZM8 15H10V13H8V15ZM10 11H8V9H10V11ZM12 23H14V21H12V23ZM14 19H12V17H14V19ZM12 15H14V13H12V15ZM14 11H12V9H14V11ZM24 23V13H16V15H18V17H16V19H18V21H16V23H24ZM22 15H20V17H22V15ZM20 19H22V21H20V19Z"
+                            fill="#2E2E38" />
+                    </svg>
+                </div>
+
+                <div class="col-md-9 col-sm-9 card-column task-comment">
+                    <span class='author'>{{createdBy}}</span>
+                    <span class='creation-date'>
+                        {{createdDate | date: 'MM/dd/yy'}} | {{createdDate | date: ' hh:mm z'}}
+                    </span>
+                    <span class='description mb-2'>{{description}}</span>
+                    <div class="card-row" *ngFor="let file of attachments">
+                        <svg class='attach_file' width="23" height="23" viewBox="0 0 23 23" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_2820:12062)">
+                                <path
+                                    d="M15.8146 9.85546L10.543 15.1271C9.52992 16.1401 7.88885 16.1401 6.87579 15.1271C5.86273 14.114 5.86273 12.4729 6.87579 11.4599L12.6058 5.72987C13.2384 5.09728 14.2652 5.09728 14.8978 5.72987C15.5304 6.36246 15.5304 7.38927 14.8978 8.02186L10.0846 12.8351C9.83246 13.0872 9.4199 13.0872 9.16778 12.8351C8.91567 12.5829 8.91567 12.1704 9.16778 11.9183L13.5226 7.56346L12.835 6.87587L8.48019 11.2307C7.84759 11.8633 7.84759 12.8901 8.48019 13.5227C9.11278 14.1552 10.1396 14.1552 10.7722 13.5227L15.5854 8.70946C16.5984 7.6964 16.5984 6.05533 15.5854 5.04227C14.5723 4.0292 12.9312 4.0292 11.9182 5.04227L6.18819 10.7723C4.79465 12.1658 4.79465 14.4211 6.18819 15.8147C7.58172 17.2082 9.83705 17.2082 11.2306 15.8147L16.5022 10.5431L15.8146 9.85546Z"
+                                    fill="#155CB4" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2820:12062">
+                                    <rect width="15.5586" height="15.5586" fill="white"
+                                        transform="translate(0 11.0015) rotate(-45)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <span (click)="downloadFile(file.storageFileName, file.fileName)" class='attachments'>{{file?.fileName}}</span>
+                    </div>
+                </div>
+            </div>
+
+        <div class="row">
+            
+            <div class="col-md-1 col-sm-1 card-column"> </div>  
+
+            <div class="col-sm-5 col-md-5 card-column">
+                <div class="row">                     
+                    <div *ngIf="showReplyCommentButton && permissions.validatePermission('Production Cycles', 'Add comments')" class="col-md-3 col-sm-3 ng-star-inserted card-column" style="margin-left: inherit;">
+                      <a (click)="showReplyNewComment()">   
+                          <svg class="icon-replay" width="62" height="19" viewBox="0 0 62 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M7.91667 7.12516V3.9585L2.375 9.50016L7.91667 15.0418V11.796C11.875 11.796 14.6458 13.0627 16.625 15.8335C15.8333 11.8752 13.4583 7.91683 7.91667 7.12516Z" fill="#155CB4"/>
+                              <path d="M30.9453 14L29.1953 10.4727H27.2197V14H25.2578V4.19727L29.8242 4.19727C30.2845 4.19727 30.7197 4.26107 31.1299 4.38867C31.54 4.51628 31.8978 4.70996 32.2031 4.96973C32.513 5.22949 32.7568 5.55534 32.9346 5.94727C33.1123 6.33464 33.2012 6.78809 33.2012 7.30762C33.2012 7.69954 33.1602 8.04362 33.0781 8.33984C32.9961 8.63607 32.873 8.90267 32.709 9.13965C32.5495 9.37663 32.3581 9.57943 32.1348 9.74805C31.9115 9.91667 31.6403 10.0648 31.3213 10.1924L33.2012 14L30.9453 14ZM31.1846 7.34863C31.1846 7.11165 31.1504 6.91569 31.082 6.76074C31.0137 6.60124 30.9134 6.47363 30.7812 6.37793C30.6536 6.28223 30.5055 6.21387 30.3369 6.17285C30.1729 6.12728 29.9883 6.10449 29.7832 6.10449L27.2197 6.10449V8.62695H29.7832C30.0293 8.62695 30.2367 8.59961 30.4053 8.54492C30.5785 8.48568 30.722 8.40365 30.8359 8.29883C30.9544 8.18945 31.041 8.05729 31.0957 7.90234C31.1549 7.7474 31.1846 7.56283 31.1846 7.34863ZM40.5566 10.3291C40.5566 10.4704 40.5544 10.5911 40.5498 10.6914C40.5452 10.7917 40.5384 10.8783 40.5293 10.9512H36.1338C36.152 11.2018 36.2067 11.416 36.2979 11.5937C36.3936 11.7669 36.5098 11.9082 36.6465 12.0176C36.7878 12.127 36.945 12.2067 37.1182 12.2568C37.2913 12.307 37.4668 12.332 37.6445 12.332C37.7767 12.332 37.8997 12.3229 38.0137 12.3047C38.1276 12.2819 38.2415 12.2477 38.3555 12.2021C38.474 12.152 38.5765 12.0951 38.6631 12.0312C38.7542 11.9674 38.834 11.8968 38.9023 11.8193L40.2764 12.9609C40.1305 13.1523 39.9574 13.3232 39.7568 13.4736C39.5563 13.6195 39.3398 13.7448 39.1074 13.8496C38.875 13.9499 38.6335 14.0251 38.3828 14.0752C38.1367 14.1299 37.8906 14.1572 37.6445 14.1572C37.2389 14.1572 36.8743 14.1071 36.5508 14.0068C36.2318 13.9111 35.9515 13.7812 35.71 13.6172C35.4684 13.4531 35.2542 13.264 35.0674 13.0498C34.8805 12.8311 34.7233 12.5895 34.5957 12.3252C34.4681 12.0563 34.3678 11.7578 34.2949 11.4297C34.222 11.097 34.1855 10.7301 34.1855 10.3291C34.1855 9.76855 34.2676 9.25358 34.4316 8.78418C34.6003 8.31022 34.8304 7.90462 35.1221 7.56738C35.4183 7.23014 35.7646 6.9681 36.1611 6.78125C36.5622 6.58984 36.9951 6.49414 37.46 6.49414C37.9521 6.49414 38.3896 6.59668 38.7725 6.80176C39.1553 7.00228 39.4788 7.27799 39.7432 7.62891C40.0075 7.97526 40.208 8.38086 40.3447 8.8457C40.486 9.31055 40.5566 9.80501 40.5566 10.3291ZM38.6768 9.49512C38.6631 9.33105 38.6266 9.16927 38.5674 9.00977C38.5127 8.85026 38.4307 8.70898 38.3213 8.58594C38.2165 8.46289 38.0843 8.36491 37.9248 8.29199C37.7699 8.21452 37.583 8.17578 37.3643 8.17578C37.1865 8.17578 37.027 8.20996 36.8857 8.27832C36.749 8.34668 36.6283 8.4401 36.5234 8.55859C36.4232 8.67708 36.3411 8.81608 36.2773 8.97559C36.2181 9.13509 36.1794 9.30827 36.1611 9.49512H38.6768ZM48.4385 10.418C48.4385 10.9648 48.3747 11.4684 48.2471 11.9287C48.1195 12.3844 47.9326 12.7786 47.6865 13.1113C47.445 13.4395 47.1465 13.6969 46.791 13.8838C46.4401 14.0661 46.0368 14.1572 45.5811 14.1572C45.2575 14.1572 44.9613 14.1025 44.6924 13.9932C44.4235 13.8792 44.2025 13.7425 44.0293 13.583V15.7363L42.0947 16.7002V6.65137L44.0293 6.65137V7.10937C44.2435 6.91341 44.4805 6.76302 44.7402 6.6582C45 6.54883 45.2803 6.49414 45.5811 6.49414C45.973 6.49414 46.3421 6.56934 46.6885 6.71973C47.0348 6.87012 47.3379 7.10482 47.5977 7.42383C47.8574 7.74284 48.0625 8.15072 48.2129 8.64746C48.3633 9.13965 48.4385 9.72982 48.4385 10.418ZM46.4766 10.459C46.4766 9.76172 46.3695 9.23079 46.1553 8.86621C45.9456 8.50163 45.6335 8.31934 45.2188 8.31934C44.959 8.31934 44.7357 8.36719 44.5488 8.46289C44.3665 8.55859 44.1934 8.71582 44.0293 8.93457V11.7031C44.1113 11.8125 44.1934 11.9036 44.2754 11.9766C44.362 12.0495 44.46 12.1133 44.5693 12.168C44.6787 12.2227 44.7972 12.2637 44.9248 12.291C45.0524 12.3184 45.1868 12.332 45.3281 12.332C45.7018 12.332 45.9867 12.1748 46.1826 11.8604C46.3786 11.5459 46.4766 11.0788 46.4766 10.459ZM50.0381 14V4.75781L51.9727 3.79395V14H50.0381ZM57.1133 16.5908H55.2129L56.1904 14L53.333 6.65137H55.459L57.1406 11.6006L58.8223 6.65137H60.8936L57.1133 16.5908Z" fill="#155CB4"/>
+                          </svg>                                     
+                      </a>
+                   </div> 
+
+                   <div *ngIf="showReplyCommentButton && !permissions.validatePermission('Production Cycles', 'Add comments')" class="col-md-3 col-sm-3 ng-star-inserted card-column" style="margin-left: inherit;">
+                    <a>   
+                        <svg class="icon-replay" width="62" height="19" viewBox="0 0 62 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.91667 7.12516V3.9585L2.375 9.50016L7.91667 15.0418V11.796C11.875 11.796 14.6458 13.0627 16.625 15.8335C15.8333 11.8752 13.4583 7.91683 7.91667 7.12516Z" fill="#C4C4CD"/>
+                            <path d="M30.9453 14L29.1953 10.4727H27.2197V14H25.2578V4.19727L29.8242 4.19727C30.2845 4.19727 30.7197 4.26107 31.1299 4.38867C31.54 4.51628 31.8978 4.70996 32.2031 4.96973C32.513 5.22949 32.7568 5.55534 32.9346 5.94727C33.1123 6.33464 33.2012 6.78809 33.2012 7.30762C33.2012 7.69954 33.1602 8.04362 33.0781 8.33984C32.9961 8.63607 32.873 8.90267 32.709 9.13965C32.5495 9.37663 32.3581 9.57943 32.1348 9.74805C31.9115 9.91667 31.6403 10.0648 31.3213 10.1924L33.2012 14L30.9453 14ZM31.1846 7.34863C31.1846 7.11165 31.1504 6.91569 31.082 6.76074C31.0137 6.60124 30.9134 6.47363 30.7812 6.37793C30.6536 6.28223 30.5055 6.21387 30.3369 6.17285C30.1729 6.12728 29.9883 6.10449 29.7832 6.10449L27.2197 6.10449V8.62695H29.7832C30.0293 8.62695 30.2367 8.59961 30.4053 8.54492C30.5785 8.48568 30.722 8.40365 30.8359 8.29883C30.9544 8.18945 31.041 8.05729 31.0957 7.90234C31.1549 7.7474 31.1846 7.56283 31.1846 7.34863ZM40.5566 10.3291C40.5566 10.4704 40.5544 10.5911 40.5498 10.6914C40.5452 10.7917 40.5384 10.8783 40.5293 10.9512H36.1338C36.152 11.2018 36.2067 11.416 36.2979 11.5937C36.3936 11.7669 36.5098 11.9082 36.6465 12.0176C36.7878 12.127 36.945 12.2067 37.1182 12.2568C37.2913 12.307 37.4668 12.332 37.6445 12.332C37.7767 12.332 37.8997 12.3229 38.0137 12.3047C38.1276 12.2819 38.2415 12.2477 38.3555 12.2021C38.474 12.152 38.5765 12.0951 38.6631 12.0312C38.7542 11.9674 38.834 11.8968 38.9023 11.8193L40.2764 12.9609C40.1305 13.1523 39.9574 13.3232 39.7568 13.4736C39.5563 13.6195 39.3398 13.7448 39.1074 13.8496C38.875 13.9499 38.6335 14.0251 38.3828 14.0752C38.1367 14.1299 37.8906 14.1572 37.6445 14.1572C37.2389 14.1572 36.8743 14.1071 36.5508 14.0068C36.2318 13.9111 35.9515 13.7812 35.71 13.6172C35.4684 13.4531 35.2542 13.264 35.0674 13.0498C34.8805 12.8311 34.7233 12.5895 34.5957 12.3252C34.4681 12.0563 34.3678 11.7578 34.2949 11.4297C34.222 11.097 34.1855 10.7301 34.1855 10.3291C34.1855 9.76855 34.2676 9.25358 34.4316 8.78418C34.6003 8.31022 34.8304 7.90462 35.1221 7.56738C35.4183 7.23014 35.7646 6.9681 36.1611 6.78125C36.5622 6.58984 36.9951 6.49414 37.46 6.49414C37.9521 6.49414 38.3896 6.59668 38.7725 6.80176C39.1553 7.00228 39.4788 7.27799 39.7432 7.62891C40.0075 7.97526 40.208 8.38086 40.3447 8.8457C40.486 9.31055 40.5566 9.80501 40.5566 10.3291ZM38.6768 9.49512C38.6631 9.33105 38.6266 9.16927 38.5674 9.00977C38.5127 8.85026 38.4307 8.70898 38.3213 8.58594C38.2165 8.46289 38.0843 8.36491 37.9248 8.29199C37.7699 8.21452 37.583 8.17578 37.3643 8.17578C37.1865 8.17578 37.027 8.20996 36.8857 8.27832C36.749 8.34668 36.6283 8.4401 36.5234 8.55859C36.4232 8.67708 36.3411 8.81608 36.2773 8.97559C36.2181 9.13509 36.1794 9.30827 36.1611 9.49512H38.6768ZM48.4385 10.418C48.4385 10.9648 48.3747 11.4684 48.2471 11.9287C48.1195 12.3844 47.9326 12.7786 47.6865 13.1113C47.445 13.4395 47.1465 13.6969 46.791 13.8838C46.4401 14.0661 46.0368 14.1572 45.5811 14.1572C45.2575 14.1572 44.9613 14.1025 44.6924 13.9932C44.4235 13.8792 44.2025 13.7425 44.0293 13.583V15.7363L42.0947 16.7002V6.65137L44.0293 6.65137V7.10937C44.2435 6.91341 44.4805 6.76302 44.7402 6.6582C45 6.54883 45.2803 6.49414 45.5811 6.49414C45.973 6.49414 46.3421 6.56934 46.6885 6.71973C47.0348 6.87012 47.3379 7.10482 47.5977 7.42383C47.8574 7.74284 48.0625 8.15072 48.2129 8.64746C48.3633 9.13965 48.4385 9.72982 48.4385 10.418ZM46.4766 10.459C46.4766 9.76172 46.3695 9.23079 46.1553 8.86621C45.9456 8.50163 45.6335 8.31934 45.2188 8.31934C44.959 8.31934 44.7357 8.36719 44.5488 8.46289C44.3665 8.55859 44.1934 8.71582 44.0293 8.93457V11.7031C44.1113 11.8125 44.1934 11.9036 44.2754 11.9766C44.362 12.0495 44.46 12.1133 44.5693 12.168C44.6787 12.2227 44.7972 12.2637 44.9248 12.291C45.0524 12.3184 45.1868 12.332 45.3281 12.332C45.7018 12.332 45.9867 12.1748 46.1826 11.8604C46.3786 11.5459 46.4766 11.0788 46.4766 10.459ZM50.0381 14V4.75781L51.9727 3.79395V14H50.0381ZM57.1133 16.5908H55.2129L56.1904 14L53.333 6.65137H55.459L57.1406 11.6006L58.8223 6.65137H60.8936L57.1133 16.5908Z" fill="#C4C4CD"/>
+                        </svg>                                     
+                    </a>
+                 </div> 
+      
+                   <div *ngIf='showReplyCommentButton' class="col-md-2 col-sm-2 card-row" (click)="getListComments()">
+                      <a>   
+                          <svg class="icon-replay-expand" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: inherit;">
+                              <path d="M14 11.8775L13.1225 11H2V2H14V11.8775ZM14 0.5H2C1.175 0.5 0.5 1.175 0.5 2V11C0.5 11.825 1.175 12.5 2 12.5H12.5L15.5 15.5V2C15.5 1.175 14.825 0.5 14 0.5Z" fill="#155CB4"/>
+                          </svg>                                  
+                      </a>
+                      <span class="mt-2 text-replay" style="font-weight: 800;">&nbsp;{{replyCount}}</span>
+                   </div>
+      
+                    <!-- <div *ngIf='showReplyCommentButton' class="col-md-3 col-sm-3 card-row mt-2" (click)="getListComments()">
+                      <svg class='attachment-icon'width="21" height="22"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0)">
+                          <path d="M16.8233 10.7306L10.7262 16.8278C9.55451 17.9995 7.65644 17.9995 6.48473 16.8278C5.31302 15.6561 5.31302 13.758 6.48473 12.5863L13.112 5.95898C13.8437 5.22732 15.0313 5.22732 15.763 5.95898C16.4946 6.69063 16.4946 7.87825 15.763 8.6099L10.196 14.1768C9.90443 14.4684 9.42726 14.4684 9.13566 14.1768C8.84406 13.8852 8.84406 13.4081 9.13566 13.1165L14.1724 8.07972L13.3771 7.28444L8.34038 12.3212C7.60873 13.0529 7.60873 14.2405 8.34038 14.9721C9.07204 15.7038 10.2597 15.7038 10.9913 14.9721L16.5583 9.40518C17.73 8.23347 17.73 6.33541 16.5583 5.1637C15.3865 3.99199 13.4885 3.99199 12.3168 5.1637L5.68946 11.791C4.07769 13.4028 4.07769 16.0113 5.68946 17.6231C7.30122 19.2348 9.90973 19.2348 11.5215 17.6231L17.6186 11.5259L16.8233 10.7306Z" fill="#2E2E3C"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0">
+                          <rect width="18.0836" height="10.9452" fill="white" transform="translate(0 13.5239) rotate(-45)"/>
+                          </clipPath>
+                          </defs>
+                      </svg>
+                          <span style="font-weight: 800; cursor: pointer;">{{attachmentsCount}}</span>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 card-column"> </div>
+        </div>
+
+        <div class="row" *ngIf="showReplies">     
+            <div class="col-md-1 col-sm-1 card-column" style="margin-left: inherit !important;"> </div>  
+            <div class="col-md-11 col-sm-11 card-column" style="margin-left: inherit !important;"> 
+                <div class="each-element" *ngFor="let replyComment of replyData">
+                    <lib-reply-comment  [ReplyCommentData]='replyComment'></lib-reply-comment>
+                </div>
+            </div> 
+        </div>
+
+            <form [formGroup]="ReplayForm">
+            <div *ngIf='showReplyComment' class="row reply-comment">
+                
+                <div class="col-md-1 col-sm-1 card-column">                                     
+                    <svg  class='ey-icon' width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
+                            fill="#2E2E3C" />
+                        <path
+                            d="M8.86137 21.9218H12.4705V19.8419H8.86137V18.2515H12.8376L11.5224 15.9881H5.89453V25.7756H13.8469V23.5123H8.86137V21.9218Z"
+                            fill="#F6F6FA" />
+                        <path
+                            d="M20.1174 15.9881L18.3128 19.169L16.4777 15.9881H12.9297L16.6918 21.9218V25.7756H19.8727V21.9218L23.6348 15.9881H20.1174Z"
+                            fill="#F6F6FA" />
+                        <path d="M5.89453 12.6236L25.7754 9.38152V5.89471L5.89453 12.6236Z" fill="#FFE600" />
+                    </svg>
+                </div>
+               
+                <div class="col-md-9 col-sm-9 card-column task-comment">
+                    <motif-form-field>
+                      <textarea motifInput class="motif-textarea" rows="3" formControlName="comment"></textarea>
+                    </motif-form-field>
+                    
+                    <motif-error *ngIf="
+                        ReplayForm.get('comment').hasError('required') &&
+                        ReplayForm.get('comment').touched">Comment is required
+                    </motif-error>
+                    <motif-error *ngIf="ReplayForm.get('comment').hasError('maxlength')">
+                        Comment can be max 250 characters long
+                    </motif-error>
+                    <motif-error *ngIf="ReplayForm.get('comment').hasError('whitespace') &&
+                    ReplayForm.get('comment').touched">Please enter valid data</motif-error>
+                    
+                    <span class="comment-status-text">COMMENT STATUS
+                        <svg class='info_icon' width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.99967 1.33334C4.31967 1.33334 1.33301 4.32001 1.33301 8.00001C1.33301 11.68 4.31967 14.6667 7.99967 14.6667C11.6797 14.6667 14.6663 11.68 14.6663 8.00001C14.6663 4.32001 11.6797 1.33334 7.99967 1.33334ZM7.99967 11.3333C7.63301 11.3333 7.33301 11.0333 7.33301 10.6667V8.00001C7.33301 7.63334 7.63301 7.33334 7.99967 7.33334C8.36634 7.33334 8.66634 7.63334 8.66634 8.00001V10.6667C8.66634 11.0333 8.36634 11.3333 7.99967 11.3333ZM8.66634 6.00001H7.33301V4.66668H8.66634V6.00001Z"
+                                fill="#2E2E38" />
+                        </svg>
+                    </span>
+                    <motif-form-field>  
+                        <div *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')">
+                            <div class="radio-item mb-2">
+                                <input type="radio" id="open{{idTask}}" formControlName="statusReplay" name="statusReplay" value="open">
+                                <label for="open{{idTask}}">Open</label>
+                            </div>                   
+                            <div class="radio-item mb-2">
+                                <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay" name="statusReplay" value="accepted">
+                                <label for="accepted{{idTask}}">Accepted</label>
+                            </div>
+                            <div class="radio-item mb-2">
+                                <input type="radio" id="declined{{idTask}}" formControlName="statusReplay" name="statusReplay" value="declined">
+                                <label for="declined{{idTask}}">Declined</label>
+                            </div>
+                            <div class="radio-item mb-2"></div>
+                        </div>
+                        <div *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status')">
+                            <div class="radio-item-v2 mb-2">
+                                <input type="radio" id="open{{idTask}}" formControlName="statusReplay" name="statusReplay" value="disabled" disabled>
+                                <label for="open{{idTask}}" style="color: #C4C4CD;">Open</label>
+                            </div>                   
+                            <div class="radio-item-v2 mb-2">
+                                <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay" name="statusReplay" value="disabled" disabled>
+                                <label for="accepted{{idTask}}" style="color: #C4C4CD;">Accepted</label>
+                            </div>
+                            <div class="radio-item-v2 mb-2">
+                                <input type="radio" id="declined{{idTask}}" formControlName="statusReplay" name="statusReplay" value="disabled" disabled>
+                                <label for="declined{{idTask}}" style="color: #C4C4CD;">Declined</label>
+                            </div>
+                            <div class="radio-item-v2 mb-2"></div>
+                        </div>                   
+                    </motif-form-field> 
+
+                    <div class='comments-reply-actions'>
+                        <button [disabled]="ReplayForm.invalid" motifButton (click)="ReplyComment()" color="primary-alt">Post</button>
+                        <button motifButton (click)="cancelReplyComment()" color="primary-alt" style="margin-left: 2px;">Cancel</button>
+                    </div>   
+                </div>
+            
+            </div>
+        </form>
+        </motif-card-body>
+    </motif-card>
+</div>
+
+<div class="toast-replays">
+    <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+        {{toastSuccessMessage}} 
+        <button type="button" class="close" (click)="closeToast()">&times;</button>
+    </motif-toast>
+</div>
+
+
+
+
+
+    
