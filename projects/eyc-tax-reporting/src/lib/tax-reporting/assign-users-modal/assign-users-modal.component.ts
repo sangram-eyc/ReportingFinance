@@ -68,12 +68,7 @@ export class AssignUsersModalComponent implements OnInit {
 
   this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
       console.log('response addUsersToFund', resp);
-      this.showModal = false;
-      this.showToastAfterSubmit = !this.showToastAfterSubmit;
-      setTimeout(() => {
-        this.showToastAfterSubmit = !this.showToastAfterSubmit;      
-        this.dialogRef.close({ button: this.modalDetails.footer.YesButton });         
-      }, 2000); 
+      this.dialogRef.close({ button: this.modalDetails.footer.YesButton }); 
   }, error => {
     console.log('response addUsersToFund', error);
   });

@@ -115,7 +115,8 @@ export class CycleDetailComponent implements OnInit {
   };
   exceptionDetailCellRendererParams;
   datasetsSelectedRows;
-  startClass = true;
+  toastSuccessMessage = '';
+  showToastAfterSubmit = false;
 
 
   ngOnInit(): void {
@@ -278,23 +279,6 @@ export class CycleDetailComponent implements OnInit {
     ];
   }
 
-  getModalError(resp){
-    let errCod = resp['error'] != null ? resp['error'].errorCode : "404";
-    let msgErr = resp['error'] != null ? resp['error'].message : "Error not found.";
-    const dialogRef = this.dialog.open(ErrorModalComponent, {
-      width: '500px',
-      data: {
-        type: "Error",
-        header: "Error",
-        description: "Error Code: " + errCod + " Message: " + msgErr,
-        footer: {
-          style: "end",
-          YesButton: "Ok"                       
-        }
-      }
-    });
-  }
-
  datasetsReportRowsSelected(event) {
   console.log('dataset emiter',  event);
   this.datasetsSelectedRows = event;
@@ -348,11 +332,20 @@ addUsersToFund(_id:any) {
   dialogRef.afterClosed().subscribe(result => {
     console.log('add-user-modal was closed', result);
     if (result.button === "Save") {
+      this.toastSuccessMessage = "Users added successfully";
+      this.showToastAfterSubmit = true;
+      setTimeout(() => {
+        this.showToastAfterSubmit = false;             
+      }, 4000);
       this.getCompletedProductCyclesData(this.productCycleId);
     } else {
       console.log('result afterClosed', result);
     }
   });
+}
+
+closeToast(){
+  this.showToastAfterSubmit = false;
 }
 
 }
