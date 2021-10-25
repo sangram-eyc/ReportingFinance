@@ -9,7 +9,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-10-01",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -21,7 +21,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-10-03",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -33,7 +33,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-10-07",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -45,7 +45,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-11-01",
-         "filesReceived":0,
+         "filesReceived":4,
          "totalFiles":4,
          "unresolve_exception":0,
          "comments":0
@@ -57,7 +57,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-11-03",
-         "filesReceived":0,
+         "filesReceived":12,
          "totalFiles":12,
          "unresolve_exception":0,
          "comments":0
@@ -69,7 +69,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":21,
          "totalFiles":21,
          "unresolve_exception":0,
          "comments":0
@@ -81,7 +81,7 @@
          "ReportingDate":"2021-11-14",
          "RegulationDueDate":"2021-11-14",
          "FileDueDate":"2021-11-05",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -93,7 +93,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-01",
-         "filesReceived":1,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -117,7 +117,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-20",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -129,7 +129,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-23",
-         "filesReceived":0,
+         "filesReceived":11,
          "totalFiles":11,
          "unresolve_exception":0,
          "comments":0
@@ -141,7 +141,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-25",
-         "filesReceived":1,
+         "filesReceived":9,
          "totalFiles":9,
          "unresolve_exception":0,
          "comments":0
@@ -153,7 +153,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-26",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -165,7 +165,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-28",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -177,7 +177,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-30",
-         "filesReceived":1,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -189,7 +189,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":12,
          "totalFiles":12,
          "unresolve_exception":0,
          "comments":0
@@ -201,7 +201,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-07",
-         "filesReceived":0,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -213,7 +213,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-10",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -225,7 +225,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-01",
-         "filesReceived":5,
+         "filesReceived":12,
          "totalFiles":12,
          "unresolve_exception":0,
          "comments":0
@@ -249,7 +249,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-20",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -261,7 +261,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-23",
-         "filesReceived":0,
+         "filesReceived":17,
          "totalFiles":17,
          "unresolve_exception":0,
          "comments":0
@@ -273,7 +273,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-25",
-         "filesReceived":0,
+         "filesReceived":5,
          "totalFiles":5,
          "unresolve_exception":0,
          "comments":0
@@ -285,7 +285,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-26",
-         "filesReceived":0,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -297,7 +297,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-28",
-         "filesReceived":0,
+         "filesReceived":5,
          "totalFiles":5,
          "unresolve_exception":0,
          "comments":0
@@ -309,7 +309,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-30",
-         "filesReceived":3,
+         "filesReceived":6,
          "totalFiles":6,
          "unresolve_exception":0,
          "comments":0
@@ -321,7 +321,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -333,7 +333,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-07",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -345,7 +345,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-01",
-         "filesReceived":4,
+         "filesReceived":5,
          "totalFiles":5,
          "unresolve_exception":0,
          "comments":0
@@ -369,7 +369,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-20",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -381,7 +381,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-23",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -393,7 +393,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-25",
-         "filesReceived":0,
+         "filesReceived":10,
          "totalFiles":10,
          "unresolve_exception":0,
          "comments":0
@@ -405,7 +405,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-27",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -417,7 +417,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-10-29",
-         "filesReceived":1,
+         "filesReceived":11,
          "totalFiles":11,
          "unresolve_exception":0,
          "comments":0
@@ -429,7 +429,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-11-03",
-         "filesReceived":0,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -441,7 +441,7 @@
          "ReportingDate":"2021-11-15",
          "RegulationDueDate":"2021-11-15",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -465,7 +465,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-15",
-         "filesReceived":0,
+         "filesReceived":4,
          "totalFiles":4,
          "unresolve_exception":0,
          "comments":0
@@ -477,7 +477,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-25",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -489,7 +489,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-30",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -501,7 +501,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-01",
-         "filesReceived":0,
+         "filesReceived":7,
          "totalFiles":7,
          "unresolve_exception":0,
          "comments":0
@@ -513,7 +513,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-01",
-         "filesReceived":7,
+         "filesReceived":12,
          "totalFiles":12,
          "unresolve_exception":0,
          "comments":0
@@ -525,7 +525,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-10",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -537,7 +537,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-25",
-         "filesReceived":0,
+         "filesReceived":8,
          "totalFiles":8,
          "unresolve_exception":0,
          "comments":0
@@ -549,7 +549,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-30",
-         "filesReceived":0,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -561,7 +561,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-01",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -573,7 +573,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":3,
          "totalFiles":3,
          "unresolve_exception":0,
          "comments":0
@@ -585,7 +585,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-07",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -597,7 +597,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-09",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -609,7 +609,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-01",
-         "filesReceived":12,
+         "filesReceived":37,
          "totalFiles":37,
          "unresolve_exception":0,
          "comments":0
@@ -621,7 +621,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-10-30",
-         "filesReceived":0,
+         "filesReceived":7,
          "totalFiles":7,
          "unresolve_exception":0,
          "comments":0
@@ -633,7 +633,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-01",
-         "filesReceived":0,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -645,7 +645,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-04",
-         "filesReceived":0,
+         "filesReceived":10,
          "totalFiles":10,
          "unresolve_exception":0,
          "comments":0
@@ -657,7 +657,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-06",
-         "filesReceived":1,
+         "filesReceived":2,
          "totalFiles":2,
          "unresolve_exception":0,
          "comments":0
@@ -669,7 +669,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-09",
-         "filesReceived":0,
+         "filesReceived":9,
          "totalFiles":9,
          "unresolve_exception":0,
          "comments":0
@@ -681,7 +681,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-11",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "unresolve_exception":0,
          "comments":0
@@ -693,7 +693,7 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-14",
-         "filesReceived":0,
+         "filesReceived":8,
          "totalFiles":8,
          "unresolve_exception":0,
          "comments":0
