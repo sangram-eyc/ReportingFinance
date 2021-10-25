@@ -94,11 +94,9 @@
         </div>
     </div>
     <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
-        <ag-grid-angular class="ag-theme-alpine" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"
-            [rowData]="rowData" [rowHeight]="74" [rowClass]="rowClass" [domLayout]="domLayout"
-            [paginationPageSize]="currentlySelectedPageSize.value" [pagination]="false"></ag-grid-angular>
-
-
+        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" (gridReady)="onGridReady($event)"
+            [suppressRowClickSelection]="true" [suppressCellSelection]="true" [domLayout]="domLayout" [pagination]="false"
+            [paginationPageSize]="currentlySelectedPageSize.value"></motif-table>
     </div>
 
     <motif-card class="no_data" *ngIf="searchNoDataAvilable">
