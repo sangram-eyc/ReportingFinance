@@ -26,6 +26,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   showToastAfterDeleteUser = false;
   selectedUser: any;
   moduleName;
+  displayCheckBox = true;
 
   constructor(
     private userService: UsersService,
@@ -75,8 +76,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
             options: '',
           };
           this.usersListArr.push(eachitem);
-          //this.rowData = this.usersListArr;
-          this.gridApi.setRowData(this.usersListArr);
+          this.rowData = this.usersListArr;
+          // this.gridApi.setRowData(this.usersListArr);
         });
   
       });
@@ -201,6 +202,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   closeAddUserModal() {
     this.showAddUserModal = false;
     this.addUserForm = this._createAddUser();
+  }
+
+  addUser(event){
+    this.showAddUserModal = true;
   }
   // Add user end here
   // Remove user start here

@@ -16,6 +16,7 @@ import { PermissionService } from 'eyc-ui-shared-component';
   styleUrls: ['./rr-reporting.component.scss']
 })
 export class RrReportingComponent implements OnInit, OnDestroy {
+  
 
   constructor(
     private rrservice: RrReportingService,
@@ -43,6 +44,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   };
 
   filingDetails: any;
+  submitEntities: any;
 
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -71,6 +73,20 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     }
   };
 
+  filingModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected entities? This will move them to client review.",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
+
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
@@ -90,7 +106,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
 
-   this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
+   this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
    this.submitTest = this.onSubmitTest.bind(this);
    console.log(this.filingDetails);
@@ -376,7 +392,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       }, 5000);
     });
-    
+
   }
 
   onSubmitApproveExceptionReports() {
@@ -412,6 +428,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     console.log(event);
     this.exceptionReportRows = event;
   }
+
+  filingEnitiesRowsSelected(event) {
+    console.log(event);
+    this.selectedRows = event;
+  }
+
 
   addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {

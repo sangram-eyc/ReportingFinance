@@ -46,12 +46,6 @@ export class SubmissionComponent implements OnInit {
   downloadMsg;
   filingStatusChangeMsg;
 
-  @ViewChild('headerTemplate')
-  headerTemplate: TemplateRef<any>;
-  @ViewChild('dropdownTemplate')
-  dropdownTemplate: TemplateRef<any>;
-
-  
   @ViewChild(DotsCardComponent) private childDot: DotsCardComponent;
 
   ngOnInit(): void {
@@ -78,7 +72,7 @@ export class SubmissionComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
+            // ngTemplate: this.dropdownTemplate,
           },
           field: 'template',
           headerName: '',
