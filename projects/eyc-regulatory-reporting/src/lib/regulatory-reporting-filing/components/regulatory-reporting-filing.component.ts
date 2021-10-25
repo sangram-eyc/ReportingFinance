@@ -174,8 +174,10 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 240,
+        minWidth: 300,
         sort:'asc',
+        wrapText: true,
+        autoHeight: true,
         comparator: customComparator
       },
       {

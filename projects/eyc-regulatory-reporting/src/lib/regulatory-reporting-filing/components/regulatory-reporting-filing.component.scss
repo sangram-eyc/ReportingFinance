@@ -111,16 +111,20 @@
 
 #grid-wrapper {
   ::ng-deep {
-    .ag-root-wrapper {
-      border: 1px solid #EAEAF2 !important;
+    .ag-pinned-left-cols-container, .ag-pinned-left-header {
+      box-shadow: none !important;
     }
     ::ng-deep .ag-body-viewport {
       min-height: 180px !important;
     }
-    
-    ::ng-deep .ag-header {
-      height: 49px !important;
-      min-height: 49px !important;
+    *:focus {
+      box-shadow: none !important;
+    }
+    .ag-menu {
+      max-height: none !important;
+    }
+    .ag-theme-material .ag-pinned-left-header {
+      border-right: none;
     }
     .motif-header-name {
       font-family: EYInterstate !important;
@@ -130,14 +134,10 @@
       line-height: 20px  !important;
       color: #2E2E38  !important;
     }
-    .ag-center-cols-container {
-      width: auto !important;
-    }
-    .ag-center-cols-clipper {
-      min-height: unset !important;
-    }
-    .ag-horizontal-left-spacer {
-      display: none !important;
+    .ag-row {
+      background: #ffffff !important;
+      border-bottom: 1px solid #E7E7EA !important;
+      height: 70px !important;
     }
     .ag-header {
       font-family: EYInterstate !important;
@@ -147,48 +147,75 @@
       line-height: 20px  !important;
       color: #2E2E38  !important;
       background: #ffffff !important;
-      height: 48px !important;
-      min-height: 48px !important;
-      border-bottom: 1px solid #EAEAF2 !important;
-    }
-    .ag-pinned-left-header {
-      border-right: none !important;
-    }
-    .ag-row {
-      background: #ffffff !important;
-      border-bottom: 1px solid #E7E7EA !important;
-      .ag-cell {
-        display: flex !important;
-        align-items: center !important;
+      height: 62px !important;
+      min-height: 62px !important;
+      border-bottom: 1px solid #E0E0E0 !important;
+      .ag-header-row-column {
+          height: 62px !important;
+      }
+      .ag-header-cell-text {
+        font-size: 16px !important;
         font-family: EYInterstate !important;
+        color: #2E2E38 !important;
+        padding-bottom: 3px !important;
       }
     }
-    .actions-button-cell {
-      padding: 0 8px !important;
-      display: flex !important;
-      align-items: center !important;
-      border-right: none !important;
+   
+
+    .ag-root-wrapper {
+      position: inherit !important;
       overflow: visible !important;
+      border: 1px solid #E0E0E0 !important;
     }
-    .motif-table {
-      .ag-row {
-            background: #FFFFFF !important;
-      }
-      .ag-cell-value {
-        font-family: EYInterstate !important;
-        font-style: normal  !important;
-        font-weight: 400  !important;
-        font-size: 14px  !important;
-        line-height: 20px  !important;
-        color: #2E2E38  !important;
-      }
-    }
-    .ag-paging-panel {
-      border-top: none !important;
-      font-family: EYInterstate !important;
-      font-size: 14px !important;
-      height: 69px !important;
-    }
+    .motif-ag-grid {
+      background: none !important;
+      position: inherit !important;
+  }
+  }
+  ::ng-deep .motif-table .ag-header-cell {
+    height: 44px !important;
+}
+
+::ng-deep .motif-table .ag-header {
+    height: 49px !important;
+    min-height: 49px !important;
+}
+::ng-deep .motif-table .ag-root-wrapper {
+  min-height: 320px;
+}
+  ::ng-deep {
+    ::ng-deep .motif-table .ag-pinned-left-cols-container, ::ng-deep .motif-table .ag-pinned-left-header {
+      box-shadow: none !important;
+  }
+  
+  
+  ::ng-deep .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+      box-shadow: none !important;
+      border: none !important;
+  }
+ 
+  ::ng-deep .ag-theme-material .ag-radio-button-input-wrappe::after {
+      color: #23232F;
+  }
+  ::ng-deep .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+      color: #23232F;
+  }
+
+  .ag-cell-value {
+    font-family: EYInterstate !important;
+    font-style: normal  !important;
+    font-weight: 400  !important;
+    font-size: 14px  !important;
+    line-height: 20px  !important;
+    color: #2E2E38  !important;
+  }
+.ag-paging-panel {
+  border-top: none !important;
+  font-family: EYInterstate !important;
+  font-size: 14px !important;
+  height: 69px !important;
+}
+
   }
 
 }
