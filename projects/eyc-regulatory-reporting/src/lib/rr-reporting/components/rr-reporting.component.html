@@ -50,50 +50,27 @@
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)">
-        <!-- <lib-shared-grid 
+        <lib-shared-grid 
             gridStyle="first"
             [columnDefs]="columnDefs" 
             [rowData]="rowData" 
             rowSelection="multiple" 
-            [submitFunction]="submitTest" 
+            [submitFunction]="submitEntities" 
             [modalMessage]="modalMessage" 
             buttonPosition="left" 
             [masterDetail]="true"
-            [modalConfig]="exceptionModalConfig"
-        ></lib-shared-grid> -->
-        <!-- <lib-grid [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" [search]="false" [submitFunction]="onSubmitApproveFilingEntities" [modalMessage]="modalMessage" buttonPosition="left"></lib-grid> -->
-        <div class="approve-button">
-            <button *ngIf="permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')" motifButton color="primary" size="large" (click)="approveFilingEntitiesModal = true;"
-                [disabled]="selectedRows.length==0">Approve selected</button>
-        </div>
-        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
-            headerCheckboxSelection: isFirstColumn,
-            checkboxSelection: isFirstColumn
-            }" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
-                    [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false"
-                    paginationPageSize="10" (rowSelected)="onRowSelected($event)"></motif-table>
+            [isToggle]= "false"
+            [modalConfig]="filingModalConfig"
+            [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
+            (toggleEventToParent) = "onClickMyTask($event)"
+        ></lib-shared-grid>
         <ng-template #headerTemplate>
             <div>
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
                     tabindex="0"></motif-icon>
             </div>
         </ng-template>
-        <motif-modal [show]="approveFilingEntitiesModal" (close)="approveFilingEntitiesModal = false">
-            <motif-modal-header>
-                Approve Selected
-            </motif-modal-header>
-            <motif-modal-body>
-                <p>
-                    Are you sure you want to approve the selected entities? This will move them to client review.
-                </p>
-            </motif-modal-body>
-            <motif-modal-footer>
-                <button motifButton class="approve-yes" color="primary"
-                    (click)="onSubmitApproveFilingEntities()">Yes</button>
-                <button motifButton class="approve-no" color="secondary"
-                    (click)="approveFilingEntitiesModal = false">No</button>
-            </motif-modal-footer>
-        </motif-modal>
         <ng-template #dropdownTemplate let-row>
             <div class="dropdownTemplate">
                 <motif-icon class="complete" *ngIf="row.approved == true"

@@ -19,20 +19,7 @@
         checkboxSelection: isFirstColumn}" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()"></motif-table>
-        </div>
-        <!-- CUSTOM TEMPLATE -->
-        <ng-template #headerTemplate>
-           <!--  <div>
-                <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
-                    tabindex="0"></motif-icon>
-            </div> -->
-        </ng-template>
-        <ng-template #dropdownTemplate>
-         <!--    <div>
-                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
-                </motif-icon>
-            </div> -->
-        </ng-template>    
+        </div> 
     </section>
 </div>
 

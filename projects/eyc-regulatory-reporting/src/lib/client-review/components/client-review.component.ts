@@ -53,12 +53,27 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   rowData = [];
   submitFunction;
   submitException;
+  submitEntities;
   exceptionModalConfig = {
     width: '550px',
     data: {
       type: "Confirmation",
       header: "Approve Selected",
       description: "Are you sure you want to approve these exception reports?",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
+
+  entitiesModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected entities? This will approve them for submission.",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -83,7 +98,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
-    this.submitFunction = this.onSubmitApproveFilingEntities.bind(this);
+    this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
 
@@ -298,7 +313,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.gridApi = params.api;
   }
 
-  onRowSelected(event: any): void {
+  /* onRowSelected(event: any): void {
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows =selectedArr.filter(item => item.approved === false);
@@ -309,10 +324,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       this.gridApi.selectAll();
     }
   }
-
+ */
   receiveMessage($event) {
     this.tabs = $event;
     if(this.tabs == 2){
+      this.modalMessage = ' Are you sure you want to approve the selected entities? This will approve them for submission.';
       this.getFilingEntities();
     } else if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve these exception reports?';
@@ -355,7 +371,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   onSubmitApproveExceptionReports() {
-
     console.log(this.exceptionReportRows);
     const filingDetails = this.filingDetails;
     let selectedFiling = {
@@ -387,6 +402,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   exceptionReportRowsSelected(event) {
     console.log(event);
     this.exceptionReportRows = event;
+  }
+
+  filingEnitiesRowsSelected(event) {
+    console.log(event);
+    this.selectedRows = event;
   }
 
   addComment(row) {
