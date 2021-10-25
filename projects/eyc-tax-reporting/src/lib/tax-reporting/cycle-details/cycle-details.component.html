@@ -174,3 +174,9 @@
 
   </ng-template>
 </div>
+<div class="toast-cycles-details">
+  <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+    {{toastSuccessMessage}} 
+    <button type="button" class="close" (click)="closeToast()">&times;</button>
+  </motif-toast>
+</div>
