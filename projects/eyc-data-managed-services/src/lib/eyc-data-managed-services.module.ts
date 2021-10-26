@@ -6,7 +6,7 @@ import { MotifTooltipModule, MotifCardModule, MotifButtonModule, MotifIconModule
 import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
 import { DataIntakeComponent } from './data-intake/component/data-intake.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
-import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
+// import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 import { HttpClientModule } from '@angular/common/http';
 import { DataManagedService} from './data-intake/services/data-managed.service';
 import { DataManagedSettingsService} from './data-intake/services/data-managed-settings.service'
@@ -35,7 +35,7 @@ import { FormsModule } from '@angular/forms';
     MotifToastModule,
     MotifDropdownModule,
     EycUiSharedComponentModule,
-    EycChartsSharedLibraryModule,
+    // EycChartsSharedLibraryModule,
     HttpClientModule,
     FormsModule 
   ],
