@@ -249,7 +249,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 250,
         sort: 'asc',
         comparator: customComparator
-      }/* ,
+      },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -261,7 +261,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150
-      } */,
+      } ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
