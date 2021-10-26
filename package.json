@@ -55,7 +55,6 @@
     "d3-shape": "^1.3.7",
     "d3-time-format": "^2.2.3",
     "d3-transition": "^1.3.2",
-    "eyc-charts-shared-library": "file:dist/eyc-charts-shared-library/eyc-charts-shared-library-0.0.1.tgz",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
     "powerbi-client": "^2.18.0",
