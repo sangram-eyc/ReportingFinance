@@ -57,6 +57,11 @@
               },
               {
                 "glob": "**/*",
+                "input": "projects/eyc-data-managed-services/src/assets",
+                "output": "assets/eyc-data-managed-services"
+              },
+              {
+                "glob": "**/*",
                 "input": "projects/eyc-tax-reporting/src/assets/mock/icons",
                 "output": "assets/eyc-tax-reporting/icons/"
               },
@@ -94,6 +99,10 @@
                 {
                   "replace": "src/environments/eyc-tax-reporting/tax-environment.ts",
                   "with": "src/environments/eyc-tax-reporting/tax-environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/eyc-data-managed-services/data-managed-environment.ts",
+                  "with": "src/environments/eyc-data-managed-services/data-managed-environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -364,6 +373,86 @@
             "tsConfig": [
               "projects/eyc-tax-reporting/tsconfig.lib.json",
               "projects/eyc-tax-reporting/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "eyc-data-managed-services": {
+      "projectType": "library",
+      "root": "projects/eyc-data-managed-services",
+      "sourceRoot": "projects/eyc-data-managed-services/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/eyc-data-managed-services/tsconfig.lib.json",
+            "project": "projects/eyc-data-managed-services/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/eyc-data-managed-services/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/eyc-data-managed-services/src/test.ts",
+            "tsConfig": "projects/eyc-data-managed-services/tsconfig.spec.json",
+            "karmaConfig": "projects/eyc-data-managed-services/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/eyc-data-managed-services/tsconfig.lib.json",
+              "projects/eyc-data-managed-services/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "eyc-charts-shared-library": {
+      "projectType": "library",
+      "root": "projects/eyc-charts-shared-library",
+      "sourceRoot": "projects/eyc-charts-shared-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/eyc-charts-shared-library/tsconfig.lib.json",
+            "project": "projects/eyc-charts-shared-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/eyc-charts-shared-library/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/eyc-charts-shared-library/src/test.ts",
+            "tsConfig": "projects/eyc-charts-shared-library/tsconfig.spec.json",
+            "karmaConfig": "projects/eyc-charts-shared-library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/eyc-charts-shared-library/tsconfig.lib.json",
+              "projects/eyc-charts-shared-library/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

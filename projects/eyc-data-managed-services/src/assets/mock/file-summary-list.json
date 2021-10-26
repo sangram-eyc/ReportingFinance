@@ -1,0 +1,29 @@
+{
+    "success": true,
+    "message": "success",
+    "data": {
+        "totalCount": 600,
+        "dataSeries": [
+            {
+                "label": "No issue",
+                "value": 400
+            },
+            {
+                "label": "Medium / low priority issues",
+                "value": 50
+            },
+            {
+                "label": "High priority issues",
+                "value": 50
+            },
+            {
+                "label": "Missing files, past due",
+                "value": 50
+            },
+            {
+                "label": "Files not received",
+                "value": 50
+            }
+        ]
+    }
+}

@@ -1,0 +1,305 @@
+.page-header {
+  position: static;
+  width: 749px;
+  height: 47px;
+  margin-top: 26px;
+  top: 0;
+  right: 0;
+}
+
+* {
+
+  h1,
+  h6,
+  section {
+    padding: 0 !important;
+    margin: 0;
+  }
+}
+
+.heading-4 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
+}
+
+.heading-6 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
+}
+
+.eyc-dms-tabs {
+  position: relative;
+
+  button.motif-text-link {
+    font-family: EYInterstate;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    align-items: center;
+    text-align: center;
+    color: #2e2e38 !important;
+  }
+
+  button.motif-active.motif-text-link {
+    border-bottom: 3.8px solid !important;
+  }
+
+  button.motif-text-link:hover,
+  button.motif-text-link:focus,
+  button.motif-text-link:active {
+    box-shadow: none !important;
+    border-bottom: 3.8px solid !important;
+  }
+}
+
+.inner-tabs {
+  button.motif-text-link {
+    font-family: EYInterstate !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    align-items: center;
+    text-align: center;
+    color: #2e2e38 !important;
+  }
+
+  button.motif-active.motif-text-link {
+    border-bottom: 3.8px solid !important;
+  }
+
+  button.motif-text-link:hover,
+  button.motif-text-link:focus,
+  button.motif-text-link:active {
+    box-shadow: none !important;
+    border-bottom: 3.8px solid !important;
+  }
+
+  ::ng-deep .motif-tab-bar>.motif-tab-bar-wrapper {
+    border-bottom: none;
+    padding-top: 1.06544901065449vh;
+    padding-left: 2vw;
+  }
+}
+
+::ng-deep .motif-card-header {
+  padding: 0 !important;
+}
+
+.bar-chart-panel {
+  padding: 0;
+  font-family: EYInterstate;
+  font-size: 14px; //88%;
+  line-height: 20px;
+  color: #000000;
+
+  div {
+    padding-left: 0;
+  }
+
+  .bar-chart-header {
+    padding-left: 6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 6.544901065449011vh;
+
+    .file-count {
+      font-size: 28px;
+      display: block;
+      padding-left: 0;
+      padding-bottom: 1.21765601217656vh;
+    }
+
+    .btn-secondary {
+      min-width: 8.125915080527086vw;
+      min-height: 6.69710806697108vh;
+      padding: 1.67427701674277vh 2.34vw;
+      color: #2E2E38;
+    }
+
+    .motif-button[color=secondary]:hover,
+    .motif-button[color=secondary]:focus,
+    .motif-button[color=secondary]:active {
+      background-color: transparent !important;
+    }
+  }
+
+  .bar-chart-body {
+    position: relative;
+    border-bottom: 1px solid #EAEAF2;
+    padding: 0 6px 6vh 6px;
+
+    .chart-container{
+      display: grid;
+      min-height: 300px;
+      margin-top: 10px;
+      margin-left: -28px;
+      ::ng-deep .eyc-charts {
+        text {
+          fill: #747480 !important;
+        }
+      }
+    }
+
+    .toast-card {
+      min-height: 6.9vh;
+      background: #ffffff;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.20287);
+      margin-top: 5.327245053272451vh;
+      padding: 0;
+      display: flex;
+
+      .toast-icon {
+        width: 3.294289897510981vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        background: #57E188;
+        color: white;
+      }
+
+      .toast-card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        margin-left: 1.2445095168374818vw;
+      }
+    }
+  }
+}
+
+::ng-deep .donut-chart>svg {
+  height: 202px !important;
+  width: 202px !important;
+}
+
+.donut-chart-card {
+  display: flex;
+  align-items: center;
+  padding-top: 6.0882800608828vh;
+  min-height: 74.73363774733637vh;
+}
+
+.bar-chart-card {
+  min-height: 158.59969558599695vh;
+}
+
+.review-group-card {
+  min-height: 40.182648401826484vh;
+
+  .motif-card-body {
+    padding: 1.71429rem 1.71429rem 2rem !important;
+  }
+}
+
+.review-all {
+  font-family: EYInterstate;
+  font-size: 14px;
+  margin: 37px 0 35px 0;
+}
+
+.icon-size {
+  font-size: 16px;
+}
+
+::ng-deep .review-by-group {
+  width: 100%;
+  // margin: 33px 0 0 24px;
+}
+
+::ng-deep .review-number {
+  font-family: EYInterstate;
+  font-size: 28px;
+  line-height: 20px;
+  color: #2e2e38;
+  padding: 19px 0 0 0 !important;
+
+  .material-icons {
+    padding: 0 !important;
+  }
+}
+
+::ng-deep .review-by-group-heading {
+  margin-bottom: 19px;
+  margin-top: 13px;
+  padding: 8px 0 14px 0 !important;
+  line-height: 1.57143rem;
+  font-family: EYInterstate;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2e2e38;
+  // height: 40px;
+
+  span {
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 22px;
+    color: #155cb4;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+}
+
+::ng-deep .review-by-group-search {
+  margin-bottom: 19px;
+  margin-top: 13px;
+  padding: 0 0 !important;
+  line-height: 1.57143rem;
+  font-family: EYInterstate;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2e2e38;
+
+  span {
+    padding-left: 3px !important;
+  }
+}
+
+.review-lines {
+  border: 1px solid #e1e1e6;
+  transform: rotate(180deg);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 16px 0px;
+}
+
+.text-align-right {
+  text-align: right !important;
+}
+
+.dateWrapper {
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  left: 53.5%;
+  position: relative;
+  top: 7px;
+  ::ng-deep {
+    .motif-icon {
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .dateWrapper{
+  padding: 0 !important;
+ }
