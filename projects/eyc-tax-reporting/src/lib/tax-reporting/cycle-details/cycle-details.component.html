@@ -127,13 +127,13 @@
   </ng-template>
 
   <ng-template #openCommentEY let-row>
-    <button class='counter-item' [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
+    <button (click)="createComment(row)" class='counter-item' [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
       {{row.openCommentsEY}}
     </button>
   </ng-template>
 
   <ng-template #openCommentClient let-row>
-    <button class='counter-item' [ngClass]="row.openCommentsClient > 0 ? 'has-count': 'zero-count'" color="primary">
+    <button (click)="createComment(row)" class='counter-item' [ngClass]="row.openCommentsClient > 0 ? 'has-count': 'zero-count'" color="primary">
       {{row.openCommentsClient}}
     </button>
   </ng-template>
@@ -173,4 +173,10 @@
 
 
   </ng-template>
+</div>
+<div class="toast-cycles-details">
+  <motif-toast [type]="'success'" [show]="showToastAfterSubmit">   
+    {{toastSuccessMessage}} 
+    <button type="button" class="close" (click)="closeToast()">&times;</button>
+  </motif-toast>
 </div>
