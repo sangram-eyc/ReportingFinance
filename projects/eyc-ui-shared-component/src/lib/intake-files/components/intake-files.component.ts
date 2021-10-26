@@ -97,6 +97,24 @@ export class IntakeFilesComponent implements OnInit {
         filter: true,
         wrapText: true,
         autoHeight: true
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Data Owner',
+        field: 'dataOwner ',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Source Type',
+        field: 'sourceType',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true
       }/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
