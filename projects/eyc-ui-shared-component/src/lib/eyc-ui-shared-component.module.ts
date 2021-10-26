@@ -11,11 +11,10 @@ import { TableHeaderRendererComponent } from './table-header-renderer/table-head
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CommonModule } from '@angular/common';
 import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.module';
-import { DonutChartComponent } from './donut-chart/components/donut-chart.component';
 
 
 @NgModule({
-  declarations: [TableHeaderRendererComponent, DonutChartComponent],
+  declarations: [TableHeaderRendererComponent],
   imports: [
     ModalModule,
     MotifButtonModule,
@@ -36,8 +35,7 @@ import { DonutChartComponent } from './donut-chart/components/donut-chart.compon
     GridModule,
     CommentSideMenuModule,
     IntakeFilesModule,
-    TableHeaderRendererComponent,
-    DonutChartComponent
+    TableHeaderRendererComponent
   ]
 })
 export class EycUiSharedComponentModule { }

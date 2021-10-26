@@ -12,6 +12,7 @@ import { DataManagedService} from './data-intake/services/data-managed.service';
 import { DataManagedSettingsService} from './data-intake/services/data-managed-settings.service'
 import { EycDataApiService} from './data-intake/services/eyc-data-api.service'
 import { FormsModule } from '@angular/forms';
+import { DonutChartModule } from 'eyc-charts-shared-library';
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
@@ -37,7 +38,8 @@ import { FormsModule } from '@angular/forms';
     EycUiSharedComponentModule,
     // EycChartsSharedLibraryModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule,
+    DonutChartModule
   ],
   providers: [
     DataManagedService,
