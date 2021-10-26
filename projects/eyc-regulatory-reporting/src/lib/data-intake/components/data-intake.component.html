@@ -20,17 +20,17 @@
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')"></lib-shared-grid>
 
-        <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
+        <ng-template #commentExceptionTemplate let-row >
+            <div *ngIf=" row.comments!==0 && row?.comments && permissions.validatePermission('Data Intake', 'View Comments')"
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
-            </div> -->
+            </div>
         </ng-template>
         <ng-template #resolveExceptionTemplate let-row>
             <div>
@@ -103,20 +103,20 @@
                 </motif-icon>
             </div>
         </ng-template>
-        <ng-template #commentDatasetsTemplate let-row>
+        <!-- <ng-template #commentDatasetsTemplate let-row>
             <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
                 class="comments-background" (click)="openComments()">
                 {{row.comments}}
             </div>
-            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
                 <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToDatasets(row)">
                         <span class="plus">+</span>
                     </motif-icon>
                 </div>
-            </div> -->
-        </ng-template>
+            </div>
+        </ng-template> -->
         <ng-template #resolveDatasetsTemplate let-row>
             <div>
                 {{row.resolved}}
