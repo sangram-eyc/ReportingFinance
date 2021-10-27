@@ -26,12 +26,14 @@ export class CommentsPagecomponent implements OnInit {
 
   isData: boolean = false;
   completedComments: any[] = [];
+  filteredComments:any[] = [];
   pageName: string = 'Comments-Page';
   fundName: string;
   fundId: string;
   productCycleName: string;
   isApproved: boolean = false;
   hasOpenComments: boolean = false;
+  showOnlyOpenComments:boolean = false;
 
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
@@ -51,6 +53,17 @@ export class CommentsPagecomponent implements OnInit {
     
     this.getComments()
   }
+
+  showOpenComments(){
+    this.showOnlyOpenComments = !this.showOnlyOpenComments 
+    this.showOnlyOpenComments ? this.filter("OPEN") : this.filteredComments = this.completedComments
+  }
+
+  filter(status)  {
+    if (status != "") {
+      this.filteredComments = this.completedComments.filter( taskcomment => taskcomment.status == status)
+    }
+  } 
 
   getComments() {
     this.completedComments = [];
@@ -78,6 +91,7 @@ export class CommentsPagecomponent implements OnInit {
         };
         this.completedComments.push(eachitem);
         this.updateHasOpenComments(item.status);
+        this.filteredComments = this.completedComments
       });
     })
   }
