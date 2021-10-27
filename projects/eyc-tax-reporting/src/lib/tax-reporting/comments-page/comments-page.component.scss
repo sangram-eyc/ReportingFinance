@@ -645,3 +645,34 @@
   font-family: EYInterstate;
 }
   
+::ng-deep .toggle-open-comments {
+    margin: 12px 0px -8px 4px;
+    display: flex;
+    justify-content: end;
+
+    label{
+      max-width:fit-content;
+    }
+
+    motif-toggle-switch{
+      max-width: fit-content;
+      margin-top:3px
+    }
+    
+   .motif-toggle-switch-handle{
+    padding: 0px !important;
+    top:-2px !important;
+  }
+
+   .motif-toggle-switch-container{
+    padding: 0px !important;
+  }
+
+  .motif-toggle-switch-container:focus-within{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+ 
+
