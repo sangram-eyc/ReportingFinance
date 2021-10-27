@@ -3,8 +3,10 @@
  */
 export * from './lib/eyc-charts-shared-library.module';
 
-export * from './lib/bar-chart/bar-chart.module';
 export * from './lib/donut-chart/donut-chart.module';
+export * from './lib/donut-chart/donut-chart.component'
+
+export * from './lib/bar-chart/bar-chart.module';
 export * from './lib/bar-chart/bar/bar.component';
 export * from './lib/bar-chart/bar-vertical/bar-vertical.component';
 export * from './lib/bar-chart/series-vertical.component';
