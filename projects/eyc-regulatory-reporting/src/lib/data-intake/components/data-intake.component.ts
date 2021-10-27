@@ -69,6 +69,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     }
   };
   showToastAfterApproveExceptionReports = false;
+  commentEntityType;
+  entityId;
 
   constructor(
     private service: DataIntakeService,
@@ -422,7 +424,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.exceptionId,
+        entityId: row.id,
         entityType: "DATA_EXCEPTION_REPORT",
         forms: {
           isSelect: false,
@@ -463,7 +465,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
+        this.exceptionData[this.exceptionData.findIndex(item => item.id === row.id)].commentCount = 1;
         this.createEntitiesRowData();
       } else {
         console.log(result);
@@ -578,19 +580,27 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("enableTabsIntake");
   }
 
-  openComments(event = null) {
-    console.log('OPEN COMMENTS');
-    this.commentsData = [];
+  
+  openComments(row) {
     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-    this.service.getComments('filing', 2).subscribe(res => {
-      this.commentsData = res['data'];
-    }, error => {
-      this.commentsData = [];
-      console.log("Comments error");
-    });
+    if (this.tabs == 2) {
+      this.commentEntityType = 'DATASET';
+      this.entityId = row.entityId;
+    } else {
+      this.commentEntityType = 'DATA_EXCEPTION_REPORT'
+      this.entityId = row.id;
+    }
     this.showComments = true;
+
   }
 
+  commentAdded() {
+    if (this.tabs==2) {
+      this.getFiles();
+    } else {
+      this.getExceptionReports();
+    }
+  }
 
   routeToExceptionDetailsPage(event:any) {
     event.exceptionReportName = event.file;

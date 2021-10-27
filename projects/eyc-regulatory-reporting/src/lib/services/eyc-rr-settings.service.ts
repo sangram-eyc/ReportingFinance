@@ -35,7 +35,7 @@ export class EycRrSettingsService {
       bd_files_list: this.rrproduction ? this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/exception-files/business-day?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/bd_files_list.json',
       datasets_list: this.rrproduction ? this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/data-exceptions/files?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json',
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
-      rr_comments: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
+      rr_comments: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
       view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionResults?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
       view_exception_report_results: this.rrproduction ? this.API_ENDPOINT +'regReportingCoreService/api/v2/regreporting/data-exceptions/ruleId?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
       approve_intake_exception_report: this.production ? this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/data-exceptions/approve': this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/data-exceptions/approve',
