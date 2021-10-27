@@ -21,11 +21,11 @@
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')"></lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row >
-            <div *ngIf=" row.comments!==0 && row?.comments && permissions.validatePermission('Data Intake', 'View Comments')"
-                class="comments-background" (click)="openComments()">
-                {{row.comments}}
+            <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')"
+                class="comments-background" (click)="openComments(row)">
+                {{row.commentCount}}
             </div>
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
+            <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount">
                 <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
@@ -127,8 +127,7 @@
         </ng-template>
     </section>
 </div>
-<lib-comment-side-menu [(show)]="showComments" [commentsData]="commentsData" [filingName]="commentsName">
-</lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
