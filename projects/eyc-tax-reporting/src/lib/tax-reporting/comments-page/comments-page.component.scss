@@ -608,6 +608,40 @@
   } 
 
 }
-  
 
+.text-count-comments{
+  font-family: EYInterstate;
+  font-size: 12px;
+  text-align: center;
+}
+
+.text-count-number{
+  font-family: EYInterstate;
+  font-size: 24px;
+  text-align: left;
+}
+
+.icon-count{
+  width: 8px;
+  height: 8px;
+  display: inline;
+  margin-right: 10px;
+  margin-left: 10px; 
+}
+  
+.row-counters{
+  margin-top: 27px;
+  margin-left: 0px;
+}
+
+.icon-separator{
+  height: 19px;
+  display: inline;
+}
+
+.text-count-span{
+  padding-right: inherit; 
+  font-size: 14px; 
+  font-family: EYInterstate;
+}
   
