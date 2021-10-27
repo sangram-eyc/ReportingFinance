@@ -157,6 +157,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'ID',
+          field: 'fundId',
+          sortable: true,
+          filter: true,
+          width: 140,
+        },
         /* {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Entity Group',
