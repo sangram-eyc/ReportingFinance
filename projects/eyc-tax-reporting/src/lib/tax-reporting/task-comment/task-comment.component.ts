@@ -14,8 +14,9 @@ import * as FileSaver from 'file-saver';
 export class TaskCommentComponent implements OnInit {
 
   @Input() TaskCommentData:any;
-
   @Output() onCommentStatusChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onCommentTagDeleted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCommentPriorityDeleted: EventEmitter<any> = new EventEmitter<any>();
 
   Requestfrom:string = 'Client'
   createdBy:string = 'Patrick Mahomes'
@@ -262,6 +263,11 @@ export class TaskCommentComponent implements OnInit {
           console.log('response delete tag', resp);
           this.editRequired = tagId == 1 ? null : this.editRequired;
           this.includeDebrief = tagId == 2 ? null : this.includeDebrief;
+          const tagDeleted = {
+            "id": this.idTask,
+            "idTag": tagId
+          };
+          this.onCommentTagDeleted.emit(tagDeleted);
         });   
       }
     });
@@ -291,7 +297,12 @@ export class TaskCommentComponent implements OnInit {
         }
         this.commentService.deletePriority(this.idTask, data).subscribe(resp => {
           this.priority = 0;
-          console.log('response delete tag', resp);                   
+          console.log('response delete tag', resp);
+          const Prioritydeleted = {
+            "id": this.idTask,
+            "priority": 0
+          };
+          this.onCommentPriorityDeleted.emit(Prioritydeleted);                   
         });   
       }
     });

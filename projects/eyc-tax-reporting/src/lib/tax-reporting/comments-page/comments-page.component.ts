@@ -38,6 +38,9 @@ export class CommentsPagecomponent implements OnInit {
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
+  emptyCommentSearch = false;
+  textTofind = "";
+ 
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -55,14 +58,25 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   showOpenComments(){
-    this.showOnlyOpenComments = !this.showOnlyOpenComments 
-    this.showOnlyOpenComments ? this.filter("OPEN") : this.filteredComments = this.completedComments
+    console.log("text to find", this.textTofind)
+    if(this.completedComments.length > 0){
+      this.showOnlyOpenComments = !this.showOnlyOpenComments    
+      if(this.textTofind != ""){
+        this.searchActiveComments(this.textTofind);
+      }else{
+          if(this.showOnlyOpenComments){
+            this.filter("open");
+          }else{
+            this.filteredComments = this.completedComments;
+            this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
+              } 
+         }
+      }   
   }
 
   filter(status)  {
-    if (status != "") {
-      this.filteredComments = this.completedComments.filter( taskcomment => taskcomment.status == status)
-    }
+      this.filteredComments = this.completedComments.filter( taskcomment => taskcomment.status.toLowerCase() == status)
+      this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
   } 
 
   getComments() {
@@ -87,7 +101,11 @@ export class CommentsPagecomponent implements OnInit {
           tags: item.tags,
           replyCount: item.replyCount,
           attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
-          attachments:item.attachments 
+          attachments:item.attachments,
+          priorityToFind: item.priority == 1 ? "critical":"",
+          tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
+          tagIncludeTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 2) != undefined ? item.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "",
+          authorTofind: item.author != null ? item.author.userFirstName + " " + item.author.userLastName : item.createdBy
         };
         this.completedComments.push(eachitem);
         this.updateHasOpenComments(item.status);
@@ -102,6 +120,29 @@ export class CommentsPagecomponent implements OnInit {
       updatedComment.status = commentItem.status;
     }
     this.hasOpenComments = this.completedComments.some(item => this.isOpenStatus(item.status));
+  }
+
+  commentTagUpdateSearch(commentItem: { id: any; idTag: any; }){
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      if(commentItem.idTag == 1){
+        updatedComment.tagEditTofind = "";
+        let index = updatedComment.tags.findIndex(i => i.id == 1);
+        updatedComment.tags.splice(index, 1);
+      }else if(commentItem.idTag == 2){
+        updatedComment.tagIncludeTofind = "";
+        let index = updatedComment.tags.findIndex(i => i.id == 2);
+        updatedComment.tags.splice(index, 1);
+      }      
+    }
+  }
+
+  commentPriorityUpdateSearch(commentItem: { id: any; priority: any; }){
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      updatedComment.priority = commentItem.priority;
+      updatedComment.priorityToFind = ""
+    }
   }
 
   updateHasOpenComments(commentStatus: string) {
@@ -219,4 +260,57 @@ export class CommentsPagecomponent implements OnInit {
   closeToast(){
     this.showToastAfterSubmit = false;
   }
+
+  searchCommentsValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  searchActiveComments(input) {
+    console.log('typeof input->', typeof(input));
+    this.textTofind = typeof(input) === 'object' ? input.el.nativeElement.value: input;   
+    if(this.completedComments.length > 0){
+      if(this.showOnlyOpenComments){
+        this.filteredComments = this.completedComments.filter(item =>  
+          (item.authorTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.description.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.priorityToFind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.tagEditTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.tagIncludeTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1) &&
+          item.status.toLowerCase() == "open"
+          ) 
+        this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
+      }else{
+        this.filteredComments = this.completedComments.filter(item =>  
+          ( item.authorTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.description.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.priorityToFind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.tagEditTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
+          item.tagIncludeTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1)
+          ) 
+        this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
+      }
+    }
+  } 
+
+  onPasteSearchActiveComments(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  } 
+
 }
