@@ -53,12 +53,10 @@ task buildTax(type: NpmTask) {
   args = ['run', 'eyc-tax-reporting']
   
 }
-
-// task buildChart(type: NpmTask)
-// {
-//   println "Building and Installing eyc-charts-shared-library"
-//   args = ['run', 'eyc-charts-shared-library:package']
+ task buildChart(type: NpmTask) {
+  println "Building eyc-charts-shared-library"
+  args = ['run', 'eyc-charts-shared-library:build']
   
-// }
+}
 
 build.dependsOn(npm_install)
