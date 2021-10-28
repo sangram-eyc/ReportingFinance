@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
@@ -77,7 +77,7 @@ export class DataIntakeComponent implements OnInit {
   gradient = false;
   showLegend = false;
   legendTitle = 'Legend';
-  // legendPosition = LegendPosition.Below;
+  legendPosition = LegendPosition.Below;
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
@@ -97,10 +97,10 @@ export class DataIntakeComponent implements OnInit {
   showDataLabel: boolean = true;
   noBarWhenZero: boolean = true;
   trimXAxisTicks: boolean = true;
-  //trimYAxisTicks: boolean = true;
+  trimYAxisTicks: boolean = true;
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
-  //maxYAxisTickLength: number = 16;
+  maxYAxisTickLength: number = 16;
   colorScheme;
   colorScheme2;
   colorScheme3;
@@ -112,9 +112,9 @@ export class DataIntakeComponent implements OnInit {
   }
   setColorScheme() {
     //this.selectedColorScheme = 'red';
-    // this.colorScheme = colorSets.find(s => s.name === 'red');
-    // this.colorScheme2 = colorSets.find(s => s.name === 'orange');
-    // this.colorScheme3 = colorSets.find(s => s.name === 'teal');
+    this.colorScheme = colorSets.find(s => s.name === 'red');
+    this.colorScheme2 = colorSets.find(s => s.name === 'orange');
+    this.colorScheme3 = colorSets.find(s => s.name === 'teal');
   }
 
   ngOnInit(): void {
