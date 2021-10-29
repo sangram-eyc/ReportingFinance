@@ -111,7 +111,7 @@
         </svg>
       </a>
 
-      <a (click)="createComment(row)" *ngIf="permissions.validatePermission('Production Cycles', 'View comments')" >
+      <a (click)="createComment(row,'')" *ngIf="permissions.validatePermission('Production Cycles', 'View comments')" >
         <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z" fill="#2E2E38"/>
         </svg>          
@@ -127,13 +127,13 @@
   </ng-template>
 
   <ng-template #openCommentEY let-row>
-    <button (click)="createComment(row)" class='counter-item' [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
+    <button (click)="createComment(row,'EY')" class='counter-item' [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
       {{row.openCommentsEY}}
     </button>
   </ng-template>
 
   <ng-template #openCommentClient let-row>
-    <button (click)="createComment(row)" class='counter-item' [ngClass]="row.openCommentsClient > 0 ? 'has-count': 'zero-count'" color="primary">
+    <button (click)="createComment(row,'CLIENT')" class='counter-item' [ngClass]="row.openCommentsClient > 0 ? 'has-count': 'zero-count'" color="primary">
       {{row.openCommentsClient}}
     </button>
   </ng-template>
