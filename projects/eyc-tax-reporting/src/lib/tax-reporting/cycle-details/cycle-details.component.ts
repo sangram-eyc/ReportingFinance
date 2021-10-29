@@ -149,9 +149,9 @@ export class CycleDetailComponent implements OnInit {
      });
   }
 
-  createComment(row){
-    console.log("Comments-Landing")
-    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient]);
+  createComment(row: any,type: any){
+    console.log("Comments-Landing");
+    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient,type]);
   }
 
    getCompletedProductCyclesData(id:any) {

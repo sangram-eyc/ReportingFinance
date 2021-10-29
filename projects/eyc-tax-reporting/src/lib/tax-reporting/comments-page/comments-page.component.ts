@@ -30,6 +30,7 @@ export class CommentsPagecomponent implements OnInit {
   pageName: string = 'Comments-Page';
   fundName: string;
   fundId: string;
+  type: string;
   productCycleName: string;
   isApproved: boolean = false;
   hasOpenComments: boolean = false;
@@ -47,6 +48,7 @@ export class CommentsPagecomponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.fundName = params.name
       this.fundId = params.id
+      this.type = params.type
       this.productCycleName = params.prodCycleName
       this.isApproved = params.status === "approved";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
@@ -80,6 +82,7 @@ export class CommentsPagecomponent implements OnInit {
   } 
 
   getComments() {
+    //const completedCommentsFilters = [];
     this.completedComments = [];
     this.commentService.getTasksData(this.fundId).subscribe(resp => {
       console.log("call all comments", resp);
@@ -109,7 +112,11 @@ export class CommentsPagecomponent implements OnInit {
         };
         this.completedComments.push(eachitem);
         this.updateHasOpenComments(item.status);
-        this.filteredComments = this.completedComments
+
+      this.filteredComments = this.completedComments;
+      if (this.type.length > 0){
+        this.filteredComments = this.filteredComments.filter(item => item.target.toUpperCase() === this.type.toUpperCase());
+      }
       });
     })
   }

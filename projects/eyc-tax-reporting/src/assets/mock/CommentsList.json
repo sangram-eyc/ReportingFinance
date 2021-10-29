@@ -11,7 +11,7 @@
             "status": "OPEN",
             "priority": 0,
             "target": "EY",
-            "company": "CLIENT",
+            "company": "EY",
             "author": {
                 "userId": null,
                 "userEmail": "Patrick.Mahomes@ey.com",
@@ -41,7 +41,7 @@
             "status": "OPEN",
             "priority": 1,
             "target": "CLIENT",
-            "company": "EY",
+            "company": "Client",
             "author": {
                 "userId": null,
                 "userEmail": "David.Miller@ey.com",
@@ -69,7 +69,7 @@
             "status": "OPEN",
             "priority": 0,
             "target": "CLIENT",
-            "company": "CLIENT",
+            "company": "Client",
             "author": {
                 "userId": null,
                 "userEmail": "Eric.Taylor@ey.com",
@@ -107,7 +107,7 @@
             "status": "ACCEPTED",
             "priority": 1,
             "target": "EY",
-            "company": "CLIENT",
+            "company": "EY",
             "author": {
                 "userId": null,
                 "userEmail": "Michael.Brown@ey.com",
@@ -139,7 +139,7 @@
             "description": "Please fix the file. Calculations are wrong 1234567",
             "status": "DECLINED",
             "priority": 1,
-            "target": "CLIENT",
+            "target": "EY",
             "company": "EY",
             "author": null,
             "createdBy": "Michael.Brown@ey.com",
