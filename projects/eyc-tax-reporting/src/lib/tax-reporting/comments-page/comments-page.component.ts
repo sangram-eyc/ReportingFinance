@@ -41,7 +41,7 @@ export class CommentsPagecomponent implements OnInit {
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
   emptyCommentSearch = false;
   textTofind = "";
- 
+  filtersArray = ['authorTofind','description','priorityToFind','tagEditTofind','tagIncludeTofind'];
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -60,29 +60,13 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   showOpenComments(){
-    console.log("text to find", this.textTofind)
     if(this.completedComments.length > 0){
-      this.showOnlyOpenComments = !this.showOnlyOpenComments    
-      if(this.textTofind != ""){
-        this.searchActiveComments(this.textTofind);
-      }else{
-          if(this.showOnlyOpenComments){
-            this.filter("open");
-          }else{
-            this.filteredComments = this.completedComments;
-            this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
-              } 
-         }
+      this.showOnlyOpenComments = !this.showOnlyOpenComments
+      this.searchActiveComments(this.textTofind);    
       }   
   }
 
-  filter(status)  {
-      this.filteredComments = this.completedComments.filter( taskcomment => taskcomment.status.toLowerCase() == status)
-      this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
-  } 
-
   getComments() {
-    //const completedCommentsFilters = [];
     this.completedComments = [];
     this.commentService.getTasksData(this.fundId).subscribe(resp => {
       console.log("call all comments", resp);
@@ -115,8 +99,9 @@ export class CommentsPagecomponent implements OnInit {
 
       this.filteredComments = this.completedComments;
       if (this.type.length > 0){
-        this.filteredComments = this.filteredComments.filter(item => item.target.toUpperCase() === this.type.toUpperCase());
-      }
+          this.filteredComments = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN"));
+          this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;
+       }
       });
     })
   }
@@ -134,12 +119,10 @@ export class CommentsPagecomponent implements OnInit {
     if (!!updatedComment) {
       if(commentItem.idTag == 1){
         updatedComment.tagEditTofind = "";
-        let index = updatedComment.tags.findIndex(i => i.id == 1);
-        updatedComment.tags.splice(index, 1);
+        updatedComment.tags.splice(updatedComment.tags.findIndex(i => i.id == 1), 1);
       }else if(commentItem.idTag == 2){
         updatedComment.tagIncludeTofind = "";
-        let index = updatedComment.tags.findIndex(i => i.id == 2);
-        updatedComment.tags.splice(index, 1);
+        updatedComment.tags.splice(updatedComment.tags.findIndex(i => i.id == 2), 1);
       }      
     }
   }
@@ -248,7 +231,6 @@ export class CommentsPagecomponent implements OnInit {
             this.closeToast();
           }, 4000); 
         });
-        //this.getComments();
         console.log("Fund: " + this.fundId)
       } else {
         console.log('result afterClosed', result);
@@ -278,32 +260,19 @@ export class CommentsPagecomponent implements OnInit {
     }
   }
 
-  searchActiveComments(input) {
-    console.log('typeof input->', typeof(input));
-    this.textTofind = typeof(input) === 'object' ? input.el.nativeElement.value: input;   
+  searchActiveComments(input){
+    this.textTofind = typeof(input) === 'object' ? input.el.nativeElement.value.toLowerCase(): input.toLowerCase();   
     if(this.completedComments.length > 0){
-      if(this.showOnlyOpenComments){
-        this.filteredComments = this.completedComments.filter(item =>  
-          (item.authorTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.description.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.priorityToFind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.tagEditTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.tagIncludeTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1) &&
-          item.status.toLowerCase() == "open"
-          ) 
-        this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
-      }else{
-        this.filteredComments = this.completedComments.filter(item =>  
-          ( item.authorTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.description.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.priorityToFind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.tagEditTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1 ||
-          item.tagIncludeTofind.toLowerCase().indexOf((this.textTofind).toLowerCase()) !== -1)
-          ) 
-        this.emptyCommentSearch = this.filteredComments.length === 0 ? true:false;
-      }
+      this.filteredComments = this.completedComments.filter(element => {    
+        return this.filtersArray.filter(filterElement => {          
+          return element[filterElement].toLowerCase().indexOf(this.textTofind) > -1
+          }).length > 0;
+      });
+      this.filteredComments = this.showOnlyOpenComments ? this.filteredComments.filter(item => item.status.toLowerCase() === "open"): this.filteredComments;
+      this.filteredComments = this.type.length > 0 ? this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toLowerCase() === "open")): this.filteredComments;
+      this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;
     }
-  } 
+  }
 
   onPasteSearchActiveComments(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
