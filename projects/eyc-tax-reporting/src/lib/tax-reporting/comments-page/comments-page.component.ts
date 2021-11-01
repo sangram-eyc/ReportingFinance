@@ -42,6 +42,10 @@ export class CommentsPagecomponent implements OnInit {
   emptyCommentSearch = false;
   textTofind = "";
   filtersArray = ['authorTofind','description','priorityToFind','tagEditTofind','tagIncludeTofind'];
+  taskCount:number = 0;
+  openTaskCount:number = 0;
+  acceptedTaskCount: number = 0;
+  declinedTaskCount:number = 0; 
 
   ngOnInit(): void {
     //Get the production-cycle-details values
@@ -96,22 +100,27 @@ export class CommentsPagecomponent implements OnInit {
         };
         this.completedComments.push(eachitem);
         this.updateHasOpenComments(item.status);
-
+      });
       this.filteredComments = this.completedComments;
       if (this.type.length > 0){
           this.filteredComments = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN"));
-          this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;
-       }
-      });
+          this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;        
+          this.taskCount = this.filteredComments.length;
+          this.openTaskCount = this.taskCount;
+        }else{
+          this.countStatusTasks();
+        }      
     })
   }
 
+  
   commentStatusUpdated(commentItem: { id: any; status: any; }) {
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
       updatedComment.status = commentItem.status;
     }
     this.hasOpenComments = this.completedComments.some(item => this.isOpenStatus(item.status));
+    this.countStatusTasks();
   }
 
   commentTagUpdateSearch(commentItem: { id: any; idTag: any; }){
@@ -271,6 +280,7 @@ export class CommentsPagecomponent implements OnInit {
       this.filteredComments = this.showOnlyOpenComments ? this.filteredComments.filter(item => item.status.toLowerCase() === "open"): this.filteredComments;
       this.filteredComments = this.type.length > 0 ? this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toLowerCase() === "open")): this.filteredComments;
       this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;
+      this.countStatusTasks();
     }
   }
 
@@ -288,5 +298,20 @@ export class CommentsPagecomponent implements OnInit {
       }
     });
   } 
+
+  countStatusTasks(){
+    if(this.type.length > 0){
+      console.log('filtered Comments->', this.filteredComments);
+      this.taskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN")).length;
+      this.openTaskCount = this.taskCount;
+      this.acceptedTaskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "ACCEPTED")).length;
+      this.declinedTaskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "DECLINED")).length;
+    }else{
+      this.taskCount = this.completedComments.length;
+      this.openTaskCount = this.completedComments.filter(item => item.status.toUpperCase() === "OPEN" ).length;
+      this.acceptedTaskCount = this.completedComments.filter(item => item.status.toUpperCase() === "ACCEPTED" ).length;
+      this.declinedTaskCount = this.completedComments.filter(item => item.status.toUpperCase() === "DECLINED" ).length;
+    }
+  }
 
 }

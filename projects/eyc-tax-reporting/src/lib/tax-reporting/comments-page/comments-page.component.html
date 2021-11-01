@@ -21,7 +21,7 @@
         <div class="row">
            <div class="col-md-3 col-sm-3" style="background-color: #EAEAF2; height: 51px; width: 112px; margin-left: 7px;">
              <span class="text-count-comments">Total Comments</span><br>
-             <span class="text-count-number">0</span>
+             <span class="text-count-number">{{taskCount}}</span>
             </div>
            <div class="col-md-8 col-sm-8">
              <div class="row row-counters">
@@ -29,21 +29,21 @@
                 <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="4" cy="4" r="4" fill="#FF9831"/>
                 </svg>
-                <span class="text-count-span"><b>0</b> Open</span>
+                <span class="text-count-span"><b>{{openTaskCount}}</b> Open</span>
                 <svg class="icon-separator" width="1" height="19" viewBox="0 0 1 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="0.5" y1="2.18557e-08" x2="0.499999" y2="19" stroke="#C4C4CD"/>
                 </svg> 
                 <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="4" cy="4" r="4" fill="#168736"/>
                 </svg>   
-                <span class="text-count-span"><b>0</b> Accepted</span>
+                <span class="text-count-span"><b>{{acceptedTaskCount}}</b> Accepted</span>
                 <svg class="icon-separator" width="1" height="19" viewBox="0 0 1 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="0.5" y1="2.18557e-08" x2="0.499999" y2="19" stroke="#C4C4CD"/>
                 </svg>  
                 <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="4" cy="4" r="4" fill="#B9251C"/>
                 </svg>
-                <span class="text-count-span"><b>0</b> Declined</span>                         
+                <span class="text-count-span"><b>{{declinedTaskCount}}</b> Declined</span>                         
                </div>
              </div>
            </div>
