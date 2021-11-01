@@ -105,11 +105,9 @@ export class CommentsPagecomponent implements OnInit {
       if (this.type.length > 0){
           this.filteredComments = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN"));
           this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;        
-          this.taskCount = this.filteredComments.length;
-          this.openTaskCount = this.taskCount;
-        }else{
-          this.countStatusTasks();
-        }      
+        }
+        this.countStatusTasks();
+            
     })
   }
 
@@ -270,7 +268,7 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   searchActiveComments(input){
-    this.textTofind = typeof(input) === 'object' ? input.el.nativeElement.value.toLowerCase(): input.toLowerCase();   
+    this.textTofind = typeof(input) === 'object' ? input.el.nativeElement.value.toLowerCase(): input.toLowerCase(); 
     if(this.completedComments.length > 0){
       this.filteredComments = this.completedComments.filter(element => {    
         return this.filtersArray.filter(filterElement => {          
@@ -280,7 +278,6 @@ export class CommentsPagecomponent implements OnInit {
       this.filteredComments = this.showOnlyOpenComments ? this.filteredComments.filter(item => item.status.toLowerCase() === "open"): this.filteredComments;
       this.filteredComments = this.type.length > 0 ? this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toLowerCase() === "open")): this.filteredComments;
       this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false;
-      this.countStatusTasks();
     }
   }
 
@@ -301,11 +298,9 @@ export class CommentsPagecomponent implements OnInit {
 
   countStatusTasks(){
     if(this.type.length > 0){
-      console.log('filtered Comments->', this.filteredComments);
-      this.taskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN")).length;
+      this.filteredComments = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN"));
+      this.taskCount = this.filteredComments.length;
       this.openTaskCount = this.taskCount;
-      this.acceptedTaskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "ACCEPTED")).length;
-      this.declinedTaskCount = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "DECLINED")).length;
     }else{
       this.taskCount = this.completedComments.length;
       this.openTaskCount = this.completedComments.filter(item => item.status.toUpperCase() === "OPEN" ).length;
