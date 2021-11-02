@@ -13,7 +13,7 @@ export class GridComponent implements OnInit, OnChanges {
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
-    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
+    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\.\<\$\%\*\>\(\)\_/ ]+/,
    }
   gridApi;
   selectedRows = [];
@@ -125,7 +125,7 @@ export class GridComponent implements OnInit, OnChanges {
     console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if(result.button === "Submit" || result.button === "Continue") {
+      if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
         console.log('Calling Submit ...');
         this.submit();
       } else {

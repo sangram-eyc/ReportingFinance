@@ -120,16 +120,16 @@ export class TaskCommentComponent implements OnInit {
       "entityType": "TASK",
     };
 
-    this.commentService.addComment(commentObj).subscribe(res =>{
-      console.log('Reponse add Replay -->',res);
+    this.commentService.addComment(commentObj).subscribe(commentResponse =>{
+      console.log('Reponse add Replay -->',commentResponse);
       if(this.permissionStatus){
         let newStatus = this.ReplayForm.get('statusReplay').value;
         console.log('newStatus -->',newStatus);
         const objStatus = {
           "status": newStatus
         };
-        this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(resp => {
-          this.handleStatusChangedResponse(res);
+        this.commentService.updateTaskStatus(this.idTask, objStatus).subscribe(statusResponse => {
+          this.handleStatusChangedResponse(statusResponse);
           this.replyCount = this.replyCount + 1
           this.showToastAfterSubmit = true;
           this.replyData = [];

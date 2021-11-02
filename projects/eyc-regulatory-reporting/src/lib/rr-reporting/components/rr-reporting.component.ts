@@ -81,8 +81,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       description: "Are you sure you want to approve the selected entities? This will move them to client review.",
       footer: {
         style: "start",
-        YesButton: "Continue",
-        NoButton: "Cancel"
+        YesButton: "Yes",
+        NoButton: "No"
       }
     }
   };
@@ -156,6 +156,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 70,
           sortable: false,
           pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'ID',
+          field: 'fundId',
+          sortable: true,
+          filter: true,
+          width: 140,
         },
         /* {
           headerComponentFramework: TableHeaderRendererComponent,

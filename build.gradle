@@ -42,6 +42,11 @@ task builddataintake(type: NpmTask) {
   args = ['run', 'eyc-data-intake']
   
 }
+ task buildChart(type: NpmTask) {
+  println "Building eyc-charts-shared-library"
+  args = ['run', 'eyc-charts-shared']
+  
+}
 task build(type: NpmTask) {
   println "Building UI"
   args = ['run', 'buildWithLocalHref']
@@ -53,12 +58,5 @@ task buildTax(type: NpmTask) {
   args = ['run', 'eyc-tax-reporting']
   
 }
-
-// task buildChart(type: NpmTask)
-// {
-//   println "Building and Installing eyc-charts-shared-library"
-//   args = ['run', 'eyc-charts-shared-library:package']
-  
-// }
 
 build.dependsOn(npm_install)

@@ -87,8 +87,8 @@ export class BarLabelComponent implements OnChanges {
       this.y = this.barY + this.barHeight / 2;
     } else {
       // orientation must be "vertical"
-      this.x = this.barX + this.barWidth / 2;
-      this.y = this.barY + this.barHeight;
+      this.x = this.barX + this.barWidth/4;
+      this.y = this.barY + this.barHeight - this.verticalPadding;
 
       if (this.value < 0) {
         this.y = this.y + this.verticalPadding;
@@ -97,7 +97,7 @@ export class BarLabelComponent implements OnChanges {
         this.y = this.y - this.verticalPadding;
         this.textAnchor = 'start';
       }
-      this.transform = `rotate(-45, ${this.x} , ${this.y})`;
+      this.transform = `rotate(0, ${this.x} , ${this.y})`;
     }
   }
 }
