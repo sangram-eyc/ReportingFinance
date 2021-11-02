@@ -301,6 +301,7 @@ export class CommentsPagecomponent implements OnInit {
       this.filteredComments = this.filteredComments.filter(item => (item.target.toUpperCase() === this.type.toUpperCase() && item.status.toUpperCase() === "OPEN"));
       this.taskCount = this.filteredComments.length;
       this.openTaskCount = this.taskCount;
+      this.emptyCommentSearch = this.filteredComments.length === 0 ? true: false; 
     }else{
       this.taskCount = this.completedComments.length;
       this.openTaskCount = this.completedComments.filter(item => item.status.toUpperCase() === "OPEN" ).length;
