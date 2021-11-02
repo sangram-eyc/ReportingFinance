@@ -217,6 +217,7 @@ motif-icon.motif-icon.user-edit {
                     border-color: #2E2E38 !important;
                     height: 75px !important;
                     width: 75px !important;
+                    min-width: 75px;
                 }
         }
      
@@ -246,6 +247,7 @@ motif-icon.motif-icon.user-edit {
     .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
         height: 75px !important;
         width: 75px !important;
+        min-width: 75px;
     }
 }
 
