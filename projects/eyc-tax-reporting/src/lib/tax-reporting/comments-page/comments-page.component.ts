@@ -110,8 +110,7 @@ export class CommentsPagecomponent implements OnInit {
             
     })
   }
-
-  
+ 
   commentStatusUpdated(commentItem: { id: any; status: any; }) {
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
