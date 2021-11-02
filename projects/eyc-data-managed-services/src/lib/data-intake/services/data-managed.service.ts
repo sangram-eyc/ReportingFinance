@@ -22,4 +22,8 @@ export class DataManagedService {
   getMonthlyFileSummaryList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list_monthly}`);
   }
+
+  getDataProviderList() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
+  }
 }

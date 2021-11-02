@@ -9,49 +9,50 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit {
-  single:any[]= [{
-    name: 'Statestreet',
-    value: 50632,
-    extra: {
-      code: 'de'
-    }
-  },
-  {
-    name: 'JP Morgan',
-    value: 40000,
-    extra: {
-      code: 'us'
-    }
-  },
-  {
-    name: 'Bluming',
-    value: 36745,
-    extra: {
-      code: 'fr'
-    }
-  },
-  {
-    name: 'BNYM',
-    value: 30000,
-    extra: {
-      code: 'uk'
-    }
-  },
-  {
-    name: 'South Gate',
-    value: 20000,
-    extra: {
-      code: 'es'
-    }
-  },
-  {
-    name: 'Data H',
-    value: 10000,
-    extra: {
-      code: 'it'
-    }
-  }
-  ];
+  single:any[]=[];
+  // [{
+  //   name: 'Statestreet',
+  //   value: 50632,
+  //   extra: {
+  //     code: 'de'
+  //   }
+  // },
+  // {
+  //   name: 'JP Morgan',
+  //   value: 40000,
+  //   extra: {
+  //     code: 'us'
+  //   }
+  // },
+  // {
+  //   name: 'Bluming',
+  //   value: 36745,
+  //   extra: {
+  //     code: 'fr'
+  //   }
+  // },
+  // {
+  //   name: 'BNYM',
+  //   value: 30000,
+  //   extra: {
+  //     code: 'uk'
+  //   }
+  // },
+  // {
+  //   name: 'South Gate',
+  //   value: 20000,
+  //   extra: {
+  //     code: 'es'
+  //   }
+  // },
+  // {
+  //   name: 'Data H',
+  //   value: 10000,
+  //   extra: {
+  //     code: 'it'
+  //   }
+  // }
+  // ];
   tabIn: number = 1;
   innerTabIn: number = 1;
   activeReports: any;
@@ -111,7 +112,7 @@ export class DataIntakeComponent implements OnInit {
     this.setColorScheme();
   }
   setColorScheme() {
-    //this.selectedColorScheme = 'red';
+    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
@@ -121,6 +122,7 @@ export class DataIntakeComponent implements OnInit {
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
     this.presentDate = new Date();
     this.getFileSummuries();
+    this.getDataProviderList();
   }
 
   reportTabChange(selectedTab) {
@@ -171,5 +173,13 @@ export class DataIntakeComponent implements OnInit {
     this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
+  }
+
+
+  getDataProviderList(){
+    this.dataManagedService.getDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+    });
+    
   }
 }
