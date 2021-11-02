@@ -12,10 +12,15 @@ import { DataManagedService} from './data-intake/services/data-managed.service';
 import { DataManagedSettingsService} from './data-intake/services/data-managed-settings.service'
 import { EycDataApiService} from './data-intake/services/eyc-data-api.service'
 import { FormsModule } from '@angular/forms';
+import { ExceptionsReportsComponent } from './data-intake/component/exceptions-reports/exceptions-reports.component';
+
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
-    DataIntakeComponent],
+    DataIntakeComponent,
+    ExceptionsReportsComponent,
+    
+],
   imports: [
     BrowserModule,
     CommonModule,
@@ -44,7 +49,7 @@ import { FormsModule } from '@angular/forms';
     EycDataApiService,
     DataManagedSettingsService
   ],
-  exports: [EycDataManagementServicesComponent]
+  exports: [EycDataManagementServicesComponent, ExceptionsReportsComponent]
 })
 export class EycDataManagementServicesModule {
   public static forRoot(environment: any): ModuleWithProviders {
