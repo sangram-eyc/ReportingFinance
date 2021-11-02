@@ -81,8 +81,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       description: "Are you sure you want to approve the selected entities? This will move them to client review.",
       footer: {
         style: "start",
-        YesButton: "Continue",
-        NoButton: "Cancel"
+        YesButton: "Yes",
+        NoButton: "No"
       }
     }
   };
