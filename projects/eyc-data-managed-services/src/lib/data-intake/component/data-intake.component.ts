@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef,Renderer2, ViewChild } from '@angular/core';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
@@ -10,6 +10,8 @@ import { formatDate } from '@angular/common';
 })
 export class DataIntakeComponent implements OnInit {
   single:any[]=[];
+  @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
+  @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   // [{
   //   name: 'Statestreet',
   //   value: 50632,
@@ -83,6 +85,7 @@ export class DataIntakeComponent implements OnInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
+  xAxisLabel2='Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines=false;
@@ -108,7 +111,7 @@ export class DataIntakeComponent implements OnInit {
 
 //end option
 
-  constructor(private dataManagedService: DataManagedService) { 
+  constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef, private renderer: Renderer2) { 
     this.setColorScheme();
   }
   setColorScheme() {
@@ -121,8 +124,9 @@ export class DataIntakeComponent implements OnInit {
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
     this.presentDate = new Date();
-    this.getFileSummuries();
-    this.getDataProviderList();
+    this.dailyManagedData();
+    this.dailyDataProvider();
+    
   }
 
   reportTabChange(selectedTab) {
@@ -161,6 +165,19 @@ export class DataIntakeComponent implements OnInit {
     this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
   }
 
+  dailyData(){
+    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'secondary')
+    this.dailyManagedData();
+    this.dailyDataProvider();
+  }
+  monthyData(){
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'secondary');
+    this.monthyManagedData();
+    this.monthyDataProvider();
+  }
+
   dailyManagedData() {
     // Mock API integration for donut chart
     this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
@@ -179,7 +196,23 @@ export class DataIntakeComponent implements OnInit {
   getDataProviderList(){
     this.dataManagedService.getDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
+    });  
+  }
+
+  dailyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
     });
-    
+  }
+
+  monthyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
+    });
   }
 }
