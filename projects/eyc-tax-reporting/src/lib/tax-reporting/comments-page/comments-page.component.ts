@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxCommentService } from '../services/tax-comment.service';
@@ -21,7 +21,8 @@ export class CommentsPagecomponent implements OnInit {
     private dialog: MatDialog,
     private commentService: TaxCommentService,
     private productcyclesService: ProductionCycleService,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private router:Router
   ) { }
 
   isData: boolean = false;
@@ -35,6 +36,7 @@ export class CommentsPagecomponent implements OnInit {
   isApproved: boolean = false;
   hasOpenComments: boolean = false;
   showOnlyOpenComments:boolean = false;
+  cycleId:string;
 
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
@@ -56,6 +58,7 @@ export class CommentsPagecomponent implements OnInit {
       this.productCycleName = params.prodCycleName
       this.isApproved = params.status === "approved";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
+      this.cycleId = params.cycleId;
       console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.
@@ -150,7 +153,8 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   backtoCycleView() {
-    this.location.back();
+    //this.location.back();
+    this.router.navigate(['cycle-details',this.cycleId,this.productCycleName]);
   }
 
   addCommentToFund() {
