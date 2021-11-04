@@ -153,6 +153,11 @@
 ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
     visibility:visible !important;
  }
+
+ ::ng-deep .motif-select-trigger{
+    background-color: #eaeaf2bd !important;
+  }
+
 }
 
 .back-wrapper {

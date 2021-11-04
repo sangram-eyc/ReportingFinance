@@ -7,13 +7,22 @@
         style="font-weight: 400;">{{productCycleName}}</span></span>
   </div>
 
-  <div class="production-cycle-details-header">
-    <h1>{{pageName}}</h1>
+  <div class="row production-cycle-details-header">
+    <div class="col-md-12 col-sm-12"><h1>{{pageName}}</h1></div>
+    <div class="col-md-12 col-sm-12">
+      <p>{{dropdownMessage}}</p>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <form [formGroup]="cycleSelectForm">
+      <motif-form-field>
+        <motif-select aria-label="Please select an option" formControlName="mySelect" (ngModelChange)="onOptionsSelected($event)">
+          <motif-option *ngFor="let item of options;index as i;"
+          [value]="item.id">{{item.name}}</motif-option>
+        </motif-select>
+    </motif-form-field>
+  </form>
+    </div>
   </div>
-
-  <!--  <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
-    [pagination]="true" gridStyle="first" buttonPosition="left" [displayCheckBox]="true" [button]="false">
-  </lib-shared-grid> -->
 
   <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
     [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
