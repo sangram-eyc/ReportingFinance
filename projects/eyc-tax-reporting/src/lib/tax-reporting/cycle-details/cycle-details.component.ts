@@ -5,9 +5,8 @@ import { Location } from '@angular/common';
 import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {ErrorModalComponent, fileUploadHeading, PermissionService} from 'eyc-ui-shared-component';
-import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
-import { identifierName } from '@angular/compiler';
+import { ErrorModalComponent, fileUploadHeading, PermissionService } from 'eyc-ui-shared-component';
+import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -21,21 +20,26 @@ export class CycleDetailComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private router:Router,
+
+    private router: Router,
     public permissions: PermissionService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
-   pageName:string = 'Cycle Details';
-   dropdownMessage:string='View summary details of all workbook deliverables. You can change the production cycle with the dropdown selection below.';
-   activeFilings: any[] = [];
-   activeReports: any[] = []
-   completedFunds: any[] = [];
-   filingResp: any[] = [];
-   productCycleId;
-   productCycleName;
-   productCycleParams:string;
-   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
+  pageName: string = 'Cycle Details';
+  toggleLeftTitle: string = "View my assigned funds";
+  disabledLeftToggle: boolean = true;
+  showOnlyMyAssignedFunds: boolean = false;
+  dropdownMessage: string = 'View summary details of all workbook deliverables. You can change the production cycle with the dropdown selection below.';
+  activeFilings: any[] = [];
+  activeReports: any[] = []
+  completedFunds: any[] = [];
+  filingResp: any[] = [];
+  productCycleId;
+  productCycleName;
+  productCycleParams: string;
+  permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
+
 
   noOfCompletdFilingRecords = 10;
   currentPage = 0;
@@ -45,7 +49,7 @@ export class CycleDetailComponent implements OnInit {
   iDs = "";
   cycleSelectForm: FormGroup;
   options: any[] = [];
-  
+
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -127,20 +131,14 @@ export class CycleDetailComponent implements OnInit {
       this.productCycleName = params.name
       this.productCycleId = params.id
     });
-
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
     this.getOptionsProductCycles();
     this.cycleSelectForm = this.fb.group({
       mySelect: [this.productCycleId]
-  });
+    });
   }
-    
- onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
-  };
 
-  backtoCycleView(){
+  backtoCycleView() {
     //this.location.back();
     this.router.navigate(['app-tax-reporting']);
   }
@@ -149,62 +147,103 @@ export class CycleDetailComponent implements OnInit {
     this.getCompletedProductCyclesData(this.productCycleId);
   }
 
-  getDownloadFile(row){
+  showMyAssignedFunds() {
+    if (this.completedFunds.length > 0) {
+      this.showOnlyMyAssignedFunds = !this.showOnlyMyAssignedFunds
+      if (this.showOnlyMyAssignedFunds) {
+        let filterKey = sessionStorage.getItem('userEmail')
+        this.gridFilter(filterKey)
+      } else {
+        this.gridFilter('')
+      }
+    }
+  }
+
+  //Apply a filter to the grid
+  gridFilter(filterKey: any) {
+    if (filterKey.length > 0) {
+      let arrfilterFunds = this.completedFunds.filter(fund => {
+        let filterByFund = fund.assignedTo.find((assignedByFund) => {
+          return assignedByFund.userEmail == filterKey
+        })
+        let res = (filterByFund == undefined) ? false : true;
+        return res;
+      })
+      this.createFundRowData(arrfilterFunds)
+    } else {
+      this.createFundRowData(this.completedFunds)
+    }
+  }
+
+  isToggleLeftDisabled() {
+    if (this.completedFunds.length > 0) {
+      //if have at less one assigned the button is enabled so return false.
+      for (let fund of this.completedFunds) {
+        if (fund.assignedTo.length > 0) this.disabledLeftToggle = false
+      }
+    }
+  }
+
+
+  getDownloadFile(row) {
     let urlDownloadfile = '';
-    this.productcyclesService.getDownloadFile(row.id,row.name).subscribe(resp => {    
-      urlDownloadfile = resp['data'].downloadUrl;    
+    this.productcyclesService.getDownloadFile(row.id, row.name).subscribe(resp => {
+      urlDownloadfile = resp['data'].downloadUrl;
       window.open(urlDownloadfile);
-     });
+    });
   }
 
-  createComment(row: any,type: any){
+  createComment(row: any, type: any) {
     console.log("Comments-Landing");
-    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient,type,this.productCycleId]);
+    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
   }
 
-   getCompletedProductCyclesData(id:any) {
-     this.completedFunds = [];
-     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {   
+  getCompletedProductCyclesData(id: any) {
+    this.completedFunds = [];
+    this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.name,
           hasContent: item.hasContent,
           id: item.id,
-          status : item.status,
+          status: item.status,
           approved: this.isApproved(item.status) || !this.permissionApproval || item.openCommentsEY > 0 || item.openCommentsClient > 0,
-          approvedBack: this.isApproved(item.status), 
+          approvedBack: this.isApproved(item.status),
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         this.completedFunds.push(eachitem);
       });
-       this.createFundRowData();
-       this.router.navigate(['cycle-details',this.productCycleId,this.productCycleName]);
-     });
-   }
 
-   isApproved(status: string): boolean {
-     return status.toLowerCase() === 'approved';
-   }
+      this.createFundRowData(this.completedFunds);
+      this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
+    });
+  }
 
-   createFundRowData() {
-     this.rowData = [];
-     this.completedFunds.forEach(fund => {
+  isApproved(status: string): boolean {
+    return status.toLowerCase() === 'approved';
+  }
+
+  createFundRowData(rowData: any) {
+    let rowDatafunds = rowData
+    this.rowData = [];
+    rowDatafunds.forEach(fund => {
       this.rowData.push({
         name: fund.name,
         hasContent: fund.hasContent,
-        id:fund.id,
+        id: fund.id,
         status: fund.status,
-        approved:fund.approved,
-        approvedBack:fund.approvedBack,
-        openCommentsEY:fund.openCommentsEY,
-        openCommentsClient:fund.openCommentsClient,
-        assignedTo:fund.assignedTo
+        approved: fund.approved,
+        approvedBack: fund.approvedBack,
+        openCommentsEY: fund.openCommentsEY,
+        openCommentsClient: fund.openCommentsClient,
+        assignedTo: fund.assignedTo
       })
     });
+    this.isToggleLeftDisabled()
 
-  
+
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -227,10 +266,10 @@ export class CycleDetailComponent implements OnInit {
         headerName: 'Fund Name',
         field: 'name',
         sortable: true,
-        filter: false,       
-        resizeable: true, 
+        filter: false,
+        resizeable: true,
         minWidth: 400,
-        sort:'asc'
+        sort: 'asc'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -241,10 +280,10 @@ export class CycleDetailComponent implements OnInit {
         headerName: 'Assigned to',
         field: 'assignedTo',
         sortable: true,
-        filter: false,       
-        resizeable: true, 
+        filter: false,
+        resizeable: true,
         minWidth: 300,
-        sort:'asc'
+        sort: 'asc'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -254,10 +293,10 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Open comments (EY)',
         sortable: true,
-        filter: false,        
-        resizeable: true, 
+        filter: false,
+        resizeable: true,
         minWidth: 300,
-        sort:'asc'
+        sort: 'asc'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -267,10 +306,10 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Open comments (Client)',
         sortable: true,
-        filter: false,        
-        resizeable: true, 
+        filter: false,
+        resizeable: true,
         minWidth: 300,
-        sort:'asc'
+        sort: 'asc'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -280,53 +319,54 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Actions',
         sortable: true,
-        filter: false,        
-        resizeable: true, 
+        filter: false,
+        resizeable: true,
         minWidth: 300,
-        sort:'asc'
+        sort: 'asc'
       }
     ];
   }
 
- datasetsReportRowsSelected(event) {
-  console.log('dataset emiter',  event);
-  this.datasetsSelectedRows = event;
-}
+  datasetsReportRowsSelected(event) {
+    console.log('dataset emiter', event);
+    this.datasetsSelectedRows = event;
+  }
 
-onSubmitApproveDatasets() {
-  console.log('dataset de prueba -->', this.datasetsSelectedRows); 
-  this.datasetsSelectedRows.forEach(ele => { 
-    if (this.iDs == "") {
-      this.iDs = ele.id 
-    } else {
-      this.iDs = this.iDs + "," + ele.id 
+  onSubmitApproveDatasets() {
+    console.log('dataset de prueba -->', this.datasetsSelectedRows);
+    this.datasetsSelectedRows.forEach(ele => {
+      if (this.iDs == "") {
+        this.iDs = ele.id
+      } else {
+        this.iDs = this.iDs + "," + ele.id
+      }
+    });
+    const body = {
+      "status": "approved",
+      "fundIds": this.iDs.split(',')
     }
-  }); 
-  const body = {
-                "status": "approved", 
-                "fundIds": this.iDs.split(',')
-               }
-  console.log("body: ", body.fundIds);
-  this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-    console.log(resp);
-      setTimeout(() => {
+    console.log("body: ", body.fundIds);
+    this.productcyclesService.putApproveEntities(body).subscribe(resp => {
       console.log(resp);
-    }, 5000); 
-  });
-  console.log('row data submit-->', this.rowData)
-  this.getCompletedProductCyclesData(this.productCycleId);
-}
+      setTimeout(() => {
+        console.log(resp);
+      }, 5000);
+    });
+    console.log('row data submit-->', this.rowData)
+    this.getCompletedProductCyclesData(this.productCycleId);
+  }
+
 
 handleGridReady(params) {
   this.gridApi = params.api;
-} 
+}
 
-addUsersToFund(_id:any) {
+addUsersToFund(_id: any) {
   const dialogRef = this.dialog.open(AssignUsersModalComponent, {
-    id:'add-user-modal',
+    id: 'add-user-modal',
     width: '500px',
     data: {
-      fundsAssign : this.rowData.filter(x => x.id === _id),
+      fundsAssign: this.rowData.filter(x => x.id === _id),
       header: "Update Assignment",
       idFund: _id,
       footer: {
@@ -343,7 +383,7 @@ addUsersToFund(_id:any) {
       this.toastSuccessMessage = "Users added successfully";
       this.showToastAfterSubmit = true;
       setTimeout(() => {
-        this.showToastAfterSubmit = false;             
+        this.showToastAfterSubmit = false;
       }, 4000);
       this.getCompletedProductCyclesData(this.productCycleId);
     } else {
@@ -352,22 +392,22 @@ addUsersToFund(_id:any) {
   });
 }
 
-closeToast(){
+closeToast() {
   this.showToastAfterSubmit = false;
 }
 
 getOptionsProductCycles() {
-    this.productcyclesService.getProductionCycles().subscribe(resp => {  
-      this.options = resp['data'];
-    });  
+  this.productcyclesService.getProductionCycles().subscribe(resp => {
+    this.options = resp['data'];
+  });
 }
 
 onOptionsSelected(idCycle){
   let cycle = this.options.find(x => x.id === idCycle);
-   if(this.productCycleId != idCycle){
-     this.productCycleName = cycle.name;
-     this.productCycleId = idCycle;   
-     this.getCompletedProductCyclesData(this.productCycleId);
-  }   
+  if (this.productCycleId != idCycle) {
+    this.productCycleName = cycle.name;
+    this.productCycleId = idCycle;
+    this.getCompletedProductCyclesData(this.productCycleId);
+  }
 }
 }
