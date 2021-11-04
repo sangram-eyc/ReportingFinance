@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
-  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
+  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type/:cycleId',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},

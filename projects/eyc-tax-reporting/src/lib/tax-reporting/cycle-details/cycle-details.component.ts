@@ -141,7 +141,8 @@ export class CycleDetailComponent implements OnInit {
   };
 
   backtoCycleView(){
-    this.location.back();
+    //this.location.back();
+    this.router.navigate(['app-tax-reporting']);
   }
 
   ngAfterViewInit(): void {
@@ -158,12 +159,12 @@ export class CycleDetailComponent implements OnInit {
 
   createComment(row: any,type: any){
     console.log("Comments-Landing");
-    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient,type]);
+    this.router.navigate(['comment-page',row.id,row.name,this.productCycleName,row.status,row.openCommentsEY,row.openCommentsClient,type,this.productCycleId]);
   }
 
    getCompletedProductCyclesData(id:any) {
      this.completedFunds = [];
-     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {    
+     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {   
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.name,
@@ -179,6 +180,7 @@ export class CycleDetailComponent implements OnInit {
         this.completedFunds.push(eachitem);
       });
        this.createFundRowData();
+       this.router.navigate(['cycle-details',this.productCycleId,this.productCycleName]);
      });
    }
 
@@ -364,7 +366,7 @@ onOptionsSelected(idCycle){
   let cycle = this.options.find(x => x.id === idCycle);
    if(this.productCycleId != idCycle){
      this.productCycleName = cycle.name;
-     this.productCycleId = idCycle;
+     this.productCycleId = idCycle;   
      this.getCompletedProductCyclesData(this.productCycleId);
   }   
 }
