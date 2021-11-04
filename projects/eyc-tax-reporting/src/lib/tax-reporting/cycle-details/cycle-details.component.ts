@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {ErrorModalComponent, fileUploadHeading, PermissionService} from 'eyc-ui-shared-component';
 import {AssignUsersModalComponent} from '../assign-users-modal/assign-users-modal.component'
 import { identifierName } from '@angular/compiler';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'cycle-details',
@@ -15,17 +16,18 @@ import { identifierName } from '@angular/compiler';
   styleUrls: ['./cycle-details.component.scss']
 })
 export class CycleDetailComponent implements OnInit {
-
   constructor(
     private productcyclesService: ProductionCycleService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private router:Router,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private fb: FormBuilder
   ) {}
 
    pageName:string = 'Cycle Details';
+   dropdownMessage:string='View summary details of all workbook deliverables. You can change the production cycle with the dropdown selection below.';
    activeFilings: any[] = [];
    activeReports: any[] = []
    completedFunds: any[] = [];
@@ -41,9 +43,10 @@ export class CycleDetailComponent implements OnInit {
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
   iDs = "";
+  cycleSelectForm: FormGroup;
+  options: any[] = [];
   
-/*   noCompletedDataAvilable = false;
-  noActivatedDataAvilable = false; */
+
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
@@ -126,6 +129,10 @@ export class CycleDetailComponent implements OnInit {
     });
 
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
+    this.getOptionsProductCycles();
+    this.cycleSelectForm = this.fb.group({
+      mySelect: [this.productCycleId]
+  });
   }
     
  onGridReady(params) {
@@ -305,7 +312,6 @@ onSubmitApproveDatasets() {
     }, 5000); 
   });
   console.log('row data submit-->', this.rowData)
-  //this.createHistoryRowData();
   this.getCompletedProductCyclesData(this.productCycleId);
 }
 
@@ -348,4 +354,18 @@ closeToast(){
   this.showToastAfterSubmit = false;
 }
 
+getOptionsProductCycles() {
+    this.productcyclesService.getProductionCycles().subscribe(resp => {  
+      this.options = resp['data'];
+    });  
+}
+
+onOptionsSelected(idCycle){
+  let cycle = this.options.find(x => x.id === idCycle);
+   if(this.productCycleId != idCycle){
+     this.productCycleName = cycle.name;
+     this.productCycleId = idCycle;
+     this.getCompletedProductCyclesData(this.productCycleId);
+  }   
+}
 }
