@@ -207,7 +207,7 @@ export class CycleDetailComponent implements OnInit {
           hasContent: item.hasContent,
           id: item.id,
           status: item.status,
-          approved: this.isApproved(item.status) || !this.permissionApproval || item.openCommentsEY > 0 || item.openCommentsClient > 0,
+          approved: this.isApproved(item.status) || !this.permissionApproval || item.openCommentsEY > 0 || item.openCommentsClient > 0 || !item.hasContent,
           approvedBack: this.isApproved(item.status),
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
