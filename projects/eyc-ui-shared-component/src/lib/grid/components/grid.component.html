@@ -11,7 +11,7 @@
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                     </div>
                     <div class="toggle-left" *ngIf="isToggleLeft">
-                        <h4 [ngClass]="{'disabled': 'toggleLeftDisabled'}">{{toggleLeftTitle}}</h4>
+                        <h4 [ngClass]="{disabled: toggleLeftDisabled}">{{toggleLeftTitle}}</h4>
                         <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="false" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
