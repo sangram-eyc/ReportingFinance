@@ -26,6 +26,9 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() button = true;
   @Input() search = true;
   @Input() isToggle = false;
+  @Input() isToggleLeft = false;
+  @Input() toggleLeftTitle = "";
+  @Input() toggleLeftDisabled :boolean = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() secondbuttonText = 'Reject selected';
@@ -65,6 +68,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
+  @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
 
@@ -201,5 +205,9 @@ export class GridComponent implements OnInit, OnChanges {
 
   toggleChanged(event){
     this.toggleEventToParent.emit(event);
+  }
+
+  toggleLeftChanged(event){
+    this.toggleLeftEventToParent.emit(event);
   }
 }
