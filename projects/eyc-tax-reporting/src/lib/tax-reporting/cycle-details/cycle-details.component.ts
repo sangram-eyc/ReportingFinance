@@ -151,7 +151,7 @@ export class CycleDetailComponent implements OnInit {
     if (this.completedFunds.length > 0) {
       this.showOnlyMyAssignedFunds = !this.showOnlyMyAssignedFunds
       if (this.showOnlyMyAssignedFunds) {
-        let filterKey = sessionStorage.getItem('userEmail')
+        let filterKey = sessionStorage.getItem('userEmail').toLowerCase()
         this.gridFilter(filterKey)
       } else {
         this.gridFilter('')
@@ -164,7 +164,7 @@ export class CycleDetailComponent implements OnInit {
     if (filterKey.length > 0) {
       let arrfilterFunds = this.completedFunds.filter(fund => {
         let filterByFund = fund.assignedTo.find((assignedByFund) => {
-          return assignedByFund.userEmail == filterKey
+          return assignedByFund.userEmail.toLowerCase() == filterKey
         })
         let res = (filterByFund == undefined) ? false : true;
         return res;
