@@ -151,7 +151,7 @@
  }
 
 ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
-    visibility:visible !important;
+  visibility:visible !important;
  }
 
  ::ng-deep .motif-select-trigger{
@@ -550,6 +550,21 @@ motif-icon.motif-icon.user-edit {
     display: none !important;
     cursor: help !important;
   }
+
+}
+
+::ng-deep .motif-pagination-select-wrapper{
+
+    #tooltip{
+      margin-top: -15px !important;
+      //margin-left: -15px !important;
+      width: max-content;
+    }
+  
+    .motif-icon.motif-tooltip-close {
+      display: none !important;
+      cursor: help !important;
+    }
 }
 
 .cursor-pointer{
@@ -591,10 +606,10 @@ motif-icon.motif-icon.user-edit {
 }
 
 ::ng-deep .margin-tooltip-v2{
-  #tooltip{
-    margin-top: 5px !important;
+ #tooltip{
+    margin-top: 0px !important;
     width: max-content;
-  }
+  } 
 
   .motif-icon.motif-tooltip-close {
     display: none !important;

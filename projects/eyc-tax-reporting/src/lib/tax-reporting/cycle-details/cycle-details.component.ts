@@ -41,6 +41,7 @@ export class CycleDetailComponent implements OnInit {
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
 
 
+
   noOfCompletdFilingRecords = 10;
   currentPage = 0;
   maxPages = 5;
@@ -49,7 +50,8 @@ export class CycleDetailComponent implements OnInit {
   iDs = "";
   cycleSelectForm: FormGroup;
   options: any[] = [];
-
+  coordY= 0;
+  movedY=false;
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -408,6 +410,16 @@ onOptionsSelected(idCycle){
     this.productCycleName = cycle.name;
     this.productCycleId = idCycle;
     this.getCompletedProductCyclesData(this.productCycleId);
+  }
+}
+
+getTooltip(){
+ var element= document.querySelector('.motif-tooltip-active');
+  if(element != null){
+    document.querySelector('.motif-pagination-select-wrapper').appendChild(element);
+    this.movedY = !this.movedY;
+    this.coordY = this.movedY ? 0.5 : -0.5
+    window.scrollTo( 0, window.scrollY + this.coordY);
   }
 }
 }
