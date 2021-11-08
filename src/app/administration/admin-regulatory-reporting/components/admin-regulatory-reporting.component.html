@@ -66,7 +66,7 @@
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
                   <label motifLabel class="select-label">Role (Required)</label>
-                  <motif-select aria-label="Please select an option" formControlName="role">
+                  <motif-select aria-label="Please select an option">
                     <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
                   </motif-select>
                   <motif-error *ngIf="

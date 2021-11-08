@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ID_ENCRYPTION_KEY, SESSION_ACCESS_TOKEN, SESSION_ENCRYPTION_KEY, SESSION_ID_TOKEN } from './settings-helpers';
 import * as CryptoJS from 'crypto-js';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
 describe('SettingsService', () => {
   let service: SettingsService;
 
@@ -24,19 +25,10 @@ describe('SettingsService', () => {
 
   
   it('setToken()', () => {
-    let value = "dfvdfvdvdfvdfvdd"
-    const key = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
-    const iv = CryptoJS.enc.Utf8.parse(SESSION_ENCRYPTION_KEY);
-    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
-    {
-        keySize: 128 / 8,
-        iv: iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    });
-    // sessionStorage.setItem(SESSION_ID_TOKEN,encrypted);
+    let value = "dfvdfvdvdfvdfvdd";
+    spyOn(sessionStorage,'setItem')
     service.setToken(value)
-    expect(sessionStorage.getItem("access_token")).toEqual(encrypted.toString());
+    expect(sessionStorage.setItem).toHaveBeenCalled()
   });
 
 
@@ -59,21 +51,13 @@ describe('SettingsService', () => {
     expect(getToken).toBe(returndID);
   });
 
+  it('setIdToken in sessions storage', () => {
+    let value = "dfvdfvdvdfvdfvdd";
+    spyOn(sessionStorage,'setItem')
 
-  it('setIdToken()', () => {
-    let value = "dfvdfvdvdfvdfvdd"
-    const key = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
-    const iv = CryptoJS.enc.Utf8.parse(ID_ENCRYPTION_KEY);
-    const encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()), key,
-    {
-        keySize: 128 / 8,
-        iv: iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    });
-    // sessionStorage.setItem(SESSION_ID_TOKEN,encrypted);
-    service.setIdToken(value)
-    expect(sessionStorage.getItem("id_token")).toEqual(encrypted.toString());
+    let val = `n2LTsKyeP/HTjpb928bdGAxSokxbW2NpewnSXcGXkmTc=` ;
+    service.setIdToken(value);
+    expect(sessionStorage.setItem).toHaveBeenCalled()
   });
 
 
@@ -97,32 +81,6 @@ describe('SettingsService', () => {
     expect(getIdToken).toBe(returndID);
   });
 
-
-
-  it('isUserLoggedin() true condition', () => {
-    sessionStorage.setItem('access_token', "dssdfsdfsfsd")
-   const isUser =  service.isUserLoggedin();
-   const accessToken = sessionStorage.getItem('access_token')
-   let verifyAccessToken
-   if (accessToken != null) {
-    verifyAccessToken = true;
-  }else {
-    verifyAccessToken =  false;
-  }
-    expect(isUser).toEqual(verifyAccessToken);
-  });
-
-  it('isUserLoggedin() false condition', () => {
-   const isUser =  service.isUserLoggedin();
-   const accessToken = sessionStorage.getItem('access_token')
-   let verifyAccessToken
-   if (accessToken != null) {
-    verifyAccessToken = true;
-  }else {
-    verifyAccessToken =  false;
-  }
-    expect(isUser).toEqual(verifyAccessToken);
-  });
 
   it('should logout user', () => {
     service.logoff();
@@ -149,12 +107,38 @@ it('loadAuthDetails should return a resolved Promise', ()=>{
   });
 });
 
+it('onCancelPendingRequests should',()=>{
+  spyOn(service['pendingHTTPRequests$'],'asObservable');
+  service.onCancelPendingRequests();
+  expect(service['pendingHTTPRequests$'].asObservable).toHaveBeenCalled()
 
-  // it('getUserProfile()', inject([OAuthService], (oauthService) => {
-  //   service.getUserProfile()
-  //   oauthService.loadUserProfile().then(user => {
-  //     const abc = user;
-  //     expect(abc).toBeTruthy();
-  //   });
-  // }));
+});
+
+
+
+it('isUserLoggedin method should return true if user is logged in', () => {
+  spyOn(sessionStorage,'getItem').and.returnValue('123qwe');
+  let res= service.isUserLoggedin();
+  expect(res).toEqual(true)
+ });
+
+ it('isUserLoggedin should return false if user not logged in', () => {
+  spyOn(sessionStorage,'getItem').and.returnValue(null);
+  let res= service.isUserLoggedin();
+  expect(res).toEqual(false)
+ });
+
+ it('loadAuthDetails should return a resolved Promise and set auth details ', ()=>{
+   let mockData = {
+     data : {
+      authenticationUrl :'',
+      logoutUrl:''
+     }
+   }
+  spyOn(service['http'],'get').and.returnValue(of(mockData))
+  service.loadAuthDetails().then((value) => {
+    expect(value).toBe(true);
+  });
+
+});
 });
