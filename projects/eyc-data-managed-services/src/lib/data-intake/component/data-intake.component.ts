@@ -122,7 +122,7 @@ export class DataIntakeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
     this.dailyManagedData();
     this.dailyDataProvider();
@@ -156,13 +156,13 @@ export class DataIntakeComponent implements OnInit {
   dateSub(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
   dateAdd(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
   dailyData(){
