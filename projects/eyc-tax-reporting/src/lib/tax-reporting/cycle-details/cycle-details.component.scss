@@ -3,12 +3,9 @@
   top: 20px;
   position: relative;
 
-
   *:focus {
     box-shadow: none !important;
   }
-
- 
 
   #grid-wrapper {
     ::ng-deep {
@@ -100,14 +97,6 @@
   
   }
 
-
-
-
-
-
-
-
-
   .save-submit {
     margin-right: 20px;
     margin-left: 20px;
@@ -143,21 +132,29 @@
 
   }
 
-  /* .btn_close:hover {
-    background-color: var(--btn-secondary-bg-color);
-  } */
   ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
     visibility: hidden !important;
  }
 
-::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
-  visibility:visible !important;
- }
-
- ::ng-deep .motif-select-trigger{
-    background-color: #eaeaf2bd !important;
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
+    visibility:visible !important;
   }
 
+  ::ng-deep .motif-select-trigger{
+      background-color: #eaeaf2bd !important;
+    }
+
+  ::ng-deep .motif-pagination-select-wrapper{
+    margin-left: -500px;
+    #tooltip{
+      margin-top: -15px !important;
+      width: max-content;
+    }   
+    .motif-icon.motif-tooltip-close {
+      display: none !important;
+      cursor: help !important;
+    }
+  }
 }
 
 .back-wrapper {
@@ -261,13 +258,9 @@ motif-icon.motif-icon.user-edit {
   margin-top: 3px;
 }
 
-
-
  .team-detailscontent-container {
 
   min-height: 150px;
-
-  
   .row {
     margin-left: 0px !important;
     padding: 0px 0px 30px 0px;
@@ -302,36 +295,6 @@ motif-icon.motif-icon.user-edit {
   position: absolute;
   top: 212px;
   }
-
-
- /* .cust-row-st {
-  font-family: EYInterstate;
-  font-style: normal;
-  font-size: 16px;
-  color: #2E2E38;
-  font-weight: 400;
-  line-height: 25px;
-  }
-
-  .cust-row-st-dec {
-  font-family: EYInterstate;
-  font-style: normal;
-  font-size: 16px;
-  color: #2E2E38;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 25px;
-  margin-top: 7px;
-  }
-
-  .col-md-6,
-  .col-md-5,
-  .col-md-8,
-  .col-md-12 {
-    background: #F6F6FA;
-    padding-right: 0px;
-    padding-left: 0px;
-  } */
 
   ::ng-deep {
 
@@ -551,20 +514,6 @@ motif-icon.motif-icon.user-edit {
     cursor: help !important;
   }
 
-}
-
-::ng-deep .motif-pagination-select-wrapper{
-
-    #tooltip{
-      margin-top: -15px !important;
-      //margin-left: -15px !important;
-      width: max-content;
-    }
-  
-    .motif-icon.motif-tooltip-close {
-      display: none !important;
-      cursor: help !important;
-    }
 }
 
 .cursor-pointer{

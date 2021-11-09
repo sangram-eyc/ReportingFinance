@@ -50,8 +50,7 @@ export class CycleDetailComponent implements OnInit {
   iDs = "";
   cycleSelectForm: FormGroup;
   options: any[] = [];
-  coordY= 0;
-  movedY=false;
+
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -417,9 +416,8 @@ getTooltip(){
  var element= document.querySelector('.motif-tooltip-active');
   if(element != null){
     document.querySelector('.motif-pagination-select-wrapper').appendChild(element);
-    this.movedY = !this.movedY;
-    this.coordY = this.movedY ? 0.5 : -0.5
-    window.scrollTo( 0, window.scrollY + this.coordY);
+    window.scrollTo( 0, window.scrollY + 0.5);
+    window.scrollTo( 0, window.scrollY - 0.5);
   }
 }
 }
