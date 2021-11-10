@@ -166,4 +166,13 @@ describe('UsersService', () => {
     });
   });
 
+  it('getUsersList method should return userList',()=>{
+    spyOn(service['apiService'],'invokeGetAPI');
+    service.getUsersList();
+    let url='http://localhost:4200/assets/mock/users.json'
+    expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url)
+  })
+
+  8275228617
+
 });

@@ -1,11 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { SettingsService } from '@default/services/settings.service';
 import { OAuthLogger, OAuthService, UrlHelperService } from 'angular-oauth2-oidc';
 
 import { OauthService } from './oauth.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { exception } from 'console';
 import { Router } from '@angular/router';
 
 describe('OauthService', () => {
@@ -52,9 +51,27 @@ describe('OauthService', () => {
       const claims = oService.getIdentityClaims();
         expect(name).toBe(claims);
     });
-
     
- 
-    
+    it('getAccessToken method should set token',()=>{
+      spyOn(service['oauthService'],'getAccessToken').and.returnValue('asd123')
+      spyOn(service['storageService'],'setToken');
+      service.getAccessToken();
+      expect(service['storageService'].setToken).toHaveBeenCalledWith('asd123');
+      expect(service['router'].navigate).toHaveBeenCalledWith(['/home'])
+    })
 
+    it('refreshToken method should not call silentRefresh service',()=>{
+      spyOn(service['oauthService'],'silentRefresh').and.rejectWith('error occured');
+      spyOn(service,'getAccessToken');
+      service.refreshToken();
+      expect(service.getAccessToken).not.toHaveBeenCalled();
+    });
+
+    it('refreshToken method should call silentRefresh service',()=>{
+      spyOn(service['oauthService'],'silentRefresh').and.resolveTo();
+      spyOn(service['oauthService'],'getAccessToken').and.returnValue('asd123')
+      spyOn(service,'getAccessToken');
+      service.refreshToken();
+
+    })
 });
