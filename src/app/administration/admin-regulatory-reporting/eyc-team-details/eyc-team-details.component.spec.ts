@@ -39,7 +39,9 @@ const teamsServiceStub = {
   getTeamDetailsData: () => {
     return {teamName:'rega',teamDescription:'team',role:'user'}
   },
-  getTeamsDetails:()=> {}
+  getTeamsDetails:()=> {
+    return of()
+  }
 }
 
 const httpHandlerStub ={

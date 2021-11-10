@@ -46,7 +46,7 @@
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Team name (Required)</label>
-                  <input motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" />
+                  <input motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" ngDefaultControl/>
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
                                     addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
@@ -66,7 +66,7 @@
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
                   <label motifLabel class="select-label">Role (Required)</label>
-                  <motif-select aria-label="Please select an option">
+                  <motif-select aria-label="Please select an option"  formControlName="role" ngDefaultControl>
                     <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
                   </motif-select>
                   <motif-error *ngIf="

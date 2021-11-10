@@ -133,7 +133,7 @@
             <div class="motif-col-xs-4 motif-col-lg-12">
               <motif-form-field>
                 <label motifLabel class="select-label">Select</label>
-                <motif-select aria-label="Please select an option" [multiple]="true" (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
+                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
                   <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
                   <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
                 </motif-select>
