@@ -2,6 +2,8 @@ import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
+import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
+import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
 
 @Component({
   selector: 'lib-shared-grid',
@@ -13,7 +15,7 @@ export class GridComponent implements OnInit, OnChanges {
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
-    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\_/ ]+/,
+    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\.\<\$\%\*\>\(\)\_/ ]+/,
    }
   gridApi;
   selectedRows = [];
@@ -24,6 +26,7 @@ export class GridComponent implements OnInit, OnChanges {
 
   @Input() gridStyle = 'first';
   @Input() button = true;
+  @Input() enableAutoId = false;
   @Input() search = true;
   @Input() isToggle = false;
   @Input() buttonPosition: 'left' | 'right';
@@ -68,6 +71,7 @@ export class GridComponent implements OnInit, OnChanges {
   gridHeadingCls;
   gridContainerCls;
 
+
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
 
@@ -101,6 +105,21 @@ export class GridComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: any) {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
+
+    if (typeof(this.columnDefs) !== 'undefined') { 
+      let object =  {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'S.No',
+        width: 140,
+        valueGetter: (args) => this._getIndexValue(args), rowDrag: true
+      }
+     
+        this.columnDefs.unshift(object);
+        // console.log('enabledAutoIndex > ', this.enableAutoId);
+        // this.enableAutoId ? this.columnDefs.unshift(object) : this.columnDefs;
+    
+    }
+    
   }
 
   async submit() {
@@ -125,7 +144,7 @@ export class GridComponent implements OnInit, OnChanges {
     console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if(result.button === "Submit" || result.button === "Continue") {
+      if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
         console.log('Calling Submit ...');
         this.submit();
       } else {
@@ -137,6 +156,10 @@ export class GridComponent implements OnInit, OnChanges {
   handleGridReady(params) {
     this.gridApi = params.api;
   }
+
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex+1;
+  }  
 
   onRowSelected(event: any): void {
     // console.log('Search',this.search);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef,Renderer2, ViewChild } from '@angular/core';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
@@ -9,49 +9,52 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit {
-  single:any[]= [{
-    name: 'Statestreet',
-    value: 50632,
-    extra: {
-      code: 'de'
-    }
-  },
-  {
-    name: 'JP Morgan',
-    value: 40000,
-    extra: {
-      code: 'us'
-    }
-  },
-  {
-    name: 'Bluming',
-    value: 36745,
-    extra: {
-      code: 'fr'
-    }
-  },
-  {
-    name: 'BNYM',
-    value: 30000,
-    extra: {
-      code: 'uk'
-    }
-  },
-  {
-    name: 'South Gate',
-    value: 20000,
-    extra: {
-      code: 'es'
-    }
-  },
-  {
-    name: 'Data H',
-    value: 10000,
-    extra: {
-      code: 'it'
-    }
-  }
-  ];
+  single:any[]=[];
+  @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
+  @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  // [{
+  //   name: 'Statestreet',
+  //   value: 50632,
+  //   extra: {
+  //     code: 'de'
+  //   }
+  // },
+  // {
+  //   name: 'JP Morgan',
+  //   value: 40000,
+  //   extra: {
+  //     code: 'us'
+  //   }
+  // },
+  // {
+  //   name: 'Bluming',
+  //   value: 36745,
+  //   extra: {
+  //     code: 'fr'
+  //   }
+  // },
+  // {
+  //   name: 'BNYM',
+  //   value: 30000,
+  //   extra: {
+  //     code: 'uk'
+  //   }
+  // },
+  // {
+  //   name: 'South Gate',
+  //   value: 20000,
+  //   extra: {
+  //     code: 'es'
+  //   }
+  // },
+  // {
+  //   name: 'Data H',
+  //   value: 10000,
+  //   extra: {
+  //     code: 'it'
+  //   }
+  // }
+  // ];
   tabIn: number = 1;
   innerTabIn: number = 1;
   activeReports: any;
@@ -82,6 +85,7 @@ export class DataIntakeComponent implements OnInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
+  xAxisLabel2='Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines=false;
@@ -107,20 +111,22 @@ export class DataIntakeComponent implements OnInit {
 
 //end option
 
-  constructor(private dataManagedService: DataManagedService) { 
+  constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef, private renderer: Renderer2) { 
     this.setColorScheme();
   }
   setColorScheme() {
-    //this.selectedColorScheme = 'red';
+    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
   }
 
   ngOnInit(): void {
-    this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
-    this.getFileSummuries();
+    this.dailyManagedData();
+    this.dailyDataProvider();
+    
   }
 
   reportTabChange(selectedTab) {
@@ -150,13 +156,26 @@ export class DataIntakeComponent implements OnInit {
   dateSub(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
   dateAdd(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
+  }
+
+  dailyData(){
+    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'secondary')
+    this.dailyManagedData();
+    this.dailyDataProvider();
+  }
+  monthyData(){
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'secondary');
+    this.monthyManagedData();
+    this.monthyDataProvider();
   }
 
   dailyManagedData() {
@@ -170,6 +189,30 @@ export class DataIntakeComponent implements OnInit {
     // Mock API integration for donut chart
     this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
+    });
+  }
+
+
+  getDataProviderList(){
+    this.dataManagedService.getDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
+    });  
+  }
+
+  dailyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
+    });
+  }
+
+  monthyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount=data.data['totalCount'];
     });
   }
 }

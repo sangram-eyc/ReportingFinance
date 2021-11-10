@@ -203,10 +203,10 @@ motif-icon.motif-icon.user-edit {
                     margin-bottom: 0px !important;
                     border-bottom: 0px !important;
                 }
-                .motif-form-field .motif-input {
-                    background-color: transparent !important;
-                    border-bottom: 1px solid #2E2E38 !important;
-                }
+                // .motif-form-field .motif-input {
+                //     background-color: transparent !important;
+                //     border-bottom: 1px solid #2E2E38 !important;
+                // }
                 .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online span{
                     background: transparent !important;
                     font-family: EYInterstate !important;
@@ -217,6 +217,7 @@ motif-icon.motif-icon.user-edit {
                     border-color: #2E2E38 !important;
                     height: 75px !important;
                     width: 75px !important;
+                    min-width: 75px;
                 }
         }
      
@@ -246,6 +247,7 @@ motif-icon.motif-icon.user-edit {
     .motif-avatar.motif-avatar.user-thumb-icon.size-large.status-online{
         height: 75px !important;
         width: 75px !important;
+        min-width: 75px;
     }
 }
 

@@ -557,6 +557,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       console.log(selectedExceptionRows);
       selectedExceptionRows.forEach(ele => {
         this.exceptionData[this.exceptionData.findIndex(item => item.ruleExceptionId === ele.ruleExceptionId)].approved = true;
+        this.exceptionData[this.exceptionData.findIndex(item => item.ruleExceptionId === ele.ruleExceptionId)].resolvedCount = ele.exceptionCount;
       }); 
       console.log(this.exceptionData);
       this.createEntitiesRowData();

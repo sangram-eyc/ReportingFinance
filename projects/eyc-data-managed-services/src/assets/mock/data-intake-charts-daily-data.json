@@ -1,0 +1,32 @@
+{
+    "success": true,
+    "message": "success",
+    "data": {
+        "totalCount": 50,
+        "dataSeries": [{
+            "name": "Statestreet",
+            "value": 2000
+          },
+          {
+            "name": "JP Morgan",
+            "value": 1000
+          },
+          {
+            "name": "Bluming",
+            "value": 5000
+          },
+          {
+            "name": "BNYM",
+            "value": 3000
+          },
+          {
+            "name": "South Gate",
+            "value": 4000
+          },
+          {
+            "name": "Data H",
+            "value": 1000
+          }
+          ] 
+    }
+}
