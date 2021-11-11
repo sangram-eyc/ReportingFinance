@@ -114,6 +114,7 @@
 #gridContainer, #gridAdminContainer {
     ::ng-deep .motif-table .ag-pinned-left-cols-container, ::ng-deep .motif-table .ag-pinned-left-header {
         box-shadow: none !important;
+        border-left: solid 1px #e1e1e6 !important;
     }
 
     // ::ng-deep .ag-body-viewport {
@@ -273,4 +274,7 @@
     margin-left: 35px  !important;
   }
 
-  
+  ::ng-deep .motif-table .ag-row {
+    border: none !important;
+    border-bottom: solid 1px #e1e1e6 !important;
+  }

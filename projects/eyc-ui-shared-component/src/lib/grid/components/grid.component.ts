@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
@@ -10,7 +10,7 @@ import { TableHeaderRendererComponent } from '../../table-header-renderer/table-
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit, OnChanges {
+export class GridComponent implements OnInit, OnChanges, OnDestroy {
   mytasks = false;
   constructor(public dialog: MatDialog) { }
   
@@ -57,6 +57,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() rowData: any;
   @Input() disableAddMemberButton = true;
   @Input() columnDefs: any;
+  columnDefsData;
   @Input() defaultColDef: any;
   @Input() masterDetail = false;
   @Input() detailCellRendererParams: any;
@@ -104,20 +105,18 @@ export class GridComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: any) {
-    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
-
-    if (typeof(this.columnDefs) !== 'undefined') { 
+    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;    
+    if (typeof(this.columnDefs) !== 'undefined') {
+      this.columnDefsData = []
+      this.columnDefsData = this.columnDefs.slice(0);
       let object =  {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'S.No',
-        width: 140,
-        valueGetter: (args) => this._getIndexValue(args), rowDrag: true
+        width: 100,
+        valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
+        pinned: 'left'
       }
-     
-        this.columnDefs.unshift(object);
-        // console.log('enabledAutoIndex > ', this.enableAutoId);
-        // this.enableAutoId ? this.columnDefs.unshift(object) : this.columnDefs;
-    
+        this.columnDefsData.push(object);    
     }
     
   }
@@ -224,5 +223,9 @@ export class GridComponent implements OnInit, OnChanges {
 
   toggleChanged(event){
     this.toggleEventToParent.emit(event);
+  }
+
+  ngOnDestroy(): void {
+    this.columnDefs = undefined;
   }
 }
