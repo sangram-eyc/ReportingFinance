@@ -118,6 +118,9 @@
             cursor: none !important;
         }
 
+        .cursor-default :hover{
+            cursor: default;
+        }
     }
 
 }
