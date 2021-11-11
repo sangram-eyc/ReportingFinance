@@ -28,7 +28,7 @@
         </div>
         <div [hidden]="!permissionToShowDataTable">
         
-        <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
+        <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData"
             [defaultColDef]="{}"
             [rowSelection]="rowSelection"
@@ -37,7 +37,7 @@
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
     
-        <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefs"
+        <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData" 
             [defaultColDef]="defaultColDef" 
             [masterDetail]="masterDetail"
