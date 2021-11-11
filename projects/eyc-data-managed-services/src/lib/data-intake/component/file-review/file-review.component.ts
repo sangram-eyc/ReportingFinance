@@ -12,49 +12,225 @@ export class FileReviewComponent implements OnInit {
   single:any[]=[];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  // [{
-  //   name: 'Statestreet',
-  //   value: 50632,
-  //   extra: {
-  //     code: 'de'
-  //   }
-  // },
-  // {
-  //   name: 'JP Morgan',
-  //   value: 40000,
-  //   extra: {
-  //     code: 'us'
-  //   }
-  // },
-  // {
-  //   name: 'Bluming',
-  //   value: 36745,
-  //   extra: {
-  //     code: 'fr'
-  //   }
-  // },
-  // {
-  //   name: 'BNYM',
-  //   value: 30000,
-  //   extra: {
-  //     code: 'uk'
-  //   }
-  // },
-  // {
-  //   name: 'South Gate',
-  //   value: 20000,
-  //   extra: {
-  //     code: 'es'
-  //   }
-  // },
-  // {
-  //   name: 'Data H',
-  //   value: 10000,
-  //   extra: {
-  //     code: 'it'
-  //   }
-  // }
-  // ];
+  multi=[
+    {
+      name: 'Statestreet',
+      series: [
+        {
+          name: '2010',
+          value: 4000
+        },
+        {
+          name: '1000',
+          value: 2000
+        },
+        {
+          name: '500',
+          value: 1500
+        },
+        {
+          name: '2000',
+          value: 3693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 1476,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Data H',
+      series: [
+        {
+          name: '2010',
+          value: 2000
+        },
+        {
+          name: '1000',
+          value: 3000
+        },
+        {
+          name: '500',
+          value: 1500
+        },
+        {
+          name: '2000',
+          value: 2693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 2476,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'South Gate',
+      series: [
+        {
+          name: '2010',
+          value: 1000
+        },
+        {
+          name: '1000',
+          value: 3000
+        },
+        {
+          name: '500',
+          value: 1500
+        },
+        {
+          name: '2000',
+          value: 1693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 2276,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'BNYM',
+      series: [
+        {
+          name: '2010',
+          value: 4000
+        },
+        {
+          name: '1000',
+          value: 2000
+        },
+        {
+          name: '500',
+          value: 1500
+        },
+        {
+          name: '2000',
+          value: 3693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 1476,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Bluming',
+      series: [
+        {
+          name: '2010',
+          value: 2500
+        },
+        {
+          name: '1000',
+          value: 1500
+        },
+        {
+          name: '500',
+          value: 3500
+        },
+        {
+          name: '2000',
+          value: 1200,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 2000,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'JP Morgan',
+      series: [
+        {
+          name: '2010',
+          value: 3000
+        },
+        {
+          name: '1000',
+          value: 4000
+        },
+        {
+          name: '500',
+          value: 2000
+        },
+        {
+          name: '2000',
+          value: 3693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 2500,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Tata',
+      series: [
+        {
+          name: '2010',
+          value: 4000
+        },
+        {
+          name: '1000',
+          value: 2000
+        },
+        {
+          name: '500',
+          value: 1500
+        },
+        {
+          name: '2000',
+          value: 3693,
+          extra: {
+            code: 'de'
+          }
+        },
+        {
+          name: '1990',
+          value: 1476,
+          extra: {
+            code: 'de'
+          }
+        }
+      ]
+    }
+  ];
   innerTabIn: number = 1;
   activeReports: any;
   curDate;
@@ -107,6 +283,7 @@ export class FileReviewComponent implements OnInit {
   colorScheme;
   colorScheme2;
   colorScheme3;
+  colorSchemeAll;
 
 //end option
 
@@ -118,6 +295,7 @@ export class FileReviewComponent implements OnInit {
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
+    this.colorSchemeAll=colorSets.find(s => s.name === 'all');
   }
 
   ngOnInit(): void {
