@@ -12,6 +12,7 @@ export class DataIntakeComponent implements OnInit {
   single:any[]=[];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  model = null;
   // [{
   //   name: 'Statestreet',
   //   value: 50632,

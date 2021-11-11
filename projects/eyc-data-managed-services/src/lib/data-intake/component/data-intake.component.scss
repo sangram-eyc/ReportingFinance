@@ -283,7 +283,6 @@
 .text-align-right {
   text-align: right !important;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -292,14 +291,43 @@
   line-height: 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
+
+  .set-width {
+    width: 283px;
+  }
+
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
-    .motif-button{
+
+    .motif-button {
       min-height: 30px;
     }
+
+    // .motif-form-field-datepicker-icon {
+    //   top: 1.3rem !important;
+    // }
+
+    // .motif-clear-input {
+    //   top: 1.3rem !important;
+    // }
   }
 }
+
+// .datepicker-dashboard {
+//   margin-top: 14px;
+
+//   .motif-input {
+//     background-color: white;
+//   }
+
+//   .motif-datepicker {
+//     font-family: EYInterstate;
+//     background-color: #ffffff !important;
+//     display: flex;
+//     align-items: center
+//   }
+// }
