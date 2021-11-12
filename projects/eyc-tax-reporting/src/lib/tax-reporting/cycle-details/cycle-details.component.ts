@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { Location } from '@angular/common';
@@ -9,6 +9,7 @@ import { ErrorModalComponent, fileUploadHeading, PermissionService } from 'eyc-u
 import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
+import {InformationBarChartModalComponent} from '../information-bar-chart-modal/information-bar-chart-modal.component'
 
 @Component({
   selector: 'cycle-details',
@@ -138,9 +139,13 @@ export class CycleDetailComponent implements OnInit {
   datasetsSelectedRows;
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
-  
-
-
+  widthDivChart;
+  dataToChart;
+  taxPreparationCount;
+  clientReviewCount;
+  approvedClientCount;
+  colorsBarChart:any[]=[];
+  labelsChart:any[] = [];
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -151,11 +156,13 @@ export class CycleDetailComponent implements OnInit {
     this.getOptionsProductCycles();
     this.cycleSelectForm = this.fb.group({
       mySelect: [this.productCycleId]
-    });
+    });  
+    this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
+    this.labelsChart = ['In EY tax preparation', 'Delivered and in client review', 'Approved by client'];
+    this.widthDivChart = 800;  
   }
 
   backtoCycleView() {
-    //this.location.back();
     this.router.navigate(['app-tax-reporting']);
   }
 
@@ -235,6 +242,8 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY) ;
         this.completedFunds.push(eachitem);
       });
+      console.log('total de comentarios abierto',this.openCommentsClientByProductCycle)
+      this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
@@ -456,6 +465,33 @@ setColorScheme() {
   this.colorScheme = colorSets.find(s => s.name === 'red');
   this.colorScheme2 = colorSets.find(s => s.name === 'orange');
   this.colorScheme3 = colorSets.find(s => s.name === 'teal');
+}
+
+getStatusCount(){
+  this.taxPreparationCount =this.completedFunds.filter(item => item.hasContent === false).length;
+  this.clientReviewCount = this.completedFunds.filter(item => (item.hasContent === true && item.approvedBack === false)).length;
+  this.approvedClientCount = this.completedFunds.filter(item => item.approvedBack === true).length;
+  this.dataToChart = [
+    {"in EY tax preparation": this.taxPreparationCount, 
+      "in client review": this.clientReviewCount, 
+      "Approved by client": this.approvedClientCount}
+  ]; 
+}
+
+informationModal(){
+  const dialogRef = this.dialog.open(InformationBarChartModalComponent, {
+    id: 'info-modal',
+    width: '600px',
+    data: {
+      header: "Information for cycle status indicator",
+      description: "You can hover over each bar in the graph to see:",
+      footer: {
+        style: "start",
+        YesButton: "Save",
+        NoButton: "Close"
+      }
+    }
+  });
 }
 
 }

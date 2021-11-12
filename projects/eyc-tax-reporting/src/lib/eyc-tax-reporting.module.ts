@@ -20,6 +20,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comment.component';
 import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/assign-users-modal.component';
 import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
+import { TaxHorizontalStackedBarChartComponent } from './shared/tax-horizontal-stacked-bar-chart/tax-horizontal-stacked-bar-chart.component';
+import { InformationBarChartModalComponent } from './tax-reporting/information-bar-chart-modal/information-bar-chart-modal.component';
+
 
 @NgModule({
   imports: [
@@ -58,7 +61,9 @@ import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
     TaxCommentModalComponent,
     TaskCommentComponent,
     ReplyCommentComponent,
-    AssignUsersModalComponent
+    AssignUsersModalComponent,
+    TaxHorizontalStackedBarChartComponent,
+    InformationBarChartModalComponent
   ],
   exports: [TaxReportingComponent]
 })
