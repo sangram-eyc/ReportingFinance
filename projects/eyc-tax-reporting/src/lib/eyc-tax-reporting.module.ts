@@ -19,7 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comment.component';
 import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/assign-users-modal.component';
-
+import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 
 @NgModule({
   imports: [
@@ -41,6 +41,7 @@ import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/as
     MotifToastModule,
     FlexLayoutModule,
     EycUiSharedComponentModule,
+    EycChartsSharedLibraryModule,
     ReactiveFormsModule,
     FormsModule,
     MatChipsModule,

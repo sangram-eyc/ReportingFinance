@@ -7,9 +7,13 @@ import * as d3 from 'd3';
   styleUrls: ['./donut-chart.component.css']
 })
 export class DonutChartComponent {
-  @Input() width: number = 202;
-  @Input() height: number = 202;
-  @Input() margin: number = 30;
+  @Input() width: number = 135;
+  @Input() height: number = 135;
+  @Input() margin: number = 10;
+  @Input() innerRadius: number = 80;
+  @Input() svgTranslateLeft: number = 80;
+  @Input() svgTranslateRight: number = 80;
+  
   // Mock API data stored in _data
   _data: number[];
   // Color code for donut chart
@@ -38,6 +42,7 @@ export class DonutChartComponent {
   @Input() totalFilesTextFontSize: number = 12;
   @Input() totalExpected: string = "EXPECTED";
 
+
   // Create dynamic donut SVG as per data/api
   renderSVG() {
     // Calculate TotalFileNumber 
@@ -50,7 +55,7 @@ export class DonutChartComponent {
       .attr("width", this.width)
       .attr("height", this.height)
       .append("g")
-      .attr("transform", `translate(${this.width / 2},${this.height / 2})`);
+      .attr("transform", `translate(${this.svgTranslateLeft},${this.svgTranslateRight})`);
 
     const asciiStart = 97;
 
@@ -67,7 +72,7 @@ export class DonutChartComponent {
     svg.selectAll('whatever')
       .data(data_ready)
       .join('path')
-      .attr('d', d3.arc().innerRadius(100).outerRadius(radius) as any)
+      .attr('d', d3.arc().innerRadius(this.innerRadius).outerRadius(radius) as any)
       .attr('fill', d => color(d.data[0]))
       .attr("stroke", "white")
       .style("stroke-width", "2px")
@@ -76,6 +81,7 @@ export class DonutChartComponent {
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesNumberFontSize}px`)
+      .attr("class",'totalFilesNumber')
       .attr("style", "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing: -2.01152px; fill: #2E2E3C;")
       .text(this.totalFilesNumber);
 
