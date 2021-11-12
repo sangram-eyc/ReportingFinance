@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ChartCommonModule } from '../common/chart-common.module';
 import { BarComponent } from './bar/bar.component';
 import { BarVerticalComponent } from './bar-vertical/bar-vertical.component';
-import { BarVerticalStackedComponent } from './bar-vertical-stacked/bar-vertical-stacked.component';
 import { SeriesVerticalComponent } from './series-vertical.component';
 import { BarLabelComponent } from './bar-label.component';
-
 
 
 
@@ -16,8 +14,7 @@ import { BarLabelComponent } from './bar-label.component';
     BarComponent,
     BarVerticalComponent,
     SeriesVerticalComponent,
-    BarLabelComponent,
-    BarVerticalStackedComponent
+    BarLabelComponent
     
   ],
   imports: [
@@ -28,8 +25,7 @@ import { BarLabelComponent } from './bar-label.component';
     BarComponent,
     BarVerticalComponent,
     SeriesVerticalComponent,
-    BarLabelComponent,
-    BarVerticalStackedComponent   
+    BarLabelComponent   
   ]
 })
 export class BarChartModule { }

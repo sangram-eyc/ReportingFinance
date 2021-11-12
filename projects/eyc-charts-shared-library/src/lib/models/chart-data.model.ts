@@ -8,11 +8,6 @@ export interface DataItem {
     label?: string;
   }
 
-  export interface Series {
-    name: StringOrNumberOrDate;
-    series: DataItem[];
-  }
-
   export interface AreaChartSeries {
     name: StringOrNumberOrDate;
     series: AreaChartDataItem[];
