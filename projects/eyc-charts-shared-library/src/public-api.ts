@@ -9,7 +9,6 @@ export * from './lib/donut-chart/donut-chart.component'
 export * from './lib/bar-chart/bar-chart.module';
 export * from './lib/bar-chart/bar/bar.component';
 export * from './lib/bar-chart/bar-vertical/bar-vertical.component';
-export * from './lib/bar-chart/bar-vertical-stacked/bar-vertical-stacked.component';
 export * from './lib/bar-chart/series-vertical.component';
 export * from './lib/bar-chart/bar-label.component';
 export * from './lib/common/chart-common.module';
