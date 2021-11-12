@@ -38,16 +38,12 @@ export class HomeComponent implements OnInit {
       else if (res['data']['userModules'] && Object.keys(res['data']['userModules']).length === 0 && res['data']['userModules'].constructor === Object) {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
-        sessionStorage.setItem("moduleLevelPermission", JSON.stringify(res['data']));
-        this.moduleLevelPermission.invokeModulePermissionDetails();
-        if (!res['data'].userModules.hasOwnProperty('All')) {
-          if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
-            this.permissionList('Regulatory Reporting');
-          }else if(res['data'].userModules.hasOwnProperty('Tax Reporting')){
-            this.permissionList('Tax Reporting');
-          } else {
-            this.navigation();  
-          }
+        this.settingsService.setModulePermissionData = res['data'];
+        this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
+        if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
+          this.permissionList('Regulatory Reporting');
+        } else if (res['data'].userModules.hasOwnProperty('Tax Reporting')) {
+          this.permissionList('Tax Reporting');
         } else {
           this.navigation();
         }
@@ -56,16 +52,10 @@ export class HomeComponent implements OnInit {
   }
 
   permissionList(_module) {
-    if (sessionStorage.getItem("permissionList") === null) {
-    
-        this.moduleLevelPermission.getPermissionsListByModule(_module).subscribe(resp => {
-          this.navigation();
-          sessionStorage.setItem("permissionList", JSON.stringify(resp.data.features));
-        });
-
-    } else {
+    this.moduleLevelPermission.getPermissionsListByModule(_module).subscribe(resp => {
       this.navigation();
-    }
+      sessionStorage.setItem("permissionList", JSON.stringify(resp.data));
+    });
   }
 
   navigation() {
@@ -73,7 +63,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/app-tax-reporting'])
     }
     else {
-      console.log(this.moduleLevelPermissionData.userModules);
       if (this.moduleLevelPermissionData.userModules.hasOwnProperty('All')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/app-regulatory-filing']);
 
