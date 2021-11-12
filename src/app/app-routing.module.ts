@@ -23,13 +23,11 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { ViewExceptionReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-exception-reports/components/view-exception-reports.component';
 import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.component';
 import { GeneralLedgerComponent } from 'projects/eyc-data-managed-services/src/lib/general-ledger/component/general-ledger/general-ledger.component';
-import { ReviewAllComponent } from 'projects/eyc-data-managed-services/src/lib/review-all/review-all.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 const routes: Routes = [
    {path: '', component: LoginComponent},
 
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
-  {path:'reviewcomponent', component:ReviewAllComponent, canActivate : [AuthGuardService]},
   {path: 'administration', component: AdministrationComponent, canActivate : [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'eyComply', component: LoginComponent},

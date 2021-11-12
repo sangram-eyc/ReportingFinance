@@ -14,14 +14,12 @@ import { DataManagedSettingsService} from './data-intake/services/data-managed-s
 import { EycDataApiService} from './data-intake/services/eyc-data-api.service'
 import { FormsModule } from '@angular/forms';
 import { GeneralLedgerComponent } from './general-ledger/component/general-ledger/general-ledger.component';
-import { ReviewAllComponent } from './review-all/review-all.component';
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
     DataIntakeComponent,
     GeneralLedgerComponent,
-    ReviewAllComponent,
     FileReviewComponent],
   imports: [
     BrowserModule,
