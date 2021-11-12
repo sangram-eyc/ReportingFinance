@@ -1,20 +1,21 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
-import { DataManagedService } from '../services/data-managed.service';
+
 import { formatDate } from '@angular/common';
 import { MotifTableHeaderRendererComponent,  MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ColDef } from 'ag-grid-community';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { RegulatoryReportingFilingService } from 'projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { customComparator } from '@default/services/settings-helpers';
-
+import { DataManagedService } from '../../../data-intake/services/data-managed.service';
 
 @Component({
-  selector: 'lib-data-intake',
-  templateUrl: './data-intake.component.html',
-  styleUrls: ['./data-intake.component.scss']
+  selector: 'lib-general-ledger',
+  templateUrl: './general-ledger.component.html',
+  styleUrls: ['./general-ledger.component.scss','../../../data-intake/component/data-intake.component.scss']
 })
-export class DataIntakeComponent implements OnInit {
+export class GeneralLedgerComponent implements OnInit {
+
   gridApi;
   single:any[]= [{
     name: 'Statestreet',
@@ -345,7 +346,7 @@ export class DataIntakeComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 100,
         sort:'asc',
         wrapText: true,
         autoHeight: true,
@@ -369,7 +370,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'dueDate',
         sortable: true,
         filter: true,
-        minWidth: 130,
+        minWidth: 50,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -377,7 +378,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'subDate',
         sortable: true,
         filter: true,
-        minWidth: 180,
+        minWidth: 50,
       
       },
       {
@@ -394,7 +395,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'resolved',
         sortable: true,
         filter: true,
-        minWidth: 140
+        minWidth: 50
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -402,7 +403,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'arrow',
         sortable: true,
         filter: true,
-        minWidth: 140
+        minWidth: 50
       },
     ];
 
@@ -415,7 +416,7 @@ export class DataIntakeComponent implements OnInit {
         sortable: true,
         filter: false,
         resizeable: true,
-        minWidth: 200,
+        minWidth: 100,
         sort:'asc',
         wrapText: true,
         autoHeight: true,
@@ -458,7 +459,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'comments',
         sortable: false,
         filter: false,
-        minWidth: 10,
+        minWidth: 50,
         cellRendererParams: {
           ngTemplate: this.commentscount,
         }
@@ -471,7 +472,7 @@ export class DataIntakeComponent implements OnInit {
         field: 'exceptions',
         sortable: false,
         filter: false,
-        minWidth: 10
+        minWidth: 50
       },
       {
       headerComponentFramework: TableHeaderRendererComponent,
@@ -481,7 +482,7 @@ export class DataIntakeComponent implements OnInit {
       field: 'next',
       sortable: false,
       filter: false,
-      minWidth: 10,
+      minWidth: 50,
       cellRendererParams: {
         ngTemplate: this.nextbuttonTemplete,
       }
