@@ -98,7 +98,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
-          const uname = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
+          const uname = res;
           sessionStorage.setItem("userEmail", uname['userEmail']);
           if (uname) {
             this.userGivenName = uname['firstName'];
