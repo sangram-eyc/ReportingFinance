@@ -5,6 +5,9 @@
   margin-top: 26px;
   top: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
 }
 
 .textalign{
@@ -27,6 +30,9 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 32px;
+}
+.bx{
+  min-height: 30px;
   display: flex;
   align-items: center;
   color: #2e2e38;
@@ -37,9 +43,6 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 18px;
-  display: flex;
-  align-items: center;
-  color: #2e2e38;
 }
 
 .eyc-dms-tabs {
@@ -293,15 +296,19 @@
   font-size: 12px;
   line-height: 14px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content:flex-end;
   align-items: center;
   color: #000000;
-  
   justify-content: flex-end;
   position: relative;
   top: 7px;
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
+    }
+    .motif-button{
+      min-height: 30px;
     }
   }
 }
@@ -314,11 +321,9 @@ a{
 
 .table-header-main{
   display: flex;
-
   justify-content: flex-end;
 }
 
- 
   .pagination {
     display: flex;
     background: #fff;

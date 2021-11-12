@@ -15,23 +15,21 @@
    <div class="motif-row">
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
          <!-- Card Summary Dashboard Start -->
-         <div class="mt-3 mb-3">
+         <div class="mt-3 mb-3 bx">
             <h6 class="heading-6">Summary Dashboard</h6>
          </div>
          <motif-card class="donut-chart-card no_data">
             <!-- Donut chart integration -->
             <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
-            <a routerLink="reviewcomponent" motifTextLink color="primary-alt" class="review-all">
+            <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt" class="review-all">
                <i class="material-icons icon-size">search</i>
-              
-               
                <span >Review All</span>
             </a>
          </motif-card>
 
          <!-- end  -->
          <!-- Card Review by group Start  -->
-         <div class="mt-3 mb-3">
+         <div class="mt-3 mb-3 bx">
             <h6 class="heading-6">Review by group</h6>
          </div>
          <motif-card class="review-group-card no_data">
@@ -89,18 +87,20 @@
       </div>
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
          <!-- Provide Stack bar chart Start  -->
-         <div class="mt-2 mb-3 ">
-            <!-- <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6> -->
-            <div class="dateWrapper">
+         <div class="mt-3 mb-3 dateWrapper">
+            <div class="bx">
                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
                </motif-icon>
                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
                </motif-icon>
-               {{ curDate }}
-               <i class="material-icons" for="datepicker">date_range</i>
-               <button motifButton color="primary-alt" (click)="dailyManagedData()">Daily</button>
-               <button motifButton color="secondary" (click)="monthyManagedData()">Monthly</button>
             </div>
+            <div>{{ curDate }}</div>   
+            <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>         
+            <div class="bx">
+               <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
+               <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
+            </div>
+
          </div>
          <motif-card class="bar-chart-card no_data">
             <motif-card-header>
@@ -234,10 +234,10 @@
                                  [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                                  [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                                  [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
-                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
-                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
+                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
                                  [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
@@ -267,7 +267,7 @@
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
@@ -300,7 +300,7 @@
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"

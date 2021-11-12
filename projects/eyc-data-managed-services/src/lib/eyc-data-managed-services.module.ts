@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {RouterModule} from '@angular/router';
 import { MotifTooltipModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifDropdownModule } from '@ey-xd/ng-motif';
 import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
 import { DataIntakeComponent } from './data-intake/component/data-intake.component';
@@ -14,17 +15,19 @@ import { EycDataApiService} from './data-intake/services/eyc-data-api.service'
 import { FormsModule } from '@angular/forms';
 import { GeneralLedgerComponent } from './general-ledger/component/general-ledger/general-ledger.component';
 import { ReviewAllComponent } from './review-all/review-all.component';
+import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
     DataIntakeComponent,
     GeneralLedgerComponent,
     ReviewAllComponent,
-    ],
+    FileReviewComponent],
   imports: [
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
+    RouterModule,
     MotifTooltipModule,
     MotifCardModule,
     MotifButtonModule,
@@ -49,7 +52,7 @@ import { ReviewAllComponent } from './review-all/review-all.component';
     EycDataApiService,
     DataManagedSettingsService
   ],
-  exports: [EycDataManagementServicesComponent]
+  exports: [EycDataManagementServicesComponent, FileReviewComponent]
 })
 export class EycDataManagementServicesModule {
   public static forRoot(environment: any): ModuleWithProviders {

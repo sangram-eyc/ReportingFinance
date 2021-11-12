@@ -654,6 +654,10 @@ button.motif-select-trigger{
   font-family: 'EYInterstate' !important;
 }
 
+#motif-textarea.motif-form-field.motif-form-field-error .motif-input, .motif-form-field .motif-form-field-error .motif-input {
+  border-bottom: 1px solid var(--error) !important;
+}
+
 .mat-dialog-container  {
   box-shadow: none !important;
 }
@@ -682,4 +686,7 @@ button.motif-select-trigger{
 }
 ::ng-deep .indeterminated-spinner-container .spinner {
  z-index: 99999 !important;
+}
+span.ag-icon.ag-icon-grip {
+  display: none !important;
 }

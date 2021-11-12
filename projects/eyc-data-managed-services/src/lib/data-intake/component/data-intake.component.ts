@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
+import { Component, OnInit, ElementRef, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
-import { MotifTableHeaderRendererComponent,  MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { MotifTableHeaderRendererComponent, MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ColDef } from 'ag-grid-community';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { RegulatoryReportingFilingService } from 'projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/services/regulatory-reporting-filing.service';
@@ -16,7 +16,7 @@ import { customComparator } from '@default/services/settings-helpers';
 })
 export class DataIntakeComponent implements OnInit {
   gridApi;
-  single:any[]= [{
+  single: any[] = [{
     name: 'Statestreet',
     value: 50632,
     extra: {
@@ -59,12 +59,57 @@ export class DataIntakeComponent implements OnInit {
     }
   }
   ];
+  @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
+  @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  // [{
+  //   name: 'Statestreet',
+  //   value: 50632,
+  //   extra: {
+  //     code: 'de'
+  //   }
+  // },
+  // {
+  //   name: 'JP Morgan',
+  //   value: 40000,
+  //   extra: {
+  //     code: 'us'
+  //   }
+  // },
+  // {
+  //   name: 'Bluming',
+  //   value: 36745,
+  //   extra: {
+  //     code: 'fr'
+  //   }
+  // },
+  // {
+  //   name: 'BNYM',
+  //   value: 30000,
+  //   extra: {
+  //     code: 'uk'
+  //   }
+  // },
+  // {
+  //   name: 'South Gate',
+  //   value: 20000,
+  //   extra: {
+  //     code: 'es'
+  //   }
+  // },
+  // {
+  //   name: 'Data H',
+  //   value: 10000,
+  //   extra: {
+  //     code: 'it'
+  //   }
+  // }
+  // ];
   tabIn: number = 1;
   innerTabIn: number = 1;
   // activeReports: any;
   curDate;
   presentDate;
-  totalFileCount=50;
+  totalFileCount = 50;
   // totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -76,7 +121,7 @@ export class DataIntakeComponent implements OnInit {
 
   // bar chart start
 
-  
+
   fitContainer: boolean = false;
   // options
   showXAxis = true;
@@ -89,9 +134,10 @@ export class DataIntakeComponent implements OnInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
+  xAxisLabel2 = 'Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines=false;
+  showXAxisGridLines = false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
@@ -115,7 +161,7 @@ export class DataIntakeComponent implements OnInit {
 
 
   activeFilings: any[] = [];
-  activeReports:any[] = []
+  activeReports: any[] = []
   completedFilings: any[] = [];
   filingResp: any[] = [];
 
@@ -138,16 +184,16 @@ export class DataIntakeComponent implements OnInit {
   domLayout = 'autoHeight';
   @ViewChild('commentscount')
   commentscount: TemplateRef<any>;
-  
+
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
   @ViewChild('nextbuttonTemplete')
-  nextbuttonTemplete : TemplateRef<any>;
+  nextbuttonTemplete: TemplateRef<any>;
   @ViewChild('rname')
-  rname : TemplateRef<any>;
+  rname: TemplateRef<any>;
 
   @ViewChild('chipTemplate')
-  chipTemplate : TemplateRef<any>;
+  chipTemplate: TemplateRef<any>;
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
@@ -179,13 +225,13 @@ export class DataIntakeComponent implements OnInit {
   };
 
   pageSize;
-  columnGl:any
-  glRowdata:any
+  columnGl: any
+  glRowdata: any
 
 
-//end option
+  //end option
 
-  constructor(private customglobalService: CustomGlobalService,private dataManagedService: DataManagedService,private filingService: RegulatoryReportingFilingService) { 
+  constructor(private customglobalService: CustomGlobalService, private filingService: RegulatoryReportingFilingService, private dataManagedService: DataManagedService,private elementRef: ElementRef, private renderer: Renderer2) {
     this.setColorScheme();
   }
 
@@ -196,7 +242,7 @@ export class DataIntakeComponent implements OnInit {
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
+    let pastedText = (clipboardData.getData('text')).split("");
     pastedText.forEach((ele, index) => {
       if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
         if ((pastedText.length - 1) === index) {
@@ -207,8 +253,8 @@ export class DataIntakeComponent implements OnInit {
         return false;
       }
     });
-  } 
-  
+  }
+
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
     if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
@@ -248,7 +294,7 @@ export class DataIntakeComponent implements OnInit {
   }
 
   createHistoryRowData() {
-   
+
     this.rowData = [];
     this.completedFilings.forEach(filing => {
       this.rowData.push({
@@ -258,86 +304,86 @@ export class DataIntakeComponent implements OnInit {
         subDate: '-',
         exceptions: 0,
         resolved: 0,
-        
+
       })
     });
 
-    this.glRowdata=[
+    this.glRowdata = [
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Gav Nav",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 3,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Fund Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 3,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Data Type",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 2,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Maturity Date",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:500,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 500,
       },
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 2,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 3,
       },
       {
         rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
+        rtype: "Data Accuracy / completeness",
+        priority: 1,
+        comments: 2,
+        exceptions: 3,
       },
-    
+
     ]
 
     this.columnDefs = [
-      
+
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exception Report Type',
@@ -346,7 +392,7 @@ export class DataIntakeComponent implements OnInit {
         filter: true,
         resizeable: true,
         minWidth: 300,
-        sort:'asc',
+        sort: 'asc',
         wrapText: true,
         autoHeight: true,
         comparator: customComparator
@@ -360,8 +406,8 @@ export class DataIntakeComponent implements OnInit {
         filter: true,
         minWidth: 140,
         cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          }
+          ngTemplate: this.commentTemplate,
+        }
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -378,7 +424,7 @@ export class DataIntakeComponent implements OnInit {
         sortable: true,
         filter: true,
         minWidth: 180,
-      
+
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -407,7 +453,7 @@ export class DataIntakeComponent implements OnInit {
     ];
 
     this.columnGl = [
-      
+
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exception Report Type',
@@ -416,7 +462,7 @@ export class DataIntakeComponent implements OnInit {
         filter: false,
         resizeable: true,
         minWidth: 200,
-        sort:'asc',
+        sort: 'asc',
         wrapText: true,
         autoHeight: true,
         comparator: customComparator
@@ -433,9 +479,9 @@ export class DataIntakeComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.rname,
         }
-        
+
       },
- 
+
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -463,7 +509,7 @@ export class DataIntakeComponent implements OnInit {
           ngTemplate: this.commentscount,
         }
 
-        
+
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -474,20 +520,20 @@ export class DataIntakeComponent implements OnInit {
         minWidth: 10
       },
       {
-      headerComponentFramework: TableHeaderRendererComponent,
-      cellRendererFramework: MotifTableCellRendererComponent,
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
 
-      headerName: '',
-      field: 'next',
-      sortable: false,
-      filter: false,
-      minWidth: 10,
-      cellRendererParams: {
-        ngTemplate: this.nextbuttonTemplete,
-      }
-    //   cellRenderer:function(params){
-    //     return '<span><i class="material-ions">edit</i></span>'      }
-   },
+        headerName: '',
+        field: 'next',
+        sortable: false,
+        filter: false,
+        minWidth: 10,
+        cellRendererParams: {
+          ngTemplate: this.nextbuttonTemplete,
+        }
+        //   cellRenderer:function(params){
+        //     return '<span><i class="material-ions">edit</i></span>'      }
+      },
     ];
   }
 
@@ -520,16 +566,16 @@ export class DataIntakeComponent implements OnInit {
     this.currentPage = val;
     this.getCompletedFilingsData();
   }
-  
+
   setColorScheme() {
-    //this.selectedColorScheme = 'red';
+    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
   }
 
   ngOnInit(): void {
-    this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
     this.getFileSummuries();
     this.tabIn = 1;
@@ -537,7 +583,7 @@ export class DataIntakeComponent implements OnInit {
     this.getCompletedFilingsData();
   }
 
-  
+
   getActiveFilingsData() {
     this.filingService.getFilings().subscribe(resp => {
       this.filingResp.push(resp);
@@ -561,6 +607,8 @@ export class DataIntakeComponent implements OnInit {
       this.activeReports = this.activeFilings;
       this.createHistoryRowData();
     });
+    this.dailyManagedData();
+    this.dailyDataProvider();
   }
 
   reportTabChange(selectedTab) {
@@ -590,13 +638,26 @@ export class DataIntakeComponent implements OnInit {
   dateSub(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
   dateAdd(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
+  }
+
+  dailyData() {
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
+    this.dailyManagedData();
+    this.dailyDataProvider();
+  }
+  monthyData() {
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    this.monthyManagedData();
+    this.monthyDataProvider();
   }
 
   dailyManagedData() {
@@ -610,6 +671,30 @@ export class DataIntakeComponent implements OnInit {
     // Mock API integration for donut chart
     this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
+    });
+  }
+
+
+  getDataProviderList() {
+    this.dataManagedService.getDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount = data.data['totalCount'];
+    });
+  }
+
+  dailyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount = data.data['totalCount'];
+    });
+  }
+
+  monthyDataProvider() {
+    // Mock API integration for donut chart
+    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
+      this.single = data.data['dataSeries'];
+      this.totalFileCount = data.data['totalCount'];
     });
   }
 }
