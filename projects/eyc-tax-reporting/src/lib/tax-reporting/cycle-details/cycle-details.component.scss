@@ -209,7 +209,7 @@ h3 {
 .production-cycle-details-header {
   display: flex;
   margin-top: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 
   h1{
     font-weight: 600;
@@ -624,8 +624,93 @@ button.close {
 
 
 
+.production-cycle-summary-header {
+  font-family: EYInterstate;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+
+.donut-title{  
+  font-family: EYInterstate !important;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #747480;
+  margin: 4px 0px 0px 18px;
+}
+
+//Donut style
+.donut-chart-card-tax {
+  display: flex;
+  flex-direction: row;
+  min-height: 173px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart{
+  width: max-content;
+  margin-top: -17px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg {
+  height: 135px !important;
+  width: 135px !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg .totalFilesNumber {
+  letter-spacing: 0px !important;
+  font-weight:600 !important;
+}
+
+/* .donut-chart-card-tax ::ng-deep .donut-summary{
+  margin-top:56px !important;
+} */
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url(/assets/eyc-tax-reporting/icons/chat-booble-orange-dark.svg);
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url(/assets/eyc-tax-reporting/icons/chat-booble-orange.svg);
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-text {
+  font-family: EYInterstate;
+  font-size: 12px;
+  line-height: 16px;
+  color: #2E2E38;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-value {
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+  text-align: inherit;
+  letter-spacing:0px;
+  font-weight: 600;
+  display: contents;
+}
 
 
 
 
-  
+
+
+

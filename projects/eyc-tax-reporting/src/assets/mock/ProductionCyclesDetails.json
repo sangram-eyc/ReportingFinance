@@ -8,8 +8,8 @@
         "id": "1ASKDJ10398ASKDJO",
         "hasContent": false,         
         "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
+        "openCommentsEY": 2,
+        "openCommentsClient": 3,
         "assignedUsers": [
             {
                 "userId": 123, 
@@ -48,7 +48,7 @@
         "id": "2ASKDJ10398ASKDJO",
         "hasContent": true,         
         "status": "open",
-        "openCommentsEY": 5,
+        "openCommentsEY": 600,
         "openCommentsClient": 2,
         "assignedUsers":[
             {
@@ -82,8 +82,8 @@
         "id": "3ASKDJ10398ASKDJO",
         "hasContent": true,         
         "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 1,
+        "openCommentsEY": 99,
+        "openCommentsClient": 660,
         "assignedUsers":[
             {
 

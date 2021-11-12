@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent, fileUploadHeading, PermissionService } from 'eyc-ui-shared-component';
 import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 
 @Component({
   selector: 'cycle-details',
@@ -50,7 +51,19 @@ export class CycleDetailComponent implements OnInit {
   iDs = "";
   cycleSelectForm: FormGroup;
   options: any[] = [];
+  fileSummaries = [];
 
+  //lib-donut-chart
+  totalFilesText:string = 'OPEN'
+  totalFilesNumberFontSize:number = 22;
+  totalFilesTextFontSize:number = 16;
+  totalExpected ='';
+  colors: string[] = ["#FFB46A","#FF6D00"]
+  colorScheme;
+  colorScheme2;
+  colorScheme3;
+  openCommentsClientByProductCycle:number = 0;
+  openCommentsEYByProductCycle:number = 0;
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -125,6 +138,8 @@ export class CycleDetailComponent implements OnInit {
   datasetsSelectedRows;
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
+  
+
 
 
   ngOnInit(): void {
@@ -145,7 +160,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.getCompletedProductCyclesData(this.productCycleId);
+     this.getCompletedProductCyclesData(this.productCycleId)
   }
 
   showMyAssignedFunds() {
@@ -214,9 +229,14 @@ export class CycleDetailComponent implements OnInit {
           openCommentsClient: item.openCommentsClient,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
+        //total opens comments by product-cycle
+        this.openCommentsClientByProductCycle = this.openCommentsClientByProductCycle + Number(item.openCommentsClient) ;
+        this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY) ;
         this.completedFunds.push(eachitem);
+        console.log(this.completedFunds)
       });
-
+      console.log('total de comentarios abierto',this.openCommentsClientByProductCycle)
+      this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
     });
@@ -242,7 +262,7 @@ export class CycleDetailComponent implements OnInit {
         assignedTo: fund.assignedTo
       })
     });
-    this.isToggleLeftDisabled()
+ 
 
 
     this.columnDefs = [
@@ -420,4 +440,25 @@ getTooltip(){
     window.scrollTo( 0, window.scrollY - 1);
   }
 }
+
+getFileSummuries() {
+  this.fileSummaries = [
+    {
+      label: "Client comments",
+      value: this.openCommentsClientByProductCycle
+    },
+    {
+      label: "EY comments",
+      value: this.openCommentsEYByProductCycle
+    }
+  ]
+}
+
+setColorScheme() {
+  //this.selectedColorScheme = 'red';
+  this.colorScheme = colorSets.find(s => s.name === 'red');
+  this.colorScheme2 = colorSets.find(s => s.name === 'orange');
+  this.colorScheme3 = colorSets.find(s => s.name === 'teal');
+}
+
 }
