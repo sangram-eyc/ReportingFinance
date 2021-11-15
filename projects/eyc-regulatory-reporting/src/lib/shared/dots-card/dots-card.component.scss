@@ -177,6 +177,10 @@
             .motif-step-container .step-info .step-dot.in-progress.in-progress .inner {
                 cursor: not-allowed !important;
             }
+
+            .motif-step-container .step-info {
+                cursor: default;
+            }
         }
     }
 
