@@ -18,7 +18,7 @@
   .heading-6 {
     font-family: EYInterstate;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 24px;
     line-height: 18px;
   }
 
@@ -82,8 +82,8 @@
   
       .chart-container{
         display: grid;
-        min-height: 300px;
-        margin-top: 10px;
+        min-height: 350px;
+        margin-top: 15px;
         margin-left: -28px;
         ::ng-deep .eyc-charts {
           text {

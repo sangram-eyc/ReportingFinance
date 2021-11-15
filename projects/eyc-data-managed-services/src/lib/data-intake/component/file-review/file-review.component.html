@@ -1,90 +1,115 @@
+<div class="motif-row">
+   <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
+      <!-- Card Files Review Start -->
+      <div class="mt-3 mb-3 bx">
+         <h6 class="heading-6">Files</h6>
+      </div>
+      <motif-card class="donut-chart-card no_data">
+         <!-- Donut chart integration -->
+         <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
+      </motif-card>
 
-   <div class="motif-row">
-    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
-       <!-- Card Files Review Start -->
-       <div class="mt-3 mb-3 bx">
-          <h6 class="heading-6">Files</h6>
-       </div>
-       <motif-card class="donut-chart-card no_data">
-          <!-- Donut chart integration -->
-          <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
-       </motif-card>
+      <!-- end  -->
+   </div>
+   <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
+      <!-- Provide Stack bar chart Start  -->
+      <div class="mt-3 mb-3 dateWrapper">
+         <div class="bx">
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
+            </motif-icon>
+            <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
+            </motif-icon>
+         </div>
+         <div>{{ curDate }}</div>
+         <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>
+         <div class="bx">
+            <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
+            <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
+         </div>
 
-       <!-- end  -->
-    </div>
-    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
-       <!-- Provide Stack bar chart Start  -->
-       <div class="mt-3 mb-3 dateWrapper">
-          <div class="bx">
-             <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
-             </motif-icon>
-             <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
-             </motif-icon>
-          </div>
-          <div>{{ curDate }}</div>   
-          <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>         
-          <div class="bx">
-             <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
-             <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
-          </div>
-
-       </div>
-       <motif-card class="bar-chart-card no_data">
-          <motif-card-header>
-             <div class="inner-tabs">
-                <motif-tab-bar>
-                   <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
-                      [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
-                      Provider
-                   </button>
-                   <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
-                      [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
-                      Data Domain
-                   </button>
-                </motif-tab-bar>
-             </div>
-          </motif-card-header>
-          <motif-card-body>
-             <section id='data-provider' [hidden]="!(innerTabIn == 1)">
-                <div class="bar-chart-panel">
-                   <div id="StackBarChart-provider">
-                      <div class="bar-chart-body">
-                         <div class="chart-container" [hidden]="(totalFileCount==0)">
-                            <!-- Chart placeholder -->
-                         </div>
-
-                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
-                            <div class="toast-icon">
-                               <i class="material-icons md-light">check_circle</i>
-                            </div>
-                            <div class="toast-card-body">No files missing at the moment
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </section>
-             <section id='data-domain' [hidden]="!(innerTabIn == 2)">
-                <div class="bar-chart-panel">
-                   <div id="StackBarChart-domain">
-                      <div class="bar-chart-body">
-                         <div class="chart-container" [hidden]="(totalFileCount==0)">
+      </div>
+      <motif-card class="bar-chart-card no_data">
+         <motif-card-header>
+            <div class="inner-tabs">
+               <motif-tab-bar>
+                  <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
+                     [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
+                     Provider
+                  </button>
+                  <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
+                     [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
+                     Data Domain
+                  </button>
+               </motif-tab-bar>
+            </div>
+         </motif-card-header>
+         <motif-card-body>
+            <section id='data-provider' [hidden]="!(innerTabIn == 1)">
+               <div class="bar-chart-panel">
+                  <div id="StackBarChart-provider">
+                     <div class="bar-chart-body">
+                        <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
-                         </div>
+                           <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
+                           [results]="multi" [animations]="animations" [gradient]="gradient"
+                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                           (activate)="activate($event)" (deactivate)="deactivate($event)">
+                        </eyc-charts-bar-vertical-stacked>
+                        </div>
 
-                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
-                            <div class="toast-icon">
-                               <i class="material-icons md-light">check_circle</i>
-                            </div>
-                            <div class="toast-card-body">No files missing at the moment
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </section>
-          </motif-card-body>
-       </motif-card>
-       <!-- end  -->
-    </div>
- </div>
+                        <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-icon">
+                              <i class="material-icons md-light">check_circle</i>
+                           </div>
+                           <div class="toast-card-body">No files missing at the moment
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <section id='data-domain' [hidden]="!(innerTabIn == 2)">
+               <div class="bar-chart-panel">
+                  <div id="StackBarChart-domain">
+                     <div class="bar-chart-body">
+                        <div class="chart-container" [hidden]="(totalFileCount==0)">
+                           <!-- Chart placeholder -->
+                           <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
+                           [results]="multi" [animations]="animations" [gradient]="gradient"
+                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                           (activate)="activate($event)" (deactivate)="deactivate($event)">
+                        </eyc-charts-bar-vertical-stacked>
+                        </div>
+
+                        <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-icon">
+                              <i class="material-icons md-light">check_circle</i>
+                           </div>
+                           <div class="toast-card-body">No files missing at the moment
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         </motif-card-body>
+      </motif-card>
+      <!-- end  -->
+   </div>
+</div>
