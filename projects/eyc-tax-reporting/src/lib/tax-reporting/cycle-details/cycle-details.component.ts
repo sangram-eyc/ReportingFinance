@@ -216,6 +216,8 @@ export class CycleDetailComponent implements OnInit {
 
   getCompletedProductCyclesData(id: any) {
     this.completedFunds = [];
+    this.openCommentsClientByProductCycle = 0;
+    this.openCommentsEYByProductCycle = 0;
     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any = {
