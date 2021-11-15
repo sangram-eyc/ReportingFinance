@@ -1,154 +1,165 @@
-  * {
-  
-    h1,
-    h6,
-    section {
-      padding: 0 !important;
-      margin: 0;
-    }
-  }
-
-  .bx{
-    min-height: 30px;
-    display: flex;
-    align-items: center;
-    color: #2e2e38;
-  }
-  
-  .heading-6 {
-    font-family: EYInterstate;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 18px;
-  }
-
-  .donut-chart-card {
-    display: flex;
-    align-items: center;
-    padding-top: 6.0882800608828vh;
-    min-height: 74.73363774733637vh;
-  }
-  
-  .bar-chart-card {
-    min-height: 74.73363774733637vh;
-  }
-
-  .inner-tabs {
-    button.motif-text-link {
-      font-family: EYInterstate !important;
-      font-size: 12px !important;
-      line-height: 20px !important;
-      align-items: center;
-      text-align: center;
-      color: #2e2e38 !important;
-    }
-  
-    button.motif-active.motif-text-link {
-      border-bottom: 3.8px solid !important;
-    }
-  
-    button.motif-text-link:hover,
-    button.motif-text-link:focus,
-    button.motif-text-link:active {
-      box-shadow: none !important;
-      border-bottom: 3.8px solid !important;
-    }
-  
-    ::ng-deep .motif-tab-bar>.motif-tab-bar-wrapper {
-      border-bottom: none;
-      padding-top: 1.06544901065449vh;
-      padding-left: 2vw;
-    }
-  }
-  
-  ::ng-deep .motif-card-header {
+* {
+  h1,
+  h6,
+  section {
     padding: 0 !important;
+    margin: 0;
   }
-  
-  .bar-chart-panel {
-    padding: 0;
-    font-family: EYInterstate;
-    font-size: 14px; //88%;
-    line-height: 20px;
-    color: #000000;
-  
-    div {
-      padding-left: 0;
-    }
-  
-    .bar-chart-body {
-      position: relative;
-      padding: 0 6px 0 6px;
-  
-      .chart-container{
-        display: grid;
-        min-height: 350px;
-        margin-top: 15px;
-        margin-left: -28px;
-        ::ng-deep .eyc-charts {
-          text {
-            fill: #747480 !important;
-          }
-        }
-      }
-  
-      .toast-card {
-        min-height: 6.9vh;
-        background: #ffffff;
-        box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.20287);
-        margin-top: 5.327245053272451vh;
-        padding: 0;
-        display: flex;
-  
-        .toast-icon {
-          width: 3.294289897510981vw;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 1ch;
-          background: #57E188;
-          color: white;
-        }
-  
-        .toast-card-body {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 1ch;
-          margin-left: 1.2445095168374818vw;
-        }
-      }
-    }
-  }
-  
-  ::ng-deep .donut-chart>svg {
-    height: 202px !important;
-    width: 202px !important;
-  }
-  
-  .icon-size {
-    font-size: 16px;
-  }
-  
-  .dateWrapper {
-    font-family: EYInterstate;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:flex-end;
+}
+
+.bx {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
+}
+.space-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-end {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:flex-end;
+  align-items: center;
+}
+
+.heading-6 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 18px;
+  color: #2e2e38;
+}
+
+.donut-chart-card {
+  display: flex;
+  align-items: center;
+  padding-top: 6.0882800608828vh;
+  min-height: 74.73vh;
+}
+
+.bar-chart-card {
+  min-height: 74.73vh;
+}
+
+.inner-tabs {
+  button.motif-text-link {
+    font-family: EYInterstate !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
     align-items: center;
-    ::ng-deep {
-      .motif-icon {
-        cursor: pointer;
+    text-align: center;
+    color: #2e2e38 !important;
+  }
+
+  button.motif-active.motif-text-link {
+    border-bottom: 3.8px solid !important;
+  }
+
+  button.motif-text-link:hover,
+  button.motif-text-link:focus,
+  button.motif-text-link:active {
+    box-shadow: none !important;
+    border-bottom: 3.8px solid !important;
+  }
+
+  ::ng-deep .motif-tab-bar > .motif-tab-bar-wrapper {
+    border-bottom: none;
+    padding-top: 1.06544901065449vh;
+    padding-left: 2vw;
+  }
+}
+
+::ng-deep .motif-card-header {
+  padding: 0 !important;
+}
+
+.bar-chart-panel {
+  padding: 0;
+  font-family: EYInterstate;
+  font-size: 14px; //88%;
+  line-height: 20px;
+  color: #000000;
+
+  div {
+    padding-left: 0;
+  }
+
+  .bar-chart-body {
+    position: relative;
+    padding: 0 6px 0 6px;
+
+    .chart-container {
+      display: grid;
+      min-height: 350px;
+      margin-top: 15px;
+      margin-left: -28px;
+      ::ng-deep .eyc-charts {
+        text {
+          fill: #747480 !important;
+        }
       }
-      .motif-button{
-        min-height: 30px;
+    }
+
+    .toast-card {
+      min-height: 6.9vh;
+      background: #ffffff;
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.20287);
+      margin-top: 5.327245053272451vh;
+      padding: 0;
+      display: flex;
+
+      .toast-icon {
+        width: 3.294289897510981vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        background: #57e188;
+        color: white;
+      }
+
+      .toast-card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1ch;
+        margin-left: 1.2445095168374818vw;
       }
     }
   }
-  
+}
+
+::ng-deep .donut-chart > svg {
+  height: 202px !important;
+  width: 202px !important;
+}
+
+.icon-size {
+  font-size: 16px;
+}
+
+.dateWrapper {
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  ::ng-deep {
+    .motif-icon {
+      cursor: pointer;
+    }
+    .motif-button {
+      min-height: 30px;
+    }
+  }
+}

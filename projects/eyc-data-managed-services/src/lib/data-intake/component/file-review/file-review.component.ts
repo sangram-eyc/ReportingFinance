@@ -1,7 +1,10 @@
-import { Component, OnInit,ElementRef,Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef } from '@angular/core';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
+
+import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-file-review',
@@ -231,6 +234,7 @@ export class FileReviewComponent implements OnInit {
       ]
     }
   ];
+  gridApi;
   innerTabIn: number = 1;
   activeReports: any;
   curDate;
@@ -287,7 +291,82 @@ export class FileReviewComponent implements OnInit {
 
 //end option
 
-  constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef, private renderer: Renderer2) { 
+
+// table options
+
+
+activeFilings: any[] = [];
+completedFilings: any[] = [];
+filingResp: any[] = [];
+
+noOfCompletdFilingRecords = 10;
+currentPage = 1;
+maxPages = 5;
+// searchNoDataAvilable = false;
+// activeReportsSearchNoDataAvilable = false;
+noCompletedDataAvilable = false;
+// noActivatedDataAvilable = false;
+MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+TableHeaderRendererComponent = TableHeaderRendererComponent;
+// gridApi;
+rowData;
+rowClass = 'row-style';
+columnDefs;
+rowStyle = {
+  height: '74px'
+}
+domLayout = 'autoHeight';
+@ViewChild('commentscount')
+commentscount: TemplateRef<any>;
+
+@ViewChild('headerTemplate')
+headerTemplate: TemplateRef<any>;
+@ViewChild('nextbuttonTemplete')
+nextbuttonTemplete : TemplateRef<any>;
+@ViewChild('rname')
+rname : TemplateRef<any>;
+
+@ViewChild('chipTemplate')
+chipTemplate : TemplateRef<any>;
+@ViewChild('dropdownTemplate')
+dropdownTemplate: TemplateRef<any>;
+@ViewChild('commentTemplate')
+commentTemplate: TemplateRef<any>;
+
+dataset = [{
+  disable: false,
+  value: 10,
+  name: '10',
+  id: 0
+},
+{
+  disable: false,
+  value: 25,
+  name: '25',
+  id: 1
+},
+{
+  disable: false,
+  value: 50,
+  name: '50',
+  id: 2
+}];
+currentlySelectedPageSize = {
+  disable: false,
+  value: 10,
+  name: '10',
+  id: 0
+};
+
+pageSize;
+columnGl:any
+glRowdata:any
+
+
+// end 
+
+  constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
+     private renderer: Renderer2,private customglobalService: CustomGlobalService) { 
     this.setColorScheme();
   }
   setColorScheme() {
@@ -303,8 +382,291 @@ export class FileReviewComponent implements OnInit {
     this.presentDate = new Date();
     this.dailyManagedData();
     this.dailyDataProvider();
+
+    this.getActiveFilingsData();
+    this.getCompletedFilingsData();
     
   }
+
+  // table methods
+  
+  searchCompleted(input) {
+    this.gridApi.setQuickFilter(input.el.nativeElement.value);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  }
+
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  } 
+  
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  getCompletedFilingsData() {
+    this.completedFilings = [];
+    // this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).subscribe(resp => {
+    //   resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+    //   resp['data'].forEach((item) => {
+    //     const eachitem: any = {
+    //       name: item.filingName + ' // ' + item.period,
+    //       period: item.period,
+    //       dueDate: item.dueDate,
+    //       startDate: item.startDate,
+    //       comments: [],
+    //       status: item.filingStatus
+    //     };
+    //     this.completedFilings.push(eachitem);
+    //   });
+    //   this.createHistoryRowData();
+    // })
+  }
+
+
+  formatDate(timestamp) {
+    let due = new Date(timestamp);
+    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
+      + ('0' + due.getDate()).slice(-2) + '/'
+      + due.getFullYear();
+    return newdate;
+  }
+
+  createHistoryRowData() {
+   
+    this.rowData = [];
+    this.completedFilings.forEach(filing => {
+      this.rowData.push({
+        name: filing.name,
+        comments: filing.comments.length,
+        dueDate: this.formatDate(filing.dueDate),
+        subDate: '-',
+        exceptions: 0,
+        resolved: 0,
+        
+      })
+    });
+
+    this.glRowdata=[
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Gav Nav",
+        rtype:"Data Accuracy / completeness",
+        priority:3,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Fund Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:3,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Data Type",
+        rtype:"Data Accuracy / completeness",
+        priority:2,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Maturity Date",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:500,
+      },
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:2,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:3,
+      },
+      {
+        rname: "Coloumn Completeness",
+        rtype:"Data Accuracy / completeness",
+        priority:1,
+        comments:2,
+        exceptions:3,
+      },
+    
+    ]
+
+    this.columnGl = [
+      
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'File',
+        field: '',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        minWidth: 100,
+        sort:'asc',
+        wrapText: true,
+        autoHeight: true
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+
+        headerName: 'Provider',
+        field: '',
+        sortable: true,
+        filter: true,
+        minWidth: 10,
+        wrapText: true,
+        autoHeight: true,
+        // cellRendererParams: {
+        //   ngTemplate: this.rname,
+        // }
+        
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+
+        headerName: 'Data Domain',
+        field: '',
+
+        sortable: true,
+        filter: true,
+        minWidth: 100,
+        wrapText: true,
+        autoHeight: true,
+        // cellRendererParams: {
+        //   ngTemplate: this.chipTemplate,
+        // }
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+
+        headerName: 'Function',
+        field: '',
+        sortable: true,
+        filter: true,
+        minWidth: 10,
+        wrapText: true,
+        autoHeight: true,
+        // cellRendererParams: {
+        //   ngTemplate: this.commentscount,
+        // }
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+
+        headerName: 'Due Date',
+        field: 'comments',
+        sortable: true,
+        filter: true,
+        minWidth: 10,
+        wrapText: true,
+        autoHeight: true,
+        // cellRendererParams: {
+        //   ngTemplate: this.commentscount,
+        // }
+        
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Exceptions',
+        field: '',
+        sortable: true,
+        filter: true,
+        minWidth: 10,
+        wrapText: true,
+        autoHeight: true,
+      }, {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Status',
+        field: '',
+        sortable: true,
+        filter: true,
+        minWidth: 10,
+        wrapText: true,
+        autoHeight: true,
+      },
+      {
+      headerComponentFramework: TableHeaderRendererComponent,
+      cellRendererFramework: MotifTableCellRendererComponent,
+
+      headerName: '',
+      field: '',
+      sortable: false,
+      filter: false,
+      minWidth: 10,
+      // cellRendererParams: {
+      //   ngTemplate: this.nextbuttonTemplete,
+      // }
+    
+   },
+    ];
+  }
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+  };
+
+  updatePaginationSize(newPageSize: number) {
+    this.noOfCompletdFilingRecords = newPageSize;
+    this.getCompletedFilingsData();
+  }
+
+  handlePageChange(val: number): void {
+    this.currentPage = val;
+    this.getCompletedFilingsData();
+  }
+
+  getActiveFilingsData() {
+  }
+  // end 
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
   }
