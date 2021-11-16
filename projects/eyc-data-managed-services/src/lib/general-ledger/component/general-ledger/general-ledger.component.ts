@@ -8,6 +8,8 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
 import { RegulatoryReportingFilingService } from 'projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { customComparator } from '@default/services/settings-helpers';
 import { DataManagedService } from '../../../data-intake/services/data-managed.service';
+import { HttpClient } from '@angular/common/http';
+import { DataIntakeLandingService } from 'projects/eyc-data-intake/src/lib/data-intake-landing/services/data-intake-landing.service';
 
 @Component({
   selector: 'lib-general-ledger',
@@ -186,7 +188,7 @@ export class GeneralLedgerComponent implements OnInit {
 
 //end option
 
-  constructor(private customglobalService: CustomGlobalService,private dataManagedService: DataManagedService,private filingService: RegulatoryReportingFilingService) { 
+  constructor(  private service: DataManagedService,private httpClient:HttpClient,private customglobalService: CustomGlobalService,private dataManagedService: DataManagedService,private filingService: RegulatoryReportingFilingService) { 
     this.setColorScheme();
   }
 
@@ -263,79 +265,79 @@ export class GeneralLedgerComponent implements OnInit {
       })
     });
 
-    this.glRowdata=[
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Gav Nav",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Fund Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Data Type",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Maturity Date",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:500,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
+    // this.glRowdata=[
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Gav Nav",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:3,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Fund Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:3,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Data Type",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:2,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Maturity Date",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:500,
+    //   },
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:2,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
+    //   {
+    //     rname: "Coloumn Completeness",
+    //     rtype:"Data Accuracy / completeness",
+    //     priority:1,
+    //     comments:2,
+    //     exceptions:3,
+    //   },
     
-    ]
+    // ]
 
     this.columnDefs = [
       
@@ -530,6 +532,14 @@ export class GeneralLedgerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+ 
+
+    this.service.general().subscribe(res => {
+     
+      var mdata:any=res;
+      this.glRowdata=mdata.data;
+      console.log(this.glRowdata)
+    })
     this.curDate = formatDate(new Date(), 'MMMM  yyyy', 'en');
     this.presentDate = new Date();
     this.getFileSummuries();

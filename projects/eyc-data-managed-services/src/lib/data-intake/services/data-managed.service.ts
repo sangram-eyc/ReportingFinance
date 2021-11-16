@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
@@ -7,6 +8,7 @@ import { EycDataApiService } from './eyc-data-api.service';
 })
 export class DataManagedService {
   constructor(
+    private httpClient: HttpClient,
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
   ) { }
@@ -34,4 +36,9 @@ export class DataManagedService {
   getMonthlyDataProviderList(){
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_monthly}`);
   }
+
+  general(){
+    return this.httpClient.get('assets/eyc-data-intake/mock/data.json')
+  }
+
 }
