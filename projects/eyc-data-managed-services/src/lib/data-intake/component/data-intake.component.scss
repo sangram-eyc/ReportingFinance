@@ -10,7 +10,7 @@
   color: #2e2e38;
 }
 
-.textalign{
+.textalign {
   margin-top: 22px;
 
 }
@@ -31,7 +31,8 @@
   font-size: 24px;
   line-height: 32px;
 }
-.bx{
+
+.bx {
   min-height: 30px;
   display: flex;
   align-items: center;
@@ -145,11 +146,12 @@
     border-bottom: 1px solid #EAEAF2;
     padding: 0 6px 6vh 6px;
 
-    .chart-container{
+    .chart-container {
       display: grid;
       min-height: 300px;
       margin-top: 10px;
       margin-left: -28px;
+
       ::ng-deep .eyc-charts {
         text {
           fill: #747480 !important;
@@ -189,8 +191,19 @@
 }
 
 ::ng-deep .donut-chart>svg {
-  height: 202px !important;
-  width: 202px !important;
+  width: 180px !important;
+  height: 185px !important;
+}
+
+::ng-deep .donut-chart {
+  width: 180px !important;
+  height: 185px !important;
+  margin: 0 auto;
+}
+
+::ng-deep .donut-summary {
+  width: 17em !important;
+  padding-left: 18px;
 }
 
 .donut-chart-card {
@@ -215,7 +228,7 @@
 .review-all {
   font-family: EYInterstate;
   font-size: 14px;
-  margin: 37px 0 35px 0;
+  margin: 50px 0 35px 0;
 }
 
 .icon-size {
@@ -297,44 +310,73 @@
   line-height: 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
   color: #000000;
   justify-content: flex-end;
   position: relative;
   top: 7px;
+
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
-    .motif-button{
+
+    .motif-button {
       min-height: 30px;
     }
+
+    // .motif-form-field-datepicker-icon {
+    //   top: 1.3rem !important;
+    // }
+
+    // .motif-clear-input {
+    //   top: 1.3rem !important;
+    // }
   }
 }
-a{
+
+a {
   text-decoration: none;
 }
-::ng-deep .dateWrapper{
-  padding: 0 !important;
- }
 
-.table-header-main{
+::ng-deep .dateWrapper {
+  padding: 0 !important;
+}
+
+.table-header-main {
   display: flex;
   justify-content: flex-end;
 }
 
-  .pagination {
-    display: flex;
-    background: #fff;
-    width: 100%;
-    justify-content: flex-end;
-    padding: 15px;
-    margin-top: 15px;
-    .page-description {
-      font-family: EYInterstate;
-      .page-number {
-        font-weight: 700;
-      }
+.pagination {
+  display: flex;
+  background: #fff;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 15px;
+  margin-top: 15px;
+
+  .page-description {
+    font-family: EYInterstate;
+
+    .page-number {
+      font-weight: 700;
     }
   }
+}
+
+// .datepicker-dashboard {
+//   margin-top: 14px;
+
+//   .motif-input {
+//     background-color: white;
+//   }
+
+//   .motif-datepicker {
+//     font-family: EYInterstate;
+//     background-color: #ffffff !important;
+//     display: flex;
+//     align-items: center
+//   }
+// }
