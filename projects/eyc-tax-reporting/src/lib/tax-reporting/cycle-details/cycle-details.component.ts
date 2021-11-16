@@ -210,7 +210,6 @@ export class CycleDetailComponent implements OnInit {
   }
 
   createComment(row: any, type: any) {
-    console.log("Comments-Landing");
     this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
   }
 
@@ -235,9 +234,7 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsClientByProductCycle = this.openCommentsClientByProductCycle + Number(item.openCommentsClient) ;
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY) ;
         this.completedFunds.push(eachitem);
-        console.log(this.completedFunds)
       });
-      console.log('total de comentarios abierto',this.openCommentsClientByProductCycle)
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
@@ -264,7 +261,7 @@ export class CycleDetailComponent implements OnInit {
         assignedTo: fund.assignedTo
       })
     });
- 
+   this.isToggleLeftDisabled()
 
 
     this.columnDefs = [
@@ -351,12 +348,10 @@ export class CycleDetailComponent implements OnInit {
   }
 
   datasetsReportRowsSelected(event) {
-    console.log('dataset emiter', event);
     this.datasetsSelectedRows = event;
   }
 
   onSubmitApproveDatasets() {
-    console.log('dataset de prueba -->', this.datasetsSelectedRows);
     this.datasetsSelectedRows.forEach(ele => {
       if (this.iDs == "") {
         this.iDs = ele.id
