@@ -27,11 +27,15 @@ export class DataManagedService {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
   }
 
-  getDailyDataProviderList(){
+  getDailyDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_daily}`);
   }
 
-  getMonthlyDataProviderList(){
+  getMonthlyDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_monthly}`);
+  }
+
+  getExceptionReportstable() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_reports_table}`);
   }
 }

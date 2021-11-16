@@ -1,49 +1,30 @@
-<div class="mt-2 mb-3 ">
- <div class="heading-6" >
-    <p>Exception report details</p>
-    <div class="search">
-        <motif-form-field>
-            <input #activeReports motifInput motifSearch type="text"
-                   placeholder="Search" aria-label="Search">
-        </motif-form-field>
-    </div>
- </div>
+<div class="page-header">
+
+</div>
+<div class="eyc-dms-tabs">
+    <motif-tab-bar>
+        <h1 class="heading-4">Gav Nav Variance - Quarter 
+            <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
+        </h1> 
+        
+    </motif-tab-bar>
 </div>
 
-<div class="frame-padding" >
-    <div class="grid-wrapper" >
-        <motif-table [columnDefs]="columnDefs1" [rowData]="rowData" rowSelection="multiple"
-        (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
+<div class="mt-2 mb-3 ">
+    <div class="heading-6">
+        <p>Exception report details</p>
+        <div class="search">
+            <motif-form-field>
+                <input #activeReports motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
+            </motif-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="frame-padding">
+    <div class="grid-wrapper">
+        <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
+            (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
             [pagination]="true" paginationPageSize="10"></motif-table>
     </div>
 </div>
-
-<!-- <div class="pagination">
-    <div class="grid-wrapper" >
-        <motif-pagination>
-            <button motifIconButton size="small" aria-label="Go to first page"
-                >
-                <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
-            </button>
-            <button motifIconButton size="small" aria-label="Go to previous page"
-                >
-                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
-            </button>
-            <span class="page-description">Page <span class="page-number"></span> of <span
-                    class="page-number"></span></span>
-            <button motifIconButton size="small" aria-label="Go to next page"
-                >
-                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-            </button>
-            <button motifIconButton size="small" aria-label="Go to last page"
-                >
-                <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
-            </button>
-        </motif-pagination>
-    
-        <motif-pagination-select label="Show" 
-            >
-        </motif-pagination-select>
-    </div>
-</div> -->
-

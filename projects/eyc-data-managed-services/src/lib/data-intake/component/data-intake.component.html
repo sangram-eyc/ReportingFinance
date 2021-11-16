@@ -94,8 +94,8 @@
                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
                </motif-icon>
             </div>
-            <div>{{ curDate }}</div>   
-            <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>         
+            <div>{{ curDate }}</div>
+            <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>
             <div class="bx">
                <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
                <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
@@ -327,7 +327,6 @@
    </div>
 </section>
 <section id='trands-insights' [hidden]="!(tabIn == 2)">
-  <lib-exceptions-reports></lib-exceptions-reports>
 </section>
 <!--  -->
 <section id='api-catalog' [hidden]="!(tabIn == 3)">

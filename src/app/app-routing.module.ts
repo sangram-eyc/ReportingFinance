@@ -22,6 +22,7 @@ import { ProcessingExceptionComponent } from 'projects/eyc-data-intake/src/lib/p
 import { AuthGuardService } from './services/auth-guard.service';
 import { ViewExceptionReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-exception-reports/components/view-exception-reports.component';
 import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.component';
+import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
   {path:'data-managed-services', component:EycDataManagementServicesComponent},
+  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
   {path: '**', component: LoginComponent},
 ];
 

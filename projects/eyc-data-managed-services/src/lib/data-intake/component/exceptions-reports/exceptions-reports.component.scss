@@ -9,6 +9,15 @@
   justify-content: space-between;
 }
 
+.heading-4{
+  display: inline-flex;
+
+::ng-deep .motif-icon{
+  display: inline !important;
+  padding: 5px 5px !important;
+}
+}
+
 
 
 
