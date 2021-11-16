@@ -184,8 +184,19 @@
 }
 
 ::ng-deep .donut-chart>svg {
-  height: 202px !important;
-  width: 202px !important;
+  width: 180px !important;
+  height: 185px !important;
+}
+
+::ng-deep .donut-chart {
+  width: 180px !important;
+  height: 185px !important;
+  margin: 0 auto;
+}
+
+::ng-deep .donut-summary {
+  width: 17em !important;
+  padding-left: 18px;
 }
 
 .donut-chart-card {
@@ -210,7 +221,7 @@
 .review-all {
   font-family: EYInterstate;
   font-size: 14px;
-  margin: 37px 0 35px 0;
+  margin: 50px 0 35px 0;
 }
 
 .icon-size {
@@ -283,7 +294,6 @@
 .text-align-right {
   text-align: right !important;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -292,14 +302,43 @@
   line-height: 14px;
   display: flex;
   flex-wrap: wrap;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
+
+  .set-width {
+    width: 283px;
+  }
+
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
-    .motif-button{
+
+    .motif-button {
       min-height: 30px;
     }
+
+    // .motif-form-field-datepicker-icon {
+    //   top: 1.3rem !important;
+    // }
+
+    // .motif-clear-input {
+    //   top: 1.3rem !important;
+    // }
   }
 }
+
+// .datepicker-dashboard {
+//   margin-top: 14px;
+
+//   .motif-input {
+//     background-color: white;
+//   }
+
+//   .motif-datepicker {
+//     font-family: EYInterstate;
+//     background-color: #ffffff !important;
+//     display: flex;
+//     align-items: center
+//   }
+// }

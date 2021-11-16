@@ -54,7 +54,19 @@
       <!-- Card Files Review Start -->
       <motif-card class="donut-chart-card no_data">
          <!-- Donut chart integration -->
-         <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
+          <!-- Donut chart integration -->
+         <lib-donut-chart id="donutchart" 
+            [data]="fileSummaries"
+            legendTextSliceNumber=23
+            width=155 
+            height=155 
+            margin=13 
+            innerRadius=90
+            svgTranslateLeft=90
+            svgTranslateRight=90
+            totalFilesText="TOTAL FILES"
+            totalExpected="EXPECTED"> 
+         </lib-donut-chart>
       </motif-card>
 
       <!-- end  -->
