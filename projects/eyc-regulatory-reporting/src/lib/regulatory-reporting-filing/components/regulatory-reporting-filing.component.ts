@@ -180,6 +180,9 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         autoHeight: true,
         comparator: customComparator
       },
+
+      // Change for User story 288907 and keep this commented code for future US requirement -->
+
       // {
       //   headerComponentFramework: TableHeaderRendererComponent,
       //   cellRendererFramework: MotifTableCellRendererComponent,
@@ -208,6 +211,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         filter: true,
         minWidth: 180
       },
+
+      // Change for User story 288907 and keep this commented code for future US requirement -->
       // {
       //   headerComponentFramework: TableHeaderRendererComponent,
       //   headerName: 'Exceptions',
