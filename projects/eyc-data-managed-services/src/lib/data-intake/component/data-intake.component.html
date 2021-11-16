@@ -6,7 +6,7 @@
       <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
          [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trands & Insights</button>
+         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button>
       <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
          [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button>
    </motif-tab-bar>
@@ -20,8 +20,12 @@
          </div>
          <motif-card class="donut-chart-card no_data">
             <!-- Donut chart integration -->
-            <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
-            <a href="#" motifTextLink color="primary-alt" class="review-all">
+            <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155
+               margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
+               totalExpected="EXPECTED">
+            </lib-donut-chart>
+            <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt"
+               class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>
@@ -100,7 +104,6 @@
                <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
                <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
             </div>
-
          </div>
          <motif-card class="bar-chart-card no_data">
             <motif-card-header>
