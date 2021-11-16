@@ -13,6 +13,8 @@ export class DataIntakeComponent implements OnInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   model = null;
+  totalFileTextStyle ="width: 109.23px; height: 14.56px; left: 0px; top: 37.86px; font-family: EYInterstate;font-size: 10px; line-height: 13px; text-align: center;color: #747480;"
+  totalFileNumberStyle = "width: 109.23px; height: 31.86px; left: 0px; top: 0px; font-family: EYInterstate; font-size: 32px; line-height: 37px; text-align: center;color: #2E2E3C;"
   // [{
   //   name: 'Statestreet',
   //   value: 50632,

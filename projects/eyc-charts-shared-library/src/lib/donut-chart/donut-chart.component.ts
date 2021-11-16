@@ -16,16 +16,18 @@ export class DonutChartComponent {
   @Input() svgStrokeWidth: number = 2;
   @Input() svgStrokeColor: String = 'white';
   // Total Files Number
-  @Input() totalFilesNumberFontSize: number = 39;
-  @Input() totalFilesNumberStyle = "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing: -2.01152px; fill: #2E2E3C;"
+  @Input() totalFilesNumberFontSize: number = 32;
+  @Input() totalFilesNumberStyle = "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing:-1.64307px; fill: #2E2E3C;"
   // Total Files Text
-  @Input() totalFilesTextFontSize: number = 12;
-  @Input() totalFilesTextStyle = "font-family: EYInterstate; line-height: 16px; text-align: center; fill: #747480;"
+  @Input() totalFilesTextFontSize: number = 11;
+  @Input() totalFilesTextStyle = "font-family: EYInterstate; line-height: 13px; text-align: center; fill: #747480;"
   @Input() totalFilesText: string = "TOTAL FILES";
   // Total Expected Text
-  @Input() totalExpectedStyle = "font-family: EYInterstate; line-height: 16px; text-align: center; fill: #747480;"
+  @Input() totalExpectedStyle = "font-family: EYInterstate; line-height: 13px; text-align: center; fill: #747480;"
   @Input() totalExpected: string = "EXPECTED";
+  @Input() legendTextSliceNumber: number = 19;
   totalFilesNumber: number = 0;
+
 
   // Mock API data stored in _data
   _data: number[];
