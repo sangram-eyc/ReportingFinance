@@ -676,7 +676,7 @@ button.close {
 }
 
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
-  content: url("assets/eyc-tax-reporting/icons/chat-booble-orange-dark.svg");
+  content: url("/assets/eyc-tax-reporting/icons/chat-booble-orange-dark.svg");
   background: transparent !important;
   order: 2;
   width: 31px;
@@ -684,7 +684,7 @@ button.close {
 }
 
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
-  content: url("assets/eyc-tax-reporting/icons/chat-booble-orange.svg");
+  content: url("/assets/eyc-tax-reporting/icons/chat-booble-orange.svg");
   background: transparent !important;
   order: 2;
   width: 31px;
