@@ -180,18 +180,18 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         autoHeight: true,
         comparator: customComparator
       },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        headerName: 'Comments',
-        field: 'comments',
-        sortable: true,
-        filter: true,
-        minWidth: 140,
-        cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          }
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   headerName: 'Comments',
+      //   field: 'comments',domLayout
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140,
+      //   cellRendererParams: {
+      //       ngTemplate: this.commentTemplate,
+      //     }
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due date',
@@ -208,22 +208,22 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         filter: true,
         minWidth: 180
       },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Exceptions',
-        field: 'exceptions',
-        sortable: true,
-        filter: true,
-        minWidth: 140
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Resolved',
-        field: 'resolved',
-        sortable: true,
-        filter: true,
-        minWidth: 140
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Exceptions',
+      //   field: 'exceptions',
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140
+      // },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Resolved',
+      //   field: 'resolved',
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140
+      // },
     ];
   }
 
