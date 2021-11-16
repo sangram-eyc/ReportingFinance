@@ -120,7 +120,9 @@
         </div>
     </ng-template>
 
-    <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+    <!-- Change for User story 288907 and keep this commented code for future US requirement -->
+
+    <!-- <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
 
         <motif-pagination>
             <button motifIconButton size="small" aria-label="Go to first page"
@@ -146,7 +148,7 @@
         <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
             (paginationSelectChange)="updatePaginationSize($event.value)">
         </motif-pagination-select>
-    </div>
+    </div> -->
 
 
     <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
