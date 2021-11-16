@@ -29,9 +29,9 @@ export class ExceptionsReportsComponent implements OnInit {
     this.frameworkComponents = {
     };
   }
-  
+
   ngOnInit(): void {
-    this.getExceptionReportstable();
+
   }
 
   isFirstColumn = (params) => {
@@ -96,81 +96,6 @@ export class ExceptionsReportsComponent implements OnInit {
 
 
       this.getExceptionReportstable();
-
-      // this.rowData = [
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity',
-      //     classification: 'Financial',
-      //     category: 'DiffLVL',
-      //     value: "(64,27,000)",
-      //     variance: "2.47%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity',
-      //     classification: 'Non-financial',
-      //     category: 'DiffLVL',
-      //     value: "(4,27,000)",
-      //     variance: "2.47%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity',
-      //     classification: 'Financial',
-      //     category: 'DiffLVL',
-      //     value: "(4,02,000)",
-      //     variance: "0.47%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity',
-      //     classification: 'Non-financial',
-      //     category: 'DiffLVL',
-      //     value: "(4,56,000)",
-      //     variance: "0.87%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity',
-      //     classification: 'Non-financial',
-      //     category: 'DiffLVL',
-      //     value: "(3,70,000)",
-      //     variance: "0.37%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity Derivatives',
-      //     classification: 'Financial',
-      //     category: 'DiffLVL',
-      //     value: "(2,27,000)",
-      //     variance: "0.10%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity Derivatives',
-      //     classification: 'Non-financial',
-      //     category: 'DiffLVL',
-      //     value: "(3,43,000)",
-      //     variance: "0.37%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity Derivatives',
-      //     classification: 'Financial',
-      //     category: 'DiffLVL',
-      //     value: "(2,27,000)",
-      //     variance: "0.56%",
-      //   },
-      //   {
-      //     type: 'Valuation',
-      //     exposure: 'Listed Equity Derivatives',
-      //     classification: 'Financial',
-      //     category: 'DiffLVL',
-      //     value: "(5,23,000)",
-      //     variance: "0.87%",
-      //   },
-      // ];
     });
 
   }
