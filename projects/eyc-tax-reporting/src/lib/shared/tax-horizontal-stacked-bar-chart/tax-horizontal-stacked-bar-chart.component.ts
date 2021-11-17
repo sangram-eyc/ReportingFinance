@@ -59,11 +59,11 @@ export class TaxHorizontalStackedBarChartComponent{
   }
 
   renderBarChartSVG(){
+      d3.select('g').selectAll('*').remove();
       if(this.data && this.widthServer && this.colors && this.labelsChart && this.dataValues && this.totalValues){      
           this.keys = Object.keys(this.data[0]);
           var stack = d3.stack().keys(this.keys); 
           var stackedSeries = stack(this.data);  
-          d3.select('g').selectAll('*').remove();
 
           // Create a g element for each series
           var g = d3.select('g')
@@ -131,6 +131,7 @@ export class TaxHorizontalStackedBarChartComponent{
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
       }
+
     }
 
     trackItem(index: number) {
