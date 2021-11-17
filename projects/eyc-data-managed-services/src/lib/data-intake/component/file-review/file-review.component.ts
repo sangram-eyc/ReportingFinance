@@ -150,8 +150,6 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.dailyManagedData();
     this.dailyDataProvider();
     this.getReviewFilesData();
-
-    this.getActiveFilingsData();
     this.getReviewFileTableData();
     
   }
@@ -190,7 +188,6 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
 
   getReviewFileTableData() {
       this.dataManagedService.getReviewFileTableData().subscribe(resp => {
-        debugger;
       resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata=resp.data["rowData"];
       this.columnGl = [
@@ -303,9 +300,6 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.currentPage = val;
     this.getReviewFileTableData();
   }
-
-  getActiveFilingsData() {
-  }
   // end 
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
@@ -394,9 +388,7 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
 
   getReviewFilesData() {
     // Mock API integration for Review File
-    debugger;
     this.dataManagedService.getReviewFilesData().subscribe(data => {
-      debugger;
       this.multi = data.data["dataseries"];
     });
   }
