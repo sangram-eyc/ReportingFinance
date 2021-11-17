@@ -484,7 +484,7 @@ informationModal(){
     width: '600px',
     data: {
       header: "Information for cycle status indicator",
-      description: "You can hover over each bar in the graph to see:",
+      description: "You can hover over each bar in the graph to see the progress. The below legend shows what stage the funds are in.",
       footer: {
         style: "start",
         YesButton: "Save",

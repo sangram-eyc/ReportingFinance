@@ -7,12 +7,12 @@ import * as d3 from 'd3';
   styleUrls: ['./tax-horizontal-stacked-bar-chart.component.css']
 })
 export class TaxHorizontalStackedBarChartComponent{
-  data:any = [];
+  data:any[] = [];
   widthServer:any = 0;
-  keys:any = [];
-  labelsChart:any = [];
-  colors:any = [];
-  dataValues:any = [];
+  keys:any[] = [];
+  labelsChart:string[] = [];
+  colors:string[] = [];
+  dataValues:any[] = [];
   totalValues:any = 0;
   emptyMsg= "NO DATA RECEIVED"; 
   
@@ -63,6 +63,8 @@ export class TaxHorizontalStackedBarChartComponent{
           this.keys = Object.keys(this.data[0]);
           var stack = d3.stack().keys(this.keys); 
           var stackedSeries = stack(this.data);  
+          d3.select('g').selectAll('*').remove();
+
           // Create a g element for each series
           var g = d3.select('g')
             .selectAll('g.series')
@@ -129,5 +131,9 @@ export class TaxHorizontalStackedBarChartComponent{
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
       }
+    }
+
+    trackItem(index: number) {
+      return index;
     }
 }
