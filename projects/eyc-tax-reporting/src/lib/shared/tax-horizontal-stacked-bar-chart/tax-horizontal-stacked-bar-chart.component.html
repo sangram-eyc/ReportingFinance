@@ -11,7 +11,7 @@
 </div>
 
  <div class="row" *ngIf="totalValues > 0">
- <div class="col" *ngFor="let item of labelsChart; index as i;">
+ <div class="col" *ngFor="let item of labelsChart; index as i; trackBy: trackItem">
    <span class="tax-legend-text">
     <div class="tax-legend" [style.background]="colors[i]" style="display: inline-block;"> </div>
     {{(dataValues && dataValues.length >= 0) ? dataValues[i] : "" }} {{item}}       
