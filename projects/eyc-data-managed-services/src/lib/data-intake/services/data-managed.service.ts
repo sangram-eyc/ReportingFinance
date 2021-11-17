@@ -34,4 +34,11 @@ export class DataManagedService {
   getMonthlyDataProviderList(){
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_monthly}`);
   }
+
+  getReviewFilesData(){
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_data}`);
+  }
+  getReviewFileTableData(){
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`);
+  }
 }
