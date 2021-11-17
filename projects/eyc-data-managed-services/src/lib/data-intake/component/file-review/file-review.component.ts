@@ -15,225 +15,7 @@ export class FileReviewComponent implements OnInit {
   single:any[]=[];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  multi=[
-    {
-      name: 'Statestreet',
-      series: [
-        {
-          name: '2010',
-          value: 4000
-        },
-        {
-          name: '1000',
-          value: 2000
-        },
-        {
-          name: '500',
-          value: 1500
-        },
-        {
-          name: '2000',
-          value: 3693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 1476,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'Data H',
-      series: [
-        {
-          name: '2010',
-          value: 2000
-        },
-        {
-          name: '1000',
-          value: 3000
-        },
-        {
-          name: '500',
-          value: 1500
-        },
-        {
-          name: '2000',
-          value: 2693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 2476,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'South Gate',
-      series: [
-        {
-          name: '2010',
-          value: 1000
-        },
-        {
-          name: '1000',
-          value: 3000
-        },
-        {
-          name: '500',
-          value: 1500
-        },
-        {
-          name: '2000',
-          value: 1693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 2276,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'BNYM',
-      series: [
-        {
-          name: '2010',
-          value: 4000
-        },
-        {
-          name: '1000',
-          value: 2000
-        },
-        {
-          name: '500',
-          value: 1500
-        },
-        {
-          name: '2000',
-          value: 3693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 1476,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'Bluming',
-      series: [
-        {
-          name: '2010',
-          value: 2500
-        },
-        {
-          name: '1000',
-          value: 1500
-        },
-        {
-          name: '500',
-          value: 3500
-        },
-        {
-          name: '2000',
-          value: 1200,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 2000,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'JP Morgan',
-      series: [
-        {
-          name: '2010',
-          value: 3000
-        },
-        {
-          name: '1000',
-          value: 4000
-        },
-        {
-          name: '500',
-          value: 2000
-        },
-        {
-          name: '2000',
-          value: 3693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 2500,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    },
-    {
-      name: 'Tata',
-      series: [
-        {
-          name: '2010',
-          value: 4000
-        },
-        {
-          name: '1000',
-          value: 2000
-        },
-        {
-          name: '500',
-          value: 1500
-        },
-        {
-          name: '2000',
-          value: 3693,
-          extra: {
-            code: 'de'
-          }
-        },
-        {
-          name: '1990',
-          value: 1476,
-          extra: {
-            code: 'de'
-          }
-        }
-      ]
-    }
-  ];
+  multi;
   gridApi;
   innerTabIn: number = 1;
   activeReports: any;
@@ -382,6 +164,7 @@ glRowdata:any
     this.presentDate = new Date();
     this.dailyManagedData();
     this.dailyDataProvider();
+    this.getReviewFilesData();
 
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
@@ -748,6 +531,16 @@ glRowdata:any
     this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
       this.totalFileCount=data.data['totalCount'];
+    });
+  }
+
+
+  getReviewFilesData() {
+    // Mock API integration for Review File
+    debugger;
+    this.dataManagedService.getReviewFilesData().subscribe(data => {
+      debugger;
+      this.multi = data.data["dataseries"];
     });
   }
 }
