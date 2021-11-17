@@ -7,13 +7,13 @@ import * as d3 from 'd3';
   styleUrls: ['./tax-horizontal-stacked-bar-chart.component.css']
 })
 export class TaxHorizontalStackedBarChartComponent{
-  data:any;
-  widthServer:any;
-  keys:any;
-  labelsChart:any;
-  colors:any;
-  dataValues:any;
-  totalValues:any;
+  data:any = [];
+  widthServer:any = 0;
+  keys:any = [];
+  labelsChart:any = [];
+  colors:any = [];
+  dataValues:any = [];
+  totalValues:any = 0;
   emptyMsg= "NO DATA RECEIVED"; 
   
   @Input() set dataInput(values:any){
@@ -59,7 +59,7 @@ export class TaxHorizontalStackedBarChartComponent{
   }
 
   renderBarChartSVG(){
-      if(this.data && this.widthServer && this.colors && this.labelsChart && this.dataValues && this.totalValues){        
+      if(this.data && this.widthServer && this.colors && this.labelsChart && this.dataValues && this.totalValues){      
           this.keys = Object.keys(this.data[0]);
           var stack = d3.stack().keys(this.keys); 
           var stackedSeries = stack(this.data);  
@@ -88,9 +88,9 @@ export class TaxHorizontalStackedBarChartComponent{
 
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
-      var element:any = d3.select(this.parentNode).datum();
-      var subgroupName = element.key;
-      var subgroupValue = element[0].data[subgroupName];
+      let element:any = d3.select(this.parentNode).datum();
+      let subgroupName = element.key;
+      let subgroupValue = element[0].data[subgroupName];
       tooltip
           .html(subgroupValue + " " + subgroupName)
           .style("opacity", 1)
