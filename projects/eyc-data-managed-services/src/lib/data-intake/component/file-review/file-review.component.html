@@ -176,36 +176,15 @@
       </motif-card-body>
    </motif-card>
 
-   <ng-template #headerTemplate>
-      <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
-      </motif-icon>
-   </ng-template>
-
-   <ng-template #dropdownTemplate>
-      <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
-   </ng-template>
-   <ng-template #chipTemplate let-row>
-      <motif-chip [removeable]="false" *ngIf="row.priority==1" variant="error">High</motif-chip>
-      <motif-chip [removeable]="false" *ngIf="row.priority==2" variant="warning">Medium</motif-chip>
-      <motif-chip [removeable]="false" *ngIf="row.priority==3" variant="success">Low</motif-chip>
-
-   </ng-template>
-   <ng-template #rname let-row>
-      <a href="">{{row.rname}}</a>
-
-   </ng-template>
-   <ng-template #commentscount let-row>
-      <motif-chip [removeable]="false" variant="monochrome-dark">{{row.comments}}</motif-chip>
-
-   </ng-template>
-   <ng-template #nextbuttonTemplete let-row>
+   <ng-template #chipTemplate let-row class="space-between"> 
+      <div>
+         <motif-chip [removeable]="false" *ngIf="row.Status=='High'" variant="warning">High</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.Status=='Medium / Low'" variant="info">Medium / Low</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.Status=='Missing'" variant="error">Missing</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.Status=='No Issues'" variant="success">No Issues</motif-chip>
+      </div>
+      <div>  
       <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-
-   </ng-template>
-
-   <ng-template #commentTemplate let-row>
-      <div *ngIf="row.comments!==0" class="comments-background">
-         {{row.comments}}
       </div>
    </ng-template>
 
@@ -235,8 +214,6 @@
          (paginationSelectChange)="updatePaginationSize($event.value)">
       </motif-pagination-select>
    </div>
-
-
    <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
       <motif-card-body>
          <h5>No results found.</h5>

@@ -98,22 +98,9 @@ rowStyle = {
   height: '74px'
 }
 domLayout = 'autoHeight';
-@ViewChild('commentscount')
-commentscount: TemplateRef<any>;
-
-@ViewChild('headerTemplate')
-headerTemplate: TemplateRef<any>;
-@ViewChild('nextbuttonTemplete')
-nextbuttonTemplete : TemplateRef<any>;
-@ViewChild('rname')
-rname : TemplateRef<any>;
 
 @ViewChild('chipTemplate')
 chipTemplate : TemplateRef<any>;
-@ViewChild('dropdownTemplate')
-dropdownTemplate: TemplateRef<any>;
-@ViewChild('commentTemplate')
-commentTemplate: TemplateRef<any>;
 
 dataset = [{
   disable: false,
@@ -143,11 +130,9 @@ currentlySelectedPageSize = {
 pageSize;
 columnGl:any
 glRowdata:any
-
-
 // end 
 
-  constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
+constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
      private renderer: Renderer2,private customglobalService: CustomGlobalService) { 
     this.setColorScheme();
   }
@@ -167,7 +152,7 @@ glRowdata:any
     this.getReviewFilesData();
 
     this.getActiveFilingsData();
-    this.getCompletedFilingsData();
+    this.getReviewFileTableData();
     
   }
 
@@ -203,23 +188,97 @@ glRowdata:any
     }
   }
 
-  getCompletedFilingsData() {
-    this.completedFilings = [];
-    // this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).subscribe(resp => {
-    //   resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-    //   resp['data'].forEach((item) => {
-    //     const eachitem: any = {
-    //       name: item.filingName + ' // ' + item.period,
-    //       period: item.period,
-    //       dueDate: item.dueDate,
-    //       startDate: item.startDate,
-    //       comments: [],
-    //       status: item.filingStatus
-    //     };
-    //     this.completedFilings.push(eachitem);
-    //   });
-    //   this.createHistoryRowData();
-    // })
+  getReviewFileTableData() {
+      this.dataManagedService.getReviewFileTableData().subscribe(resp => {
+        debugger;
+      resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+      this.glRowdata=resp.data["rowData"];
+      this.columnGl = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'File',
+          field: 'file',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 100,
+          sort:'asc',
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+  
+          headerName: 'Provider',
+          field: 'provider',
+          sortable: true,
+          filter: true,
+          minWidth: 10,
+          wrapText: true,
+          autoHeight: true
+          
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+  
+          headerName: 'Data Domain',
+          field: 'data_domain',
+  
+          sortable: true,
+          filter: true,
+          minWidth: 100,
+          wrapText: true,
+          autoHeight: true
+          
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+  
+          headerName: 'Function',
+          field: 'functions',
+          sortable: true,
+          filter: true,
+          minWidth: 10,
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+  
+          headerName: 'Due Date',
+          field: 'due_date',
+          sortable: true,
+          filter: true,
+          minWidth: 10,
+          wrapText: true,
+          autoHeight: true
+          
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exceptions',
+          field: 'exceptions',
+          sortable: true,
+          filter: true,
+          minWidth: 10,
+          wrapText: true,
+          autoHeight: true,
+        }, {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: 'Status',
+          field: 'Status',
+          sortable: true,
+          filter: true,
+          minWidth: 300,
+          wrapText: true,
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.chipTemplate,
+          }
+        }
+      ];
+    })
   }
 
 
@@ -230,208 +289,6 @@ glRowdata:any
       + due.getFullYear();
     return newdate;
   }
-
-  createHistoryRowData() {
-   
-    this.rowData = [];
-    this.completedFilings.forEach(filing => {
-      this.rowData.push({
-        name: filing.name,
-        comments: filing.comments.length,
-        dueDate: this.formatDate(filing.dueDate),
-        subDate: '-',
-        exceptions: 0,
-        resolved: 0,
-        
-      })
-    });
-
-    this.glRowdata=[
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Gav Nav",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Fund Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:3,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Data Type",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Maturity Date",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:500,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:2,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-      {
-        rname: "Coloumn Completeness",
-        rtype:"Data Accuracy / completeness",
-        priority:1,
-        comments:2,
-        exceptions:3,
-      },
-    
-    ]
-
-    this.columnGl = [
-      
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'File',
-        field: '',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 100,
-        sort:'asc',
-        wrapText: true,
-        autoHeight: true
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-
-        headerName: 'Provider',
-        field: '',
-        sortable: true,
-        filter: true,
-        minWidth: 10,
-        wrapText: true,
-        autoHeight: true,
-        // cellRendererParams: {
-        //   ngTemplate: this.rname,
-        // }
-        
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-
-        headerName: 'Data Domain',
-        field: '',
-
-        sortable: true,
-        filter: true,
-        minWidth: 100,
-        wrapText: true,
-        autoHeight: true,
-        // cellRendererParams: {
-        //   ngTemplate: this.chipTemplate,
-        // }
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-
-        headerName: 'Function',
-        field: '',
-        sortable: true,
-        filter: true,
-        minWidth: 10,
-        wrapText: true,
-        autoHeight: true,
-        // cellRendererParams: {
-        //   ngTemplate: this.commentscount,
-        // }
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-
-        headerName: 'Due Date',
-        field: 'comments',
-        sortable: true,
-        filter: true,
-        minWidth: 10,
-        wrapText: true,
-        autoHeight: true,
-        // cellRendererParams: {
-        //   ngTemplate: this.commentscount,
-        // }
-        
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Exceptions',
-        field: '',
-        sortable: true,
-        filter: true,
-        minWidth: 10,
-        wrapText: true,
-        autoHeight: true,
-      }, {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Status',
-        field: '',
-        sortable: true,
-        filter: true,
-        minWidth: 10,
-        wrapText: true,
-        autoHeight: true,
-      },
-      {
-      headerComponentFramework: TableHeaderRendererComponent,
-      cellRendererFramework: MotifTableCellRendererComponent,
-
-      headerName: '',
-      field: '',
-      sortable: false,
-      filter: false,
-      minWidth: 10,
-      // cellRendererParams: {
-      //   ngTemplate: this.nextbuttonTemplete,
-      // }
-    
-   },
-    ];
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
@@ -439,12 +296,12 @@ glRowdata:any
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;
-    this.getCompletedFilingsData();
+    this.getReviewFileTableData();
   }
 
   handlePageChange(val: number): void {
     this.currentPage = val;
-    this.getCompletedFilingsData();
+    this.getReviewFileTableData();
   }
 
   getActiveFilingsData() {
@@ -543,4 +400,5 @@ glRowdata:any
       this.multi = data.data["dataseries"];
     });
   }
+  
 }
