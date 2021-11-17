@@ -714,13 +714,13 @@
          "ReportingDate":"2021-11-29",
          "RegulationDueDate":"2021-11-29",
          "FileDueDate":"2021-11-09",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "exceptions":0.0,
          "resolve_exception":0.0,
          "unresolve_exception":0,
          "comments":0,
-         "lateFiles":1
+         "lateFiles":0
       },
       {
          "reg_reporting":"Form PF - HF",
@@ -969,8 +969,8 @@
          "ReportingDate":"2021-11-23",
          "RegulationDueDate":"2021-11-23",
          "FileDueDate":"2021-11-14",
-         "filesReceived":2,
-         "totalFiles":2,
+         "filesReceived":1,
+         "totalFiles":1,
          "exceptions":0.0,
          "resolve_exception":0.0,
          "unresolve_exception":0,
@@ -1014,13 +1014,13 @@
          "ReportingDate":"2021-11-23",
          "RegulationDueDate":"2021-11-23",
          "FileDueDate":"2021-11-14",
-         "filesReceived":0,
+         "filesReceived":1,
          "totalFiles":1,
          "exceptions":0.0,
          "resolve_exception":0.0,
          "unresolve_exception":0,
          "comments":0,
-         "lateFiles":1
+         "lateFiles":0
       }
    ]
 }
