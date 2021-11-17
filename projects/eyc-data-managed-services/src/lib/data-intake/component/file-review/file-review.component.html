@@ -200,19 +200,15 @@
       <motif-chip [removeable]="false" *ngIf="row.priority==1" variant="error">High</motif-chip>
       <motif-chip [removeable]="false" *ngIf="row.priority==2" variant="warning">Medium</motif-chip>
       <motif-chip [removeable]="false" *ngIf="row.priority==3" variant="success">Low</motif-chip>
-
    </ng-template>
    <ng-template #rname let-row>
       <a href="">{{row.rname}}</a>
-
    </ng-template>
    <ng-template #commentscount let-row>
       <motif-chip [removeable]="false" variant="monochrome-dark">{{row.comments}}</motif-chip>
-
    </ng-template>
    <ng-template #nextbuttonTemplete let-row>
       <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-
    </ng-template>
 
    <ng-template #commentTemplate let-row>

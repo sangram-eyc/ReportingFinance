@@ -29,16 +29,23 @@ export class DataManagedService {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
   }
 
-  getDailyDataProviderList(){
+  getDailyDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_daily}`);
   }
 
-  getMonthlyDataProviderList(){
+  getMonthlyDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_monthly}`);
   }
 
-  general(){
-    return this.httpClient.get('assets/eyc-data-intake/mock/data.json')
+  getFilings() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger}`);
+  }
+
+  getDailyGeneralLedgerList(currentPage = 0, noOfRecords = 0) {
+    let currentPageValue = `&currentPage=${currentPage}`;
+    let noOfRecordsValue = `&numRecords=${noOfRecords}`;
+    // After API integration will remove above line and uncomment below line
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger_daily}${currentPageValue}${noOfRecordsValue}`);
   }
 
 }
