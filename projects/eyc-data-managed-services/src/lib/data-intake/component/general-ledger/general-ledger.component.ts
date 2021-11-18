@@ -252,7 +252,7 @@ export class GeneralLedgerComponent implements OnInit {
         field: 'rname',
         sortable: true,
         filter: false,
-        minWidth: 140,
+        minWidth: 200,
         cellRendererParams: {
           ngTemplate: this.rname,
         }
@@ -264,7 +264,7 @@ export class GeneralLedgerComponent implements OnInit {
         field: 'priority',
         sortable: true,
         filter: false,
-        minWidth: 180,
+        minWidth: 200,
         cellRendererParams: {
           ngTemplate: this.chipTemplate,
         }
@@ -276,7 +276,7 @@ export class GeneralLedgerComponent implements OnInit {
         field: 'comments',
         sortable: false,
         filter: false,
-        minWidth: 50,
+        minWidth: 200,
         cellRendererParams: {
           ngTemplate: this.commentscount,
         }
@@ -287,7 +287,7 @@ export class GeneralLedgerComponent implements OnInit {
         field: 'exceptions',
         sortable: false,
         filter: false,
-        minWidth: 50
+        minWidth: 200
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -296,7 +296,7 @@ export class GeneralLedgerComponent implements OnInit {
         field: 'next',
         sortable: false,
         filter: false,
-        minWidth: 50,
+        minWidth: 100,
         cellRendererParams: {
           ngTemplate: this.nextbuttonTemplete,
         }
