@@ -159,7 +159,7 @@ export class CycleDetailComponent implements OnInit {
     });  
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'Delivered and in client review', 'Approved by client'];
-    this.widthDivChart = 800;  
+    this.widthDivChart = 950;  
   }
 
   backtoCycleView() {

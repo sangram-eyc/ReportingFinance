@@ -59,22 +59,27 @@ export class TaxHorizontalStackedBarChartComponent{
   }
 
   renderBarChartSVG(){
-      d3.select('g').selectAll('*').remove();
+      d3.select('#taxBarChart').selectAll('*').remove();
       if(this.data && this.widthServer && this.colors && this.labelsChart && this.dataValues && this.totalValues){      
           this.keys = Object.keys(this.data[0]);
           var stack = d3.stack().keys(this.keys); 
           var stackedSeries = stack(this.data);  
 
           // Create a g element for each series
-          var g = d3.select('g')
+          var g = d3.select('#taxBarChart')
+            .append("svg")
+            .style("width", this.widthServer + "px")
+            .style("height", "25px")
+            .style("cursor", "pointer")
+            .attr("viewBox", "0 0 " + this.widthServer + " 25")
             .selectAll('g.series')
             .data(stackedSeries)
             .enter()
             .append('g')
-            .classed('series', true)
+            .classed('series', true)            
             .style('fill',(d, i)=> {
               return this.colors[i];
-            }); 
+            });
 
           // create a tooltip
           var tooltip = d3.select("#taxBarChart")
@@ -126,7 +131,7 @@ export class TaxHorizontalStackedBarChartComponent{
       .attr('y',(x, i)=> {
         return i * 20;
       })
-      .attr('height', 17)
+      .attr('height', 25)
       .on("mouseover", mouseover)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
