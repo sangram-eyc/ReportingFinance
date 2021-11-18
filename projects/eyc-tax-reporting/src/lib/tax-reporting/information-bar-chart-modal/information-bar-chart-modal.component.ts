@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class InformationBarChartModalComponent implements OnInit {
   modalDetails;
   colors= ['#9C82D4', '#87D3F2', '#8CE8AD'];
-  labelsChart = ['In EY tax preparation', 'Delivered and in client review', 'Approved by client'];
+  labelsChart = ['EY tax preparation', 'In client review', 'Approved by client'];
   emptyState = "Empty indicates no data received";
   emptyMsg = "NO DATA RECEIVED"
 

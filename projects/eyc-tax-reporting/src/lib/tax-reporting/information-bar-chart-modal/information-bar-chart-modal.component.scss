@@ -99,8 +99,40 @@
           
           .tax-legend-text {
             font-family: EYInterstate;
-            font-size: 11px;
+            font-size: 14px;
             color: #2E2E38;
+          }
+
+          .modal-header-text{
+            font-family: EYInterstate !important; 
+            font-size: 18px; color: 
+            #2E2E38; margin-top: 11px; 
+            margin-left: 10px;
+          }
+
+          .modal-body-desc{
+            font-family: EYInterstate !important; 
+            font-size: 13px; 
+            color:#2E2E38;
+          }
+
+          .margin-rows{
+            margin-left: 2px; 
+            margin-right: 2px;
+          }
+
+          .empty-state{
+            height: 20px; 
+            background-color: #FAFAFC; 
+            border-style: solid; 
+            border-color: #C4C4CD; 
+            border-width: thin;
+          }
+
+          .empty-msg{
+            text-align: center;
+            color: #C4C4CD; 
+            font-size: 11px;
           }
 
 }
