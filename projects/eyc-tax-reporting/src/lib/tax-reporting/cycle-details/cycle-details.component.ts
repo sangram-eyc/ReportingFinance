@@ -450,7 +450,7 @@ getTooltip(){
 getFileSummuries() {
   this.fileSummaries = [
     {
-      label: "Client comments",
+      label: "Open client comments",
       value: this.openCommentsClientByProductCycle
     },
     {
