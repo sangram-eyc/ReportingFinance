@@ -59,7 +59,7 @@ export class CycleDetailComponent implements OnInit {
   totalFilesNumberFontSize:number = 22;
   totalFilesTextFontSize:number = 16;
   totalExpected ='';
-  colors: string[] = ["#FFB46A","#FF6D00"]
+  colors: string[] = ["#FF6D00","#FFB46A"]
   colorScheme;
   colorScheme2;
   colorScheme3;
