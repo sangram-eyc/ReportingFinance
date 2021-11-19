@@ -245,7 +245,7 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY) ;
         this.completedFunds.push(eachitem);
       });
-      console.log('total de comentarios abierto',this.openCommentsClientByProductCycle)
+      console.log('total open comments',this.openCommentsClientByProductCycle)
       this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
@@ -509,6 +509,26 @@ informationModal(){
       }
     }
   });
+}
+
+unApproveFund(row:any){
+  let funds = [];
+  funds.push(row.id);
+  console.log('This row to unapprove-->', funds);
+//uncomment when de endpoint is ready
+/*   const body = {
+    "status": "open",
+    "fundIds": funds
+  }
+  this.productcyclesService.putApproveEntities(body).subscribe(resp => {
+    console.log('Response unapprove',resp);
+    this.toastSuccessMessage = "Unapprove successfully";
+    this.showToastAfterSubmit = true;
+    setTimeout(() => {
+      this.showToastAfterSubmit = false;
+    }, 4000);
+    this.getCompletedProductCyclesData(this.productCycleId);
+  });  */ 
 }
 
 }
