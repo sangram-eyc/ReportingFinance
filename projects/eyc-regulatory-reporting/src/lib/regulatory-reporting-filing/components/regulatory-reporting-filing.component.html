@@ -105,6 +105,10 @@
         </motif-card-body>
     </motif-card>
 
+    <ng-template #filingNameTemplate let-row>
+        <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>
+    </ng-template>
+
     <ng-template #headerTemplate>
         <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
         </motif-icon>
