@@ -93,6 +93,8 @@ export class CycleDetailComponent implements OnInit {
   datasetsDropdownTemplate: TemplateRef<any>;
   @ViewChild('assignedToTemplate')
   assignedToTemplate: TemplateRef<any>;
+  @ViewChild('totalComments')
+  totalComments: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -235,6 +237,7 @@ export class CycleDetailComponent implements OnInit {
           approvedBack: this.isApproved(item.status),
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
+          totalComments: item.totalComments,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         //total opens comments by product-cycle
@@ -267,6 +270,7 @@ export class CycleDetailComponent implements OnInit {
         approvedBack: fund.approvedBack,
         openCommentsEY: fund.openCommentsEY,
         openCommentsClient: fund.openCommentsClient,
+        totalComments: fund.totalComments,
         assignedTo: fund.assignedTo
       })
     });
@@ -308,6 +312,19 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Assigned to',
         field: 'assignedTo',
+        sortable: true,
+        filter: false,
+        resizeable: true,
+        minWidth: 300,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.totalComments,
+        },
+        headerName: 'Total comments',
         sortable: true,
         filter: false,
         resizeable: true,

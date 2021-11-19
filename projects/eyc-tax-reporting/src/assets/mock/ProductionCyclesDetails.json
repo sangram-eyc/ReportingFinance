@@ -10,6 +10,7 @@
         "status": "open",
         "openCommentsEY": 2,
         "openCommentsClient": 3,
+        "totalComments":20,
         "assignedUsers": [
             {
                 "userId": 123, 
@@ -48,8 +49,9 @@
         "id": "2ASKDJ10398ASKDJO",
         "hasContent": true,         
         "status": "open",
-        "openCommentsEY": 600,
+        "openCommentsEY": 200,
         "openCommentsClient": 2,
+        "totalComments":100,
         "assignedUsers":[
             {
                 "userId": 123, 
@@ -84,6 +86,7 @@
         "status": "approved",
         "openCommentsEY": 99,
         "openCommentsClient": 660,
+        "totalComments":2,
         "assignedUsers":[
             {
 
@@ -100,6 +103,7 @@
         "status": "open",
         "openCommentsEY":"10",
         "openCommentsClient":"10",
+        "totalComments":30,
         "assignedUsers":[
             {
             "userId": 123, 
