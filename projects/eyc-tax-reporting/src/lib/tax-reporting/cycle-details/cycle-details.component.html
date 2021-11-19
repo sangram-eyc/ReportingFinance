@@ -204,6 +204,13 @@
     </div>
   </ng-template>
 
+  <ng-template #totalComments let-row>
+    <button (click)="createComment(row,'')" class='counter-item' color="primary">
+      {{row.totalComments}}
+    </button>
+     
+  </ng-template>
+
   <ng-template #openCommentEY let-row>
     <button (click)="createComment(row,'EY')" class='counter-item'
       [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'" color="primary">
