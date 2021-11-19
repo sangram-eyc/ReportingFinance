@@ -48,4 +48,15 @@ export class DataManagedService {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger_daily}${currentPageValue}${noOfRecordsValue}`);
   }
 
+  getExceptionReportstable() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_reports_table}`);
+  }
+
+  getReviewFilesData() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_data}`);
+  }
+  
+  getReviewFileTableData() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`);
+  }
 }
