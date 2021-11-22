@@ -13,6 +13,7 @@ import { DataManagedService } from './data-intake/services/data-managed.service'
 import { DataManagedSettingsService } from './data-intake/services/data-managed-settings.service'
 import { EycDataApiService } from './data-intake/services/eyc-data-api.service'
 import { FormsModule } from '@angular/forms';
+import { GeneralLedgerComponent } from './data-intake/component/general-ledger/general-ledger.component';
 import { ExceptionsReportsComponent } from './data-intake/component/exceptions-reports/exceptions-reports.component';
 
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
@@ -20,6 +21,7 @@ import { FileReviewComponent } from './data-intake/component/file-review/file-re
   declarations: [
     EycDataManagementServicesComponent,
     DataIntakeComponent,
+    GeneralLedgerComponent,
     ExceptionsReportsComponent,
     FileReviewComponent],
   imports: [

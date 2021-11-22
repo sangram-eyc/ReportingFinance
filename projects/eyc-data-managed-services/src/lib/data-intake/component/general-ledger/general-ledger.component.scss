@@ -1,0 +1,92 @@
+* {
+
+  h1,
+  h2,
+  h6,
+  section {
+    padding: 0 !important;
+    margin: 0;
+  }
+}
+
+.mt-3 {
+  margin-top: 24px !important;
+}
+
+.mb-3 {
+  margin-bottom: 24px !important;
+}
+
+.bx {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
+}
+
+.space-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-end {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.boder-b {
+  border-bottom: 1px solid #e7e7ea;
+}
+
+.heading-6 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  color: #2e2e38;
+}
+
+::ng-deep .motif-card-header {
+  padding: 0 !important;
+}
+
+.dateWrapper {
+  font-family: EYInterstate;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+
+  ::ng-deep {
+    .motif-icon {
+      cursor: pointer;
+    }
+
+    .motif-button {
+      min-height: 30px;
+    }
+  }
+}
+
+.data-exporer {
+  display: flex;
+
+}
+.buttonstyle{
+  height: 44px !important;
+  width: 156px !important;
+}
+
+.search {
+  padding-right: 5.2vh;
+  width: 258px !important;
+  height: 33px !important;
+}

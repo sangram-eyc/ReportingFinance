@@ -27,7 +27,7 @@
             <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt"
                class="review-all">
                <i class="material-icons icon-size">search</i>
-               <span>Review All</span>
+               <span >Review All</span>
             </a>
          </motif-card>
 
@@ -187,7 +187,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues">
+                     <div id="low-priority-issues"> 
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
                               issues</div>
@@ -332,5 +332,41 @@
 <section id='trands-insights' [hidden]="!(tabIn == 2)">
 </section>
 <!--  -->
+<!-- <section id='api-catalog' [hidden]="!(tabIn == 3)">
+
+  
+<div class="body-header">
+   <motif-breadcrumb>
+       <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/'></motif-breadcrumb-item>
+       <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/'></motif-breadcrumb-item>
+       <motif-breadcrumb-item active="active" breadcrumbValue='General_Ledger_09102021.xls' breadcrumbLink='/'></motif-breadcrumb-item>
+   </motif-breadcrumb>
+
+   <div class="motif-row  page-header">
+       <div class="motif-col-6 motif-col-6">
+           <div class="">
+               <h1 class="heading-4">Data Managed Services</h1>
+           </div>
+       </div>
+       <div class="motif-col-6 motif-col-6">
+           <div>
+            <p class="motif-h4">Table with transparent title bar</p>
+            <div style="height: 310px; width: 601px;">
+                <motif-table title="Title Bar" variant="alt" [columnDefs]="columnDefs1" [rowData]="rowData"
+                    rowSelection="multiple" (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true"
+                    [suppressCellSelection]="true" [pagination]="true" paginationPageSize="4"></motif-table>
+            </div>
+         </div>
+       </div>
+   </div>
+
+</div>
+
+</section> -->
+
+
+
 <section id='api-catalog' [hidden]="!(tabIn == 3)">
+
+   
 </section>
