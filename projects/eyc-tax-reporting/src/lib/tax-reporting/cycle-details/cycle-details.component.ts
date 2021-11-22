@@ -531,4 +531,8 @@ unApproveFund(row:any){
   });  */ 
 }
 
+getMoreDetailsPage(){
+  this.router.navigate(['comments-details',this.productCycleId,this.productCycleName]);
+}
+
 }
