@@ -22,6 +22,7 @@ import { ProcessingExceptionComponent } from 'projects/eyc-data-intake/src/lib/p
 import { AuthGuardService } from './services/auth-guard.service';
 import { ViewExceptionReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-exception-reports/components/view-exception-reports.component';
 import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.component';
+import { CommentsDetailsComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-details/comments-details.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
   {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type/:cycleId',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
+  {path: 'comments-details/:cycleId/:cycleName',component:CommentsDetailsComponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},

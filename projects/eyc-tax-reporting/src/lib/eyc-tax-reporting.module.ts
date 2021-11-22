@@ -22,6 +22,7 @@ import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/as
 import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 import { TaxHorizontalStackedBarChartComponent } from './shared/tax-horizontal-stacked-bar-chart/tax-horizontal-stacked-bar-chart.component';
 import { InformationBarChartModalComponent } from './tax-reporting/information-bar-chart-modal/information-bar-chart-modal.component';
+import { CommentsDetailsComponent } from './tax-reporting/comments-details/comments-details.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { InformationBarChartModalComponent } from './tax-reporting/information-b
     ReplyCommentComponent,
     AssignUsersModalComponent,
     TaxHorizontalStackedBarChartComponent,
-    InformationBarChartModalComponent
+    InformationBarChartModalComponent,
+    CommentsDetailsComponent
   ],
   exports: [TaxReportingComponent]
 })
