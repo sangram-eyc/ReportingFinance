@@ -6530,13 +6530,13 @@
       {
          "exceptionDue": "t+40",
          "ReceiptStatus": "Received",
-         "exceptionFile": "PSC SubsReds",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_RegControllers_ReferenceData_PSC_SubsReds_10012021_20210930_run_20211113.xlsx",
          "FilePattern": "PSC SubsReds",
          "exceptions": 0.0,
          "exceptionReportType": null,
          "exceptionReportName": null,
          "resolve_exception": 0.0,
-         "reviewLevel": "Level 1 Review",
+         "reviewLevel": "Ready for Use",
          "comments": 0,
          "result": null,
          "isExceptionResolved": null,
@@ -6550,31 +6550,6 @@
          "owner": null,
          "FileDueDate": "2021-11-09",
          "exceptionId": 289,
-         "approved": false
-      },
-      {
-         "exceptionDue": "t+38",
-         "ReceiptStatus": "Not Received",
-         "exceptionFile": "BHC Post Cutoff Trades",
-         "FilePattern": "BHC Post Cutoff Trades",
-         "exceptions": 0.0,
-         "exceptionReportType": null,
-         "exceptionReportName": null,
-         "resolve_exception": 0.0,
-         "reviewLevel": null,
-         "comments": 0,
-         "result": null,
-         "isExceptionResolved": null,
-         "unresolve_exception": null,
-         "reg_reporting": "FRY 11 Quarterly",
-         "source": "GS - Fund Controllers",
-         "fileDomain": "Reference Data",
-         "FileVersion": null,
-         "System\\/Manual": "Manual",
-         "PreprocessingFlag": "No",
-         "owner": null,
-         "FileDueDate": "2021-11-07",
-         "exceptionId": 290,
          "approved": false
       },
       {
@@ -6599,7 +6574,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 293,
+         "exceptionId": 292,
          "approved": false
       },
       {
@@ -6624,7 +6599,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 294,
+         "exceptionId": 293,
          "approved": false
       },
       {
@@ -6649,7 +6624,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-15",
-         "exceptionId": 295,
+         "exceptionId": 294,
          "approved": false
       },
       {
@@ -6674,7 +6649,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-15",
-         "exceptionId": 296,
+         "exceptionId": 295,
          "approved": false
       },
       {
@@ -6699,7 +6674,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-15",
-         "exceptionId": 297,
+         "exceptionId": 296,
          "approved": false
       },
       {
@@ -6724,7 +6699,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-15",
-         "exceptionId": 298,
+         "exceptionId": 297,
          "approved": false
       },
       {
@@ -6749,7 +6724,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 299,
+         "exceptionId": 298,
          "approved": false
       },
       {
@@ -6774,7 +6749,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 300,
+         "exceptionId": 299,
          "approved": false
       },
       {
@@ -6799,7 +6774,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 301,
+         "exceptionId": 300,
          "approved": false
       },
       {
@@ -6824,7 +6799,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 302,
+         "exceptionId": 301,
          "approved": false
       },
       {
@@ -6849,7 +6824,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 303,
+         "exceptionId": 302,
          "approved": false
       },
       {
@@ -6874,7 +6849,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 304,
+         "exceptionId": 303,
          "approved": false
       },
       {
@@ -6899,7 +6874,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 305,
+         "exceptionId": 304,
          "approved": false
       },
       {
@@ -6924,7 +6899,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-01",
-         "exceptionId": 309,
+         "exceptionId": 308,
          "approved": false
       },
       {
@@ -6949,7 +6924,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-01",
-         "exceptionId": 310,
+         "exceptionId": 309,
          "approved": false
       },
       {
@@ -6974,7 +6949,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 312,
+         "exceptionId": 311,
          "approved": false
       },
       {
@@ -6999,7 +6974,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 313,
+         "exceptionId": 312,
          "approved": false
       },
       {
@@ -7024,7 +6999,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 314,
+         "exceptionId": 313,
          "approved": false
       },
       {
@@ -7049,7 +7024,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 315,
+         "exceptionId": 314,
          "approved": false
       },
       {
@@ -7074,7 +7049,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-01",
-         "exceptionId": 316,
+         "exceptionId": 315,
          "approved": false
       },
       {
@@ -7099,57 +7074,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-01",
-         "exceptionId": 317,
-         "approved": false
-      },
-      {
-         "exceptionDue": "t+32",
-         "ReceiptStatus": "Received",
-         "exceptionFile": "Quarterly_Full_GSAM_Consolidated PVAL_20210930_run_2021018.xlsb",
-         "FilePattern": "Spots Consolidated PVAL",
-         "exceptions": 0.0,
-         "exceptionReportType": null,
-         "exceptionReportName": null,
-         "resolve_exception": 0.0,
-         "reviewLevel": "Ready for Use",
-         "comments": 0,
-         "result": null,
-         "isExceptionResolved": null,
-         "unresolve_exception": null,
-         "reg_reporting": "FR 2314 Quarterly",
-         "source": "Admin - BBH",
-         "fileDomain": "Positions",
-         "FileVersion": null,
-         "System\\/Manual": "Manual",
-         "PreprocessingFlag": "No",
-         "owner": null,
-         "FileDueDate": "2021-11-01",
-         "exceptionId": 318,
-         "approved": false
-      },
-      {
-         "exceptionDue": "t+32",
-         "ReceiptStatus": "Received",
-         "exceptionFile": "Quarterly_Full_GSAM_Consolidated PVAL_20210930_run_2021018.xlsb",
-         "FilePattern": "Swaps Consolidated PVAL",
-         "exceptions": 0.0,
-         "exceptionReportType": null,
-         "exceptionReportName": null,
-         "resolve_exception": 0.0,
-         "reviewLevel": "Ready for Use",
-         "comments": 0,
-         "result": null,
-         "isExceptionResolved": null,
-         "unresolve_exception": null,
-         "reg_reporting": "FR 2314 Quarterly",
-         "source": "Admin - BBH",
-         "fileDomain": "Positions",
-         "FileVersion": null,
-         "System\\/Manual": "Manual",
-         "PreprocessingFlag": "No",
-         "owner": null,
-         "FileDueDate": "2021-11-01",
-         "exceptionId": 319,
+         "exceptionId": 316,
          "approved": false
       },
       {
@@ -7174,7 +7099,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-01",
-         "exceptionId": 320,
+         "exceptionId": 319,
          "approved": false
       },
       {
@@ -7199,7 +7124,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-01",
-         "exceptionId": 321,
+         "exceptionId": 320,
          "approved": false
       },
       {
@@ -7224,7 +7149,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 322,
+         "exceptionId": 321,
          "approved": false
       },
       {
@@ -7249,7 +7174,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 323,
+         "exceptionId": 322,
          "approved": false
       },
       {
@@ -7274,7 +7199,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 324,
+         "exceptionId": 323,
          "approved": false
       },
       {
@@ -7299,7 +7224,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 325,
+         "exceptionId": 324,
          "approved": false
       },
       {
@@ -7324,7 +7249,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 326,
+         "exceptionId": 325,
          "approved": false
       },
       {
@@ -7349,7 +7274,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 327,
+         "exceptionId": 326,
          "approved": false
       },
       {
@@ -7374,7 +7299,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 328,
+         "exceptionId": 327,
          "approved": false
       },
       {
@@ -7399,7 +7324,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 329,
+         "exceptionId": 328,
          "approved": false
       },
       {
@@ -7424,7 +7349,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 330,
+         "exceptionId": 329,
          "approved": false
       },
       {
@@ -7449,7 +7374,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 331,
+         "exceptionId": 330,
          "approved": false
       },
       {
@@ -7474,7 +7399,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 332,
+         "exceptionId": 331,
          "approved": false
       },
       {
@@ -7499,7 +7424,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 333,
+         "exceptionId": 332,
          "approved": false
       },
       {
@@ -7524,7 +7449,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 334,
+         "exceptionId": 333,
          "approved": false
       },
       {
@@ -7549,7 +7474,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 335,
+         "exceptionId": 334,
          "approved": false
       },
       {
@@ -7574,13 +7499,13 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 336,
+         "exceptionId": 335,
          "approved": false
       },
       {
          "exceptionDue": "t+25",
          "ReceiptStatus": "Received",
-         "exceptionFile":"TRR 500057 TRR US Treasury Q3 `'21.xlsx",
+         "exceptionFile": "TRR 500057 TRR US Treasury Q3\\'21.xlsx",
          "FilePattern": "TRR Files for each fund in scope",
          "exceptions": 0.0,
          "exceptionReportType": null,
@@ -7599,7 +7524,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 337,
+         "exceptionId": 336,
          "approved": false
       },
       {
@@ -7624,7 +7549,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 338,
+         "exceptionId": 337,
          "approved": false
       },
       {
@@ -7649,7 +7574,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 339,
+         "exceptionId": 338,
          "approved": false
       },
       {
@@ -7674,7 +7599,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 340,
+         "exceptionId": 339,
          "approved": false
       },
       {
@@ -7699,7 +7624,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 341,
+         "exceptionId": 340,
          "approved": false
       },
       {
@@ -7724,7 +7649,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 342,
+         "exceptionId": 341,
          "approved": false
       },
       {
@@ -7749,7 +7674,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 343,
+         "exceptionId": 342,
          "approved": false
       },
       {
@@ -7774,7 +7699,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 344,
+         "exceptionId": 343,
          "approved": false
       },
       {
@@ -7799,7 +7724,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 345,
+         "exceptionId": 344,
          "approved": false
       },
       {
@@ -7824,7 +7749,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 346,
+         "exceptionId": 345,
          "approved": false
       },
       {
@@ -7849,7 +7774,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 347,
+         "exceptionId": 346,
          "approved": false
       },
       {
@@ -7874,7 +7799,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 348,
+         "exceptionId": 347,
          "approved": false
       },
       {
@@ -7899,7 +7824,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 349,
+         "exceptionId": 348,
          "approved": false
       },
       {
@@ -7924,7 +7849,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 350,
+         "exceptionId": 349,
          "approved": false
       },
       {
@@ -7949,7 +7874,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 351,
+         "exceptionId": 350,
          "approved": false
       },
       {
@@ -7974,7 +7899,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 352,
+         "exceptionId": 351,
          "approved": false
       },
       {
@@ -7999,7 +7924,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 353,
+         "exceptionId": 352,
          "approved": false
       },
       {
@@ -8024,7 +7949,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 354,
+         "exceptionId": 353,
          "approved": false
       },
       {
@@ -8049,7 +7974,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 355,
+         "exceptionId": 354,
          "approved": false
       },
       {
@@ -8074,7 +7999,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 356,
+         "exceptionId": 355,
          "approved": false
       },
       {
@@ -8099,7 +8024,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 357,
+         "exceptionId": 356,
          "approved": false
       },
       {
@@ -8124,7 +8049,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 358,
+         "exceptionId": 357,
          "approved": false
       },
       {
@@ -8149,7 +8074,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 359,
+         "exceptionId": 358,
          "approved": false
       },
       {
@@ -8174,7 +8099,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 360,
+         "exceptionId": 359,
          "approved": false
       },
       {
@@ -8199,7 +8124,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 361,
+         "exceptionId": 360,
          "approved": false
       },
       {
@@ -8224,7 +8149,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 362,
+         "exceptionId": 361,
          "approved": false
       },
       {
@@ -8249,7 +8174,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 363,
+         "exceptionId": 362,
          "approved": false
       },
       {
@@ -8274,7 +8199,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 364,
+         "exceptionId": 363,
          "approved": false
       },
       {
@@ -8299,7 +8224,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-10-25",
-         "exceptionId": 365,
+         "exceptionId": 364,
          "approved": false
       },
       {
@@ -8324,7 +8249,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 367,
+         "exceptionId": 366,
          "approved": false
       },
       {
@@ -8349,7 +8274,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 368,
+         "exceptionId": 367,
          "approved": false
       },
       {
@@ -8374,7 +8299,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 369,
+         "exceptionId": 368,
          "approved": false
       },
       {
@@ -8399,7 +8324,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 370,
+         "exceptionId": 369,
          "approved": false
       },
       {
@@ -8424,7 +8349,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 372,
+         "exceptionId": 371,
          "approved": false
       },
       {
@@ -8449,7 +8374,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 373,
+         "exceptionId": 372,
          "approved": false
       },
       {
@@ -8474,7 +8399,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 374,
+         "exceptionId": 373,
          "approved": false
       },
       {
@@ -8499,7 +8424,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 375,
+         "exceptionId": 374,
          "approved": false
       },
       {
@@ -8524,7 +8449,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 376,
+         "exceptionId": 375,
          "approved": false
       },
       {
@@ -8549,7 +8474,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 377,
+         "exceptionId": 376,
          "approved": false
       },
       {
@@ -8574,7 +8499,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 378,
+         "exceptionId": 377,
          "approved": false
       },
       {
@@ -8599,7 +8524,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 380,
+         "exceptionId": 379,
          "approved": false
       },
       {
@@ -8624,7 +8549,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 382,
+         "exceptionId": 381,
          "approved": false
       },
       {
@@ -8649,7 +8574,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 383,
+         "exceptionId": 382,
          "approved": false
       },
       {
@@ -8674,7 +8599,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 384,
+         "exceptionId": 383,
          "approved": false
       },
       {
@@ -8699,7 +8624,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 385,
+         "exceptionId": 384,
          "approved": false
       },
       {
@@ -8724,7 +8649,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 386,
+         "exceptionId": 385,
          "approved": false
       },
       {
@@ -8749,7 +8674,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 387,
+         "exceptionId": 386,
          "approved": false
       },
       {
@@ -8774,7 +8699,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 389,
+         "exceptionId": 388,
          "approved": false
       },
       {
@@ -8799,7 +8724,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 390,
+         "exceptionId": 389,
          "approved": false
       },
       {
@@ -8824,7 +8749,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 394,
+         "exceptionId": 393,
          "approved": false
       },
       {
@@ -8849,7 +8774,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 395,
+         "exceptionId": 394,
          "approved": false
       },
       {
@@ -8874,7 +8799,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 396,
+         "exceptionId": 395,
          "approved": false
       },
       {
@@ -8899,7 +8824,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 397,
+         "exceptionId": 396,
          "approved": false
       },
       {
@@ -8924,7 +8849,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 398,
+         "exceptionId": 397,
          "approved": false
       },
       {
@@ -8949,7 +8874,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 399,
+         "exceptionId": 398,
          "approved": false
       },
       {
@@ -8974,7 +8899,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 400,
+         "exceptionId": 399,
          "approved": false
       },
       {
@@ -8999,7 +8924,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 401,
+         "exceptionId": 400,
          "approved": false
       },
       {
@@ -9024,7 +8949,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 402,
+         "exceptionId": 401,
          "approved": false
       },
       {
@@ -9049,7 +8974,7 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
-         "exceptionId": 403,
+         "exceptionId": 402,
          "approved": false
       },
       {
@@ -9074,7 +8999,382 @@
          "PreprocessingFlag": "No",
          "owner": null,
          "FileDueDate": "2021-11-14",
+         "exceptionId": 403,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_July 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "January Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FRY 11 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
          "exceptionId": 404,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_August 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "February Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FRY 11 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
+         "exceptionId": 405,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_September 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "March Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FRY 11 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
+         "exceptionId": 406,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_July 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "January Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
+         "exceptionId": 407,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_August 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "February Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
+         "exceptionId": 408,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+16",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_AIMS_MAS_FundControllers_AIMS_WorkingFiles_September 2021 Updated_20210930_run_20211107.xlsx",
+         "FilePattern": "March Updated",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "Canvas",
+         "fileDomain": "Performance",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-10-16",
+         "exceptionId": 409,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202107_20211104_run_20211104.xlsx",
+         "FilePattern": "PL by Month ITD - Ignite Pad-Input",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 410,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_Positions_Loan Breakdown 202109_ignitepad_20211104_run_20211104.xlsx",
+         "FilePattern": "Loan Breakdown ignitepad",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 411,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202107_20211104_run_20211104.xlsx",
+         "FilePattern": "TB - Related Party",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 412,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202108_20211104_run_20211104.xlsx",
+         "FilePattern": "TB - Related Party",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 413,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202109_20211104_run_20211104.xlsx",
+         "FilePattern": "TB  Related Party",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 414,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202108_20211104_run_20211104.xlsx",
+         "FilePattern": "TB - TB ",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "General Ledger",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 415,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202109_20211104_run_20211104.xlsx",
+         "FilePattern": "TB - TB",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "General Ledger",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 416,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+34",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_AMD_Public_Direct_FundControllers_Japan_TrialBalance_TB as of 202107_20211104_run_20211104.xlsx",
+         "FilePattern": "TB - TB",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FR 2314 Quarterly",
+         "source": "GS - Fund Controllers",
+         "fileDomain": "General Ledger",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-03",
+         "exceptionId": 417,
+         "approved": false
+      },
+      {
+         "exceptionDue": "t+38",
+         "ReceiptStatus": "Received",
+         "exceptionFile": "Quarterly_BHC_FRY11_2314_Public_Private_Combined_RegControllers_EntityRelationships_RPL_Aug2021_20210930_run_20211006.xlsx",
+         "FilePattern": "Related Party list.xlsx",
+         "exceptions": 0.0,
+         "exceptionReportType": null,
+         "exceptionReportName": null,
+         "resolve_exception": 0.0,
+         "reviewLevel": "Ready for Use",
+         "comments": 0,
+         "result": null,
+         "isExceptionResolved": null,
+         "unresolve_exception": null,
+         "reg_reporting": "FRY 11 Quarterly",
+         "source": "GS - Reg Controllers",
+         "fileDomain": "Positions",
+         "FileVersion": null,
+         "System\\/Manual": "Manual",
+         "PreprocessingFlag": "No",
+         "owner": null,
+         "FileDueDate": "2021-11-07",
+         "exceptionId": 418,
          "approved": false
       }
    ]
