@@ -1,5 +1,5 @@
 import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef } from '@angular/core';
-import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
@@ -131,6 +131,58 @@ pageSize;
 columnGl:any
 glRowdata:any
 // end 
+
+
+//pie chart start
+view: [number, number];
+// colorScheme: any;
+chartType = 'pie-chart';
+// legendPosition = LegendPosition.Right;
+pieData: any = [
+  {
+    name: 'Germany',
+    value: 40632,
+    extra: {
+      code: 'de'
+    }
+  },
+  {
+    name: 'United States',
+    value: 50000,
+    extra: {
+      code: 'us'
+    }
+  },
+  {
+    name: 'France',
+    value: 36745,
+    extra: {
+      code: 'fr'
+    }
+  },
+  {
+    name: 'United Kingdom',
+    value: 36240,
+    extra: {
+      code: 'uk'
+    }
+  },
+  {
+    name: 'Spain',
+    value: 33000,
+    extra: {
+      code: 'es'
+    }
+  },
+  {
+    name: 'Italy',
+    value: 35800,
+    extra: {
+      code: 'it'
+    }
+  }
+];
+//pie chart end
 
 constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
      private renderer: Renderer2,private customglobalService: CustomGlobalService) { 
