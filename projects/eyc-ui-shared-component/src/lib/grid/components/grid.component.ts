@@ -66,6 +66,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  @Input() displayPlusIcon = true;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
@@ -105,7 +106,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
 
 
   ngOnChanges(changes: any) {
-    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;    
+    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (typeof(this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
