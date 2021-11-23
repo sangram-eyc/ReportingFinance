@@ -235,12 +235,12 @@
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-11-04",
          "filesReceived": 10,
-         "totalFiles": 12,
+         "totalFiles": 10,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 2
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Advisor level",
@@ -264,13 +264,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-11-10",
-         "filesReceived": 1,
+         "filesReceived": 2,
          "totalFiles": 2,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 1
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -324,13 +324,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-10-23",
-         "filesReceived": 16,
+         "filesReceived": 17,
          "totalFiles": 17,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 1
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -339,13 +339,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-10-25",
-         "filesReceived": 3,
+         "filesReceived": 5,
          "totalFiles": 5,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 2
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -384,13 +384,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-10-30",
-         "filesReceived": 5,
+         "filesReceived": 6,
          "totalFiles": 6,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 1
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -399,13 +399,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-11-04",
-         "filesReceived": 0,
+         "filesReceived": 1,
          "totalFiles": 1,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 1
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CPO PQR - Pool level",
@@ -414,13 +414,13 @@
          "ReportingDate": "2021-11-29",
          "RegulationDueDate": "2021-11-29",
          "FileDueDate": "2021-11-07",
-         "filesReceived": 0,
+         "filesReceived": 1,
          "totalFiles": 1,
          "exceptions": 0.0,
          "resolve_exception": 0.0,
          "unresolve_exception": 0,
          "comments": 0,
-         "lateFiles": 1
+         "lateFiles": 0
       },
       {
          "reg_reporting": "CTAPR",
