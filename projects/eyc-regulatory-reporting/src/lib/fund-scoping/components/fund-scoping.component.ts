@@ -35,8 +35,22 @@ export class FundScopingComponent implements OnInit {
   gridApi;
   rowData;
   columnDefs;
+  onSubmitApproveFund;
   rowClass = 'row-style';
   domLayout = 'autoHeight';
+  fundScopingModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Approve all",
+      description: "Are you sure you want to approve all funds?",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
   @ViewChild('headerFundsTemplate')
   headerFundsTemplate: TemplateRef<any>;
   @ViewChild('dropdownFundsTemplate')
@@ -44,7 +58,7 @@ export class FundScopingComponent implements OnInit {
   funds: any[] = [];
 
   ngOnInit(): void {
-    
+    this.onSubmitApproveFund = this.onSubmitApproveFunds.bind(this)
   }
 
   onGridReady(params)  {
