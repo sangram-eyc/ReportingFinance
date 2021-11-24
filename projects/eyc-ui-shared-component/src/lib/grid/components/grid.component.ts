@@ -166,8 +166,14 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     // console.log('Button',this.button);
     // console.log('Position',this.buttonPosition);
     let selectedArr = [];
+    this.selectedRows = [];
     selectedArr = this.gridApi.getSelectedRows();
-    this.selectedRows =selectedArr.filter(item => item.approved === false);
+    // this.selectedRows =selectedArr.filter(item => item.approved === false);
+    for(let i = 0; i < selectedArr.length; i++) {
+      if (selectedArr[i].approved == false) {
+        this.selectedRows.push(selectedArr[i]);
+      }
+    }
     this.selectedRowEmitter.emit(this.selectedRows);
     if(this.selectedRows.length === 0){
       this.gridApi.deselectAll();
