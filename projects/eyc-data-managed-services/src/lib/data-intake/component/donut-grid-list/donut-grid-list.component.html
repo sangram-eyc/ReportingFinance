@@ -67,7 +67,12 @@
                         </div>
                     </div>
                     <div class="chart-body">
-                        <!-- donut chart placeholder  -->
+                         <!-- donut chart placeholder  -->
+                        <eyc-charts-pie-chart doughnut="yes"
+                            [results]="pieData" class="chart-container" [scheme]="colorSchemeAll" animations="true"
+                            explodeSlices="false" arcWidth="0.25" gradient="false" tooltipDisabled="true">
+                        </eyc-charts-pie-chart>
+                        <!-- donut chart End  -->
                     </div>
                 </div>
             </motif-card-body>

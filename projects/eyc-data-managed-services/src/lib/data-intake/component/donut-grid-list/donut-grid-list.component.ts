@@ -1,4 +1,5 @@
 import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
@@ -11,15 +12,67 @@ import { formatDate } from '@angular/common';
 export class DonutGridListComponent implements OnInit {
   curDate;
   presentDate;
+  colorSchemeAll;
+  
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
     private renderer: Renderer2) { }
 
+    pieData: any = [
+      {
+        name: 'Germany',
+        value: 40632,
+        extra: {
+          code: 'de'
+        }
+      },
+      {
+        name: 'United States',
+        value: 50000,
+        extra: {
+          code: 'us'
+        }
+      },
+      {
+        name: 'France',
+        value: 36745,
+        extra: {
+          code: 'fr'
+        }
+      },
+      {
+        name: 'United Kingdom',
+        value: 36240,
+        extra: {
+          code: 'uk'
+        }
+      },
+      {
+        name: 'Spain',
+        value: 33000,
+        extra: {
+          code: 'es'
+        }
+      },
+      {
+        name: 'Italy',
+        value: 35800,
+        extra: {
+          code: 'it'
+        }
+      }
+    ];
+
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
   }
+  setColorScheme() {
+    // this.selectedColorScheme = 'red';
+    this.colorSchemeAll=colorSets.find(s => s.name === 'all');
+  }
+
   dateSub(presentDate) {
     let curDateVal = presentDate;
     curDateVal.setMonth(curDateVal.getMonth() - 1);
