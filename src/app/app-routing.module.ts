@@ -25,6 +25,7 @@ import { EycDataManagementServicesComponent } from 'projects/eyc-data-managed-se
 import { GeneralLedgerComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/general-ledger/general-ledger.component';
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import { FileReviewComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
+import {DonutGridListComponent  } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
 
@@ -50,9 +51,10 @@ const routes: Routes = [
   { path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate: [AuthGuardService] },
   { path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate: [AuthGuardService] },
   { path: 'data-managed-services', component: EycDataManagementServicesComponent },
-  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
+  {path:  'data-managed-services/exception-details', component: ExceptionsReportsComponent },
   { path: 'data-managed-services/files-review', component: FileReviewComponent },
   { path: 'data-managed-services/files/general-ledger', component: GeneralLedgerComponent },
+  { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
   { path: '**', component: LoginComponent },
 ];
 
