@@ -55,6 +55,9 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   commentTemplate: TemplateRef<any>;
   @ViewChild('filingNameTemplate')
   filingNameTemplate: TemplateRef<any>;
+  @ViewChild('dueDateTemplate')
+  dueDateTemplate: TemplateRef<any>;
+
   dataset = [{
     disable: false,
     value: 10,
@@ -216,6 +219,10 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dueDateTemplate,
+        },
         headerName: 'Due date',
         field: 'dueDate',
         sortable: true,

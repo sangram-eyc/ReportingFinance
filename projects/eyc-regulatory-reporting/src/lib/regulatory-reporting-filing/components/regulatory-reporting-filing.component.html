@@ -109,6 +109,10 @@
         <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>
     </ng-template>
 
+    <ng-template #dueDateTemplate let-row>
+        <div>{{row.dueDate | date: 'M/d/yyyy' }}</div>
+    </ng-template>
+
     <ng-template #headerTemplate>
         <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
         </motif-icon>
