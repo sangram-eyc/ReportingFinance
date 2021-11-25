@@ -49,7 +49,7 @@ task builddataintake(type: NpmTask) {
 }
 task build(type: NpmTask) {
   println "Building UI"
-  args = ['run', 'buildWithLocalHref']
+  args = ['run', 'eyc-ui-serviceengine:package']
   
 }
 
