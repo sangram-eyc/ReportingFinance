@@ -56,4 +56,38 @@
         }
       }
 
+      .icon-count{
+        width: 8px;
+        height: 8px;
+        display: inline;
+        margin-right: 10px;
+        margin-left: 10px; 
+      }
+
+      .icon-client-ey{
+        width: 30px;
+        height: 30px;
+        display: inline;
+        margin-right: 10px;
+        margin-left: 10px; 
+      }
+
+      .text-count-span{
+        padding-right: inherit; 
+        font-size: 14px; 
+        font-family: EYInterstate;
+      }
+
+     //To show the search at left
+/*       ::ng-deep .search.ng-star-inserted{
+         margin-right: auto;
+      } */
+
+      ::ng-deep .motif-pagination-select-wrapper{
+        margin-left: -500px; 
+        /* .motif-icon.motif-tooltip-close {
+          display: none !important;
+          cursor:  default !important;
+        } */
+      }
 }

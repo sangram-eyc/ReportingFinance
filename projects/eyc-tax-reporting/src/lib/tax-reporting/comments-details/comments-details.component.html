@@ -13,4 +13,74 @@
           </div>
       </div>
 
+      <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" 
+      [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" 
+      buttonPosition="left" [displayCheckBox]="true" [button]="false">
+      </lib-shared-grid>
+
+      <ng-template #submitedTemplate let-row>
+       <div *ngIf="row.target === 'EY'">
+        <svg class="icon-client-ey" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M15.9628 32C24.7788 32 31.9255 24.8366 31.9255 16C31.9255 7.16344 24.7788 0 15.9628 0C7.14677 0 0 7.16344 0 16C0 24.8366 7.14677 32 15.9628 32Z" fill="#87D3F2"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3819 10H24.9219V24H5.8418V6H15.3819V10ZM7.74981 22H9.65782V20H7.74981V22ZM9.65782 18H7.74981V16H9.65782V18ZM7.74981 14H9.65782V12H7.74981V14ZM9.65782 10H7.74981V8H9.65782V10ZM11.5658 22H13.4738V20H11.5658V22ZM13.4738 18H11.5658V16H13.4738V18ZM11.5658 14H13.4738V12H11.5658V14ZM13.4738 10H11.5658V8H13.4738V10ZM15.3819 22H23.0139V12H15.3819V14H17.2899V16H15.3819V18H17.2899V20H15.3819V22ZM21.1059 14H19.1979V16H21.1059V14ZM19.1979 18H21.1059V20H19.1979V18Z" fill="#2E2E38"/>
+        </svg>
+        <span class="text-count-span">{{row.author}}</span>
+       </div>
+       <div *ngIf="row.target === 'CLIENT'">
+        <svg class="icon-client-ey" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9628 32C24.7788 32 31.9255 24.8366 31.9255 16C31.9255 7.16344 24.7788 0 15.9628 0C7.14677 0 0 7.16344 0 16C0 24.8366 7.14677 32 15.9628 32Z" fill="#2E2E3C"/>
+          <path d="M8.90239 21.9217H12.5115V19.8419H8.90239V18.2514H12.8786L11.5634 15.988H5.93555V25.7756H13.8879V23.5122H8.90239V21.9217Z" fill="#F6F6FA"/>
+          <path d="M20.1584 15.988L18.3538 19.169L16.5187 15.988H12.9707L16.7328 21.9217V25.7756H19.9137V21.9217L23.6758 15.988H20.1584Z" fill="#F6F6FA"/>
+          <path d="M5.93555 12.6235L25.8165 9.38134V5.89453L5.93555 12.6235Z" fill="#FFE600"/>
+          </svg>          
+        <span class="text-count-span">{{row.author}}</span>
+      </div>
+      </ng-template>
+
+      <ng-template #completedCommentTemplate let-row>
+        <div *ngIf="row.description.length > 70">
+          <motif-tooltip placement="top">
+            <div style="line-height: initial;" motifTooltipTrigger aria-label="tooltip" (mouseover)="getTooltip()" (mouseout)="getTooltip()">                        
+                <div *ngFor="let part of row.splitComment; index as y;">
+                  <span *ngIf="y < 2" style="font-size: 11px;">{{part}}</span>
+                  <span *ngIf="y == 1" style="display: inline;">...</span>  
+                </div>       
+            </div>
+           <div *ngFor="let rowComment of row.completedComment; index as i;">
+            <span>{{rowComment}}</span>
+           </div>
+        </motif-tooltip> 
+        </div>
+      <div *ngIf="row.description.length <= 70" style="line-height: initial;">
+        <div *ngFor="let part of row.splitComment; index as x;">
+          <span style="font-size: 11px;">{{part}}</span>
+        </div> 
+      </div>
+      </ng-template>
+
+      <ng-template #dateTemplate let-row>
+        {{row.createdDate | date: 'dd/MM/yyyy'}}
+      </ng-template>
+
+    <ng-template #statusComment let-row>
+      <div *ngIf="row.status === 'open'">
+        <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="4" cy="4" r="4" fill="#FF9831"/>
+        </svg>
+        <span class="text-count-span">Open</span>
+      </div>
+      <div *ngIf="row.status === 'declined'">
+        <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="4" cy="4" r="4" fill="#B9251C"/>
+        </svg>
+        <span class="text-count-span">Rejected</span> 
+      </div>
+      <div *ngIf="row.status === 'accepted'">
+        <svg class="icon-count" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="4" cy="4" r="4" fill="#168736"/>
+        </svg>   
+        <span class="text-count-span">Accepted</span>
+      </div>
+    </ng-template>
+
 </div>
