@@ -98,6 +98,24 @@ export class TaxCommentService {
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}`);
+  }}
+
+
+  getTotalOpenedCommentsPerProductCycle(id){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.total_opened_comments_prod_cycle}`);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.total_opened_comments_prod_cycle}`);
+    }
+  }
+
+  getTotalClosedCommentsPerProductCycle(id){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.total_closed_comments_prod_cycle}`);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.total_closed_comments_prod_cycle}`);
     }
   }
 

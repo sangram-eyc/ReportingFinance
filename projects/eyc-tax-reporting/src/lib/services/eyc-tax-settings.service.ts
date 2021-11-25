@@ -26,6 +26,8 @@ export class EycTaxSettingsService {
       tasks_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
       add_comment: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       comments_list: this.production ? this.API_ENDPOINT + 'commentaryService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
+      total_opened_comments_prod_cycle: this.production ?  this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/opened-comments-list.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/opened-comments-list.json',
+      total_closed_comments_prod_cycle: this.production ?  this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/closed-comments-list.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/closed-comments-list.json',
       update_task_status: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
       delete_tag: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       delete_priority : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',

@@ -1,17 +1,50 @@
-<div class="comments-cycle-details-wrapper" >
+<div class="comments-cycle-details-wrapper">
 
-    <div class="back-wrapper">
-        <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
-          (click)="backtoCycleView()"></motif-icon>
-        &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span style="font-weight: 400;">{{productCycleName}}</span>
-        &nbsp;&nbsp;>&nbsp;&nbsp;<span style="font-weight: 300; color: #747480;">All comments</span></span>
-      </div>
+  <div class="back-wrapper">
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoCycleView()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span
+        style="font-weight: 400;">{{productCycleName}}</span>
+      &nbsp;&nbsp;>&nbsp;&nbsp;<span style="font-weight: 300; color: #747480;">All comments</span></span>
+  </div>
 
-      <div class="row comments-cycle-details-header">
-        <div class="col-md-12 col-sm-12">
-            <h3>All comments for {{productCycleName}}</h3>
-          </div>
+  <div class="row comments-cycle-details-header">
+    <div class="col-md-12 col-sm-12">
+      <h3>All comments for {{productCycleName}}</h3>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+      <p>{{productCycleSubTitle}} {{productCycleName}}</p>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 mb-12 padding-left-comment donut-charts-wrapper">
+    <div class="row">
+      <div class="col-md-3 col-sm-3" style="background-color: #EAEAF2; height: 51px; width: 112px; margin-left: 11px;margin-right:35px">
+        <span class="text-count-comments">{{textCountComments}}</span>
+        <span class="text-count-number">{{textCountNumber}}</span>
       </div>
+      <div class="col-md-3 col-sm-3">
+        <span class='donut-chart-card-tax'>
+          <lib-donut-tax-chart style="display: flex;margin-top:-13px" [donut_id]="donut_id_closedC" [data]="totalOpenedCommentsDetails" [colors]="donutByOpenedColors"
+            [totalFilesText]="donutByOpenedText" totalFilesNumberFontSize={{totalFilesNumberFontSize}}
+            totalFilesTextFontSize={{totalFilesTextFontSize}} [totalExpected]="totalExpected" innerRadius=50
+            svgTranslateLeft=80  svgTranslateRight=80 width=100 height=100 margin=11>
+          </lib-donut-tax-chart>
+        </span> 
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <span class='donut-chart-card-tax-2'>
+          <lib-donut-tax-chart style="display: flex;;margin-top:-13px" [donut_id]="donut_id_openedC" [data]="totalClosedCommentsDetails" [colors]="donutByClosedColors"
+            [totalFilesText]="donutByClosedText" totalFilesNumberFontSize={{totalFilesNumberFontSize}}
+            totalFilesTextFontSize={{totalFilesTextFontSize}} [totalExpected]="totalExpected" innerRadius=50
+            svgTranslateLeft=80  svgTranslateRight=80 width=100 height=100 margin=11>
+          </lib-donut-tax-chart>
+        </span>
+      </div>
+    </div>
+  </div>
+
 
       <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" 
       [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" 
@@ -84,3 +117,5 @@
     </ng-template>
 
 </div>
+
+

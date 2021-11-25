@@ -1,6 +1,7 @@
 import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaxCardComponent } from './shared/tax-card/tax-card.component';
+import { DonutTaxChartComponent } from './shared/donut-tax-chart/donut-tax-chart.component';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifAvatarModule  } from '@ey-xd/ng-motif';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -57,6 +58,7 @@ import { CommentsDetailsComponent } from './tax-reporting/comments-details/comme
     TaxReportingComponent,
     CycleDetailComponent,
     TaxCardComponent,
+    DonutTaxChartComponent,
     TableHeaderRendererComponent,
     CommentsPagecomponent,
     TaxCommentModalComponent,

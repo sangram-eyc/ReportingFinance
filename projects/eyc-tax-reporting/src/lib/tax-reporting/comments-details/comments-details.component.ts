@@ -9,13 +9,15 @@ import { TaxCommentService } from '../services/tax-comment.service';
   templateUrl: './comments-details.component.html',
   styleUrls: ['./comments-details.component.scss']
 })
-export class CommentsDetailsComponent implements OnInit {
+export class CommentsDetailsComponent implements OnInit{
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private commentService: TaxCommentService) { }
   productCycleId;
   productCycleName;
+  productCycleSubTitle:String = 'Following details belong to all comments received from clients and EY users for '
   completedComments: any[] = [];
   rowData;
   columnDefs;
@@ -35,25 +37,55 @@ export class CommentsDetailsComponent implements OnInit {
   @ViewChild('dateTemplate')
   dateTemplate: TemplateRef<any>;
   tooltipFunCall = false;
+
+  //Total-comments-box
+  textCountNumber:number =0;
+  textCountComments:string = "Total comments"
+
+   //Donut Setup--
+   totalFilesNumberFontSize:number = 10;
+   totalFilesTextFontSize:number = 10;
+   totalExpected ='';
+   
+   //Donut Setup for CLOSED Comments
+   donut_id_closedC:string="closedCDonnut"
+   donutByClosedText:string = 'CLOSED'
+   donutByClosedColors: string[] = ["#57E188","#FF736A"]
+   totalClosedCommentsDetails = [];
+   totalClosedComments:number = 0;
+   
+   //Donut Setup for OPEN Comments
+   donut_id_openedC:string="openedCDonnut"
+   donutByOpenedText:string = 'OPEN'
+   donutByOpenedColors: string[] = ["#585860","#FFE600"]
+   totalOpenedCommentsDetails = [];
+   totalOpenedComments:number = 0;
   
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleId = params.cycleId
       this.productCycleName = params.cycleName
     });
-    this.getCommentsList(); 
-  }
 
-  ngAfterViewInit(): void {
-    
+    this.getCommentsList(); 
+    this.commentService.getTotalOpenedCommentsPerProductCycle(this.productCycleId).subscribe((resp:any)=> {
+      this.totalOpenedCommentsDetails = resp.data['dataSeries'];
+      this.totalOpenedComments = resp.data.totalOpened  
+    })
+
+    this.commentService.getTotalClosedCommentsPerProductCycle(this.productCycleId).subscribe((resp:any)=> {
+      this.totalClosedCommentsDetails = resp.data['dataSeries']
+      this.totalClosedComments = resp.data.totalClosed
+      this.textCountNumber = Number(this.totalClosedComments) + Number(this.totalOpenedComments) 
+    })
   }
 
   backtoCycleView() {
     this.router.navigate(['cycle-details',this.productCycleId,this.productCycleName]);
   }
 
-  
   getCommentsList(){
     this.completedComments = [];
     this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp=>{

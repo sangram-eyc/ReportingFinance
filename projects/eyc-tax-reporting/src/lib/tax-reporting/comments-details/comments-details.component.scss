@@ -90,4 +90,113 @@
           cursor:  default !important;
         } */
       }
+
+   
+   .donut-charts-wrapper{
+    .text-count-comments{
+      font-family: EYInterstate;
+      font-size: 12px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #747480;
+      margin-top:4px;
+    }
+    .text-count-number{
+      font-family: EYInterstate;
+      font-size: 24px;
+      line-height: 28px;
+      display: flex;
+      align-items: center;
+    }
+   }   
+
+
+//Donut style
+.donut-chart-card-tax, .donut-chart-card-tax-2 {
+  display: flex;
+  flex-direction: row;
+  min-height: 173px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart, .donut-chart-card-tax-2 ::ng-deep .donut-chart{
+  width: max-content;
+  margin-top: -17px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg, .donut-chart-card-tax-2 ::ng-deep .donut-chart > svg  {
+  height: 135px !important;
+  width: 135px !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg .totalFilesNumber, .donut-chart-card-tax-2 ::ng-deep .donut-chart > svg .totalFilesNumber {
+  letter-spacing: 0px !important;
+  font-weight:600 !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox, .donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-text, .donut-chart-card-tax-2 ::ng-deep .legend-text {
+  font-family: EYInterstate;
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-value, .donut-chart-card-tax-2 ::ng-deep .legend-value {
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+  text-align: inherit;
+  letter-spacing:0px;
+  font-weight: 600;
+  display: contents;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary, .donut-chart-card-tax-2 ::ng-deep .donut-summary{
+  width: 12.5em;
+} 
+
+//Donut style only for opened comments
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange-dark.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px; 
+}
+
+//Donut style only for closed comments
+.donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url('../../../assets/mock/icons/check-circle.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url('../../../assets/mock/icons/cancel-icon.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px; 
+}
+
+
+
+
 }
