@@ -40,7 +40,7 @@
             <motif-card-body>
                <table class="review-by-group">
                   <tr>
-                     <td class="review-number">16</td>
+                     <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
@@ -56,7 +56,7 @@
                      <td colspan="2" class="review-lines"></td>
                   </tr>
                   <tr>
-                     <td class="review-number">24</td>
+                     <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
@@ -101,8 +101,8 @@
             <div>{{ curDate }}</div>
             <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>
             <div class="bx">
-               <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
-               <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
+               <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
+               <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
             </div>
          </div>
          <motif-card class="bar-chart-card no_data">
@@ -125,14 +125,15 @@
                   <div class="bar-chart-panel">
                      <div id="past-due">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                           <!-- <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div> -->
+                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Not Received</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="single"
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="fileMissingPastDueData"
                                  [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                                  [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                                  [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
@@ -146,7 +147,7 @@
                               </eyc-charts-bar-vertical>
                            </div>
 
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -157,15 +158,15 @@
                      </div>
                      <div id="high-priority-issues">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(highPriorityIssuesCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
@@ -178,7 +179,7 @@
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -189,16 +190,16 @@
                      </div>
                      <div id="low-priority-issues"> 
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
+                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
+                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
@@ -211,7 +212,7 @@
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -226,14 +227,15 @@
                   <div class="bar-chart-panel">
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                           <!-- <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div> -->
+                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Not Received</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="single"
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="fileMissingPastDueData"
                                  [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                                  [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                                  [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
@@ -247,7 +249,7 @@
                               </eyc-charts-bar-vertical>
                            </div>
 
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -258,15 +260,15 @@
                      </div>
                      <div id="high-priority-issues-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(highPriorityIssuesCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
@@ -279,7 +281,7 @@
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -290,16 +292,16 @@
                      </div>
                      <div id="low-priority-issues-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
+                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
+                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
@@ -312,7 +314,7 @@
                                  (activate)="activate($event)" (deactivate)="deactivate($event)">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
@@ -331,42 +333,6 @@
 </section>
 <section id='trands-insights' [hidden]="!(tabIn == 2)">
 </section>
-<!--  -->
-<!-- <section id='api-catalog' [hidden]="!(tabIn == 3)">
-
-  
-<div class="body-header">
-   <motif-breadcrumb>
-       <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/'></motif-breadcrumb-item>
-       <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/'></motif-breadcrumb-item>
-       <motif-breadcrumb-item active="active" breadcrumbValue='General_Ledger_09102021.xls' breadcrumbLink='/'></motif-breadcrumb-item>
-   </motif-breadcrumb>
-
-   <div class="motif-row  page-header">
-       <div class="motif-col-6 motif-col-6">
-           <div class="">
-               <h1 class="heading-4">Data Managed Services</h1>
-           </div>
-       </div>
-       <div class="motif-col-6 motif-col-6">
-           <div>
-            <p class="motif-h4">Table with transparent title bar</p>
-            <div style="height: 310px; width: 601px;">
-                <motif-table title="Title Bar" variant="alt" [columnDefs]="columnDefs1" [rowData]="rowData"
-                    rowSelection="multiple" (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true"
-                    [suppressCellSelection]="true" [pagination]="true" paginationPageSize="4"></motif-table>
-            </div>
-         </div>
-       </div>
-   </div>
-
-</div>
-
-</section> -->
-
-
 
 <section id='api-catalog' [hidden]="!(tabIn == 3)">
-
-   
 </section>

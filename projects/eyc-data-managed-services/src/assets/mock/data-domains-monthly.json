@@ -4,9 +4,9 @@
   "corelationId": "1293081023",
   "data": [
     {
-      "totalCount": 87,
-      "dataProvideCount": 3,
-      "dataDomainCount": 7,
+      "totalCount": 187,
+      "dataProvideCount": 13,
+      "dataDomainCount": 17,
       "totalSeriesItem": [
         {
           "label": "Not Received",
@@ -14,41 +14,41 @@
           "seriesItemDTO": [
             {
               "name": "General Ledger",
-              "value": 40
+              "value": 140
             },
             {
               "name": "Positions",
-              "value": 19
+              "value": 119
             },
             {
               "name": "Reference Data",
-              "value": 14
+              "value": 114
             },
             {
               "name": "Transactions",
-              "value": 6
+              "value": 16
             },
             {
               "name": "Account and Fund Hierarchy",
-              "value": 2
+              "value": 12
             },
             {
               "name": "Portfolio Valuation",
-              "value": 3
+              "value": 13
             }
           ]
         },
         {
           "label": "Received",
-          "value": 3,
+          "value": 13,
           "seriesItemDTO": [
             {
               "name": "Positions",
-              "value": 2
+              "value": 12
             },
             {
               "name": "Entity",
-              "value": 1
+              "value": 11
             }
           ]
         }

@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "message": "",
+  "corelationId": "1293081023",
+  "data": [
+      {
+          "totalCount": 87,
+          "dataProvideCount": 3,
+          "dataDomainCount": 7,
+          "totalSeriesItem": [
+              {
+                  "label": "Not Received",
+                  "value": 84,
+                  "seriesItemDTO": [
+                      {
+                          "name": "Admin - SEI",
+                          "value": 24
+                      },
+                      {
+                          "name": "EY - Manual",
+                          "value": 1
+                      },
+                      {
+                          "name": "Goldman Sachs",
+                          "value": 59
+                      }
+                  ]
+              },
+              {
+                  "label": "Received",
+                  "value": 3,
+                  "seriesItemDTO": [
+                      {
+                          "name": "Goldman Sachs",
+                          "value": 3
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  "error": null
+}

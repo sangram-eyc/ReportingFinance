@@ -2,10 +2,9 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from
 import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
-import { customComparator } from '@default/services/settings-helpers';
+// import { customComparator } from '@default/services/settings-helpers';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { RegulatoryReportingFilingService } from 'projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-general-ledger',
@@ -94,8 +93,7 @@ export class GeneralLedgerComponent implements OnInit {
 
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
-    private renderer: Renderer2, private customglobalService: CustomGlobalService,
-    private filingService: RegulatoryReportingFilingService) {
+    private renderer: Renderer2, private customglobalService: CustomGlobalService) {
 
   }
 
@@ -243,7 +241,7 @@ export class GeneralLedgerComponent implements OnInit {
         sort: 'asc',
         wrapText: true,
         autoHeight: true,
-        comparator: customComparator
+        // comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
