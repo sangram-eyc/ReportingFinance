@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angul
 import { ActivatedRoute, Router } from '@angular/router';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { forkJoin, Observable } from 'rxjs';
 import { TaxCommentService } from '../services/tax-comment.service';
 
 @Component({
@@ -70,15 +71,15 @@ export class CommentsDetailsComponent implements OnInit{
     });
 
     this.getCommentsList(); 
-    this.commentService.getTotalOpenedCommentsPerProductCycle(this.productCycleId).subscribe((resp:any)=> {
-      this.totalOpenedCommentsDetails = resp.data['dataSeries'];
-      this.totalOpenedComments = resp.data.totalOpened  
-    })
-
-    this.commentService.getTotalClosedCommentsPerProductCycle(this.productCycleId).subscribe((resp:any)=> {
-      this.totalClosedCommentsDetails = resp.data['dataSeries']
-      this.totalClosedComments = resp.data.totalClosed
-      this.textCountNumber = Number(this.totalClosedComments) + Number(this.totalOpenedComments) 
+    let a = this.commentService.getTotalOpenedCommentsPerProductCycle(this.productCycleId);
+    let b = this.commentService.getTotalClosedCommentsPerProductCycle(this.productCycleId);
+    let c:Array<any>=[a,b]
+    forkJoin(c).subscribe((r:any)=> {
+      this.totalOpenedCommentsDetails = r[0].data['dataSeries'];
+      this.totalOpenedComments = r[0].data.totalOpened  
+      this.totalClosedCommentsDetails = r[1].data['dataSeries']
+      this.totalClosedComments = r[1].data.totalClosed
+      this.textCountNumber = Number(this.totalClosedComments) + Number(this.totalOpenedComments)  
     })
   }
 
