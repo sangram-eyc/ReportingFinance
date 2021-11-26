@@ -62,19 +62,41 @@
                 <div class="chart-panel">
                     <div class="chart-header">
                         <div>Statestreet <span class="file-count">24 Files</span></div>
-                        <div>
+                        <div class="bx">
+                            <div class="mr-2 warning-info">
+                                <i class="material-icons md-light p-0">ic_info</i>
+                             </div>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
                         </div>
                     </div>
                     <div class="chart-body">
-                         <!-- donut chart placeholder  -->
-                        <eyc-charts-pie-chart doughnut="yes"
-                            [results]="pieData" class="chart-container" [scheme]="colorSchemeAll" animations="true"
-                            explodeSlices="false" arcWidth="0.25" gradient="false" tooltipDisabled="true">
-                        </eyc-charts-pie-chart>
+                        <!-- donut chart placeholder  -->
+                        <div class="chart-container">
+                            <div class="pie-chart">
+                                <eyc-charts-pie-chart doughnut="yes" [view]="view" [results]="pieData"
+                                    [scheme]="colorSchemeAll" animations="true" explodeSlices="false" arcWidth="0.50"
+                                    gradient="false" tooltipDisabled="true" [legend]="showLegend"
+                                    [legendTitle]="legendTitle" [legendPosition]="legendPosition">
+                                </eyc-charts-pie-chart>
+                            </div>
+
+                            <div class="pie-legend">
+                                <ul>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div> <div>2 No Issues</div> </li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div> <div>2 Medium/Low priority issues</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div> <div>12 High priority issues</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div> <div>4 Missing, past due</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div> <div>4 Files not received</div></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
                         <!-- donut chart End  -->
                     </div>
                 </div>
+
+                
             </motif-card-body>
         </motif-card>
     </div>

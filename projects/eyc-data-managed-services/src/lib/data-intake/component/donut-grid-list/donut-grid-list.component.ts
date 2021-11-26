@@ -12,12 +12,18 @@ import { formatDate } from '@angular/common';
 export class DonutGridListComponent implements OnInit {
   curDate;
   presentDate;
+  view: any[] = undefined;
   colorSchemeAll;
-  
+  showLegend = false;
+  legendTitle = 'Legend';
+  legendPosition= LegendPosition.Below;
+
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
-    private renderer: Renderer2) { }
+    private renderer: Renderer2) {
+      this.setColorScheme();
+     }
 
     pieData: any = [
       {
@@ -69,7 +75,6 @@ export class DonutGridListComponent implements OnInit {
     this.presentDate = new Date();
   }
   setColorScheme() {
-    // this.selectedColorScheme = 'red';
     this.colorSchemeAll=colorSets.find(s => s.name === 'all');
   }
 

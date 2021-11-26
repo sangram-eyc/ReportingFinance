@@ -17,6 +17,12 @@
 .m-0 {
   margin: 0 !important;
 }
+.p-0 {
+  padding: 0 !important;
+}
+.mr-2{
+  margin-right: 16px !important;
+}
 
 .bx {
   min-height: 30px;
@@ -43,17 +49,18 @@
   letter-spacing: 1.25px;
   text-align: left;
   margin-top: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   color: #747480;
   ::ng-deep motif-chip {
-    margin-bottom: 0 !important;
+    margin-bottom: 8px !important;
     margin-right: 13px !important;
   }
   .left-div {
     margin-right: 13px;
+    margin-bottom: 8px;
   }
 }
 
@@ -116,9 +123,12 @@
   ::ng-deep motif-card-body {
     padding: 22px 11px !important;
   }
-  border-bottom: 3px solid #FF736A;
+  border-bottom: 3px solid #ff736a;
 }
 
+.warning-info{
+  color: #FF736A;
+}
 .chart-panel {
   padding: 0;
   font-family: EYInterstate;
@@ -134,10 +144,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     .file-count {
       font-size: 14px;
-      font-weight:normal;
+      font-weight: normal;
       line-height: 16px;
       letter-spacing: -0.6572299599647522px;
       text-align: left;
@@ -145,6 +156,7 @@
       display: block;
       padding-left: 0;
       padding-top: 8px;
+      padding-bottom: 8px;
     }
 
     .btn-secondary {
@@ -160,5 +172,52 @@
   }
 
   .chart-body {
+    font-family: EYInterstate;
+    font-size: 12px;
+    margin-top: 16px;
+
+    .chart-container {
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .pie-chart {
+        padding: 0;
+        min-width: 85px;
+        min-height: 85px;
+        margin-bottom: 22px;
+        ::ng-deep .eyc-charts {
+          text {
+            fill: #747480 !important;
+          }
+        }
+      }
+
+      .pie-legend {
+        padding: 0;
+        color: #2e2e38;
+
+        ul,li{
+          padding: 0;
+          list-style: none;
+        }
+
+        ul>li{
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 5px;
+        }
+        .legend {
+          width: 14px;
+          height: 14px;
+          margin-top: 4px;
+          margin-right: 8px;
+          border-radius: 50%;
+          justify-items: center;
+        }
+      }
+      
+    }
   }
 }
