@@ -87,9 +87,9 @@
     [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
     [detailCellRendererParams]="exceptionDetailCellRendererParams"
     (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-    [permissionToPrimaryButton]="true" [permissionToSecondaryButton]="false" [isToggleLeft]="true"
+    [permissionToPrimaryButton]="true" [permissionToSecondaryButton]="true" [isToggleLeft]="true"
     (toggleLeftEventToParent)="showMyAssignedFunds()" [toggleLeftTitle]="toggleLeftTitle"
-    [toggleLeftDisabled]="disabledLeftToggle">
+    [toggleLeftDisabled]="disabledLeftToggle" [displaySecondButton]="true" [secondbuttonText]="downloadBtn">
   </lib-shared-grid>
 
   <ng-template #datasetsDropdownTemplate let-row>
