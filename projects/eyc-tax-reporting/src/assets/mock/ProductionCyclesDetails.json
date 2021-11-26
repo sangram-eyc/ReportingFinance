@@ -229,7 +229,12 @@
         "status": "OPEN",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
-        "assignedUsers":[]
+        "assignedUsers":[{
+            "userId": 123, 
+            "userEmail": "Jonnathan.Caballero@ey.com", 
+            "userFirstName": "Jonnathan", 
+            "userLastName": "Caballero" 
+        }]
 
     },
     {

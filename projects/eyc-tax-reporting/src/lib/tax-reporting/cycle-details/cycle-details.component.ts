@@ -186,6 +186,8 @@ export class CycleDetailComponent implements OnInit {
         this.gridFilter('')
       }
     }
+    var downloadButton:any = document.querySelector('.second-button');
+    downloadButton.disabled = true;
   }
 
   //Apply a filter to the grid
