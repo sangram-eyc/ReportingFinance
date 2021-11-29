@@ -12,7 +12,7 @@
                     </div>
                     <div class="toggle-left" *ngIf="isToggleLeft">
                         <h4 [ngClass]="{disabled: toggleLeftDisabled}">{{toggleLeftTitle}}</h4>
-                        <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="false" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
+                        <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="hideLabels" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
                 <div *ngIf="!button"></div>
