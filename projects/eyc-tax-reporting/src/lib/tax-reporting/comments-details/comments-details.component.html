@@ -46,9 +46,12 @@
   </div>
 
 
-      <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" 
+      <lib-shared-grid id='comments-grid' [columnDefs]="columnDefs" [rowData]="rowData" 
       [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" 
-      buttonPosition="left" [displayCheckBox]="true" [button]="false">
+      buttonPosition="left" [displayCheckBox]="true" [permissionToPrimaryButton]="false"
+      [permissionToSecondaryButton]="false" [isToggleLeft]="true"
+      [toggleLeftTitle]="toggleLeftTitle" [toggleLeftDisabled]="disabledLeftToggle"
+      buttonPosition="left" [displaySecondButton]="true" (toggleLeftEventToParent)="showMyAssignedFunds()">
       </lib-shared-grid>
 
       <ng-template #submitedTemplate let-row>

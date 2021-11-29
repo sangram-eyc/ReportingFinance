@@ -196,7 +196,9 @@
   height: 14px; 
 }
 
-
+#comments-grid::ng-deep .left-button {
+  flex-direction: row-reverse;
+}
 
 
 }
