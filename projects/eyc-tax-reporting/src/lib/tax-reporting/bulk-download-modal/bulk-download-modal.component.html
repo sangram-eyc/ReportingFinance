@@ -1,0 +1,21 @@
+<div class="bulk-tax-modal">
+    <div class="modal-header">   
+        <p class="modal-header-text">
+          {{modalDetails.header}}
+        </p>
+          <button type="button" class="close" (click)="close()">&times;</button> 
+      </div> 
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <p class="modal-body-desc">{{modalDetails.description}}</p>
+            <p class="modal-body-desc"><b>IMPORTANT: </b>{{modalDetails.important}}</p>
+            <p class="modal-body-desc">{{modalDetails.question}}</p>
+          </div>      
+        </div>      
+      </div>
+      <div class="modal-footer {{modalDetails.footer.style}}">
+        <button motifButton class="approve-yes" color="primary" (click)="onClickYes()">{{modalDetails.footer.YesButton}}</button> 
+         <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>
+      </div>
+  </div>
