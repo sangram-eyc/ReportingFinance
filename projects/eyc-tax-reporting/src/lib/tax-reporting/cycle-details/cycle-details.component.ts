@@ -10,6 +10,7 @@ import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-mo
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import {InformationBarChartModalComponent} from '../information-bar-chart-modal/information-bar-chart-modal.component'
+import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download-modal.component'
 
 @Component({
   selector: 'cycle-details',
@@ -548,7 +549,22 @@ getMoreDetailsPage(){
 }
 
 onClickSecondButton(){
-  console.log("Click second button");
+  let fundsSelected = this.datasetsSelectedRows.length;
+  const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
+    id: 'bulk-modal',
+    width: '600px',
+    data: {
+      header: "Download (" + fundsSelected + " selected)" ,
+      description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+      important: "Please note that logging out of the application before files are finished processing will cancel this request.",
+      question: "Are you sure want to download the selected files?",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  });
 }
 
 }
