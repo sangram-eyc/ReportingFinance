@@ -29,6 +29,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() isToggleLeft = false;
   @Input() toggleLeftTitle = "";
   @Input() toggleLeftDisabled :boolean = false;
+  @Input() hideLabels:boolean = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() secondbuttonText = 'Reject selected';

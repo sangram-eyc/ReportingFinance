@@ -49,7 +49,7 @@
       <lib-shared-grid id='comments-grid' [columnDefs]="columnDefs" [rowData]="rowData" 
       [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" 
       buttonPosition="left" [displayCheckBox]="true" [permissionToPrimaryButton]="false"
-      [permissionToSecondaryButton]="false" [isToggleLeft]="true"
+      [permissionToSecondaryButton]="false" [isToggleLeft]="true"  [hideLabels] = "true"
       [toggleLeftTitle]="toggleLeftTitle" [toggleLeftDisabled]="disabledLeftToggle"
       buttonPosition="left" [displaySecondButton]="true" (toggleLeftEventToParent)="showMyAssignedFunds()">
       </lib-shared-grid>

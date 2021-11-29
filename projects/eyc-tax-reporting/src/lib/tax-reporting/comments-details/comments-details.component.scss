@@ -197,8 +197,11 @@
 }
 
 #comments-grid::ng-deep .left-button {
-  flex-direction: row-reverse;
+  flex-direction: row-reverse !important;
 }
 
+#comments-grid::ng-deep .toggle-left{
+ flex-direction: row !important;
+}
 
 }
