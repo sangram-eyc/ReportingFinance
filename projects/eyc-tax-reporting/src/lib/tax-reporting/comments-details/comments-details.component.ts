@@ -61,7 +61,11 @@ export class CommentsDetailsComponent implements OnInit{
    donutByOpenedColors: string[] = ["#585860","#FFE600"]
    totalOpenedCommentsDetails = [];
    totalOpenedComments:number = 0;
-  
+
+   //Toggle button for View My Assigned Funds--
+   toggleLeftTitle: string = "View my assigned funds";
+   disabledLeftToggle: boolean = true;
+   showOnlyMyAssignedFunds: boolean = false;
 
 
   ngOnInit(): void {
@@ -107,18 +111,20 @@ export class CommentsDetailsComponent implements OnInit{
           createdBy: item.createdBy,
           createdDate: item.createdDate,
           tags: item.tags,
-          replyCount: item.replyCount
+          replyCount: item.replyCount,
+          assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         this.completedComments.push(eachitem);
       });
-      this.createCommentsRowData();
+      this.createCommentsRowData(this.completedComments);
     });
   } 
 
 
-  createCommentsRowData(){
+  createCommentsRowData(rowData: any){
+    let rowDatafunds = rowData
     this.rowData = [];
-    this.completedComments.forEach(item => {
+    rowDatafunds.forEach(item => {
       this.rowData.push({
         id: item.id,
         entityId: item.entityId,
@@ -135,9 +141,11 @@ export class CommentsDetailsComponent implements OnInit{
         createdBy: item.createdBy,
         createdDate: item.createdDate,
         tags: item.tags,
-        replyCount: item.replyCount
+        replyCount: item.replyCount,
+        assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
       })
     });
+    this.isToggleLeftDisabled()
   
     this.columnDefs = [
       {
@@ -227,5 +235,43 @@ export class CommentsDetailsComponent implements OnInit{
         window.scrollTo( 0, window.scrollY - 1);
       }); 
    }
+
+   showMyAssignedFunds() {
+    if (this.completedComments.length > 0) {
+      this.showOnlyMyAssignedFunds = !this.showOnlyMyAssignedFunds
+      if (this.showOnlyMyAssignedFunds) {
+        let filterKey = sessionStorage.getItem('userEmail').toLowerCase()
+        this.gridFilter(filterKey)
+      } else {
+        this.gridFilter('')
+      }
+    }
+  }
+
+   //Apply a filter to the grid
+   gridFilter(filterKey: any) {
+    if (filterKey.length > 0) {
+      let arrfilterFunds = this.completedComments.filter(fund => {
+        let filterByFund = fund.assignedTo.find((assignedByFund) => {
+          return assignedByFund.userEmail.toLowerCase() == filterKey
+        })
+        let res = (filterByFund == undefined) ? false : true;
+        return res;
+      })
+      this.createCommentsRowData(arrfilterFunds)
+    } else {
+      this.createCommentsRowData(this.completedComments)
+    }
+  }
+
+  isToggleLeftDisabled() {
+
+     if (this.completedComments.length > 0) {
+      //if have at less one assigned the button is enabled so return false.
+      for (let fund of this.completedComments) {
+        if (fund.assignedTo.length > 0) this.disabledLeftToggle = false
+      }
+    }  
+  }
 
 }
