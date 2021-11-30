@@ -53,7 +53,7 @@
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>First name (Required)</label>
-            <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
+            <input libRemoveSpaces motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
             <motif-error *ngIf="
                         addUserForm.get('firstName').hasError('required') &&
                         addUserForm.get('firstName').touched">Please provide a first name!</motif-error>
@@ -69,7 +69,7 @@
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>Last name (Required)</label>
-            <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
+            <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
             <motif-error *ngIf="
                         addUserForm.get('lastName').hasError('required') &&
                         addUserForm.get('lastName').touched">Please provide a last name!</motif-error>
@@ -87,7 +87,7 @@
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>Email (Required)</label>
-            <input motifInput type="text" aria-label="Email Form Field" formControlName="email" />
+            <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="email" />
             <motif-error *ngIf="
                         addUserForm.get('email').hasError('required') &&
                         addUserForm.get('email').touched">Please provide an email!</motif-error>
