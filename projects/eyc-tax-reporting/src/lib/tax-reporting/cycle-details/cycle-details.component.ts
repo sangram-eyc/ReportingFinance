@@ -6,7 +6,8 @@ import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent, fileUploadHeading, PermissionService } from 'eyc-ui-shared-component';
-import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component'
+import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component';
+import { ApproveFundModalComponent} from '../approve-fund-modal/approve-fund-modal.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import {InformationBarChartModalComponent} from '../information-bar-chart-modal/information-bar-chart-modal.component'
@@ -445,6 +446,40 @@ addUsersToFund(_id: any) {
       this.getCompletedProductCyclesData(this.productCycleId);
     } else {
       console.log('result afterClosed', result);
+    }
+  });
+}
+
+approveFund(_id: any) {
+  const dialogRef = this.dialog.open(ApproveFundModalComponent, {
+    id: 'approve-fund-modal',
+    width: '550px',
+    data: {
+      header: "Approve Fund",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('add-user-modal was closed', result);
+    if (result.button === "Continue") {
+      const body = {
+        "status": "approved",
+        "fundIds": _id
+      }
+      console.log("body: ", body);
+      this.productcyclesService.putApproveEntities(body).subscribe(resp => {
+        console.log(resp);
+        setTimeout(() => {
+          console.log(resp);
+        }, 5000);
+      });
+      console.log('row data submit-->', this.rowData)
+      this.getCompletedProductCyclesData(this.productCycleId);
     }
   });
 }
