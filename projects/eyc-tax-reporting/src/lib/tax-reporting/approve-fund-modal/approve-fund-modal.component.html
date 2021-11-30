@@ -1,0 +1,13 @@
+<div>
+<div class="modal-header">
+    <h3 class="modal-title" [innerHTML]="modalDetails.header"></h3>
+    <button type="button" class="close" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+  <div class="description-text ng-star-inserted">Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.</div>
+</div>
+<div class="modal-footer {{modalDetails.footer.style}}">
+    <button motifButton class="approve-yes" color="primary" (click)="onClickYes()" class="motif-button">{{modalDetails.footer.YesButton}}</button> 
+    <button motifButton class="approve-no" color="secondary" (click)="close()" class="motif-button approve-no">{{modalDetails.footer.NoButton}}</button>
+</div>
+</div>
