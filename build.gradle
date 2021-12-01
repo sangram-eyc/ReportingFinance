@@ -33,7 +33,7 @@ task buildSharedComponent(type: NpmTask) {
 
 task buildLibrary(type: NpmTask) {
   println "Building Reg Library"
-  args = ['run', 'eyc-ui-regreporting:package']
+  args = ['run', 'buildLibrary']
   
 }
 
@@ -49,7 +49,7 @@ task builddataintake(type: NpmTask) {
 }
 task build(type: NpmTask) {
   println "Building UI"
-  args = ['run', 'eyc-ui-serviceengine:package']
+  args = ['run', 'buildWithLocalHref']
   
 }
 
