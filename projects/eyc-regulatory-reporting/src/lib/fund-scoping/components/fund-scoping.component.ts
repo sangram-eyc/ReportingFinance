@@ -6,18 +6,20 @@ import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { customComparator, customCompareStrIntMix } from '../../config/rr-config-helper';
 import { PermissionService } from 'eyc-ui-shared-component';
-
+import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 @Component({
   selector: 'lib-fund-scoping',
   templateUrl: './fund-scoping.component.html',
-  styleUrls: ['./fund-scoping.component.scss']
+  styleUrls: ['./fund-scoping.component.scss'],
+  providers: [AutoUnsubscriberService]
 })
 export class FundScopingComponent implements OnInit {
 
   constructor(
     private fundScopingService: FundScopingService,
     private filingService: RegulatoryReportingFilingService,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private unsubscriber: AutoUnsubscriberService
   ) { }
 
   filingDetails: any;
@@ -67,7 +69,7 @@ export class FundScopingComponent implements OnInit {
   };
 
   getFundsData() {
-    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period).subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].forEach((item) => {
         const eachitem: any  = {
           name: item.fundName,
@@ -80,7 +82,7 @@ export class FundScopingComponent implements OnInit {
         this.funds.push(eachitem);
       });
       this.createFundRowData();
-      this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).subscribe(resp => {
+      this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
         this.fundScopingStatus = resp['data'];
         console.log('FUND SCOPING STATUS', this.fundScopingStatus);
       });
