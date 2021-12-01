@@ -7,7 +7,7 @@
     "build": "ng build",
     "buildTest": "node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build --prod --aot -c production",
     "buildLibrary": "ng build --prod  eyc-regulatory-reporting",
-    "buildWithLocalHref": "ng build --prod --aot -c production",
+    "buildWithLocalHref": "node --max_old_space_size=2048 ./node_modules/@angular/cli/bin/ng build  --base-href=. --prod --aot -c production",
     "eyc-charts-shared": "ng build --prod eyc-charts-shared-library",
     "eyc-ui-shared": "ng build --prod eyc-ui-shared-component",
     "eyc-charts-shared-library:pack": "cd dist/eyc-charts-shared-library && npm pack",
