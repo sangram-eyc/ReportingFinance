@@ -59,7 +59,7 @@
           </div>
           <div class="col-md-5">
             <motif-form-field>
-              <input motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
+              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
               </motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('pattern')">Team name must be alpha numeric!
@@ -73,7 +73,7 @@
           </div>
           <div class="col-md-7">
             <motif-form-field>
-              <textarea motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
+              <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
               <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
               </motif-error>
             </motif-form-field>
