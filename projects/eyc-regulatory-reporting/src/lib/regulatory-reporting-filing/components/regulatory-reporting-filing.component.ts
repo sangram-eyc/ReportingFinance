@@ -3,7 +3,7 @@ import { RegulatoryReportingFilingService } from '../services/regulatory-reporti
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/rr-config-helper';
-import { CustomGlobalService, ErrorModalComponent, PermissionService } from 'eyc-ui-shared-component';
+import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'lib-regulatory-reporting-filing',
   templateUrl: './regulatory-reporting-filing.component.html',
-  styleUrls: ['./regulatory-reporting-filing.component.scss']
+  styleUrls: ['./regulatory-reporting-filing.component.scss'],
+  providers: [AutoUnsubscriberService]
 })
 export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
@@ -22,7 +23,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     private oauthservice: OAuthService,
     public permissions: PermissionService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private unsubscriber: AutoUnsubscriberService
   ) { }
 
   activeFilings: any[] = [];
@@ -106,7 +108,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
 
   getActiveFilingsData() {
-    this.filingService.getFilings().subscribe(resp => {
+    this.filingService.getFilings().pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.filingResp.push(resp);
       resp['data'].length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
       resp['data'].forEach((item) => {
@@ -132,7 +134,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   getCompletedFilingsData() {
     this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).subscribe(resp => {
+    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       // resp['data'].forEach((item) => {
       //   const eachitem: any = {
