@@ -1,43 +1,63 @@
 {
-  "success": true,
-  "message": "",
-  "corelationId": "1293081023",
-  "data": [
-      {
-          "totalCount": 187,
-          "dataProvideCount": 13,
-          "dataDomainCount": 17,
-          "totalSeriesItem": [
-              {
-                  "label": "Not Received",
-                  "value": 294,
-                  "seriesItemDTO": [
-                      {
-                          "name": "Admin - SEI",
-                          "value": 124
-                      },
-                      {
-                          "name": "EY - Manual",
-                          "value": 11
-                      },
-                      {
-                          "name": "Goldman Sachs",
-                          "value": 159
-                      }
-                  ]
-              },
-              {
-                  "label": "Received",
-                  "value": 13,
-                  "seriesItemDTO": [
-                      {
-                          "name": "Goldman Sachs",
-                          "value": 13
-                      }
-                  ]
-              }
-          ]
-      }
-  ],
-  "error": null
+    "success": true,
+    "message": "",
+    "corelationId": "1293081023",
+    "data": [
+        {
+            "totalCount": 260,
+            "dataProvideCount": 3,
+            "dataDomainCount": 6,
+            "totalSeriesItem": [
+                {
+                    "label": "No issue",
+                    "value": 184,
+                    "seriesItemDTO": [
+                        {
+                            "name": "Admin - SEI",
+                            "value": 124
+                        },
+                        {
+                            "name": "EY - Manual",
+                            "value": 1
+                        },
+                        {
+                            "name": "BNYM",
+                            "value": 59
+                        }
+                    ]
+                },
+                {
+                    "label": "Medium / low priority issues",
+                    "value": 13,
+                    "seriesItemDTO": [
+                        {
+                            "name": "BNYM",
+                            "value": 13
+                        }
+                    ]
+                },
+                {
+                    "label": "Missing files, past due",
+                    "value": 30,
+                    "seriesItemDTO": [
+                        {
+                            "name": "BNYM",
+                            "value": 30
+                        }
+                    ]
+                },
+                {
+                    "label": "Files not received",
+                    "value": 33,
+                    "seriesItemDTO": [
+                        {
+                            "name": "BNYM",
+                            "value": 33
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "error": null
 }

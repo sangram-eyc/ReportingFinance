@@ -68,10 +68,10 @@
                      <td class="review-by-group-heading">
                         Data Domains</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="dailyMonthlyStatus">
                      <td colspan="2" class="review-lines"></td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="dailyMonthlyStatus">
                      <td class="review-number"><i class="material-icons">date_range</i></td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
@@ -80,7 +80,7 @@
                         </a>
                      </td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="dailyMonthlyStatus">
                      <td class="review-by-group-heading">
                         Business Days</td>
                   </tr>
@@ -125,8 +125,7 @@
                   <div class="bar-chart-panel">
                      <div id="past-due">
                         <div class="bar-chart-header">
-                           <!-- <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div> -->
-                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Not Received</div>
+                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
@@ -151,7 +150,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
                               </div>
                            </div>
                         </div>
@@ -183,7 +182,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
                               </div>
                            </div>
                         </div>
@@ -216,7 +215,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noMediumLowPriority}}
                               </div>
                            </div>
                         </div>
@@ -227,8 +226,7 @@
                   <div class="bar-chart-panel">
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
-                           <!-- <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div> -->
-                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Not Received</div>
+                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
@@ -253,7 +251,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
                               </div>
                            </div>
                         </div>
@@ -285,7 +283,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
                               </div>
                            </div>
                         </div>
@@ -318,7 +316,7 @@
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noMediumLowPriority}}
                               </div>
                            </div>
                         </div>

@@ -4,25 +4,25 @@
   "corelationId": "1293081023",
   "data": [
     {
-      "totalCount": 187,
-      "dataProvideCount": 13,
-      "dataDomainCount": 17,
+      "totalCount": 178,
+      "dataProvideCount": 3,
+      "dataDomainCount": 6,
       "totalSeriesItem": [
         {
-          "label": "Not Received",
-          "value": 414,
+          "label": "No issue",
+          "value": 124,
           "seriesItemDTO": [
             {
               "name": "General Ledger",
-              "value": 140
+              "value": 50
             },
             {
               "name": "Positions",
-              "value": 119
+              "value": 29
             },
             {
               "name": "Reference Data",
-              "value": 114
+              "value": 24
             },
             {
               "name": "Transactions",
@@ -30,16 +30,30 @@
             },
             {
               "name": "Account and Fund Hierarchy",
-              "value": 12
+              "value": 2
             },
             {
               "name": "Portfolio Valuation",
-              "value": 13
+              "value": 3
             }
           ]
         },
         {
-          "label": "Received",
+          "label": "Medium / low priority issues",
+          "value": 3,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "label": "High priority issues",
           "value": 13,
           "seriesItemDTO": [
             {
@@ -48,7 +62,35 @@
             },
             {
               "name": "Entity",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "label": "Missing files, past due",
+          "value": 17,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 6
+            },
+            {
+              "name": "Entity",
               "value": 11
+            }
+          ]
+        },
+        {
+          "label": "Files not received",
+          "value": 21,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 20
+            },
+            {
+              "name": "Entity",
+              "value": 1
             }
           ]
         }

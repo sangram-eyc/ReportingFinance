@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, AfterViewInit } fr
 import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
+import { GlobalConstants } from '../../global-constants'
 
 @Component({
   selector: 'lib-data-intake',
@@ -9,7 +10,6 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit, AfterViewInit {
-  // single: any[] = [];
   fileMissingPastDueData: any[] = [];
   fileMissingPastDueCount: number = 0;
   highPriorityIssuesData: any[] = [];
@@ -20,7 +20,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   dailyMonthlyStatus: boolean = false;
   reviewByGroupDomains: number = 0;
   reviewByGroupProviders: number = 0;
-
+  noFileMissingPastDue = "No missing files, past due at the moment";
+  noHighPriorityIssues = "No high priority issues at the moment";
+  noMediumLowPriority = "No medium / low priority issues at the moment";
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
@@ -28,7 +30,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   innerTabIn: number = 1;
   curDate;
   presentDate;
-  // totalFileCount = 50;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -39,23 +40,23 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   fileSummaries = [];
   fileSummariesObject = [
     {
-      "label": "Received",
+      "label": GlobalConstants.noIssue,
       "value": 0
     },
     {
-      "label": "Medium / low priority issues",
+      "label": GlobalConstants.mediumLowPriority,
       "value": 0
     },
     {
-      "label": "High priority issues",
+      "label": GlobalConstants.highPriorityIssues,
       "value": 0
     },
     {
-      "label": "Missing files, past due",
+      "label": GlobalConstants.missingFilesPastDue,
       "value": 0
     },
     {
-      "label": "Not Received",
+      "label": GlobalConstants.filesNotReceived,
       "value": 0
     }
   ];
@@ -105,7 +106,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.dailyManagedData();
     this.dailyDataProvider();
   }
 
@@ -118,7 +118,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   setColorScheme() {
-    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
@@ -168,10 +167,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyData(status: boolean) {
+    // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
-    // this.dailyManagedData();
     if (this.innerTabIn == 1) {
       this.dailyDataProvider();
     } else {
@@ -180,10 +179,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   monthlyData(status: boolean) {
+    // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
-    // this.monthyManagedData();
     if (this.innerTabIn == 1) {
       this.monthlyDataProvider();
     } else {
@@ -191,128 +190,72 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // dailyManagedData() {
-  //   // Mock API integration for donut chart
-  //   this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
-  //     this.fileSummaries = dataSummuries.data['dataSeries'];
-  //   });
-  // }
-
-  // monthyManagedData() {
-  //   // Mock API integration for donut chart
-  //   this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
-  //     this.fileSummaries = dataSummuries.data['dataSeries'];
-  //   });
-  // }
-
-
-  // getDataProviderList() {
-  //   this.dataManagedService.getDataProviderList().subscribe(data => {
-  //     this.single = data.data['dataSeries'];
-  //     this.totalFileCount = data.data['totalCount'];
-  //   });
-  // }
-
-fileSummeryCompareWithResponse () {
-  const cloneFileSummury = [...this.fileSummariesObject];
-  this.fileSummariesObject.map((v) => {
-    this.dataList.find(data => {
-      if (data.label === v.label) {
-        v.value = data.value;
+  manipulateStatusWithResponse(fetchData: any[]) {
+    // Manipulate fetch-data as per status
+    const cloneFileSummury = [...this.fileSummariesObject];
+    fetchData.find((fData) => {
+      this.fileSummariesObject.map((summaryObject) => {
+        if (fData.label === summaryObject.label) {
+          summaryObject.value = fData.value;
+        }
+      });
+      switch (fData.label) {
+        case GlobalConstants.missingFilesPastDue:
+          this.fileMissingPastDueCount = fData.value;
+          this.fileMissingPastDueData = fData.seriesItemDTO;
+          break;
+        case GlobalConstants.highPriorityIssues:
+          this.highPriorityIssuesCount = fData.value;
+          this.highPriorityIssuesData = fData.seriesItemDTO;
+          break;
+        case GlobalConstants.mediumLowPriority:
+          this.mediumLowPriorityCount = fData.value;
+          this.mediumLowPriorityData = fData.seriesItemDTO;
+          break;
+        default:
       }
     });
-  });
-  this.fileSummaries = this.fileSummariesObject;
-  console.log(cloneFileSummury);
-  this.fileSummariesObject = cloneFileSummury;
-}
+    this.fileSummaries = this.fileSummariesObject;
+    this.fileSummariesObject = cloneFileSummury;
+  }
 
   dailyDataProvider() {
     // Mock API integration for bar chart (Data Providers)
-    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
-      this.dataList = data.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
-      this.fileSummeryCompareWithResponse();
-      this.reviewByGroupDomains = data.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = data.data[0]['dataProvideCount'];
-      Object.entries(this.dataList).forEach(([_, obj]) => {
-        const key = Object.keys(obj)[0];
-        switch (obj[key]) {
-          case 'Not Received':
-            this.fileMissingPastDueCount = obj.value;
-            this.fileMissingPastDueData = obj.seriesItemDTO;
-          case 'Received':
-          // this.highPriorityIssuesCount = obj.value;
-          // this.highPriorityIssuesData = obj.seriesItemDTO;
-        }
-      });
+    this.dataManagedService.getDailyDataProviderList().subscribe(dataProvider => {
+      this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
+      this.manipulateStatusWithResponse(this.dataList);
+      this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
     });
   }
 
   monthlyDataProvider() {
     // Mock API integration for bar chart
-    // this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-    //   this.single = data.data['dataSeries'];
-    //   this.totalFileCount = data.data['totalCount'];
-    // });
-    // Mock API integration for bar chart
-    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-      this.dataList = data.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
-      this.fileSummeryCompareWithResponse();
-      this.reviewByGroupDomains = data.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = data.data[0]['dataProvideCount'];
-      Object.entries(this.dataList).forEach(([_, obj]) => {
-        const key = Object.keys(obj)[0];
-        switch (obj[key]) {
-          case 'Not Received':
-            this.fileMissingPastDueCount = obj.value;
-            this.fileMissingPastDueData = obj.seriesItemDTO;
-          case 'Received':
-          // this.highPriorityIssuesCount = obj.value;
-          // this.highPriorityIssuesData = obj.seriesItemDTO;
-        }
-      });
+    this.dataManagedService.getMonthlyDataProviderList().subscribe(dataProvider => {
+      this.dataList = dataProvider.data[0]['totalSeriesItem'];
+      this.manipulateStatusWithResponse(this.dataList);
+      this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
     });
   }
 
   dailyDataDomain() {
     // Mock API integration for bar chart (Data Domains)
-    this.dataManagedService.getDailyDataDomainList().subscribe(data => {
-      this.dataList = data.data[0]['totalSeriesItem'];
-      this.fileSummeryCompareWithResponse();
-      this.reviewByGroupDomains = data.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = data.data[0]['dataProvideCount'];
-      Object.entries(this.dataList).forEach(([_, obj]) => {
-        const key = Object.keys(obj)[0];
-        switch (obj[key]) {
-          case 'Not Received':
-            this.fileMissingPastDueCount = obj.value;
-            this.fileMissingPastDueData = obj.seriesItemDTO;
-          case 'Received':
-          // this.highPriorityIssuesCount = obj.value;
-          // this.highPriorityIssuesData = obj.seriesItemDTO;
-        }
-      });
+    this.dataManagedService.getDailyDataDomainList().subscribe(dataDomain => {
+      this.dataList = dataDomain.data[0]['totalSeriesItem'];
+      this.manipulateStatusWithResponse(this.dataList);
+      this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
     });
   }
 
   monthlyDataDomain() {
     // Mock API integration for bar chart (Data Domains) 
-    this.dataManagedService.getMonthlyDataDomainList().subscribe(data => {
-      this.dataList = data.data[0]['totalSeriesItem'];
-      this.fileSummeryCompareWithResponse();
-      this.reviewByGroupDomains = data.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = data.data[0]['dataProvideCount'];
-      Object.entries(this.dataList).forEach(([_, obj]) => {
-        const key = Object.keys(obj)[0];
-        switch (obj[key]) {
-          case 'Not Received':
-            this.fileMissingPastDueCount = obj.value;
-            this.fileMissingPastDueData = obj.seriesItemDTO;
-          case 'Received':
-          // this.highPriorityIssuesCount = obj.value;
-          // this.highPriorityIssuesData = obj.seriesItemDTO;
-        }
-      });
+    this.dataManagedService.getMonthlyDataDomainList().subscribe(dataDomain => {
+      this.dataList = dataDomain.data[0]['totalSeriesItem'];
+      this.manipulateStatusWithResponse(this.dataList);
+      this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
     });
   }
 }
