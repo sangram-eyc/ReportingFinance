@@ -70,3 +70,13 @@ export * from './lib/utils/id';
 export * from './lib/utils/color-sets';
 export * from './lib/utils/throttle';
 export * from './lib/utils/visibility-observer';
+
+//Pie Charts
+export * from './lib/pie-chart/pie/pie-chart.module';
+export * from './lib/pie-chart/advanced-pie/advanced-pie-chart.component';
+export * from './lib/pie-chart/pie/pie-chart.component';
+export * from './lib/pie-chart/pie/pie-arc.component';
+export * from './lib/pie-chart/pie-grid/pie-grid.component';
+export * from './lib/pie-chart/pie-grid/pie-grid-series.component';
+export * from './lib/pie-chart/pie/pie-series.component';
+export * from './lib/pie-chart/pie/pie-label.component';

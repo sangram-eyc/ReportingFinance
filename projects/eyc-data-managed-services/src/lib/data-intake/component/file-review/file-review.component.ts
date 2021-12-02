@@ -1,5 +1,5 @@
 import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef } from '@angular/core';
-import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
