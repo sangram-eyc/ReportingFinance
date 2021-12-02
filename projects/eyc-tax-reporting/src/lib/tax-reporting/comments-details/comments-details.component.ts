@@ -58,7 +58,7 @@ export class CommentsDetailsComponent implements OnInit{
    //Donut Setup for OPEN Comments
    donut_id_openedC:string="openedCDonnut"
    donutByOpenedText:string = 'OPEN'
-   donutByOpenedColors: string[] = ["#585860","#FFE600"]
+   donutByOpenedColors: string[] = ["#FF6D00","#FFB46A"]
    totalOpenedCommentsDetails = [];
    totalOpenedComments:number = 0;
 

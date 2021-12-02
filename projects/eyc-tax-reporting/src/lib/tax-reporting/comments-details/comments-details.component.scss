@@ -164,7 +164,7 @@
 
 //Donut style only for opened comments
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
-  content: url('../../../assets/mock/icons/chat-booble-grey.svg');
+  content: url('../../../assets/mock/icons/chat-booble-orange-dark.svg');
   background: transparent !important;
   order: 2;
   width: 31px;
@@ -172,7 +172,7 @@
 }
 
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
-  content: url('../../../assets/mock/icons/chat-booble-yellow.svg');
+  content: url('../../../assets/mock/icons/chat-booble-orange.svg');
   background: transparent !important;
   order: 2;
   width: 31px;

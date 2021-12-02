@@ -14,7 +14,7 @@ export class TaxHorizontalStackedBarChartComponent{
   colors:string[] = [];
   dataValues:any[] = [];
   totalValues:any = 0;
-  emptyMsg= "NO DATA RECEIVED"; 
+  emptyMsg= "NO DATA"; 
   
   @Input() set dataInput(values:any){
      if(values === undefined){
