@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
@@ -8,7 +7,6 @@ import { EycDataApiService } from './eyc-data-api.service';
 })
 export class DataManagedService {
   constructor(
-    private httpClient: HttpClient,
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
   ) { }

@@ -47,7 +47,7 @@
             <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt"
                class="review-all">
                <i class="material-icons icon-size">search</i>
-               <span >Review All</span>
+               <span>Review All</span>
             </a>
          </motif-card>
 
@@ -62,7 +62,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a href="#" motifTextLink color="primary-alt" class="review-all">
+                        <a [routerLink]="['/data-managed-services/data-providers']"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -192,7 +192,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues"> 
+                     <div id="low-priority-issues">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
@@ -336,6 +336,5 @@
 </section>
 <section id='trands-insights' [hidden]="!(tabIn == 2)">
 </section>
-
 <section id='api-catalog' [hidden]="!(tabIn == 3)">
 </section>

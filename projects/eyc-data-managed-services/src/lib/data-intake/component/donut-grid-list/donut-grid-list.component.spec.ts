@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralLedgerComponent } from './general-ledger.component';
+import { DonutGridListComponent } from './donut-grid-list.component';
 
-describe('GeneralLedgerComponent', () => {
-  let component: GeneralLedgerComponent;
-  let fixture: ComponentFixture<GeneralLedgerComponent>;
+describe('DonutGridListComponent', () => {
+  let component: DonutGridListComponent;
+  let fixture: ComponentFixture<DonutGridListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneralLedgerComponent ]
+      declarations: [ DonutGridListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneralLedgerComponent);
+    fixture = TestBed.createComponent(DonutGridListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

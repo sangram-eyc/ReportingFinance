@@ -166,20 +166,9 @@ margin-top: 24px !important;
   }
 }
 
-::ng-deep .donut-chart>svg {
-  width: 180px !important;
-  height: 185px !important;
-}
-
-::ng-deep .donut-chart {
-  width: 180px !important;
-  height: 185px !important;
-  margin: 0 auto;
-}
-
-::ng-deep .donut-summary {
-  width: 17em !important;
-  padding-left: 18px;
+::ng-deep .donut-chart > svg {
+  height: 202px !important;
+  width: 202px !important;
 }
 
 .icon-size {

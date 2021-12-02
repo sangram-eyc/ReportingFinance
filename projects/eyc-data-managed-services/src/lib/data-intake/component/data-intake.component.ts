@@ -28,8 +28,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
+  activeReports: any;
   curDate;
   presentDate;
+  totalFileCount=50;
+  // totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -74,10 +77,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   tooltipDisabled = true;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2 = 'Domain';
+  xAxisLabel2='Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines = false;
+  showXAxisGridLines=false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
