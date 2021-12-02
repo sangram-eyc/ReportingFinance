@@ -221,6 +221,14 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Total entities',
+        field: 'totalFunds',
+        sortable: true,
+        filter: true,
+        minWidth: 180
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.dueDateTemplate,
