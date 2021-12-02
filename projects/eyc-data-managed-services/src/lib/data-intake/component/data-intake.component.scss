@@ -46,6 +46,12 @@
   line-height: 18px;
 }
 
+.space-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
 .eyc-dms-tabs {
   position: relative;
 
@@ -312,27 +318,13 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  color: #000000;
-  justify-content: flex-end;
-  position: relative;
-  top: 7px;
-
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
-
     .motif-button {
       min-height: 30px;
     }
-
-    // .motif-form-field-datepicker-icon {
-    //   top: 1.3rem !important;
-    // }
-
-    // .motif-clear-input {
-    //   top: 1.3rem !important;
-    // }
   }
 }
 
