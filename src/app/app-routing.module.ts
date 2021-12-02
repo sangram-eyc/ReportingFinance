@@ -25,6 +25,7 @@ import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-serv
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
