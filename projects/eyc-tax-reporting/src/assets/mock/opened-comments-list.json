@@ -5,11 +5,11 @@
     "totalOpened": 51,
     "dataSeries": [
       {
-        "label": "Client comments",
+        "label": "Open client comments",
         "value": 31
       },
       {
-        "label": "EY comments",
+        "label": "Open EY comments",
         "value": 20
       }
     ]

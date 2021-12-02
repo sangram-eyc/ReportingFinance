@@ -162,7 +162,7 @@ export class CycleDetailComponent implements OnInit {
       mySelect: [this.productCycleId]
     });  
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
-    this.labelsChart = ['In EY tax preparation', 'Delivered and in client review', 'Approved by client'];
+    this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
     this.widthDivChart = 950;  
   }
 
@@ -484,7 +484,7 @@ getFileSummuries() {
       value: this.openCommentsClientByProductCycle
     },
     {
-      label: "EY comments",
+      label: "Open EY comments",
       value: this.openCommentsEYByProductCycle
     }
   ]
@@ -558,6 +558,7 @@ onClickSecondButton(){
       description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
       important: "Please note that logging out of the application before files are finished processing will cancel this request.",
       question: "Are you sure want to download the selected files?",
+      funds: this.datasetsSelectedRows,
       footer: {
         style: "start",
         YesButton: "Yes",
