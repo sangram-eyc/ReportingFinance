@@ -4,12 +4,12 @@
   "corelationId": "1293081023",
   "data": [
     {
-      "totalCount": 87,
+      "totalCount": 98,
       "dataProvideCount": 3,
-      "dataDomainCount": 7,
+      "dataDomainCount": 6,
       "totalSeriesItem": [
         {
-          "label": "Not Received",
+          "label": "No issue",
           "value": 84,
           "seriesItemDTO": [
             {
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "label": "Received",
+          "label": "Medium / low priority issues",
           "value": 3,
           "seriesItemDTO": [
             {
@@ -49,6 +49,34 @@
             {
               "name": "Entity",
               "value": 1
+            }
+          ]
+        },
+        {
+          "label": "High priority issues",
+          "value": 4,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "label": "Files not received",
+          "value": 6,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 4
             }
           ]
         }

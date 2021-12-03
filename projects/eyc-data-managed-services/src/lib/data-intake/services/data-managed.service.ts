@@ -35,6 +35,25 @@ export class DataManagedService {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider_monthly}`);
   }
 
+  getDailyDataDomainList() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_domain_daily}`);
+  }
+
+  getMonthlyDataDomainList() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_domain_monthly}`);
+  }
+
+  getFilings() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger}`);
+  }
+
+  getDailyGeneralLedgerList(currentPage = 0, noOfRecords = 0) {
+    let currentPageValue = `&currentPage=${currentPage}`;
+    let noOfRecordsValue = `&numRecords=${noOfRecords}`;
+    // After API integration will remove above line and uncomment below line
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger_daily}${currentPageValue}${noOfRecordsValue}`);
+  }
+
   getExceptionReportstable() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_reports_table}`);
   }

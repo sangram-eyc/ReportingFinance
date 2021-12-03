@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
-import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-import { customComparator } from '../../config/rr-config-helper';
+// import { customComparator } from '../../config/rr-config-helper';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -74,7 +73,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DataIntakeService,
-    private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     public permissions: PermissionService,
     private router: Router,
@@ -207,7 +205,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -223,7 +221,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -235,7 +233,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 250
@@ -250,7 +248,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         autoHeight: true,
         width: 250,
         sort: 'asc',
-        comparator: customComparator
+        // comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -323,7 +321,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -335,7 +333,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -347,7 +345,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 150
@@ -562,7 +560,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       console.log(this.exceptionData);
       this.createEntitiesRowData();
       this.exceptionReportRows = [];
-      this.filingService.invokeFilingDetails();
+      // this.filingService.invokeFilingDetails();
       this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       setTimeout(() => {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
