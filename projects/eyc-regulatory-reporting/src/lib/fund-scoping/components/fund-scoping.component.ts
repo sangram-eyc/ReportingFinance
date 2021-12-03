@@ -45,7 +45,7 @@ export class FundScopingComponent implements OnInit {
     data: {
       type: "Confirmation",
       header: "Approve all",
-      description: "Are you sure you want to approve all funds?",
+      description: "Are you sure you want to approve all entities?",
       footer: {
         style: "start",
         YesButton: "Yes",
