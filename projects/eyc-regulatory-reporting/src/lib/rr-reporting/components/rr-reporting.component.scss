@@ -211,3 +211,52 @@
 .view-det-arrow {
     cursor: pointer;
 }
+
+.action-mode {
+    display: block;
+    ::ng-deep  {
+        .motif-icon-content {
+            cursor: pointer;
+            max-width: 110px;
+        }
+        svg {
+            fill: #2E2E38 !important;
+        }
+    }
+}
+.action-mode span{
+    left: 36px;
+    top: -23px;
+    position: relative;
+    cursor: pointer;
+}
+
+.action-menu-modal {
+    ::ng-deep {
+        .motif-modal-content {
+            width: 270px !important;
+            position: relative;
+            margin-right: 30%;
+        }
+        .motif-modal-body {
+            padding: 0px !important;
+            padding-left: 20px !important;
+            padding-top: 20px !important;
+        }
+    }
+} 
+
+
+.motif-card.motif-card.action-menu-card {
+    height: 55px;
+    position: absolute;
+    left: 40px;
+    min-width: 150px;
+    z-index: 9999;
+    display: block;
+    border: 0px;
+    padding: 15px;
+}
+motif-icon.motif-icon.actionCursor {
+    cursor: pointer;
+}

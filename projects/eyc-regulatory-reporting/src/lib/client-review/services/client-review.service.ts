@@ -27,6 +27,10 @@ export class ClientReviewService {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_client_review_filing_entities}`, data);
   }
 
+  unApprovefilingEntities(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.unapprove_filing_entities}`, data);
+  }
+
   approveAnswerExceptions(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_answer_exceptions}`, data);
   }

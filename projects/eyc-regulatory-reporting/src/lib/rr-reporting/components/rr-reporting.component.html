@@ -49,7 +49,7 @@
         </ng-template>
     </section>
 
-    <section id="filingEntities" [hidden]="!(tabs==2)">
+    <section id="filingEntities" [hidden]="!(tabs==2)"  (click)="outsideClick($event)">
         <lib-shared-grid 
             gridStyle="first"
             [columnDefs]="columnDefs" 
@@ -75,9 +75,14 @@
             <div class="dropdownTemplate">
                 <motif-icon class="complete" *ngIf="row.approved == true"
                     [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
-                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
-                    tabindex="0">
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
+                    tabindex="0" (click)="actionMenuEnable(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
+                    <div #actionMenuTemp>
+                        <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
+                            <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove')" (click)="unApproveFiling()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
+                        </motif-card>
+                    </div>
             </div>
         </ng-template>
 
@@ -95,6 +100,9 @@
         <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>
+        <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilingEntities"
+        (close)="showToastAfterUnApproveFilingEntities = !showToastAfterUnApproveFilingEntities">Unapproval successful!
+    </motif-toast>
     </section>
 </div>
 
