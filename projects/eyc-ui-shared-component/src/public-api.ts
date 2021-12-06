@@ -19,3 +19,5 @@ export * from './lib/table-header-renderer/table-header-renderer.component';
 export * from './lib/modal/error-modal/error-modal.component';
 export * from './lib/services/permission.service';
 export * from './lib/shared-helper';
+export * from  './lib/directives/remove-spaces.directive';
+export * from './lib/services/auto-unsubscriber.service';

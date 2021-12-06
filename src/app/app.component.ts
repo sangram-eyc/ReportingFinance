@@ -98,7 +98,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
-      
+          const uname = res;
+          sessionStorage.setItem("userEmail", uname['userEmail']);
+          if (uname) {
+            this.userGivenName = uname['firstName'];
+            this.loginName = uname['firstName'] + ' ' + uname['lastName'];
+          }
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
@@ -123,12 +128,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         if(this.count == 1){
           this.checkTimeOut();
         }
-        const uname = this.oauthservice.getIdentityClaims();
-        sessionStorage.setItem("userEmail", uname['unique_name']);
-        if (uname) {
-          this.userGivenName = uname['given_name'];
-          this.loginName = uname['name'];
-        }
+        
       }
     }, 0);
   }

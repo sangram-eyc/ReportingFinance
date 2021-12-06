@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MotifAvatarModule, MotifButtonModule, MotifModule, MotifFormsModule} from '@ey-xd/ng-motif';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDetailsComponent } from './components/user-details.component';
+import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 
 
 
@@ -15,7 +16,8 @@ import { UserDetailsComponent } from './components/user-details.component';
     MotifAvatarModule,
     MotifButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EycUiSharedComponentModule
   ]
 })
 export class UserDetailsModule { }

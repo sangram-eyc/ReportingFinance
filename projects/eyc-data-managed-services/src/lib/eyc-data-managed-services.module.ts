@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { MotifTooltipModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifDropdownModule } from '@ey-xd/ng-motif';
 import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
 import { DataIntakeComponent } from './data-intake/component/data-intake.component';
@@ -28,7 +27,6 @@ import { DonutGridListComponent } from './data-intake/component/donut-grid-list/
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
-    RouterModule,
     MotifTooltipModule,
     MotifCardModule,
     MotifButtonModule,

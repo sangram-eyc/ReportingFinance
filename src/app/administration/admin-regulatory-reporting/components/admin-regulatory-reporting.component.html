@@ -5,10 +5,10 @@
 </div>
 
 <motif-tab-bar>
-    <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn === 1 ? 'motif-active' : ''">Teams</button>
-    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn === 2 ? 'motif-active' : ''">Users</button>
-    <!-- <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn === 3 ? 'motif-active' : ''">Filings</button> -->
-    <button motifButton *ngIf="this.moduleLevelPermission.checkPermission('All')" (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn === 4 ? 'motif-active' : ''">Admin</button>
+    <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Teams</button>
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
+    <!-- <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button> -->
+    <button motifButton *ngIf="this.moduleLevelPermission.checkPermission('All')" (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn == 4 ? 'motif-active' : ''">Admin</button>
 </motif-tab-bar>
 
 <app-users *ngIf="tabIn == 2"></app-users>
@@ -46,7 +46,7 @@
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Team name (Required)</label>
-                  <input motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" />
+                  <input libRemoveSpaces motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" ngDefaultControl/>
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
                                     addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
@@ -66,7 +66,7 @@
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
                   <label motifLabel class="select-label">Role (Required)</label>
-                  <motif-select aria-label="Please select an option" formControlName="role">
+                  <motif-select aria-label="Please select an option"  formControlName="role" ngDefaultControl>
                     <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
                   </motif-select>
                   <motif-error *ngIf="
@@ -89,7 +89,7 @@
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Description (Optional)</label>
-                  <textarea motifInput class="motif-textarea" formControlName="description"></textarea>
+                  <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="description"></textarea>
                   <motif-error *ngIf="
                                     addTeamForm.get('description').hasError('maxlength')">Description can be max 250
                     characters long

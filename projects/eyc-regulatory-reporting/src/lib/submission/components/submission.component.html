@@ -18,7 +18,7 @@
         headerCheckboxSelection: isFirstColumn,
         checkboxSelection: isFirstColumn}" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
-                (rowSelected)="onRowSelected()"></motif-table>
+                (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div> 
     </section>
 </div>
