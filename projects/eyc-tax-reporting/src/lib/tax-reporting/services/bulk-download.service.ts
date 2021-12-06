@@ -12,8 +12,7 @@ export class BulkDownloadService {
   bulkDownloadFirstCall(data:any){
 
     if(this.settingsService.production){    
-      //return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.bulk_download_service1}`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.bulk_download_service1}`);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReporting.bulk_download_service1}`, data);    
     }
     else{
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.bulk_download_service1}`);
