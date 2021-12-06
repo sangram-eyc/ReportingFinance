@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { Location } from '@angular/common';
@@ -13,6 +13,7 @@ import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import {InformationBarChartModalComponent} from '../information-bar-chart-modal/information-bar-chart-modal.component'
 import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download-modal.component'
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
+import {SettingsService} from '../../../../../../src/app/services/settings.service'
 
 @Component({
   selector: 'cycle-details',
@@ -20,12 +21,38 @@ import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-com
   styleUrls: ['./cycle-details.component.scss']
 })
 export class CycleDetailComponent implements OnInit {
+
+  public openDocumentSaveDialog(): void {
+    const documentSaveDialogRef = this.dialog.open(BulkDownloadModalComponent, {
+      id: 'bulk-modal',
+      width: '600px',
+      data: {
+        header: "Warning" ,
+        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+        important: "Please note that if you attempt to log out while the download is in progress, it will cancel the request and the download would not complete",
+        question: "Are you sure want to cancel the request?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+
+    documentSaveDialogRef.afterClosed().subscribe(result => {
+        if(!result)
+           window.close()
+    });
+}
+
+
+
   constructor(
     private productcyclesService: ProductionCycleService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-
+    private settingservice:SettingsService,
     private router: Router,
     public permissions: PermissionService,
     private fb: FormBuilder
@@ -640,11 +667,23 @@ getMoreDetailsPage(){
   this.router.navigate(['comments-details',this.productCycleId,this.productCycleName]);
 }
 
+removeEvCloseSession(e: Event) {
+  e.stopPropagation();
+}
+
+
+logoute(event){
+  //  event.preventDefault();
+  //  event.returnValue = '';
+}
+
 onClickSecondButton(){
   let fundsSelected = this.datasetsSelectedRows.length;
   const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
     id: 'bulk-modal',
     width: '600px',
+    disableClose: true,
+    hasBackdrop:true,
     data: {
       header: "Download (" + fundsSelected + " selected)" ,
       description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
@@ -658,8 +697,51 @@ onClickSecondButton(){
       }
     }
   });
+  
+  dialogRef.beforeClosed().subscribe(result => {
+    if (result.button === "Yes") {
+      console.log('YES')
+      document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.removeEvCloseSession, true)
+      document.querySelector('#user-info .singn-out motif-icon').addEventListener("click",this.warningMessage.bind(this), true)
+      // window.addEventListener('beforeunload',this.logoute,true); 
+    } 
+  });
+  
+  dialogRef.componentInstance.bulkprocesed.subscribe(result => {
+    console.log('Finalizo el bulk download:', result);
+    // window.removeEventListener('beforeunload',this.logoute,true);
+    document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
+    document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click",this.warningMessage.bind(this), true)
+ });
 }
 
+
+warningMessage(e: Event):void {
+    const dialogConfirm = this.dialog.open(BulkDownloadModalComponent, {
+      width: '600px',
+      height: '200px',
+      data: {
+        header: "Download ",
+        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+        important: "Please note that logging out of the application before files are finished processing will cancel this request.",
+        question: "Are you sure want to cancel the request?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No",
+          cancelOption:"true"
+        }
+      }
+    }); 
+
+    dialogConfirm.beforeClosed().subscribe(result => {
+      if (result.button === "Yes") {
+        console.log('YES CLOSED SESSION')
+        this.settingservice.logoff();
+        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+      } 
+    });
+  }
 }
 
 
