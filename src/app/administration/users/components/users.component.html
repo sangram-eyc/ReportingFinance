@@ -87,7 +87,7 @@
         <div class="motif-col-xs-4 motif-col-lg-12">
           <motif-form-field>
             <label motifLabel>Email (Required)</label>
-            <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="email" />
+            <input  motifInput type="text" aria-label="Email Form Field" formControlName="email" />
             <motif-error *ngIf="
                         addUserForm.get('email').hasError('required') &&
                         addUserForm.get('email').touched">Please provide an email!</motif-error>

@@ -4,11 +4,12 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[libRemoveSpaces]'
 })
 export class RemoveSpacesDirective {
-  timeout: any;
 
-  constructor(private eleRef: ElementRef) {}
-   
-  @HostListener('input',['$event']) keyup(event){
+  timeout: any;
+  constructor(private eleRef: ElementRef) {
+  }
+
+  @HostListener('input') keyup(){
     clearTimeout(this.timeout);
     let string = this.eleRef.nativeElement.value
     this.timeout = setTimeout(()=>{
@@ -16,7 +17,7 @@ export class RemoveSpacesDirective {
     },1000)
   }
 
-  @HostListener('blur') focusout(event){
+  @HostListener('blur') focusout(){
     let string = this.eleRef.nativeElement.value
     this.eleRef.nativeElement.value = string.trim();
   }
