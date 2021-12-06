@@ -204,6 +204,16 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         autoHeight: true,
         comparator: customComparator
       },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Filing period',
+        field: 'period',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        minWidth: 300,
+        comparator: customComparator
+      },
 
       // Change for User story 288907 and keep this commented code for future US requirement -->
 
