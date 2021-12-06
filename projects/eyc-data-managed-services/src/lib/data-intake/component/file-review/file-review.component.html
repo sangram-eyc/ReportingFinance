@@ -54,8 +54,7 @@
       <!-- Card Files Review Start -->
       <motif-card class="donut-chart-card no_data">
          <!-- Donut chart integration -->
-          <!-- Donut chart integration -->
-         <!-- <lib-donut-chart id="donutchart" 
+         <lib-donut-chart id="donutchart" 
             [data]="fileSummaries"
             legendTextSliceNumber=23
             width=155 
@@ -66,20 +65,7 @@
             svgTranslateRight=90
             totalFilesText="TOTAL FILES"
             totalExpected="EXPECTED"> 
-         </lib-donut-chart> -->
-         <eyc-charts-pie-chart *ngIf="chartType === 'pie-chart'"  
-         [view]="view" 
-         doughnut="yes" 
-         [results]="pieData" 
-         class="chart-container"
-         [scheme]="colorScheme"
-         animations="false"
-         explodeSlices="false"
-         arcWidth="0.25"
-         gradient="false"
-         tooltipDisabled="true"
-         >
-         </eyc-charts-pie-chart>
+         </lib-donut-chart>
       </motif-card>
 
       <!-- end  -->
