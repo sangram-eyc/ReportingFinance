@@ -8,9 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent, fileUploadHeading, PermissionService } from 'eyc-ui-shared-component';
 import { AssignUsersModalComponent } from '../assign-users-modal/assign-users-modal.component'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApproveFundModalComponent} from '../approve-fund-modal/approve-fund-modal.component';
 import { LegendPosition,colorSets } from 'eyc-charts-shared-library';
 import {InformationBarChartModalComponent} from '../information-bar-chart-modal/information-bar-chart-modal.component'
 import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download-modal.component'
+import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 
 @Component({
   selector: 'cycle-details',
@@ -447,6 +449,96 @@ addUsersToFund(_id: any) {
       console.log('result afterClosed', result);
     }
   });
+}
+
+approveFund(_id: any) {
+  const dialogRef = this.dialog.open(ApproveFundModalComponent, {
+    id: 'approve-fund-modal',
+    width: '550px',
+    data: {
+      header: "Approve Fund",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('add-user-modal was closed', result);
+    if (result.button === "Continue") {
+      const body = {
+        "status": "approved",
+        "fundIds": _id
+      }
+      console.log("body: ", body);
+      this.productcyclesService.putApproveEntities(body).subscribe(resp => {
+        console.log(resp);
+        this.toastSuccessMessage = "Fund approved successfully";
+        this.showToastAfterSubmit = true;
+        setTimeout(() => {
+          console.log(resp);
+        }, 5000);
+      });
+      this.showToastAfterSubmit = false;
+      console.log('row data submit-->', this.rowData)
+      this.getCompletedProductCyclesData(this.productCycleId);
+    }
+  });
+}
+
+addCommentToFund(_id: any, _name: string) {
+  const dialogRef = this.dialog.open(TaxCommentModalComponent, {
+    width: '700px',
+    data: {
+      type: "ConfirmationTextUpload",
+      header: "New comment",
+      description: ``,
+      entityId: _id,
+      entityType: "funds",
+      forms: {
+        isSelect: true,
+        selectDetails: {
+          label: "Scope",
+          formControl: 'assignTo',
+          type: "select",
+          data: [
+            { name: _name, id: '1' },
+          ]
+        },
+        isTextarea: true,
+        textareaDetails: {
+          label: "Comment (required)",
+          formControl: 'comment',
+          type: "textarea",
+          validation: true,
+          validationMessage: "Comment is required"
+        }
+      },
+      footer: {
+        style: "start",
+        YesButton: "Post",
+        NoButton: "Cancel"
+      }
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed', result);
+    if (result.button === "Post") {
+      //Refresh comments Submit
+      this.toastSuccessMessage = "Comment added successfully";
+      this.showToastAfterSubmit = true;
+      setTimeout(() => {
+        this.showToastAfterSubmit = false;       
+      }, 4000); 
+      this.getCompletedProductCyclesData(this.productCycleId)
+    } else {
+      console.log('result afterClosed', result);
+    }
+  });
+
 }
 
 closeToast() {
