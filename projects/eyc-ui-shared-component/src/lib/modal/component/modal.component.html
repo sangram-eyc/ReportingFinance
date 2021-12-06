@@ -22,7 +22,7 @@
 
             <motif-form-field id="motif-textarea">
                 <label motifLabel>{{modalDetails.forms.textareaDetails.label}}</label>
-                <textarea motifInput class="motif-textarea" formControlName="comment"></textarea>
+                <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="comment"></textarea>
             </motif-form-field>
             <motif-error *ngIf="
         modalForm.get('comment').hasError('required') &&

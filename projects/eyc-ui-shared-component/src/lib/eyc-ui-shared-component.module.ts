@@ -11,11 +11,10 @@ import { TableHeaderRendererComponent } from './table-header-renderer/table-head
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CommonModule } from '@angular/common';
 import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.module';
-import { RemoveSpacesDirective } from './directives/remove-spaces.directive';
 
 
 @NgModule({
-  declarations: [TableHeaderRendererComponent, RemoveSpacesDirective],
+  declarations: [TableHeaderRendererComponent],
   imports: [
     ModalModule,
     MotifButtonModule,
@@ -36,8 +35,7 @@ import { RemoveSpacesDirective } from './directives/remove-spaces.directive';
     GridModule,
     CommentSideMenuModule,
     IntakeFilesModule,
-    TableHeaderRendererComponent,
-    RemoveSpacesDirective
+    TableHeaderRendererComponent
   ]
 })
 export class EycUiSharedComponentModule { }
