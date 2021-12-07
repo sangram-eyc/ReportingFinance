@@ -117,7 +117,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
       this.setStatus();
-      this.eycRRSettingSvc.setStatusGlobal(this.states);
+     // this.eycRRSettingSvc.setStatusGlobal(this.states);
 
       let cmpSt = res['data'].find(item => item.progress !== 'completed');
       if (cmpSt) {
@@ -198,7 +198,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
       this.setStatus();
-      this.eycRRSettingSvc.setStatusGlobal(this.states);
+     // this.eycRRSettingSvc.setStatusGlobal(this.states);
   }
 
   progressSort(a, b) {
