@@ -574,10 +574,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   actionMenuEnable(row) {
     this.selectedEntityId = row.entityId;
-    this.actionMenuModal = true;
     setTimeout(() => {
       this.actionMenuModalEnabled = true;
-    }, 100);
+      this.actionMenuModal = true;
+    }, 1);
   }
 
   unApproveFiling(){
@@ -587,7 +587,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       data: {
         type: "Confirmation",
         header: "Unapprove",
-        description: "Are you sure you want to unapprove this entity? This will move back to the previous reviewer/stop",
+        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
         footer: {
           style: "start",
           YesButton: "Continue",
@@ -625,6 +625,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.showToastAfterUnApproveFilingEntities = !this.showToastAfterUnApproveFilingEntities;
           }, 5000);
+        },error=>{
+          this.rowData = tempRowData;
+          this.createEntitiesRowData();
         });
 
       }
