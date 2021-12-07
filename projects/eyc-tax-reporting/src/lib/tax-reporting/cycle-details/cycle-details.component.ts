@@ -495,20 +495,22 @@ approveFund(_id: any) {
   dialogRef.afterClosed().subscribe(result => {
     console.log('add-user-modal was closed', result);
     if (result.button === "Continue") {
+      let funds = [];
+      funds.push(_id);
       const body = {
         "status": "approved",
-        "fundIds": _id
+        "fundIds": funds
       }
-      console.log("body: ", body);
+      console.log("body: ", body.fundIds);
       this.productcyclesService.putApproveEntities(body).subscribe(resp => {
         console.log(resp);
         this.toastSuccessMessage = "Fund approved successfully";
         this.showToastAfterSubmit = true;
         setTimeout(() => {
+          this.showToastAfterSubmit = false;
           console.log(resp);
         }, 5000);
       });
-      this.showToastAfterSubmit = false;
       console.log('row data submit-->', this.rowData)
       this.getCompletedProductCyclesData(this.productCycleId);
     }
