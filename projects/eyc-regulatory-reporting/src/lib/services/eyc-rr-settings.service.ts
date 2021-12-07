@@ -58,7 +58,7 @@ export class EycRrSettingsService {
 
     return regulatory_Reporting;
   }
-
+  filingStates = [];
   setSessionToken = (value,sesssion_id,encrypt_key) => {
     const key = CryptoJS.enc.Utf8.parse(sesssion_id);
     const iv = CryptoJS.enc.Utf8.parse(encrypt_key);
@@ -91,5 +91,28 @@ deleteSessionKey = (session_Key): void => {
       sessionStorage.removeItem(session_Key);
 };
   
+setStatusGlobal(states:any) {
+  this.filingStates = states;
+  this.filingStates.forEach(state => {
+    if (state.progress === 'In Progress' || state.progress === 'in-progress' || state.progress === 'IN_PROGRESS') {
+      state.progress = "in-progress";
+      state.disabled = false;
+    } else if ((state.progress === 'Completed' || state.progress === 'completed' || state.progress === 'COMPLETED')) {
+      state.progress = 'completed';
+      state.disabled = true;
+    } else {
+      state.progress = 'not-set';
+      state.disabled = true;
+    }
+  });
+}
+
+getStatusGlobal(index:number): string | null {
+  return this.filingStates[4].progress;
+}
+
+getStatusFiling(): string | null {
+  return this.filingStates[4].progress;
+}
     
 }
