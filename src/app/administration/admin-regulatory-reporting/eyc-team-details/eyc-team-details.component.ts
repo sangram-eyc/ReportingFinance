@@ -218,7 +218,7 @@ export class EycTeamDetailsComponent implements OnInit {
       const team = {
         "teamName": obj.teamName.trim(),
         "roleName": obj.role,
-        "teamDescription": escape(obj.teamDescription),
+        "teamDescription": escape(obj.teamDescription.trim()),
         "moduleId": this.moduleId,
         "teamId": this.curentTeamId
       }
