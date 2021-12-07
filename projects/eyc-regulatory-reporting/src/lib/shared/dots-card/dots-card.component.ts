@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { PermissionService } from 'eyc-ui-shared-component';
+import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 
 @Component({
   selector: 'lib-dots-card',
@@ -30,13 +31,13 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     public router: Router,
     private filingService: RegulatoryReportingFilingService,
-    private permissions: PermissionService
+    private permissions: PermissionService,
+    private eycRRSettingSvc:EycRrSettingsService
   ) { }
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
       this.dueDate = this.filingService.getFilingData.dueDate;
-      // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
@@ -53,8 +54,6 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
 
   formatDate() {
     let due = new Date(this.dueDate);
-    // console.log(due);
-    // console.log(this.dueDate);
     const newdate= ('0' + (due.getMonth() + 1)).slice(-2) + '/'
     + ('0' + due.getDate()).slice(-2) + '/'
     + due.getFullYear();
@@ -118,6 +117,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
       this.setStatus();
+      this.eycRRSettingSvc.setStatusGlobal(this.states);
 
       let cmpSt = res['data'].find(item => item.progress !== 'completed');
       if (cmpSt) {
@@ -198,6 +198,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
       this.setStatus();
+      this.eycRRSettingSvc.setStatusGlobal(this.states);
   }
 
   progressSort(a, b) {

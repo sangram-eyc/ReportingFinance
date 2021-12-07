@@ -1,9 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubmissionService } from '../../submission/services/submission.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
-// import { SharedDownloadService } from './../../../../../eyc-ui-shared-component/src/lib/download/services/shared-download.service'
 import {customComparator} from '../../config/rr-config-helper';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
@@ -58,7 +57,7 @@ export class SubmissionComponent implements OnInit {
       const thisIsFirstColumn = (displayedColumns[0] === params.column);
       return thisIsFirstColumn;
     } else {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.length === 0);
+      const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData?.length === 0);
       return thisIsFirstColumn;
     }
   }
@@ -72,7 +71,7 @@ export class SubmissionComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
-            // ngTemplate: this.dropdownTemplate,
+          
           },
           field: 'template',
           headerName: '',
@@ -102,20 +101,6 @@ export class SubmissionComponent implements OnInit {
     this.selectedRows = this.gridApi.getSelectedRows();
   }
 
-  
-
-  
-
-  /* donwloadFilesOnSelected(emitiedFiles) {
-    
-    emitiedFiles.forEach((item) => {
-      this.selectedFiles.push(item['fileName']);
-    })
-    this.service.downloadXMl(this.selectedFiles, this.filingName, this.period).subscribe((res: any) => {
-    this.sharedDownloadService.downloadAttachments(res.message, res.data);
-    });
-  } */
-
   approveSelected() {
     this.slectedFiles = [];
     const formData: any = new FormData();
@@ -127,7 +112,6 @@ export class SubmissionComponent implements OnInit {
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
       this.downloadMsg = res.message;
-      // console.log('download msg > ', this.downloadMsg);
       this.showToastAfterDownload = !this.showToastAfterDownload;
       this.downloadFilesRes.forEach((item: any) => {
         const data = this.base64ToBlob(item.file);
