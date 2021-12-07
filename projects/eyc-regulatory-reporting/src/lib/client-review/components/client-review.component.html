@@ -18,12 +18,12 @@
 
 
         <ng-template #commentExceptionTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('Client Review', 'View Comments') && (filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+            <div *ngIf="row.comments!==0 && permissions.validatePermission('Client Review', 'View Comments') "
                 class="comments-background" (click)="openComments(row)">
                 {{row.comments}}
             </div>
             <div class="commentTemplate"
-                *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments')">
+                *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
@@ -87,7 +87,7 @@
                 {{row.commentsCount}}
             </div>
             <div class="commentTemplate"
-                *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments')">
+                *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span
                             class="plus">+</span></motif-icon>
@@ -109,5 +109,5 @@
 
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName"
-    [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
-    (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+    [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"   [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+    (commentAddedEmitter)="commentAdded()" ></lib-comment-side-menu>

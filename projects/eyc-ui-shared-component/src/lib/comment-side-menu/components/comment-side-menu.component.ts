@@ -20,6 +20,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   @Input() entityId;
   @Input() entityType;
   @Input() permissionToAddComment = true;
+  @Input() filingStatus = true;
 
 
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
