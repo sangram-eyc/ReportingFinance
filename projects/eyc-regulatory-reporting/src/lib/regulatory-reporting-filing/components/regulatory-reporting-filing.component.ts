@@ -59,6 +59,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   filingNameTemplate: TemplateRef<any>;
   @ViewChild('dueDateTemplate')
   dueDateTemplate: TemplateRef<any>;
+  @ViewChild('completedDateTemplate')
+  completedDateTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -170,7 +172,9 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         totalFunds: filing.totalFunds,
         subDate: '-',
         exceptions: 0,
-        resolved: 0
+        resolved: 0,
+        completedDate : filing.completedDate,
+        completedBy:filing.completedBy
       })
     });
     this.columnDefs = [
@@ -257,6 +261,26 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         filter: true,
         minWidth: 180
       },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.completedDateTemplate,
+        },
+        headerName: 'Date marked complete',
+        field:'completedDate',
+        sortable: true,
+        filter:true,
+        minWidth: 300
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Marked completed by',
+        field:'completedBy',
+        sortable: true,
+        filter:true,
+        minWidth: 300
+      }
 
       // Change for User story 288907 and keep this commented code for future US requirement -->
       // {
