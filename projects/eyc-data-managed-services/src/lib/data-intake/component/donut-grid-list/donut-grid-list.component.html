@@ -1,0 +1,103 @@
+<div class="motif-row">
+    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
+        <div class="mt-3">
+            <motif-breadcrumb maxItems=3>
+                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='data-managed-services'>
+                </motif-breadcrumb-item>
+                <motif-breadcrumb-item breadcrumbValue='Data Providers'
+                    breadcrumbLink='/data-managed-services/data-providers' active="active">
+                </motif-breadcrumb-item>
+            </motif-breadcrumb>
+        </div>
+    </div>
+</div>
+<div class="motif-row">
+    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
+        <div class="space-between boder-b">
+            <div class="mt-3 mb-3 bx">
+                <h1>16 Data Providers</h1>
+            </div>
+            <div class="mt-3 mb-3 dateWrapper">
+                <div class="bx">
+                    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'"
+                        (click)="dateSub(presentDate)">
+                    </motif-icon>
+                    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                        (click)="dateAdd(presentDate)">
+                    </motif-icon>
+                </div>
+                <div>{{ curDate }}</div>
+                <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>
+                <div class="bx">
+                    <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
+                    <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="motif-row">
+    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-9 motif-col-lg-9 motif-col-xl-9">
+        <div class="chip-container">
+            <div class="left-div">Fast Filters: </div>
+            <motif-chip-group>
+                <motif-chip [removeable]="false" variant="monochrome-dark">All (16)</motif-chip>
+                <motif-chip [removeable]="false" variant="monochrome-dark">Issues (3)</motif-chip>
+                <motif-chip [removeable]="false" variant="monochrome-dark">Missing, past due (1)</motif-chip>
+            </motif-chip-group>
+        </div>
+    </div>
+    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3 mt-3 mb-3">
+        <motif-form-field class="search-bar">
+            <input #activeReports motifInput motifSearch type="text" placeholder="   Search..." aria-label="Search">
+        </motif-form-field>
+    </div>
+</div>
+<div class="motif-row">
+    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
+        <motif-card class="chart-card no_data">
+            <motif-card-body>
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <div>Statestreet <span class="file-count">24 Files</span></div>
+                        <div class="bx">
+                            <div class="mr-2 warning-info">
+                                <i class="material-icons p-0">ic_info</i>
+                             </div>
+                            <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <!-- donut chart placeholder  -->
+                        <div class="chart-container">
+                            <div class="pie-chart">
+                                <eyc-charts-pie-chart doughnut="yes" [view]="view" [results]="pieData"
+                                    [scheme]="colorSchemeAll" animations="true" explodeSlices="false" arcWidth="0.50"
+                                    gradient="false" tooltipDisabled="true" [legend]="showLegend"
+                                    [legendTitle]="legendTitle" [legendPosition]="legendPosition">
+                                </eyc-charts-pie-chart>
+                            </div>
+
+                            <div class="pie-legend">
+                                <ul>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div> <div>2 No Issues</div> </li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div> <div>2 Medium/Low priority issues</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div> <div>12 High priority issues</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div> <div>4 Missing, past due</div></li>
+                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div> <div>4 Files not received</div></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- donut chart End  -->
+                    </div>
+                </div>
+
+                
+            </motif-card-body>
+        </motif-card>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+{
+    "success": true,
+    "message": "success",
+    "data": {
+        "totalCount": 50,
+        "dataseries": [
+            {
+                "name": "Statestreet",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 3000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 2500,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 2500,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 2600,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 1006,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "Data H",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 2000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 1000,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 1000,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3093,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 1376,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "South Gate",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 3000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 1300,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 1100,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3000,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 2300,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "BNYM",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 2000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 2400,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 1700,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3100,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 2400,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "Bluming",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 2300,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 2200,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 1400,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3000,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 1200,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "JP Morgan",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 4000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 2000,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 1500,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3693,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 1476,
+                        "status":"No issues"
+                    }
+                ]
+            },
+            {
+                "name": "Tata",
+                "series": [
+                    {
+                        "name": "Files not received",
+                        "value": 1000,
+                        "status":"Files not received"
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 1500,
+                        "status":"Missing files, past due"
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 2000,
+                        "status":"High priority issues"
+                    },
+                    {
+                        "name": "Medium / low priority issues",
+                        "value": 3693,
+                        "status":"Medium / low priority issues"
+                    },
+                    {
+                        "name": "No issues",
+                        "value": 4476,
+                        "status":"No issues"
+                    }
+                ]
+            }
+        ]
+    }
+}

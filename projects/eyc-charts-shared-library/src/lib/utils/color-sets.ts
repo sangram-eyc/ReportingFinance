@@ -31,5 +31,13 @@ export let colorSets: Color[] = [
     domain: [
       '#42C9C2'
     ]
+  },
+  {
+    name: 'all',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: [
+      '#57E188','#42C9C2','#FF9831','#FF736A','#E7E7EA'
+    ]
   }
 ];
