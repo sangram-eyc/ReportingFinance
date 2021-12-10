@@ -86,7 +86,7 @@
                 </div>
                 <div #actionMenuTemp *ngIf='tabs==1'>
                     <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove')" (click)="unApproveException()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')" (click)="unApproveException()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
                     </motif-card>
                 </div>
 
