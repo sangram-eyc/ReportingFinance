@@ -7,6 +7,11 @@
         (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
     </motif-toast>
 
+    <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilings"
+        (close)="showToastAfterUnApproveFilings = !showToastAfterUnApproveFilings">Unapproval
+        successful!
+    </motif-toast>
+
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
@@ -69,16 +74,26 @@
                 <motif-icon *ngIf='tabs==1' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforException(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
-                    <div #actionMenuTemp *ngIf='tabs==2'>
-                        <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                            <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')" (click)="unApproveEntity()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
-                        </motif-card>
-                    </div>
-                    <div #actionMenuTemp *ngIf='tabs==1'>
-                        <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
-                            <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')" (click)="unApproveException()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
-                        </motif-card>
-                    </div>
+                <div #actionMenuTemp *ngIf='tabs==2'>
+                    <motif-card class="action-menu-card"
+                        *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                            (click)="unApproveEntity()" class="action-mode">
+                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
+                            <span>Unapprove</span>
+                        </div>
+                    </motif-card>
+                </div>
+                <div #actionMenuTemp *ngIf='tabs==1'>
+                    <motif-card class="action-menu-card"
+                        *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                            (click)="unApproveException()" class="action-mode">
+                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
+                            <span>Unapprove</span>
+                        </div>
+                    </motif-card>
+                </div>
             </div>
         </ng-template>
 
@@ -99,13 +114,10 @@
         <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>
-        <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilings"
-            (close)="showToastAfterUnApproveFilings = !showToastAfterUnApproveFilings">Unapproval
-            successful!
-        </motif-toast>
     </section>
 </div>
 
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
-    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Reporting', 'Add Comments')" [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Reporting', 'Add Comments')"
+    [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
     (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>

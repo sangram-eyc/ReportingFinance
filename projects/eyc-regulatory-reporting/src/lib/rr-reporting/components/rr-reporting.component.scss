@@ -248,15 +248,32 @@
 
 
 .motif-card.motif-card.action-menu-card {
-    height: 55px;
+    height: 45px;
     position: absolute;
-    left: 40px;
+    left: 25px;
     min-width: 150px;
     z-index: 9999;
     display: block;
     border: 0px;
-    padding: 15px;
-    top: 32px;
+    padding: 10px;
+    top: 45px;
+    box-shadow: var(--dropdown-box-shadow);
+}
+
+.motif-card.motif-card.action-menu-card:hover {
+    box-shadow: var(--dropdown-box-shadow) !important;
+}
+
+.motif-card.motif-card.action-menu-card::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: var(--dropdown-bg-color);
+    transform: rotate(-45deg);
+    clip: rect(-16px, 16px, 13px, 3px);
+    top: -6px;
 }
 motif-icon.motif-icon.actionCursor {
     cursor: pointer;
