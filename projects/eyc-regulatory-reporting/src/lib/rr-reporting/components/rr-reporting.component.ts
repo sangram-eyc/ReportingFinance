@@ -600,20 +600,23 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     
   }
 
-  actionMenuEnable(row) {
-  
-    if(row.exceptionId) {
-      this.selectedExceptionId = row.exceptionId;
-    } else {
-      this.selectedEntityId = row.entityId;
-    }
-
-    setTimeout(() => {
-      this.actionMenuModalEnabled = true;
-      this.actionMenuModal = true;
-    }, 1);
-
+  actionMenuEnableforEntity(row) {
+    console.log('Reporting > unapprove > entity');
+    this.selectedEntityId = row.entityId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
   }
+
+actionMenuEnableforException(row) {
+  console.log('Reporting > unapprove > exception');
+    this.selectedExceptionId = row.exceptionId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
+}
 
   unApproveEntity(){
     this.actionMenuModal = false;
