@@ -159,7 +159,7 @@ export class CycleDetailComponent implements OnInit {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
+      description: "Are you sure that you want to approve this workbook deliverables? This indicates that you have no further comments.",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -238,6 +238,7 @@ export class CycleDetailComponent implements OnInit {
 
   isToggleLeftDisabled() {
     if (this.completedFunds.length > 0) {
+      console.log("isToogleDisa: " + this.completedFunds.length)
       //if have at less one assigned the button is enabled so return false.
       for (let fund of this.completedFunds) {
         if (fund.assignedTo.length > 0) this.disabledLeftToggle = false
@@ -433,8 +434,11 @@ export class CycleDetailComponent implements OnInit {
     }
     console.log("body: ", body.fundIds);
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
+      this.toastSuccessMessage = "Fund approved successfully";
+      this.showToastAfterSubmit = true;
       console.log(resp);
       setTimeout(() => {
+        this.showToastAfterSubmit = false;
         console.log(resp);
       }, 5000);
     });
