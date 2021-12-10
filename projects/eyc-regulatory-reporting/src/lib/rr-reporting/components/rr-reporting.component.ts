@@ -30,13 +30,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   entityId;
   selectedRows = [];
   selectedEntities = [];
+  selectedExceptionIds = [];
   exceptionReportRows;
   approveFilingEntitiesModal = false;
   actionMenuModal = false;
   actionMenuModalEnabled = false;
   showToastAfterApproveFilingEntities = false;
   showToastAfterApproveExceptionReports = false;
-  showToastAfterUnApproveFilingEntities = false;
+  showToastAfterUnApproveFilings = false;
   modalMessage:any;
   showComments = false;
   commentsData;
@@ -50,6 +51,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   filingDetails: any;
   submitEntities: any;
   selectedEntityId;
+  selectedExceptionId;
   @ViewChild('actionMenuTemp', { static: false }) actionMenuCard: ElementRef;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -599,14 +601,20 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   actionMenuEnable(row) {
-    this.selectedEntityId = row.entityId;
     setTimeout(() => {
       this.actionMenuModalEnabled = true;
       this.actionMenuModal = true;
     }, 1);
+
+    if(row.exceptionId) {
+      this.selectedExceptionId = row.exceptionId;
+    } else {
+      this.selectedEntityId = row.entityId;
+    }
+
   }
 
-  unApproveFiling(){
+  unApproveEntity(){
     this.actionMenuModal = false;
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
@@ -647,9 +655,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           this.createEntitiesRowData();
           this.selectedRows = [];
           this.filingService.invokeFilingDetails();
-          this.showToastAfterUnApproveFilingEntities = !this.showToastAfterUnApproveFilingEntities;
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           setTimeout(() => {
-            this.showToastAfterUnApproveFilingEntities = !this.showToastAfterUnApproveFilingEntities;
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           }, 5000);
         },error=>{
           this.rowData = tempRowData;
@@ -662,6 +670,60 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     
   }
 
+  unApproveException(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedExceptionIds = [];
+        this.selectedExceptionIds.push(this.selectedExceptionId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+        "entityType": "Answer Exception Report",
+        "entities":  this.selectedExceptionIds,
+        "filingName": this.filingDetails.filingName,
+        "period": this.filingDetails.period,
+        "stage": "Reporting"
+        };
+
+        let tempRowData = this.exceptionData;
+        this.exceptionData = [];
+        this.rrservice.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
+          res['data'].forEach(ele => {
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+          });
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+          this.exceptionReportRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
 
   commentAdded() {
     if (this.tabs==2) {

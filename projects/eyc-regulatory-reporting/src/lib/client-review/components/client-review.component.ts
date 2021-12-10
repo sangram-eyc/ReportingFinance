@@ -31,13 +31,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   entityId;
   selectedRows = [];
   selectedEntities = [];
+  selectedExceptionIds = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
   showToastAfterApproveExceptionReports = false;
-  showToastAfterUnApproveFilingEntities = false;
+  showToastAfterUnApproveFilings = false;
   actionMenuModal = false;
   actionMenuModalEnabled = false;
   selectedEntityId;
+  selectedExceptionId;
   @ViewChild('actionMenuTemp', { static: false }) actionMenuCard: ElementRef;
   modalMessage:any;
 
@@ -573,14 +575,18 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   actionMenuEnable(row) {
-    this.selectedEntityId = row.entityId;
     setTimeout(() => {
       this.actionMenuModalEnabled = true;
       this.actionMenuModal = true;
     }, 1);
+    if(row.exceptionId) {
+      this.selectedExceptionId = row.exceptionId;
+    } else {
+      this.selectedEntityId = row.entityId;
+    }
   }
 
-  unApproveFiling(){
+  unApproveEntity(){
     this.actionMenuModal = false;
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
@@ -621,12 +627,67 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           this.createEntitiesRowData();
           this.selectedRows = [];
           this.filingService.invokeFilingDetails();
-          this.showToastAfterUnApproveFilingEntities = !this.showToastAfterUnApproveFilingEntities;
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           setTimeout(() => {
-            this.showToastAfterUnApproveFilingEntities = !this.showToastAfterUnApproveFilingEntities;
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           }, 5000);
         },error=>{
           this.rowData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
+
+  unApproveException(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedExceptionIds = [];
+        this.selectedExceptionIds.push(this.selectedExceptionId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+        "entityType": "Answer Exception Report",
+        "entities":  this.selectedExceptionIds,
+        "filingName": this.filingDetails.filingName,
+        "period": this.filingDetails.period,
+        "stage": "Client Review"
+        };
+
+        let tempRowData = this.exceptionData;
+        this.exceptionData = [];
+        this.service.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
+          res['data'].forEach(ele => {
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+          });
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+          this.exceptionReportRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.exceptionData = tempRowData;
           this.createEntitiesRowData();
         });
 
