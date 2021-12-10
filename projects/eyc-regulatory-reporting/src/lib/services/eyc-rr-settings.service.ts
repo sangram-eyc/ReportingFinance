@@ -20,7 +20,7 @@ export class EycRrSettingsService {
       rr_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionReportsByFilingId?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exceptionReports.json',
       rr_filing_entities: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity?stage=Reporting' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
       approve_rr_filing_entities: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/entity': this.API_ENDPOINT +  '',
-      unapprove_filing_entities: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/unapprove': this.API_ENDPOINT +  '',
+      filing_unapprove: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/unapprove': this.API_ENDPOINT +  '',
       approve_answer_exceptions: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/answerExceptionResult/approve': this.API_ENDPOINT +  'gatewayService/api/v2/regreporting/answerExceptionResult/approve',
       client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity?stage=Client review' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
       approve_client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/entity': this.API_ENDPOINT +  '',

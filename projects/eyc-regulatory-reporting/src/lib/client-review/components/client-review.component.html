@@ -68,7 +68,7 @@
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0" (click)="actionMenuEnable(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
-                <div #actionMenuTemp>
+               <!--  <div #actionMenuTemp>
                     <motif-card class="action-menu-card"
                         *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
                         <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove')"
@@ -77,7 +77,19 @@
                             <span>Unapprove</span>
                         </div>
                     </motif-card>
+                </div> -->
+
+                <div #actionMenuTemp *ngIf='tabs==2'>
+                    <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')" (click)="unApproveEntity()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
+                    </motif-card>
                 </div>
+                <div #actionMenuTemp *ngIf='tabs==1'>
+                    <motif-card class="action-menu-card" *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove')" (click)="unApproveException()" class="action-mode"><motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon><span>Unapprove</span></div>
+                    </motif-card>
+                </div>
+
             </div>
         </ng-template>
 
@@ -100,8 +112,8 @@
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>
 
-        <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilingEntities"
-            (close)="showToastAfterUnApproveFilingEntities = !showToastAfterUnApproveFilingEntities">Unapproval
+        <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilings"
+            (close)="showToastAfterUnApproveFilings = !showToastAfterUnApproveFilings">Unapproval
             successful!
         </motif-toast>
     </section>
