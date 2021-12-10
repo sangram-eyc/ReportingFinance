@@ -116,7 +116,7 @@
   </ng-template>
 
   <ng-template #fundName let-row>
-    <div *ngIf="row.assignedTo.length > 0 || row.approvedBack" class="margin-tooltip-v2 mt-2">
+    <div *ngIf="row.assignedTo.length > 0 || row.approvedBack || permissions.validatePermission('Production Cycles', 'Add comment') || permissions.validatePermission('Production Cycles', 'Fund Approval')" class="margin-tooltip-v2 mt-2">
       <motif-tooltip placement="bottom">
         <div motifTooltipTrigger aria-label="tooltip" class="dropdownTemplate" (click)="getTooltip()">
           <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
@@ -186,7 +186,7 @@
       </motif-tooltip>
     </div>
 
-    <div *ngIf="row.assignedTo.length === 0 && !row.approvedBack" class="margin-tooltip-v2 mt-2 dropdownTemplate" style="width: 1.5rem;">
+    <div *ngIf="row.assignedTo.length === 0 && !row.approvedBack && !permissions.validatePermission('Production Cycles', 'Add comment') && !permissions.validatePermission('Production Cycles', 'Fund Approval')" class="margin-tooltip-v2 mt-2 dropdownTemplate" style="width: 1.5rem;">
       <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
       </motif-icon>
     </div>
