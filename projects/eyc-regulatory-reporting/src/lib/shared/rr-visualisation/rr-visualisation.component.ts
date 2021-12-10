@@ -103,15 +103,17 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
                     typeof pbifilters === 'string' ? filter['values'].push(pbifilters) : filter['values'].push(pbifilters[1]);
                   }
                 }
-                if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {
+                if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER &&  typeof pbifilters !== 'string') {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
                     filter['values'].push(pbifilters[0]);
                   }
                 }
                 self.filters.push(filter);
+                console.log('Filters', self.filters);
               }
               self.setFilter(self.filters);
+              console.log('Filters', self.filters);
             });
           self.report.applyTheme({themeJson:powerbiTheme});
 
