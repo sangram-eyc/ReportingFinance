@@ -116,13 +116,13 @@
   </ng-template>
 
   <ng-template #fundName let-row>
-    <div *ngIf="row.assignedTo.length > 0 || row.approvedBack || permissions.validatePermission('Production Cycles', 'Add comment') || permissions.validatePermission('Production Cycles', 'Fund Approval')" class="margin-tooltip-v2 mt-2">
+    <div *ngIf="row.assignedTo.length > 0 || row.approvedBack || permissions.validatePermission('Production Cycles', 'Add comments') || permissions.validatePermission('Production Cycles', 'Fund Approval')" class="margin-tooltip-v2 mt-2">
       <motif-tooltip placement="bottom">
         <div motifTooltipTrigger aria-label="tooltip" class="dropdownTemplate" (click)="getTooltip()">
           <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
           </motif-icon>
         </div>
-        <div (click)="addCommentToFund(row.id, row.name)" *ngIf="permissions.validatePermission('Production Cycles', 'Add comment')" class="row row-assignm">
+        <div (click)="addCommentToFund(row.id, row.name)" *ngIf="permissions.validatePermission('Production Cycles', 'Add comments')" class="row row-assignm">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path opacity="0.3" d="M0.333008 0.333496V25.3335H31.2288L33.6663 27.771V0.333496H0.333008ZM27.4163 14.9168H19.083V23.2502H14.9163V14.9168H6.58301V10.7502H14.9163V2.41683H19.083V10.7502H27.4163V14.9168Z" fill="#2E2E38"/>
