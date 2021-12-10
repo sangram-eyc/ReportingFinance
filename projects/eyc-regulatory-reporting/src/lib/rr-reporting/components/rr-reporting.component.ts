@@ -601,16 +601,17 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   actionMenuEnable(row) {
-    setTimeout(() => {
-      this.actionMenuModalEnabled = true;
-      this.actionMenuModal = true;
-    }, 1);
-
+  
     if(row.exceptionId) {
       this.selectedExceptionId = row.exceptionId;
     } else {
       this.selectedEntityId = row.entityId;
     }
+
+    setTimeout(() => {
+      this.actionMenuModalEnabled = true;
+      this.actionMenuModal = true;
+    }, 1);
 
   }
 
