@@ -7,12 +7,25 @@ import {SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY} from '../config/rr-config-helper';
 })
 export class EycRrSettingsService {
 
-  constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction) { }
+  exceptionReportsUrl;
+  exceptionSummaryUrl;
+  datasetsListUrl;
+  constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction, @Inject('mockDataEnable') private mockDataEnable) { }
   public API_ENDPOINT = this.apiEndpoint.slice(-1) === "." ?
     this.apiEndpoint.substr(0, this.apiEndpoint.length - 1) : this.apiEndpoint;
   public production = this.rrproduction;
 
   get regReportingFiling(): any {
+
+    if(this.mockDataEnable) {
+      this.exceptionReportsUrl = this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+      this.exceptionSummaryUrl = this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_summary_9-9.json';
+      this.datasetsListUrl =  this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+    } else {
+      this.exceptionReportsUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/details?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+      this.exceptionSummaryUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/summary?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_summary_9-9.json';
+      this.datasetsListUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/files?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+    }
     const regulatory_Reporting = {
       filing_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=active' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
       filing_history: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=completed' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
@@ -30,11 +43,11 @@ export class EycRrSettingsService {
       submission_xml_files: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerFilesList' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',
       submission_download_xml: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/downloadAnswerFiles' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',
       filing_status: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/': this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filing-status.json',
-      di_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/details?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json',
+      di_exception_reports: this.exceptionReportsUrl,
       di_files: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
-      exception_summary: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/summary?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_summary_9-9.json',
+      exception_summary: this.exceptionSummaryUrl,
       bd_files_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/exception-files/business-day?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/bd_files_list.json',
-      datasets_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/files?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json',
+      datasets_list: this.datasetsListUrl,
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
       rr_comments: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
       view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionResults?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
