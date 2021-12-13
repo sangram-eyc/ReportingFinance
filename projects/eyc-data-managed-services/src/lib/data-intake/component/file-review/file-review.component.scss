@@ -194,3 +194,22 @@ margin-top: 24px !important;
     }
   }
 }
+
+::ng-deep .grid-status {
+  .motif-chip.motif-error{
+    background-color: #FF736A !important;
+    border-color: #FF736A !important;
+  }
+  .motif-chip.motif-success{
+    background-color: #57E188 !important;
+    border-color: #57E188 !important;
+  }
+  .motif-chip.motif-warning{
+    background-color: #FF9831 !important;
+    border-color: #FF9831 !important;
+  }
+  .motif-chip{
+    background-color: #42C9C2 !important;
+    border-color: #42C9C2 !important;
+  }
+}
