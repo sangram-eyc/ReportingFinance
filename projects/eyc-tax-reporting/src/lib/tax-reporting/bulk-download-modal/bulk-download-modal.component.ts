@@ -34,10 +34,9 @@ export class BulkDownloadModalComponent implements OnInit {
         });
       }); 
       const data:any = { "fundDTOS" : this.fundsList }    
-      this.bulkService.bulkDownloadFirstCall(data).subscribe( resp => {
-        console.log("resp bulk", resp);
-        window.open(resp.data.uploadInfoMap[0].url);
-        this.bulkprocesed.emit(resp)
+      this.bulkService.bulkDownloadFirstCall(data).subscribe(resp => {
+        window.open(resp.data.fileUploadDTO[0].url);
+        this.bulkprocesed.emit(resp);      
       }, error => {
         console.log('Error bulkDownloadFirstCall', error);
       });  

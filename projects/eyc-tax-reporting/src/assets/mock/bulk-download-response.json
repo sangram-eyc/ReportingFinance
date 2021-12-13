@@ -3,16 +3,17 @@
     "message": "",
     "corelationId": "36039d95-7078-4d2b-9d57-53efeffdb081",
     "data": {
-            "uploadInfoMap": [
+            "fileUploadDTO": [
                 {
-                    "blobFileName": "Bulk Download - 2021-11-30 10:01:56.0753876 - 46fcf531-616f-4adc-b1ae-6d7919285f79.zip",
-                    "fileName": "Bulk Download - 2021-11-30 10:01:56.0753876 - 46fcf531-616f-4adc-b1ae-6d7919285f79.zip",
-                    "uploadTime": 1905,
-                    "success": true,
-                    "error": null,
                     "attachmentId": null,
-                    "contentType": "zip",
-                    "url": "https://usedeyctfastg01.blob.core.windows.net/eyc2-dev/Bulk%20Download%20-%202021-11-30%2010%3A01%3A56.0753876%20-%2046fcf531-616f-4adc-b1ae-6d7919285f79.zip?sv=2020-08-04&se=2021-12-01T16%3A01%3A57Z&sr=b&sp=r&sig=ejpCY7jDDBVqpwbKhx8GaQKILfiPmm3Q6ZyOA7KXhsk%3D"
+                    "blobFileName": "Bulk Download - 2021-12-13 16-00-52  - c4c48fc2-29d6-452d-a752-618af4e6647c.zip",
+                    "contentType": ".zip",
+                    "error": null,
+                    "fileName": "Bulk Download - 2021-12-13 16-00-52  - c4c48fc2-29d6-452d-a752-618af4e6647c.zip",
+                    "success": true,
+                    "uiuuid": "c4c48fc2-29d6-452d-a752-618af4e6647c",
+                    "uploadTime": 15,
+                    "url": "https://usedeyctfastg01.blob.core.windows.net/eyc2-bulk-package-qa34/Bulk%20Download%20-%202021-12-13%2016-00-52%20%20-%20c4c48fc2-29d6-452d-a752-618af4e6647c.zip?sv=2020-08-04&se=2021-12-14T16%3A00%3A53Z&sr=b&sp=r&sig=lKEPZ8grO78HA%2B9wOEwILesJaG6b%2BBQK4FgOWknwrAI%3D"
                 }
             ],
             "successCount": 1,

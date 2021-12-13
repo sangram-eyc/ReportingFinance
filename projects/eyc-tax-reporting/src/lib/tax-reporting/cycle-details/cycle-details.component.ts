@@ -714,7 +714,12 @@ onClickSecondButton(){
   });
   
   dialogRef.componentInstance.bulkprocesed.subscribe(result => {
-    console.log('Finalizo el bulk download:', result);
+    console.log('Finalizo el bulk download:', result);   
+    this.toastSuccessMessage = "Bulk Download finished successfully";
+    this.showToastAfterSubmit = true;
+    setTimeout(() => {
+      this.showToastAfterSubmit = false;
+    }, 4000);
     // window.removeEventListener('beforeunload',this.logoute,true);
     document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
     document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click",this.warningMessage.bind(this), true)
