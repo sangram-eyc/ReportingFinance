@@ -681,7 +681,7 @@ actionMenuEnableforException(row) {
       data: {
         type: "Confirmation",
         header: "Unapprove",
-        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+        description: "Are you sure you want to unapprove this exception report? This will move this back to the previous reviewer/step",
         footer: {
           style: "start",
           YesButton: "Continue",
