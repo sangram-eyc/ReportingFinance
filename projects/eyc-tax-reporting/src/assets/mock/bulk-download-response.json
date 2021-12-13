@@ -3,7 +3,7 @@
     "message": "",
     "corelationId": "36039d95-7078-4d2b-9d57-53efeffdb081",
     "data": {
-            "fileUploadDTO": [
+            "fileUploadDTO":
                 {
                     "attachmentId": null,
                     "blobFileName": "Bulk Download - 2021-12-13 16-00-52  - c4c48fc2-29d6-452d-a752-618af4e6647c.zip",
@@ -14,8 +14,7 @@
                     "uiuuid": "c4c48fc2-29d6-452d-a752-618af4e6647c",
                     "uploadTime": 15,
                     "url": "https://usedeyctfastg01.blob.core.windows.net/eyc2-bulk-package-qa34/Bulk%20Download%20-%202021-12-13%2016-00-52%20%20-%20c4c48fc2-29d6-452d-a752-618af4e6647c.zip?sv=2020-08-04&se=2021-12-14T16%3A00%3A53Z&sr=b&sp=r&sig=lKEPZ8grO78HA%2B9wOEwILesJaG6b%2BBQK4FgOWknwrAI%3D"
-                }
-            ],
+                },
             "successCount": 1,
             "failureCount": 0
     },
