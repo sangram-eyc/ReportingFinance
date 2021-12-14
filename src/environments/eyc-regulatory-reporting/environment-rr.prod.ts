@@ -1,5 +1,5 @@
 export const environment = {
     apiEndpoint : ' ',
     production: true,
-    mockDataEnable: true
+    mockDataEnable: false
   };
