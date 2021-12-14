@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {BulkDownloadService} from '../services/bulk-download.service'
-import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'lib-bulk-download-modal',
@@ -25,22 +24,21 @@ export class BulkDownloadModalComponent implements OnInit {
 
   onClickYes(){
     this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
-    var sock = new SockJS('https://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication');
-    console.log("WebSocket-->", sock);
-    
+    var sock = new WebSocket('wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'); 
+
     sock.onopen = function() {
-        console.log('open');
-        sock.send('testByJonnathan');
+      console.log('open');
+      sock.send('testByJonnathan');
     };
-   
+ 
     sock.onmessage = function(e) {
         console.log('message', e.data);
         sock.close();
     };
-   
+ 
     sock.onclose = function() {
         console.log('close');
-    };
+    }
       /*console.log("funds for bulk->", this.modalDetails.funds);
       this.fundsList = [];
       this.modalDetails.funds.forEach(element => {
