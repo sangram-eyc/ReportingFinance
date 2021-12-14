@@ -16,7 +16,7 @@
             rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')">
+            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -58,13 +58,14 @@
             </div>
         </ng-template>
         <ng-template #viewDetTemplate let-row>
-            <div class="view-det-arrow">
+            <div class="view-det-arrow" *ngIf="!mockDataEnable">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
                     (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
         <ng-template #expandExceptionTemplate let-row>
-            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.file}}</div>
+            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)" *ngIf="!mockDataEnable">{{row.file}}</div>
+            <div *ngIf="mockDataEnable">{{row.file}}</div>
         </ng-template>
     </section>
 
