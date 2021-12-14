@@ -24,8 +24,8 @@ export class BulkDownloadModalComponent implements OnInit {
 
   onClickYes(){
     this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
-    var sock = new WebSocket('wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'); 
-
+    //var sock = new WebSocket('wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'); 
+    var sock = new WebSocket('ws://eycomplyapp-qa34-service-notifieragentservice:8080/notifierAgentService/ws-notifier-agent-communication');
     sock.onopen = function() {
       console.log('open');
       sock.send('testByJonnathan');
