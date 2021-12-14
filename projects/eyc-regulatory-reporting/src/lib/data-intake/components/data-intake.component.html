@@ -57,14 +57,15 @@
                 </motif-icon>
             </div>
         </ng-template>
-        <ng-template #viewDetTemplate let-row>
+       <!--  <ng-template #viewDetTemplate let-row>
             <div class="view-det-arrow">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
                     (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
-        </ng-template>
+        </ng-template> -->
         <ng-template #expandExceptionTemplate let-row>
-            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.file}}</div>
+            <!-- <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.file}}</div> -->
+            <div>{{row.file}}</div>
         </ng-template>
     </section>
 
