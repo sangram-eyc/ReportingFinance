@@ -76,7 +76,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public permissions: PermissionService,
     private router: Router,
-    @Inject('mockDataEnable') private mockDataEnable
+    @Inject('mockDataEnable') public mockDataEnable
   ) { }
 
   ngOnInit(): void {
