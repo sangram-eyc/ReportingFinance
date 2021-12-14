@@ -71,6 +71,7 @@ import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-mana
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
+  { provide:"mockDataEnable",  useValue: environment.mockDataEnable},
   { provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},

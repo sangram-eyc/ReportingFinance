@@ -2,8 +2,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
-  apiEndpoint: 'http://localhost:4200/',
-  production: false,
+  apiEndpoint: 'https://10.48.234.20/qa32/',
+  production: true,
+  mockDataEnable: true,
   SECURITY_ENABLED: true,
   SERVICE_URL: "https://10.48.234.20/qa32/",
   AUTH_TYPE: 'OAUTH'
