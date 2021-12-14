@@ -33,7 +33,11 @@ export class DataIntakeService {
   }
 
   getBDFilesList(filingName, lastFileDueDate, period) {
+    if(this.mockDataEnable) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.bd_files_list}`);
+    } else {
       return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.bd_files_list}filingName=${filingName}&lastFileDueDate=${lastFileDueDate}&period=${period}`);
+    }
   }
 
   getDatasetsrecords(filingName, period) {

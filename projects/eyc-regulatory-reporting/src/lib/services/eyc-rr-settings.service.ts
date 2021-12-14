@@ -10,6 +10,7 @@ export class EycRrSettingsService {
   exceptionReportsUrl;
   exceptionSummaryUrl;
   datasetsListUrl;
+  bdfileslistUrl;
   constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction, @Inject('mockDataEnable') private mockDataEnable) { }
   public API_ENDPOINT = this.apiEndpoint.slice(-1) === "." ?
     this.apiEndpoint.substr(0, this.apiEndpoint.length - 1) : this.apiEndpoint;
@@ -21,10 +22,12 @@ export class EycRrSettingsService {
       this.exceptionReportsUrl = this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
       this.exceptionSummaryUrl = this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_summary_9-9.json';
       this.datasetsListUrl =  this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+      this.bdfileslistUrl =  this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
     } else {
       this.exceptionReportsUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/details?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
       this.exceptionSummaryUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/summary?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_summary_9-9.json';
       this.datasetsListUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/files?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
+      this.bdfileslistUrl = this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/exception-files/business-day?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/exception_details_9-9.json';
     }
     const regulatory_Reporting = {
       filing_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getFilingDetails?filter=active' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filings.json',
@@ -46,7 +49,7 @@ export class EycRrSettingsService {
       di_exception_reports: this.exceptionReportsUrl,
       di_files: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/data-intake-ER.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/data-intake-ER.json',
       exception_summary: this.exceptionSummaryUrl,
-      bd_files_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/exception-files/business-day?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/bd_files_list.json',
+      bd_files_list: this.bdfileslistUrl,
       datasets_list: this.datasetsListUrl,
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/reg_reporting_permissions.json',
       rr_comments: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
