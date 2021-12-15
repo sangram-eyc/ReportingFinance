@@ -1,0 +1,66 @@
+.notifications {
+  width: 466px;
+  position: absolute;
+  right: -17px;
+  top: -101px;
+
+  ::ng-deep {
+    .motif-card-header {
+      border: none;
+      padding: 15px 15px 0 15px;
+    }
+  }
+
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .banner-header {
+      font-size: 14px;
+    }
+  }
+
+  .notifications-list {
+    padding: 15px;
+  }
+
+  .notifications-buttons {
+    display: flex;
+    align-self: center;
+    padding-bottom: 15px;
+
+    .notification-button {
+      width: 170px;
+      height: 44px;
+
+      ::ng-deep {
+        .motif-icon-content {
+          width: 14px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .notifications-filter {
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 20px;
+    width: 100px;
+    padding: 0 11px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    margin-left: -150px;
+
+    .expand {
+      margin-left: auto;
+      ::ng-deep {
+        .motif-icon-content {
+          width: 14px;
+        }
+      }
+    }
+  }
+}

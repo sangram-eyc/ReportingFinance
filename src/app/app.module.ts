@@ -31,12 +31,13 @@ import { EycDataIntakeModule } from 'projects/eyc-data-intake/src/lib/eyc-data-i
 import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment';
  import {EycDataManagementServicesModule} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.module';
 import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
+import {NotificationsModule} from "@default/notifications/notifications.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorAlertComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -63,10 +64,11 @@ import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-mana
     MatDialogModule,
     EycUiSharedComponentModule,
     EycDataIntakeModule,
-    EycDataManagementServicesModule
-   
+    EycDataManagementServicesModule,
+    NotificationsModule
+
   ],
-  
+
   providers: [
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
@@ -101,10 +103,10 @@ import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-mana
     deps: [SettingsService],
     multi: true
     },
-   
+
   ],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }
 

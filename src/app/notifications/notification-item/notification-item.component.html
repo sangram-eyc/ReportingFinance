@@ -1,0 +1,11 @@
+<div class="notification-item">
+  <div class="notification-texts">
+    <div class="notification-title">{{notification?.title}}</div>
+    <div class="notification-desc">{{notification?.expanded ? notification?.longDescription : notification.shortDescription}}</div>
+  </div>
+  <div class="notification-actions">
+    <motif-icon class="expand" [class.up]="notification?.expanded" [src]="'/assets/icons/expand_more.svg'" (click)="expand(notification?.id)">
+    </motif-icon>
+    <div class="notification-date">{{notification.date}}</div>
+  </div>
+</div>

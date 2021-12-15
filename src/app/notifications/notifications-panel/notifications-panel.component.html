@@ -1,0 +1,29 @@
+<motif-card class="notifications">
+  <motif-card-header>
+    <div class="notification-header">
+      <div class="card-block banner-header">
+        Notifications
+      </div>
+      <div class="notifications-filter">
+        All (3) <motif-icon class="expand" [src]="'/assets/icons/expand_more.svg'"></motif-icon>
+      </div>
+      <div class="card-block banner-header-right">
+        <div>
+          <motif-icon [src]="'/assets/icons/shape.svg'"></motif-icon>
+        </div>
+      </div>
+    </div>
+  </motif-card-header>
+  <div class="notifications-list">
+    <app-notification-item *ngFor="let item of notifications" [notification]="item" (expandNotification)="expand($event)"></app-notification-item>
+  </div>
+  <div class="notifications-buttons">
+    <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
+    <div class="card-button">
+      <button motifButton color="primary-alt" class="notification-button" (click)="navigatetonotifi()">
+        <motif-icon [src]="'/assets/icons/archived.svg'"></motif-icon>
+        Archived (2)
+      </button>
+    </div>
+  </div>
+</motif-card>
