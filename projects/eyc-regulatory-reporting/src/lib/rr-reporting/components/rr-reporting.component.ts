@@ -245,7 +245,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: '',
           width: 70,
           sortable: false,
-          pinned: 'left'
+          pinned: 'left',
+          filter: false,
+          cellStyle: params => 
+          (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
+              {'pointer-events': 'none'}
+              : ''        
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,

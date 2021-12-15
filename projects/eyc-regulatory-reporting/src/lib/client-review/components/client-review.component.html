@@ -19,7 +19,8 @@
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)"></lib-shared-grid>
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-shared-grid>
 
 
         <ng-template #commentExceptionTemplate let-row>

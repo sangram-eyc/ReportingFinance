@@ -17,7 +17,8 @@
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)">
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" 
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
