@@ -336,7 +336,7 @@ export class CycleDetailComponent implements OnInit {
         headerName: 'Fund Name',
         field: 'name',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         minWidth: 400,
         sort: 'asc'
@@ -350,7 +350,7 @@ export class CycleDetailComponent implements OnInit {
         headerName: 'Assigned to',
         field: 'assignedTo',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -363,7 +363,7 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Total comments',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -376,7 +376,7 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Open comments (EY)',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -389,7 +389,7 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Open comments (Client)',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
