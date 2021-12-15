@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
@@ -76,6 +76,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public permissions: PermissionService,
     private router: Router,
+    @Inject('mockDataEnable') public mockDataEnable
   ) { }
 
   ngOnInit(): void {
@@ -115,8 +116,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      // this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      this.exceptionData = res['data'];
+      if(this.mockDataEnable) {
+        this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else { this.exceptionData = res['data']; }
       console.log(this.exceptionData);
       this.createEntitiesRowData();
 
@@ -130,7 +132,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   getFiles() {
     console.log('FILING DETAILS', this.filingDetails);
     this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.filesListArr = res['data'];
+      if(this.mockDataEnable) {
+      this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else { this.filesListArr = res['data']; }
       console.log('EXCEPTION SUMMARY', this.filesListArr);
     }, error => {
       console.log("files list error");
@@ -140,7 +144,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getDatasets() {
     this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.datasets = res['data'];
+      if(this.mockDataEnable) {
+        this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else {  this.datasets = res['data']; }
       console.log('DATASETS:', this.datasets);
       this.createEntitiesRowData();
 
@@ -152,9 +158,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getBDFilesList(event) {
     let index = event.index;
+    let businessDay = this.filesListArr[index].exceptionDue;
+    console.log('businessDay > ', businessDay);
     console.log('INDEX', event);
     this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
-      this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
+      if(this.mockDataEnable) {
+        this.bdFilesList[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName && item.exceptionDue == businessDay);
+      } else {
+        this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
+      }
     }, error => {
       this.bdFilesList[index] = [];
       console.log("Dataset error");

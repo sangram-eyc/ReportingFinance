@@ -73,6 +73,7 @@ import {NotificationsModule} from "@default/notifications/notifications.module";
     LoaderService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
+  { provide:"mockDataEnable",  useValue: environment.mockDataEnable},
   { provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},

@@ -67,6 +67,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() pagination = false;
   @Input() paginationSize = 10;
   @Input() displayPlusIcon = true;
+  @Input() hideHeaderCheckbox = false;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
@@ -87,7 +88,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     // console.log('GRID COMPONENT INIT');
     if (!this.defaultColDef) {
       this.defaultColDef = {
-        headerCheckboxSelection: this.isFirstColumn,
+        headerCheckboxSelection: this.hideHeaderCheckbox ? false : this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
     }

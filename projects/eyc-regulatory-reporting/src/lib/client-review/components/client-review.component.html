@@ -19,7 +19,8 @@
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)"></lib-shared-grid>
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-shared-grid>
 
 
         <ng-template #commentExceptionTemplate let-row>
@@ -80,7 +81,7 @@
                 <div #actionMenuTemp *ngIf='tabs==2'>
                     <motif-card class="action-menu-card"
                         *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
                             (click)="unApproveEntity()" class="action-mode">
                             <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
                             <span>Unapprove</span>
@@ -90,7 +91,7 @@
                 <div #actionMenuTemp *ngIf='tabs==1'>
                     <motif-card class="action-menu-card"
                         *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
                             (click)="unApproveException()" class="action-mode">
                             <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
                             <span>Unapprove</span>
