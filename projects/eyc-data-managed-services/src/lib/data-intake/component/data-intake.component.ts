@@ -3,7 +3,7 @@ import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import { GlobalConstants } from '../../global-constants'
-import { DataSummary } from '../models/api-request-model'
+import { ApiSeriesItemDTO, CarChartSeriesItemDTO, DataSummary } from '../models/api-request-model'
 @Component({
   selector: 'lib-data-intake',
   templateUrl: './data-intake.component.html',
@@ -43,23 +43,28 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   fileSummaries = [];
   fileSummariesObject = [
     {
-      "label": GlobalConstants.noIssue,
+      "apiKey": GlobalConstants.noIssue.apiKey,
+      "label": GlobalConstants.noIssue.legendTitle,
       "value": 0
     },
     {
-      "label": GlobalConstants.mediumLowPriority,
+      "apiKey": GlobalConstants.mediumLowPriority.apiKey,
+      "label": GlobalConstants.mediumLowPriority.legendTitle,
       "value": 0
     },
     {
-      "label": GlobalConstants.highPriorityIssues,
+      "apiKey": GlobalConstants.highPriorityIssues.apiKey,
+      "label": GlobalConstants.highPriorityIssues.legendTitle,
       "value": 0
     },
     {
-      "label": GlobalConstants.missingFilesPastDue,
+      "apiKey": GlobalConstants.missingFilesPastDue.apiKey,
+      "label": GlobalConstants.missingFilesPastDue.legendTitle,
       "value": 0
     },
     {
-      "label": GlobalConstants.filesNotReceived,
+      "apiKey": GlobalConstants.filesNotReceived.apiKey,
+      "label": GlobalConstants.filesNotReceived.legendTitle,
       "value": 0
     }
   ];
@@ -196,32 +201,43 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
   }
 
+  mapBarChartDataWithKey(fData: [ApiSeriesItemDTO]): CarChartSeriesItemDTO[] {
+    return fData.map(({
+      lable: name,
+      ...rest
+    }) => ({
+      name,
+      ...rest
+    }));
+  }
+
   manipulateStatusWithResponse(fetchData: any[]) {
     // Manipulate fetch-data as per status
     const cloneFileSummury = [...this.fileSummariesObject];
     fetchData.find((fData) => {
       this.fileSummariesObject.map((summaryObject) => {
-        if (fData.label === summaryObject.label) {
+        if (fData.label === summaryObject.apiKey) {
           summaryObject.value = fData.value;
         }
       });
       switch (fData.label) {
-        case GlobalConstants.missingFilesPastDue:
+        case GlobalConstants.missingFilesPastDue.apiKey:
           this.fileMissingPastDueCount = fData.value;
-          this.fileMissingPastDueData = fData.seriesItemDTO;
+          this.fileMissingPastDueData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
-        case GlobalConstants.highPriorityIssues:
+        case GlobalConstants.highPriorityIssues.apiKey:
           this.highPriorityIssuesCount = fData.value;
-          this.highPriorityIssuesData = fData.seriesItemDTO;
+          this.highPriorityIssuesData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
-        case GlobalConstants.mediumLowPriority:
+        case GlobalConstants.mediumLowPriority.apiKey:
           this.mediumLowPriorityCount = fData.value;
-          this.mediumLowPriorityData = fData.seriesItemDTO;
+          this.mediumLowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
         default:
       }
     });
     this.fileSummaries = this.fileSummariesObject;
+    debugger;
     this.fileSummariesObject = cloneFileSummury;
   }
 
@@ -231,10 +247,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       startDate: '',
       EndDate: '',
       dataFrequency: 'Daily',
-      dataIntakeType: 'dataProvider',
+      dataIntakeType: 'dataDomain',
       dueDate: '2021-10-22',
       periodType: '',
-      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+      filterTypes: ['noIssues', 'high', 'low', 'medium', 'missingFiles', 'fileNotRecieved']
     };
 
     // Mock API integration for bar chart (Data Providers)

@@ -10,3 +10,6 @@ export interface DataSummary {
   filterTypes: string[];
 }
 
+export interface ApiSeriesItemDTO { lable: string, value: number };
+
+export interface CarChartSeriesItemDTO { name: string, value: number };
