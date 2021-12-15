@@ -1,10 +1,11 @@
-import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from '@angular/core';
 import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { DataSummary } from '../../models/api-request-model'
 
 @Component({
   selector: 'lib-file-review',
@@ -12,7 +13,7 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
   styleUrls: ['./file-review.component.scss']
 })
 export class FileReviewComponent implements OnInit {
-  single:any[]=[];
+  single: any[] = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   multi;
@@ -21,7 +22,7 @@ export class FileReviewComponent implements OnInit {
   activeReports: any;
   curDate;
   presentDate;
-  totalFileCount=50;
+  totalFileCount = 50;
   // totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -33,7 +34,7 @@ export class FileReviewComponent implements OnInit {
 
   // bar chart start
 
-  
+
   fitContainer: boolean = false;
   // options
   showXAxis = true;
@@ -46,10 +47,10 @@ export class FileReviewComponent implements OnInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2='Domain';
+  xAxisLabel2 = 'Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines=false;
+  showXAxisGridLines = false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
@@ -71,69 +72,71 @@ export class FileReviewComponent implements OnInit {
   colorScheme3;
   colorSchemeAll;
 
-//end option
+  //end option
 
 
-// table options
+  // table options
 
 
-activeFilings: any[] = [];
-completedFilings: any[] = [];
-filingResp: any[] = [];
+  activeFilings: any[] = [];
+  completedFilings: any[] = [];
+  filingResp: any[] = [];
 
-noOfCompletdFilingRecords = 10;
-currentPage = 1;
-maxPages = 5;
-// searchNoDataAvilable = false;
-// activeReportsSearchNoDataAvilable = false;
-noCompletedDataAvilable = false;
-// noActivatedDataAvilable = false;
-MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-TableHeaderRendererComponent = TableHeaderRendererComponent;
-// gridApi;
-rowData;
-rowClass = 'row-style';
-columnDefs;
-rowStyle = {
-  height: '74px'
-}
-domLayout = 'autoHeight';
+  noOfCompletdFilingRecords = 10;
+  currentPage = 1;
+  maxPages = 5;
+  // searchNoDataAvilable = false;
+  // activeReportsSearchNoDataAvilable = false;
+  noCompletedDataAvilable = false;
+  // noActivatedDataAvilable = false;
+  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // gridApi;
+  rowData;
+  rowClass = 'row-style';
+  columnDefs;
+  rowStyle = {
+    height: '74px'
+  }
+  domLayout = 'autoHeight';
 
-@ViewChild('chipTemplate')
-chipTemplate : TemplateRef<any>;
+  @ViewChild('chipTemplate')
+  chipTemplate : TemplateRef<any>;
+  
+  dataset = [{
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  },
+  {
+    disable: false,
+    value: 25,
+    name: '25',
+    id: 1
+  },
+  {
+    disable: false,
+    value: 50,
+    name: '50',
+    id: 2
+  }];
+  currentlySelectedPageSize = {
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  };
 
-dataset = [{
-  disable: false,
-  value: 10,
-  name: '10',
-  id: 0
-},
-{
-  disable: false,
-  value: 25,
-  name: '25',
-  id: 1
-},
-{
-  disable: false,
-  value: 50,
-  name: '50',
-  id: 2
-}];
-currentlySelectedPageSize = {
-  disable: false,
-  value: 10,
-  name: '10',
-  id: 0
-};
+  pageSize;
+  columnGl: any
+  glRowdata: any
+  // end 
 
-pageSize;
-columnGl:any
-glRowdata:any
-// end 
-
-constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
-     private renderer: Renderer2,private customglobalService: CustomGlobalService) { 
+  // API Request match with response
+  httpQueryParams: DataSummary;
+  constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
+    private renderer: Renderer2, private customglobalService: CustomGlobalService) {
     this.setColorScheme();
   }
   setColorScheme() {
@@ -141,7 +144,7 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
-    this.colorSchemeAll=colorSets.find(s => s.name === 'all');
+    this.colorSchemeAll = colorSets.find(s => s.name === 'all');
   }
 
   ngOnInit(): void {
@@ -151,11 +154,11 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.dailyDataProvider();
     this.getReviewFilesData();
     this.getReviewFileTableData();
-    
+
   }
 
   // table methods
-  
+
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -163,7 +166,7 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
+    let pastedText = (clipboardData.getData('text')).split("");
     pastedText.forEach((ele, index) => {
       if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
         if ((pastedText.length - 1) === index) {
@@ -174,8 +177,8 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
         return false;
       }
     });
-  } 
-  
+  }
+
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
     if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
@@ -187,9 +190,9 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
   }
 
   getReviewFileTableData() {
-      this.dataManagedService.getReviewFileTableData().subscribe(resp => {
+    this.dataManagedService.getReviewFileTableData().subscribe(resp => {
       resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      this.glRowdata=resp.data["rowData"];
+      this.glRowdata = resp.data["rowData"];
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -316,8 +319,18 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
   }
 
   getFileSummuries() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'All',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noIssues','high','low', 'medium', 'missingFiles', 'fileNotRecieved']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
@@ -334,46 +347,66 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
-  dailyData(){
-    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'secondary')
+  dailyData() {
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     this.dailyManagedData();
     this.dailyDataProvider();
   }
-  monthyData(){
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'secondary');
+  monthyData() {
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     this.monthyManagedData();
     this.monthyDataProvider();
   }
 
   dailyManagedData() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'Daily',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
 
   monthyManagedData() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'Monthly',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
 
 
-  getDataProviderList(){
+  getDataProviderList() {
     this.dataManagedService.getDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
-    });  
+      this.totalFileCount = data.data['totalCount'];
+    });
   }
 
   dailyDataProvider() {
     // Mock API integration for donut chart
     this.dataManagedService.getDailyDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
+      this.totalFileCount = data.data['totalCount'];
     });
   }
 
@@ -381,7 +414,7 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     // Mock API integration for donut chart
     this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
+      this.totalFileCount = data.data['totalCount'];
     });
   }
 
@@ -392,5 +425,5 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
       this.multi = data.data["dataseries"];
     });
   }
-  
+
 }

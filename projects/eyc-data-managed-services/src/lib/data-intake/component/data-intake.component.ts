@@ -3,7 +3,7 @@ import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import { GlobalConstants } from '../../global-constants'
-
+import { DataSummary } from '../models/api-request-model'
 @Component({
   selector: 'lib-data-intake',
   templateUrl: './data-intake.component.html',
@@ -31,7 +31,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   activeReports: any;
   curDate;
   presentDate;
-  totalFileCount=50;
+  totalFileCount = 50;
   // totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -64,6 +64,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
   ];
 
+  // API Request match with response
+  httpQueryParams: DataSummary;
+
   // bar chart start
   fitContainer: boolean = false;
   // options
@@ -77,10 +80,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   tooltipDisabled = true;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2='Domain';
+  xAxisLabel2 = 'Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines=false;
+  showXAxisGridLines = false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
@@ -223,8 +226,19 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyDataProvider() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'Daily',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+    };
+
     // Mock API integration for bar chart (Data Providers)
-    this.dataManagedService.getDailyDataProviderList().subscribe(dataProvider => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
       this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
