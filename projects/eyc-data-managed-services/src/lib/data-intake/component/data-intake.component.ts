@@ -36,43 +36,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   curDate;
   presentDate;
   totalFileCount = 50;
-  // totalFileCount=0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
-  // Received = No issue
-  // Not Received = Files not received
   fileSummaries = [];
   fileSummariesObject = donutSummariesObject;
-  // fileSummariesObject = [
-  //   {
-  //     "apiKey": GlobalConstants.noIssue.apiKey,
-  //     "label": GlobalConstants.noIssue.legendTitle,
-  //     "value": 0
-  //   },
-  //   {
-  //     "apiKey": GlobalConstants.mediumLowPriority.apiKey,
-  //     "label": GlobalConstants.mediumLowPriority.legendTitle,
-  //     "value": 0
-  //   },
-  //   {
-  //     "apiKey": GlobalConstants.highPriorityIssues.apiKey,
-  //     "label": GlobalConstants.highPriorityIssues.legendTitle,
-  //     "value": 0
-  //   },
-  //   {
-  //     "apiKey": GlobalConstants.missingFilesPastDue.apiKey,
-  //     "label": GlobalConstants.missingFilesPastDue.legendTitle,
-  //     "value": 0
-  //   },
-  //   {
-  //     "apiKey": GlobalConstants.filesNotReceived.apiKey,
-  //     "label": GlobalConstants.filesNotReceived.legendTitle,
-  //     "value": 0
-  //   }
-  // ];
 
   // API Request match with response
   httpQueryParams: DataSummary;
@@ -117,6 +87,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   motifDatepModel: any;
   @ViewChild('dp') myDp;
+
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -125,7 +96,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.dailyDataProvider();
     this.httpQueryParams =
     {
       startDate: '',
@@ -149,12 +119,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
       this.fileSummaryList();
     }
-  }
-
-  openCalendar(): void {
-    debugger;
-    this.cdr.detectChanges();
-    this.myDp.toggleCalendar();
   }
 
   formatDate(timestamp) {
@@ -183,17 +147,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
-    // if (this.innerTabIn == 1) {
-    //   this.dailyMonthlyStatus ? this.monthlyDataProvider() : this.dailyDataProvider()
-    // } else {
-    //   this.dailyMonthlyStatus ? this.monthlyDataDomain() : this.dailyDataDomain()
-    // }
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DataFrequency.monthly
         : this.httpQueryParams.dataFrequency = DataFrequency.daily
     } else {
-      // this.dailyMonthlyStatus ? this.monthlyDataDomain() : this.dailyDataDomain()
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
       this.dailyMonthlyStatus ?
         this.httpQueryParams.dataFrequency = DataFrequency.monthly
@@ -214,18 +172,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     console.log(event);
   }
 
-  dateSub(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
-  dateAdd(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
@@ -233,10 +179,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     if (this.innerTabIn == 1) {
-      // this.dailyDataProvider();
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
     } else {
-      // this.dailyDataDomain();
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
     }
     this.fileSummaryList();
@@ -249,10 +193,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     if (this.innerTabIn == 1) {
-      // this.monthlyDataProvider();
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
     } else {
-      // this.monthlyDataDomain();
       this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
     }
     this.fileSummaryList();
@@ -298,7 +240,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   fileSummaryList() {
-    // Mock API integration for bar chart (Data Providers)
+    // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
@@ -306,34 +248,4 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
     });
   }
-
-  // monthlyDataProvider() {
-  //   // Mock API integration for bar chart
-  //   this.dataManagedService.getMonthlyDataProviderList().subscribe(dataProvider => {
-  //     this.dataList = dataProvider.data[0]['totalSeriesItem'];
-  //     this.manipulateStatusWithResponse(this.dataList);
-  //     this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
-  //     this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
-  //   });
-  // }
-
-  // dailyDataDomain() {
-  //   // Mock API integration for bar chart (Data Domains)
-  //   this.dataManagedService.getDailyDataDomainList().subscribe(dataDomain => {
-  //     this.dataList = dataDomain.data[0]['totalSeriesItem'];
-  //     this.manipulateStatusWithResponse(this.dataList);
-  //     this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
-  //     this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
-  //   });
-  // }
-
-  // monthlyDataDomain() {
-  //   // Mock API integration for bar chart (Data Domains) 
-  //   this.dataManagedService.getMonthlyDataDomainList().subscribe(dataDomain => {
-  //     this.dataList = dataDomain.data[0]['totalSeriesItem'];
-  //     this.manipulateStatusWithResponse(this.dataList);
-  //     this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
-  //     this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
-  //   });
-  // }
 }
