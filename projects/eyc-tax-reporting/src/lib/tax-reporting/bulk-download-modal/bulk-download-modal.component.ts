@@ -1,18 +1,22 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {BulkDownloadService} from '../services/bulk-download.service'
+import {WebSocketBulkService} from '../services/web-socket-bulk.service'
 
 @Component({
   selector: 'lib-bulk-download-modal',
   templateUrl: './bulk-download-modal.component.html',
   styleUrls: ['./bulk-download-modal.component.scss']
 })
-export class BulkDownloadModalComponent implements OnInit {
+export class BulkDownloadModalComponent implements OnInit, OnDestroy {
   modalDetails;
   fundsList:any[] = [];
+  url = 'wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication';
+
   @Output() bulkprocesed: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private bulkService: BulkDownloadService,
+    private wsService: WebSocketBulkService,
     public dialogRef: MatDialogRef<BulkDownloadModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
     ){
@@ -20,26 +24,11 @@ export class BulkDownloadModalComponent implements OnInit {
      }
 
   ngOnInit(): void {
+      this.wsService.createObservableSocket(this.url);
   }
 
   onClickYes(){
-    this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
-    //var sock = new WebSocket('wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'); 
-    var sock = new WebSocket('ws://eycomplyapp-qa34-service-notifieragentservice:8080/notifierAgentService/ws-notifier-agent-communication');
-    sock.onopen = function() {
-      console.log('open');
-      sock.send('testByJonnathan');
-    };
- 
-    sock.onmessage = function(e) {
-        console.log('message', e.data);
-        sock.close();
-    };
- 
-    sock.onclose = function() {
-        console.log('close');
-    }
-      /*console.log("funds for bulk->", this.modalDetails.funds);
+    this.dialogRef.close({ button: this.modalDetails.footer.YesButton }); 
       this.fundsList = [];
       this.modalDetails.funds.forEach(element => {
         this.fundsList.push({
@@ -49,14 +38,28 @@ export class BulkDownloadModalComponent implements OnInit {
       }); 
       const data:any = { "fundDTOS" : this.fundsList }    
       this.bulkService.bulkDownloadFirstCall(data).subscribe(resp => {
-        window.open(resp.data.fileUploadDTO.url);
-        this.bulkprocesed.emit(resp);      
+        //window.open(resp.data.fileUploadDTO.url);
+        const idFile = resp.data.fileUploadDTO.uiuuid;
+        this.sendMessageToServer(idFile);
+        this.bulkprocesed.emit(resp);     
       }, error => {
         console.log('Error bulkDownloadFirstCall', error);
-      }); */  
+      });   
   }
   
   close(): void {
     this.dialogRef.close({ button: this.modalDetails.footer.NoButton });
+  }
+
+  sendMessageToServer(msg:string){
+  this.wsService.sendMessage(msg);
+  }
+
+  closeWebSocket(){
+    this.wsService.webSocketClose();  
+  }
+
+  ngOnDestroy(): void {
+      //this.closeWebSocket();
   }
 }
