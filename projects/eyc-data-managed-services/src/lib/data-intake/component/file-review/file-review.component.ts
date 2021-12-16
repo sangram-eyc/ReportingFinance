@@ -5,7 +5,7 @@ import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { DataSummary } from '../../models/api-request-model'
+import { DataSummary } from '../../models/data-summary.model'
 
 @Component({
   selector: 'lib-file-review',

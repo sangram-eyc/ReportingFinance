@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
-import { DataSummary } from '../models/api-request-model'
+import { DataSummary } from '../models/data-summary.model'
 @Injectable({
   providedIn: 'root'
 })
