@@ -35,7 +35,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   activeReports: any;
   curDate;
   presentDate;
-  totalFileCount = 50;
+  totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
