@@ -28,27 +28,12 @@ export class DataManagedService {
         params = params.append('filterTypes', types);
       });
     }
-    // params = params.append('filterTypes', 'noissues');
-    // params = params.append('filterTypes', 'high');
-    // params = params.append('filterTypes', 'low');
-    // params = params.append('filterTypes', 'medium');
-    // params = params.append('filterTypes', 'pastDue');
-    // params = params.append('filterTypes', 'missingandpastdue');
-    // params = params.append('filterTypes', 'filesnotreceived');
     return params;
   }
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
   }
-
-  // getDailyFileSummaryList(params: DataSummary) {
-  //   return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
-  // }
-
-  // getMonthlyFileSummaryList(params: DataSummary) {
-  //   return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
-  // }
 
   getDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
