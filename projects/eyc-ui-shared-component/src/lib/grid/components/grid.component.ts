@@ -68,6 +68,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() paginationSize = 10;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
+  @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
@@ -147,10 +148,12 @@ export class GridComponent implements OnInit, OnChanges {
     // console.log('Search',this.search);
     // console.log('Button',this.button);
     // console.log('Position',this.buttonPosition);
+    this.selectedRowEmitterProcess.emit('processing');
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows =selectedArr.filter(item => item.approved === false);
     this.selectedRowEmitter.emit(this.selectedRows);
+    this.selectedRowEmitterProcess.emit('finished');
     if(this.selectedRows.length === 0){
       this.gridApi.deselectAll();
     }

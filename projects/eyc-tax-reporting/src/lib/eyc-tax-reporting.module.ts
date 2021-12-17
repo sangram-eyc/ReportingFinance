@@ -25,6 +25,7 @@ import { TaxHorizontalStackedBarChartComponent } from './shared/tax-horizontal-s
 import { InformationBarChartModalComponent } from './tax-reporting/information-bar-chart-modal/information-bar-chart-modal.component';
 import { CommentsDetailsComponent } from './tax-reporting/comments-details/comments-details.component';
 import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/warning-modal.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/
     TaxHorizontalStackedBarChartComponent,
     InformationBarChartModalComponent,
     CommentsDetailsComponent,
-    BulkDownloadModalComponent
+    BulkDownloadModalComponent,
+    WarningModalComponent
   ],
   exports: [TaxReportingComponent]
 })

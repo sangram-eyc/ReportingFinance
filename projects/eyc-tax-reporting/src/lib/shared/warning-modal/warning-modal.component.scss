@@ -68,12 +68,20 @@
     }
   
     .modal-body{
-      padding: 2rem 1.7rem;
+      padding: 1rem 1.7rem;
       display: block;
 /*       overflow: auto;
       max-height: 500px; */
       .description-text {
+        display: flex;
         margin-bottom: 16px;
+        font-family: EYInterstate;
+        font-size: 14px;
+        line-height: 22px;
+        p{
+          margin-left: 5px;
+          margin-top: 1px;
+        } 
       }
     }
     b{
@@ -377,6 +385,9 @@
 /*   End ChecBox */
 
 
-   
+  
+::ng-deep .mat-dialog-container{
+  border-radius: 0px !important;
+}
    
 
