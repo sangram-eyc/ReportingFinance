@@ -215,7 +215,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 200,
         comparator: customComparator
       },
 
@@ -251,7 +251,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         field: 'dueDate',
         sortable: true,
         filter: true,
-        minWidth: 130,
+        minWidth: 180,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
