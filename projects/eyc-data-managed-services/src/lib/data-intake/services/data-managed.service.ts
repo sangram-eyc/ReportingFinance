@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
-
+import { HttpParams } from '@angular/common/http';
+import { DataSummary } from '../models/data-summary.model'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,16 +12,27 @@ export class DataManagedService {
     private eycDataApiService: EycDataApiService
   ) { }
 
-  getFileSummaryList() {
-    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`);
+  httpQueryParams(DataSummary: DataSummary): HttpParams {
+    // Initialize Params Object
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('startDate', DataSummary.startDate);
+    params = params.append('EndDate', DataSummary.EndDate);
+    params = params.append('periodType', DataSummary.periodType);
+    params = params.append('dueDate', DataSummary.dueDate);
+    params = params.append('dataFrequency', DataSummary.dataFrequency);
+    params = params.append('dataIntakeType', DataSummary.dataIntakeType);
+    if (DataSummary.filterTypes.length > 0) {
+      DataSummary.filterTypes.map((types) => {
+        params = params.append('filterTypes', types);
+      });
+    }
+    return params;
   }
 
-  getDailyFileSummaryList() {
-    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list_daily}`);
-  }
-
-  getMonthlyFileSummaryList() {
-    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list_monthly}`);
+  getFileSummaryList(params: DataSummary) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
   }
 
   getDataProviderList() {
@@ -61,7 +73,7 @@ export class DataManagedService {
   getReviewFilesData() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_data}`);
   }
-  
+
   getReviewFileTableData() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`);
   }
