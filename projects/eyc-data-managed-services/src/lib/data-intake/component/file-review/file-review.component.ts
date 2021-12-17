@@ -18,7 +18,6 @@ export class FileReviewComponent implements OnInit {
   multi;
   gridApi;
   innerTabIn: number = 1;
-  activeReports: any;
   curDate;
   presentDate;
   totalFileCount = 0;

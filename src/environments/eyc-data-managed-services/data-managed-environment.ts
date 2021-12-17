@@ -6,7 +6,7 @@ export const datamanagedenvironment = {
   apiEndpoint: 'http://localhost:4200/',
   production: false,
   SECURITY_ENABLED: true,
-  SERVICE_URL: "https://10.48.234.20/qa34/",
+  SERVICE_URL: 'https://10.48.234.20/qa34/',
 };
 
 /*
