@@ -471,13 +471,15 @@ export class CycleDetailComponent implements OnInit {
   approveClickEv(e) {
     let approvalDialog;
     e.stopPropagation();
+    this.LoaderService.show();
     //I check that the datasetsSelectedRows is complete before processing the execution of the approve
     let timerId = setInterval(() => {
-      if (this.processingCheck === 'finished') {
+      if (this.processingCheck === 'finished'  || this.processingCheck === 'init') {
         clearInterval(timerId)
-        this.processingCheck = ''
+        this.processingCheck = 'init'
         console.log('datasetsSelectedRows after processing', this.datasetsSelectedRows)
         let arrFilterOpenC = this.datasetsSelectedRows.filter(this.filterByOpenC)
+        this.LoaderService.hide();
         if (arrFilterOpenC.length > 0) {
           //Comments are open, an alert message is displayed
           const warningDialog = this.dialog.open(WarningModalComponent, {
