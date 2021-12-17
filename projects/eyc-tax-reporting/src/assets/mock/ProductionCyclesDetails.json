@@ -250,7 +250,7 @@
     {
         "name": "Fund 19",
         "id": "ASKDJ10OO8ASKDJO",
-        "hasContent": true,         
+        "hasContent": false,         
         "status": "OPEN",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
