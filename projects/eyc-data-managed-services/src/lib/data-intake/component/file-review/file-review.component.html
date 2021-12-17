@@ -201,20 +201,53 @@
    </ng-template>
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
-      <motif-tooltip placement="bottom">
-         <a motifTooltipTrigger motifTextLink aria-label="tooltip" color="primary" href="javascript:void(0)">
+      {{stringTrim(row.file)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
-         <div style="background-color: black; width: 430px;
-      height: 46; color: white;
-      padding-left: 10px;">
+         <div class="tooltip-text">
             <div>
-               <label style="color: gold;">File: </label><label style="color: white;">{{row.file}}</label>
+               <span class="label">File: </span>
+               <label>{{row.file}}</label>
             </div>
             <div>
-               <label style="color: gold;">Verison: </label><label style="color: white;">Verison name</label>
+               <span class="label">Verison: </span>
+               <label>Verison name</label>
             </div>
          </div>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #threeDotFunctionTooltip let-row>
+      {{stringTrim(row.functions)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <ul>
+            <li>TRMS</li>
+            <li>RRMS</li>
+            <li>CPO-POR</li>
+            <li>TAX</li>
+            <li>Function 5</li>
+         </ul>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #threeDotExceptionsTooltip let-row>
+      {{stringTrim(row.exceptions)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <ul>
+            <li>Fund completeness</li>
+            <li>Column completeness</li>
+            <li>Null check</li>
+            <li>Gav nav variance</li>
+            <li>Maturity date</li>
+         </ul>
       </motif-tooltip>
    </ng-template>
    <!-- <ng-template #rname let-row>

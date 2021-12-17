@@ -103,6 +103,12 @@ export class FileReviewComponent implements OnInit {
   @ViewChild('threeDotTooltip') threeDotTooltip: TemplateRef<any>;
   @ViewChild('nextButtonTemplate') nextButtonTemplate: TemplateRef<any>;
 
+  @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
+  @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
+  
+
+  
+
   dataset = [{
     disable: false,
     value: 10,
@@ -186,7 +192,13 @@ export class FileReviewComponent implements OnInit {
       return false;
     }
   }
-
+  stringTrim(params) {
+    if ((params).length > 17) {
+      return (params).substr(0, 17) + ''
+    } else {
+      return params
+    }
+  }
   getReviewFileTableData() {
     this.dataManagedService.getReviewFileTableData().subscribe(resp => {
       resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
@@ -194,41 +206,16 @@ export class FileReviewComponent implements OnInit {
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          // cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'File',
           field: 'file',
           sortable: true,
           filter: true,
-          resizeable: true,
-          width: 110,
-          sort: 'asc',
-          wrapText: false,
-          autoHeight: true,
-          // cellRendererParams: {
-          //   ngTemplate: this.threeDotTooltip,
-          // },
-          valueGetter: function (params) {
-            if ((params.data.file).length > 17) {
-              return (params.data.file).substr(0, 17) + ''
-            } else {
-              return params.data.file
-            }
-          }
-        },
-        {
-          // headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: '',
-          field: 'file',
-          sortable: false,
-          filter: false,
-          resizeable: false,
-          width: 3,
-          sort: 'asc',
+          minWidth: 150,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
-            ngTemplate: this.threeDotTooltip,
+            ngTemplate: this.threeDotTooltip
           }
         },
         {
@@ -237,7 +224,7 @@ export class FileReviewComponent implements OnInit {
           field: 'provider',
           sortable: true,
           filter: true,
-          minWidth: 10,
+          minWidth: 100,
           wrapText: true,
           autoHeight: true
         },
@@ -253,13 +240,17 @@ export class FileReviewComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Function',
           field: 'functions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
+          minWidth: 100,
+          wrapText: false,
           autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotFunctionTooltip
+          },
           valueGetter: function (params) {
             if ((params.data.functions).length > 4) {
               return (params.data.functions).substr(0, 4) + ' ...'
@@ -287,13 +278,17 @@ export class FileReviewComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
+          minWidth: 100,
+          wrapText: false,
           autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotExceptionsTooltip
+          },
           valueGetter: function (params) {
             if (params.data.exceptions) {
               return params.data.exceptions

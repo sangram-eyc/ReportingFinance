@@ -195,6 +195,15 @@ margin-top: 24px !important;
   }
 }
 
+.tooltip-text{
+  font-family: EYInterstate;
+  font-size: 12px;
+  line-height: 17px;
+  color: #ffffff;
+  .label{
+    color: #FFE600;
+  }
+}
 ::ng-deep .grid-status {
   .motif-chip.motif-error{
     background-color: #FF736A !important;
