@@ -13,7 +13,6 @@ import { DataSummary } from '../../models/data-summary.model'
   styleUrls: ['./file-review.component.scss']
 })
 export class FileReviewComponent implements OnInit {
-  single: any[] = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   multi;
@@ -22,8 +21,7 @@ export class FileReviewComponent implements OnInit {
   activeReports: any;
   curDate;
   presentDate;
-  totalFileCount = 50;
-  // totalFileCount=0;
+  totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -33,8 +31,6 @@ export class FileReviewComponent implements OnInit {
   fileSummaries = [];
 
   // bar chart start
-
-
   fitContainer: boolean = false;
   // options
   showXAxis = true;
@@ -71,27 +67,16 @@ export class FileReviewComponent implements OnInit {
   colorScheme2;
   colorScheme3;
   colorSchemeAll;
-
   //end option
 
-
   // table options
-
-
-  activeFilings: any[] = [];
-  completedFilings: any[] = [];
-  filingResp: any[] = [];
-
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
   maxPages = 5;
-  // searchNoDataAvilable = false;
-  // activeReportsSearchNoDataAvilable = false;
   noCompletedDataAvilable = false;
-  // noActivatedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
-  // gridApi;
+
   rowData;
   rowClass = 'row-style';
   columnDefs;
@@ -135,12 +120,12 @@ export class FileReviewComponent implements OnInit {
 
   // API Request match with response
   httpQueryParams: DataSummary;
+
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
     this.setColorScheme();
   }
   setColorScheme() {
-    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
@@ -154,10 +139,7 @@ export class FileReviewComponent implements OnInit {
     this.dailyDataProvider();
     this.getReviewFilesData();
     this.getReviewFileTableData();
-
   }
-
-  // table methods
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
@@ -303,7 +285,7 @@ export class FileReviewComponent implements OnInit {
     this.currentPage = val;
     this.getReviewFileTableData();
   }
-  // end 
+
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
   }
@@ -397,7 +379,7 @@ export class FileReviewComponent implements OnInit {
 
   getDataProviderList() {
     this.dataManagedService.getDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }
@@ -405,7 +387,7 @@ export class FileReviewComponent implements OnInit {
   dailyDataProvider() {
     // Mock API integration for donut chart
     this.dataManagedService.getDailyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }
@@ -413,7 +395,7 @@ export class FileReviewComponent implements OnInit {
   monthyDataProvider() {
     // Mock API integration for donut chart
     this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }

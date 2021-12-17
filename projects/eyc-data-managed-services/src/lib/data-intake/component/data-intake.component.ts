@@ -1,8 +1,16 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component, OnInit, ElementRef,
+  Renderer2, ViewChild, AfterViewInit, ChangeDetectorRef
+} from '@angular/core';
 import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
-import { FileFilterStatus, FilterTypes, DataIntakeType, DataFrequency } from '../../global-constants'
+import {
+  FileFilterStatus, FILTER_TYPE,
+  DATA_INTAKE_TYPE, DATA_FREQUENCY,
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY
+}
+  from '../../config/dms-config-helper'
 import { DataSummary } from '../models/data-summary.model'
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
@@ -14,25 +22,24 @@ import { donutSummariesObject } from '../models/donut-chart-summary.model';
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit, AfterViewInit {
-  fileMissingPastDueData: any[] = [];
+  fileMissingPastDueData: BarChartSeriesItemDTO[];
   fileMissingPastDueCount: number = 0;
-  highPriorityIssuesData: any[] = [];
+  highPriorityIssuesData: BarChartSeriesItemDTO[];
   highPriorityIssuesCount: number = 0;
-  mediumLowPriorityData: any[] = [];
+  mediumLowPriorityData: BarChartSeriesItemDTO[];
   mediumLowPriorityCount: number = 0;
-  dataList: any[] = [];
+  dataList: [];
   dailyMonthlyStatus: boolean = false;
   reviewByGroupDomains: number = 0;
   reviewByGroupProviders: number = 0;
-  noFileMissingPastDue = "No missing files, past due at the moment";
-  noHighPriorityIssues = "No high priority issues at the moment";
-  noMediumLowPriority = "No medium / low priority issues at the moment";
+  noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
+  noHighPriorityIssues = NO_HIGH_PRIORITY_ISSUES;
+  noMediumLowPriority = NO_MEDUIM_LOW_PRIORITY;
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  activeReports: any;
   curDate;
   presentDate;
   totalFileCount = 0;
@@ -100,22 +107,21 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     {
       startDate: '',
       EndDate: '',
-      dataFrequency: DataFrequency.daily,
-      dataIntakeType: DataIntakeType.dataProvider,
+      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       filterTypes: [
-        FilterTypes.noIssues, FilterTypes.high, FilterTypes.low, FilterTypes.medium,
-        FilterTypes.missingFiles, FilterTypes.fileNotRecieved]
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES,FILTER_TYPE.FILE_NOT_RECIEVED]
     };
     this.fileSummaryList();
   }
 
-
   toggleCalendar(): void {
     this.cdr.detectChanges();
     this.myDp.toggleCalendar();
-    if(this.motifDatepModel){
+    if (this.motifDatepModel) {
       this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
       this.fileSummaryList();
     }
@@ -148,14 +154,14 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
-      this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DataFrequency.monthly
-        : this.httpQueryParams.dataFrequency = DataFrequency.daily
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     } else {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.dailyMonthlyStatus ?
-        this.httpQueryParams.dataFrequency = DataFrequency.monthly
-        : this.httpQueryParams.dataFrequency = DataFrequency.daily
+        this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
     this.fileSummaryList();
   }
@@ -175,13 +181,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
-    this.httpQueryParams.dataFrequency = DataFrequency.daily;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     if (this.innerTabIn == 1) {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
   }
@@ -189,13 +195,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   monthlyData(status: boolean) {
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
-    this.httpQueryParams.dataFrequency = DataFrequency.monthly;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     if (this.innerTabIn == 1) {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataProvider;
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
-      this.httpQueryParams.dataIntakeType = DataIntakeType.dataDomain;
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
   }

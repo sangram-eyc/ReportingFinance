@@ -1,4 +1,4 @@
-import { FileFilterStatus } from '../../global-constants'
+import { FileFilterStatus } from '../../config/dms-config-helper'
 
 export const donutSummariesObject = [
   {
