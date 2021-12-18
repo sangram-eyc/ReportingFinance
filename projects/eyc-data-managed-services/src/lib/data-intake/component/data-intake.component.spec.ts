@@ -7,6 +7,7 @@ import { EycDataApiService } from '../services/eyc-data-api.service';
 import { DataIntakeComponent } from './data-intake.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from "@angular/forms";
 import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule } from '@ey-xd/ng-motif';
 
 import { of } from 'rxjs';
@@ -65,7 +66,7 @@ describe('DataIntakeComponent', () => {
         EycDataApiService,
         { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
         { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
-      imports: [HttpClientTestingModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
+      imports: [HttpClientTestingModule,FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
     })
       .compileComponents();
   }));
@@ -197,16 +198,16 @@ describe('DataIntakeComponent', () => {
   });
 
   it('should fetch date from motif Calendar', () => {
+    const event = { "isRange": false, "singleDate": { "date": { "year": 2021, "month": 12, "day": 15 }, "jsDate": "2021-12-14T18:30:00.000Z", "formatted": "2021-12-15", "epoc": 1639506600 }, "dateRange": null };
+    component.toggleCalendar(event);
+    fixture.detectChanges();
+    component.calSelectedDate=event.singleDate.formatted
     let selector = getElement('#datepicker');
     expect(selector).not.toBe(null);
 
-    const event = { "isRange": false, "singleDate": { "date": { "year": 2021, "month": 12, "day": 15 }, "jsDate": "2021-12-14T18:30:00.000Z", "formatted": "2021-12-15", "epoc": 1639506600 }, "dateRange": null };
-    component.toggleCalendar(event);
     if (component.calSelectedDate) {
       component.httpQueryParams.dueDate = component.calSelectedDate;
-      component.fileSummaryList();
     }
-    fixture.detectChanges();
     expect(component.httpQueryParams.dueDate).toEqual(component.calSelectedDate);
   });
 
