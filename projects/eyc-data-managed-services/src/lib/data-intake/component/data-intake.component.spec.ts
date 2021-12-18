@@ -7,6 +7,7 @@ import { EycDataApiService } from '../services/eyc-data-api.service';
 import { DataIntakeComponent } from './data-intake.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { MotifFormsModule } from '@ey-xd/ng-motif';
 
 describe('DataIntakeComponent', () => {
   let component: DataIntakeComponent;
@@ -19,7 +20,7 @@ describe('DataIntakeComponent', () => {
         EycDataApiService,
         { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
         { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, MotifFormsModule ]
     })
       .compileComponents();
   }));
@@ -31,12 +32,23 @@ describe('DataIntakeComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should set pageLoaded after view init', () => {
-  //   expect(component.pageLoaded).toBe(true);
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should format date', () => {
+    expect(component.formatDate('2021-12-18 09:01:15')).toEqual('12/18/2021');
+  });
+
+  it('should change report-tab', () => {
+    component.reportTabChange(1);
+    expect(component.tabIn).toBe(1);
+  });
+
+  it('should change inner-tab', () => {
+    component.innerTabChange(1);
+    expect(component.innerTabIn).toBe(1);
+  });
+  
 });
 
