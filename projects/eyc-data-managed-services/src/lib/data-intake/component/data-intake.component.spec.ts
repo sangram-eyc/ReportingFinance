@@ -17,6 +17,7 @@ describe('DataIntakeComponent', () => {
   let fixture: ComponentFixture<DataIntakeComponent>;
   let dataManagedService: DataManagedService;
   let httpQueryParams: DataSummary;
+  let innerTabIn: number;
   let mockFileSummaries = {
     "success": true,
     "message": "",
@@ -28,17 +29,22 @@ describe('DataIntakeComponent', () => {
         "dataDomainCount": 6,
         "totalSeriesItem": [
           {
-            "label": "No issue",
+            "label": "noIssues",
             "value": 84,
             "seriesItemDTO": [{ "name": "General Ledger", "value": 40 }, { "name": "Positions", "value": 19 }]
           },
           {
-            "label": "Medium / low priority issues",
+            "label": "Medium/Low priority issues",
             "value": 3,
             "seriesItemDTO": [{ "name": "Positions", "value": 2 }, { "name": "Entity", "value": 1 }]
           },
           {
-            "label": "High priority issues",
+            "label": "high",
+            "value": 4,
+            "seriesItemDTO": [{ "name": "Positions", "value": 2 }, { "name": "Entity", "value": 2 }]
+          },
+          {
+            "label": "missingFiles",
             "value": 4,
             "seriesItemDTO": [{ "name": "Positions", "value": 2 }, { "name": "Entity", "value": 2 }]
           }
@@ -65,6 +71,7 @@ describe('DataIntakeComponent', () => {
     component.ngAfterViewInit();
     fixture.detectChanges();
     dataManagedService = TestBed.get(DataManagedService);
+    component.motifDatepModel = null;
     httpQueryParams =
     {
       startDate: '',
@@ -105,6 +112,60 @@ describe('DataIntakeComponent', () => {
     fixture.detectChanges();
     mockTotalSeriesItem = mockResponse.data[0]['totalSeriesItem'];
     expect(component.dataList).toEqual(mockTotalSeriesItem);
+  });
+
+  it('should manipulate data as per chart model for data domain', () => {
+    let mockResponse = mockFileSummaries;
+    let mockTotalSeriesItem = [];
+    spyOn(dataManagedService, 'getFileSummaryList').and.returnValue(of(mockResponse));
+    component.fileSummaryList();
+    fixture.detectChanges();
+    mockTotalSeriesItem = mockResponse.data[0]['totalSeriesItem'];
+    component.manipulateStatusWithResponse(mockTotalSeriesItem);
+    expect(component.reviewByGroupDomains).toEqual(mockResponse.data[0]['dataDomainCount']);
+  });
+
+  it('should manipulate data as per chart model for data provider', () => {
+    let mockResponse = mockFileSummaries;
+    let mockTotalSeriesItem = [];
+    spyOn(dataManagedService, 'getFileSummaryList').and.returnValue(of(mockResponse));
+    component.fileSummaryList();
+    fixture.detectChanges();
+    mockTotalSeriesItem = mockResponse.data[0]['totalSeriesItem'];
+    component.manipulateStatusWithResponse(mockTotalSeriesItem);
+    expect(component.reviewByGroupProviders).toEqual(mockResponse.data[0]['dataProvideCount']);
+  });
+
+  it('should fetch daily data as per data-provider', () => {
+    component.innerTabIn = 1;
+    component.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
+    component.dailyData(false);
+    fixture.detectChanges();
+    expect(component.httpQueryParams.dataIntakeType).toEqual(DATA_INTAKE_TYPE.DATA_PROVIDER);
+  });
+
+  it('should fetch daily data as per data-domain', () => {
+    component.innerTabIn = 0;
+    component.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
+    component.dailyData(false);
+    fixture.detectChanges();
+    expect(component.httpQueryParams.dataIntakeType).toEqual(DATA_INTAKE_TYPE.DATA_DOMAIN);
+  });
+
+  it('should fetch monthly data as per data-provider', () => {
+    component.innerTabIn = 1;
+    component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+    component.monthlyData(true);
+    fixture.detectChanges();
+    expect(component.httpQueryParams.dataIntakeType).toEqual(DATA_INTAKE_TYPE.DATA_PROVIDER);
+  });
+
+  it('should fetch monthly data as per data-domain', () => {
+    component.innerTabIn = 0;
+    component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+    component.monthlyData(true);
+    fixture.detectChanges();
+    expect(component.httpQueryParams.dataIntakeType).toEqual(DATA_INTAKE_TYPE.DATA_DOMAIN);
   });
 
 });

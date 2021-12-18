@@ -93,8 +93,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   colorScheme3;
   //end option
 
-
-
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
