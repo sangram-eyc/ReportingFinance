@@ -7,7 +7,8 @@ import { EycDataApiService } from '../services/eyc-data-api.service';
 import { DataIntakeComponent } from './data-intake.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { MotifFormsModule } from '@ey-xd/ng-motif';
+import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule } from '@ey-xd/ng-motif';
+
 import { of } from 'rxjs';
 import { DataSummary } from '../models/data-summary.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../config/dms-config-helper';
@@ -53,6 +54,10 @@ describe('DataIntakeComponent', () => {
     ],
     "error": null
   };
+  function getElement(id: string): any {
+    return document.body.querySelector(id);
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DataIntakeComponent],
@@ -60,7 +65,7 @@ describe('DataIntakeComponent', () => {
         EycDataApiService,
         { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
         { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
-      imports: [HttpClientTestingModule, MotifFormsModule]
+      imports: [HttpClientTestingModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
     })
       .compileComponents();
   }));
@@ -189,6 +194,20 @@ describe('DataIntakeComponent', () => {
     component.monthlyData(true);
     fixture.detectChanges();
     expect(component.httpQueryParams.dataIntakeType).toEqual(DATA_INTAKE_TYPE.DATA_DOMAIN);
+  });
+
+  it('should fetch date from motif Calendar', () => {
+    let selector = getElement('#datepicker');
+    expect(selector).not.toBe(null);
+
+    const event = { "isRange": false, "singleDate": { "date": { "year": 2021, "month": 12, "day": 15 }, "jsDate": "2021-12-14T18:30:00.000Z", "formatted": "2021-12-15", "epoc": 1639506600 }, "dateRange": null };
+    component.toggleCalendar(event);
+    if (component.calSelectedDate) {
+      component.httpQueryParams.dueDate = component.calSelectedDate;
+      component.fileSummaryList();
+    }
+    fixture.detectChanges();
+    expect(component.httpQueryParams.dueDate).toEqual(component.calSelectedDate);
   });
 
 });

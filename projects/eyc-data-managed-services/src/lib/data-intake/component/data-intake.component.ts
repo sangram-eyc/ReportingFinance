@@ -44,6 +44,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   curDate;
   presentDate;
   totalFileCount = 0;
+  calSelectedDate:any;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -117,9 +118,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   toggleCalendar(event): void {
-    const selectedDate = event.singleDate.formatted
-    if (selectedDate) {
-      this.httpQueryParams.dueDate = selectedDate;
+    this.calSelectedDate = event.singleDate.formatted
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
     }
   }
