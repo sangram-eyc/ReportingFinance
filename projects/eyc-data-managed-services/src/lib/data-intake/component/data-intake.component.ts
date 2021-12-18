@@ -38,6 +38,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  motifDatepModel: any;
   tabIn: number = 1;
   innerTabIn: number = 1;
   curDate;
@@ -92,8 +93,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   colorScheme3;
   //end option
 
-  motifDatepModel: any;
-  @ViewChild('dp') myDp;
+ 
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -118,11 +118,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.fileSummaryList();
   }
 
-  toggleCalendar(): void {
-    this.cdr.detectChanges();
-    this.myDp.toggleCalendar();
-    if (this.motifDatepModel) {
-      this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
+  toggleCalendar(event): void {
+    let cal_date=event.singleDate.formatted
+    if (cal_date) {
+      this.httpQueryParams.dueDate = cal_date;
       this.fileSummaryList();
     }
   }
