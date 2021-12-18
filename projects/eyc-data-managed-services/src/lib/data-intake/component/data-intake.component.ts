@@ -93,7 +93,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   colorScheme3;
   //end option
 
- 
+
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -113,15 +113,15 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-        FILTER_TYPE.MISSING_FILES,FILTER_TYPE.FILE_NOT_RECIEVED]
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
     this.fileSummaryList();
   }
 
   toggleCalendar(event): void {
-    let cal_date=event.singleDate.formatted
-    if (cal_date) {
-      this.httpQueryParams.dueDate = cal_date;
+    const selectedDate = event.singleDate.formatted
+    if (selectedDate) {
+      this.httpQueryParams.dueDate = selectedDate;
       this.fileSummaryList();
     }
   }
@@ -163,18 +163,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
     this.fileSummaryList();
-  }
-
-  select(event) {
-    console.log(event);
-  }
-
-  activate(event) {
-    console.log(event);
-  }
-
-  deactivate(event) {
-    console.log(event);
   }
 
   dailyData(status: boolean) {
