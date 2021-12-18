@@ -99,9 +99,32 @@ describe('DataIntakeComponent', () => {
     expect(component.tabIn).toBe(1);
   });
 
-  it('should change inner-tab', () => {
+  it('should change inner-tab with monthly data ', () => {
+    component.innerTabIn = 1;
+    component.dailyMonthlyStatus = true;
     component.innerTabChange(1);
-    expect(component.innerTabIn).toBe(1);
+    expect(component.httpQueryParams.dataFrequency).toEqual(DATA_FREQUENCY.MONTHLY);
+  });
+
+  it('should change inner-tab with monthly data ', () => {
+    component.innerTabIn = 1;
+    component.dailyMonthlyStatus = false;
+    component.innerTabChange(1);
+    expect(component.httpQueryParams.dataFrequency).toEqual(DATA_FREQUENCY.DAILY);
+  });
+
+  it('should change inner-tab with daily data ', () => {
+    component.innerTabIn = 0;
+    component.dailyMonthlyStatus = false;
+    component.innerTabChange(0);
+    expect(component.httpQueryParams.dataFrequency).toEqual(DATA_FREQUENCY.DAILY);
+  });
+
+  it('should change inner-tab with daily data ', () => {
+    component.innerTabIn = 0;
+    component.dailyMonthlyStatus = true;
+    component.innerTabChange(0);
+    expect(component.httpQueryParams.dataFrequency).toEqual(DATA_FREQUENCY.MONTHLY);
   });
 
   it('should get file summary data', () => {
