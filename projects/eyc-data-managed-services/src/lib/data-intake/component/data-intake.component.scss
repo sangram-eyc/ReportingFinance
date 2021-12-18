@@ -320,3 +320,21 @@
   }
 }
 
+.date-ui{
+  ::ng-deep .motif-form-field .motif-form-field-date-picker .motif-form-field-error .motif-input{
+    margin: 0 !important;
+    height: 30px !important;
+    background-color: rgb(0 0 0 / 0%) !important;
+    
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: rgb(0 0 0 / 0%) !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: rgb(0 0 0 / 0%) !important;
+  }
+
+  
+}
+
