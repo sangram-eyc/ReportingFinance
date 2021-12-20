@@ -305,9 +305,14 @@
           fill="#C4C4CD" />
       </svg>
     </a>
-
-
   </ng-template>
+
+  <ng-template #statusChangedToTemplate let-row>
+      <span style="font-size:12px !important;margin-left: 10px;"> {{row.statusChangesDate}} </span>
+  </ng-template>
+
+  
+
 </div>
 <div class="toast-cycles-details">
   <motif-toast [type]="'success'" [show]="showToastAfterSubmit">

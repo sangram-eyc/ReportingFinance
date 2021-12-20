@@ -133,6 +133,9 @@ export class CycleDetailComponent implements OnInit {
   assignedToTemplate: TemplateRef<any>;
   @ViewChild('totalComments')
   totalComments: TemplateRef<any>;
+  @ViewChild('statusChangedToTemplate')
+  statusChangedToTemplate: TemplateRef<any>;
+  
 
   dataset = [{
     disable: false,
@@ -292,6 +295,7 @@ export class CycleDetailComponent implements OnInit {
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
           totalComments: item.totalComments,
+          statusChangesDate: item.statusChangesDate,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         //total opens comments by product-cycle
@@ -330,6 +334,7 @@ export class CycleDetailComponent implements OnInit {
 
   createFundRowData(rowData: any) {
     let rowDatafunds = rowData
+    console.log(rowData)
     this.rowData = [];
     rowDatafunds.forEach(fund => {
       this.rowData.push({
@@ -342,6 +347,7 @@ export class CycleDetailComponent implements OnInit {
         openCommentsEY: fund.openCommentsEY,
         openCommentsClient: fund.openCommentsClient,
         totalComments: fund.totalComments,
+        statusChangesDate: fund.statusChangesDate,
         assignedTo: fund.assignedTo
       })
     });
@@ -397,6 +403,19 @@ export class CycleDetailComponent implements OnInit {
         },
         headerName: 'Assigned to',
         field: 'assignedTo',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        minWidth: 300,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.statusChangedToTemplate,
+        },
+        headerName: 'status changed',
         sortable: true,
         filter: true,
         resizeable: true,
