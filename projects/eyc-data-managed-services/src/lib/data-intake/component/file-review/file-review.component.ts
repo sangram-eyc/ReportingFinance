@@ -12,13 +12,13 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
   styleUrls: ['./file-review.component.scss']
 })
 export class FileReviewComponent implements OnInit {
-  single: any[] = [];
+  single = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   multi;
   gridApi;
   innerTabIn: number = 1;
-  activeReports: any;
+  activeReports;
   curDate;
   presentDate;
   totalFileCount = 50;
@@ -30,7 +30,6 @@ export class FileReviewComponent implements OnInit {
 
   dataFetch: number[];
   fileSummaries = [];
-
   // bar chart start
 
 
@@ -55,8 +54,8 @@ export class FileReviewComponent implements OnInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin;
+  xScaleMax;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -70,27 +69,20 @@ export class FileReviewComponent implements OnInit {
   colorScheme2;
   colorScheme3;
   colorSchemeAll;
-
   //end option
 
 
   // table options
-
-
-  activeFilings: any[] = [];
-  completedFilings: any[] = [];
-  filingResp: any[] = [];
+  activeFilings = [];
+  completedFilings = [];
+  filingResp = [];
 
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
   maxPages = 5;
-  // searchNoDataAvilable = false;
-  // activeReportsSearchNoDataAvilable = false;
   noCompletedDataAvilable = false;
-  // noActivatedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
-  // gridApi;
   rowData;
   rowClass = 'row-style';
   columnDefs;
@@ -106,9 +98,6 @@ export class FileReviewComponent implements OnInit {
   @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
   @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
   
-
-  
-
   dataset = [{
     disable: false,
     value: 10,
@@ -135,8 +124,8 @@ export class FileReviewComponent implements OnInit {
   };
 
   pageSize;
-  columnGl: any
-  glRowdata: any
+  columnGl;
+  glRowdata;
   // end 
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
@@ -144,7 +133,6 @@ export class FileReviewComponent implements OnInit {
     this.setColorScheme();
   }
   setColorScheme() {
-    // this.selectedColorScheme = 'red';
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
@@ -158,11 +146,9 @@ export class FileReviewComponent implements OnInit {
     this.dailyDataProvider();
     this.getReviewFilesData();
     this.getReviewFileTableData();
-
   }
 
   // table methods
-
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -326,7 +312,6 @@ export class FileReviewComponent implements OnInit {
     })
   }
 
-
   formatDate(timestamp) {
     let due = new Date(timestamp);
     const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
@@ -409,7 +394,6 @@ export class FileReviewComponent implements OnInit {
     });
   }
 
-
   getDataProviderList() {
     this.dataManagedService.getDataProviderList().subscribe(data => {
       this.single = data.data['dataSeries'];
@@ -433,12 +417,10 @@ export class FileReviewComponent implements OnInit {
     });
   }
 
-
   getReviewFilesData() {
     // Mock API integration for Review File
     this.dataManagedService.getReviewFilesData().subscribe(data => {
       this.multi = data.data["dataseries"];
     });
   }
-
 }

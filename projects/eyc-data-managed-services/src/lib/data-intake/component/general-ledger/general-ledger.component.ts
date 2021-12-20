@@ -10,7 +10,7 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
   styleUrls: ['./general-ledger.component.scss']
 })
 export class GeneralLedgerComponent implements OnInit {
-  single: any[] = [];
+  single = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   gridApi;
@@ -21,10 +21,10 @@ export class GeneralLedgerComponent implements OnInit {
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
-  activeFilings: any[] = [];
-  activeReports:any[] = []
-  completedFilings: any[] = [];
-  filingResp: any[] = [];
+  activeFilings = [];
+  activeReports = []
+  completedFilings = [];
+  filingResp = [];
 
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
@@ -82,23 +82,20 @@ export class GeneralLedgerComponent implements OnInit {
   };
 
   pageSize;
-  columnGl: any
-  glRowdata: any
-
+  columnGl;
+  glRowdata;
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
-
   }
 
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
-
     this.getActiveFilingsData();
   }
 
-  // table methods
+  // Table methods
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -228,8 +225,7 @@ export class GeneralLedgerComponent implements OnInit {
         minWidth: 200,
         sort: 'asc',
         wrapText: true,
-        autoHeight: true,
-        // comparator: customComparator
+        autoHeight: true
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

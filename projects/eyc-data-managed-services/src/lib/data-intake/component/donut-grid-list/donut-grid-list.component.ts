@@ -12,7 +12,7 @@ import { formatDate } from '@angular/common';
 export class DonutGridListComponent implements OnInit {
   curDate;
   presentDate;
-  view: any[] = undefined;
+  view: [];
   colorSchemeAll;
   showLegend = false;
   legendTitle = 'Legend';

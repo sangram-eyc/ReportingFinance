@@ -10,13 +10,13 @@ import { GlobalConstants } from '../../global-constants'
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit, AfterViewInit {
-  fileMissingPastDueData: any[] = [];
+  fileMissingPastDueData = [];
   fileMissingPastDueCount: number = 0;
-  highPriorityIssuesData: any[] = [];
+  highPriorityIssuesData = [];
   highPriorityIssuesCount: number = 0;
-  mediumLowPriorityData: any[] = [];
+  mediumLowPriorityData = [];
   mediumLowPriorityCount: number = 0;
-  dataList: any[] = [];
+  dataList = [];
   dailyMonthlyStatus: boolean = false;
   reviewByGroupDomains: number = 0;
   reviewByGroupProviders: number = 0;
@@ -28,18 +28,15 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  activeReports: any;
+  activeReports;
   curDate;
   presentDate;
-  totalFileCount=50;
-  // totalFileCount=0;
+  totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
-  // Received = No issue
-  // Not Received = Files not received
   fileSummaries = [];
   fileSummariesObject = [
     {
@@ -86,8 +83,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin;
+  xScaleMax;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;

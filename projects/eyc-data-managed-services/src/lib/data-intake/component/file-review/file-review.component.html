@@ -195,9 +195,6 @@
          <motif-chip [removeable]="false" *ngIf="row.Status=='Missing'" variant="error">Missing</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.Status=='No Issues'" variant="success">No Issues</motif-chip>
       </div>
-      <!-- <div>
-         <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-      </div> -->
    </ng-template>
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
@@ -250,20 +247,10 @@
          </ul>
       </motif-tooltip>
    </ng-template>
-   <!-- <ng-template #rname let-row>
-      <a href="">{{row.rname}}</a>
-   </ng-template>
-   <ng-template #commentscount let-row>
-      <motif-chip [removeable]="false" variant="monochrome-dark">{{row.comments}}</motif-chip>
-   </ng-template> -->
+
    <ng-template #nextButtonTemplate let-row>
       <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
    </ng-template>
-   <!-- <ng-template #commentTemplate let-row>
-      <div *ngIf="row.comments!==0" class="comments-background">
-         {{row.comments}}
-      </div>
-   </ng-template> -->
 
    <!-- Tooltip -->
    <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">

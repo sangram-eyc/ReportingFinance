@@ -14,7 +14,7 @@ export class ExceptionsReportsComponent implements OnInit {
   MotifTableHeaderRendererComponent = MotifTableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
 
-  exceptionTableData: any[] = [];
+  exceptionTableData = [];
   gridApi;
   columnDefs: Array<ColDef>;
   frameworkComponents;
@@ -31,7 +31,6 @@ export class ExceptionsReportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   isFirstColumn = (params) => {
@@ -51,7 +50,6 @@ export class ExceptionsReportsComponent implements OnInit {
       this.headerTemplate,
       this.dropdownTemplate
     );
-
 
     setTimeout(() => {
       this.columnDefs = [
@@ -92,9 +90,6 @@ export class ExceptionsReportsComponent implements OnInit {
           sortable: true,
         },
       ];
-
-
-
       this.getExceptionReportstable();
     });
 
@@ -106,7 +101,5 @@ export class ExceptionsReportsComponent implements OnInit {
     this.dataManagedService.getExceptionReportstable().subscribe(data => {
       this.exceptionTableData = data.data['rowData'];
     });
-
   }
-
 }
