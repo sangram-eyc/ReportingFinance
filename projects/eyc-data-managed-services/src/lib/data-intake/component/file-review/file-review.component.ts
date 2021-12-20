@@ -192,13 +192,15 @@ export class FileReviewComponent implements OnInit {
       return false;
     }
   }
-  stringTrim(params) {
-    if ((params).length > 17) {
-      return (params).substr(0, 17) + ''
+
+  stringTrim(params, paramSize) {
+    if ((params).length > paramSize) {
+      return (params).substr(0, paramSize) + ''
     } else {
       return params
     }
   }
+
   getReviewFileTableData() {
     this.dataManagedService.getReviewFileTableData().subscribe(resp => {
       resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
