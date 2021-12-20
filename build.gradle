@@ -54,6 +54,12 @@ task build(type: NpmTask) {
 }
 
 task buildTax(type: NpmTask) {
+  println "Building eyc-DMS-UI"
+  args = ['run', 'eyc-ui-dms:package']
+  
+}
+
+task buildDMS(type: NpmTask) {
   println "Building eyc-tax-reporting UI"
   args = ['run', 'eyc-tax-reporting']
   
