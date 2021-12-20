@@ -3,6 +3,7 @@ import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { GridDataSet } from '../../models/grid-dataset.model';
 
 @Component({
   selector: 'lib-general-ledger',
@@ -14,8 +15,8 @@ export class GeneralLedgerComponent implements OnInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   gridApi;
-  curDate;
-  presentDate;
+  curDate: string;
+  presentDate: Date;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -32,9 +33,9 @@ export class GeneralLedgerComponent implements OnInit {
   noCompletedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
-  rowData;
+  rowData = [];
   rowClass = 'row-style';
-  columnDefs;
+  columnDefs = [];
   rowStyle = {
     height: '74px'
   }
@@ -56,7 +57,7 @@ export class GeneralLedgerComponent implements OnInit {
   @ViewChild('commentTemplate')
   commentTemplate: TemplateRef<any>;
 
-  dataset = [{
+  dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
     name: '10',
@@ -74,16 +75,14 @@ export class GeneralLedgerComponent implements OnInit {
     name: '50',
     id: 2
   }];
-  currentlySelectedPageSize = {
+  
+  currentlySelectedPageSize: GridDataSet = {
     disable: false,
     value: 10,
     name: '10',
     id: 0
   };
-
-  pageSize;
-  columnGl;
-  glRowdata;
+  glRowdata = [];
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
@@ -120,21 +119,13 @@ export class GeneralLedgerComponent implements OnInit {
     })
   }
   
-  formatDate(timestamp) {
-    let due = new Date(timestamp);
-    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-      + ('0' + due.getDate()).slice(-2) + '/'
-      + due.getFullYear();
-    return newdate;
-  }
-
   createHistoryRowData() {
     this.rowData = [];
     this.completedFilings.forEach(filing => {
       this.rowData.push({
         name: filing.name,
         comments: filing.comments.length,
-        dueDate: this.formatDate(filing.dueDate),
+        dueDate: this.customglobalService.formatDateWithSlashConcat(filing.dueDate),
         subDate: '-',
         exceptions: 0,
         resolved: 0

@@ -76,8 +76,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin;
-  xScaleMax;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;

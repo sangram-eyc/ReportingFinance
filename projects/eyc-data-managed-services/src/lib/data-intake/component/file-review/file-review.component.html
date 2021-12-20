@@ -95,7 +95,7 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                              [results]="multi" [animations]="animations" [gradient]="gradient"
+                              [results]="batChartData" [animations]="animations" [gradient]="gradient"
                               [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
                               [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
@@ -127,7 +127,7 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                              [results]="multi" [animations]="animations" [gradient]="gradient"
+                              [results]="batChartData" [animations]="animations" [gradient]="gradient"
                               [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
                               [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
@@ -174,7 +174,7 @@
 
    <div id="grid-wrapper">
       <motif-card>
-         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="multiple"
+         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="batChartDataple"
             (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
             [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
          </motif-table>

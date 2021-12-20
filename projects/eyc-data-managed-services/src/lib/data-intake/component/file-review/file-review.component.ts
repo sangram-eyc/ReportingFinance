@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
+import { GridDataSet } from '../../models/grid-dataset.model';
 
 @Component({
   selector: 'lib-file-review',
@@ -15,11 +16,11 @@ import { DataSummary } from '../../models/data-summary.model'
 export class FileReviewComponent implements OnInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  multi;
+  batChartData = [];
   gridApi;
   innerTabIn: number = 1;
-  curDate;
-  presentDate;
+  curDate: string;
+  presentDate: Date;
   totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -50,8 +51,8 @@ export class FileReviewComponent implements OnInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin;
-  xScaleMax;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -61,10 +62,10 @@ export class FileReviewComponent implements OnInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme;
-  colorScheme2;
-  colorScheme3;
-  colorSchemeAll;
+  colorScheme: Color;
+  colorScheme2: Color;
+  colorScheme3: Color;
+  colorSchemeAll: Color;
   //end option
 
   // table options
@@ -89,7 +90,7 @@ export class FileReviewComponent implements OnInit {
   @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
   @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
   
-  dataset = [{
+  dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
     name: '10',
@@ -107,7 +108,8 @@ export class FileReviewComponent implements OnInit {
     name: '50',
     id: 2
   }];
-  currentlySelectedPageSize = {
+
+  currentlySelectedPageSize: GridDataSet = {
     disable: false,
     value: 10,
     name: '10',
@@ -305,13 +307,6 @@ export class FileReviewComponent implements OnInit {
     })
   }
 
-  formatDate(timestamp) {
-    let due = new Date(timestamp);
-    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-      + ('0' + due.getDate()).slice(-2) + '/'
-      + due.getFullYear();
-    return newdate;
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
@@ -444,7 +439,7 @@ export class FileReviewComponent implements OnInit {
   getReviewFilesData() {
     // Mock API integration for Review File
     this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.multi = data.data["dataseries"];
+      this.batChartData = data.data["dataseries"];
     });
   }
 }
