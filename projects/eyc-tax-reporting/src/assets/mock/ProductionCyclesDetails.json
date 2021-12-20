@@ -11,6 +11,7 @@
         "openCommentsEY": 2,
         "openCommentsClient": 3,
         "totalComments":20,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers": [
             {
                 "userId": 123, 
@@ -52,6 +53,7 @@
         "openCommentsEY": 200,
         "openCommentsClient": 2,
         "totalComments":100,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers":[
             {
                 "userId": 123, 
@@ -87,6 +89,7 @@
         "openCommentsEY": 99,
         "openCommentsClient": 660,
         "totalComments":2,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers":[
             {
 
@@ -104,6 +107,7 @@
         "openCommentsEY":"10",
         "openCommentsClient":"10",
         "totalComments":30,
+        "statusChangesDate":"",
         "assignedUsers":[
             {
             "userId": 123, 
@@ -120,6 +124,7 @@
         "status": "open",
         "openCommentsEY": 0,
         "openCommentsClient": 5,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers":[]
     },
     {
@@ -129,6 +134,7 @@
         "status": "approved",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers":[]
 
     },
@@ -139,6 +145,7 @@
         "status": "approved",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
+        "statusChangesDate":"01/12/2012",
         "assignedUsers":[]
 
     },
