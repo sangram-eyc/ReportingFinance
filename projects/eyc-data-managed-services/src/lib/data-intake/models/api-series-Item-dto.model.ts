@@ -1,0 +1,1 @@
+export interface ApiSeriesItemDTO { lable: string, value: number };

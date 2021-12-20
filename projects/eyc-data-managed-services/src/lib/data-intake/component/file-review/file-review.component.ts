@@ -5,6 +5,7 @@ import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { DataSummary } from '../../models/data-summary.model'
 
 @Component({
   selector: 'lib-file-review',
@@ -12,17 +13,14 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
   styleUrls: ['./file-review.component.scss']
 })
 export class FileReviewComponent implements OnInit {
-  single = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   multi;
   gridApi;
   innerTabIn: number = 1;
-  activeReports;
   curDate;
   presentDate;
-  totalFileCount = 50;
-  // totalFileCount=0;
+  totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -31,8 +29,6 @@ export class FileReviewComponent implements OnInit {
   dataFetch: number[];
   fileSummaries = [];
   // bar chart start
-
-
   fitContainer: boolean = false;
   // options
   showXAxis = true;
@@ -71,12 +67,7 @@ export class FileReviewComponent implements OnInit {
   colorSchemeAll;
   //end option
 
-
   // table options
-  activeFilings = [];
-  completedFilings = [];
-  filingResp = [];
-
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
   maxPages = 5;
@@ -124,9 +115,12 @@ export class FileReviewComponent implements OnInit {
   };
 
   pageSize;
-  columnGl;
-  glRowdata;
+  columnGl: any
+  glRowdata: any
   // end 
+
+  // API Request match with response
+  httpQueryParams: DataSummary;
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
@@ -148,7 +142,6 @@ export class FileReviewComponent implements OnInit {
     this.getReviewFileTableData();
   }
 
-  // table methods
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -333,7 +326,7 @@ export class FileReviewComponent implements OnInit {
     this.currentPage = val;
     this.getReviewFileTableData();
   }
-  // end 
+
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
   }
@@ -349,8 +342,18 @@ export class FileReviewComponent implements OnInit {
   }
 
   getFileSummuries() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'All',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noIssues','high','low', 'medium', 'missingFiles', 'fileNotRecieved']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
@@ -381,22 +384,43 @@ export class FileReviewComponent implements OnInit {
   }
 
   dailyManagedData() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'Daily',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
 
   monthyManagedData() {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: 'Monthly',
+      dataIntakeType: 'dataProvider',
+      dueDate: '2021-10-22',
+      periodType: '',
+      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
+    };
     // Mock API integration for donut chart
-    this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
+    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
       this.fileSummaries = dataSummuries.data['dataSeries'];
     });
   }
 
+
   getDataProviderList() {
     this.dataManagedService.getDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }
@@ -404,7 +428,7 @@ export class FileReviewComponent implements OnInit {
   dailyDataProvider() {
     // Mock API integration for donut chart
     this.dataManagedService.getDailyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }
@@ -412,7 +436,7 @@ export class FileReviewComponent implements OnInit {
   monthyDataProvider() {
     // Mock API integration for donut chart
     this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
+      this.fileSummaries = data.data['dataSeries'];
       this.totalFileCount = data.data['totalCount'];
     });
   }
