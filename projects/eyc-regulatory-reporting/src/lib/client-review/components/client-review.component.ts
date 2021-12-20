@@ -67,7 +67,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve these exception reports?",
+      description: "Are you sure you want to approve these exception report(s)?",
       footer: {
         style: "start",
         YesButton: "Continue",
