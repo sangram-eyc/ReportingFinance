@@ -42,6 +42,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isAdmin: false,
     isRegReporting: false
   };
+  timeoutWarnDownloads;
+  pendingDownloads: string[] = [];
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService, 
@@ -70,6 +72,15 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       this.openErrorModal("Inactivity", "You will be logged out due to inactivity");
       }
     }, this.inActivityTime);
+
+    this.timeoutWarnDownloads = setTimeout(() => {
+      if(sessionStorage.getItem("pendingDownloadsBulk")){
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+      }
+      if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
+      this.openPendingDownloadsTaxModal("Warning", "A download is in progress and if the session expires while the download is in progress, the download request will not complete.");
+      }
+    }, (this.inActivityTime - 120000));
   }
 
   openErrorModal(header, description) {
@@ -189,6 +200,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   @HostListener('window:mousedown', ['$event'])
   public checkUserActivity(event) {
     clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutWarnDownloads);
     this.checkTimeOut();
   }
  
@@ -223,6 +235,20 @@ onMessage(event) {
     }
 
   }
+}
+
+openPendingDownloadsTaxModal(header, description) {
+  const dialogRef = this.dialog.open(ErrorModalComponent, {
+    width: '400px',
+    data: {
+      header: header,
+      description: description,
+      footer: {
+        style: "start",
+        YesButton: "OK"
+      },
+    }
+  });
 }
    
 }

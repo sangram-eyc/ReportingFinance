@@ -17,6 +17,7 @@ import { SettingsService } from '../../../../../../src/app/services/settings.ser
 import { LoaderService } from '../../../../../../src/app/services/loader.service'
 import { Subject } from 'rxjs';
 import { WarningModalComponent } from '../../shared/warning-modal/warning-modal.component';
+import { WebSocketBulkService } from '../services/web-socket-bulk.service'
 
 @Component({
   selector: 'cycle-details',
@@ -59,8 +60,10 @@ export class CycleDetailComponent implements OnInit {
     private router: Router,
     public permissions: PermissionService,
     private fb: FormBuilder,
-    private LoaderService: LoaderService
+    private LoaderService: LoaderService,
+    private wsService: WebSocketBulkService
   ) {
+
 
   }
   isLoading: Subject<boolean> = this.LoaderService.isLoading;
@@ -209,7 +212,8 @@ export class CycleDetailComponent implements OnInit {
     });
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
-    this.widthDivChart = 950;
+    this.widthDivChart = 950; 
+    this.wsService.connect(); 
   }
 
   backtoCycleView() {
