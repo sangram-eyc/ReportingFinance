@@ -27,7 +27,7 @@ node {
 
 task buildSharedComponent(type: NpmTask) {
   println "Building eyc shared component"
-  args = ['run', 'eyc-ui-shared']
+  args = ['run', 'eyc-ui-shared:package']
   
 }
 
