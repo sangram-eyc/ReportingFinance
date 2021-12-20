@@ -11,20 +11,19 @@ import {WebSocketBulkService} from '../services/web-socket-bulk.service'
 export class BulkDownloadModalComponent implements OnInit, OnDestroy {
   modalDetails;
   fundsList:any[] = [];
-  url = 'wss://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication';
-
+  
   @Output() bulkprocesed: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private bulkService: BulkDownloadService,
     private wsService: WebSocketBulkService,
-    public dialogRef: MatDialogRef<BulkDownloadModalComponent>,
+    public dialogRef: MatDialogRef<BulkDownloadModalComponent>,   
     @Inject(MAT_DIALOG_DATA) public data: any
     ){
       this.modalDetails = data;
      }
 
   ngOnInit(): void {
-      this.wsService.createObservableSocket(this.url);
+     
   }
 
   onClickYes(){
@@ -36,9 +35,12 @@ export class BulkDownloadModalComponent implements OnInit, OnDestroy {
           "name" : element.name
         });
       }); 
-      const data:any = { "fundDTOS" : this.fundsList }    
+      const userEmail = sessionStorage.getItem('userEmail');
+      const data:any = {
+        "user":  userEmail,
+        "fundDTOS" : this.fundsList
+       }    
       this.bulkService.bulkDownloadFirstCall(data).subscribe(resp => {
-        //window.open(resp.data.fileUploadDTO.url);
         const idFile = resp.data.fileUploadDTO.uiuuid;
         this.sendMessageToServer(idFile);
         this.bulkprocesed.emit(resp);     
@@ -56,7 +58,7 @@ export class BulkDownloadModalComponent implements OnInit, OnDestroy {
   }
 
   closeWebSocket(){
-    this.wsService.webSocketClose();  
+    this.wsService.unSubscribe();  
   }
 
   ngOnDestroy(): void {
