@@ -15,6 +15,7 @@ import { DataSummary } from '../models/data-summary.model'
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
+import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-data-intake',
@@ -97,7 +98,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
   }
 
@@ -233,7 +235,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
       this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
