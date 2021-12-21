@@ -18,9 +18,13 @@ export class WebSocketBulkService {
   }
   
   private getNewWebSocket() {
-    let WS_ENDPOINT = `${this.settingsService.taxReporting.websocket_bulk_url}`;
+    let origin = window.location.origin + window.location.pathname;
+    console.log('origin url->', origin);
+    let WS_ENDPOINT = this.settingsService.production ? 
+                      `${origin}${this.settingsService.taxReporting.websocket_bulk_url}`: 
+                      `${this.settingsService.taxReporting.websocket_bulk_url}`;
     const url_ws = WS_ENDPOINT.replace("https:", "wss:");
-    console.log("url ws v2->", url_ws);
+    console.log("url ws v3->", url_ws);
     this.socket$ = webSocket({url: url_ws,
       deserializer: ({data}) => data,
       openObserver: { next: () => {console.log('open conection websocket Bulk')}},
