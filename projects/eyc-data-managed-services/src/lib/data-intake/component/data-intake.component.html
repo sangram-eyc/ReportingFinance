@@ -19,7 +19,7 @@
                <h6 class="heading-6">Summary Dashboard</h6>
             </div>
             <div class="dateWrapper">
-               <div class="px-3">
+               <div class="px-3 date-ui">
                   <motif-form-field>
                      <label motifLabel for="datepicker">Date (required)</label>
                      <input
@@ -29,8 +29,8 @@
                         id="datepicker"
                         #dp="motifDatepicker"
                         placeholder="YYYY-MM-DD"
-                        (click)="toggleCalendar()"
-                        (keydown.enter)="toggleCalendar()"
+                        (click)="dp.openCalendar()"
+                        (dateChanged)="toggleCalendar($event)"
                         autocomplete="off"
                         [required]="true"
                         [(ngModel)]="motifDatepModel"
@@ -156,8 +156,7 @@
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
 
@@ -189,8 +188,7 @@
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
@@ -222,8 +220,7 @@
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
@@ -257,8 +254,7 @@
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
 
@@ -290,8 +286,7 @@
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
@@ -323,8 +318,7 @@
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                                  [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength" (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">

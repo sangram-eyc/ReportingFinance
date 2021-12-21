@@ -15,6 +15,7 @@ import { DataSummary } from '../models/data-summary.model'
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
+import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-data-intake',
@@ -38,11 +39,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  motifDatepModel: any;
   tabIn: number = 1;
   innerTabIn: number = 1;
   curDate: string;
   presentDate: Date;
   totalFileCount = 0;
+  calSelectedDate:any;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -92,13 +95,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   colorScheme3: Color;
   //end option
 
-  motifDatepModel;  // Motif DTP is any type
-  @ViewChild('dp') myDp;
-
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
   }
 
@@ -113,16 +114,15 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-        FILTER_TYPE.MISSING_FILES,FILTER_TYPE.FILE_NOT_RECIEVED]
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
     this.fileSummaryList();
   }
 
-  toggleCalendar(): void {
-    this.cdr.detectChanges();
-    this.myDp.toggleCalendar();
-    if (this.motifDatepModel) {
-      this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
+  toggleCalendar(event): void {
+    this.calSelectedDate = event.singleDate.formatted
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
     }
   }
@@ -164,18 +164,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
     this.fileSummaryList();
-  }
-
-  select(event) {
-    console.log(event);
-  }
-
-  activate(event) {
-    console.log(event);
-  }
-
-  deactivate(event) {
-    console.log(event);
   }
 
   dailyData(status: boolean) {
@@ -247,7 +235,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
       this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
