@@ -75,9 +75,7 @@ export class FileReviewComponent implements OnInit {
   noCompletedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
-  rowData;
   rowClass = 'row-style';
-  columnDefs;
   rowStyle = {
     height: '74px'
   }
@@ -116,9 +114,8 @@ export class FileReviewComponent implements OnInit {
     id: 0
   };
 
-  pageSize;
-  columnGl: any
-  glRowdata: any
+  columnGl = [];
+  glRowdata = [];
   // end 
 
   // API Request match with response

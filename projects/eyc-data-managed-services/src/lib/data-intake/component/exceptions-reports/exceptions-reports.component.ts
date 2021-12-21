@@ -17,7 +17,6 @@ export class ExceptionsReportsComponent implements OnInit {
   exceptionTableData = [];
   gridApi;
   columnDefs: Array<ColDef>;
-  frameworkComponents;
 
   @ViewChild('motifTable') table: ElementRef;
   @ViewChild('headerTemplate')
@@ -26,8 +25,6 @@ export class ExceptionsReportsComponent implements OnInit {
   dropdownTemplate: TemplateRef<any>;
 
   constructor(private dataManagedService: DataManagedService) {
-    this.frameworkComponents = {
-    };
   }
 
   ngOnInit(): void {
@@ -45,12 +42,6 @@ export class ExceptionsReportsComponent implements OnInit {
   };
 
   ngAfterViewInit(): void {
-    console.log(
-      'Template Reference: ',
-      this.headerTemplate,
-      this.dropdownTemplate
-    );
-
     setTimeout(() => {
       this.columnDefs = [
         {
@@ -94,7 +85,6 @@ export class ExceptionsReportsComponent implements OnInit {
     });
 
   }
-
 
   getExceptionReportstable() {
     // Mock API integration for exception reports table
