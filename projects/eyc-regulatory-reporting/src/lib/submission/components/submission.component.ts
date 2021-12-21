@@ -64,37 +64,6 @@ export class SubmissionComponent implements OnInit {
     }
   }
 
-
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-      
-  //     this.columnDefs = [
-  //       {
-  //         headerComponentFramework: TableHeaderRendererComponent,
-  //         cellRendererFramework: MotifTableCellRendererComponent,
-  //         cellRendererParams: {
-          
-  //         },
-  //         field: 'template',
-  //         headerName: '',
-  //         width: 70,
-  //         sortable: false,
-  //         pinned: 'left'
-  //       },
-  //       {
-  //         headerComponentFramework: TableHeaderRendererComponent,
-  //         headerName: 'Report Name',
-  //         field: 'fileName',
-  //         cellClass: 'custom-report-name',
-  //         wrapText: true,
-  //         autoHeight: true,
-  //         width: 300,
-  //         sort:'asc',
-  //         comparator: customComparator
-  //       }
-  //     ];
-  //   });
-  // }
   handleGridReady(params) {
     this.gridApi = params.api;
   }
