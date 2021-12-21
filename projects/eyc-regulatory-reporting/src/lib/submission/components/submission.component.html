@@ -13,7 +13,7 @@
 <!--  <lib-download [buttonLabel]="'Download selected'" [downloadFilesList]="selectedRows" (downloadFilesEmitter)="donwloadFilesOnSelected($event)"></lib-download>    </div>
  -->    <section id="xml-files-list">
        
-        <div >
+        <div [hidden]="noFilesDataAvilable">
             <motif-table title="Answer Files" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
         headerCheckboxSelection: isFirstColumn,
         checkboxSelection: isFirstColumn}" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
