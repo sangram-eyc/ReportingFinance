@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
+import { GridDataSet } from '../../models/grid-dataset.model';
 
 @Component({
   selector: 'lib-file-review',
@@ -15,11 +16,11 @@ import { DataSummary } from '../../models/data-summary.model'
 export class FileReviewComponent implements OnInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  multi;
+  batChartData = [];
   gridApi;
   innerTabIn: number = 1;
-  curDate;
-  presentDate;
+  curDate: string;
+  presentDate: Date;
   totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -28,7 +29,6 @@ export class FileReviewComponent implements OnInit {
 
   dataFetch: number[];
   fileSummaries = [];
-
   // bar chart start
   fitContainer: boolean = false;
   // options
@@ -51,8 +51,8 @@ export class FileReviewComponent implements OnInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -62,10 +62,10 @@ export class FileReviewComponent implements OnInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme;
-  colorScheme2;
-  colorScheme3;
-  colorSchemeAll;
+  colorScheme: Color;
+  colorScheme2: Color;
+  colorScheme3: Color;
+  colorSchemeAll: Color;
   //end option
 
   // table options
@@ -75,19 +75,20 @@ export class FileReviewComponent implements OnInit {
   noCompletedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
-
-  rowData;
   rowClass = 'row-style';
-  columnDefs;
   rowStyle = {
     height: '74px'
   }
   domLayout = 'autoHeight';
 
-  @ViewChild('chipTemplate')
-  chipTemplate : TemplateRef<any>;
+  @ViewChild('chipTemplate') chipTemplate: TemplateRef<any>;
+  @ViewChild('threeDotTooltip') threeDotTooltip: TemplateRef<any>;
+  @ViewChild('nextButtonTemplate') nextButtonTemplate: TemplateRef<any>;
+
+  @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
+  @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
   
-  dataset = [{
+  dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
     name: '10',
@@ -105,16 +106,16 @@ export class FileReviewComponent implements OnInit {
     name: '50',
     id: 2
   }];
-  currentlySelectedPageSize = {
+
+  currentlySelectedPageSize: GridDataSet = {
     disable: false,
     value: 10,
     name: '10',
     id: 0
   };
 
-  pageSize;
-  columnGl: any
-  glRowdata: any
+  columnGl = [];
+  glRowdata = [];
   // end 
 
   // API Request match with response
@@ -170,6 +171,14 @@ export class FileReviewComponent implements OnInit {
     }
   }
 
+  stringTrim(params, paramSize) {
+    if ((params).length > paramSize) {
+      return (params).substr(0, paramSize) + ''
+    } else {
+      return params
+    }
+  }
+
   getReviewFileTableData() {
     this.dataManagedService.getReviewFileTableData().subscribe(resp => {
       resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
@@ -177,99 +186,124 @@ export class FileReviewComponent implements OnInit {
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'File',
           field: 'file',
           sortable: true,
           filter: true,
-          resizeable: true,
-          minWidth: 100,
-          sort:'asc',
-          wrapText: true,
-          autoHeight: true
+          minWidth: 150,
+          wrapText: false,
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotTooltip
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Provider',
           field: 'provider',
           sortable: true,
           filter: true,
-          minWidth: 10,
+          minWidth: 100,
           wrapText: true,
           autoHeight: true
-          
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Data Domain',
           field: 'data_domain',
-  
           sortable: true,
           filter: true,
           minWidth: 100,
           wrapText: true,
           autoHeight: true
-          
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Function',
           field: 'functions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
-          autoHeight: true
+          minWidth: 100,
+          wrapText: false,
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotFunctionTooltip
+          },
+          valueGetter: function (params) {
+            if ((params.data.functions).length > 4) {
+              return (params.data.functions).substr(0, 4) + ' ...'
+            } else {
+              return params.data.functions
+            }
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Due Date',
           field: 'due_date',
           sortable: true,
           filter: true,
-          minWidth: 10,
+          minWidth: 100,
           wrapText: true,
-          autoHeight: true
-          
+          autoHeight: true,
+          cellStyle: function (params) {
+            if ((params.data.data_domain).length < 10) {
+              return { color: 'red' }
+            } else {
+              return true;
+            }
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
+          minWidth: 100,
+          wrapText: false,
           autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotExceptionsTooltip
+          },
+          valueGetter: function (params) {
+            if (params.data.exceptions) {
+              return params.data.exceptions
+            } else {
+              return '--'
+            }
+          }
         }, {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Status',
           field: 'Status',
           sortable: true,
-          filter: true,
-          minWidth: 300,
-          wrapText: true,
-          autoHeight: true,
+          filter: false,
+          minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }
-        }
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: '',
+          field: 'next',
+          sortable: false,
+          filter: false,
+          minWidth: 150,
+          cellRendererParams: {
+            ngTemplate: this.nextButtonTemplate,
+          }
+        },
       ];
     })
   }
 
-
-  formatDate(timestamp) {
-    let due = new Date(timestamp);
-    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-      + ('0' + due.getDate()).slice(-2) + '/'
-      + due.getFullYear();
-    return newdate;
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
@@ -399,12 +433,10 @@ export class FileReviewComponent implements OnInit {
     });
   }
 
-
   getReviewFilesData() {
     // Mock API integration for Review File
     this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.multi = data.data["dataseries"];
+      this.batChartData = data.data["dataseries"];
     });
   }
-
 }

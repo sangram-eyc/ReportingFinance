@@ -1,7 +1,8 @@
-import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import { Component, OnInit,ElementRef,Renderer2, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
+import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 
 @Component({
   selector: 'lib-donut-grid-list',
@@ -10,10 +11,10 @@ import { formatDate } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DonutGridListComponent implements OnInit {
-  curDate;
-  presentDate;
-  view: any[] = undefined;
-  colorSchemeAll;
+  curDate: string;
+  presentDate: Date;
+  view = [];
+  colorSchemeAll: Color;
   showLegend = false;
   legendTitle = 'Legend';
   legendPosition= LegendPosition.Below;
@@ -25,7 +26,7 @@ export class DonutGridListComponent implements OnInit {
       this.setColorScheme();
      }
 
-    pieData: any = [
+    pieData: PieChartSeriesItemDTO[] = [
       {
         name: 'Germany',
         value: 40632,

@@ -17,12 +17,16 @@ import { ExceptionsReportsComponent } from './data-intake/component/exceptions-r
 
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from './data-intake/component/donut-grid-list/donut-grid-list.component';
+import { GeneralLedgerComponent } from './data-intake/component/general-ledger/general-ledger.component';
+
+
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
     DataIntakeComponent,
     ExceptionsReportsComponent,
     FileReviewComponent,
+    GeneralLedgerComponent,
     DonutGridListComponent],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { DonutGridListComponent } from './data-intake/component/donut-grid-list/
     EycChartsSharedLibraryModule,
     HttpClientModule,
     FormsModule,
+    MotifTooltipModule
   ],
   providers: [
     DataManagedService,

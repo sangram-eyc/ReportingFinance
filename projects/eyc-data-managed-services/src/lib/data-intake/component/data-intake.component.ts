@@ -2,7 +2,7 @@ import {
   Component, OnInit, ElementRef,
   Renderer2, ViewChild, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import {
@@ -40,8 +40,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  curDate;
-  presentDate;
+  curDate: string;
+  presentDate: Date;
   totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
@@ -76,8 +76,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -87,12 +87,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme;
-  colorScheme2;
-  colorScheme3;
+  colorScheme: Color;
+  colorScheme2: Color;
+  colorScheme3: Color;
   //end option
 
-  motifDatepModel: any;
+  motifDatepModel;  // Motif DTP is any type
   @ViewChild('dp') myDp;
 
   constructor(
