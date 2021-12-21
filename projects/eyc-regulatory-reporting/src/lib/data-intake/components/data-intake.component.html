@@ -16,17 +16,10 @@
             rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
-<<<<<<< HEAD
-            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')">
-        </lib-shared-grid>
-
-        <ng-template #commentExceptionTemplate let-row>
-=======
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
->>>>>>> develop
             <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
                 class="comments-background" (click)="openComments(row)">
                 {{row.commentCount}}

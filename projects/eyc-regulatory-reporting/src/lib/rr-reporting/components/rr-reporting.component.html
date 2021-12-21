@@ -6,26 +6,19 @@
     <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
         (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
     </motif-toast>
-<<<<<<< HEAD
-=======
 
     <motif-toast [type]="'success'" [show]="showToastAfterUnApproveFilings"
         (close)="showToastAfterUnApproveFilings = !showToastAfterUnApproveFilings">Unapproval
         successful!
     </motif-toast>
->>>>>>> develop
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
-<<<<<<< HEAD
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)">
-=======
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" 
             [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
->>>>>>> develop
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -76,16 +69,6 @@
             <div class="dropdownTemplate">
                 <motif-icon class="complete" *ngIf="row.approved == true"
                     [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
-<<<<<<< HEAD
-                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnable(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
-                <div #actionMenuTemp>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove')"
-                            (click)="unApproveFiling()" class="action-mode">
-=======
                 <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
@@ -107,7 +90,6 @@
                         *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
                         <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
                             (click)="unApproveException()" class="action-mode">
->>>>>>> develop
                             <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
                             <span>Unapprove</span>
                         </div>
