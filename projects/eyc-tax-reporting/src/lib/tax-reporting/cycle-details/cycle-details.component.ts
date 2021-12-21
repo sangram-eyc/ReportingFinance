@@ -830,46 +830,55 @@ export class CycleDetailComponent implements OnInit {
   }
 
   onClickSecondButton() {
-    let fundsSelected = this.datasetsSelectedRows.length;
-    const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
-      id: 'bulk-modal',
-      width: '600px',
-      disableClose: true,
-      hasBackdrop: true,
-      data: {
-        header: "Download (" + fundsSelected + " selected)",
-        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
-        important: "Please note that logging out of the application before files are finished processing will cancel this request.",
-        question: "Are you sure want to download the selected files?",
-        funds: this.datasetsSelectedRows,
-        footer: {
-          style: "start",
-          YesButton: "Yes",
-          NoButton: "No"
-        }
-      }
-    });
-  
-  dialogRef.beforeClosed().subscribe(result => {
-    if (result.button === "Yes") {
-      console.log('YES')
-      document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.removeEvCloseSession, true)
-      document.querySelector('#user-info .singn-out motif-icon').addEventListener("click",this.warningMessage.bind(this), true)
-      // window.addEventListener('beforeunload',this.logoute,true); 
-    } 
-  });
-  
-  dialogRef.componentInstance.bulkprocesed.subscribe(result => {
-    console.log('Finalizo el bulk download:', result);   
-    this.toastSuccessMessage = "Bulk Download finished successfully";
-    this.showToastAfterSubmit = true;
-    setTimeout(() => {
-      this.showToastAfterSubmit = false;
-    }, 4000);
-    // window.removeEventListener('beforeunload',this.logoute,true);
-    document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
-    document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click",this.warningMessage.bind(this), true)
- });
+    this.LoaderService.show();
+    let timerId = setInterval(() => {
+      if (this.processingCheck === 'finished'  || this.processingCheck === 'init') {
+          clearInterval(timerId)
+          this.processingCheck = 'init'
+          let fundsSelected = this.datasetsSelectedRows.length;
+          console.log('Selected rows after processing', this.datasetsSelectedRows)
+          this.LoaderService.hide();
+          const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
+            id: 'bulk-modal',
+            width: '600px',
+            disableClose: true,
+            hasBackdrop: true,
+            data: {
+              header: "Download (" + fundsSelected + " selected)",
+              description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+              important: "Please note that logging out of the application before files are finished processing will cancel this request.",
+              question: "Are you sure want to download the selected files?",
+              funds: this.datasetsSelectedRows,
+              footer: {
+                style: "start",
+                YesButton: "Yes",
+                NoButton: "No"
+              }
+            }
+          });
+        
+        dialogRef.beforeClosed().subscribe(result => {
+          if (result.button === "Yes") {
+            console.log('YES')
+            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.removeEvCloseSession, true)
+            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click",this.warningMessage.bind(this), true)
+            // window.addEventListener('beforeunload',this.logoute,true); 
+          } 
+        });
+        
+        dialogRef.componentInstance.bulkprocesed.subscribe(result => {
+          //console.log('Finalizo el bulk download:', result);   
+          this.toastSuccessMessage = "Bulk Download finished successfully";
+          this.showToastAfterSubmit = true;
+          setTimeout(() => {
+            this.showToastAfterSubmit = false;
+          }, 4000);
+          // window.removeEventListener('beforeunload',this.logoute,true);
+          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
+          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click",this.warningMessage.bind(this), true)
+      });
+    }
+  }, 100);
 }
 
 
