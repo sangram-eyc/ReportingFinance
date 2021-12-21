@@ -4,7 +4,7 @@
          <motif-breadcrumb maxItems=3>
             <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/'>
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item  breadcrumbValue='Files' breadcrumbLink='/'  active="active">
+            <motif-breadcrumb-item  breadcrumbValue='Files' breadcrumbLink='/' active="active">
             </motif-breadcrumb-item>
          </motif-breadcrumb>
       </div>
@@ -29,7 +29,7 @@
                <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
                <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
             </div>
-   
+
          </div>
       </div>
    </div>
@@ -38,14 +38,14 @@
 <div class="motif-row">
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 chip-container">
       <div class="left-div">Fast Filters: </div>
-         <motif-chip-group>
-            <motif-chip [removeable]="false" variant="monochrome-dark">All</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">No issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Medium / low priority issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">High priority issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Missing files, past due</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Files not received</motif-chip>
-         </motif-chip-group>
+      <motif-chip-group>
+         <motif-chip [removeable]="false" variant="monochrome-dark">All</motif-chip>
+         <motif-chip [removeable]="false" variant="monochrome-dark">No issues</motif-chip>
+         <motif-chip [removeable]="false" variant="monochrome-dark">Medium / low priority issues</motif-chip>
+         <motif-chip [removeable]="false" variant="monochrome-dark">High priority issues</motif-chip>
+         <motif-chip [removeable]="false" variant="monochrome-dark">Missing files, past due</motif-chip>
+         <motif-chip [removeable]="false" variant="monochrome-dark">Files not received</motif-chip>
+      </motif-chip-group>
    </div>
 </div>
 
@@ -55,17 +55,17 @@
       <motif-card class="donut-chart-card no_data">
          <!-- Donut chart integration -->
          <lib-donut-chart id="donutchart" 
-            [data]="fileSummaries"
-            legendTextSliceNumber=23
-            width=155 
-            height=155 
-            margin=13 
-            innerRadius=90
-            svgTranslateLeft=90
-            svgTranslateRight=90
-            totalFilesText="TOTAL FILES"
-            totalExpected="EXPECTED"> 
-         </lib-donut-chart>
+         [data]="fileSummaries"
+         legendTextSliceNumber=23
+         width=155 
+         height=155 
+         margin=13 
+         innerRadius=90
+         svgTranslateLeft=90
+         svgTranslateRight=90
+         totalFilesText="TOTAL FILES"
+         totalExpected="EXPECTED"> 
+      </lib-donut-chart>
       </motif-card>
 
       <!-- end  -->
@@ -95,18 +95,18 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                           [results]="multi" [animations]="animations" [gradient]="gradient"
-                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
-                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
-                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
-                           (activate)="activate($event)" (deactivate)="deactivate($event)">
-                        </eyc-charts-bar-vertical-stacked>
+                              [results]="batChartData" [animations]="animations" [gradient]="gradient"
+                              [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                              [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                              [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                              [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                              [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                              [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                              (activate)="activate($event)" (deactivate)="deactivate($event)">
+                           </eyc-charts-bar-vertical-stacked>
                         </div>
 
                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
@@ -127,18 +127,18 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                           [results]="multi" [animations]="animations" [gradient]="gradient"
-                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
-                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
-                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
-                           (activate)="activate($event)" (deactivate)="deactivate($event)">
-                        </eyc-charts-bar-vertical-stacked>
+                              [results]="batChartData" [animations]="animations" [gradient]="gradient"
+                              [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                              [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                              [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                              [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                              [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                              [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
+                              (activate)="activate($event)" (deactivate)="deactivate($event)">
+                           </eyc-charts-bar-vertical-stacked>
                         </div>
 
                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
@@ -174,10 +174,10 @@
 
    <div id="grid-wrapper">
       <motif-card>
-            <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="multiple"
-               (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-               [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
-            </motif-table>
+         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="batChartData"
+            (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
+            [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
+         </motif-table>
       </motif-card>
    </div>
 
@@ -187,18 +187,72 @@
       </motif-card-body>
    </motif-card>
 
-   <ng-template #chipTemplate let-row class="space-between"> 
-      <div>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='High'" variant="warning">High</motif-chip>
+   <ng-template #chipTemplate let-row class="space-between">
+      <div class="grid-status">
+         <motif-chip [removeable]="false" *ngIf="row.Status=='High'" variant="warning">High
+         </motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.Status=='Medium / Low'" variant="info">Medium / Low</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.Status=='Missing'" variant="error">Missing</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.Status=='No Issues'" variant="success">No Issues</motif-chip>
       </div>
-      <div>  
-      <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-      </div>
+   </ng-template>
+   <!-- Tooltip -->
+   <ng-template #threeDotTooltip let-row>
+      {{stringTrim(row.file, 17)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <div class="tooltip-text">
+            <div>
+               <span class="label">File: </span>
+               <label>{{row.file}}</label>
+            </div>
+            <div>
+               <span class="label">Verison: </span>
+               <label>Verison name</label>
+            </div>
+         </div>
+      </motif-tooltip>
    </ng-template>
 
+   <ng-template #threeDotFunctionTooltip let-row>
+      {{stringTrim(row.functions,17)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <ul>
+            <li>TRMS</li>
+            <li>RRMS</li>
+            <li>CPO-POR</li>
+            <li>TAX</li>
+            <li>Function 5</li>
+         </ul>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #threeDotExceptionsTooltip let-row>
+      {{stringTrim(row.exceptions,10)}}
+      <motif-tooltip placement="auto" color="alternate">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <ul>
+            <li>Fund completeness</li>
+            <li>Column completeness</li>
+            <li>Null check</li>
+            <li>Gav nav variance</li>
+            <li>Maturity date</li>
+         </ul>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #nextButtonTemplate let-row>
+      <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+   </ng-template>
+
+   <!-- Tooltip -->
    <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
       <motif-pagination>
          <button motifIconButton size="medium" aria-label="Go to first page"
