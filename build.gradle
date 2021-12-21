@@ -27,7 +27,7 @@ node {
 
 task buildSharedComponent(type: NpmTask) {
   println "Building eyc shared component"
-  args = ['run', 'eyc-ui-shared']
+  args = ['run', 'eyc-ui-shared:package']
   
 }
 
@@ -50,6 +50,12 @@ task builddataintake(type: NpmTask) {
 task build(type: NpmTask) {
   println "Building UI"
   args = ['run', 'eyc-ui-serviceengine:package']
+  
+}
+
+task buildDMS(type: NpmTask) {
+  println "Building eyc-DMS-UI"
+  args = ['run', 'eyc-ui-dms:package']
   
 }
 

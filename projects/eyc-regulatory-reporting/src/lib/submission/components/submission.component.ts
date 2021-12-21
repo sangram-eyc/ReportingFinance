@@ -44,6 +44,8 @@ export class SubmissionComponent implements OnInit {
   enableComplete = false;
   downloadMsg;
   filingStatusChangeMsg;
+  submittedFiles = [];
+  noFilesDataAvilable:boolean;
 
   @ViewChild(DotsCardComponent) private childDot: DotsCardComponent;
 
@@ -62,37 +64,6 @@ export class SubmissionComponent implements OnInit {
     }
   }
 
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      
-      this.columnDefs = [
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-          
-          },
-          field: 'template',
-          headerName: '',
-          width: 70,
-          sortable: false,
-          pinned: 'left'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Report Name',
-          field: 'fileName',
-          cellClass: 'custom-report-name',
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          sort:'asc',
-          comparator: customComparator
-        }
-      ];
-    });
-  }
   handleGridReady(params) {
     this.gridApi = params.api;
   }
@@ -143,16 +114,55 @@ export class SubmissionComponent implements OnInit {
 
 
   receiveFilingDetails(event) {
+    this.submittedFiles = []
     this.filingDetails = event;
     console.log("filing details > ", this.filingDetails)
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;
     this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
-      this.rowData = res['data'];
-      this.ngAfterViewInit();
+      res['data'].length === 0 ? this.noFilesDataAvilable = true: this.noFilesDataAvilable=false
+      this.submittedFiles = res['data'];
+      this.getSubmissionRowData();
     });
 
   }​​​​​​​​
+
+  getSubmissionRowData(){
+    this.rowData = [];
+    this.submittedFiles.forEach(filing=>{
+      this.rowData.push({
+        fileId:filing.fileId,
+        fileName : filing.fileName
+      })
+    });
+
+    this.columnDefs = [
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+        
+        },
+        field: 'template',
+        headerName: '',
+        width: 70,
+        sortable: false,
+        pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Report Name',
+        field: 'fileName',
+        cellClass: 'custom-report-name',
+        wrapText: true,
+        autoHeight: true,
+        width: 300,
+        sort:'asc',
+        comparator: customComparator
+      }
+    ];
+
+  }
 
   getFileStatus(event){
     console.log(event);

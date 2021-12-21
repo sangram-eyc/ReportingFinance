@@ -84,7 +84,7 @@
         font-family: EYInterstate;
         font-style: normal;
         font-weight: bold;
-        font-size: 14px !important;
+        font-size: 12px !important;
         line-height: 22px;
         color: #2E2E3C;
     }
@@ -92,9 +92,10 @@
         font-family: EYInterstate !important;
         font-style: normal  !important;
         font-weight: normal  !important;
-        font-size: 14px  !important;
+        font-size: 12px  !important;
         line-height: 22px  !important;
         color: #2E2E38  !important;
+        margin-left: inherit !important;
     }
 
     ::ng-deep .ag-theme-material .ag-radio-button-input-wrappe::after {

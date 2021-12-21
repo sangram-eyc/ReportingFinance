@@ -16,10 +16,17 @@
             rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
+<<<<<<< HEAD
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
+=======
+            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable">
+        </lib-shared-grid>
+
+        <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
+>>>>>>> develop
             <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
                 class="comments-background" (click)="openComments(row)">
                 {{row.commentCount}}
@@ -47,24 +54,25 @@
                 </div>
             </div>
         </ng-template>
-        <ng-template #dropdownTemplate let-row>
+        <ng-template #dropdownTemplate let-row *ngIf="!mockDataEnable">
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
 
-            <div class="dropdownTemplate">
+            <div class="dropdownTemplate" *ngIf="!mockDataEnable">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
                 </motif-icon>
             </div>
         </ng-template>
         <ng-template #viewDetTemplate let-row>
-            <div class="view-det-arrow">
+            <div class="view-det-arrow" *ngIf="!mockDataEnable">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
                     (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
         <ng-template #expandExceptionTemplate let-row>
-            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.file}}</div>
+            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)" *ngIf="!mockDataEnable">{{row.file}}</div>
+            <div *ngIf="mockDataEnable">{{row.file}}</div>
         </ng-template>
     </section>
 
