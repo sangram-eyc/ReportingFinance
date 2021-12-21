@@ -213,7 +213,8 @@ export class CycleDetailComponent implements OnInit {
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
     this.widthDivChart = 950; 
-    this.wsService.connect(); 
+    this.wsService.connect();
+    console.log("ngOnInit cycle details"); 
   }
 
   backtoCycleView() {
