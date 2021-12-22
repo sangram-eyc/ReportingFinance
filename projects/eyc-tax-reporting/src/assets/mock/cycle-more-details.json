@@ -1,0 +1,160 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "12345-34567-789gh-45ruiyt",
+    "data": [
+        {
+            "fundDTO": {
+                "id": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                "name": "7047 - T. Rowe Price Global Allocation Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 2,
+                "openCommentsClient": 0,
+                "totalComments": 2,
+                "assignedUsers": [
+                    {
+                        "userId": 9,
+                        "userEmail": "francisco.carmona.garcia@ey.com",
+                        "userFirstName": "Francisco",
+                        "userLastName": "Carmona Garcia"
+                    },
+                    {
+                        "userId": 7,
+                        "userEmail": "jonnathan.caballero@ey.com",
+                        "userFirstName": "Jonnathan",
+                        "userLastName": "Caballero"
+                    },
+                    {
+                        "userId": 3,
+                        "userEmail": "diego.garavito.henao@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Garavito Henao"
+                    },
+                    {
+                        "userId": 5,
+                        "userEmail": "diego.morini@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Morini"
+                    }
+                ]
+            },
+            "tasks": [
+                {
+                    "id": 1,
+                    "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                    "description": "Comment two Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                    "status": "OPEN",
+                    "priority": 0,
+                    "target": "CLIENT",
+                    "company": "EY",
+                    "author": null,
+                    "createdBy": "anonymousUser",
+                    "createdDate": "2021-10-01T12:02:30.43",
+                    "tags": [],
+                    "replyCount": 13,
+                    "attachments": []
+                },
+                {
+                    "id": 2,
+                    "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                    "description": "This is a comment ",
+                    "status": "ACCEPTED",
+                    "priority": 0,
+                    "target": "EY",
+                    "company": "EY",
+                    "author": {
+                        "userId": 7,
+                        "userEmail": "jonnathan.caballero@ey.com",
+                        "userFirstName": "Jonnathan",
+                        "userLastName": "Caballero"
+                    },
+                    "createdBy": "Jonnathan.Caballero@ey.com",
+                    "createdDate": "2021-10-02T03:33:07.23",
+                    "tags": [],
+                    "replyCount": 8,
+                    "attachments": []
+                }
+            ]
+        },
+        {
+            "fundDTO": {
+                "id": "01KV7KIYEUI5ES5WMBGVHLKGFAUFVV5YVI",
+                "name": "70FB - T. Rowe Price European Stock Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 1,
+                "totalComments": 1,
+                "assignedUsers": [
+                    {
+                        "userId": 4,
+                        "userEmail": "jesus.toscano@ey.com",
+                        "userFirstName": "Jesus",
+                        "userLastName": "Toscano"
+                    },
+                    {
+                        "userId": 5,
+                        "userEmail": "diego.morini@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Morini"
+                    },
+                    {
+                        "userId": 2,
+                        "userEmail": "gaston.raul.silva@ey.com",
+                        "userFirstName": "Gaston",
+                        "userLastName": "Silva"
+                    }
+                ]
+            },
+            "tasks": [ {
+                "id": 1,
+                "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                "description": "Estimates Are wrong",
+                "status": "OPEN",
+                "priority": 0,
+                "target": "CLIENT",
+                "company": "EY",
+                "author": null,
+                "createdBy": "anonymousUser",
+                "createdDate": "2021-10-01T12:02:30.43",
+                "tags": [],
+                "replyCount": 13,
+                "attachments": []
+            }]
+        },
+        {
+            "fundDTO": {
+                "id": "01KV7KIYCQDEPVH4VNLBAI7JHYYNIQJZZC",
+                "name": "70V6 - T. Rowe Price European Stock Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 10,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [
+                    {
+                        "userId": 9,
+                        "userEmail": "francisco.carmona.garcia@ey.com",
+                        "userFirstName": "Francisco",
+                        "userLastName": "Carmona Garcia"
+                    },
+                    {
+                        "userId": 5,
+                        "userEmail": "diego.morini@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Morini"
+                    },
+                    {
+                        "userId": 3,
+                        "userEmail": "diego.garavito.henao@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Garavito Henao"
+                    }
+                ]
+            },
+            "tasks": null
+        }
+    ],
+    "error": null
+}

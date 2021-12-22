@@ -93,8 +93,7 @@ export class TaxCommentService {
 
   cycleCommentsDetails(cycleId){
     if (this.settingsService.production) {
-      //return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}/cycle/${cycleId}/tasks`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}/${cycleId}/more-details`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}`);

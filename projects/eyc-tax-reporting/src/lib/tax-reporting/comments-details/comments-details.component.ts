@@ -96,29 +96,32 @@ export class CommentsDetailsComponent implements OnInit{
     this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp=>{
       console.log("call all comments", resp);
       resp['data'].forEach((item : any) => {
-        const eachitem: any = {
-          id: item.id,
-          entityId: item.entityId,
-          entityType: item.entityType,
-          entityName:item.entityName,
-          description: item.description,
-          completedComment : item.description,
-          status: item.status.toLowerCase(),
-          priority: item.priority,
-          target: item.target,
-          company: item.company,
-          author: item.author.userFirstName + " " + item.author.userLastName,
-          createdBy: item.createdBy,
-          createdDate: item.createdDate,
-          tags: item.tags,
-          replyCount: item.replyCount,
-          assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
-        };
-        this.completedComments.push(eachitem);
+        if(item.fundDTO.totalComments > 0){
+          item.tasks.forEach(itemTask => {
+            const eachitem: any = {
+              id: itemTask.id,
+              entityId: item.fundDTO.id,
+              entityName:item.fundDTO.name,
+              description: itemTask.description,
+              completedComment : itemTask.description,
+              status: itemTask.status.toLowerCase(),
+              priority: itemTask.priority,
+              target: itemTask.target.toUpperCase(),
+              company: itemTask.company,
+              author: itemTask.author != null ? (itemTask.author.userFirstName + " " + itemTask.author.userLastName): itemTask.createdBy, //toDo if null
+              createdBy: itemTask.createdBy,
+              createdDate: itemTask.createdDate,
+              tags: itemTask.tags,
+              replyCount: itemTask.replyCount,
+              assignedTo: item.fundDTO.assignedUsers == null ? [] : item.fundDTO.assignedUsers
+            };
+            this.completedComments.push(eachitem);              
+          });
+        }
       });
       this.createCommentsRowData(this.completedComments);
     });
-  } 
+  }
 
 
   createCommentsRowData(rowData: any){
@@ -128,7 +131,6 @@ export class CommentsDetailsComponent implements OnInit{
       this.rowData.push({
         id: item.id,
         entityId: item.entityId,
-        entityType: item.entityType,
         entityName:item.entityName,
         description: item.description,
         splitComment: item.description.match(/.{1,35}/g),
@@ -169,7 +171,7 @@ export class CommentsDetailsComponent implements OnInit{
         sortable: true,
         filter: true,       
         resizeable: true, 
-        width: 250,
+        width: 400,
         sort:'asc'
       },
       {
