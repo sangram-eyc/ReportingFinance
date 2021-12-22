@@ -71,7 +71,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -392,10 +392,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     console.log(this.filingDetails);
     if (this.tabs == 2) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.';
       this.getExceptionReports();
     }
   }
@@ -715,7 +715,7 @@ actionMenuEnableforException(row) {
       data: {
         type: "Confirmation",
         header: "Unapprove",
-        description: "Are you sure you want to unapprove this exception report? This will move this back to the previous reviewer/step",
+        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
         footer: {
           style: "start",
           YesButton: "Continue",
