@@ -111,12 +111,12 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     if (typeof(this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
+      //sr no column data
       let object =  {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'S.No',
-        width: 100,
+        width: 50,
         valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
-        pinned: 'left'
+        pinned: 'left',
+        cellClass: 'srno-class'
       }
         this.columnDefsData.push(object);    
     }

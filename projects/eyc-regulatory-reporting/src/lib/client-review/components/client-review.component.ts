@@ -104,6 +104,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
@@ -164,9 +166,22 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'template',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -244,7 +259,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left',
           filter: false,
@@ -252,6 +267,19 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
               {'pointer-events': 'none'}
               : ''
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
