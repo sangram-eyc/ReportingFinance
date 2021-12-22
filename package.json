@@ -16,8 +16,8 @@
     "eyc-data-managed-services": "ng build --prod eyc-data-managed-services",
     "eyc-data-intake": "ng build --prod eyc-data-intake",
     "eyc-ui-serviceengine:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref",
-    "eyc-ui-regreporting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run buildLibrary ",
-    "eyc-ui-dms:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-data-managed-services",
+    "eyc-ui-regreporting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref &&  npm run buildLibrary ",
+    "eyc-ui-dms:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref &&  npm run eyc-data-managed-services",
     "eyc-ui-tax-repoting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-tax-reporting",
     "eyc-ui-shared:package": "npm run eyc-charts-shared && npm run eyc-ui-shared",
 
