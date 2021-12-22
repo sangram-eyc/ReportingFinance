@@ -104,6 +104,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+  
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
@@ -206,9 +209,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         },
         field: 'approved',
         headerName: '',
-        width: 70,
+        width: 20,
         sortable: false,
         pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.actionButtonTemplate,
+        },
+        headerName: 'Action',
+        field: 'template',
+        minWidth: 70,
+        width: 70,
+        sortable: false,
+        cellClass: 'actions-button-cell'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
