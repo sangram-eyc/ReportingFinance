@@ -1,8 +1,21 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewChild, AfterViewInit } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import {
+  Component, OnInit, ElementRef,
+  Renderer2, ViewChild, AfterViewInit, ChangeDetectorRef
+} from '@angular/core';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
-import { GlobalConstants } from '../../global-constants'
+import {
+  FileFilterStatus, FILTER_TYPE,
+  DATA_INTAKE_TYPE, DATA_FREQUENCY,
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY
+}
+  from '../../config/dms-config-helper'
+import { DataSummary } from '../models/data-summary.model'
+import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
+import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
+import { donutSummariesObject } from '../models/donut-chart-summary.model';
+import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-data-intake',
@@ -10,59 +23,39 @@ import { GlobalConstants } from '../../global-constants'
   styleUrls: ['./data-intake.component.scss']
 })
 export class DataIntakeComponent implements OnInit, AfterViewInit {
-  fileMissingPastDueData: any[] = [];
+  fileMissingPastDueData: BarChartSeriesItemDTO[];
   fileMissingPastDueCount: number = 0;
-  highPriorityIssuesData: any[] = [];
+  highPriorityIssuesData: BarChartSeriesItemDTO[];
   highPriorityIssuesCount: number = 0;
-  mediumLowPriorityData: any[] = [];
+  mediumLowPriorityData: BarChartSeriesItemDTO[];
   mediumLowPriorityCount: number = 0;
-  dataList: any[] = [];
+  dataList: [];
   dailyMonthlyStatus: boolean = false;
   reviewByGroupDomains: number = 0;
   reviewByGroupProviders: number = 0;
-  noFileMissingPastDue = "No missing files, past due at the moment";
-  noHighPriorityIssues = "No high priority issues at the moment";
-  noMediumLowPriority = "No medium / low priority issues at the moment";
+  noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
+  noHighPriorityIssues = NO_HIGH_PRIORITY_ISSUES;
+  noMediumLowPriority = NO_MEDUIM_LOW_PRIORITY;
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  motifDatepModel: any;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  activeReports: any;
-  curDate;
-  presentDate;
-  totalFileCount=50;
-  // totalFileCount=0;
+  curDate: string;
+  presentDate: Date;
+  totalFileCount = 0;
+  calSelectedDate:any;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
-  // Received = No issue
-  // Not Received = Files not received
   fileSummaries = [];
-  fileSummariesObject = [
-    {
-      "label": GlobalConstants.noIssue,
-      "value": 0
-    },
-    {
-      "label": GlobalConstants.mediumLowPriority,
-      "value": 0
-    },
-    {
-      "label": GlobalConstants.highPriorityIssues,
-      "value": 0
-    },
-    {
-      "label": GlobalConstants.missingFilesPastDue,
-      "value": 0
-    },
-    {
-      "label": GlobalConstants.filesNotReceived,
-      "value": 0
-    }
-  ];
+  fileSummariesObject = donutSummariesObject;
+
+  // API Request match with response
+  httpQueryParams: DataSummary;
 
   // bar chart start
   fitContainer: boolean = false;
@@ -77,17 +70,17 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   tooltipDisabled = true;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2='Domain';
+  xAxisLabel2 = 'Domain';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines=false;
+  showXAxisGridLines = false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -97,19 +90,41 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme;
-  colorScheme2;
-  colorScheme3;
+  colorScheme: Color;
+  colorScheme2: Color;
+  colorScheme3: Color;
   //end option
 
   constructor(
     private dataManagedService: DataManagedService,
-    private renderer: Renderer2) {
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer2,
+    private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
   }
 
   ngAfterViewInit(): void {
-    this.dailyDataProvider();
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      periodType: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+    this.fileSummaryList();
+  }
+
+  toggleCalendar(event): void {
+    this.calSelectedDate = event.singleDate.formatted
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.fileSummaryList();
+    }
   }
 
   formatDate(timestamp) {
@@ -139,81 +154,77 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
-      this.dailyMonthlyStatus ? this.monthlyDataProvider() : this.dailyDataProvider()
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     } else {
-      this.dailyMonthlyStatus ? this.monthlyDataDomain() : this.dailyDataDomain()
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.dailyMonthlyStatus ?
+        this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
-  }
-
-  select(event) {
-    console.log(event);
-  }
-
-  activate(event) {
-    console.log(event);
-  }
-
-  deactivate(event) {
-    console.log(event);
-  }
-
-  dateSub(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
-  dateAdd(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
+    this.fileSummaryList();
   }
 
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     if (this.innerTabIn == 1) {
-      this.dailyDataProvider();
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
-      this.dailyDataDomain();
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
+    this.fileSummaryList();
   }
 
   monthlyData(status: boolean) {
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     if (this.innerTabIn == 1) {
-      this.monthlyDataProvider();
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
-      this.monthlyDataDomain();
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
+    this.fileSummaryList();
+  }
+
+  mapBarChartDataWithKey(fData: [ApiSeriesItemDTO]): BarChartSeriesItemDTO[] {
+    return fData.map(({
+      lable: name,
+      ...rest
+    }) => ({
+      name,
+      ...rest
+    }));
   }
 
   manipulateStatusWithResponse(fetchData: any[]) {
     // Manipulate fetch-data as per status
-    const cloneFileSummury = [...this.fileSummariesObject];
+    const cloneFileSummury = [...donutSummariesObject];
     fetchData.find((fData) => {
       this.fileSummariesObject.map((summaryObject) => {
-        if (fData.label === summaryObject.label) {
+        if (fData.label === summaryObject.apiKey) {
           summaryObject.value = fData.value;
         }
       });
       switch (fData.label) {
-        case GlobalConstants.missingFilesPastDue:
+        case FileFilterStatus.missingFilesPastDue.apiKey:
           this.fileMissingPastDueCount = fData.value;
-          this.fileMissingPastDueData = fData.seriesItemDTO;
+          this.fileMissingPastDueData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
-        case GlobalConstants.highPriorityIssues:
+        case FileFilterStatus.highPriorityIssues.apiKey:
           this.highPriorityIssuesCount = fData.value;
-          this.highPriorityIssuesData = fData.seriesItemDTO;
+          this.highPriorityIssuesData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
-        case GlobalConstants.mediumLowPriority:
+        case FileFilterStatus.mediumLowPriority.apiKey:
           this.mediumLowPriorityCount = fData.value;
-          this.mediumLowPriorityData = fData.seriesItemDTO;
+          this.mediumLowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
         default:
       }
@@ -222,43 +233,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.fileSummariesObject = cloneFileSummury;
   }
 
-  dailyDataProvider() {
-    // Mock API integration for bar chart (Data Providers)
-    this.dataManagedService.getDailyDataProviderList().subscribe(dataProvider => {
+  fileSummaryList() {
+    // Mock API integration for bar chart (Data Providers/ Data Domains)
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
       this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
       this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
-    });
-  }
-
-  monthlyDataProvider() {
-    // Mock API integration for bar chart
-    this.dataManagedService.getMonthlyDataProviderList().subscribe(dataProvider => {
-      this.dataList = dataProvider.data[0]['totalSeriesItem'];
-      this.manipulateStatusWithResponse(this.dataList);
-      this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
-    });
-  }
-
-  dailyDataDomain() {
-    // Mock API integration for bar chart (Data Domains)
-    this.dataManagedService.getDailyDataDomainList().subscribe(dataDomain => {
-      this.dataList = dataDomain.data[0]['totalSeriesItem'];
-      this.manipulateStatusWithResponse(this.dataList);
-      this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
-    });
-  }
-
-  monthlyDataDomain() {
-    // Mock API integration for bar chart (Data Domains) 
-    this.dataManagedService.getMonthlyDataDomainList().subscribe(dataDomain => {
-      this.dataList = dataDomain.data[0]['totalSeriesItem'];
-      this.manipulateStatusWithResponse(this.dataList);
-      this.reviewByGroupDomains = dataDomain.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = dataDomain.data[0]['dataProvideCount'];
     });
   }
 }
