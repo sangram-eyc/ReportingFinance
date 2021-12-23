@@ -326,7 +326,7 @@ export class CycleDetailComponent implements OnInit {
       return 'In client review'
     }
     else if (status.toLowerCase() == 'open' && deliverables == false) {
-      return 'EY tax preparation'
+      return 'In EY tax preparation'
     }
     else if (status.toLowerCase() == 'approved') {
       return 'Approved by client'
@@ -915,7 +915,7 @@ export class CycleDetailComponent implements OnInit {
     if (row.status == 'In client review') {
       return this.statusColors[0]
     }
-    else if (row.status == 'EY tax preparation') {
+    else if (row.status == 'In EY tax preparation') {
       return this.statusColors[2]
     }
     else if (row.status == 'Approved by client') {
