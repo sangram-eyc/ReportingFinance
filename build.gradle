@@ -61,7 +61,7 @@ task buildDMS(type: NpmTask) {
 
 task buildTax(type: NpmTask) {
   println "Building eyc-tax-reporting UI"
-  args = ['run', 'eyc-tax-reporting']
+  args = ['run', 'eyc-ui-tax-repoting:package']
   
 }
 
