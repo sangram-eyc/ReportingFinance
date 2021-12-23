@@ -20,6 +20,9 @@
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div> 
+        <ng-template #dateSubmittedTemplate let-row>
+            <div>{{row.dateSubmitted | date : 'MMM dd y hh:mma'| uppercase | dateSubmittedPipe}}</div>
+        </ng-template>
     </section>
 </div>
 

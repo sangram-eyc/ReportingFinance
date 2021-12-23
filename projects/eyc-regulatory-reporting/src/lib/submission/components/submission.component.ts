@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SubmissionService } from '../../submission/services/submission.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
@@ -46,7 +46,8 @@ export class SubmissionComponent implements OnInit {
   filingStatusChangeMsg;
   submittedFiles = [];
   noFilesDataAvilable:boolean;
-
+  @ViewChild('dateSubmittedTemplate')
+  dateSubmittedTemplate: TemplateRef<any>;
   @ViewChild(DotsCardComponent) private childDot: DotsCardComponent;
 
   ngOnInit(): void {
@@ -132,7 +133,8 @@ export class SubmissionComponent implements OnInit {
     this.submittedFiles.forEach(filing=>{
       this.rowData.push({
         fileId:filing.fileId,
-        fileName : filing.fileName
+        fileName : filing.fileName,
+        dateSubmitted: filing.dateSubmitted
       })
     });
 
@@ -159,6 +161,19 @@ export class SubmissionComponent implements OnInit {
         width: 300,
         sort:'asc',
         comparator: customComparator
+      },
+      {
+        headerComponentFramework:TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams:{
+          ngTemplate:this.dateSubmittedTemplate
+        },
+        field:'dateSubmitted',
+        headerName:'Date submitted',
+        sortable: true,
+        filter:true,
+        minWidth: 180,
+        cellClass:'date-submitted-class'
       }
     ];
 
