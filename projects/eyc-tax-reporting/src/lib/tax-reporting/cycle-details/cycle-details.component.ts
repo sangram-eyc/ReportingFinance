@@ -563,7 +563,7 @@ export class CycleDetailComponent implements OnInit {
         clearInterval(timerId)
         this.processingCheck = 'init'
         if (this.datasetsSelectedRows.length > 0) {
-          if (this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'In client review' && (this.datasetsSelectedRows[0].openCommentsClient > 0 || this.datasetsSelectedRows[0].openCommentsEY > 0)) {
+          if ((this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'In client review' && (this.datasetsSelectedRows[0].openCommentsClient > 0 || this.datasetsSelectedRows[0].openCommentsEY > 0)) || (this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'Approved by client')) {
             this.approveBtn.disabled = true;
           } else {
             this.approveBtn.disabled = false;
