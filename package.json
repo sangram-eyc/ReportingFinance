@@ -14,6 +14,7 @@
     "eyc-charts-shared-library:install": "npm i file:dist/eyc-charts-shared-library/eyc-charts-shared-library-0.0.1.tgz",
     "eyc-charts-shared-library:package": "npm run eyc-charts-shared && npm run eyc-charts-shared-library:pack && npm run eyc-charts-shared-library:install",
     "eyc-data-managed-services": "ng build --prod eyc-data-managed-services",
+    "eyc-tax-reporting": "ng build --prod eyc-tax-reporting",
     "eyc-data-intake": "ng build --prod eyc-data-intake",
     "eyc-ui-serviceengine:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref",
     "eyc-ui-regreporting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref &&  npm run buildLibrary ",
