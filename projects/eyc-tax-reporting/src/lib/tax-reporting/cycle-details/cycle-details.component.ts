@@ -138,7 +138,7 @@ export class CycleDetailComponent implements OnInit {
   totalComments: TemplateRef<any>;
   @ViewChild('statusChangedToTemplate')
   statusChangedToTemplate: TemplateRef<any>;
-  
+
 
   dataset = [{
     disable: false,
@@ -212,9 +212,9 @@ export class CycleDetailComponent implements OnInit {
     });
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
-    this.widthDivChart = 950; 
+    this.widthDivChart = 950;
     this.wsService.connect();
-    console.log("ngOnInit cycle details"); 
+    console.log("ngOnInit cycle details");
   }
 
   backtoCycleView() {
@@ -498,7 +498,7 @@ export class CycleDetailComponent implements OnInit {
     this.LoaderService.show();
     //I check that the datasetsSelectedRows is complete before processing the execution of the approve
     let timerId = setInterval(() => {
-      if (this.processingCheck === 'finished'  || this.processingCheck === 'init') {
+      if (this.processingCheck === 'finished' || this.processingCheck === 'init') {
         clearInterval(timerId)
         this.processingCheck = 'init'
         console.log('datasetsSelectedRows after processing', this.datasetsSelectedRows)
@@ -538,30 +538,46 @@ export class CycleDetailComponent implements OnInit {
 
           approvalDialog.afterClosed().subscribe(result => {
             console.log('AproveFundModal was closed', result);
-             if (result.button === "Continue") {
-                this.onSubmitApproveDatasets();
+            if (result.button === "Continue") {
+              this.onSubmitApproveDatasets();
             } else {
               console.log('result afterClosed', result);
-            } 
+            }
           });
-      
+
         }
       }
     }, 100);
   }
 
   datasetsReportRowsSelected(event) {
-    this.approveBtn.disabled = true;
+    this.LoaderService.show();
     this.cancelbtn.disabled = true;
+    this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    console.log('datasets', this.datasetsSelectedRows)
-    if (this.datasetsSelectedRows.length > 0) {
-      this.approveBtn.disabled = false;
-      this.cancelbtn.disabled = false;
-    } else {
-      this.approveBtn.disabled = true;
-      this.cancelbtn.disabled = true;
-    }
+
+
+    let timerId = setInterval(() => {
+      if (this.processingCheck === 'finished' || this.processingCheck === 'init') {
+        console.log('datasets', this.datasetsSelectedRows)
+        clearInterval(timerId)
+        this.processingCheck = 'init'
+        if (this.datasetsSelectedRows.length > 0) {
+          if (this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'In client review' && (this.datasetsSelectedRows[0].openCommentsClient > 0 || this.datasetsSelectedRows[0].openCommentsEY > 0)) {
+            this.approveBtn.disabled = true;
+          } else {
+            this.approveBtn.disabled = false;
+          }
+
+          this.cancelbtn.disabled = false;
+        } else {
+          this.approveBtn.disabled = true;
+          this.cancelbtn.disabled = true;
+        }
+        this.LoaderService.hide();
+      }
+    }, 100);
+
   }
 
   onSubmitApproveDatasets() {
@@ -832,40 +848,40 @@ export class CycleDetailComponent implements OnInit {
   onClickSecondButton() {
     this.LoaderService.show();
     let timerId = setInterval(() => {
-      if (this.processingCheck === 'finished'  || this.processingCheck === 'init') {
-          clearInterval(timerId)
-          this.processingCheck = 'init'
-          let fundsSelected = this.datasetsSelectedRows.length;
-          console.log('Selected rows after processing', this.datasetsSelectedRows)
-          this.LoaderService.hide();
-          const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
-            id: 'bulk-modal',
-            width: '600px',
-            disableClose: true,
-            hasBackdrop: true,
-            data: {
-              header: "Download (" + fundsSelected + " selected)",
-              description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
-              important: "Please note that logging out of the application before files are finished processing will cancel this request.",
-              question: "Are you sure want to download the selected files?",
-              funds: this.datasetsSelectedRows,
-              footer: {
-                style: "start",
-                YesButton: "Yes",
-                NoButton: "No"
-              }
+      if (this.processingCheck === 'finished' || this.processingCheck === 'init') {
+        clearInterval(timerId)
+        this.processingCheck = 'init'
+        let fundsSelected = this.datasetsSelectedRows.length;
+        console.log('Selected rows after processing', this.datasetsSelectedRows)
+        this.LoaderService.hide();
+        const dialogRef = this.dialog.open(BulkDownloadModalComponent, {
+          id: 'bulk-modal',
+          width: '600px',
+          disableClose: true,
+          hasBackdrop: true,
+          data: {
+            header: "Download (" + fundsSelected + " selected)",
+            description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+            important: "Please note that logging out of the application before files are finished processing will cancel this request.",
+            question: "Are you sure want to download the selected files?",
+            funds: this.datasetsSelectedRows,
+            footer: {
+              style: "start",
+              YesButton: "Yes",
+              NoButton: "No"
             }
-          });
-        
+          }
+        });
+
         dialogRef.beforeClosed().subscribe(result => {
           if (result.button === "Yes") {
             console.log('YES')
             document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.removeEvCloseSession, true)
-            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click",this.warningMessage.bind(this), true)
+            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.warningMessage.bind(this), true)
             // window.addEventListener('beforeunload',this.logoute,true); 
-          } 
+          }
         });
-        
+
         dialogRef.componentInstance.bulkprocesed.subscribe(result => {
           //console.log('Finalizo el bulk download:', result);   
           this.toastSuccessMessage = "Bulk Download finished successfully";
@@ -875,11 +891,11 @@ export class CycleDetailComponent implements OnInit {
           }, 4000);
           // window.removeEventListener('beforeunload',this.logoute,true);
           document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
-          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click",this.warningMessage.bind(this), true)
-      });
-    }
-  }, 100);
-}
+          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.warningMessage.bind(this), true)
+        });
+      }
+    }, 100);
+  }
 
 
   warningMessage(e: Event): void {
@@ -922,8 +938,6 @@ export class CycleDetailComponent implements OnInit {
       return this.statusColors[1]
     }
   }
-
-
 }
 
 
