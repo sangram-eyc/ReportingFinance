@@ -101,7 +101,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
-    private _fb: FormBuilder,
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
   }
