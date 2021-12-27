@@ -322,9 +322,9 @@
 
 .date-ui{
 
-  ::ng-deep .motif-form-field{
+  ::ng-deep .motif-form-field .motif-input{
     margin-bottom: 0!important;
-    background-color: rgb(0 0 0 / 0%) !important;
+    background-color: #ffffff !important;
     border-bottom: 1px solid #2E2E38 !important;
     .motif-label{
       margin:0 !important;
@@ -335,14 +335,15 @@
   }
 
   ::ng-deep .motif-hover .motif-input{
-    background-color: rgb(0 0 0 / 0%) !important;
+    background-color: #ffffff !important;
     border-bottom: 1px solid #2E2E38 !important;
   } 
   ::ng-deep .motif-focus .motif-input{
-    background-color: rgb(0 0 0 / 0%) !important;
+    background-color: #ffffff !important;
     border-bottom: 1px solid #2E2E38 !important;
   }
 
   
 }
+
 

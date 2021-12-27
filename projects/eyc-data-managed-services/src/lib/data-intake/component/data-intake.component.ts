@@ -177,7 +177,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
@@ -191,7 +191,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
