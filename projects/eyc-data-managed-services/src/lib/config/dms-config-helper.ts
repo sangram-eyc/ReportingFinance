@@ -21,7 +21,7 @@ export const FILTER_TYPE = {
     LOW: 'low',
     MEDIUM: 'medium',
     MISSING_FILES: 'missingFiles',
-    FILE_NOT_RECIEVED: 'fileNotRecieved'
+    FILE_NOT_RECIEVED: 'fileNotReceived'
 }
 
 export abstract class FileFilterStatus {
@@ -29,5 +29,5 @@ export abstract class FileFilterStatus {
     public static mediumLowPriority: DonutLegend = { apiKey: "mediumLow", legendTitle: "Medium / low priority issues" };
     public static highPriorityIssues: DonutLegend = { apiKey: "high", legendTitle: "High priority issues" };
     public static missingFilesPastDue: DonutLegend = { apiKey: "missingFiles", legendTitle: "Missing files, past due" };
-    public static filesNotReceived: DonutLegend = { apiKey: "fileNotRecieved", legendTitle: "Files not received" };
+    public static filesNotReceived: DonutLegend = { apiKey: "fileNotReceived", legendTitle: "Files not received" };
 }
