@@ -302,6 +302,8 @@ export class SubmissionComponent implements OnInit {
           "submissionFileRequestList": this.updateSubmissionStatusList
         };
         this.service.updateStatus(obj).subscribe(res => {
+          this.filingStatusChangeMsg = "Status updated successfully";
+          this.showToastAfterStatusChange = true;
           for (let i in res['data']) {
             for (let j in this.submittedFiles) {
               if (this.submittedFiles[j].fileName == res['data'][i].fileName) {
@@ -315,6 +317,9 @@ export class SubmissionComponent implements OnInit {
           setTimeout(() => {
             this.getSubmissionRowData();
           }, 100);
+          setTimeout(() => {
+            this.showToastAfterStatusChange = false;
+          }, 5000);
         });
       }
       this.updateStatusModal = false;
