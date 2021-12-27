@@ -55,6 +55,21 @@ describe('DataIntakeComponent', () => {
     ],
     "error": null
   };
+  let mockFileSummariesNoRecords = {
+    "success": true,
+    "message": "",
+    "corelationId": "1293081023",
+    "data": [
+      {
+        "totalCount": 98,
+        "dataProvideCount": 3,
+        "dataDomainCount": 6,
+        "totalSeriesItem": []
+      }
+    ],
+    "error": null
+  };
+
   function getElement(id: string): any {
     return document.body.querySelector(id);
   }
@@ -139,6 +154,16 @@ describe('DataIntakeComponent', () => {
     component.fileSummaryList();
     fixture.detectChanges();
     mockTotalSeriesItem = mockResponse.data[0]['totalSeriesItem'];
+    expect(component.dataList).toEqual(mockTotalSeriesItem);
+  });
+
+  it('should get file summary data but totalSeriesItem null', () => {
+    let mockResponseNoRecords = mockFileSummariesNoRecords;
+    let mockTotalSeriesItem = [];
+    spyOn(dataManagedService, 'getFileSummaryList').and.returnValue(of(mockResponseNoRecords));
+    component.fileSummaryList();
+    fixture.detectChanges();
+    mockTotalSeriesItem = mockResponseNoRecords.data[0]['totalSeriesItem'];
     expect(component.dataList).toEqual(mockTotalSeriesItem);
   });
 
