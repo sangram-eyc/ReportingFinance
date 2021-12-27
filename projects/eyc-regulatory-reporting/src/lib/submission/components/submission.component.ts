@@ -193,7 +193,7 @@ export class SubmissionComponent implements OnInit {
         field:'status',
         sortable: true,
         filter:true,
-        minWidth: 300
+        minWidth: 200
       },
       {
         headerComponentFramework:TableHeaderRendererComponent,
@@ -207,6 +207,18 @@ export class SubmissionComponent implements OnInit {
         filter:true,
         minWidth: 180,
         cellClass:'date-submitted-class'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Last updated by',
+        field: 'updatedBy',
+        wrapText: true,
+        autoHeight: true,
+        sortable: true,
+        filter:true,
+        width: 200,
+        sort:'asc',
+        comparator: customComparator
       }
     ];
 
