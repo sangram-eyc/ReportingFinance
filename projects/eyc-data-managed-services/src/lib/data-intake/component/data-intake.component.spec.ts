@@ -7,9 +7,9 @@ import { EycDataApiService } from '../services/eyc-data-api.service';
 import { DataIntakeComponent } from './data-intake.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule } from '@ey-xd/ng-motif';
-
+import { formatDate } from '@angular/common';
 import { of } from 'rxjs';
 import { DataSummary } from '../models/data-summary.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../config/dms-config-helper';
@@ -36,7 +36,7 @@ describe('DataIntakeComponent', () => {
             "seriesItemDTO": [{ "name": "General Ledger", "value": 40 }, { "name": "Positions", "value": 19 }]
           },
           {
-            "label": "Medium/Low priority issues",
+            "label": "mediumLow",
             "value": 3,
             "seriesItemDTO": [{ "name": "Positions", "value": 2 }, { "name": "Entity", "value": 1 }]
           },
@@ -66,7 +66,7 @@ describe('DataIntakeComponent', () => {
         EycDataApiService,
         { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
         { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
-      imports: [HttpClientTestingModule,FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
+      imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
     })
       .compileComponents();
   }));
@@ -77,7 +77,6 @@ describe('DataIntakeComponent', () => {
     component.ngAfterViewInit();
     fixture.detectChanges();
     dataManagedService = TestBed.get(DataManagedService);
-    component.motifDatepModel = null;
     httpQueryParams =
     {
       startDate: '',
@@ -97,7 +96,7 @@ describe('DataIntakeComponent', () => {
   });
 
   it('should format date', () => {
-    expect(component.formatDate('2021-12-18 09:01:15')).toEqual('12/18/2021');
+    expect(formatDate('2021-12-18 09:01:15','yyyy-MM-dd', 'en')).toEqual('2021-12-18');
   });
 
   it('should change report-tab', () => {
