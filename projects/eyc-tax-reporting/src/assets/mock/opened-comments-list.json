@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "message": "success",
+  "data": {
+    "totalOpened": 51,
+    "dataSeries": [
+      {
+        "label": "Open client comments",
+        "value": 31
+      },
+      {
+        "label": "Open EY comments",
+        "value": 20
+      }
+    ]
+    
+  }
+}

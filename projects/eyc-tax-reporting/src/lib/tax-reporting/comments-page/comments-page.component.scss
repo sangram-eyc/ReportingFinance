@@ -608,6 +608,82 @@
   } 
 
 }
-  
 
+.text-count-comments{
+  font-family: EYInterstate;
+  font-size: 12px;
+  text-align: center;
+}
+
+.text-count-number{
+  font-family: EYInterstate;
+  font-size: 24px;
+  text-align: left;
+}
+
+.icon-count{
+  width: 8px;
+  height: 8px;
+  display: inline;
+  margin-right: 10px;
+  margin-left: 10px; 
+}
   
+.row-counters{
+  margin-top: 27px;
+  margin-left: 0px;
+}
+
+.icon-separator{
+  height: 19px;
+  display: inline;
+}
+
+.text-count-span{
+  padding-right: inherit; 
+  font-size: 14px; 
+  font-family: EYInterstate;
+}
+  
+::ng-deep .toggle-open-comments {
+    margin: 12px 0px -8px 4px;
+    display: flex;
+    justify-content: end;
+
+    label{
+      max-width:fit-content;
+    }
+
+    motif-toggle-switch{
+      max-width: fit-content;
+      margin-top:3px
+    }
+    
+   .motif-toggle-switch-handle{
+    padding: 0px !important;
+    top:-2px !important;
+  }
+
+   .motif-toggle-switch-container{
+    padding: 0px !important;
+  }
+
+  .motif-toggle-switch-container:focus-within{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.no_data_task {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+  }
+}
+
+ 
+

@@ -52,6 +52,7 @@ export class DonutChartComponent {
     this.renderSVG();
   }
 
+
   // Create dynamic donut SVG as per data/api
   renderSVG() {
     // Calculate TotalFileNumber 
@@ -90,6 +91,7 @@ export class DonutChartComponent {
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesNumberFontSize}px`)
+      .attr("class",'totalFilesNumber')     
       .attr("style",  `${this.totalFilesNumberStyle}`)
       .text(this.totalFilesNumber);
 
