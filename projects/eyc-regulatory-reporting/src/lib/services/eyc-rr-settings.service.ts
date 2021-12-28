@@ -58,6 +58,10 @@ export class EycRrSettingsService {
       approve_intake_exception_report: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve': this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve',
       complete_filing: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/',
       updateSubmissionStatus: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/submission-file/update' : this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/submission-file/update',
+      filing_stages: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/static-data-filing-stages.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/static-data-filing-stages.json',
+      scoping_stages: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/static-data-scoping-stages.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/static-data-scoping-stages.json',
+      entity_stages: this.rrproduction ? this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/static-data-scoping-stages.json' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/static-data-scoping-stages.json',
+      filing_names: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filing/names' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filingNames.json',
     }
 
     return regulatory_Reporting;
