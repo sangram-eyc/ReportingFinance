@@ -261,11 +261,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.reviewByGroupDomains = 0;
     this.reviewByGroupProviders = 0;
     this.dataList = [];
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
-      this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataSummuries: any) => {
+      this.dataList = dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
-      this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
+      this.reviewByGroupDomains = dataSummuries.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataSummuries.data[0]['dataProvideCount'];
     });
   }
 }
