@@ -1,6 +1,7 @@
 import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaxCardComponent } from './shared/tax-card/tax-card.component';
+import { DonutTaxChartComponent } from './shared/donut-tax-chart/donut-tax-chart.component';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifAvatarModule  } from '@ey-xd/ng-motif';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -19,6 +20,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import { ReplyCommentComponent } from './tax-reporting/reply-comment/reply-comment.component';
 import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/assign-users-modal.component';
+import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
+import { TaxHorizontalStackedBarChartComponent } from './shared/tax-horizontal-stacked-bar-chart/tax-horizontal-stacked-bar-chart.component';
+import { InformationBarChartModalComponent } from './tax-reporting/information-bar-chart-modal/information-bar-chart-modal.component';
+import { CommentsDetailsComponent } from './tax-reporting/comments-details/comments-details.component';
+import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/warning-modal.component';
+import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/approve-fund-modal.component';
+
 
 
 @NgModule({
@@ -41,6 +50,7 @@ import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/as
     MotifToastModule,
     FlexLayoutModule,
     EycUiSharedComponentModule,
+    EycChartsSharedLibraryModule,
     ReactiveFormsModule,
     FormsModule,
     MatChipsModule,
@@ -52,12 +62,19 @@ import { AssignUsersModalComponent } from './tax-reporting/assign-users-modal/as
     TaxReportingComponent,
     CycleDetailComponent,
     TaxCardComponent,
+    DonutTaxChartComponent,
     TableHeaderRendererComponent,
     CommentsPagecomponent,
     TaxCommentModalComponent,
     TaskCommentComponent,
     ReplyCommentComponent,
-    AssignUsersModalComponent
+    AssignUsersModalComponent,
+    TaxHorizontalStackedBarChartComponent,
+    InformationBarChartModalComponent,
+    CommentsDetailsComponent,
+    BulkDownloadModalComponent,
+    WarningModalComponent,
+    ApproveFundModalComponent
   ],
   exports: [TaxReportingComponent]
 })

@@ -3,12 +3,9 @@
   top: 20px;
   position: relative;
 
-
   *:focus {
     box-shadow: none !important;
   }
-
- 
 
   #grid-wrapper {
     ::ng-deep {
@@ -85,7 +82,7 @@
           font-family: EYInterstate !important;
           font-style: normal  !important;
           font-weight: 400  !important;
-          font-size: 14px  !important;
+          font-size: 12px  !important;
           line-height: 20px  !important;
           color: #2E2E38  !important;
         }
@@ -99,14 +96,6 @@
     }
   
   }
-
-
-
-
-
-
-
-
 
   .save-submit {
     margin-right: 20px;
@@ -143,16 +132,29 @@
 
   }
 
-  /* .btn_close:hover {
-    background-color: var(--btn-secondary-bg-color);
-  } */
   ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
     visibility: hidden !important;
  }
 
-::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
     visibility:visible !important;
- }
+  }
+
+  ::ng-deep .motif-select-trigger{
+      background-color: #eaeaf2bd !important;
+    }
+
+  ::ng-deep .motif-pagination-select-wrapper{
+    margin-left: -500px;
+    #tooltip{
+      margin-top: -15px !important;
+      width: max-content;
+    }   
+    .motif-icon.motif-tooltip-close {
+      display: none !important;
+      cursor: help !important;
+    }
+  }
 }
 
 .back-wrapper {
@@ -207,7 +209,7 @@ h3 {
 .production-cycle-details-header {
   display: flex;
   margin-top: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 
   h1{
     font-weight: 600;
@@ -256,13 +258,9 @@ motif-icon.motif-icon.user-edit {
   margin-top: 3px;
 }
 
-
-
  .team-detailscontent-container {
 
   min-height: 150px;
-
-  
   .row {
     margin-left: 0px !important;
     padding: 0px 0px 30px 0px;
@@ -297,36 +295,6 @@ motif-icon.motif-icon.user-edit {
   position: absolute;
   top: 212px;
   }
-
-
- /* .cust-row-st {
-  font-family: EYInterstate;
-  font-style: normal;
-  font-size: 16px;
-  color: #2E2E38;
-  font-weight: 400;
-  line-height: 25px;
-  }
-
-  .cust-row-st-dec {
-  font-family: EYInterstate;
-  font-style: normal;
-  font-size: 16px;
-  color: #2E2E38;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 25px;
-  margin-top: 7px;
-  }
-
-  .col-md-6,
-  .col-md-5,
-  .col-md-8,
-  .col-md-12 {
-    background: #F6F6FA;
-    padding-right: 0px;
-    padding-left: 0px;
-  } */
 
   ::ng-deep {
 
@@ -504,6 +472,7 @@ motif-icon.motif-icon.user-edit {
   width: 30px;
   box-shadow: 0px 0px 0px 0px;
   line-height: 0px;
+  font-size: 10px ;
 }
 
 .has-count{
@@ -545,6 +514,7 @@ motif-icon.motif-icon.user-edit {
     display: none !important;
     cursor: help !important;
   }
+
 }
 
 .cursor-pointer{
@@ -578,7 +548,7 @@ motif-icon.motif-icon.user-edit {
 }
 
 .div-msg{
-  margin-left: inherit;
+  margin-left: initial;
 }
 
 .text-tooltip{
@@ -586,10 +556,10 @@ motif-icon.motif-icon.user-edit {
 }
 
 ::ng-deep .margin-tooltip-v2{
-  #tooltip{
-    margin-top: 5px !important;
+ #tooltip{
+    margin-top: 0px !important;
     width: max-content;
-  }
+  } 
 
   .motif-icon.motif-tooltip-close {
     display: none !important;
@@ -655,8 +625,120 @@ button.close {
 
 
 
+.production-cycle-summary-header {
+  font-family: EYInterstate;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+
+.donut-title{  
+  font-family: EYInterstate !important;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #747480;
+  margin: 4px 0px 0px 18px;
+}
+
+//Donut style
+.donut-chart-card-tax {
+  display: flex;
+  flex-direction: row;
+  min-height: 173px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart{
+  width: max-content;
+  margin-top: -17px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg {
+  height: 135px !important;
+  width: 135px !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg .totalFilesNumber {
+  letter-spacing: 0px !important;
+  font-weight:600 !important;
+}
+
+/* .donut-chart-card-tax ::ng-deep .donut-summary{
+  margin-top:56px !important;
+} */
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange-dark.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-text {
+  font-family: EYInterstate;
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-value {
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+  text-align: inherit;
+  letter-spacing:0px;
+  font-weight: 600;
+  display: contents;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary{
+  width: 12.5em;
+} 
+
+.more-details-comments{
+  text-align: right;
+  color: #155CB4;
+  font-family: EYInterstate !important;
+  font-size: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 
 
+//NEW
 
-  
+
+.tax-legend {
+  width: 9.9px;
+  height: 9.9px;
+  border-radius: 50%;
+}
+
+.tax-legend-text {
+  font-family: EYInterstate;
+  font-size: 12px;
+  color: #2E2E38;
+}
+//NEW
+
+
+

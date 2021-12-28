@@ -16,6 +16,7 @@ export class ProductionCycleService {
   }
 
   getProductionCyclesDetails(id:any){
+    console.log('url cycles details', this.settingsService.taxReporting.production_cycles_details);
     if (this.settingsService.production) {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_details}/${id}`);
     } 

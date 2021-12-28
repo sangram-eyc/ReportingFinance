@@ -45,6 +45,18 @@
             .second-button {
                 margin-left: 16px;
             }
+            .toggle-left{
+                margin: 0px 0px -8px 20px;
+                display: flex;
+                flex-direction: column;
+                h4{
+                    margin-bottom: 8px;
+                    font-weight: 600px;
+                }
+                .disabled{
+                    color: #747480
+                }
+            }
         }
     }
 }

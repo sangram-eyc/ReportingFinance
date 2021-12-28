@@ -29,6 +29,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() enableAutoId = false;
   @Input() search = true;
   @Input() isToggle = false;
+  @Input() isToggleLeft = false;
+  @Input() toggleLeftTitle = "";
+  @Input() toggleLeftDisabled :boolean = false;
+  @Input() hideLabels:boolean = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() secondbuttonText = 'Reject selected';
@@ -70,7 +74,9 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hideHeaderCheckbox = false;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
+  @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
+  @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
 
@@ -166,6 +172,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     // console.log('Search',this.search);
     // console.log('Button',this.button);
     // console.log('Position',this.buttonPosition);
+    this.selectedRowEmitterProcess.emit('processing');
     let selectedArr = [];
     this.selectedRows = [];
     selectedArr = this.gridApi.getSelectedRows();
@@ -176,6 +183,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
     this.selectedRowEmitter.emit(this.selectedRows);
+    this.selectedRowEmitterProcess.emit('finished');
     if(this.selectedRows.length === 0){
       this.gridApi.deselectAll();
     }
@@ -233,6 +241,9 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     this.toggleEventToParent.emit(event);
   }
 
+  toggleLeftChanged(event){
+    this.toggleLeftEventToParent.emit(event);
+  }
   ngOnDestroy(): void {
     this.columnDefs = undefined;
   }
