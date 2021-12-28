@@ -26,6 +26,8 @@ import { InformationBarChartModalComponent } from './tax-reporting/information-b
 import { CommentsDetailsComponent } from './tax-reporting/comments-details/comments-details.component';
 import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/warning-modal.component';
+import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/approve-fund-modal.component';
+
 
 
 @NgModule({
@@ -71,7 +73,8 @@ import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/w
     InformationBarChartModalComponent,
     CommentsDetailsComponent,
     BulkDownloadModalComponent,
-    WarningModalComponent
+    WarningModalComponent,
+    ApproveFundModalComponent
   ],
   exports: [TaxReportingComponent]
 })
