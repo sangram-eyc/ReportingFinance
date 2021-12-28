@@ -65,7 +65,7 @@
               </div>
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
-                  <label motifLabel class="select-label">Role (Required)</label>
+                  <label motifLabel class="select-label">Role (required)</label>
                   <motif-select aria-label="Please select an option"  formControlName="role" ngDefaultControl>
                     <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
                   </motif-select>
@@ -75,17 +75,17 @@
                 </motif-form-field>
       
               </div>
-            <!--   <div class="motif-col-xs-4 motif-col-lg-6">
+              <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
-                  <label motifLabel class="select-label">Assignment (Optional)</label>
-                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="assignments">
-                    <motif-option [value]="assignment" *ngFor="let assignment of assignments">{{assignment}}</motif-option>
+                  <label motifLabel class="select-label">Filing type (required)</label>
+                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="filingType" ngDefaultControl>
+                    <motif-option [value]="fType.formId" *ngFor="let fType of filingType">{{fType.filingName}}</motif-option>
                   </motif-select>
                   <motif-error *ngIf="
-                                    addTeamForm.get('assignments').hasError('required') &&
-                                    addTeamForm.get('assignments').touched">Please provide a assignment!</motif-error>
+                                    addTeamForm.get('filingType').hasError('required') &&
+                                    addTeamForm.get('filingType').touched">Please provide a Filing type!</motif-error>
                 </motif-form-field>
-              </div> -->
+              </div>
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Description (Optional)</label>
