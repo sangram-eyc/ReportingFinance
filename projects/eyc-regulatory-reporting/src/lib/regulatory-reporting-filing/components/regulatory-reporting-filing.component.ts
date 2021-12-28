@@ -3,13 +3,16 @@ import { RegulatoryReportingFilingService } from '../services/regulatory-reporti
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import {customComparator} from '../../config/rr-config-helper';
-import { CustomGlobalService } from 'eyc-ui-shared-component';
+import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
   templateUrl: './regulatory-reporting-filing.component.html',
-  styleUrls: ['./regulatory-reporting-filing.component.scss']
+  styleUrls: ['./regulatory-reporting-filing.component.scss'],
+  providers: [AutoUnsubscriberService]
 })
 export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
@@ -17,7 +20,11 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private customglobalService: CustomGlobalService,
-    private oauthservice: OAuthService
+    private oauthservice: OAuthService,
+    public permissions: PermissionService,
+    public dialog: MatDialog,
+    private router: Router,
+    private unsubscriber: AutoUnsubscriberService
   ) { }
 
   activeFilings: any[] = [];
@@ -48,6 +55,12 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
   commentTemplate: TemplateRef<any>;
+  @ViewChild('filingNameTemplate')
+  filingNameTemplate: TemplateRef<any>;
+  @ViewChild('dueDateTemplate')
+  dueDateTemplate: TemplateRef<any>;
+  @ViewChild('completedDateTemplate')
+  completedDateTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -97,7 +110,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
 
   getActiveFilingsData() {
-    this.filingService.getFilings().subscribe(resp => {
+    this.filingService.getFilings().pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.filingResp.push(resp);
       resp['data'].length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;
       resp['data'].forEach((item) => {
@@ -123,19 +136,22 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   getCompletedFilingsData() {
     this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).subscribe(resp => {
+    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      resp['data'].forEach((item) => {
-        const eachitem: any = {
-          name: item.filingName + ' // ' + item.period,
-          period: item.period,
-          dueDate: item.dueDate,
-          startDate: item.startDate,
-          comments: [],
-          status: item.filingStatus
-        };
-        this.completedFilings.push(eachitem);
-      });
+      // resp['data'].forEach((item) => {
+      //   const eachitem: any = {
+      //     name: item.filingName + ' // ' + item.period,
+      //     period: item.period,
+      //     filingId: item.filingId,
+      //     filingName: item.filingName,
+      //     dueDate: item.dueDate,
+      //     startDate: item.startDate,
+      //     comments: [],
+      //     status: item.filingStatus
+      //   };
+      //   this.completedFilings.push(eachitem);
+      // });
+      this.completedFilings = resp['data'];
       this.createHistoryRowData();
     })
   }
@@ -145,12 +161,20 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     this.rowData = [];
     this.completedFilings.forEach(filing => {
       this.rowData.push({
-        name: filing.name,
-        comments: filing.comments.length,
-        dueDate: this.formatDate(filing.dueDate),
+        name: filing.filingName + ' // ' + filing.period,
+        filingId: filing.filingId,
+        filingName: filing.filingName,
+        period: filing.period,
+        comments: [],
+        dueDate: filing.dueDate,
+        startDate: filing.startDate,
+        status: filing.filingStatus,
+        totalFunds: filing.totalFunds,
         subDate: '-',
         exceptions: 0,
-        resolved: 0
+        resolved: 0,
+        completedDate : filing.completedDate,
+        completedBy:filing.completedBy
       })
     });
     this.columnDefs = [
@@ -169,6 +193,10 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.filingNameTemplate,
+        },
         headerName: 'Filing Report Name',
         field: 'name',
         sortable: true,
@@ -182,23 +210,48 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        headerName: 'Comments',
-        field: 'comments',
+        headerName: 'Filing period',
+        field: 'period',
         sortable: true,
         filter: true,
-        minWidth: 140,
-        cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          }
+        resizeable: true,
+        minWidth: 200,
+        comparator: customComparator
+      },
+
+      // Change for User story 288907 and keep this commented code for future US requirement -->
+
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   headerName: 'Comments',
+      //   field: 'comments',domLayout
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140,
+      //   cellRendererParams: {
+      //       ngTemplate: this.commentTemplate,
+      //     }
+      // },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Total entities',
+        field: 'totalFunds',
+        sortable: true,
+        filter: true,
+        minWidth: 180
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dueDateTemplate,
+        },
         headerName: 'Due date',
         field: 'dueDate',
         sortable: true,
         filter: true,
-        minWidth: 130,
+        minWidth: 180,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -210,20 +263,42 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Exceptions',
-        field: 'exceptions',
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.completedDateTemplate,
+        },
+        headerName: 'Date marked complete',
+        field:'completedDate',
         sortable: true,
-        filter: true,
-        minWidth: 140
+        filter:true,
+        minWidth: 300
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Resolved',
-        field: 'resolved',
+        headerName: 'Marked completed by',
+        field:'completedBy',
         sortable: true,
-        filter: true,
-        minWidth: 140
-      },
+        filter:true,
+        minWidth: 300
+      }
+
+      // Change for User story 288907 and keep this commented code for future US requirement -->
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Exceptions',
+      //   field: 'exceptions',
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140
+      // },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Resolved',
+      //   field: 'resolved',
+      //   sortable: true,
+      //   filter: true,
+      //   minWidth: 140
+      // },
     ];
   }
 
@@ -310,5 +385,80 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   handlePageChange(val: number): void {
     this.currentPage = val;
     this.getCompletedFilingsData();
+  }
+
+  routeToViewFiling(row) {
+    console.log(row);
+    this.filingService.setfilingData = row;
+    if(this.permissions.validatePermission('Submission', 'View Submission')) {
+      this.router.navigate(['/submission']);
+    } else {
+        for(let i=row.status.length - 1; i >= 0; i--) {
+           if(this.permissions.validatePermission(this.preapreStage(row.status[i].stageCode), this.preapreViewFeature(row.status[i].stageCode))) {
+            this.preapreRouting(row.status[i].stageCode);
+            return;
+           } 
+           if (i===0) {
+            this.errorModalPopup();
+          } 
+        }
+    }
+  }
+
+  preapreStage(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING": return 'Fund Scoping';
+      case "DATA_INTAKE":  return 'Data Intake';
+      case "REPORTING":  return 'Reporting';
+      case "CLIENT_REVIEW": return 'Client Review';
+      case "SUBMISSION": return 'Submission';
+    }
+  }
+  
+  preapreViewFeature(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING": return 'View Fund Scoping';
+      case "DATA_INTAKE":  return 'View Data Intake';
+      case "REPORTING":  return 'View Reporting';
+      case "CLIENT_REVIEW": return 'View Client Review';
+      case "SUBMISSION": return 'View Submission';
+    }
+  }
+
+  preapreRouting(stageCode) {
+    switch (stageCode) {
+      case "FUND_SCOPING":
+        this.router.navigate(['/fund-scoping']);
+        break;
+      case "DATA_INTAKE":
+          this.router.navigate(['/data-intake']);
+          break;
+      case "REPORTING":
+        this.router.navigate(['/regulatory-reporting']);
+        break;
+      case "CLIENT_REVIEW":
+        this.router.navigate(['/client-review']);
+        break;
+      case "SUBMISSION":
+        this.router.navigate(['/submission']);
+    }
+  }
+
+  errorModalPopup() {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: "Access Denied",
+        description: "You do not have access to view the filing. Please contact an administrator.",
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }

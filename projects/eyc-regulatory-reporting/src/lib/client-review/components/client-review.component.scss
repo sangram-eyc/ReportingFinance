@@ -32,7 +32,7 @@
         font-family: EYInterstate;
         font-style: normal;
         font-weight: bold;
-        font-size: 14px !important;
+        font-size: 12px !important;
         line-height: 22px;
         color: #2E2E3C;
     }
@@ -40,7 +40,7 @@
         font-family: EYInterstate !important;
         font-style: normal  !important;
         font-weight: normal  !important;
-        font-size: 14px  !important;
+        font-size: 12px  !important;
         line-height: 22px  !important;
         color: #2E2E38;
     }
@@ -203,3 +203,71 @@
 .view-det-arrow {
     cursor: pointer;
 }
+
+.action-mode {
+    display: block;
+    ::ng-deep  {
+        .motif-icon-content {
+            cursor: pointer;
+            max-width: 110px;
+        }
+        svg {
+            fill: #2E2E38 !important;
+        }
+    }
+}
+.action-mode span{
+    left: 36px;
+    top: -23px;
+    position: relative;
+    cursor: pointer;
+}
+
+.action-menu-modal {
+    ::ng-deep {
+        .motif-modal-content {
+            width: 270px !important;
+            position: relative;
+            margin-right: 30%;
+        }
+        .motif-modal-body {
+            padding: 0px !important;
+            padding-left: 20px !important;
+            padding-top: 20px !important;
+        }
+    }
+} 
+
+
+.motif-card.motif-card.action-menu-card {
+    height: 45px;
+    position: absolute;
+    left: 25px;
+    min-width: 150px;
+    z-index: 9999;
+    display: block;
+    border: 0px;
+    padding: 10px;
+    top: 45px;
+    box-shadow: var(--dropdown-box-shadow);
+}
+
+.motif-card.motif-card.action-menu-card:hover {
+    box-shadow: var(--dropdown-box-shadow) !important;
+}
+
+.motif-card.motif-card.action-menu-card::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: var(--dropdown-bg-color);
+    transform: rotate(-45deg);
+    clip: rect(-16px, 16px, 13px, 3px);
+    top: -6px;
+}
+motif-icon.motif-icon.actionCursor {
+    cursor: pointer;
+}
+

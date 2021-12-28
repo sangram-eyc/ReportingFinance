@@ -3,7 +3,7 @@
 </div>
 <div class="page-subheader">
     View filings in progress of intake, reporting, client review and submission. You can also view upcoming filings
-    ready for fund scoping and client review.
+    ready for scoping and client review.
 </div>
 
 <div class="eyc-rr-tabs">
@@ -12,6 +12,8 @@
             [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Active Reports</button>
         <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
             [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Reports History</button>
+        <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+            [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Static Data</button>
     </motif-tab-bar>
 </div>
 
@@ -105,6 +107,14 @@
         </motif-card-body>
     </motif-card>
 
+    <ng-template #filingNameTemplate let-row>
+        <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>
+    </ng-template>
+
+    <ng-template #dueDateTemplate let-row>
+        <div>{{row.dueDate | date: 'M/d/yyyy' }}</div>
+    </ng-template>
+
     <ng-template #headerTemplate>
         <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
         </motif-icon>
@@ -120,7 +130,12 @@
         </div>
     </ng-template>
 
-    <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+    <ng-template #completedDateTemplate let-row>
+        <div>{{row.completedDate | date : 'M/d/yyyy h:mm a zzzz'}}</div>
+    </ng-template>
+    <!-- Change for User story 288907 and keep this commented code for future US requirement -->
+
+    <!-- <div class="pagination" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
 
         <motif-pagination>
             <button motifIconButton size="small" aria-label="Go to first page"
@@ -146,7 +161,7 @@
         <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
             (paginationSelectChange)="updatePaginationSize($event.value)">
         </motif-pagination-select>
-    </div>
+    </div> -->
 
 
     <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
@@ -155,4 +170,8 @@
         </motif-card-body>
     </motif-card>
 
+</section>
+
+<section id='static-data' [hidden]="!(tabIn == 3)">
+<lib-static-data [tabHighlighted]="tabIn"></lib-static-data>
 </section>

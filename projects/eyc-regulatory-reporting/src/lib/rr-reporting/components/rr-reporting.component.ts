@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -29,10 +29,15 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   tabs;
   entityId;
   selectedRows = [];
+  selectedEntities = [];
+  selectedExceptionIds = [];
   exceptionReportRows;
   approveFilingEntitiesModal = false;
+  actionMenuModal = false;
+  actionMenuModalEnabled = false;
   showToastAfterApproveFilingEntities = false;
   showToastAfterApproveExceptionReports = false;
+  showToastAfterUnApproveFilings = false;
   modalMessage:any;
   showComments = false;
   commentsData;
@@ -45,7 +50,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   filingDetails: any;
   submitEntities: any;
-
+  selectedEntityId;
+  selectedExceptionId;
+  @ViewChild('actionMenuTemp', { static: false }) actionMenuCard: ElementRef;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
@@ -64,7 +71,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -101,6 +108,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+  
 
   
   
@@ -153,9 +163,22 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -236,9 +259,27 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
+          width: 20,
+          sortable: false,
+          pinned: 'left',
+          filter: false,
+          cellStyle: params => 
+          (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
+              {'pointer-events': 'none'}
+              : ''        
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
           width: 70,
           sortable: false,
-          pinned: 'left'
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -351,10 +392,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     console.log(this.filingDetails);
     if (this.tabs == 2) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.';
       this.getExceptionReports();
     }
   }
@@ -415,6 +456,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
       res['data']['answerExceptions'].forEach(ele => {
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+        /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
+        if(selectedException.resolveOrException.indexOf("/") !== -1){ 
+          let exceptionVal = selectedException.resolveOrException.split("/");
+          let updatedExceptionVal = exceptionVal[1]+'/'+exceptionVal[1];
+          this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = updatedExceptionVal;
+        } */
+
       });
       this.createEntitiesRowData();
       this.exceptionReportRows = [];
@@ -586,6 +634,135 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     
   }
 
+  actionMenuEnableforEntity(row) {
+    console.log('Reporting > unapprove > entity');
+    this.selectedEntityId = row.entityId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
+  }
+
+actionMenuEnableforException(row) {
+  console.log('Reporting > unapprove > exception');
+    this.selectedExceptionId = row.exceptionId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
+}
+
+  unApproveEntity(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedEntities = [];
+        this.selectedEntities.push(this.selectedEntityId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+        "entityType": "Filing Entity",
+        "entities":  this.selectedEntities,
+        "filingName": this.filingDetails.filingName,
+        "period": this.filingDetails.period,
+        "stage": "Reporting"
+        };
+
+        let tempRowData = this.rowData;
+        this.rowData = [];
+        this.rrservice.unApprovefilingEntities(selectedFiling).subscribe(res => {
+          res['data'].forEach(ele => {
+            tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
+            tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
+          });
+          this.rowData = tempRowData;
+          this.createEntitiesRowData();
+          this.selectedRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.rowData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
+
+  unApproveException(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedExceptionIds = [];
+        this.selectedExceptionIds.push(this.selectedExceptionId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+        "entityType": "Answer Exception Report",
+        "entities":  this.selectedExceptionIds,
+        "filingName": this.filingDetails.filingName,
+        "period": this.filingDetails.period,
+        "stage": "Reporting"
+        };
+
+        let tempRowData = this.exceptionData;
+        this.exceptionData = [];
+        this.rrservice.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
+          res['data'].forEach(ele => {
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+          });
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+          this.exceptionReportRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
+
   commentAdded() {
     if (this.tabs==2) {
       this.getFilingEntities();
@@ -598,4 +775,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports']);
   }
+
+  @HostListener('document:click', ['$event'])
+  public outsideClick(event) {
+    if( this.actionMenuCard && !this.actionMenuCard.nativeElement.contains(event.target) && this.actionMenuModalEnabled){
+      this.actionMenuModal = false;
+      this.actionMenuModalEnabled = false;
+    }
+  }
+
 }

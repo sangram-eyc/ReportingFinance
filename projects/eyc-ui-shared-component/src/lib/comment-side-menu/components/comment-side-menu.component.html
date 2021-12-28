@@ -15,7 +15,7 @@
         </button>
       </div>
       <div class="comment-filing-period">{{filingName}}</div>
-      <button *ngIf="permissionToAddComment"
+      <button *ngIf="permissionToAddComment && !filingStatus"
         motifButton
         color="primary-alt"
         aria-label="Create New Comment"

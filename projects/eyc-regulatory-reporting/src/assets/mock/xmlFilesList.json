@@ -1,18 +1,26 @@
 {
     "success": true,
-	"message": "sucess",
-	"data": [
-        {
-            "fileId": 1,
-            "fileName": "XML File 1"
-        },
-        {
-            "fileId": 2,
-            "fileName": "XML File 2"
-        },
+    "message": "",
+    "corelationId": "5376ad9a-bed5-4232-9170-795e5504e75d",
+    "data": [
         {
             "fileId": 3,
-            "fileName": "XML File 3"
+            "fileName": "Form PF - Q1 2020_852.xml",
+            "status": "Draft for AnswerFile",
+            "dateAdded": "",
+            "addedBy": "",
+            "dateSubmitted": "2021-12-23 08:36:37.339034",
+            "updatedBy": "Akshay.Raskar1@ey.com"
+        },
+        {
+            "fileId": 4,
+            "fileName": "Form PF - Q1 2020_851.xml",
+            "status": "Draft for AnswerFile",
+            "dateAdded": "",
+            "addedBy": "",
+            "dateSubmitted": "2021-12-23 08:34:52.744885",
+            "updatedBy": "Akshay.Raskar1@ey.com"
         }
-    ]
+    ],
+    "error": null
 }

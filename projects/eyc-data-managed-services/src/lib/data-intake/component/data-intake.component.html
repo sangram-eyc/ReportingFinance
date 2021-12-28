@@ -6,22 +6,59 @@
       <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
          [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trands & Insights</button>
+         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button>
       <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
          [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button>
    </motif-tab-bar>
 </div>
 <section id='data-intake' [hidden]="!(tabIn == 1)">
    <div class="motif-row">
-      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
-         <!-- Card Summary Dashboard Start -->
-         <div class="mt-3 mb-3">
-            <h6 class="heading-6">Summary Dashboard</h6>
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mt-3 mb-3">
+         <div class="space-between">
+            <div class="box-center">
+               <h6 class="heading-6">Summary Dashboard</h6>
+            </div>
+            <div class="dateWrapper">
+               <div class="px-3 date-ui">
+                  <form [formGroup]="form" novalidate>
+                     <motif-form-field>
+                        <label motifLabel for="datepicker">Date (required)</label>
+                        <input
+                           motifDatepicker
+                           class="motif-input"
+                           name="mydate"
+                           id="datepicker"
+                           #dp="motifDatepicker"
+                           placeholder="YYYY-MM-DD"
+                           (click)="dp.openCalendar()"
+                           (dateChanged)="toggleCalendar($event)"
+                           autocomplete="off"
+                           [required]="true"
+                           formControlName="datepicker"
+                           [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
+                        />
+                    </motif-form-field>
+                  </form>
+               </div>
+               <div class="box-center">
+                  <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
+                  <button #monthlyfilter motifButton color="" (click)="monthlyData(true)">Monthly</button>
+               </div>
+            </div>
          </div>
+      </div>
+   </div>
+
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
          <motif-card class="donut-chart-card no_data">
             <!-- Donut chart integration -->
-            <lib-donut-chart id="donutchart" [data]="fileSummaries"> </lib-donut-chart>
-            <a href="#" motifTextLink color="primary-alt" class="review-all">
+            <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155
+               margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
+               totalExpected="EXPECTED">
+            </lib-donut-chart>
+            <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt"
+               class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>
@@ -29,16 +66,16 @@
 
          <!-- end  -->
          <!-- Card Review by group Start  -->
-         <div class="mt-3 mb-3">
+         <div class="mt-3 mb-3 box-center">
             <h6 class="heading-6">Review by group</h6>
          </div>
          <motif-card class="review-group-card no_data">
             <motif-card-body>
                <table class="review-by-group">
                   <tr>
-                     <td class="review-number">16</td>
+                     <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a href="#" motifTextLink color="primary-alt" class="review-all">
+                        <a [routerLink]="['/data-managed-services/data-providers']"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -52,7 +89,7 @@
                      <td colspan="2" class="review-lines"></td>
                   </tr>
                   <tr>
-                     <td class="review-number">24</td>
+                     <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
@@ -64,10 +101,10 @@
                      <td class="review-by-group-heading">
                         Data Domains</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="businessDays">
                      <td colspan="2" class="review-lines"></td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="businessDays">
                      <td class="review-number"><i class="material-icons">date_range</i></td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
                         <a href="#" motifTextLink color="primary-alt" class="review-all">
@@ -76,7 +113,7 @@
                         </a>
                      </td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="businessDays">
                      <td class="review-by-group-heading">
                         Business Days</td>
                   </tr>
@@ -86,20 +123,6 @@
          <!-- end  -->
       </div>
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
-         <!-- Provide Stack bar chart Start  -->
-         <div class="mt-2 mb-3 ">
-            <!-- <h6 class="heading-6">Comment : add here Date, Daily, Monthly</h6> -->
-            <div class="dateWrapper">
-               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
-               </motif-icon>
-               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
-               </motif-icon>
-               {{ curDate }}
-               <i class="material-icons" for="datepicker">date_range</i>
-               <button motifButton color="primary-alt" (click)="dailyManagedData()">Daily</button>
-               <button motifButton color="secondary"  (click)="monthyManagedData()">Monthly</button>
-            </div>
-         </div>
          <motif-card class="bar-chart-card no_data">
             <motif-card-header>
                <div class="inner-tabs">
@@ -120,101 +143,94 @@
                   <div class="bar-chart-panel">
                      <div id="past-due">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
-                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
-                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
-                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="fileMissingPastDueData"
+                                 [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                 [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
 
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
                               </div>
                            </div>
                         </div>
                      </div>
                      <div id="high-priority-issues">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(highPriorityIssuesCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme2"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
                               </div>
                            </div>
                         </div>
                      </div>
                      <div id="low-priority-issues">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
+                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme3"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
+                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noMediumLowPriority}}
                               </div>
                            </div>
                         </div>
@@ -225,101 +241,94 @@
                   <div class="bar-chart-panel">
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files missing, past due</div>
+                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(fileMissingPastDueCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
-                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
-                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
-                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme" [results]="fileMissingPastDueData"
+                                 [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                 [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
+                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
                                  [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
                                  [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
 
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
                               </div>
                            </div>
                         </div>
                      </div>
                      <div id="high-priority-issues-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with high priority issues</div>
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(highPriorityIssuesCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme2"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
                               </div>
                            </div>
                         </div>
                      </div>
                      <div id="low-priority-issues-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{totalFileCount}}</span>Files with medium / low priority
+                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(totalFileCount==0)">Review</button>
+                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <eyc-charts-bar-vertical class="chart-container"
-                                 [scheme]="colorScheme3"
-                                 [results]="single" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
+                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
                                  [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
                                  [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
                                  [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
-                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" 
-                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                                 (select)="select($event)"
-                                 (activate)="activate($event)" (deactivate)="deactivate($event)">
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">No files missing at the moment
+                              <div class="toast-card-body">{{noMediumLowPriority}}
                               </div>
                            </div>
                         </div>
@@ -334,6 +343,5 @@
 </section>
 <section id='trands-insights' [hidden]="!(tabIn == 2)">
 </section>
-<!--  -->
 <section id='api-catalog' [hidden]="!(tabIn == 3)">
 </section>

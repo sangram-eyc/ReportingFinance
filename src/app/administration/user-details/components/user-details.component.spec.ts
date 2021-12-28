@@ -10,6 +10,7 @@ import { OauthService } from 'src/app/login/services/oauth.service'; */
 import { OAuthLogger, OAuthService, UrlHelperService } from 'angular-oauth2-oidc';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { of } from 'rxjs';
+import { AdministrationService } from '@default/administration/services/administration.service';
 
 
 
@@ -18,12 +19,24 @@ describe('UserDetailsComponent', () => {
   let fixture: ComponentFixture<UserDetailsComponent>;
   let testBedService: UsersService;
  
+const administrationServiceStub = {
+  getCurrentModule : ()=> {}
+}
 
+let formControlStub = {
+  editUserForm : {
+      valid : () =>{
+        return true
+      }
+  }
+}
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
       declarations: [ UserDetailsComponent ],
-      providers: [UsersService, OAuthService, UrlHelperService, OAuthLogger]
+      providers: [UsersService, OAuthService, UrlHelperService, OAuthLogger,
+          { provide:FormControl, useValue: formControlStub},
+          { provide: AdministrationService, useValue:administrationServiceStub}]
     })
     .compileComponents();
   }));
@@ -38,7 +51,44 @@ describe('UserDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
+  it('enable edit form',()=> {​​​​​​​​
+  let enableEditor = true;
+  component.enableEditForm();
+  expect(component.enableEditor).toBe(enableEditor);
+  }​​​​​​​​);
+
+  it('cancel form',()=> {​​​​​​​​
+  let showToastAfterEditUser  = false;
+  component.userInfo ={​​​​​​​​"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}​​​​​​​​
+  let enableEditor = true;
+  component.cancelForm();
+  expect(component.showToastAfterEditUser).toBe(showToastAfterEditUser);
+  }​​​​​​​​); 
+
+
+  it('backToUserAdmin method should change the tab',()=>{
+    spyOn(component['location'],'back')
+    spyOn(sessionStorage,'setItem')
+    component.backtoUserAdmin();
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('adminTab','2');
+    expect(component['location'].back).toHaveBeenCalled();
+  });
+
+
+  it('getUsersData method should get users data',()=>{
+    let mockData = {
+      data : { userLastName :'mk',
+      userFirstName:'nitin', 
+      userEmail:'nitin.mk@ey.co'
+    }}
+    spyOn(component.editUserForm,'patchValue');
+    spyOn(component['userService'],'userDetails').and.callFake(()=>{
+      return of(mockData)
+    });
+    component.getUsersData();
+    expect(component['userService'].userDetails).toHaveBeenCalled();
+  });
 
 
   it('onSubmitEditUserForm', () => {
@@ -48,47 +98,9 @@ describe('UserDetailsComponent', () => {
       last: new FormControl(resp.userLastName.trim(), [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250)]),
       email: new FormControl(resp.userEmail.trim(), [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z.]+\\.[a-zA-Z]{2,6}'), Validators.maxLength(250)])
     });
-    component.editUserForm.patchValue({
-      first: resp.userFirstName.trim(),
-      last: resp.userLastName.trim(),
-      email: resp.userEmail.trim() 
-    })
-    spyOn(testBedService, 'editUser').and.returnValue(of(resp))
-    component.onSubmitEditUserForm(form)
-    expect(component.userInfo).toEqual(resp)
+    spyOn(testBedService, 'editUser').and.returnValue(of(resp));
+    component.onSubmitEditUserForm(form);
   });
 
 
-
-
-  it('enable edit form',()=> {​​​​​​​​
-
-  let enableEditor = true;
-  component.enableEditForm();
-  fixture.detectChanges();
-  expect(component.enableEditor).toBe(enableEditor);
-  }​​​​​​​​);
-
-  it('cancel form',()=> {​​​​​​​​
-  let showToastAfterEditUser  = false;
-  component.userInfo ={​​​​​​​​"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}​​​​​​​​
-
-  let enableEditor = true;
-  component.cancelForm();
-  fixture.detectChanges();
-  expect(component.showToastAfterEditUser).toBe(showToastAfterEditUser);
-  }​​​​​​​​); 
-
-
-  it('should get user details', () => {​​​​​​​​
-  const resp ={​​​​​​​​"userId":834,"userEmail":"dhlhfhl@yahoo.com","userFirstName":"test","userLastName":"user"}​​​​​​​​
-  let name = 'sdsdsdsd sdsdsdsdsd';
-  spyOn(testBedService, 'userDetails').and.returnValue(of(resp))
-  component.ngOnInit();
-  fixture.detectChanges();
-  expect(component.userInfo).toEqual(resp);
-  }​​​​​​​​);
-
-
- 
 });

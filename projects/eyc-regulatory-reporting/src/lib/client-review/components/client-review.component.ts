@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -30,9 +30,17 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   tabs;
   entityId;
   selectedRows = [];
+  selectedEntities = [];
+  selectedExceptionIds = [];
   approveFilingEntitiesModal = false;
   showToastAfterApproveFilingEntities = false;
   showToastAfterApproveExceptionReports = false;
+  showToastAfterUnApproveFilings = false;
+  actionMenuModal = false;
+  actionMenuModalEnabled = false;
+  selectedEntityId;
+  selectedExceptionId;
+  @ViewChild('actionMenuTemp', { static: false }) actionMenuCard: ElementRef;
   modalMessage:any;
 
   status = {
@@ -59,7 +67,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve these exception reports?",
+      description: "Are you sure you want to approve these exception report(s)?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -96,6 +104,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
@@ -156,9 +166,22 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'template',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -236,9 +259,27 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
+          width: 20,
+          sortable: false,
+          pinned: 'left',
+          filter: false,
+          cellStyle: params => 
+          (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
+              {'pointer-events': 'none'}
+              : ''
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
           width: 70,
           sortable: false,
-          pinned: 'left'
+          cellClass: 'actions-button-cell'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -388,8 +429,16 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       "stage": "Client review"
     };
     this.service.approveAnswerExceptions(selectedFiling).subscribe(res => {
-      res['data']['answerExceptions'].forEach(ele => {
+      res['data']['answerExceptions'].forEach(ele => {        
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+        /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
+        console.log('resolve exception val >', selectedException);
+        if(selectedException.resolveOrException.indexOf("/") !== -1){ 
+          let exceptionVal = selectedException.resolveOrException.split("/");
+          console.log('excpetion val > ', exceptionVal);
+          let updatedExceptionVal = exceptionVal[1]+'/'+exceptionVal[1];
+          this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = updatedExceptionVal;
+        } */
       });
       this.createEntitiesRowData();
       this.exceptionReportRows = [];
@@ -558,6 +607,136 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     
   }
 
+  actionMenuEnableforEntity(row) {
+    console.log('Client Review > unapprove > entity');
+    this.selectedEntityId = row.entityId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
+  }
+
+actionMenuEnableforException(row) {
+  console.log('Client Review > unapprove > exception');
+    this.selectedExceptionId = row.exceptionId;
+  setTimeout(() => {
+    this.actionMenuModalEnabled = true;
+    this.actionMenuModal = true;
+  }, 1);
+}
+
+  unApproveEntity(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedEntities = [];
+        this.selectedEntities.push(this.selectedEntityId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+          "entityType": "Filing Entity",
+          "entities": this.selectedEntities,
+          "filingName": this.filingDetails.filingName,
+          "period": this.filingDetails.period,
+          "stage": "Client review"
+          };
+
+          let tempRowData = this.rowData;
+          this.rowData = [];
+          this.service.unApprovefilingEntities(selectedFiling).subscribe(res => {
+            res['data'].forEach(ele => {
+              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
+              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
+          });
+          this.rowData = tempRowData;
+          this.createEntitiesRowData();
+          this.selectedRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.rowData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
+
+  unApproveException(){
+    this.actionMenuModal = false;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Unapprove",
+        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Continue') {
+        this.selectedExceptionIds = [];
+        this.selectedExceptionIds.push(this.selectedExceptionId);
+        const filingDetails = this.filingDetails;
+        let selectedFiling = {
+        "entityType": "Answer Exception Report",
+        "entities":  this.selectedExceptionIds,
+        "filingName": this.filingDetails.filingName,
+        "period": this.filingDetails.period,
+        "stage": "Client Review"
+        };
+
+        let tempRowData = this.exceptionData;
+        this.exceptionData = [];
+        this.service.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
+          res['data'].forEach(ele => {
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+          });
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+          this.exceptionReportRows = [];
+          this.filingService.invokeFilingDetails();
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          setTimeout(() => {
+            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          }, 5000);
+        },error=>{
+          this.exceptionData = tempRowData;
+          this.createEntitiesRowData();
+        });
+
+      }
+    });
+  
+    
+  }
+
+
   commentAdded() {
     if (this.tabs==2) {
       this.getFilingEntities();
@@ -569,5 +748,13 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports']);
+  }
+
+  @HostListener('document:click', ['$event'])
+  public outsideClick(event) {
+    if( this.actionMenuCard && !this.actionMenuCard.nativeElement.contains(event.target) && this.actionMenuModalEnabled){
+      this.actionMenuModal = false;
+      this.actionMenuModalEnabled = false;
+    }
   }
 }
