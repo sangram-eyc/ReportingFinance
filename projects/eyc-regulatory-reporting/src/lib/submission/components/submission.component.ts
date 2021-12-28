@@ -193,7 +193,7 @@ export class SubmissionComponent implements OnInit {
         field:'status',
         sortable: true,
         filter:true,
-        minWidth: 300
+        minWidth: 200
       },
       {
         headerComponentFramework:TableHeaderRendererComponent,
@@ -207,6 +207,18 @@ export class SubmissionComponent implements OnInit {
         filter:true,
         minWidth: 180,
         cellClass:'date-submitted-class'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Last updated by',
+        field: 'updatedBy',
+        wrapText: true,
+        autoHeight: true,
+        sortable: true,
+        filter:true,
+        width: 200,
+        sort:'asc',
+        comparator: customComparator
       }
     ];
 
@@ -290,6 +302,8 @@ export class SubmissionComponent implements OnInit {
           "submissionFileRequestList": this.updateSubmissionStatusList
         };
         this.service.updateStatus(obj).subscribe(res => {
+          this.filingStatusChangeMsg = "Status updated successfully";
+          this.showToastAfterStatusChange = true;
           for (let i in res['data']) {
             for (let j in this.submittedFiles) {
               if (this.submittedFiles[j].fileName == res['data'][i].fileName) {
@@ -303,6 +317,9 @@ export class SubmissionComponent implements OnInit {
           setTimeout(() => {
             this.getSubmissionRowData();
           }, 100);
+          setTimeout(() => {
+            this.showToastAfterStatusChange = false;
+          }, 5000);
         });
       }
       this.updateStatusModal = false;
