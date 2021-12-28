@@ -1,0 +1,124 @@
+.heading-6 {
+  font-family: EYInterstate;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
+  justify-content: space-between;
+}
+
+.heading-4{
+  display: inline-flex;
+
+::ng-deep .motif-icon{
+  display: inline !important;
+  padding: 5px 5px !important;
+}
+}
+
+
+
+
+    #grid-wrapper {
+        ::ng-deep {
+          .ag-pinned-left-cols-container, .ag-pinned-left-header {
+            box-shadow: none !important;
+          }
+          ::ng-deep .ag-body-viewport {
+            min-height: 180px !important;
+          }
+          *:focus {
+            box-shadow: none !important;
+          }
+          .ag-menu {
+            max-height: none !important;
+          }
+          .ag-theme-material .ag-pinned-left-header {
+            border-right: none;
+          }
+          .motif-header-name {
+            font-family: EYInterstate !important;
+            font-style: normal  !important;
+            font-weight: 700  !important;
+            font-size: 16px  !important;
+            line-height: 20px  !important;
+            color: #2E2E38  !important;
+          }
+          .ag-row {
+            background: #ffffff !important;
+            border-bottom: 1px solid #E7E7EA !important;
+            height: 70px !important;
+          }
+          .ag-header {
+            font-family: EYInterstate !important;
+            font-style: normal  !important;
+            font-weight: 700  !important;
+            font-size: 16px  !important;
+            line-height: 20px  !important;
+            color: #2E2E38  !important;
+            background: #ffffff !important;
+            height: 62px !important;
+            min-height: 62px !important;
+            border-bottom: 1px solid #E0E0E0 !important;
+            .ag-header-row-column {
+                height: 62px !important;
+            }
+            .ag-header-cell-text {
+              font-size: 16px !important;
+              font-family: EYInterstate !important;
+              color: #2E2E38 !important;
+              padding-bottom: 3px !important;
+            }
+          }
+         
+      
+          .ag-root-wrapper {
+            position: inherit !important;
+            overflow: visible !important;
+            border: 1px solid #E0E0E0 !important;
+          }
+          .motif-ag-grid {
+            background: none !important;
+            position: inherit !important;
+        }
+        }
+        ::ng-deep .motif-table .ag-header-cell {
+          height: 44px !important;
+      }
+    }
+
+    .textalign{
+      margin-top: 22px;
+    }
+    
+    #reports-history {
+      position: relative;
+      #reports-history-heading {
+        margin-bottom: 12px;
+        margin-top: 20px;
+        float: right;
+        width: 100%;
+        .search {
+          float: right;
+          .motif-form-field input{
+            width: 228px;
+          }
+        }
+      }
+      .pagination {
+        display: flex;
+        background: #fff;
+        width: 100%;
+        justify-content: flex-end;
+        padding: 15px;
+        margin-top: 15px;
+        .page-description {
+          font-family: EYInterstate;
+          .page-number {
+            font-weight: 700;
+          }
+        }
+      }
+    }

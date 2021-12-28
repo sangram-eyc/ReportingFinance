@@ -58,7 +58,7 @@
           </div>
           <div class="col-md-6 cust-col-colour cust-row-st">
             <motif-form-field>
-              <input motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
+              <input libRemoveSpaces motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
               <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
               </motif-error>
               <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only
@@ -73,7 +73,7 @@
           </div>
           <div class="col-md-5 offset-md-1  cust-col-colour cust-row-st">
             <motif-form-field>
-              <input motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
+              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="lastName" />
               <motif-error *ngIf="editUserForm.get('lastName').hasError('required')">Please provide a last name!
               </motif-error>
               <motif-error *ngIf="editUserForm.get('lastName').hasError('pattern')">Last name must contain only

@@ -20,12 +20,12 @@ export class ModuleLevelPermissionService {
     return this.apiService.invokeGetAPI(`${authorization.moduleLevelPermission}`);
   }
 
-  invokeModulePermissionDetails(){
-    this.moduleLevelPermisssionDetails.emit(null);
+  invokeModulePermissionDetails(data){
+    this.moduleLevelPermisssionDetails.emit(data);
   }
 
   checkPermission(module) {
-    const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
+    const permissions = this.settingsService.getModulePermissiongData;
     if(permissions){
       if(permissions.userModules.hasOwnProperty('All')){
         return true;

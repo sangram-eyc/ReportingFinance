@@ -101,7 +101,7 @@ export class IntakeFilesComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Data Owner',
-        field: 'dataOwner ',
+        field: 'dataOwner',
         sortable: true,
         filter: true,
         wrapText: true,
@@ -115,7 +115,18 @@ export class IntakeFilesComponent implements OnInit {
         filter: true,
         wrapText: true,
         autoHeight: true
-      }/* ,
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        headerName: 'Data Owner Email',
+        field: 'ownerEmail',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true,
+        width: 400,
+        comparator: customComparator
+      },/* ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,

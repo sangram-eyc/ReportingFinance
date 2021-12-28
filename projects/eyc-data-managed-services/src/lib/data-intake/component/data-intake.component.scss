@@ -5,6 +5,9 @@
   margin-top: 26px;
   top: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  color: #2e2e38;
 }
 
 * {
@@ -22,6 +25,10 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 32px;
+}
+
+.box-center {
+  min-height: 30px;
   display: flex;
   align-items: center;
   color: #2e2e38;
@@ -32,11 +39,14 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 18px;
-  display: flex;
-  align-items: center;
-  color: #2e2e38;
 }
 
+.space-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
 .eyc-dms-tabs {
   position: relative;
 
@@ -181,8 +191,19 @@
 }
 
 ::ng-deep .donut-chart>svg {
-  height: 202px !important;
-  width: 202px !important;
+  width: 180px !important;
+  height: 185px !important;
+}
+
+::ng-deep .donut-chart {
+  width: 180px !important;
+  height: 185px !important;
+  margin: 0 auto;
+}
+
+::ng-deep .donut-summary {
+  width: 17em !important;
+  padding-left: 18px;
 }
 
 .donut-chart-card {
@@ -207,7 +228,7 @@
 .review-all {
   font-family: EYInterstate;
   font-size: 14px;
-  margin: 37px 0 35px 0;
+  margin: 50px 0 35px 0;
 }
 
 .icon-size {
@@ -216,7 +237,6 @@
 
 ::ng-deep .review-by-group {
   width: 100%;
-  // margin: 33px 0 0 24px;
 }
 
 ::ng-deep .review-number {
@@ -240,7 +260,6 @@
   font-size: 14px;
   line-height: 20px;
   color: #2e2e38;
-  // height: 40px;
 
   span {
     font-family: EYInterstate;
@@ -280,7 +299,6 @@
 .text-align-right {
   text-align: right !important;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -288,18 +306,47 @@
   font-size: 12px;
   line-height: 14px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
-  color: #000000;
-  left: 53.5%;
-  position: relative;
-  top: 7px;
   ::ng-deep {
     .motif-icon {
       cursor: pointer;
     }
+    .motif-button {
+      min-height: 30px;
+      
+    }
   }
 }
 
-::ng-deep .dateWrapper{
-  padding: 0 !important;
- }
+.date-ui{
+
+  ::ng-deep .motif-form-field {
+    margin-bottom: 0!important;
+    ::ng-deep .motif-input{
+      background-color: #ffffff !important;
+    }
+    
+    border-bottom: 1px solid #2E2E38 !important;
+    .motif-label{
+      margin:0 !important;
+    }
+    input#datepicker{
+      min-width: 266px !important; 
+    }
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  }
+
+  
+}
+
+

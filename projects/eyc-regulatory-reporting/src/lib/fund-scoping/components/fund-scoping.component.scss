@@ -28,6 +28,15 @@
         height: 44px;
       }
     }
+
+    ::ng-deep .motif-table .ag-header-cell-label {
+      font-family: EYInterstate;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px!important;
+      line-height: 22px;
+      color: #2e2e3c;
+    }
 }
 
 .approve-no, .approve-yes {
@@ -202,8 +211,8 @@
       //   height: 69px !important;
       // }
     }
-  
-  }
+}
+
   .no_data {
     width: 100%;
     height: auto;

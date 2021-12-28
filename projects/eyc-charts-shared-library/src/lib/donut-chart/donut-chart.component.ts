@@ -10,10 +10,25 @@ export class DonutChartComponent {
   @Input() width: number = 135;
   @Input() height: number = 135;
   @Input() margin: number = 10;
-  @Input() innerRadius: number = 80;
-  @Input() svgTranslateLeft: number = 80;
-  @Input() svgTranslateRight: number = 80;
-  
+  @Input() innerRadius: number = 100;
+  @Input() svgTranslateLeft: number = 101;
+  @Input() svgTranslateRight: number = 101;
+  @Input() svgStrokeWidth: number = 2;
+  @Input() svgStrokeColor: String = 'white';
+  // Total Files Number
+  @Input() totalFilesNumberFontSize: number = 32;
+  @Input() totalFilesNumberStyle = "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing:-1.64307px; fill: #2E2E3C;"
+  // Total Files Text
+  @Input() totalFilesTextFontSize: number = 11;
+  @Input() totalFilesTextStyle = "font-family: EYInterstate; line-height: 13px; text-align: center; fill: #747480;"
+  @Input() totalFilesText: string = "TOTAL FILES";
+  // Total Expected Text
+  @Input() totalExpectedStyle = "font-family: EYInterstate; line-height: 13px; text-align: center; fill: #747480;"
+  @Input() totalExpected: string = "EXPECTED";
+  @Input() legendTextSliceNumber: number = 19;
+  totalFilesNumber: number = 0;
+
+
   // Mock API data stored in _data
   _data: number[];
   // Color code for donut chart
@@ -36,11 +51,6 @@ export class DonutChartComponent {
     this._data = value && value.map(files => files['value']);
     this.renderSVG();
   }
-  totalFilesNumber: number = 600;
-  @Input() totalFilesNumberFontSize: number = 39;
-  @Input() totalFilesText: string = "TOTAL FILES";
-  @Input() totalFilesTextFontSize: number = 12;
-  @Input() totalExpected: string = "EXPECTED";
 
 
   // Create dynamic donut SVG as per data/api
@@ -74,22 +84,22 @@ export class DonutChartComponent {
       .join('path')
       .attr('d', d3.arc().innerRadius(this.innerRadius).outerRadius(radius) as any)
       .attr('fill', d => color(d.data[0]))
-      .attr("stroke", "white")
-      .style("stroke-width", "2px")
+      .attr("stroke", `${this.svgStrokeColor}`)
+      .style("stroke-width", `${this.svgStrokeWidth}px`)
 
     // Add TotalFileNumber into middle of donut chart as per figma
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesNumberFontSize}px`)
-      .attr("class",'totalFilesNumber')
-      .attr("style", "font-family: EYInterstate; line-height: 46px; text-align: center; letter-spacing: -2.01152px; fill: #2E2E3C;")
+      .attr("class",'totalFilesNumber')     
+      .attr("style",  `${this.totalFilesNumberStyle}`)
       .text(this.totalFilesNumber);
 
     // Add TotalFileText into middle of donut chart as per figma
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesTextFontSize}px`)
-      .attr("style", "font-family: EYInterstate; line-height: 16px; text-align: center; fill: #747480;")
+      .attr("style", `${this.totalFilesTextStyle}`)
       .attr("x", "0")
       .attr("y", "15")
       .text(this.totalFilesText);
@@ -98,7 +108,7 @@ export class DonutChartComponent {
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesTextFontSize}px`)
-      .attr("style", "font-family: EYInterstate; line-height: 16px; text-align: center; fill: #747480;")
+      .attr("style", `${this.totalExpectedStyle}`)
       .attr("x", "0")
       .attr("y", "30")
       .text(this.totalExpected);

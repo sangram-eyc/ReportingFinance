@@ -1,32 +1,31 @@
-<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)" (filingStatusRes)="getFilingStatusDetails($event)"></lib-dots-card>
+<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
+    (filingStatusRes)="getFilingStatusDetails($event)"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
 
 <div *ngIf="!enableTabs" class="intakeFilesWrapper">
     <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr"
         [buttonTxt]="'All exceptions'" [filesDatasets]="bdFilesList" (datasetEvent)="getBDFilesList($event)"
-        (commentClickEvent)="openComments($event)"
-        (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)"
-        ></shared-lib-intake-files>
+        (commentClickEvent)="openComments($event)" (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)">
+    </shared-lib-intake-files>
 </div>
 
 <div class="review-content-container" *ngIf="enableTabs">
     <section id="exceptionReports" [hidden]="!(tabs==1)">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionData"
-            rowSelection="multiple" buttonPosition="left" [masterDetail]="false" 
-            [submitFunction]="submitException" 
-            [modalConfig]="exceptionModalConfig"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+            rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
+            [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve')"></lib-shared-grid>
+            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable">
+        </lib-shared-grid>
 
-        <ng-template #commentExceptionTemplate let-row >
-            <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')"
+        <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
+            <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
                 class="comments-background" (click)="openComments(row)">
                 {{row.commentCount}}
             </div>
-            <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount">
-                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
+            <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount ">
+                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -38,7 +37,8 @@
             </div>
             <div class="resolve-Exception" *ngIf="row.exceptionCount">
 
-                <div class="result_complete" *ngIf="row.exceptionCount == row.resolvedCount && (row.exceptionCount != 0)">
+                <div class="result_complete"
+                    *ngIf="row.exceptionCount == row.resolvedCount && (row.exceptionCount != 0)">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
                 </div>
                 <div class="result_warning"
@@ -47,76 +47,53 @@
                 </div>
             </div>
         </ng-template>
-        <ng-template #dropdownTemplate let-row>
+        <ng-template #dropdownTemplate let-row *ngIf="!mockDataEnable">
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-            <!-- <div class="result_complete"
-                *ngIf="row.isExceptionResolved && (row.exceptionCount != 0) && row.exceptionCount == row.resolvedCount">
-                <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
-            </div> -->
-            <!-- <div class="result_warning" *ngIf="!row.isExceptionResolved && (row.exceptions != 0)">
-                <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
-            </div> -->
-            <!-- <div class="result_warning" *ngIf="row.exceptionCount != row.resolvedCount">
-                <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
-            </div> -->
-            <div class="dropdownTemplate">
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row *ngIf="!mockDataEnable">
+            <div class="actionButtonTemplate" *ngIf="!mockDataEnable">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
                 </motif-icon>
             </div>
         </ng-template>
         <ng-template #viewDetTemplate let-row>
-            <div class="view-det-arrow">
-                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+            <div class="view-det-arrow" *ngIf="!mockDataEnable">
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                    (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
         <ng-template #expandExceptionTemplate let-row>
-            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{row.file}}</div>
+            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)" *ngIf="!mockDataEnable">{{row.file}}</div>
+            <div *ngIf="mockDataEnable">{{row.file}}</div>
         </ng-template>
     </section>
 
     <section id="dataset" [hidden]="!(tabs==2)">
-        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
-            [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
-            [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')"
-            [permissionToSecondaryButton]="this.permissions.validatePermission('Data Intake', 'Dataset Status Change Approve')">
-        </lib-shared-grid> -->
+
 
         <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasets" rowSelection="multiple"
-            [displayCheckBox]="true"
-            [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
+            [displayCheckBox]="true" [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-            [permissionToPrimaryButton]="false"
-            [permissionToSecondaryButton]="false">
+            [permissionToPrimaryButton]="false" [permissionToSecondaryButton]="false">
         </lib-shared-grid>
 
         <ng-template #datasetsDropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-            <div class="dropdownTemplate">
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
                 </motif-icon>
             </div>
         </ng-template>
-        <!-- <ng-template #commentDatasetsTemplate let-row>
-            <div *ngIf="row.comments!==0 && permissions.validatePermission('Data Intake', 'View Comments')"
-                class="comments-background" (click)="openComments()">
-                {{row.comments}}
-            </div>
-            <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
-                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments')">
-                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
-                        (click)="addCommentToDatasets(row)">
-                        <span class="plus">+</span>
-                    </motif-icon>
-                </div>
-            </div>
-        </ng-template> -->
+
         <ng-template #resolveDatasetsTemplate let-row>
             <div>
                 {{row.resolved}}
@@ -127,8 +104,10 @@
         </ng-template>
     </section>
 </div>
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
+    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')"
+    (commentAddedEmitter)="commentAdded()" [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-comment-side-menu>
 
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
-    </motif-toast>
+</motif-toast>

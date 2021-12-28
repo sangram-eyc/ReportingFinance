@@ -9,13 +9,15 @@ import { VisualisationModalComponent } from './visualisation-modal/visualisation
 import { UploadModule } from '../upload/upload.module';
 import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { RemoveSpacesDirective } from './dir/remove-spaces.directive';
 
 
 @NgModule({
   declarations: [
     ModalComponent,
     VisualisationModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    RemoveSpacesDirective
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
   ],
   exports: [
     ModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    RemoveSpacesDirective
   ]
 })
 export class ModalModule { }

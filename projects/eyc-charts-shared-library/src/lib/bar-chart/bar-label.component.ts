@@ -87,7 +87,7 @@ export class BarLabelComponent implements OnChanges {
       this.y = this.barY + this.barHeight / 2;
     } else {
       // orientation must be "vertical"
-      this.x = this.barX + this.barWidth/4;
+      this.x = this.barX + this.barWidth/2.3;
       this.y = this.barY + this.barHeight - this.verticalPadding;
 
       if (this.value < 0) {

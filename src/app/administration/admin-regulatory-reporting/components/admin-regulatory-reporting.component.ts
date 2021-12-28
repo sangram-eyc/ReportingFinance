@@ -30,7 +30,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   addTeamModal = false;
   addTeamForm: FormGroup;
   roles = []
-  assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
+  filingType = [];
   showToastAfterAddTeam = false;
   is_Tax_Reporting = IS_SURE_FOOT;
   moduleName;
@@ -66,6 +66,12 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
           this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
         }
       }
+
+      this.teamsService.getFileType().subscribe(resp => {
+        this.filingType = resp['data'];
+        console.log('filiting type >', this.filingType);
+      });
+
     }
 
     this.addTeamForm = this._createTeam()
@@ -75,7 +81,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return this.fb.group({
       teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
       role: ['', [Validators.required]],
-      // assignments: [''],
+      filingType: ['', [Validators.required]],
       description: ['', [Validators.maxLength(250)]]
     });
   }
@@ -222,11 +228,10 @@ editTeams(row) {
     const team = {
       "teamName": obj.teamName.trim(),
       "roleName": obj.role,
-      "teamDescription": escape(obj.description),
+      "teamDescription": escape(obj.description.trim()),
       "moduleName": this.moduleName,
-      // "assignments": obj.assignments
+      // "filingType": obj.filingType
     }
-    
     this.teamsService.addTeam(team).subscribe(resp => {
       const teamsList = this.teamsData;
       this.teamsData = [];

@@ -33,6 +33,10 @@ export class TeamsService {
     return this.apiService.invokeGetAPI(`${userAdminstration.teams.roles}`+moduleName);
   }
 
+  getFileType() {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.filetypes}`);
+  }
+
   addTeam(teamData) {
     return this.apiService.invokePostAPI(`${userAdminstration.teams.add_team}`,teamData);
   }

@@ -1,0 +1,87 @@
+{
+  "success": true,
+  "message": "",
+  "corelationId": "1293081023",
+  "data": [
+    {
+      "totalCount": 98,
+      "dataProvideCount": 3,
+      "dataDomainCount": 6,
+      "totalSeriesItem": [
+        {
+          "label": "No issue",
+          "value": 84,
+          "seriesItemDTO": [
+            {
+              "name": "General Ledger",
+              "value": 40
+            },
+            {
+              "name": "Positions",
+              "value": 19
+            },
+            {
+              "name": "Reference Data",
+              "value": 14
+            },
+            {
+              "name": "Transactions",
+              "value": 6
+            },
+            {
+              "name": "Account and Fund Hierarchy",
+              "value": 2
+            },
+            {
+              "name": "Portfolio Valuation",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "label": "Medium / low priority issues",
+          "value": 3,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "label": "High priority issues",
+          "value": 4,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "label": "Files not received",
+          "value": 6,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "error": null
+}

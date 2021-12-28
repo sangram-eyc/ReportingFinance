@@ -1,0 +1,101 @@
+{
+  "success": true,
+  "message": "",
+  "corelationId": "1293081023",
+  "data": [
+    {
+      "totalCount": 178,
+      "dataProvideCount": 3,
+      "dataDomainCount": 6,
+      "totalSeriesItem": [
+        {
+          "label": "No issue",
+          "value": 124,
+          "seriesItemDTO": [
+            {
+              "name": "General Ledger",
+              "value": 50
+            },
+            {
+              "name": "Positions",
+              "value": 29
+            },
+            {
+              "name": "Reference Data",
+              "value": 24
+            },
+            {
+              "name": "Transactions",
+              "value": 16
+            },
+            {
+              "name": "Account and Fund Hierarchy",
+              "value": 2
+            },
+            {
+              "name": "Portfolio Valuation",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "label": "Medium / low priority issues",
+          "value": 3,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 2
+            },
+            {
+              "name": "Entity",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "label": "High priority issues",
+          "value": 13,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 12
+            },
+            {
+              "name": "Entity",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "label": "Missing files, past due",
+          "value": 17,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 6
+            },
+            {
+              "name": "Entity",
+              "value": 11
+            }
+          ]
+        },
+        {
+          "label": "Files not received",
+          "value": 21,
+          "seriesItemDTO": [
+            {
+              "name": "Positions",
+              "value": 20
+            },
+            {
+              "name": "Entity",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "error": null
+}

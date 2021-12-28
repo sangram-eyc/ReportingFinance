@@ -9,42 +9,36 @@ export class PermissionService {
   constructor() { }
 
   validatePermission = (module, task) => {
-    const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
-    if (permissions) {
-      if (permissions.userModules.hasOwnProperty('All')) {
+    const list = JSON.parse(sessionStorage.getItem('permissionList'));
+    if (list) {
+      if (list.isSuperAdmin) {
         return true;
       } else {
-        const list = JSON.parse(sessionStorage.getItem('permissionList'));
-        if (list) {
-          if (list.hasOwnProperty(module)) {
-            return list[module].indexOf(task) > -1;
-          } else {
-            return false;
-          }
+        if (list.features.hasOwnProperty(module)) {
+          return list.features[module].indexOf(task) > -1;
         } else {
-          return false
+          return false;
         }
       }
+    } else {
+      return false
     }
   }
 
-  validateAllPermission = (sessionItemName ,module, task) => {
-    const permissions = JSON.parse(sessionStorage.getItem('moduleLevelPermission'));
-    if (permissions) {
-      if (permissions.userModules.hasOwnProperty('All')) {
+  validateAllPermission = (sessionItemName, module, task) => {
+    const list = JSON.parse(sessionStorage.getItem(sessionItemName));
+    if (list) {
+      if (list.isSuperAdmin) {
         return true;
       } else {
-        const list = JSON.parse(sessionStorage.getItem(sessionItemName));
-        if (list) {
-          if (list.hasOwnProperty(module)) {
-            return list[module].indexOf(task) > -1;
-          } else {
-            return false;
-          }
+        if (list.features.hasOwnProperty(module)) {
+          return list.features[module].indexOf(task) > -1;
         } else {
-          return false
+          return false;
         }
       }
+    } else {
+      return false
     }
   }
 }

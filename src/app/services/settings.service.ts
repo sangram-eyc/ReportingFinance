@@ -15,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 
 export class SettingsService {
   authdetails;
+  moduleLevelPermission;
   constructor(private oauthService: OAuthService,private http: HttpClient) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
@@ -111,7 +112,6 @@ setToken = (value) => {
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
     sessionStorage.removeItem('permissionList');
-    sessionStorage.removeItem('moduleLevelPermission');
     sessionStorage.removeItem('userEmail');
     sessionStorage.removeItem('inActivityTime');
     sessionStorage.removeItem('adminPermissionList');
@@ -166,5 +166,12 @@ setToken = (value) => {
 
   }
 
+  set setModulePermissionData(data) {
+    this.moduleLevelPermission = data;
+  }
+
+  get getModulePermissiongData() {
+    return this.moduleLevelPermission;
+  }
 }
 

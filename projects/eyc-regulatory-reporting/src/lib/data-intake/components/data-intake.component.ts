@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
-import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-import { customComparator } from '../../config/rr-config-helper';
+// import { customComparator } from '../../config/rr-config-helper';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -60,7 +59,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports?",
+      description: "Are you sure you want to approve the selected exception report(s)?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -74,10 +73,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DataIntakeService,
-    private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     public permissions: PermissionService,
     private router: Router,
+    @Inject('mockDataEnable') public mockDataEnable
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +104,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+  
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
@@ -117,8 +119,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
   getExceptionReports() {
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      // this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      this.exceptionData = res['data'];
+      if(this.mockDataEnable) {
+        this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else { this.exceptionData = res['data']; }
       console.log(this.exceptionData);
       this.createEntitiesRowData();
 
@@ -132,7 +135,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   getFiles() {
     console.log('FILING DETAILS', this.filingDetails);
     this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.filesListArr = res['data'];
+      if(this.mockDataEnable) {
+      this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else { this.filesListArr = res['data']; }
       console.log('EXCEPTION SUMMARY', this.filesListArr);
     }, error => {
       console.log("files list error");
@@ -142,7 +147,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getDatasets() {
     this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
-      this.datasets = res['data'];
+      if(this.mockDataEnable) {
+        this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
+      } else {  this.datasets = res['data']; }
       console.log('DATASETS:', this.datasets);
       this.createEntitiesRowData();
 
@@ -154,9 +161,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getBDFilesList(event) {
     let index = event.index;
+    let businessDay = this.filesListArr[index].exceptionDue;
+    console.log('businessDay > ', businessDay);
     console.log('INDEX', event);
     this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
-      this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
+      if(this.mockDataEnable) {
+        this.bdFilesList[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName && item.exceptionDue == businessDay);
+      } else {
+        this.bdFilesList[index] = res['data'].filter((e, i) => res['data'].findIndex(a => a['fileName'] === e['fileName']) === i);
+      }
     }, error => {
       this.bdFilesList[index] = [];
       console.log("Dataset error");
@@ -196,9 +209,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         },
         field: 'approved',
         headerName: '',
-        width: 70,
+        width: 20,
         sortable: false,
         pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.actionButtonTemplate,
+        },
+        headerName: 'Action',
+        field: 'template',
+        minWidth: 70,
+        width: 70,
+        sortable: false,
+        cellClass: 'actions-button-cell'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -207,7 +233,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -223,7 +249,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -235,7 +261,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 250
@@ -250,7 +276,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         autoHeight: true,
         width: 250,
         sort: 'asc',
-        comparator: customComparator
+        // comparator: customComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -323,7 +349,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -335,7 +361,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -347,7 +373,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        comparator: customComparator,
+        // comparator: customComparator,
         autoHeight: true,
         wrapText: true,
         width: 150
@@ -562,7 +588,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       console.log(this.exceptionData);
       this.createEntitiesRowData();
       this.exceptionReportRows = [];
-      this.filingService.invokeFilingDetails();
+      // this.filingService.invokeFilingDetails();
       this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       setTimeout(() => {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;

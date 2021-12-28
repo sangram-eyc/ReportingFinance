@@ -1,14 +1,16 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
+import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
+import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
 
 @Component({
   selector: 'lib-shared-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit, OnChanges {
+export class GridComponent implements OnInit, OnChanges, OnDestroy {
   mytasks = false;
   constructor(public dialog: MatDialog) { }
   
@@ -24,6 +26,7 @@ export class GridComponent implements OnInit, OnChanges {
 
   @Input() gridStyle = 'first';
   @Input() button = true;
+  @Input() enableAutoId = false;
   @Input() search = true;
   @Input() isToggle = false;
   @Input() isToggleLeft = false;
@@ -58,6 +61,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() rowData: any;
   @Input() disableAddMemberButton = true;
   @Input() columnDefs: any;
+  columnDefsData;
   @Input() defaultColDef: any;
   @Input() masterDetail = false;
   @Input() detailCellRendererParams: any;
@@ -66,6 +70,8 @@ export class GridComponent implements OnInit, OnChanges {
   @Input() supressCellSelection = true;
   @Input() pagination = false;
   @Input() paginationSize = 10;
+  @Input() displayPlusIcon = true;
+  @Input() hideHeaderCheckbox = false;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
@@ -73,6 +79,7 @@ export class GridComponent implements OnInit, OnChanges {
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
+
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -87,7 +94,7 @@ export class GridComponent implements OnInit, OnChanges {
     // console.log('GRID COMPONENT INIT');
     if (!this.defaultColDef) {
       this.defaultColDef = {
-        headerCheckboxSelection: this.isFirstColumn,
+        headerCheckboxSelection: this.hideHeaderCheckbox ? false : this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
     }
@@ -106,7 +113,20 @@ export class GridComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: any) {
-    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
+    this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
+    if (typeof(this.columnDefs) !== 'undefined') {
+      this.columnDefsData = []
+      this.columnDefsData = this.columnDefs.slice(0);
+      //sr no column data
+      let object =  {
+        width: 50,
+        valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
+        pinned: 'left',
+        cellClass: 'srno-class'
+      }
+        this.columnDefsData.push(object);    
+    }
+    
   }
 
   async submit() {
@@ -144,14 +164,24 @@ export class GridComponent implements OnInit, OnChanges {
     this.gridApi = params.api;
   }
 
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex+1;
+  }  
+
   onRowSelected(event: any): void {
     // console.log('Search',this.search);
     // console.log('Button',this.button);
     // console.log('Position',this.buttonPosition);
     this.selectedRowEmitterProcess.emit('processing');
     let selectedArr = [];
+    this.selectedRows = [];
     selectedArr = this.gridApi.getSelectedRows();
-    this.selectedRows =selectedArr.filter(item => item.approved === false);
+    // this.selectedRows =selectedArr.filter(item => item.approved === false);
+    for(let i = 0; i < selectedArr.length; i++) {
+      if (selectedArr[i].approved == false) {
+        this.selectedRows.push(selectedArr[i]);
+      }
+    }
     this.selectedRowEmitter.emit(this.selectedRows);
     this.selectedRowEmitterProcess.emit('finished');
     if(this.selectedRows.length === 0){
@@ -213,5 +243,8 @@ export class GridComponent implements OnInit, OnChanges {
 
   toggleLeftChanged(event){
     this.toggleLeftEventToParent.emit(event);
+  }
+  ngOnDestroy(): void {
+    this.columnDefs = undefined;
   }
 }

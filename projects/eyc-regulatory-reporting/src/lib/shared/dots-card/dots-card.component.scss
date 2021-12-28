@@ -168,10 +168,22 @@
         .motif-step-container .step.in-progress, .motif-step-container .step.completed {
             background-color: #C4C4CD !important;
         }
+
+        .cursor-disabled {
+            .step-data-container .first-line.in-progress , .step-dot.in-progress,  .step-dot.in-progress.inner {
+                cursor: not-allowed !important;
+            }
+
+            .motif-step-container .step-info .step-dot.in-progress.in-progress .inner {
+                cursor: not-allowed !important;
+            }
+
+            .motif-step-container .step-info {
+                cursor: default;
+            }
+        }
     }
 
-    
-    
 
 }
 

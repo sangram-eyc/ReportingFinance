@@ -36,4 +36,13 @@ export class CustomGlobalService {
       }
     });
   }
+
+  formatDateWithSlashConcat(timestamp) {
+    const due = new Date(timestamp);
+    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
+      + ('0' + due.getDate()).slice(-2) + '/'
+      + due.getFullYear();
+    return newdate;
+  }
+
 }

@@ -61,37 +61,37 @@ describe('ErrorAlertComponent', () => {
     expect(component.errorMessage).toEqual(data);
   });
 
-  it('should check when error data.error.status present', () => {
-    let data = {
-      error: {
-        status: '500'
-      }
-    };
-    component.data = data
-    component.ngOnInit()
-    fixture.detectChanges();
-    expect(component.statusText).toEqual('500');
-  });
+  // it('should check when error data.error.status present', () => {
+  //   let data = {
+  //     error: {
+  //       status: '500'
+  //     }
+  //   };
+  //   component.data = data
+  //   component.ngOnInit()
+  //   fixture.detectChanges();
+  //   expect(component.statusText).toEqual('500');
+  // });
 
-  it('should check when error data.error.error string present', () => {
-    let data = {
-      error: { message:"Internal server error"}
-    };
-    component.data = data
-    component.ngOnInit()
-    fixture.detectChanges();
-    expect(component.errorMessage).toEqual("Internal server error");
-  });
+  // it('should check when error data.error.error string present', () => {
+  //   let data = {
+  //     error: { message:"Internal server error"}
+  //   };
+  //   component.data = data
+  //   component.ngOnInit()
+  //   fixture.detectChanges();
+  //   expect(component.errorMessage).toEqual("Internal server error");
+  // });
 
-  it('should check when error data.error.error string present', () => {
-    let data = {
-      error: "500 - The request timed out. Internal server error"
-    };
-    component.data = data
-    component.ngOnInit()
-    fixture.detectChanges();
-    expect(component.errorMessage).toEqual("The web server failed to respond within the specified time.");
-  });
+  // it('should check when error data.error.error string present', () => {
+  //   let data = {
+  //     error: "500 - The request timed out. Internal server error"
+  //   };
+  //   component.data = data
+  //   component.ngOnInit()
+  //   fixture.detectChanges();
+  //   expect(component.errorMessage).toEqual("The web server failed to respond within the specified time.");
+  // });
 
   it('should check when erro is null or undefined', () => {
     let data = null
@@ -109,4 +109,14 @@ describe('ErrorAlertComponent', () => {
   it('should create', async(() => {
     expect(component).toBeTruthy();
   }));
+
+
+  it('should set default error msg', () => {
+    let data = {
+      errorMessage : ''
+    }
+    component.data = data
+    component.ngOnInit()
+    expect(component.errorMessage).toEqual('There was an error processing your request')
+  });
 });
