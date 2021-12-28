@@ -1,3 +1,9 @@
+<div [hidden]="!isLoading" *ngIf="isLoading | async">
+  <div class="revised-loading">
+    <motif-progress-bar [progress]="100" [circle]="true">
+    </motif-progress-bar>
+  </div>
+</div>
 <div class="production-cycle-details-wrapper">
 
   <div class="back-wrapper">

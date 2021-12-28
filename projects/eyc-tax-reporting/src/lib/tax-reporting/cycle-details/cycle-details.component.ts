@@ -13,11 +13,12 @@ import { colorSets } from 'eyc-charts-shared-library';
 import { InformationBarChartModalComponent } from '../information-bar-chart-modal/information-bar-chart-modal.component'
 import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download-modal.component'
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
-import { SettingsService } from '../../../../../../src/app/services/settings.service'
-import { LoaderService } from '../../../../../../src/app/services/loader.service'
+//import { SettingsService } from 'src/app/services/settings.service'
+//import { LoaderService } from 'src/app/services/loader.service'
 import { Subject } from 'rxjs';
 import { WarningModalComponent } from '../../shared/warning-modal/warning-modal.component';
 import { WebSocketBulkService } from '../services/web-socket-bulk.service'
+import { TaxLoaderService } from '../services/tax-loader.service'
 
 @Component({
   selector: 'cycle-details',
@@ -56,11 +57,11 @@ export class CycleDetailComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private settingservice: SettingsService,
+    //private settingservice: SettingsService,
     private router: Router,
     public permissions: PermissionService,
     private fb: FormBuilder,
-    private LoaderService: LoaderService,
+    private LoaderService: TaxLoaderService,
     private wsService: WebSocketBulkService
   ) {
 
@@ -353,7 +354,8 @@ export class CycleDetailComponent implements OnInit {
         openCommentsClient: fund.openCommentsClient,
         totalComments: fund.totalComments,
         statusChangesDate: fund.statusChangesDate,
-        assignedTo: fund.assignedTo
+        assignedTo: fund.assignedTo,
+        assignedToSearch : fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
     });
     this.isToggleLeftDisabled()
@@ -407,7 +409,7 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.assignedToTemplate,
         },
         headerName: 'Assigned to',
-        field: 'assignedTo',
+        field: 'assignedToSearch',
         sortable: true,
         filter: true,
         resizeable: true,
@@ -421,6 +423,7 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.statusChangedToTemplate,
         },
         headerName: 'status changed',
+        field: 'statusChangesDate',
         sortable: true,
         filter: true,
         resizeable: true,
@@ -434,8 +437,9 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.totalComments,
         },
         headerName: 'Total comments',
+        field: 'totalComments',
         sortable: true,
-        filter: true,
+        filter: 'agNumberColumnFilter',
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -447,8 +451,9 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.openCommentEY,
         },
         headerName: 'Open comments (EY)',
+        field: 'openCommentsEY',
         sortable: true,
-        filter: true,
+        filter: 'agNumberColumnFilter',
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -460,8 +465,9 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.openCommentClient,
         },
         headerName: 'Open comments (Client)',
+        field: 'openCommentsClient',
         sortable: true,
-        filter: true,
+        filter: 'agNumberColumnFilter',
         resizeable: true,
         minWidth: 300,
         sort: 'asc'
@@ -919,7 +925,7 @@ export class CycleDetailComponent implements OnInit {
     dialogConfirm.beforeClosed().subscribe(result => {
       if (result.button === "Yes") {
         console.log('YES CLOSED SESSION')
-        this.settingservice.logoff();
+        //this.settingservice.logoff();
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     });
@@ -937,6 +943,19 @@ export class CycleDetailComponent implements OnInit {
     else if (row.status == 'Approved by client') {
       return this.statusColors[1]
     }
+  }
+
+  splitAssignedUser(arrayUsers:any){
+     var result:string[] = [];
+     if(arrayUsers){
+      arrayUsers.forEach(user => {
+        let name = user.userFirstName + " " + user.userLastName
+        let initials = user.userFirstName.charAt(0) + user.userLastName.charAt(0)
+        result.push(name);
+        result.push(initials);
+      });
+     }
+     return result.join(",");
   }
 }
 

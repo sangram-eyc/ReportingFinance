@@ -72,12 +72,6 @@
                 "userEmail": "Diego.Garavito@email.com", 
                 "userFirstName": "Diego", 
                 "userLastName": "Garavito" 
-            },
-            {
-                "userId": 2202,
-                "userEmail": "diego.morini@ey.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Morini" 
             }
         ]
     },
@@ -94,9 +88,9 @@
             {
 
             "userId": 123, 
-            "userEmail": "Jonnathan.Caballerov2@email.com", 
+            "userEmail": "Jonnathan.Caballero@email.com", 
             "userFirstName": "Jonnathan", 
-            "userLastName": "Caballerov2" 
+            "userLastName": "Caballero" 
             }]
     },
     {
