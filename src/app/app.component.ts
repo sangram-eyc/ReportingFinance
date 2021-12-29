@@ -40,7 +40,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isDataIntake: false,
     isTaxReporting: false,
     isAdmin: false,
-    isRegReporting: false
+    isRegReporting: false,
+    isDMS:false
   };
   constructor(
     private oauthservice: OAuthService,
@@ -108,6 +109,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+          this.permission.isDMS=this.moduleLevelPermission.checkPermission('Data Managed Services');
         
       }, 100)
       
