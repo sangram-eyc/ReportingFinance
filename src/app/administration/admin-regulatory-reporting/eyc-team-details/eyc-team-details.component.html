@@ -21,26 +21,32 @@
    
     <div class="container-fluid">
         <div class="row">
-          <div class="col-md-5 lablel-heading">
+          <div class="col-md-6 lablel-heading">
             Team Name
           </div>
-          <div class="col-md-7  lablel-heading">
-            Description
+          <div class="col-md-6  lablel-heading">
+            Filing Type/Reports
           </div>
-          <div class="col-md-5 label-value">
+          <div class="col-md-6 label-value">
             {{teamInfo?.teamName}} 
           </div>
-          <div class="col-md-7  label-value">
-            {{teamInfo?.teamDescription}}
+          <div class="col-md-6  label-value">
+            {{teamInfo?.assignments}}
           </div>
-          <div class="col-md-12 lablel-heading cust-col-role">
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
             Role
           </div>
-          <div class="col-md-5"></div>
-          <div class="col-md-5 label-value cust-col-role-value">
+          <div class="col-md-6 lablel-heading">
+            Description
+          </div>
+          <div class="col-md-6 label-value">
             {{teamInfo?.role}}
           </div>
-          <div class="col-md-5"></div>
+          <div class="col-md-6  label-value">
+            {{teamInfo?.teamDescription}}
+          </div>
         </div>
     </div>
 
@@ -51,13 +57,13 @@
     <div class="container-fluid">
       <form [formGroup]="editTeamForm" *ngIf="editTeamForm">
         <div class="row">
-          <div class="col-md-5 lablel-heading">
+          <div class="col-md-6 lablel-heading">
             Team Name
           </div>
-          <div class="col-md-7 lablel-heading">
-            Description
+          <div class="col-md-6 lablel-heading">
+            Filing Type/Reports
           </div>
-          <div class="col-md-5">
+          <div class="col-md-6">
             <motif-form-field>
               <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
@@ -71,18 +77,23 @@
               </motif-error>
             </motif-form-field>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <motif-form-field>
-              <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
-              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
-              </motif-error>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings" (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)" [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">{{assignment.filingName}}</motif-option>
+              </motif-select>
+              <motif-error *ngIf="!selectedFilings.length">Please provide a assignment!</motif-error>
             </motif-form-field>
           </div>
-          <div class="col-md-5 lablel-heading cust-col-role">
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
             Role
           </div>
-          <div class="col-md-5"></div>
-          <div class="col-md-5 cust-col-role-value">
+          <div class="col-md-6 lablel-heading">
+            Description
+          </div>
+          <div class="col-md-6">
             <motif-form-field>
               <motif-select formControlName="role" aria-label="Aria Label" >
                 <motif-option *ngFor="let item of roleList;index as i;" [value]="item">
@@ -90,7 +101,13 @@
               </motif-select>
             </motif-form-field>
           </div>
-          <div class="col-md-5"></div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
+              </motif-error>
+            </motif-form-field>
+          </div>
         </div>
       </form>
     </div>

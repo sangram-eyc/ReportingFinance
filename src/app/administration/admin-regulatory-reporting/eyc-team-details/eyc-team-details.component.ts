@@ -30,7 +30,7 @@ export class EycTeamDetailsComponent implements OnInit {
     this.editTeamForm = this._updateTeam();
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
-    this.moduleId = module.moduleId; 
+    this.moduleId = module.moduleId;
   }
 
   @ViewChild('actionSection')
@@ -48,6 +48,7 @@ export class EycTeamDetailsComponent implements OnInit {
   teamsData;
   is_editable = IS_TEAM_DETAILS_EDITABLE;
   roleList = [];
+  assignments = [];
   columnDefs;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
@@ -63,6 +64,7 @@ export class EycTeamDetailsComponent implements OnInit {
   users;
   allUsers = []
   multiSelectValues = [];
+  selectedFilings = [];
   presentRole;
   module;
   moduleId;
@@ -74,7 +76,9 @@ export class EycTeamDetailsComponent implements OnInit {
       this.teamInfo = {
         "teamName": teamInfoObj.teamName,
         "teamDescription": unescape(teamInfoObj.teamDescription),
-        "role": teamInfoObj.role
+        "role": teamInfoObj.role,
+        "assignments": '',
+        "assignmentsArray": []
       }
     } else {
       this.location.back();
@@ -82,6 +86,7 @@ export class EycTeamDetailsComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
+      this.getFilingAssignments();
       this.getTeamDetailsData();
     });
     this.tabIn = 1;
@@ -91,6 +96,12 @@ export class EycTeamDetailsComponent implements OnInit {
       })
     }
     this.addTeamMemberForm = this._createTeamMembers();
+  }
+
+  getFilingAssignments() {
+    this.teamService.getFileType().subscribe(res => {
+      this.assignments = res['data']
+    });
   }
 
   private _createTeamMembers() {
@@ -111,11 +122,11 @@ export class EycTeamDetailsComponent implements OnInit {
 
   getUsersList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
-    this.userService.getUsersList().subscribe(resp => {
-      this.allUsers = resp.data
-      this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
-    });
-  }
+      this.userService.getUsersList().subscribe(resp => {
+        this.allUsers = resp.data
+        this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
+      });
+    }
   }
 
   getTeamDetailsData() {
@@ -123,8 +134,12 @@ export class EycTeamDetailsComponent implements OnInit {
       this.editTeamForm.patchValue({
         teamName: this.teamInfo.teamName.trim(),
         role: this.teamInfo.role.trim(),
-        teamDescription: this.teamInfo.teamDescription.trim()
+        teamDescription: this.teamInfo.teamDescription.trim(),
+        assignments: []
       });
+      this.teamInfo["assignments"] = resp['data'].assignments.map(item => (this.assignments.find(ele => ele.formId == item.entityId)).filingName);
+      this.teamInfo["assignmentsArray"] = resp['data'].assignments;
+      this.selectedFilings = resp['data'].assignments.map(item => item.entityId)
       this.getUsersList();
       this.teamsMemberData = [];
       resp['data'].teamMembers.forEach((element, i) => {
@@ -195,6 +210,7 @@ export class EycTeamDetailsComponent implements OnInit {
       teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
       role: ['', [Validators.required]],
       teamDescription: ['', Validators.maxLength(250)],
+      assignments: [[], [Validators.required]]
     });
   }
 
@@ -220,7 +236,11 @@ export class EycTeamDetailsComponent implements OnInit {
         "roleName": obj.role,
         "teamDescription": escape(obj.teamDescription.trim()),
         "moduleId": this.moduleId,
-        "teamId": this.curentTeamId
+        "teamId": this.curentTeamId,
+        "assignments": obj.assignments.map(item => ({
+          "entityId": item,
+          "entityName": (this.assignments.find(ele => ele.formId == item)).filingName
+        }))
       }
       const dupTeamInfo = this.teamInfo;
       this.teamInfo = [];
@@ -230,7 +250,9 @@ export class EycTeamDetailsComponent implements OnInit {
         this.teamInfo = {
           "teamName": teamInfoObj.teamName.trim(),
           "teamDescription": unescape(teamInfoObj.teamDescription),
-          "role": teamInfoObj.role
+          "role": teamInfoObj.role,
+          "assignments": teamInfoObj.assignments.map(item => (this.assignments.find(ele => ele.formId == item.entityId)).filingName),
+          "assignmentsArray": teamInfoObj.assignments
         }
         this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
         setTimeout(() => {
@@ -242,16 +264,18 @@ export class EycTeamDetailsComponent implements OnInit {
           "role": dupTeamInfo['role'],
           "teamDescription": unescape(dupTeamInfo['teamDescription']),
           "moduleId": this.moduleId,
-          "teamId": this.curentTeamId
+          "teamId": this.curentTeamId,
+          "assignments": dupTeamInfo["assignments"],
+          "assignmentsArray": dupTeamInfo["assignmentsArray"]
         }
         this.teamInfo = teamDup;
 
-        this.editTeamForm.patchValue({​​​​​​​​
-          teamName:this.teamInfo.teamName.trim(),
-          role:this.teamInfo.role.trim(),
-          teamDescription:this.teamInfo.teamDescription.trim()
-          }​​​​​​​​);
-          
+        this.editTeamForm.patchValue({
+          teamName: this.teamInfo.teamName.trim(),
+          role: this.teamInfo.role.trim(),
+          teamDescription: this.teamInfo.teamDescription.trim()
+        });
+        this.selectedFilings = this.teamInfo.assignmentsArray.map(item => item.entityId);
       });
     }
   }
@@ -270,6 +294,7 @@ export class EycTeamDetailsComponent implements OnInit {
       role: this.teamInfo.role.trim(),
       teamDescription: this.teamInfo.teamDescription.trim()
     });
+    this.selectedFilings = this.teamInfo.assignmentsArray.map(item => item.entityId);
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
   }
@@ -377,6 +402,12 @@ export class EycTeamDetailsComponent implements OnInit {
       ' | model value: ',
       model
     );
+  }
+  
+  filingTypeLogEvent(event, type, model) {
+    this.editTeamForm.patchValue({
+      assignments: model
+    });
   }
 
 }
