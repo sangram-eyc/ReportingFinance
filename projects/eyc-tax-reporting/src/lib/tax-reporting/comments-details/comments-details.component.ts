@@ -113,6 +113,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
             "value": ((DeclinedByEY != undefined) ? DeclinedByEY.value : 0 )  +  ( (DeclinedByClient != undefined) ? DeclinedByClient.value : 0)
           }
         ]
+      console.log(this.totalOpenedCommentsDetails)
     })
   }
 
