@@ -129,16 +129,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
     }
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
   }
 
-  clearDatePicker(): void {
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    this.disabledDailyMonthlyButton = true;
-  }
-  
   setColorScheme() {
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
