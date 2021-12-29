@@ -141,17 +141,19 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         sort: 'asc',
         comparator: customComparator
       },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Assignments',
-        field: 'numberOfAssignments',
-        sortable: true,
-        filter: false,
-        wrapText: true,
-        autoHeight: true,
-        width: 150,
+
+      // Commenting this column as part of User Story 299890: Assign filing type to new team
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Assignments',
+      //   field: 'numberOfAssignments',
+      //   sortable: true,
+      //   filter: false,
+      //   wrapText: true,
+      //   autoHeight: true,
+      //   width: 150,
         
-      },
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Members',
@@ -222,15 +224,14 @@ editTeams(row) {
 
   onSubmitNewTeam() {
     const obj = this.addTeamForm.getRawValue();
-    this.addTeamModal = false
-    // below code will change after api integration
-    
+    this.addTeamModal = false;
+    let selectedFilingTypes = this.getFillingTypes(obj);
     const team = {
       "teamName": obj.teamName.trim(),
       "roleName": obj.role,
-      "teamDescription": escape(obj.description.trim()),
+      "teamDescription": obj.description ? escape(obj.description.trim()):'',
       "moduleName": this.moduleName,
-      // "filingType": obj.filingType
+      "assignments": this.getAssignments(selectedFilingTypes)
     }
     this.teamsService.addTeam(team).subscribe(resp => {
       const teamsList = this.teamsData;
@@ -247,9 +248,32 @@ editTeams(row) {
     }, 5000);
       
     });
+  }
 
-    
+  getFillingTypes(obj){
+    let formId = [];
+    let selectedFilings = [];
+    obj.filingType.forEach(id => {
+      formId.push(id);
+    });
+    formId.forEach((id)=>{
+      this.filingType.filter((el)=>{
+        el.formId === id ? selectedFilings.push(el): '';
+      })
+    });
+    return selectedFilings;
+  }
 
+  getAssignments(selectedFilings){
+    let assignments = [];
+    selectedFilings.forEach((el)=>{
+      let assignmentObj = {
+        "entityId": el.formId,
+        "entityName": el.filingName
+      }
+      assignments.push(assignmentObj);
+    })
+    return assignments;
   }
 
   closeTeamModal() {
