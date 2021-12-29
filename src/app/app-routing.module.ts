@@ -50,11 +50,11 @@ const routes: Routes = [
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
-  {path:'data-managed-services', component:EycDataManagementServicesComponent},
-  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
-  {path:'data-managed-services/files-review', component:FileReviewComponent},
-  { path: 'data-managed-services/files/general-ledger', component: GeneralLedgerComponent },
-  { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
+  {path:'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
+  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
+  {path:'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
+  { path: 'data-managed-services/files/general-ledger', component: GeneralLedgerComponent, canActivate : [AuthGuardService] },
+  { path: 'data-managed-services/data-providers', component:DonutGridListComponent, canActivate : [AuthGuardService] },
   {path: '**', component: LoginComponent},
 ];
 
