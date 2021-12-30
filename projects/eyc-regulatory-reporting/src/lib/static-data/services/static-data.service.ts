@@ -15,13 +15,12 @@ export class StaticDataService {
   getStaticData() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_names}`)
   }
-  filingStages() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_stages}`)
+
+  getStages(stageType) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.static_data_stages}${stageType}`)
   }
-  scopingStages() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.scoping_stages}`)
-  }
-  entityStages() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.entity_stages}`)
+
+  addStaticData(staticData){
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.add_static_data}`,staticData);
   }
 }
