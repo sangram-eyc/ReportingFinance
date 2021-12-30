@@ -32,6 +32,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   mediumLowPriorityCount: number = 0;
   dataList: [];
   dailyMonthlyStatus: boolean = false;
+  disabledDailyMonthlyButton: boolean = false;
   reviewByGroupDomains: number = 0;
   reviewByGroupProviders: number = 0;
   noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
@@ -122,6 +123,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   toggleCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.formatted;
     if (this.calSelectedDate) {
       this.httpQueryParams.dueDate = this.calSelectedDate;
@@ -141,7 +143,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
-        isRange: false, singleDate: {
+        isRange: false, 
+        singleDate: {
           date: {
             year: this.presentDate.getFullYear(),
             month: this.presentDate.getMonth() + 1,
@@ -176,7 +179,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
@@ -212,49 +215,49 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   manipulateStatusWithResponse(fetchData: any[]) {
     // Manipulate fetch-data as per status
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
-    if (fetchData.length <= 0) {
-      this.fileMissingPastDueCount = 0;
-      this.fileMissingPastDueData = [];
-      this.highPriorityIssuesCount = 0;
-      this.highPriorityIssuesData = [];
-      this.mediumLowPriorityCount = 0;
-      this.mediumLowPriorityData = [];
-      this.fileSummaries = cloneFileSummury;
-    } else {
-      fetchData.find((fData) => {
-        this.fileSummariesObject.map((summaryObject) => {
-          if (fData.label === summaryObject.apiKey) {
-            summaryObject.value = fData.value;
-          }
-        });
-        switch (fData.label) {
-          case FileFilterStatus.missingFilesPastDue.apiKey:
-            this.fileMissingPastDueCount = fData.value;
-            this.fileMissingPastDueData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
-            break;
-          case FileFilterStatus.highPriorityIssues.apiKey:
-            this.highPriorityIssuesCount = fData.value;
-            this.highPriorityIssuesData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
-            break;
-          case FileFilterStatus.mediumLowPriority.apiKey:
-            this.mediumLowPriorityCount = fData.value;
-            this.mediumLowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
-            break;
-          default:
+    this.fileMissingPastDueCount = 0;
+    this.fileMissingPastDueData = [];
+    this.highPriorityIssuesCount = 0;
+    this.highPriorityIssuesData = [];
+    this.mediumLowPriorityCount = 0;
+    this.mediumLowPriorityData = [];
+    this.fileSummaries = cloneFileSummury;
+    fetchData.find((fData) => {
+      this.fileSummariesObject.map((summaryObject) => {
+        if (fData.label === summaryObject.apiKey) {
+          summaryObject.value = fData.value;
         }
       });
-      this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
-    }
+      switch (fData.label) {
+        case FileFilterStatus.missingFilesPastDue.apiKey:
+          this.fileMissingPastDueCount = fData.value;
+          this.fileMissingPastDueData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
+          break;
+        case FileFilterStatus.highPriorityIssues.apiKey:
+          this.highPriorityIssuesCount = fData.value;
+          this.highPriorityIssuesData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
+          break;
+        case FileFilterStatus.mediumLowPriority.apiKey:
+          this.mediumLowPriorityCount = fData.value;
+          this.mediumLowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
+          break;
+        default:
+      }
+    });
+    this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
     this.fileSummariesObject = cloneFileSummury;
   }
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
-      this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
+    this.reviewByGroupDomains = 0;
+    this.reviewByGroupProviders = 0;
+    this.dataList = [];
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataSummuries: any) => {
+      this.dataList = dataSummuries.data[0]['totalSeriesItem'];
       this.manipulateStatusWithResponse(this.dataList);
-      this.reviewByGroupDomains = dataProvider.data[0]['dataDomainCount'];
-      this.reviewByGroupProviders = dataProvider.data[0]['dataProvideCount'];
+      this.reviewByGroupDomains = dataSummuries.data[0]['dataDomainCount'];
+      this.reviewByGroupProviders = dataSummuries.data[0]['dataProvideCount'];
     });
   }
 }

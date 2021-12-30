@@ -36,8 +36,7 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorAlertComponent,
-    BulkDownloadModalComponent
+    ErrorAlertComponent
    
   ],
   imports: [
