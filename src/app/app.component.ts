@@ -1,15 +1,16 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { Component, HostListener} from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { timeStamp } from 'console';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
-import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
-import {SettingsService} from './services/settings.service';
+import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
+import { SettingsService } from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 
 
 
@@ -47,39 +48,39 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   pendingDownloads: string[] = [];
   constructor(
     private oauthservice: OAuthService,
-    private loaderService: LoaderService, 
+    private loaderService: LoaderService,
     private router: Router,
-    private cdRef : ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     private settingsService: SettingsService,
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
-    ){
+  ) {
     // To hide header and footer from login page
-  
+
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
-         this.showHeaderFooter = this.settingsService.isUserLoggedin();
+          this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
 
-      
+
   }
 
   checkTimeOut() {
     this.inActivityTime = sessionStorage.getItem("inActivityTime");
     this.timeoutId = setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
-      this.openErrorModal("Inactivity", "You will be logged out due to inactivity");
+        this.openErrorModal("Inactivity", "You will be logged out due to inactivity");
       }
     }, this.inActivityTime);
 
     this.timeoutWarnDownloads = setTimeout(() => {
-      if(sessionStorage.getItem("pendingDownloadsBulk")){
+      if (sessionStorage.getItem("pendingDownloadsBulk") != null) {
         this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
-      }
-      if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
-      this.openPendingDownloadsTaxModal("Warning", "A download is in progress and if the session expires while the download is in progress, the download request will not complete.");
+        if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
+          this.openPendingDownloadsTaxModal("Warning", "A download is in progress and if the session expires while the download is in progress, the download request will not complete.");
+        }
       }
     }, (this.inActivityTime - 120000));
   }
@@ -105,9 +106,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   ngOnInit(): void {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
-       this.router.navigate(['home'])
+      this.router.navigate(['home'])
     }
-    
+
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
           const uname = res;
@@ -123,14 +124,14 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.permission.isDMS=this.moduleLevelPermission.checkPermission('Data Managed Services');
         
       }, 100)
-      
+
     });
   }
 
- 
+
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
-    
+
   }
 
 
@@ -138,10 +139,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
-        if(this.count == 1){
+        if (this.count == 1) {
           this.checkTimeOut();
         }
-        
+
       }
     }, 0);
   }
@@ -169,12 +170,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   public notification() {
-    
+
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
 
     setTimeout(() => {
-      this.notifFlag = false; 
+      this.notifFlag = false;
     }, 1000);
   }
 
@@ -184,16 +185,55 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   }
 
+  warningMessage(): void {
+    const dialogConfirm = this.dialog.open(BulkDownloadModalComponent, {
+      width: '600px',
+      height: '280px',
+      data: {
+        header: "Warning",
+        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
+        important: "Please note that logging out of the application before files are finished processing will cancel this request.",
+        question: "Are you sure want to cancel the request?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No",
+          cancelOption: "true"
+        }
+      }
+    });
+
+    dialogConfirm.beforeClosed().subscribe(result => {
+      if (result.button === "Yes") {
+        console.log('YES CLOSED SESSION')
+        this.settingsService.logoff();
+        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+      }
+    });
+  }
+
   public logoff() {
-   this.settingsService.logoff();
-  //  this.router.navigateByUrl('/logout');
-   this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+    if (sessionStorage.getItem("pendingDownloadsBulk") != null) {
+      this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+      if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
+        this.warningMessage();
+      } else {
+        this.settingsService.logoff();
+        //  this.router.navigateByUrl('/logout');
+        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+      }
+    }
+    else {
+      this.settingsService.logoff();
+      //  this.router.navigateByUrl('/logout');
+      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
+    }
   }
   @HostListener('document:click', ['$event'])
   public outsideClick(event) {
     // console.log(event);
     // console.log(this.notificationCard)
-    if( this.notificationCard && !this.notificationCard.nativeElement.contains(event.target)  && !this.notificationIcon.nativeElement.contains(event.target)){
+    if (this.notificationCard && !this.notificationCard.nativeElement.contains(event.target) && !this.notificationIcon.nativeElement.contains(event.target)) {
       this.isNotification = false;
     }
   }
@@ -205,8 +245,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     clearTimeout(this.timeoutWarnDownloads);
     this.checkTimeOut();
   }
- 
-  
+
+
 
   toggleSubMenu(toggleId) {
     if (this.mini) {
@@ -226,31 +266,31 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }
   }
 
-@HostListener('window:message', ['$event'])
-onMessage(event) {
-  if (event['data'] && (typeof event['data'] === 'string' || event['data']  instanceof String)) {
-    if (event['data'].includes('#access_token=')) {
-      setTimeout(() => {
-        this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
-        this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
-      }, 1000);
-    }
+  @HostListener('window:message', ['$event'])
+  onMessage(event) {
+    if (event['data'] && (typeof event['data'] === 'string' || event['data'] instanceof String)) {
+      if (event['data'].includes('#access_token=')) {
+        setTimeout(() => {
+          this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
+          this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
+        }, 1000);
+      }
 
+    }
   }
-}
 
-openPendingDownloadsTaxModal(header, description) {
-  const dialogRef = this.dialog.open(ErrorModalComponent, {
-    width: '400px',
-    data: {
-      header: header,
-      description: description,
-      footer: {
-        style: "start",
-        YesButton: "OK"
-      },
-    }
-  });
-}
-   
+  openPendingDownloadsTaxModal(header, description) {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      width: '400px',
+      data: {
+        header: header,
+        description: description,
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+  }
+
 }

@@ -35,7 +35,7 @@ export class WebSocketBulkService {
 
     this.socket$.subscribe(msg => {
       console.log('message from server: ' + msg);
-      const objectFromWs = msg;//JSON.parse(msg);
+      const objectFromWs = JSON.parse(msg);
       console.log('objectFromWs->', objectFromWs);
       if(sessionStorage.getItem("pendingDownloadsBulk")){
           const url = objectFromWs.value;
