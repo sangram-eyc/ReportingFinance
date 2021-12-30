@@ -75,7 +75,7 @@
                 </motif-form-field>
       
               </div>
-              <div class="motif-col-xs-4 motif-col-lg-6">
+              <div class="motif-col-xs-4 motif-col-lg-6" *ngIf="(moduleName == 'Regulatory Reporting')">
                 <motif-form-field>
                   <label motifLabel class="select-label">Filing type (required)</label>
                   <motif-select aria-label="Please select an option" [multiple]="true" formControlName="filingType" ngDefaultControl>

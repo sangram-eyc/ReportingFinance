@@ -25,13 +25,17 @@
             Team Name
           </div>
           <div class="col-md-6  lablel-heading">
+            <span *ngIf="module == 'Regulatory Reporting'">
             Filing Type/Reports
+            </span>
           </div>
           <div class="col-md-6 label-value">
             {{teamInfo?.teamName}} 
           </div>
           <div class="col-md-6  label-value">
-            {{teamInfo?.assignments}}
+            <span *ngIf="module == 'Regulatory Reporting'">
+              {{teamInfo?.assignments}}
+            </span>
           </div>
         </div>
         <div class="row">
@@ -61,7 +65,9 @@
             Team Name
           </div>
           <div class="col-md-6 lablel-heading">
-            Filing Type/Reports
+            <span *ngIf="module == 'Regulatory Reporting'">
+              Filing Type/Reports
+            </span>
           </div>
           <div class="col-md-6">
             <motif-form-field>
@@ -78,7 +84,7 @@
             </motif-form-field>
           </div>
           <div class="col-md-6">
-            <motif-form-field>
+            <motif-form-field *ngIf="module == 'Regulatory Reporting'">
               <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings" (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)" [ngModelOptions]="{standalone: true}" required>
                 <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">{{assignment.filingName}}</motif-option>
               </motif-select>
