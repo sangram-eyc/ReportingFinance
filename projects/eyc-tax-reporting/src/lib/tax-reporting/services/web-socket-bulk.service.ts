@@ -35,6 +35,7 @@ export class WebSocketBulkService {
 
     this.socket$.subscribe(msg => {
       console.log('message from server: ' + msg);
+      if(msg.trim() != "Connection Established"){
       const objectFromWs = JSON.parse(msg);
       console.log('objectFromWs->', objectFromWs);
       if(sessionStorage.getItem("pendingDownloadsBulk")){
@@ -55,6 +56,7 @@ export class WebSocketBulkService {
         }else{
           console.log('sessionStorage does not exist');
         }
+      }
      }, 
       err => {
         console.log(err)
