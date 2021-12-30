@@ -26,8 +26,7 @@ export class EycTaxSettingsService {
       tasks_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
       add_comment: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       comments_list: this.production ? this.API_ENDPOINT + 'commentaryService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
-      total_opened_comments_prod_cycle: this.production ?  this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/opened-comments-list.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/opened-comments-list.json',
-      total_closed_comments_prod_cycle: this.production ?  this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/closed-comments-list.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/closed-comments-list.json',
+      comments_details: this.production ?  this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comments-details-charts.json',
       update_task_status: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
       delete_tag: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
       delete_priority : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
@@ -35,7 +34,7 @@ export class EycTaxSettingsService {
       add_users_to_fund : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/usersToAddToFund.json',
       production_cycles_comments_details : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/cycle-more-details.json',
       bulk_download_service1 : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/download/downloads' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/bulk-download-response.json',
-      websocket_bulk_url : this.production ? 'notifierAgentService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'
+      websocket_bulk_url : this.production ? 'notifierAgentService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication'
     }
 
     return tax_Reporting;
