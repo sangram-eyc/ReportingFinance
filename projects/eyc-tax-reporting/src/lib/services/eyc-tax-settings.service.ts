@@ -34,7 +34,7 @@ export class EycTaxSettingsService {
       add_users_to_fund : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/usersToAddToFund.json',
       production_cycles_comments_details : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/cycle-more-details.json',
       bulk_download_service1 : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/download/downloads' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/bulk-download-response.json',
-      websocket_bulk_url : this.production ? 'notifierAgentService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa34/notifierAgentService/ws-notifier-agent-communication'
+      websocket_bulk_url : this.production ? 'notifierAgentService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication'
     }
 
     return tax_Reporting;
