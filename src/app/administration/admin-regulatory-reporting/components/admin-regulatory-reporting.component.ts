@@ -66,24 +66,35 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
           this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
         }
       }
-
-      this.teamsService.getFileType().subscribe(resp => {
-        this.filingType = resp['data'];
-        console.log('filiting type >', this.filingType);
-      });
-
+      this.getFilingAssignments();
     }
 
     this.addTeamForm = this._createTeam()
   }
 
+  getFilingAssignments() {
+    if (this.moduleName == 'Regulatory Reporting') {
+      this.teamsService.getFileType().subscribe(resp => {
+        this.filingType = resp['data'];
+      });
+    }
+  }
+
   private _createTeam () {
-    return this.fb.group({
-      teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
-      role: ['', [Validators.required]],
-      filingType: ['', [Validators.required]],
-      description: ['', [Validators.maxLength(250)]]
-    });
+    if(this.moduleName == 'Regulatory Reporting') {
+      return this.fb.group({
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        role: ['', [Validators.required]],
+        filingType: ['', [Validators.required]],
+        description: ['', [Validators.maxLength(250)]]
+      });
+    } else {
+      return this.fb.group({
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        role: ['', [Validators.required]],
+        description: ['', [Validators.maxLength(250)]]
+      });
+    }
   }
 
   adminTabChange(selectedTab){
@@ -225,14 +236,25 @@ editTeams(row) {
   onSubmitNewTeam() {
     const obj = this.addTeamForm.getRawValue();
     this.addTeamModal = false;
+    let team
+    if(this.moduleName == 'Regulatory Reporting') {
     let selectedFilingTypes = this.getFillingTypes(obj);
-    const team = {
-      "teamName": obj.teamName.trim(),
-      "roleName": obj.role,
-      "teamDescription": obj.description ? escape(obj.description.trim()):'',
-      "moduleName": this.moduleName,
-      "assignments": this.getAssignments(selectedFilingTypes)
+      team = {
+        "teamName": obj.teamName.trim(),
+        "roleName": obj.role,
+        "teamDescription": obj.description ? escape(obj.description.trim()):'',
+        "moduleName": this.moduleName,
+        "assignments": this.getAssignments(selectedFilingTypes)
+      }
+    } else {
+      team = {
+        "teamName": obj.teamName.trim(),
+        "roleName": obj.role,
+        "teamDescription": obj.description ? escape(obj.description.trim()):'',
+        "moduleName": this.moduleName
+      }
     }
+    
     this.teamsService.addTeam(team).subscribe(resp => {
       const teamsList = this.teamsData;
       this.teamsData = [];
