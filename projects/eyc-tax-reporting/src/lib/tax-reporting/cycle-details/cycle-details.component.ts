@@ -81,6 +81,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
+  // permissionApproval = true
 
 
 
@@ -355,7 +356,7 @@ export class CycleDetailComponent implements OnInit {
         totalComments: fund.totalComments,
         statusChangesDate: fund.statusChangesDate,
         assignedTo: fund.assignedTo,
-        assignedToSearch : fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
+        assignedToSearch: fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
     });
     this.isToggleLeftDisabled()
@@ -499,7 +500,6 @@ export class CycleDetailComponent implements OnInit {
   }
 
   approveClickEv(e) {
-    let approvalDialog;
     e.stopPropagation();
     this.LoaderService.show();
     //I check that the datasetsSelectedRows is complete before processing the execution of the approve
@@ -508,82 +508,94 @@ export class CycleDetailComponent implements OnInit {
         clearInterval(timerId)
         this.processingCheck = 'init'
         console.log('datasetsSelectedRows after processing', this.datasetsSelectedRows)
-        let arrFilterOpenC = this.datasetsSelectedRows.filter(this.filterByOpenC)
-        this.LoaderService.hide();
-        if (arrFilterOpenC.length > 0) {
-          //Comments are open, an alert message is displayed
-          const warningDialog = this.dialog.open(WarningModalComponent, {
-            id: 'warning-modal',
-            width: '639px',
-            disableClose: true,
-            hasBackdrop: true,
-            data: {
-              header: "Warning",
-              footer: {
-                style: "start",
-                NoButton: "Close"
-              }
-            }
-          });
-        } else {
-          approvalDialog = this.dialog.open(ApproveFundModalComponent, {
-            width: '550px',
-            disableClose: true,
-            hasBackdrop: true,
-            data: {
-              type: "Confirmation",
-              header: "Approve Selected",
-              description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
-              footer: {
-                style: "start",
-                YesButton: "Continue",
-                NoButton: "Cancel"
-              }
-            }
-          });
-
-          approvalDialog.afterClosed().subscribe(result => {
-            console.log('AproveFundModal was closed', result);
-            if (result.button === "Continue") {
-              this.onSubmitApproveDatasets();
-            } else {
-              console.log('result afterClosed', result);
-            }
-          });
-
+        if (this.datasetsSelectedRows.length == 0){
+          this.LoaderService.hide();
+          this.openErrorModal("Warning", 
+          "You must select at least one fund in order to submit an approval request");
+        }
+        else {
+          let arrFilterOpenC = this.datasetsSelectedRows.filter(this.filterByOpenC)
+          this.LoaderService.hide();
+          if (arrFilterOpenC.length > 0) {
+            //Comments are open, an alert message is displayed
+            this.openWarningDialog();
+          } else {
+            this.openApprovalDialog();
+          }
         }
       }
     }, 100);
   }
 
+  openWarningDialog(){
+    const warningDialog = this.dialog.open(WarningModalComponent, {
+      id: 'warning-modal',
+      width: '639px',
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+        header: "Warning",
+        footer: {
+          style: "start",
+          NoButton: "Close"
+        }
+      }
+    });
+  }
+  openApprovalDialog(){
+    const approvalDialog = this.dialog.open(ApproveFundModalComponent, {
+      width: '550px',
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+        type: "Confirmation",
+        header: "Approve Selected",
+        description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
+        footer: {
+          style: "start",
+          YesButton: "Continue",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    approvalDialog.afterClosed().subscribe(result => {
+      console.log('AproveFundModal was closed', result);
+      if (result.button === "Continue") {
+        this.onSubmitApproveDatasets();
+      } else {
+        console.log('result afterClosed', result);
+      }
+    });
+  }
+
+  openErrorModal(header, description) {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: header,
+        description: description,
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+  }
+
   datasetsReportRowsSelected(event) {
-    this.LoaderService.show();
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
 
-
-    let timerId = setInterval(() => {
-      if (this.processingCheck === 'finished' || this.processingCheck === 'init') {
-        console.log('datasets', this.datasetsSelectedRows)
-        clearInterval(timerId)
-        this.processingCheck = 'init'
-        if (this.datasetsSelectedRows.length > 0) {
-          if ((this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'In client review' && (this.datasetsSelectedRows[0].openCommentsClient > 0 || this.datasetsSelectedRows[0].openCommentsEY > 0)) || (this.datasetsSelectedRows.length == 1 && this.datasetsSelectedRows[0].status == 'Approved by client')) {
-            this.approveBtn.disabled = true;
-          } else {
-            this.approveBtn.disabled = false;
-          }
-
-          this.cancelbtn.disabled = false;
-        } else {
-          this.approveBtn.disabled = true;
-          this.cancelbtn.disabled = true;
-        }
-        this.LoaderService.hide();
-      }
-    }, 100);
-
+    if (this.datasetsSelectedRows.length > 0) {
+      this.approveBtn.disabled = false;
+      this.cancelbtn.disabled = false;
+    } else {
+      this.approveBtn.disabled = true;
+      this.cancelbtn.disabled = true;
+    }
   }
 
   onSubmitApproveDatasets() {
@@ -845,12 +857,6 @@ export class CycleDetailComponent implements OnInit {
     e.stopPropagation();
   }
 
-
-  logoute(event) {
-    //  event.preventDefault();
-    //  event.returnValue = '';
-  }
-
   onClickSecondButton() {
     this.LoaderService.show();
     let timerId = setInterval(() => {
@@ -882,9 +888,6 @@ export class CycleDetailComponent implements OnInit {
         dialogRef.beforeClosed().subscribe(result => {
           if (result.button === "Yes") {
             console.log('YES')
-            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.removeEvCloseSession, true)
-            document.querySelector('#user-info .singn-out motif-icon').addEventListener("click", this.warningMessage.bind(this), true)
-            // window.addEventListener('beforeunload',this.logoute,true); 
           }
         });
 
@@ -895,40 +898,9 @@ export class CycleDetailComponent implements OnInit {
           setTimeout(() => {
             this.showToastAfterSubmit = false;
           }, 4000);
-          // window.removeEventListener('beforeunload',this.logoute,true);
-          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.removeEvCloseSession, true)
-          document.querySelector('#user-info .singn-out motif-icon').removeEventListener("click", this.warningMessage.bind(this), true)
         });
       }
     }, 100);
-  }
-
-
-  warningMessage(e: Event): void {
-    const dialogConfirm = this.dialog.open(BulkDownloadModalComponent, {
-      width: '600px',
-      height: '200px',
-      data: {
-        header: "Download ",
-        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
-        important: "Please note that logging out of the application before files are finished processing will cancel this request.",
-        question: "Are you sure want to cancel the request?",
-        footer: {
-          style: "start",
-          YesButton: "Yes",
-          NoButton: "No",
-          cancelOption: "true"
-        }
-      }
-    });
-
-    dialogConfirm.beforeClosed().subscribe(result => {
-      if (result.button === "Yes") {
-        console.log('YES CLOSED SESSION')
-        //this.settingservice.logoff();
-        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
-      }
-    });
   }
 
   // Set text-legend color
@@ -945,17 +917,17 @@ export class CycleDetailComponent implements OnInit {
     }
   }
 
-  splitAssignedUser(arrayUsers:any){
-     var result:string[] = [];
-     if(arrayUsers){
+  splitAssignedUser(arrayUsers: any) {
+    var result: string[] = [];
+    if (arrayUsers) {
       arrayUsers.forEach(user => {
         let name = user.userFirstName + " " + user.userLastName
         let initials = user.userFirstName.charAt(0) + user.userLastName.charAt(0)
         result.push(name);
         result.push(initials);
       });
-     }
-     return result.join(",");
+    }
+    return result.join(",");
   }
 }
 
