@@ -73,7 +73,8 @@ import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/ap
     InformationBarChartModalComponent,
     CommentsDetailsComponent,
     WarningModalComponent,
-    ApproveFundModalComponent
+    ApproveFundModalComponent,
+    BulkDownloadModalComponent
   ],
   exports: [TaxReportingComponent]
 })

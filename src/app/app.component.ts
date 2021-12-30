@@ -41,7 +41,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isDataIntake: false,
     isTaxReporting: false,
     isAdmin: false,
-    isRegReporting: false
+    isRegReporting: false,
+    isDMS:false
   };
   timeoutWarnDownloads;
   pendingDownloads: string[] = [];
@@ -110,17 +111,18 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
-        const uname = res;
-        sessionStorage.setItem("userEmail", uname['userEmail']);
-        if (uname) {
-          this.userGivenName = uname['firstName'];
-          this.loginName = uname['firstName'] + ' ' + uname['lastName'];
-        }
-        this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
-        this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
-        this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
-        this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
-
+          const uname = res;
+          sessionStorage.setItem("userEmail", uname['userEmail']);
+          if (uname) {
+            this.userGivenName = uname['firstName'];
+            this.loginName = uname['firstName'] + ' ' + uname['lastName'];
+          }
+          this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
+          this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
+          this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
+          this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
+          this.permission.isDMS=this.moduleLevelPermission.checkPermission('Data Managed Services');
+        
       }, 100)
 
     });
