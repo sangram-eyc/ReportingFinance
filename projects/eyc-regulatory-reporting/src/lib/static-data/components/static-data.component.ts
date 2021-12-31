@@ -2,7 +2,9 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { StaticDataService } from './../services/static-data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
-
+import { Router } from '@angular/router';
+import { UpdateFilingService } from '../../update-filing-properties/services/update-filing.service';
+import { PermissionService } from 'eyc-ui-shared-component';
 @Component({
   selector: 'lib-static-data',
   templateUrl: './static-data.component.html',
@@ -23,7 +25,10 @@ export class StaticDataComponent implements OnInit, OnChanges {
   constructor(
     private service: StaticDataService,
     private customglobalService: CustomGlobalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private updateFilingService: UpdateFilingService,
+    public permissions: PermissionService
   ) { }
 
   ngOnInit(): void {
@@ -185,4 +190,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
     }
   }
 
+  onClickView(filing) {
+    this.updateFilingService.setData = filing;
+    this.router.navigate(['/update-filing']);
+  }
 }
