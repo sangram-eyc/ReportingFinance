@@ -12,7 +12,7 @@
                 <div class="filing-card-footer">
                     <div class="footer-status">&nbsp;</div>
                     <div class="card-button">
-                        <button motifButton color="primary-alt">View</button>
+                        <button motifButton color="primary-alt" (click)="onClickView(filing)">View</button>
                     </div>
                 </div>
             </motif-card>
@@ -23,7 +23,7 @@
 
 
 <div id="static-add-new">
-    <button motifButton color="primary-alt" (click)="addnewFiling()">Add</button>
+    <button *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Add Static Data')" motifButton color="primary-alt" (click)="addnewFiling()">Add</button>
 </div>
 
 <motif-toast [type]="'success'" [show]="showToastAfterFilingAdded"
