@@ -257,18 +257,18 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   }
 
 
-  editQuestion($event) {
-    return {
-      ngTemplate: this.questionSection,
-    };
-  }
+  // editQuestion($event) {
+  //   return {
+  //     ngTemplate: this.questionSection,
+  //   };
+  // }
 
   createTeamsRowData(): void {
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editQuestion.bind(this),
+        // cellRendererFramework: MotifTableCellRendererComponent,
+        // cellRendererParams: this.editQuestion.bind(this),
         headerName: 'Question',
         field: 'name',
         sortable: true,
@@ -307,50 +307,6 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   }
 
-  deletePBIMapping(row) {
-
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: {
-        type: 'Confirmation',
-        header: 'Delete PBI Mapping',
-        description: 'Are you sure you want to delete this PBI details from the filing?',
-        footer: {
-          style: 'start',
-          YesButton: 'Yes',
-          NoButton: 'No'
-        }
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      if (result.button == 'Yes') {
-
-        // const deleteTeam = {
-        //   "teamId": this.curentTeamId,
-        //   "userId": [row.userId]
-        // }
-
-        // this.service.deleteTeamMember(deleteTeam).subscribe(resp => {
-        //   const teamsList = this.teamsMemberData;
-        //   this.teamsMemberData = [];
-        //   teamsList.splice(teamsList.findIndex(item => item.userId === row.userId), 1);
-        //   teamsList.forEach(ele => {
-        //     this.teamsMemberData.push(ele);
-        //   });
-        //   this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
-
-        //   this.showToasterAfterDelete = !this.showToasterAfterDelete;
-        //   setTimeout(() => {
-        //     this.showToasterAfterDelete = !this.showToasterAfterDelete;
-        //   }, 5000);
-
-        // });
-
-      }
-    });
-  }
 
   addPBIReport(event) {
     this.showAddPBIReportModal = true;
@@ -425,9 +381,6 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   }
 
   onSaveReportID() {
-    // api call
-    console.log(this.PBIMappingData);
-    
     this.enableEditReportID = false;
 
     let mappingData = {
@@ -437,7 +390,6 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     this.PBIMappingData.forEach(ele => {
       mappingData.questionPbiMap[ele.name] = ele.pbiReportId
     });
-    console.log(mappingData);
     
     this.service.addPBIMapping(mappingData).subscribe(resp => {
       let mappingdata = this.PBIMappingData;
