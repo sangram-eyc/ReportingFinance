@@ -172,27 +172,9 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }  
 
   onRowSelected(event: any): void {
-    // console.log('Search',this.search);
-    // console.log('Button',this.button);
-    // console.log('Position',this.buttonPosition);
-    this.selectedRowEmitterProcess.emit('processing');
-    let selectedArr = [];
     this.selectedRows = [];
-    selectedArr = this.gridApi.getSelectedRows();
-    // this.selectedRows =selectedArr.filter(item => item.approved === false);
-    for(let i = 0; i < selectedArr.length; i++) {
-      if (selectedArr[i].approved == false) {
-        this.selectedRows.push(selectedArr[i]);
-      }
-    }
+    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
     this.selectedRowEmitter.emit(this.selectedRows);
-    this.selectedRowEmitterProcess.emit('finished');
-    if(this.selectedRows.length === 0){
-      this.gridApi.deselectAll();
-    }
-    if(this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length){
-      this.gridApi.selectAll();
-    }
   }
 
   isFirstColumn = (params) => {
