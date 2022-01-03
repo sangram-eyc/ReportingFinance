@@ -79,6 +79,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
+  srnoCls;
 
 
   // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -103,9 +104,11 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
       this.gridContainerCls = 'gridAdminContainer';
+      this.srnoCls = '';
     } else {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
+      this.srnoCls = 'srno-class';
     }
 
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
@@ -119,10 +122,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       this.columnDefsData = this.columnDefs.slice(0);
       //sr no column data
       let object =  {
-        width: 50,
+        width: 30,
         valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
         pinned: 'left',
-        cellClass: 'srno-class'
+        cellClass: this.srnoCls
       }
         this.columnDefsData.push(object);    
     }
