@@ -20,7 +20,7 @@
   <div class="notifications-buttons">
     <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
     <div class="card-button">
-      <button motifButton color="primary-alt" class="notification-button" (click)="navigatetonotifi()">
+      <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
         <motif-icon [src]="'/assets/icons/archived.svg'"></motif-icon>
         Archived (2)
       </button>

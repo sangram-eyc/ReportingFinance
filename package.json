@@ -19,8 +19,6 @@
     "eyc-ui-regreporting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run buildLibrary ",
     "eyc-ui-dms:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-data-managed-services",
     "eyc-ui-tax-repoting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-tax-reporting",
-
-
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -62,6 +60,7 @@
     "d3-transition": "^1.3.2",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
+    "ngx-infinite-scroll": "^10.0.1",
     "powerbi-client": "^2.18.0",
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.6.7",

@@ -24,4 +24,7 @@ export class NotificationsPanelComponent implements OnInit {
 
    this.notifications.find(item => item.id === id).expanded = !this.notifications.find(item => item.id === id).expanded
   }
+
+  goToArchived(): void {
+  }
 }
