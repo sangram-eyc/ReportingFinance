@@ -23,7 +23,7 @@
 
 
 <div id="static-add-new">
-    <button *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Add Static Data')" motifButton color="primary-alt" (click)="addnewFiling()">Add</button>
+    <button *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Add Static Data')" motifButton color="primary-alt" (click)="addnewFiling()"> <motif-icon class="plus_icon" [src]="'./assets/icons/content/ic_add_24px.svg'"> </motif-icon>Add</button>
 </div>
 
 <motif-toast [type]="'success'" [show]="showToastAfterFilingAdded"
