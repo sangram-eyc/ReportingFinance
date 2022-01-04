@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
-import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
-import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
+
 
 @Component({
   selector: 'lib-shared-grid',
@@ -81,26 +80,14 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   gridContainerCls;
   srnoCls;
 
-
-  // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
-  // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-
-  // @ViewChild('headerTemplate')
-  // headerTemplate: TemplateRef<any>;
-  // @ViewChild('dropdownTemplate')
-  // dropdownTemplate: TemplateRef<any>;
-
   ngOnInit(): void {
-    // console.log(this.defaultColDef);
-    // console.log('GRID COMPONENT INIT');
     if (!this.defaultColDef) {
       this.defaultColDef = {
         headerCheckboxSelection: this.hideHeaderCheckbox ? false : this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
     }
-    if(this.displayCheckBox) {
-      //this.buttonText = 'Add team';
+    if (this.displayCheckBox) {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
       this.gridContainerCls = 'gridAdminContainer';
@@ -110,12 +97,11 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       this.gridContainerCls = 'gridContainer';
       this.srnoCls = 'srno-class';
     }
-
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
   }
 
 
-  ngOnChanges(changes: any) {
+  ngOnChanges() {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (typeof(this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
@@ -133,11 +119,9 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async submit() {
-    console.log('CALLING SUBMIT SHARED GRID');
     await this.submitFunction();
     this.selectedRows = [];
     this.gridApi.deselectAll();
-    this.selectedRowEmitter.emit(this.selectedRows);
     this.buttonModal = false;
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
     setTimeout(() => {
@@ -151,15 +135,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
-    console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
-        console.log('Calling Submit ...');
         this.submit();
-      } else {
-        // console.log(result);
-      }
+      } 
     });
   }
 
@@ -171,10 +150,13 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     return args.node.rowIndex+1;
   }  
 
-  onRowSelected(event: any): void {
+  onRowSelected(): void {
     this.selectedRows = [];
     this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
     this.selectedRowEmitter.emit(this.selectedRows);
+    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) this.gridApi.selectAll();
+
   }
 
   isFirstColumn = (params) => {
@@ -193,8 +175,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   searchGrid(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
-    // console.log(this.search);
-    // console.log(this.rowData);
+    
   }
 
   searchFilingValidation(event) {
