@@ -41,7 +41,7 @@
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData" 
@@ -50,7 +50,7 @@
             [detailCellRendererParams]="detailCellRendererParams"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
 
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
             <motif-card-body>
