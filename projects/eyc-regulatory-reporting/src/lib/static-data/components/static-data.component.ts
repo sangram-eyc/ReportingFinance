@@ -21,6 +21,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   scopeStages = [];
   filingEntitiyStages = [];
   showToastAfterFilingAdded = false;
+  activeStaticData: any[] = []
 
   constructor(
     private service: StaticDataService,
@@ -71,7 +72,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
         };
         this.activeFilings.push(eachitem);
       });
-      this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
+      this.activeFilings = this.customglobalService.sortFilings(this.activeFilings);
+      this.activeStaticData = this.activeFilings;
     });
   }
 
@@ -158,9 +160,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   searchStaticData(input) {
-    this.activeFilings = this.activeFilings.filter(item => item.name.toLowerCase().indexOf((input.el.nativeElement.value).toLowerCase()) !== -1)
+    this.activeFilings = this.activeStaticData.filter(item => item.filingName.toLowerCase().indexOf((input.el.nativeElement.value).toLowerCase()) !== -1)
     this.activeReportsSearchNoDataAvilable = !!(this.activeFilings.length === 0);
-
   }
 
   onPasteSearchStaticData(event: ClipboardEvent) {

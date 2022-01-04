@@ -1,4 +1,10 @@
 <div class="row" id="static-card-wrapper">
+  <div class="search">
+    <motif-form-field>
+        <input #activeStaticData motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+            (keyup)="searchStaticData(activeStaticData)" (paste)="onPasteSearchStaticData($event)" placeholder="Search" aria-label="Search">
+    </motif-form-field>
+  </div>
     <div  class="each-card" *ngFor="let filing of activeFilings">
         <div class="filing-wrapper">
             <motif-card>
@@ -19,6 +25,12 @@
         </div>
     </div>
 </div>
+
+<motif-card class="no_data" *ngIf="activeReportsSearchNoDataAvilable">
+  <motif-card-body>
+      <h5>Your search has returned no results. Please adjust and try again.</h5>
+  </motif-card-body>
+</motif-card>
 
 
 

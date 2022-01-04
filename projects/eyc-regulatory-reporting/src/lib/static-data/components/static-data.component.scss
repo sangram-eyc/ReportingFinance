@@ -109,7 +109,7 @@
 }
 
 #static-card-wrapper{
-  margin-top: 45px;
+  // margin-top: 45px;
   position: relative;
 }
 
@@ -181,8 +181,21 @@
 }
 .search {
   float: right;
+  margin-bottom: 40px;
   .motif-form-field input{
     width: 228px;
+    float: right;
+  }
+}
+.no_data {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+    font-weight: bold;
   }
 }
 
