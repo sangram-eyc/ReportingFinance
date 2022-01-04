@@ -95,7 +95,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
-      this.srnoCls = 'srno-class';
+      this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
   }
