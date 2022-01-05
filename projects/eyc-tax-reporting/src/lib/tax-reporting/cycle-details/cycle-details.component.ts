@@ -13,12 +13,10 @@ import { colorSets } from 'eyc-charts-shared-library';
 import { InformationBarChartModalComponent } from '../information-bar-chart-modal/information-bar-chart-modal.component'
 import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download-modal.component'
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
-//import { SettingsService } from 'src/app/services/settings.service'
-//import { LoaderService } from 'src/app/services/loader.service'
 import { Subject } from 'rxjs';
 import { WarningModalComponent } from '../../shared/warning-modal/warning-modal.component';
-import { WebSocketBulkService } from '../services/web-socket-bulk.service'
 import { TaxLoaderService } from '../services/tax-loader.service'
+
 
 @Component({
   selector: 'cycle-details',
@@ -57,15 +55,12 @@ export class CycleDetailComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    //private settingservice: SettingsService,
     private router: Router,
     public permissions: PermissionService,
     private fb: FormBuilder,
-    private LoaderService: TaxLoaderService,
-    private wsService: WebSocketBulkService
+    private LoaderService: TaxLoaderService
   ) {
-
-
+           
   }
   isLoading: Subject<boolean> = this.LoaderService.isLoading;
   pageName: string = 'Cycle Details';
@@ -81,7 +76,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  // permissionApproval = true
+  //permissionApproval = true
 
 
 
@@ -201,6 +196,7 @@ export class CycleDetailComponent implements OnInit {
   blockApprovalProcess: boolean = false;
   waitApproval: boolean = false;
   processingCheck: any = '';
+ 
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -215,8 +211,6 @@ export class CycleDetailComponent implements OnInit {
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
     this.widthDivChart = 950;
-    this.wsService.connect();
-    console.log("ngOnInit cycle details");
   }
 
   backtoCycleView() {
