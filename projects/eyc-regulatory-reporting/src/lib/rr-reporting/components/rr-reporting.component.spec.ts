@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MotifCardModule, MotifButtonModule, MotifFormsModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifPaginationModule } from '@ey-xd/ng-motif';
 import { AgGridModule } from 'ag-grid-angular';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { environment } from '../../../../../../src/environments/environment';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
@@ -30,7 +29,6 @@ describe('RrReportingComponent', () => {
         MotifIconModule,
         MotifProrgressIndicatorsModule,
         MotifTableModule,
-        SlickCarouselModule,
         HttpClientModule,
         MotifPaginationModule,
         RouterTestingModule,

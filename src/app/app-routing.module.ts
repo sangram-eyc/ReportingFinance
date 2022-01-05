@@ -27,6 +27,7 @@ import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/s
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
 import { GeneralLedgerComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/general-ledger/general-ledger.component';
+import { UpdateFilingPropertiesComponent } from 'projects/eyc-regulatory-reporting/src/lib/update-filing-properties/components/update-filing-properties.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
   {path: 'submission', component: SubmissionComponent, canActivate : [AuthGuardService]},
   {path: 'user-details/:userId', component: UserDetailsComponent , canActivate : [AuthGuardService]},
   {path: 'team-details/:teamId', component: EycTeamDetailsComponent, canActivate : [AuthGuardService]},
+  {path: 'update-filing', component: UpdateFilingPropertiesComponent, canActivate : [AuthGuardService]},
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
