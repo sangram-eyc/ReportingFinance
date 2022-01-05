@@ -91,7 +91,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.tabIn = 1;
+    sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
   }
@@ -106,6 +106,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     sessionStorage.removeItem("enableTabsIntake");
+    sessionStorage.removeItem("regReportingLandingpageTab");
   }
 
 

@@ -214,3 +214,7 @@
     border: none !important;
     border-bottom: solid 1px #e1e1e6 !important;
   }
+
+  ::ng-deep .ag-cell.ag-cell-not-inline-editing.ag-cell-auto-height.ag-cell-last-left-pinned.srno-class {
+      left: 32px !important;
+  }

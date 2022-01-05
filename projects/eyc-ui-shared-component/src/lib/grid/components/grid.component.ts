@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
-import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
-import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
+
 
 @Component({
   selector: 'lib-shared-grid',
@@ -79,50 +78,41 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   gridHeadingCls;
   gridContainerCls;
-
-
-  // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
-  // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-
-  // @ViewChild('headerTemplate')
-  // headerTemplate: TemplateRef<any>;
-  // @ViewChild('dropdownTemplate')
-  // dropdownTemplate: TemplateRef<any>;
+  srnoCls;
+  isAllRecordSelected = false;
 
   ngOnInit(): void {
-    // console.log(this.defaultColDef);
-    // console.log('GRID COMPONENT INIT');
     if (!this.defaultColDef) {
       this.defaultColDef = {
         headerCheckboxSelection: this.hideHeaderCheckbox ? false : this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
     }
-    if(this.displayCheckBox) {
-      //this.buttonText = 'Add team';
+    if (this.displayCheckBox) {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
       this.gridContainerCls = 'gridAdminContainer';
+      this.srnoCls = '';
     } else {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
+      this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
-
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
   }
 
 
-  ngOnChanges(changes: any) {
+  ngOnChanges() {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (typeof(this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
       //sr no column data
       let object =  {
-        width: 50,
+        width: 30,
         valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
         pinned: 'left',
-        cellClass: 'srno-class'
+        cellClass: this.srnoCls
       }
         this.columnDefsData.push(object);    
     }
@@ -130,11 +120,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async submit() {
-    console.log('CALLING SUBMIT SHARED GRID');
+    this.selectedRowEmitter.emit(this.selectedRows);
     await this.submitFunction();
     this.selectedRows = [];
-    this.gridApi.deselectAll();
-    this.selectedRowEmitter.emit(this.selectedRows);
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
     this.buttonModal = false;
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
     setTimeout(() => {
@@ -143,20 +132,15 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openDialog() {
-    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer") {
+    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
       return;
     }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
-    console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
-        console.log('Calling Submit ...');
         this.submit();
-      } else {
-        // console.log(result);
-      }
+      } 
     });
   }
 
@@ -168,28 +152,18 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     return args.node.rowIndex+1;
   }  
 
-  onRowSelected(event: any): void {
-    // console.log('Search',this.search);
-    // console.log('Button',this.button);
-    // console.log('Position',this.buttonPosition);
-    this.selectedRowEmitterProcess.emit('processing');
-    let selectedArr = [];
+  onRowSelected(): void {
     this.selectedRows = [];
-    selectedArr = this.gridApi.getSelectedRows();
-    // this.selectedRows =selectedArr.filter(item => item.approved === false);
-    for(let i = 0; i < selectedArr.length; i++) {
-      if (selectedArr[i].approved == false) {
-        this.selectedRows.push(selectedArr[i]);
-      }
-    }
-    this.selectedRowEmitter.emit(this.selectedRows);
-    this.selectedRowEmitterProcess.emit('finished');
-    if(this.selectedRows.length === 0){
-      this.gridApi.deselectAll();
-    }
-    if(this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length){
+    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
+    // this.selectedRowEmitter.emit(this.selectedRows);
+    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
       this.gridApi.selectAll();
+      this.isAllRecordSelected = true;
+    } else {
+      this.isAllRecordSelected = false;
     }
+
   }
 
   isFirstColumn = (params) => {
@@ -208,8 +182,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   searchGrid(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
-    // console.log(this.search);
-    // console.log(this.rowData);
+    
   }
 
   searchFilingValidation(event) {
