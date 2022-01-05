@@ -11,6 +11,7 @@ import { SettingsService } from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service'
 
 
 
@@ -46,6 +47,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   };
   timeoutWarnDownloads;
   pendingDownloads: string[] = [];
+  pendingDownloadsNew: string[] = [];
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -54,6 +56,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private settingsService: SettingsService,
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
+    private wsBulkService: WebSocketBulkService
   ) {
     // To hide header and footer from login page
 
@@ -62,9 +65,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         if (event instanceof NavigationEnd) {
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
-      });
-
-
+      });    
   }
 
   checkTimeOut() {
@@ -125,7 +126,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         
       }, 100)
 
-    });
+    });       
+
   }
 
 
@@ -141,8 +143,22 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.count++;
         if (this.count == 1) {
           this.checkTimeOut();
-        }
+          //for the warnings and notifications of the bulk download process of tax-reporting
+          this.wsBulkService.connect().subscribe(resp => {  
+              console.log('ws message from bulk server: ' + resp);
+              if(resp.trim() === "Connection Established"){
+                //to open the websocket conection
+                this.openConectionBulkWs();
+              }else{
+                this.bulkDownloadWarnings(resp); 
+                //Some function for notifications with the object resp
 
+                //end the code for notifications
+              }                      
+          }, 
+            err => {console.log('ws bulk error', err)}, 
+            () => console.log('ws bulk complete'));
+          }
       }
     }, 0);
   }
@@ -218,12 +234,14 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
         this.warningMessage();
       } else {
+        this.wsBulkService.closeConection();
         this.settingsService.logoff();
         //  this.router.navigateByUrl('/logout');
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     }
     else {
+      this.wsBulkService.closeConection();
       this.settingsService.logoff();
       //  this.router.navigateByUrl('/logout');
       this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
@@ -291,6 +309,31 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         },
       }
     });
+  }
+
+  bulkDownloadWarnings(objectFromServer:string){     
+      const objectFromWs = JSON.parse(objectFromServer);
+      console.log('objectFromWs->', objectFromWs);
+      const url = objectFromWs.value;
+      if(url != ""){
+         window.open(url);
+      }
+      if(objectFromWs.fails > 0){
+         const fundsNames = objectFromWs.failsName.join(',');
+         this.openPendingDownloadsTaxModal("Error", 
+         "Some of selected files had errors, so that can't be downloaded. Please reload the page and try again the missing file(s) from : " + fundsNames + ".");
+      }
+      if(sessionStorage.getItem("pendingDownloadsBulk") != null){
+          const id = objectFromWs.downloadId;
+          this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+          this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
+          sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloadsNew));
+        }
+  }
+
+  openConectionBulkWs(){
+    const userEmail = sessionStorage.getItem("userEmail");
+    this.wsBulkService.openConection(userEmail);
   }
 
 }
