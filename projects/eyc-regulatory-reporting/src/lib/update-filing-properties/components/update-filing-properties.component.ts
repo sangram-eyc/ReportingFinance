@@ -209,7 +209,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   private _updateForm() {
     return this.formBuilder.group({
-      filerType: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \,-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
+      filerType: ['', [Validators.maxLength(250), this.noWhitespaceValidator]],
       filingStage: ['', [Validators.required]],
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]]

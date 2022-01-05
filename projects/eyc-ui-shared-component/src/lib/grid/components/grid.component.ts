@@ -79,6 +79,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   gridHeadingCls;
   gridContainerCls;
   srnoCls;
+  isAllRecordSelected = false;
 
   ngOnInit(): void {
     if (!this.defaultColDef) {
@@ -119,9 +120,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async submit() {
+    this.selectedRowEmitter.emit(this.selectedRows);
     await this.submitFunction();
     this.selectedRows = [];
-    this.gridApi.deselectAll();
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
     this.buttonModal = false;
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
     setTimeout(() => {
@@ -153,9 +155,14 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   onRowSelected(): void {
     this.selectedRows = [];
     this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
-    this.selectedRowEmitter.emit(this.selectedRows);
+    // this.selectedRowEmitter.emit(this.selectedRows);
     if (this.selectedRows.length === 0) this.gridApi.deselectAll();
-    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) this.gridApi.selectAll();
+    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+      this.gridApi.selectAll();
+      this.isAllRecordSelected = true;
+    } else {
+      this.isAllRecordSelected = false;
+    }
 
   }
 

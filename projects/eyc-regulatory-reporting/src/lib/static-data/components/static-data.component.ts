@@ -92,7 +92,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \,-\]+$'), Validators.maxLength(250)]]
+      filerType: ['', [Validators.maxLength(250)]]
     });
   }
 
