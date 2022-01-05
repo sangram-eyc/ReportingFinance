@@ -153,9 +153,11 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }  
 
   onRowSelected(): void {
+    this.selectedRowEmitterProcess.emit('processing');
     this.selectedRows = [];
     this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
-    // this.selectedRowEmitter.emit(this.selectedRows);
+    this.selectedRowEmitter.emit(this.selectedRows);
+    this.selectedRowEmitterProcess.emit('finished');
     if (this.selectedRows.length === 0) this.gridApi.deselectAll();
     if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
       this.gridApi.selectAll();
