@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MotifCardModule, MotifButtonModule, MotifFormsModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifPaginationModule } from '@ey-xd/ng-motif';
 import { AgGridModule } from 'ag-grid-angular';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 describe('ClientReviewComponent', () => {
   let component: ClientReviewComponent;
   let fixture: ComponentFixture<ClientReviewComponent>;
@@ -28,7 +27,6 @@ describe('ClientReviewComponent', () => {
         MotifIconModule,
         MotifProrgressIndicatorsModule,
         MotifTableModule,
-        SlickCarouselModule,
         HttpClientModule,
         MotifPaginationModule,
         RouterTestingModule,
@@ -61,12 +59,6 @@ describe('ClientReviewComponent', () => {
     expect(component.gridApi).toBeTruthy();
   });
 
-  describe('The function onRowSelected ...', () => {
-    it(`- should do something`, () => {
-      component.onRowSelected({ name: 'Mock Hero' });
-      expect(component).toBeTruthy();
-    });
-  });
 
   it('should get filling entities list', () => {
     let response = {
