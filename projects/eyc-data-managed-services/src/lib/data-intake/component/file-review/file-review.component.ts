@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
@@ -8,15 +8,22 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
 
+import { donutSummariesObject } from '../../models/donut-chart-summary.model';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FileFilterStatus, FILTER_TYPE } from '../../../config/dms-config-helper';
+import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
+import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
+import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
+import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
+
 @Component({
   selector: 'lib-file-review',
   templateUrl: './file-review.component.html',
   styleUrls: ['./file-review.component.scss']
 })
-export class FileReviewComponent implements OnInit {
+export class FileReviewComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  batChartData = [];
+  stackBarChartGridData = [];
   gridApi;
   innerTabIn: number = 1;
   curDate: string;
@@ -87,6 +94,17 @@ export class FileReviewComponent implements OnInit {
 
   @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
   @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
+
+  stackBarChartData: StackChartSeriesItemDTO[];
+  // dataFetch: number[];
+  dataList: ApiStackSeriesItemDTO[];
+  // fileSummaries = [];
+  fileSummariesObject = donutSummariesObject;
+  dailyMonthlyStatus: boolean = false;
+  tabIn: number = 1;
+  // innerTabIn: number = 1;
+  motifDatepModel: any;
+  @ViewChild('dp') myDp;
   
   dataset: GridDataSet[] = [{
     disable: false,
@@ -121,8 +139,8 @@ export class FileReviewComponent implements OnInit {
   // API Request match with response
   httpQueryParams: DataSummary;
 
-  constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
-    private renderer: Renderer2, private customglobalService: CustomGlobalService) {
+  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+    private renderer: Renderer2) {
     this.setColorScheme();
   }
   setColorScheme() {
@@ -135,10 +153,26 @@ export class FileReviewComponent implements OnInit {
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
-    this.dailyManagedData();
-    this.dailyDataProvider();
+    this.tabIn = 1;
     this.getReviewFilesData();
     this.getReviewFileTableData();
+  }
+
+  
+  ngAfterViewInit(): void {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      EndDate: '',
+      dataFrequency: DATA_FREQUENCY.MONTHLY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: '2021-09-02',//`${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      periodType: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+    this.fileSummaryList();
   }
 
   searchCompleted(input) {
@@ -321,6 +355,17 @@ export class FileReviewComponent implements OnInit {
 
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.dailyMonthlyStatus ?
+        this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+    }
+    this.fileSummaryList();
   }
 
   select(event) {
@@ -333,22 +378,22 @@ export class FileReviewComponent implements OnInit {
     console.log(event);
   }
 
-  getFileSummuries() {
-    this.httpQueryParams =
-    {
-      startDate: '',
-      EndDate: '',
-      dataFrequency: 'All',
-      dataIntakeType: 'dataProvider',
-      dueDate: '2021-10-22',
-      periodType: '',
-      filterTypes: ['noIssues','high','low', 'medium', 'missingFiles', 'fileNotRecieved']
-    };
-    // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataSummuries: any) => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
-    });
-  }
+  // getFileSummuries() {
+  //   this.httpQueryParams =
+  //   {
+  //     startDate: '',
+  //     EndDate: '',
+  //     dataFrequency: 'All',
+  //     dataIntakeType: 'dataProvider',
+  //     dueDate: '2021-10-22',
+  //     periodType: '',
+  //     filterTypes: ['noIssues','high','low', 'medium', 'missingFiles', 'fileNotRecieved']
+  //   };
+  //   // Mock API integration for donut chart
+  //   this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataSummuries: any) => {
+  //     this.fileSummaries = dataSummuries.data['dataSeries'];
+  //   });
+  // }
 
   dateSub(presentDate) {
     let curDateVal = presentDate;
@@ -362,81 +407,119 @@ export class FileReviewComponent implements OnInit {
     this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
   }
 
-  dailyData() {
+  dailyData(status: boolean) {
+    // Daily data fetch as per click
+    this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
-    this.dailyManagedData();
-    this.dailyDataProvider();
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+    }
+    this.fileSummaryList();
   }
-  monthyData() {
+
+  monthlyData(status: boolean) {
+    // Monthly data fetch as per click
+    this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
-    this.monthyManagedData();
-    this.monthyDataProvider();
-  }
-
-  dailyManagedData() {
-    this.httpQueryParams =
-    {
-      startDate: '',
-      EndDate: '',
-      dataFrequency: 'Daily',
-      dataIntakeType: 'dataProvider',
-      dueDate: '2021-10-22',
-      periodType: '',
-      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
-    };
-    // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
-    });
-  }
-
-  monthyManagedData() {
-    this.httpQueryParams =
-    {
-      startDate: '',
-      EndDate: '',
-      dataFrequency: 'Monthly',
-      dataIntakeType: 'dataProvider',
-      dueDate: '2021-10-22',
-      periodType: '',
-      filterTypes: ['noissues','high','low', 'medium', 'pastDue', 'missingandpastdue', 'filesnotreceived']
-    };
-    // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList( this.httpQueryParams).subscribe((dataSummuries: any) => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
-    });
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+    }
+    this.fileSummaryList();
   }
 
 
-  getDataProviderList() {
-    this.dataManagedService.getDataProviderList().subscribe(data => {
-      this.fileSummaries = data.data['dataSeries'];
-      this.totalFileCount = data.data['totalCount'];
+  fileSummaryList() {
+    // Mock API integration for bar chart (Data Providers/ Data Domains)
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+      this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
+      this.totalFileCount = dataProvider.data[0]['totalCount'];
+      this.manipulateStatusWithResponse(this.dataList);
     });
   }
 
-  dailyDataProvider() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
-      this.fileSummaries = data.data['dataSeries'];
-      this.totalFileCount = data.data['totalCount'];
-    });
+  manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
+    // Manipulate fetch-data as per status
+    const cloneFileSummury = [...donutSummariesObject];
+    const stackBarChart = [];
+    fetchData.find((fData) => {
+      this.fileSummariesObject.map((summaryObject) => {
+        if (fData.label === summaryObject.apiKey) {
+          summaryObject.value = fData.value;
+        }
+      });
+      switch (fData.label) {
+        case FileFilterStatus.missingFilesPastDue.apiKey:
+          stackBarChart.push({
+            name: FileFilterStatus.missingFilesPastDue.legendTitle,
+            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
+          });
+          break;
+        case FileFilterStatus.highPriorityIssues.apiKey:
+          stackBarChart.push({
+            name: FileFilterStatus.highPriorityIssues.legendTitle,
+            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
+          });
+          break;
+        case FileFilterStatus.mediumLowPriority.apiKey:
+          stackBarChart.push({
+            name: FileFilterStatus.mediumLowPriority.legendTitle,
+            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
+          });
+          break;
+        case FileFilterStatus.noIssue.apiKey:
+          stackBarChart.push({
+            name: FileFilterStatus.noIssue.legendTitle,
+            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
+          });
+          break;
+        case FileFilterStatus.filesNotReceived.apiKey:
+          stackBarChart.push({
+            name: FileFilterStatus.filesNotReceived.legendTitle,
+            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
+          });
+          break;
+        default:
+        }
+      });
+      
+    this.fileSummaries = this.fileSummariesObject;
+    this.fileSummariesObject = cloneFileSummury;
+    console.log(stackBarChart);
+    this.stackBarChartData = stackBarChart as StackChartSeriesItemDTO[];
+    this.cdr.detectChanges();
   }
 
-  monthyDataProvider() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-      this.fileSummaries = data.data['dataSeries'];
-      this.totalFileCount = data.data['totalCount'];
-    });
+  toggleCalendar(): void {
+    this.cdr.detectChanges();
+    this.myDp.toggleCalendar();
+    if (this.motifDatepModel) {
+      this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
+      this.fileSummaryList();
+    }
+  }
+
+  mapBarChartDataWithKey(fData: [ApiSeriesItemDTO]): BarChartSeriesItemDTO[] {
+    return fData.map(({
+      lable: name,
+      ...rest
+    }) => ({
+      name,
+      ...rest
+    }));
   }
 
   getReviewFilesData() {
     // Mock API integration for Review File
     this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.batChartData = data.data["dataseries"];
+      this.stackBarChartGridData = data.data["dataseries"];
     });
   }
 }
