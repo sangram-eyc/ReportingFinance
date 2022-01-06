@@ -17,7 +17,7 @@ export const userAdminstration = {
         deleteTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember',
         addTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember',
         roles: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/roles?module=' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/roles?module=',
-        filetypes: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms/displayName' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms/displayName'
+        filetypes: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms'
     },
     roles: {
         roles_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/roleModuleFeatures' : environment.apiEndpoint + 'assets/mock/userroles.json',
