@@ -143,9 +143,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.count++;
         if (this.count == 1) {
           this.checkTimeOut();
-          //for the warnings and notifications of the bulk download process of tax-reporting
+          //for the warnings and notifications bulk download process of tax-reporting
           this.wsBulkService.connect().subscribe(resp => {  
-              console.log('ws message from bulk server: ' + resp);
               if(resp.trim() === "Connection Established"){
                 //to open the websocket conection
                 this.openConectionBulkWs();
@@ -155,7 +154,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
                 //end the code for notifications
               }                      
-          }, 
+           }, 
             err => {console.log('ws bulk error', err)}, 
             () => console.log('ws bulk complete'));
           }
@@ -311,24 +310,31 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
-  bulkDownloadWarnings(objectFromServer:string){     
+  bulkDownloadWarnings(objectFromServer:string){  
+    try{
       const objectFromWs = JSON.parse(objectFromServer);
-      console.log('objectFromWs->', objectFromWs);
-      const url = objectFromWs.value;
+      const objectContent = JSON.parse(objectFromWs.request.content);
+      //console.log('object From Ws bulk->', objectFromWs);
+      //console.log('object content->', objectContent);
+       const url = objectContent.extraParameters.downloadUrl;
       if(url != ""){
          window.open(url);
       }
-      if(objectFromWs.fails > 0){
-         const fundsNames = objectFromWs.failsName.join(',');
+      const fails = Number(objectContent.extraParameters.fails);
+      if(fails > 0){
+         const fundsNames = JSON.parse(objectContent.extraParameters.failsName).join(',');
          this.openPendingDownloadsTaxModal("Error", 
          "Some of selected files had errors, so that can't be downloaded. Please reload the page and try again the missing file(s) from : " + fundsNames + ".");
-      }
+      } 
       if(sessionStorage.getItem("pendingDownloadsBulk") != null){
-          const id = objectFromWs.downloadId;
-          this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
-          this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
-          sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloadsNew));
-        }
+        const id = objectContent.extraParameters.downloadId;
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+        this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
+        sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloadsNew));
+      } 
+    }catch(err){
+      console.log('bulkDownloadWarnings Error ->', err);
+    }
   }
 
   openConectionBulkWs(){
