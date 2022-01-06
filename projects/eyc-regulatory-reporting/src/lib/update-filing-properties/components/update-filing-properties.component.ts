@@ -106,7 +106,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   cancelForm() {
     this.showToaster = false;
     this.editForm.patchValue({
-      filerType: this.backendFilingInfo.filerTypes.join(', '),
+      filerType: this.backendFilingInfo.filerTypes.join(','),
       filingStage: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
       scopingStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
       entityStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode')
@@ -128,7 +128,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     }
 
     this.editForm.patchValue({
-      filerType: this.backendFilingInfo.filerTypes.join(', '),
+      filerType: this.backendFilingInfo.filerTypes.join(','),
       filingStage: this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
       scopingStages: this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
       entityStages: this.mapStageData(backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode')
