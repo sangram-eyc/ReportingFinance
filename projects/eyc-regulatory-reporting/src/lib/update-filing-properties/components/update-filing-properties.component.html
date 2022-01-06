@@ -6,7 +6,7 @@
     &nbsp;<span class="back-opt">&nbsp; Back</span>
   </div>
   <div class="info-header">
-    <h3>{{filingData?.filingName}}</h3>
+    <div class="title-wrapper"><h3>{{filingData?.filingName}}</h3></div>
     <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
       *ngIf="!enableEditor && permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
       (click)="enableEditForm()">
@@ -67,11 +67,11 @@
           <div class="col-md-6">
             <motif-form-field>
               <input libRemoveSpaces motifInput type="text" formControlName="filerType" />
-              <motif-error *ngIf="editForm.get('filerType').hasError('required')">Please provide filer type!
+              <motif-error *ngIf="editForm.get('filerType').hasError('required')">Please provide filer type
               </motif-error>
-              <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Filer type must be alpha numeric!
+              <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Please enter valid data
               </motif-error>
-              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 250 characters
+              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 150 characters
                 long</motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
               </motif-error>
@@ -134,8 +134,10 @@
 
   <div *ngIf="tabIn == 1">
     <div *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
-      <button class="edit_button" *ngIf="enableEditReportID" motifButton color="primary" size="large"
+      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length" motifButton color="primary" size="large"
         (click)="onSaveReportID()">Save</button>
+        <button class="cancel_edit_reportid_button" *ngIf="enableEditReportID" motifButton color="secondary" size="large"
+        (click)="onCancelReportID()">Cancel</button>
       <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary" size="large"
         (click)="enableEditReportId()">Edit</button>
     </div>
@@ -178,7 +180,11 @@
         </span>
       </div>
       <div class="editReportID" *ngIf="enableEditReportID">
-        <input motifInput type="text" [(ngModel)]="row.pbiReportId" />
+        <motif-form-field>
+          <input motifInput type="text" [(ngModel)]="row.pbiReportId" (ngModelChange)="onChangeEditReportID(row.name, row.pbiReportId?.length > 150)"/>
+          <motif-error *ngIf="row.pbiReportId?.length > 150">Report id can be max 150 characters
+            long</motif-error>
+        </motif-form-field>
       </div>
     </ng-template>
 
@@ -206,6 +212,8 @@
                 addPBIReportForm.get('question').hasError('required') &&
                 addPBIReportForm.get('question').touched">Please provide a question!
                 </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('question').hasError('maxlength')">Question can be max 100 characters
+                  long</motif-error>
               </motif-form-field>
 
               <motif-form-field *ngIf="questionSwitch">
@@ -215,6 +223,8 @@
                 addPBIReportForm.get('question').hasError('required') &&
                 addPBIReportForm.get('question').touched">Please provide a question
                 </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('question').hasError('maxlength')">Question can be max 100 characters
+                  long</motif-error>
               </motif-form-field>
             </div>
             <div class="motif-col-xs-4 motif-col-lg-12">
@@ -225,6 +235,8 @@
                 addPBIReportForm.get('reportID').hasError('required') &&
                 addPBIReportForm.get('reportID').touched">Please provide a report id
                 </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('reportID').hasError('maxlength')">Report id can be max 150 characters
+                  long</motif-error>
               </motif-form-field>
             </div>
 
