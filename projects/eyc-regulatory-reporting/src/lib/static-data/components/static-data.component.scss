@@ -26,11 +26,13 @@
               line-height: 5px;
           }
           span.filing-name.ellipsis {
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
               overflow: hidden;
               text-overflow: ellipsis;
-              display: -webkit-box;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: block;
+              max-width: 390px;
           }
           span.filing-name.ellipsis-period {
               flex: 1;
