@@ -31,7 +31,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   PBIMappingData = []
-
+  storePBIMappingData = [];
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
   @ViewChild('reportIDSection')
@@ -49,6 +49,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   questionSwitch = false;
   filingData;
   backendFilingInfo;
+  invalidEditReportIDs = [];
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -106,13 +107,13 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     this.showToaster = false;
     this.editForm.patchValue({
       filerType: this.backendFilingInfo.filerTypes.join(', '),
-      filingStage: this.backendFilingInfo.stagesByType['Filing'].map(item => item.stageCode),
-      scopingStages: this.backendFilingInfo.stagesByType['Fund Scoping'].map(item => item.stageCode),
-      entityStages: this.backendFilingInfo.stagesByType['Filing Entity'].map(item => item.stageCode)
+      filingStage: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
+      scopingStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
+      entityStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode')
     });
-    this.filingStages = this.backendFilingInfo.stagesByType['Filing'].map(item => item.stageCode);
-    this.scopingStages = this.backendFilingInfo.stagesByType['Fund Scoping'].map(item => item.stageCode);
-    this.entityStages = this.backendFilingInfo.stagesByType['Filing Entity'].map(item => item.stageCode);
+    this.filingStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing', 'stageCode');
+    this.scopingStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode');
+    this.entityStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode');
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
   }
@@ -130,7 +131,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       filerType: this.backendFilingInfo.filerTypes.join(', '),
       filingStage: this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
       scopingStages: this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
-      entityStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode')
+      entityStages: this.mapStageData(backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode')
     });
     this.filingStages = this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageCode');
     this.scopingStages = this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode');
@@ -209,7 +210,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   private _updateForm() {
     return this.formBuilder.group({
-      filerType: ['', [Validators.maxLength(250), this.noWhitespaceValidator]],
+      filerType: ['', [Validators.maxLength(150), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$')]],
       filingStage: ['', [Validators.required]],
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]]
@@ -234,6 +235,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   getPBIMappingDetailsData() {
     this.service.getPBIMappingDetails(this.filingData.formId).subscribe(resp => {
       this.PBIMappingData = resp['data']['questionPbiMap'];
+      this.storePBIMappingData = JSON.parse(JSON.stringify(this.PBIMappingData));
       this.createTeamsRowData();
     });
   }
@@ -309,13 +311,14 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
 
   addPBIReport(event) {
+    this.onCancelReportID();
     this.showAddPBIReportModal = true;
   }
 
   private _createPBIReport() {
     return this.formBuilder.group({
-      question: ['', [Validators.required]],
-      reportID: ['', [Validators.required]]
+      question: ['', [Validators.required, Validators.maxLength(100)]],
+      reportID: ['', [Validators.required, Validators.maxLength(150)]]
     });
   }
 
@@ -340,8 +343,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         }
       });
       mappingdata.forEach(ele => {
-        this.PBIMappingData.push(ele)
+        this.PBIMappingData.push(ele);
       })
+      this.storePBIMappingData = JSON.parse(JSON.stringify(this.PBIMappingData));
       this.createTeamsRowData();
       this.addPBIReportForm.reset();
       this.showAddPBIReportModal = false
@@ -403,8 +407,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         }
       });
       mappingdata.forEach(ele => {
-        this.PBIMappingData.push(ele)
+        this.PBIMappingData.push(ele);
       })
+      this.storePBIMappingData = JSON.parse(JSON.stringify(this.PBIMappingData));
       this.createTeamsRowData();
       this.addPBIReportForm.reset();
       this.showAddPBIReportModal = false
@@ -417,7 +422,27 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     })
   }
 
+  onCancelReportID() {
+    this.enableEditReportID = false;
+    let mapping = this.storePBIMappingData;
+      this.PBIMappingData = [];
+      mapping.forEach(ele => {
+        this.PBIMappingData.push(ele);
+      });
+  }
+
   onChangeQuestionSwitch(event) {
     this.addPBIReportForm.reset();
+  }
+
+  onChangeEditReportID(question, isValid) {
+    if (isValid) {
+      if (!this.invalidEditReportIDs.includes(question)) this.invalidEditReportIDs.push(question);
+    } else {
+      const index = this.invalidEditReportIDs.indexOf(question);
+      if (index > -1) {
+        this.invalidEditReportIDs.splice(index, 1);
+      }
+    }
   }
 }

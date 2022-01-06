@@ -26,12 +26,11 @@
               line-height: 5px;
           }
           span.filing-name.ellipsis {
-              flex: 1;
-              white-space: nowrap;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
               overflow: hidden;
               text-overflow: ellipsis;
-              display: block;
-              width: 140px;
+              display: -webkit-box;
           }
           span.filing-name.ellipsis-period {
               flex: 1;
@@ -61,46 +60,46 @@
     }
   }
   
-  @media screen and (min-width: 300px) {
+//   @media screen and (min-width: 300px) {
       
-     }
-    @media screen and (min-width: 1000px) {
+//      }
+//     @media screen and (min-width: 1000px) {
      
-    }
-    @media screen and (min-width: 1200px) {
-       span.filing-name.ellipsis {
-          width: 200px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-     }
+//     }
+//     @media screen and (min-width: 1200px) {
+//        span.filing-name.ellipsis {
+//           width: 200px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
     
-     @media screen and (min-width: 1950px) {
-      span.filing-name.ellipsis {
-          width: 241px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-     }
+//      @media screen and (min-width: 1950px) {
+//       span.filing-name.ellipsis {
+//           width: 241px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
     
-     @media screen and (min-width: 2600px) {
+//      @media screen and (min-width: 2600px) {
       
-     }
+//      }
     
-     @media screen and (min-width: 2800px) {
+//      @media screen and (min-width: 2800px) {
       
-     }   
+//      }   
   
-     @media screen and (min-width: 850px) and (max-width: 1000px) {
-      span.filing-name.ellipsis {
-          width: 230px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-  }
+//      @media screen and (min-width: 850px) and (max-width: 1000px) {
+//       span.filing-name.ellipsis {
+//           width: 230px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//   }
 }
 
 .each-card {

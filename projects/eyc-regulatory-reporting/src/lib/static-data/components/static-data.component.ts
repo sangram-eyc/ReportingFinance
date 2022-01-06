@@ -88,11 +88,11 @@ export class StaticDataComponent implements OnInit, OnChanges {
 
   private _createAddFiling() {
     return this.formBuilder.group({
-      displayName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(250)]],
+      displayName: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\(\\)]*$'), Validators.maxLength(150), this.noWhitespaceValidator]],
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.maxLength(250)]]
+      filerType: ['', [Validators.maxLength(150), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$')]]
     });
   }
 
@@ -107,9 +107,13 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   getFilerTypes(filerTypes) {
-    let types = filerTypes.split(',');
-    let splittedFilerTypes = types.map(el => el.trim());
-    return splittedFilerTypes;
+    if (filerTypes.length) {
+      let types = filerTypes.split(',');
+      let splittedFilerTypes = types.map(el => el.trim());
+      return splittedFilerTypes;
+    } else {
+      return [];
+    }
   }
 
   getSelectedStages(selectedStageCodes, allStages, stageType) {

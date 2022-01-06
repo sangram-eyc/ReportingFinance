@@ -108,10 +108,21 @@
   }
 
   .edit-form {
-    display: flex;
-    position: absolute;
-    left: 200px;
-    margin-top: 3px;
+    // display: flex;
+    // position: absolute;
+    // left: 430px;
+    // margin-top: 3px;
+    width: 200px;
+    .save-submit {
+      float: left;
+    }
+    .btn_close {
+      float: right;
+    }
+  }
+  .title-wrapper {
+    max-width: 80%;
+    position: relative;
   }
 
   .detailscontent-container {
@@ -318,8 +329,24 @@
      width: 100%;
      margin-top: 14px;
    }
+   .motif-form-field {
+     width: 100%;
+   }
   }
   .edit_button {
+    position: absolute;
+    right: 197px;
+    margin: 20px;
+    width: 100px !important;
+  }
+  .save_edit_reportid_button {
+    position: absolute;
+    right: 315px;
+    margin: 20px;
+    width: 100px !important;
+  }
+
+  .cancel_edit_reportid_button {
     position: absolute;
     right: 197px;
     margin: 20px;

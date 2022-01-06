@@ -10,8 +10,16 @@
             <motif-card>
                 <motif-card-header>
                     <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h6 class="filing-name">{{filing.filingName}}</h6>
+                        <div class="col-md-12 col-sm-12">
+                            <h6 class="filing-name" *ngIf="filing.filingName.length < 90">{{filing.filingName}}</h6>
+                            <div *ngIf="filing.filingName.length > 90" class="elli-wrap">
+                              <motif-tooltip placement="top">
+                                  <h6 motifTooltipTrigger aria-label="tooltip"><span class="filing-name ellipsis">{{filing.filingName}}</span>
+                                  </h6>
+                                  {{filing.filingName}} 
+                              </motif-tooltip>
+                              <!-- <h6 class="eli-filing-name">// {{period}}</h6> -->
+                          </div>
                         </div>
                     </div>
                 </motif-card-header>
@@ -56,9 +64,9 @@
                     <input libRemoveSpaces motifInput type="text" aria-label="Display name Form Field" [formControl]="addFilingForm.controls['displayName']" ngDefaultControl required/>
                     <motif-error *ngIf="addFilingForm.get('displayName').hasError('required') &&
                                 addFilingForm.get('displayName').touched">Please provide a display name!</motif-error>
-                    <motif-error *ngIf="addFilingForm.get('displayName').hasError('pattern')">display name must contain only characters
+                    <motif-error *ngIf="addFilingForm.get('displayName').hasError('pattern')">Please enter valid data
                     </motif-error>
-                    <motif-error *ngIf="addFilingForm.get('displayName').hasError('maxlength')">display name can be max 250 characters long
+                    <motif-error *ngIf="addFilingForm.get('displayName').hasError('maxlength')">Display name can be max 150 characters long
                     </motif-error>
                     <motif-error *ngIf="addFilingForm.get('displayName').hasError('whitespace') &&
                                 addFilingForm.get('displayName').touched">Please enter valid data</motif-error>
@@ -70,9 +78,9 @@
                     <input libRemoveSpaces motifInput type="text" aria-label="Filer type Form Field" [formControl]="addFilingForm.controls['filerType']" ngDefaultControl/>
                     <motif-error *ngIf="addFilingForm.get('filerType').hasError('required') &&
                                 addFilingForm.get('filerType').touched">Please provide a Filer type!</motif-error>
-                    <motif-error *ngIf="addFilingForm.get('filerType').hasError('pattern')">Filer type must contain only characters
+                    <motif-error *ngIf="addFilingForm.get('filerType').hasError('pattern')">Please enter valid data
                     </motif-error>
-                    <motif-error *ngIf="addFilingForm.get('filerType').hasError('maxlength')">Filer type can be max 250 characters long
+                    <motif-error *ngIf="addFilingForm.get('filerType').hasError('maxlength')">Filer type can be max 150 characters long
                     </motif-error>
                     <motif-error *ngIf="addFilingForm.get('filerType').hasError('whitespace') &&
                                 addFilingForm.get('filerType').touched">Please enter valid data</motif-error>
