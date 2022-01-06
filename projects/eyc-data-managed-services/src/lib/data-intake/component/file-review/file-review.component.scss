@@ -174,7 +174,6 @@ margin-top: 24px !important;
 .icon-size {
   font-size: 16px;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -191,7 +190,35 @@ margin-top: 24px !important;
     }
     .motif-button {
       min-height: 30px;
+      
     }
+  }
+}
+
+.date-ui{
+
+  ::ng-deep .motif-form-field {
+    margin-bottom: 0!important;
+    ::ng-deep .motif-input{
+      background-color: #ffffff !important;
+    }
+    
+    border-bottom: 1px solid #2E2E38 !important;
+    .motif-label{
+      margin:0 !important;
+    }
+    input#datepicker{
+      min-width: 266px !important; 
+    }
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
   }
 }
 

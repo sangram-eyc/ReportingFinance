@@ -9,11 +9,12 @@ import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FileFilterStatus, FILTER_TYPE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FileFilterStatus, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lib-file-review',
@@ -96,15 +97,17 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
 
   stackBarChartData: StackChartSeriesItemDTO[];
-  // dataFetch: number[];
   dataList: ApiStackSeriesItemDTO[];
-  // fileSummaries = [];
   fileSummariesObject = donutSummariesObject;
   dailyMonthlyStatus: boolean = false;
   tabIn: number = 1;
-  // innerTabIn: number = 1;
   motifDatepModel: any;
   @ViewChild('dp') myDp;
+  form: FormGroup;
+  disabledDailyMonthlyButton: boolean = false;
+  calSelectedDate: string;
+  FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
+  FILTER_TYPE = FILTER_TYPE;
   
   dataset: GridDataSet[] = [{
     disable: false,
@@ -156,8 +159,19 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.tabIn = 1;
     this.getReviewFilesData();
     this.getReviewFileTableData();
+    this.form = new FormGroup({
+      datepicker: new FormControl({
+        isRange: false, 
+        singleDate: {
+          date: {
+            year: this.presentDate.getFullYear(),
+            month: this.presentDate.getMonth() + 1,
+            day: this.presentDate.getDate()
+          }
+        }
+      }, [Validators.required])
+    });
   }
-
   
   ngAfterViewInit(): void {
     this.httpQueryParams =
@@ -166,7 +180,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       EndDate: '',
       dataFrequency: DATA_FREQUENCY.MONTHLY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: '2021-09-02',//`${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -378,35 +392,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     console.log(event);
   }
 
-  // getFileSummuries() {
-  //   this.httpQueryParams =
-  //   {
-  //     startDate: '',
-  //     EndDate: '',
-  //     dataFrequency: 'All',
-  //     dataIntakeType: 'dataProvider',
-  //     dueDate: '2021-10-22',
-  //     periodType: '',
-  //     filterTypes: ['noIssues','high','low', 'medium', 'missingFiles', 'fileNotRecieved']
-  //   };
-  //   // Mock API integration for donut chart
-  //   this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataSummuries: any) => {
-  //     this.fileSummaries = dataSummuries.data['dataSeries'];
-  //   });
-  // }
-
-  dateSub(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
-  dateAdd(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
@@ -447,7 +432,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
     // Manipulate fetch-data as per status
-    const cloneFileSummury = [...donutSummariesObject];
+    const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     const stackBarChart = [];
     fetchData.find((fData) => {
       this.fileSummariesObject.map((summaryObject) => {
@@ -455,53 +440,43 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           summaryObject.value = fData.value;
         }
       });
-      switch (fData.label) {
-        case FileFilterStatus.missingFilesPastDue.apiKey:
-          stackBarChart.push({
-            name: FileFilterStatus.missingFilesPastDue.legendTitle,
-            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
-          });
-          break;
-        case FileFilterStatus.highPriorityIssues.apiKey:
-          stackBarChart.push({
-            name: FileFilterStatus.highPriorityIssues.legendTitle,
-            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
-          });
-          break;
-        case FileFilterStatus.mediumLowPriority.apiKey:
-          stackBarChart.push({
-            name: FileFilterStatus.mediumLowPriority.legendTitle,
-            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
-          });
-          break;
-        case FileFilterStatus.noIssue.apiKey:
-          stackBarChart.push({
-            name: FileFilterStatus.noIssue.legendTitle,
-            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
-          });
-          break;
-        case FileFilterStatus.filesNotReceived.apiKey:
-          stackBarChart.push({
-            name: FileFilterStatus.filesNotReceived.legendTitle,
-            series: this.mapBarChartDataWithKey(fData.seriesItemDTO)
-          });
-          break;
-        default:
-        }
+      fData.seriesItemDTO.map((seriesData) => {
+        stackBarChart.push({
+            name: FILTER_TYPE_TITLE[`${fData.label}`], // key mapping ,
+            lable: seriesData.lable,
+            value: seriesData.value
+          }
+        )
       });
-      
-    this.fileSummaries = this.fileSummariesObject;
+    });
+    // GroupBy fetch-data as per status
+    const groupBy = (array, key) => {
+      return array.reduce((result, currentValue) => {
+        (result[currentValue[key]] = result[currentValue[key]] || []).push(
+          { name: currentValue.name, value: currentValue.value }
+        );
+        return result;
+      }, {});
+    };
+    this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
     this.fileSummariesObject = cloneFileSummury;
-    console.log(stackBarChart);
-    this.stackBarChartData = stackBarChart as StackChartSeriesItemDTO[];
-    this.cdr.detectChanges();
+    const stackBarChartNew = groupBy(stackBarChart, 'lable');
+    const stackBarChartUpdated = [];
+    // Fetch-data as per Stack Bar Chart
+    for (const [key, value] of Object.entries(stackBarChartNew)) {
+      stackBarChartUpdated.push({
+        name: `${key}`,
+        series: value
+      })
+    }
+    this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
   }
 
-  toggleCalendar(): void {
-    this.cdr.detectChanges();
-    this.myDp.toggleCalendar();
-    if (this.motifDatepModel) {
-      this.httpQueryParams.dueDate = this.motifDatepModel?.singleDate.formatted;
+  toggleCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedDate = event.singleDate.formatted;
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
     }
   }
