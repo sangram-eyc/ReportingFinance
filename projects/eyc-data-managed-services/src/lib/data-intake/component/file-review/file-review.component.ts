@@ -108,7 +108,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   calSelectedDate: string;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
-  
+
   dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
@@ -177,8 +177,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams =
     {
       startDate: '',
-      EndDate: '',
-      dataFrequency: DATA_FREQUENCY.MONTHLY,
+      endDate: '',
+      dataFrequency: DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',

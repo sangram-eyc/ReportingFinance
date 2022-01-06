@@ -18,7 +18,7 @@ export class DataManagedService {
 
     // Begin assigning parameters
     params = params.append('startDate', DataSummary.startDate);
-    params = params.append('EndDate', DataSummary.EndDate);
+    params = params.append('endDate', DataSummary.endDate);
     params = params.append('periodType', DataSummary.periodType);
     params = params.append('dueDate', DataSummary.dueDate);
     params = params.append('dataFrequency', DataSummary.dataFrequency);

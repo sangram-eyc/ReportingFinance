@@ -34,9 +34,9 @@ export abstract class FileFilterStatus {
 }
 
 export const FILTER_TYPE_TITLE = {
-    [`${FILTER_TYPE.NO_ISSUES}`]: "No issues",
-    [`${FILTER_TYPE.MEDIUM_LOW}`]: "Medium / low priority issues",
-    [`${FILTER_TYPE.HIGH}`]: "High priority issues",
-    [`${FILTER_TYPE.MISSING_FILES}`]: "Missing files, past due",
-    [`${FILTER_TYPE.FILE_NOT_RECIEVED}`]: "Files not received"
+    [`${FILTER_TYPE.NO_ISSUES}`]: FileFilterStatus.noIssue.legendTitle,
+    [`${FILTER_TYPE.MEDIUM_LOW}`]: FileFilterStatus.mediumLowPriority.legendTitle,
+    [`${FILTER_TYPE.HIGH}`]: FileFilterStatus.highPriorityIssues.legendTitle,
+    [`${FILTER_TYPE.MISSING_FILES}`]: FileFilterStatus.missingFilesPastDue.legendTitle,
+    [`${FILTER_TYPE.FILE_NOT_RECIEVED}`]: FileFilterStatus.filesNotReceived.legendTitle
 }
