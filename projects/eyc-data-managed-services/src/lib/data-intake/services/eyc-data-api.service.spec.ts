@@ -21,7 +21,7 @@ describe('EycDataApiService', () => {
     beforeEach(()=>{
         httpQueryParams ={
             startDate: '',
-            EndDate: '',
+            endDate: '',
             dataFrequency: DATA_FREQUENCY.DAILY,
             dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
             dueDate: '2021-10-22',
