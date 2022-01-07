@@ -74,6 +74,9 @@
           .description-text {
             margin-bottom: 16px;
           }
+          .bar{
+            height: 17px
+          }
         }
         b{
           font-weight: 800;
@@ -92,6 +95,7 @@
         }
 
         .tax-legend {
+            display: inline-block;
             width: 9.9px;
             height: 9.9px;
             border-radius: 50%;
@@ -108,6 +112,12 @@
             font-size: 18px; color: 
             #2E2E38; margin-top: 11px; 
             margin-left: 10px;
+            span svg{
+              display:inline;
+              width: 20px;
+              height: 20px;
+              margin-right: 7px;
+            }
           }
 
           .modal-body-desc{
@@ -119,6 +129,9 @@
           .margin-rows{
             margin-left: 2px; 
             margin-right: 2px;
+            .bar{
+              height: 17px;
+            }
           }
 
           .empty-state{
