@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "Default stages returned successfully",
+    "corelationId": "2cdcabf6-acac-457b-9429-cfc7495aef2f",
+    "data": [
+      {
+        "stageId": 0,
+        "stageCode": "REPORTING",
+        "stageName": "Reporting",
+        "displayOrder": 1
+      },
+      {
+        "stageId": 0,
+        "stageCode": "CLIENT_REVIEW",
+        "stageName": "Client Review",
+        "displayOrder": 2
+      }
+    ],
+    "error": null
+  }
+  

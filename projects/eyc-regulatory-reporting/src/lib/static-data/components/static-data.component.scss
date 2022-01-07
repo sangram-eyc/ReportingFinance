@@ -26,12 +26,13 @@
               line-height: 5px;
           }
           span.filing-name.ellipsis {
-              flex: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
               display: block;
-              width: 140px;
+              max-width: 390px;
           }
           span.filing-name.ellipsis-period {
               flex: 1;
@@ -61,46 +62,46 @@
     }
   }
   
-  @media screen and (min-width: 300px) {
+//   @media screen and (min-width: 300px) {
       
-     }
-    @media screen and (min-width: 1000px) {
+//      }
+//     @media screen and (min-width: 1000px) {
      
-    }
-    @media screen and (min-width: 1200px) {
-       span.filing-name.ellipsis {
-          width: 200px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-     }
+//     }
+//     @media screen and (min-width: 1200px) {
+//        span.filing-name.ellipsis {
+//           width: 200px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
     
-     @media screen and (min-width: 1950px) {
-      span.filing-name.ellipsis {
-          width: 241px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-     }
+//      @media screen and (min-width: 1950px) {
+//       span.filing-name.ellipsis {
+//           width: 241px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
     
-     @media screen and (min-width: 2600px) {
+//      @media screen and (min-width: 2600px) {
       
-     }
+//      }
     
-     @media screen and (min-width: 2800px) {
+//      @media screen and (min-width: 2800px) {
       
-     }   
+//      }   
   
-     @media screen and (min-width: 850px) and (max-width: 1000px) {
-      span.filing-name.ellipsis {
-          width: 230px !important;
-      }
-      span.filing-name.ellipsis-period {
-          width: 200px !important;
-      }
-  }
+//      @media screen and (min-width: 850px) and (max-width: 1000px) {
+//       span.filing-name.ellipsis {
+//           width: 230px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//   }
 }
 
 .each-card {
@@ -109,7 +110,7 @@
 }
 
 #static-card-wrapper{
-  margin-top: 45px;
+  // margin-top: 45px;
   position: relative;
 }
 
@@ -181,8 +182,21 @@
 }
 .search {
   float: right;
+  margin-bottom: 40px;
   .motif-form-field input{
     width: 228px;
+    float: right;
+  }
+}
+.no_data {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+    font-weight: bold;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {BulkDownloadService} from '../services/bulk-download.service'
 import {WebSocketBulkService} from '../services/web-socket-bulk.service'
@@ -8,9 +8,11 @@ import {WebSocketBulkService} from '../services/web-socket-bulk.service'
   templateUrl: './bulk-download-modal.component.html',
   styleUrls: ['./bulk-download-modal.component.scss']
 })
-export class BulkDownloadModalComponent implements OnInit, OnDestroy {
+export class BulkDownloadModalComponent implements OnInit {
   modalDetails;
   fundsList:any[] = [];
+  pendingDownloads:string[] = [];     
+  pendingDownloadsNew:string[] = [];  
   
   @Output() bulkprocesed: EventEmitter<string> = new EventEmitter<string>();
   constructor(
@@ -37,12 +39,12 @@ export class BulkDownloadModalComponent implements OnInit, OnDestroy {
       }); 
       const userEmail = sessionStorage.getItem('userEmail');
       const data:any = {
-        "user":  userEmail,
+        "idempotencyKey":  userEmail,
         "fundDTOS" : this.fundsList
        }    
       this.bulkService.bulkDownloadFirstCall(data).subscribe(resp => {
-        const idFile = resp.data.fileUploadDTO.uiuuid;
-        this.sendMessageToServer(idFile);
+        const idFile = resp.data.fileUploadDTO.downloadId;
+        this.storePendingDownload(idFile);
         this.bulkprocesed.emit(resp);     
       }, error => {
         console.log('Error bulkDownloadFirstCall', error);
@@ -53,15 +55,17 @@ export class BulkDownloadModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close({ button: this.modalDetails.footer.NoButton });
   }
 
-  sendMessageToServer(msg:string){
-  this.wsService.sendMessage(msg);
+  storePendingDownload(downloadId:string){
+    if(sessionStorage.getItem("pendingDownloadsBulk") != null){
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+        this.pendingDownloads.push(downloadId);
+        sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloads));
+        console.log('add id to pendingDownloadsBulk', this.pendingDownloads);
+    }else{
+        this.pendingDownloads.push(downloadId);
+        sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloads));
+        console.log('create and add id to pendingDownloadsBulk', this.pendingDownloads);
+    }
   }
 
-  closeWebSocket(){
-    this.wsService.unSubscribe();  
-  }
-
-  ngOnDestroy(): void {
-      //this.closeWebSocket();
-  }
 }

@@ -21,7 +21,7 @@ describe('EycRrSettingsService', () => {
   });
 
   it('should set services to gatewayService url if rrproduction', () => {
-    const testComponent = new EycRrSettingsService('http://localhost:4200/', true);
+    const testComponent = new EycRrSettingsService('http://localhost:4200/',true, true);
     expect(testComponent.production).toBeTruthy();
     expect(testComponent.regReportingFiling.filing_details).toContain('gatewayService/api/v2/regreporting/getFilingDetails?filter=active');
     expect(testComponent.pbiReportingConfig.question_details).toContain('gatewayService/api/v2/regreporting/getQuestionsByFilingId/');

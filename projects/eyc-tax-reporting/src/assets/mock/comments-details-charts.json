@@ -1,0 +1,44 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "127a8df2-ffd5-4c6f-b7dd-82e50d5fb552",
+    "data": {
+        "totalOpen": 33,
+        "totalClosed": 27,
+        "open": [
+            {
+                "target": "EY",
+                "status": "OPEN",
+                "value": 33
+            },
+            {
+                "target": "CLIENT",
+                "status": "OPEN",
+                "value": 33
+            }
+        ],
+        "closed": [
+            {
+                "target": "CLIENT",
+                "status": "ACCEPTED",
+                "value": 8
+            },
+            {
+                "target": "CLIENT",
+                "status": "DECLINED",
+                "value": 3
+            },
+            {
+                "target": "EY",
+                "status": "ACCEPTED",
+                "value": 11
+            },
+            {
+                "target": "EY",
+                "status": "DECLINED",
+                "value": 5
+            }
+        ]
+    },
+    "error": null
+}
