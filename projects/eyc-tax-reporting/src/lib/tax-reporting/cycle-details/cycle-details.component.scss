@@ -7,6 +7,21 @@
     box-shadow: none !important;
   }
 
+ /*  .add-user-enabled{
+    svg{
+     width:24px; 
+     height:14px;  
+     fill:#155CB4
+    }
+  }
+  .add-user-disabled{
+    svg{
+      width:24px; 
+      height:14px;  
+      fill:#C4C4CD
+    }
+  }
+ */
   #grid-wrapper {
     ::ng-deep {
       .ag-root-wrapper {
@@ -132,6 +147,19 @@
 
   }
 
+  .dropdownTemplate-v2{
+    width: 1.5rem;
+  }
+
+  ::ng-deep .row-assignm{
+      width: 130% !important;
+      .add-comment{
+          fill:#2E2E38;
+          width:34px !important; 
+          height:28px !important; 
+      }
+  }
+
   ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
     visibility: hidden !important;
  }
@@ -194,6 +222,9 @@
   top: 4px;
   position: relative;
   left: 3px;
+  span{
+    font-weight: 400;
+  }
 }
 
 h3 {
@@ -460,6 +491,51 @@ motif-icon.motif-icon.user-edit {
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  .btn-download-enabled{
+    svg{
+      enable-background:new 0 0 480 480;
+      fill:black;
+    }
+  }
+  .btn-download-disabled{
+    svg{
+      fill:#C4C4CD !important;
+      cursor:auto;
+      enable-background:new 0 0 480 480;
+    }
+  }
+  .btn-comment-enabled{
+    svg{
+      width:22px;
+      height:23px; 
+      fill:black;
+    }
+  }
+  .btn-comment-disabled{
+    svg{
+      width:22px;
+      height:23px; 
+      fill:#C4C4CD
+    }
+  }
+}
+
+.assigned-section{
+  display: flex;
+  .add-user-enabled{
+    svg{
+     width:24px; 
+     height:14px;  
+     fill:#155CB4
+    }
+  }
+  .add-user-disabled{
+    svg{
+      width:24px; 
+      height:14px;  
+      fill:#C4C4CD
+    }
+  }
 }
 
 .counter-item{
@@ -649,6 +725,36 @@ button.close {
   display: flex;
   flex-direction: row;
   min-height: 173px;
+  .container{
+    border-right: 1px
+    solid #C4C4CD;
+    .status-tax-processing{
+      font: EYInterstate;
+      font-size: 12px;
+      color: #747480;
+      margin-top: 3px;
+    }
+    .status-in-progress{
+      font: EYInterstate;
+      font-size: 16px;
+      color: #2E2E38;
+    }
+
+    .btn-info-modal{
+      svg{
+        width:15px;
+        height:15px;  
+        fill:#2E2E38
+      }
+    }
+
+    svg{
+      width: 15px;
+      display:inline;
+      cursor:pointer;
+    }
+    
+  }
 }
 
 .donut-chart-card-tax ::ng-deep .donut-chart{
@@ -728,6 +834,7 @@ button.close {
 
 
 .tax-legend {
+  display: inline-block;
   width: 9.9px;
   height: 9.9px;
   border-radius: 50%;
@@ -740,5 +847,11 @@ button.close {
 }
 //NEW
 
+.status-changes{
+  font-size:12px !important;
+  margin-left: 10px;
+}
 
-
+lib-donut-chart{
+  display: flex; 
+}
