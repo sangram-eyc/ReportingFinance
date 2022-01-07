@@ -4,12 +4,12 @@ import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FileFilterStatus, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
