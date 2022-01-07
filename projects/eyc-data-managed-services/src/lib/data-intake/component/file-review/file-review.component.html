@@ -237,7 +237,7 @@
    </ng-template>
 
    <ng-template #threeDotExceptionsTooltip let-row>
-      {{stringTrim(row.exceptions,10)}}
+      {{stringTrim(row.exceptions,17)}}
       <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 10">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...

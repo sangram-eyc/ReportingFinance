@@ -103,7 +103,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   dailyMonthlyStatus: boolean = false;
   tabIn: number = 1;
   motifDatepModel: any;
-  @ViewChild('dp') myDp;
   form: FormGroup;
   disabledDailyMonthlyButton: boolean = false;
   calSelectedDate: string;
@@ -328,7 +327,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'exceptions',
           sortable: true,
           filter: true,
-          minWidth: 100,
+          minWidth: 200,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -360,7 +359,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'next',
           sortable: false,
           filter: false,
-          minWidth: 150,
+          minWidth: 100,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,
           }
