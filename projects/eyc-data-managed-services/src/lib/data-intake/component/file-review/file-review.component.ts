@@ -7,6 +7,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
+import { DataGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
@@ -141,6 +142,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   // API Request match with response
   httpQueryParams: DataSummary;
+  httpDataGridParams: DataGrid;
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2) {
@@ -158,10 +160,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.presentDate = new Date();
     this.tabIn = 1;
     this.getReviewFilesData();
-    this.getReviewFileTableData();
     this.form = new FormGroup({
       datepicker: new FormControl({
-        isRange: false, 
+        isRange: false,
         singleDate: {
           date: {
             year: this.presentDate.getFullYear(),
@@ -172,7 +173,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
-  
   ngAfterViewInit(): void {
     this.httpQueryParams =
     {
@@ -186,7 +186,24 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
+    this.httpDataGridParams = {
+      startDate: '',
+      endDate: '',
+      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      periodType: '',
+      clientName: '',
+      reportType: '',
+      summaryType: '',
+      queryPhrase: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+   
     this.fileSummaryList();
+    this.getReviewFileTableData();
   }
 
   searchCompleted(input) {
@@ -220,7 +237,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   stringTrim(params, paramSize) {
-    if ((params).length > paramSize) {
+    if (params?.length > paramSize) {
       return (params).substr(0, paramSize) + ''
     } else {
       return params
@@ -228,15 +245,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
-    this.dataManagedService.getReviewFileTableData().subscribe(resp => {
-      resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      this.glRowdata = resp.data["rowData"];
+    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
+      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+      this.glRowdata = resp['data'];
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'File',
-          field: 'file',
+          field: 'name',
           sortable: true,
           filter: true,
           minWidth: 150,
@@ -259,7 +276,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Data Domain',
-          field: 'data_domain',
+          field: 'dataDomain',
           sortable: true,
           filter: true,
           minWidth: 100,
@@ -290,14 +307,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Due Date',
-          field: 'due_date',
+          field: 'dueDate',
           sortable: true,
           filter: true,
           minWidth: 100,
           wrapText: true,
           autoHeight: true,
           cellStyle: function (params) {
-            if ((params.data.data_domain).length < 10) {
+            if ((params.data.dataDomain).length < 10) {
               return { color: 'red' }
             } else {
               return true;
@@ -328,7 +345,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Status',
-          field: 'Status',
+          field: 'status',
           sortable: true,
           filter: false,
           minWidth: 200,
@@ -349,7 +366,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           }
         },
       ];
-    })
+    });
   }
 
   onGridReady(params) {
@@ -371,15 +388,28 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+      
+      this.dailyMonthlyStatus ? this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+      : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
+        
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+
       this.dailyMonthlyStatus ?
         this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+
+        this.dailyMonthlyStatus ?
+        this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
     this.fileSummaryList();
+    this.getReviewFileTableData();
   }
 
   select(event) {
@@ -396,28 +426,38 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
+    this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
+
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
+    this.getReviewFileTableData();
   }
 
   monthlyData(status: boolean) {
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+    this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
+    this.getReviewFileTableData();
   }
 
 
@@ -442,10 +482,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       });
       fData.seriesItemDTO.map((seriesData) => {
         stackBarChart.push({
-            name: FILTER_TYPE_TITLE[`${fData.label}`], // key mapping ,
-            lable: seriesData.lable,
-            value: seriesData.value
-          }
+          name: FILTER_TYPE_TITLE[`${fData.label}`], // key mapping ,
+          lable: seriesData.lable,
+          value: seriesData.value
+        }
         )
       });
     });
@@ -477,7 +517,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.calSelectedDate = event.singleDate.formatted;
     if (this.calSelectedDate) {
       this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpDataGridParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
+      this.getReviewFileTableData();
     }
   }
 

@@ -178,7 +178,7 @@
          </div>
          <div  class="my-3">
             <motif-form-field>
-               <input #activeReports motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
+               <input #fileReview motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
             </motif-form-field>
          </div>
       </div>
@@ -201,24 +201,24 @@
 
    <ng-template #chipTemplate let-row class="space-between">
       <div class="grid-status">
-         <motif-chip [removeable]="false" *ngIf="row.Status=='High'" variant="warning">High
-         </motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='Medium / Low'" variant="info">Medium / Low</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='Missing'" variant="error">Missing</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='No Issues'" variant="success">No Issues</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.HIGH" variant="warning">{{FILTER_TYPE_TITLE.high}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" variant="info">{{FILTER_TYPE_TITLE.mediumLow}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" variant="error">{{FILTER_TYPE_TITLE.missingFiles}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" variant="success">{{FILTER_TYPE_TITLE.noIssues}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" variant="secondary">{{FILTER_TYPE_TITLE.fileNotReceived}}</motif-chip>
       </div>
    </ng-template>
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
-      {{stringTrim(row.file, 17)}}
-      <motif-tooltip placement="auto" color="alternate">
+      {{stringTrim(row.name, 17)}}
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.name?.length > 17">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
          <div class="tooltip-text">
             <div>
                <span class="label">File: </span>
-               <label>{{row.file}}</label>
+               <label>{{row.name}}</label>
             </div>
             <div>
                <span class="label">Verison: </span>
@@ -230,33 +230,21 @@
 
    <ng-template #threeDotFunctionTooltip let-row>
       {{stringTrim(row.functions,17)}}
-      <motif-tooltip placement="auto" color="alternate">
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.functions?.length > 17">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
-         <ul>
-            <li>TRMS</li>
-            <li>RRMS</li>
-            <li>CPO-POR</li>
-            <li>TAX</li>
-            <li>Function 5</li>
-         </ul>
+         <span>{{row.functions}}</span>
       </motif-tooltip>
    </ng-template>
 
    <ng-template #threeDotExceptionsTooltip let-row>
       {{stringTrim(row.exceptions,10)}}
-      <motif-tooltip placement="auto" color="alternate">
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 10">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
-         <ul>
-            <li>Fund completeness</li>
-            <li>Column completeness</li>
-            <li>Null check</li>
-            <li>Gav nav variance</li>
-            <li>Maturity date</li>
-         </ul>
+         <span>{{row.exceptions}}</span>
       </motif-tooltip>
    </ng-template>
 
