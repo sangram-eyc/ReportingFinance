@@ -3,11 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const datamanagedenvironment = {
-  apiEndpoint: 'https://10.48.234.20/qa35/',
-  production: true,
-  SECURITY_ENABLED: false,
+  apiEndpoint: 'http://localhost:4200/',
+  production: false,
+  SECURITY_ENABLED: true,
   SERVICE_URL: 'https://10.48.234.20/qa34/',
-  };
+};
 
 /*
  * For easier debugging in development mode, you can import the following file
