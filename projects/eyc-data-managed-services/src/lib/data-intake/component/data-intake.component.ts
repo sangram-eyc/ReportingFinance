@@ -110,7 +110,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.httpQueryParams =
     {
       startDate: '',
-      EndDate: '',
+      endDate: '',
       dataFrequency: DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
