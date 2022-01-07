@@ -154,6 +154,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
 
   createEntitiesRowData(): void {
+    this.columnDefs = [];
+    this.exceptionDefs = [];
+    setTimeout(() => {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -178,7 +181,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           minWidth: 70,
           width: 70,
           sortable: false,
-          cellClass: 'actions-button-cell'
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -279,7 +283,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           minWidth: 70,
           width: 70,
           sortable: false,
-          cellClass: 'actions-button-cell'
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -356,6 +361,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 50
         }
       ];
+    }, 1);
   
     
   

@@ -114,7 +114,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
         pinned: 'left',
         cellClass: this.srnoCls
       }
-        this.columnDefsData.push(object);    
+        this.columnDefsData.splice(1, 0, object);    
     }
     
   }
