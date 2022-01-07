@@ -412,16 +412,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.getReviewFileTableData();
   }
 
-  select(event) {
-    console.log(event);
-  }
-  activate(event) {
-    console.log(event);
-  }
-  deactivate(event) {
-    console.log(event);
-  }
-
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
