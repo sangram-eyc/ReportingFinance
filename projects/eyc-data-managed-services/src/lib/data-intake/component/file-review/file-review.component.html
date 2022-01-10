@@ -54,7 +54,7 @@
       <motif-chip-group>
          <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
          </motif-chip>
-         <motif-chip [removeable]="false" (click)="filterByIssues( FILTER_TYPE.NO_ISSUES, noIssueVariant)"
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
             [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
             [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>

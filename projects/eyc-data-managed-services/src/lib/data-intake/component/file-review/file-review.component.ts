@@ -541,7 +541,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
     }
-    issues = 'all';  // When filter type will be enable remove this line
+    issues = 'all';  // When filter-type will be enable remove this line
     switch (issues) {
       case 'all':
         if (variants === this.lightVariant) {
@@ -626,7 +626,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
     }
-    this.fileSummaryList();
+    // this.fileSummaryList(); // When filter-type will be enable remove this line
     this.cdr.detectChanges();
   }
 
