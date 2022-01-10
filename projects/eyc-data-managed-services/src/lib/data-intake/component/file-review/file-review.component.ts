@@ -108,6 +108,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   calSelectedDate: string;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
+  lightVariant: string = "monochrome-light";
+  darkVariant: string = "monochrome-dark";
+  allIssueVariant: string = this.darkVariant;
+  noIssueVariant: string = this.lightVariant;
+  mediumLowIssueVariant: string = this.lightVariant;
+  highIssueVariant: string = this.lightVariant;
+  missingFileVariant: string = this.lightVariant;
+  fileNotReceivedVariant: string = this.lightVariant;
 
   dataset: GridDataSet[] = [{
     disable: false,
@@ -496,5 +504,119 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.dataManagedService.getReviewFilesData().subscribe(data => {
       this.stackBarChartGridData = data.data["dataseries"];
     });
+  }
+
+  filterByIssues(issues: string, variants: string) {
+    if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
+      this.httpQueryParams.filterTypes = [];
+    }
+    issues = 'all';  // When filter type will be enable remove this line
+    switch (issues) {
+      case 'all':
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.darkVariant;
+          this.noIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.lightVariant;
+          this.httpQueryParams.filterTypes = [
+            FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+            FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
+        }
+        break;
+
+      case FILTER_TYPE.NO_ISSUES:
+        if (variants === this.lightVariant) { 
+          this.allIssueVariant = this.lightVariant;
+          this.noIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.NO_ISSUES]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.noIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.NO_ISSUES]);
+        }
+        break;
+      case FILTER_TYPE.MEDIUM_LOW:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+        }
+        break;
+      case FILTER_TYPE.HIGH:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.HIGH]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.HIGH]);
+        }
+        break;
+      case FILTER_TYPE.MISSING_FILES:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.MISSING_FILES]);
+         } else {
+          this.allIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.MISSING_FILES]);
+         }
+        break;
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+        }
+        break;
+        default:
+          break;
+    }
+    if(this.httpQueryParams.filterTypes.length <= 0) {
+      this.allIssueVariant = this.darkVariant;
+      this.noIssueVariant = this.lightVariant;
+      this.mediumLowIssueVariant = this.lightVariant;
+      this.highIssueVariant = this.lightVariant;
+      this.missingFileVariant = this.lightVariant;
+      this.fileNotReceivedVariant = this.lightVariant;
+      this.httpQueryParams.filterTypes = [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
+    }
+    this.fileSummaryList();
+    this.cdr.detectChanges();
+  }
+
+  filterTypes(method: string, types: string[]) {
+    switch (method) {
+      case 'push':
+        types.map((type) => {
+          const index = this.httpQueryParams.filterTypes.indexOf(type);
+          (index < 0) 
+          ? this.httpQueryParams.filterTypes.push(type) 
+          : null ;
+        });
+        break;
+      case 'pop':
+        types.map((type) => {
+          const index = this.httpQueryParams.filterTypes.indexOf(type);
+          (index !== -1) ? this.httpQueryParams.filterTypes.splice(index, 1) : null ;
+        });
+        break;
+      default:
+        break;
+    }
   }
 }
