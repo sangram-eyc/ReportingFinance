@@ -26,8 +26,7 @@ import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from
 import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { DateSubmittedPipePipe } from './pipes/submission/date-submitted-pipe.pipe';
-import { StaticDataComponent } from './static-data/components/static-data.component';
-import { UpdateFilingPropertiesComponent } from './update-filing-properties/components/update-filing-properties.component';
+
  
 
 
@@ -76,8 +75,7 @@ import { UpdateFilingPropertiesComponent } from './update-filing-properties/comp
     GridComponent,
     ViewExceptionReportsComponent,
     DateSubmittedPipePipe,
-    StaticDataComponent,
-    UpdateFilingPropertiesComponent
+    
   ],
   /* providers: [EycRrApiService, EycPbiService], */
   exports: [RegulatoryReportingFilingComponent, GridComponent]

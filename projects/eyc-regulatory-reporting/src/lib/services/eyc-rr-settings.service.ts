@@ -58,16 +58,7 @@ export class EycRrSettingsService {
       approve_intake_exception_report: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve': this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve',
       complete_filing: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/',
       updateSubmissionStatus: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/submission-file/update' : this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/submission-file/update',
-      //static data API Endpoints
-      filing_names: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms/displayName' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms/displayName',
-      static_data_stages:this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/stages/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/stages/',
-      add_static_data:this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/stages' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/stages',
-      get_static_data_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/form/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/form/',
-
-      pbi_mapping: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/form/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/pbi_mapping.json',
-      pbi_question_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/questions' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/questions',
-      add_pbi_mapping: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
-
+      
     }
 
     return regulatory_Reporting;

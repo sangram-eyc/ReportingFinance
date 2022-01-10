@@ -22,6 +22,15 @@ export const userAdminstration = {
     roles: {
         roles_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/roleModuleFeatures' : environment.apiEndpoint + 'assets/mock/userroles.json',
         update_roles: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/roleModuleFeatures' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/roleModuleFeatures'
+    },
+    static_data: {
+        filing_names: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms/displayName' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/forms/displayName',
+        static_data_stages: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/stages/' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/stages/',
+        add_static_data: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/stages' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/stages',
+        get_static_data_details: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/form/' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/form/',
+        pbi_mapping: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/form/' : environment.apiEndpoint + 'assets/eyc-regulatory-reporting/mock/pbi_mapping.json',
+        pbi_question_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/questions' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/questions',
+        add_pbi_mapping: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
     }
 };
 
