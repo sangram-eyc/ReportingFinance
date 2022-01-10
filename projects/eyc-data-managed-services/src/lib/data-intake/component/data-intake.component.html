@@ -55,18 +55,20 @@
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
          <motif-card class="donut-chart-card no_data">
             <!-- Donut chart integration -->
-            <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155
-               margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
-               totalExpected="EXPECTED">
+            <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155 margin=13
+               innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES" totalExpected="EXPECTED">
             </lib-donut-chart>
-            <a [routerLink]="['/data-managed-services/files-review']" motifTextLink color="primary-alt"
+         
+            <a [isDisabled]="reviewAllDisabled"
+               [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/files-review']"
+               motifTextLink color="primary-alt" 
                class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>
          </motif-card>
-
          <!-- end  -->
+         
          <!-- Card Review by group Start  -->
          <div class="mt-3 mb-3 box-center">
             <h6 class="heading-6">Review by group</h6>
@@ -77,7 +79,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a [routerLink]="['/data-managed-services/data-providers']"  motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-providers']"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -93,7 +95,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
-                        <a href="#" motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="true" motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
