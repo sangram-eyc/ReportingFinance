@@ -459,7 +459,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
-      this.dataList = dataProvider.data[0]['totalSeriesItem']; //dataSummuries.data[0]['totalSeriesItem'];
+      this.dataList = dataProvider.data[0]['totalSeriesItem'];
       this.totalFileCount = dataProvider.data[0]['totalCount'];
       this.manipulateStatusWithResponse(this.dataList);
     });
@@ -624,9 +624,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
     }
-    //this.fileSummaryList(); // When filter-type will be enable remove this line
+    //this.fileSummaryList(); // When filter-type will be enable uncomment this line
     this.httpDataGridParams.filterTypes = this.httpQueryParams.filterTypes;
-    //this.getReviewFileTableData();
+    //this.getReviewFileTableData(); // When filter-type will be enable uncomment this line
     this.cdr.detectChanges();
   }
 
