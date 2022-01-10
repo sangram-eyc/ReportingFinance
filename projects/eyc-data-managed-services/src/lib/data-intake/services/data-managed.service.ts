@@ -3,6 +3,7 @@ import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
+import {DataGrid} from '../models/data-grid.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +26,28 @@ export class DataManagedService {
     params = params.append('dataIntakeType', DataSummary.dataIntakeType);
     if (DataSummary.filterTypes.length > 0) {
       DataSummary.filterTypes.map((types) => {
+        params = params.append('filterTypes', types);
+      });
+    }
+    return params;
+  }
+
+  httpQueryParamsGrid(dataGrid: DataGrid): HttpParams {
+    // Initialize Params Object
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('startDate', dataGrid.startDate);
+    params = params.append('endDate', dataGrid.endDate);
+    params = params.append('periodType', dataGrid.periodType);
+    params = params.append('dueDate', dataGrid.dueDate);
+    params = params.append('dataFrequency', dataGrid.dataFrequency);
+    params = params.append('dataIntakeType', dataGrid.dataIntakeType);
+    params=params.append('summaryType',dataGrid.summaryType).append('reportType',dataGrid.reportType)
+    .append('clientName',dataGrid.clientName).append('queryPhrase',dataGrid.queryPhrase);
+    
+    if (dataGrid.filterTypes.length > 0) {
+      dataGrid.filterTypes.map((types) => {
         params = params.append('filterTypes', types);
       });
     }
@@ -73,8 +96,8 @@ export class DataManagedService {
   getReviewFilesData() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_data}`);
   }
-
-  getReviewFileTableData() {
-    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`);
+  
+  getReviewFileTableData(params: DataGrid) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`,this.httpQueryParamsGrid(params));
   }
 }
