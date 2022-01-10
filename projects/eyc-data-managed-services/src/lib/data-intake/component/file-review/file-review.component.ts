@@ -71,10 +71,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme: Color;
-  colorScheme2: Color;
-  colorScheme3: Color;
-  colorSchemeAll: Color;
   //end option
 
   // table options
@@ -150,16 +146,18 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   // API Request match with response
   httpQueryParams: DataSummary;
   httpDataGridParams: DataGrid;
+  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
+
+  customColors: any = [
+    { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
+    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+  ];
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2) {
-    this.setColorScheme();
-  }
-  setColorScheme() {
-    this.colorScheme = colorSets.find(s => s.name === 'red');
-    this.colorScheme2 = colorSets.find(s => s.name === 'orange');
-    this.colorScheme3 = colorSets.find(s => s.name === 'teal');
-    this.colorSchemeAll = colorSets.find(s => s.name === 'all');
   }
 
   ngOnInit(): void {
@@ -626,7 +624,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
     }
-    // this.fileSummaryList(); // When filter-type will be enable remove this line
+    //this.fileSummaryList(); // When filter-type will be enable remove this line
+    this.httpDataGridParams.filterTypes = this.httpQueryParams.filterTypes;
+    //this.getReviewFileTableData();
     this.cdr.detectChanges();
   }
 
