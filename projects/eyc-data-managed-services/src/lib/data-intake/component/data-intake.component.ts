@@ -54,6 +54,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   fileSummaries = [];
   fileSummariesObject = [...donutSummariesObject];
+  reviewAllDisabled: boolean = true;
 
   // API Request match with response
   httpQueryParams: DataSummary;
@@ -258,6 +259,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.manipulateStatusWithResponse(this.dataList);
       this.reviewByGroupDomains = dataSummuries.data[0]['dataDomainCount'];
       this.reviewByGroupProviders = dataSummuries.data[0]['dataProvideCount'];
+      this.reviewAllDisabled = (this.dataList.length > 0) ? false : true;
     });
   }
 }
