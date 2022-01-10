@@ -36,7 +36,7 @@ describe('ModuleLevelPermissionService', () => {
 
   it('invokeModulePermissionDetails method should emit permission details',()=>{
     spyOn(service['moduleLevelPermisssionDetails'],'emit');
-    service.invokeModulePermissionDetails();
+    service.invokeModulePermissionDetails({});
     expect(service['moduleLevelPermisssionDetails'].emit).toHaveBeenCalledWith(null);
   });
 

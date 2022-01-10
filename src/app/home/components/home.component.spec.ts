@@ -57,7 +57,7 @@ describe('HomeComponent', () => {
       return of(mockData)
     });
     spyOn(sessionStorage,'setItem');
-    component.permissionList();
+    component.permissionList("reg_reporting");
     expect(component.navigation).toHaveBeenCalled();
     expect(sessionStorage.setItem).toHaveBeenCalledWith("permissionList",JSON.stringify({data:''}))
   });
@@ -66,7 +66,7 @@ describe('HomeComponent', () => {
   it('permissionList method should not set permission and navigate',()=>{
     spyOn(component,'navigation');
     spyOn(sessionStorage,'getItem').and.returnValue('data');
-    component.permissionList();
+    component.permissionList("reg_reporting");
     expect(component.navigation).toHaveBeenCalled();
   })
 

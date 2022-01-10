@@ -2,11 +2,12 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StaticDataService } from './static-data.service';
-import { EycRrApiService } from '../../services/eyc-rr-api.service';
-import { EycRrSettingsService } from '../../services/eyc-rr-settings.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EycRrApiService } from 'projects/eyc-regulatory-reporting/src/lib/services/eyc-rr-api.service';
+import { EycRrSettingsService } from 'projects/eyc-regulatory-reporting/src/lib/services/eyc-rr-settings.service';
+import { userAdminstration } from '@default/helper/api-config-helper';
 
 describe('StaticDataService', () => {
   let service: StaticDataService;
@@ -19,13 +20,7 @@ describe('StaticDataService', () => {
     }
   }
 
-  let eycRrSettingsServiceStub = {
-    regReportingFiling:{
-      filing_names:'/v2/regreporting/static-data/forms/displayName',
-      static_data_stages:'/v2/regreporting/static-data/stages',
-      add_static_data:'/v2/regreporting/static-data/form/'
-    }
-  }
+  let eycRrSettingsServiceStub = {}
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -50,7 +45,7 @@ describe('StaticDataService', () => {
     spyOn(service['apiService'],'invokeGetAPI').and.callFake(()=>{
       return of({"success": true})
     });
-    let url = '/v2/regreporting/static-data/forms/displayName'
+    let url = 'https://10.48.234.20/qa32/gatewayService/api/v2/regreporting/static-data/forms/displayName'
     service.getStaticData();
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url)
   });
@@ -60,7 +55,7 @@ describe('StaticDataService', () => {
       return of({"success": true})
     });
     let mockStageType = 'filing'
-    let url = '/v2/regreporting/static-data/stages'+mockStageType;
+    let url = 'https://10.48.234.20/qa32/gatewayService/api/v2/regreporting/static-data/stages/'+mockStageType;
     service.getStages(mockStageType);
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url)
   });
@@ -70,7 +65,7 @@ describe('StaticDataService', () => {
       return of({"success": true})
     });
     let mockStaticData = []
-    let url = '/v2/regreporting/static-data/form/'
+    let url = 'https://10.48.234.20/qa32/gatewayService/api/v2/regreporting/static-data/stages'
     service.addStaticData(mockStaticData);
     expect(service['apiService'].invokePutAPI).toHaveBeenCalledWith(url,mockStaticData)
   });
