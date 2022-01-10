@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { UpdateFilingService } from '../services/update-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
-import { customComparator } from '../../config/rr-config-helper';
+import { customComparator } from 'eyc-ui-shared-component';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { resolvePtr } from 'dns';
@@ -70,7 +70,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       });
     } else {
       this.location.back();
-      sessionStorage.setItem('regReportingLandingpageTab', '3');
+      sessionStorage.setItem('adminTab', '5');
     }
 
     this.getFilingStages();
@@ -204,7 +204,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   }
 
   backtoLandingPage() {
-    sessionStorage.setItem('regReportingLandingpageTab', '3');
+    sessionStorage.setItem('adminTab', '5');
     this.location.back();
   }
 

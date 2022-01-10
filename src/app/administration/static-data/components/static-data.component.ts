@@ -3,7 +3,7 @@ import { StaticDataService } from './../services/static-data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomGlobalService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
-import { UpdateFilingService } from '../../update-filing-properties/services/update-filing.service';
+import { UpdateFilingService } from '../update-filing-properties/services/update-filing.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 @Component({
   selector: 'lib-static-data',
@@ -37,7 +37,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.tabHighlighted == 3) {
+    if (this.tabHighlighted == 5) {
       this.activeFilings = [];
       this.getStaticData();
       this.getFilingStages();
