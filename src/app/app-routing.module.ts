@@ -8,7 +8,7 @@ import {DashboardNotificationComponent} from './notification/dashboard-notificat
 import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import {TaxReportingComponent} from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/components/tax-reporting.component';
 import { CycleDetailComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/cycle-details/cycle-details.component';
-import { CommentsPagecomponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-page/comments-page.component'; 
+import { CommentsPagecomponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-page/comments-page.component';
 import { DataIntakeLandingComponent } from '../../projects/eyc-data-intake/src/lib/data-intake-landing/components/data-intake-landing.component'
 import { UserDetailsComponent } from './administration/user-details/components/user-details.component';
 import { FundScopingComponent } from 'projects/eyc-regulatory-reporting/src/lib/fund-scoping/components/fund-scoping.component';
@@ -25,6 +25,9 @@ import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-serv
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
+import {
+  ArchivedNotificationsComponent
+} from "@default/notifications/archived-notifications/archived-notifications.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -53,6 +56,7 @@ const routes: Routes = [
   {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
   {path:'data-managed-services/files-review', component:FileReviewComponent},
   { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
+  { path: 'archived-notifications', component: ArchivedNotificationsComponent },
   {path: '**', component: LoginComponent},
 ];
 

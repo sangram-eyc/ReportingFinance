@@ -9,6 +9,8 @@ export class NotificationItemComponent implements OnInit {
 
   @Input() notification;
   @Output() expandNotification = new EventEmitter<any>();
+  @Output() deleteNotification = new EventEmitter<any>();
+  @Output() archiveNotification = new EventEmitter<any>();
 
   constructor() { }
 
@@ -17,5 +19,13 @@ export class NotificationItemComponent implements OnInit {
 
   expand(id): void {
     this.expandNotification.emit(id);
+  }
+
+  delete(): void {
+    this.deleteNotification.emit();
+  }
+
+  archive(): void {
+    this.archiveNotification.emit();
   }
 }

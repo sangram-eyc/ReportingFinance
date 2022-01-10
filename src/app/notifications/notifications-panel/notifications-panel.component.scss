@@ -23,6 +23,9 @@
 
   .notifications-list {
     padding: 15px;
+    max-height: 300px;
+    overflow: auto;
+    margin-bottom: 20px;
   }
 
   .notifications-buttons {

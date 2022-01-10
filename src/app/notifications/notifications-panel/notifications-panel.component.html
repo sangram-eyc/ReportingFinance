@@ -15,14 +15,14 @@
     </div>
   </motif-card-header>
   <div class="notifications-list">
-    <app-notification-item *ngFor="let item of notifications" [notification]="item" (expandNotification)="expand($event)"></app-notification-item>
+    <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item" (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)"></app-notification-item>
   </div>
   <div class="notifications-buttons">
     <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
     <div class="card-button">
       <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
         <motif-icon [src]="'/assets/icons/archived.svg'"></motif-icon>
-        Archived (2)
+        Archived ({{countArchived()}})
       </button>
     </div>
   </div>

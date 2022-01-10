@@ -1,4 +1,4 @@
-<div class="notification-item">
+<div class="notification-item" *ngIf="notification?.status !== 'Archived'">
   <div class="notification-texts">
     <div class="notification-title">{{notification?.title}}</div>
     <div class="notification-desc">{{notification?.expanded ? notification?.longDescription : notification?.shortDescription}}</div>
@@ -8,11 +8,11 @@
     </motif-icon>
     <div class="notification-date">{{notification?.date}}</div>
     <div class="notification-icons" *ngIf="notification?.expanded">
-      <motif-icon class="icon" [src]="'/assets/icons/archived.svg'">
+      <motif-icon (click)="archive()" class="icon" [src]="'/assets/icons/archived.svg'">
       </motif-icon>
       <motif-icon class="icon" [src]="'/assets/icons/flag.svg'">
       </motif-icon>
-      <motif-icon class="icon no-margin" [src]="'/assets/icons/trash.svg'">
+      <motif-icon (click)="delete()" class="icon no-margin" [src]="'/assets/icons/trash.svg'">
       </motif-icon>
     </div>
   </div>

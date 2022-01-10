@@ -5,7 +5,11 @@ export const NOTIFICATIONS_DATA = [
     shortDescription: 'Samantha Specialist mentioned you in a comment...',
     longDescription: 'Samantha Specialist mentioned you in a comment on Form PF GAV>NAV exceptions report: \'@Paul Production the variance on this line item is over the threshold but seems to be accurate based on underlying data. Can you take a look and confirm you agree with passing on this exception?',
     date: '5min',
-    expanded: false
+    received: '01/01/2020',
+    status: 'New',
+    category: 'Any category',
+    expanded: false,
+    isArchived: false
   },
   {
     id: 2,
@@ -13,7 +17,11 @@ export const NOTIFICATIONS_DATA = [
     shortDescription: 'Samantha Specialist mentioned you in a comment...',
     longDescription: 'Samantha Specialist mentioned you in a comment on Form PF GAV>NAV exceptions report: \'@Paul Production the variance on this line item is over the threshold but seems to be accurate based on underlying data. Can you take a look and confirm you agree with passing on this exception?',
     date: '5min',
-    expanded: false
+    received: '01/01/2020',
+    status: 'New',
+    category: 'Any category',
+    expanded: false,
+    isArchived: false
   },
   {
     id: 3,
@@ -21,7 +29,11 @@ export const NOTIFICATIONS_DATA = [
     shortDescription: 'Samantha Specialist mentioned you in a comment...',
     longDescription: 'Samantha Specialist mentioned you in a comment on Form PF GAV>NAV exceptions report: \'@Paul Production the variance on this line item is over the threshold but seems to be accurate based on underlying data. Can you take a look and confirm you agree with passing on this exception?',
     date: '5min',
-    expanded: false
+    received: '01/01/2020',
+    status: 'New',
+    category: 'Any category',
+    expanded: false,
+    isArchived: false
   },
   {
     id: 4,
@@ -29,6 +41,10 @@ export const NOTIFICATIONS_DATA = [
     shortDescription: 'Samantha Specialist mentioned you in a comment...',
     longDescription: 'Samantha Specialist mentioned you in a comment on Form PF GAV>NAV exceptions report: \'@Paul Production the variance on this line item is over the threshold but seems to be accurate based on underlying data. Can you take a look and confirm you agree with passing on this exception?',
     date: '5min',
-    expanded: false
+    received: '01/01/2020',
+    status: 'New',
+    category: 'Any category',
+    expanded: false,
+    isArchived: false
   },
 ];

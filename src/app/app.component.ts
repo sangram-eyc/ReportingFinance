@@ -10,6 +10,7 @@ import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT, HIDE_HOME_PAGE } fr
 import {SettingsService} from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
 
 
 
@@ -44,7 +45,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   };
   constructor(
     private oauthservice: OAuthService,
-    private loaderService: LoaderService, 
+    private loaderService: LoaderService,
     private router: Router,
     private cdRef : ChangeDetectorRef,
     private settingsService: SettingsService,
@@ -52,7 +53,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public dialog: MatDialog,
     ){
     // To hide header and footer from login page
-  
+
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -60,7 +61,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         }
       });
 
-      
+    if (!localStorage.getItem('notifications')) {
+        localStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
+      }
   }
 
   checkTimeOut() {
@@ -95,7 +98,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
        this.router.navigate(['home'])
     }
-    
+
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
           const uname = res;
@@ -108,16 +111,16 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
-        
+
       }, 100)
-      
+
     });
   }
 
- 
+
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
-    
+
   }
 
 
@@ -128,7 +131,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         if(this.count == 1){
           this.checkTimeOut();
         }
-        
+
       }
     }, 0);
   }
@@ -156,12 +159,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   public notification() {
-    
+
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
 
     setTimeout(() => {
-      this.notifFlag = false; 
+      this.notifFlag = false;
     }, 1000);
   }
 
@@ -191,8 +194,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     clearTimeout(this.timeoutId);
     this.checkTimeOut();
   }
- 
-  
+
+
 
   toggleSubMenu(toggleId) {
     if (this.mini) {
@@ -224,5 +227,5 @@ onMessage(event) {
 
   }
 }
-   
+
 }
