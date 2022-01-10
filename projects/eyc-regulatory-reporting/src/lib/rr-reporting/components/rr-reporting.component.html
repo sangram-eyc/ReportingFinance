@@ -13,7 +13,7 @@
     </motif-toast>
 
     <section id="exceptionReports" [hidden]="!(tabs==1)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionData"
+        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
@@ -53,7 +53,7 @@
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
             [isToggle]="false" [modalConfig]="filingModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"

@@ -180,6 +180,8 @@ export class SubmissionComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 300,
+        sortable: true,
+        filter:true,
         sort:'asc',
         comparator: customComparator
       },

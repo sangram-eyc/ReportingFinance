@@ -59,6 +59,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   exceptionDetailCellRendererParams;
   exceptionReportRows;
   rowData = [];
+  filingEntityRowData = [];
+  exceptionRowData = [];
   submitFunction;
   submitException;
   submitEntities;
@@ -159,6 +161,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     };
     this.columnDefs = [];
     this.exceptionDefs = [];
+    this.filingEntityRowData = [];
+    this.exceptionRowData = [];
     setTimeout(() => {
       this.columnDefs = [
         {
@@ -361,6 +365,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           width: 50
         }
       ];
+      this.filingEntityRowData = this.rowData;
+      this.exceptionRowData = this.exceptionData;
     }, 1);
       
   }
