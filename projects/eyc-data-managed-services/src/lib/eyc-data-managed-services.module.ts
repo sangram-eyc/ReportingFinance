@@ -17,7 +17,7 @@ import { ExceptionsReportsComponent } from './data-intake/component/exceptions-r
 
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from './data-intake/component/donut-grid-list/donut-grid-list.component';
-import { GeneralLedgerComponent } from './data-intake/component/general-ledger/general-ledger.component';
+import { ExceptionsComponent } from './data-intake/component/exceptions/exceptions.component';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { GeneralLedgerComponent } from './data-intake/component/general-ledger/g
     DataIntakeComponent,
     ExceptionsReportsComponent,
     FileReviewComponent,
-    GeneralLedgerComponent,
+    ExceptionsComponent,
     DonutGridListComponent],
   imports: [
     BrowserModule,

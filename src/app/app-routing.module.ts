@@ -26,7 +26,7 @@ import { CommentsDetailsComponent } from '../../projects/eyc-tax-reporting/src/l
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
-import { GeneralLedgerComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/general-ledger/general-ledger.component';
+import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
 import { UpdateFilingPropertiesComponent } from './administration/static-data/update-filing-properties/components/update-filing-properties.component';
 
 const routes: Routes = [
@@ -54,11 +54,11 @@ const routes: Routes = [
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
-  {path:'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
-  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
-  {path:'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
-  { path: 'data-managed-services/files/general-ledger', component: GeneralLedgerComponent, canActivate : [AuthGuardService] },
-  { path: 'data-managed-services/data-providers', component:DonutGridListComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
+  {path: 'data-managed-services/files/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
+  {path: 'data-managed-services/files/exceptions', component: ExceptionsComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services/data-providers', component:DonutGridListComponent, canActivate : [AuthGuardService] },
   {path: '**', component: LoginComponent},
 ];
 

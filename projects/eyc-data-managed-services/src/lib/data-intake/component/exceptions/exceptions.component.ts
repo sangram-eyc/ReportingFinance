@@ -6,11 +6,11 @@ import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared
 import { GridDataSet } from '../../models/grid-dataset.model';
 
 @Component({
-  selector: 'lib-general-ledger',
-  templateUrl: './general-ledger.component.html',
-  styleUrls: ['./general-ledger.component.scss']
+  selector: 'lib-exceptions',
+  templateUrl: './exceptions.component.html',
+  styleUrls: ['./exceptions.component.scss']
 })
-export class GeneralLedgerComponent implements OnInit {
+export class ExceptionsComponent implements OnInit {
   single = [];
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
