@@ -11,6 +11,8 @@ import {SettingsService} from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
+import {EycWebSocketService} from './services/eyc-web-socket.service';
+
 
 
 
@@ -44,6 +46,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isAdmin: false,
     isRegReporting: false
   };
+  private socket: any;
+  wsBulkService: any;
+  pendingDownloads: any;
+  pendingDownloadsNew: any;
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -52,6 +58,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private settingsService: SettingsService,
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
+    private eycWebSocketSvc: EycWebSocketService
     ){
     // To hide header and footer from login page
 
@@ -61,14 +68,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
          this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
-
-    if (!sessionStorage.getItem('notifications')) {
-      sessionStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
-    }
-
-    if (!sessionStorage.getItem('isNotificationRead')) {
-      this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? true : false;
-    }
+     
+    
   }
 
   checkTimeOut() {
@@ -122,6 +123,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
+  
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
@@ -131,14 +133,29 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   ngAfterViewChecked() {
     setTimeout(() => {
-      if (this.settingsService.isUserLoggedin()) {
-        this.count++;
-        if(this.count == 1){
+    if (this.settingsService.isUserLoggedin()) {
+       this.count++;
+        if (this.count == 1) {
           this.checkTimeOut();
+          //for the warnings and notifications bulk download process of tax-reporting
+          this.eycWebSocketSvc.connect().subscribe(resp => {
+            console.log("Intial Response",resp)
+            if (resp.trim() === "Connection Established") {
+              //to open the websocket conection
+              this.openConectionBulkWs();
+            } else {
+              this.bulkDownloadWarnings(resp);
+              //Some function for notifications with the object resp
+              //end the code for notifications
+            }
+          },
+            err => { console.log('ws bulk error', err) },
+            () => console.log('ws bulk complete'));
         }
-
       }
+
     }, 0);
+
   }
 
 
@@ -167,6 +184,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
+    sessionStorage.setItem("isNotificationRead","true");
+    this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? true : false;
 
     setTimeout(() => {
       this.notifFlag = false;
@@ -232,5 +251,42 @@ onMessage(event) {
 
   }
 }
+
+  openConectionBulkWs() {
+
+    const userEmail = sessionStorage.getItem("userEmail");
+    console.log("Socket Email",sessionStorage.getItem("userEmail"));
+    this.eycWebSocketSvc.openConection(userEmail);
+  }
+
+  bulkDownloadWarnings(objectFromServer: string) {
+    try {
+      const objectFromWs = JSON.parse(objectFromServer);
+      const objectContent = JSON.parse(objectFromWs.request.content);
+      //Enable Below line if you are reading from the server
+      //sessionStorage.setItem('notifications', JSON.stringify(objectFromServer));
+      //Enable below line if you are reading data from local
+      sessionStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
+      this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? false : true;
+      const url = objectContent.extraParameters.downloadUrl;
+      if (url != "") {
+        window.open(url);
+      }
+      const fails = Number(objectContent.extraParameters.fails);
+      if (fails > 0) {
+        const fundsNames = JSON.parse(objectContent.extraParameters.failsName).join(',');
+        //  this.openPendingDownloadsTaxModal("Error", 
+        //  "Some of selected files had errors, so that can't be downloaded. Please reload the page and try again the missing file(s) from : " + fundsNames + ".");
+      }
+      if (sessionStorage.getItem("pendingDownloadsBulk") != null) {
+        const id = objectContent.extraParameters.downloadId;
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+        this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
+        sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloadsNew));
+      }
+    } catch (err) {
+      console.log('bulkDownloadWarnings Error ->', err);
+    }
+  }
 
 }

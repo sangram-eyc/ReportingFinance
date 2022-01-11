@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NOTIFICATIONS_DATA} from '@default/notifications/notifications';
-import { io, Socket } from 'socket.io-client';
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,23 +7,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./notifications-panel.component.scss']
 })
 export class NotificationsPanelComponent implements OnInit {
-
   public notifications;
-
-  private socket: any;
   public data: any;
 
   constructor(private router: Router) {
-    this.socket = io('http://127.0.0.1:3000');
   }
 
   ngOnInit(): void {
-    this.socket.on('notification', data => {
-      this.notifications.unshift(data.data);
-    });
-
     this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
-    sessionStorage.setItem("isNotificationRead","true");
   }
 
   delete(i): void {

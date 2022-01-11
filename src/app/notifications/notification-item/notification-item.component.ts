@@ -28,4 +28,14 @@ export class NotificationItemComponent implements OnInit {
   archive(): void {
     this.archiveNotification.emit();
   }
+
+  // We Should not a call a method from the template, it will hamper the performance. We need to implement a pipe to calculate the time or this prop should come from the API - By Debabrata 12-01-2022
+  calculateNotificationTime(dateSent) {
+    const sentOnDate = new Date(dateSent);
+    const differenceInDays =
+      (Math.abs(sentOnDate.getTime() - new Date().getTime()) / (1000 * 60)) % 60;
+    return Math.ceil(differenceInDays) + 'min';
+
+  }
+  
 }

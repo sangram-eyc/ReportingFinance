@@ -37,5 +37,5 @@ export const token_interceptor = {
     
 };
 
-export const notifier_ws =  environment.production ? environment.apiEndpoint + '/notifierAgentService/ws-notifier-agent-communication' : 'http://127.0.0.1:8081/notifierAgentService/ws-notiier-agent-communication';
+export const notifier_ws = !environment.production ? 'wss://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication': 'https://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication';
 
