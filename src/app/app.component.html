@@ -21,11 +21,18 @@
     </section>
     <ul id="user-info">
       <li class="user-text">Welcome {{ userGivenName }}</li>
+      
       <li class="header-avatar">
         <motif-avatar [userName]="loginName" status="online" *ngIf="loginName"></motif-avatar>
       </li>
       <li class="header-notification" #notificationicon>
         <div id="bell-header">
+          <div *ngIf="!this.isNotificationRead" class="notifier-class">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3.5" cy="3.5" r="3.5" fill="#FF736A" />
+            </svg>
+          </div>
+          
           <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
           </motif-icon>
         </div>

@@ -15,15 +15,19 @@
     </div>
   </motif-card-header>
   <div class="notifications-list">
-    <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item" (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)"></app-notification-item>
+    <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item"
+      (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)">
+    </app-notification-item>
   </div>
   <div class="notifications-buttons">
     <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
-    <div class="card-button">
-      <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
-        <motif-icon [src]="'/assets/icons/archived.svg'"></motif-icon>
+    <!-- Archived button needs to be enabled once the page functionality is completed -->
+    <!-- <div class="card-button">
+      <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()" [disabled]="true">
+        <motif-icon [src]="'/assets/icons/archived.svg'" class="notification-icon-disabled"></motif-icon>
         Archived ({{countArchived()}})
       </button>
-    </div>
+    </div> -->
+      <!-- Archived button needs to be enabled once the page functionality is completed -->
   </div>
 </motif-card>

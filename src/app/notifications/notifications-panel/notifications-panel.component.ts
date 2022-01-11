@@ -24,21 +24,22 @@ export class NotificationsPanelComponent implements OnInit {
       this.notifications.unshift(data.data);
     });
 
-    this.notifications = JSON.parse(localStorage.getItem('notifications'));
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
+    sessionStorage.setItem("isNotificationRead","true");
   }
 
   delete(i): void {
     this.notifications.splice(i, 1);
     event.stopPropagation();
     event.preventDefault();
-    localStorage.setItem('notifications', JSON.stringify(this.notifications));
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   archive(i): void {
     this.notifications[i].status = 'Archived';
     event.stopPropagation();
     event.preventDefault();
-    localStorage.setItem('notifications', JSON.stringify(this.notifications));
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   expand(id): void {

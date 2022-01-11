@@ -32,6 +32,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   notificationCount = 0;
   loginName;
   notifFlag = false;
+  isNotificationRead =false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
   hide_home_page = HIDE_HOME_PAGE;
@@ -61,9 +62,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         }
       });
 
-    if (!localStorage.getItem('notifications')) {
-        localStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
-      }
+    if (!sessionStorage.getItem('notifications')) {
+      sessionStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
+    }
+
+    if (!sessionStorage.getItem('isNotificationRead')) {
+      this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? true : false;
+    }
   }
 
   checkTimeOut() {
