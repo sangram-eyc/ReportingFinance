@@ -6,12 +6,11 @@ import { StaticDataService } from '../services/static-data.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { StaticDataComponent } from './static-data.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { EycRrApiService } from '../../services/eyc-rr-api.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY } from '@angular/material/dialog';
-import { UpdateFilingService } from '../../update-filing-properties/services/update-filing.service';
 import { of } from 'rxjs';
+import { UpdateFilingService } from '../update-filing-properties/services/update-filing.service';
 describe('StaticDataComponent', () => {
   let component: StaticDataComponent;
   let fixture: ComponentFixture<StaticDataComponent>;
@@ -67,7 +66,7 @@ describe('StaticDataComponent', () => {
   });
 
   it('ngOnChanges should set filings and stages data', () => {
-    component.tabHighlighted = 3;
+    component.tabHighlighted = 5;
     spyOn(component, 'getStaticData');
     spyOn(component, 'getFilingStages');
     spyOn(component, 'getScopingStages');

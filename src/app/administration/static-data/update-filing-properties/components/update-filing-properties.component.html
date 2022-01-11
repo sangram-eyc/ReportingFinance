@@ -7,7 +7,7 @@
   </div>
   <div class="info-header">
     <div class="title-wrapper"><h3>{{filingData?.filingName}}</h3></div>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable || enableEditReportID" class="user-edit"
       *ngIf="!enableEditor && permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
       (click)="enableEditForm()">
       <span *ngIf="!enableEditor && filingInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
@@ -138,10 +138,10 @@
         (click)="onSaveReportID()">Save</button>
         <button class="cancel_edit_reportid_button" *ngIf="enableEditReportID" motifButton color="secondary" size="large"
         (click)="onCancelReportID()">Cancel</button>
-      <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary" size="large"
+      <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary" size="large" [disabled]="disableAddMemberButton"
         (click)="enableEditReportId()">Edit</button>
     </div>
-    <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton"
+    <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third"
@@ -194,7 +194,7 @@
       </motif-modal-header>
       <motif-modal-body>
         <motif-toggle-switch [prelabel]="'Question List'" [postlabel]="'Switch to Edit mode'"
-          [(ngModel)]="questionSwitch" (ngModelChange)="onChangeQuestionSwitch($event)"></motif-toggle-switch>
+          [(ngModel)]="questionSwitch" (ngModelChange)="onChangeQuestionSwitch($event)" ngDefaultControl></motif-toggle-switch>
         <form [formGroup]="addPBIReportForm">
           <span class="description" *ngIf="!questionSwitch"> Select PBI Questions to the filing</span>
           <span class="description" *ngIf="questionSwitch"> Enter PBI Questions to the filing</span>

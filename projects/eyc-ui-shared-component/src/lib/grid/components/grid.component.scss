@@ -215,6 +215,30 @@
     border-bottom: solid 1px #e1e1e6 !important;
   }
 
-  ::ng-deep .ag-cell.ag-cell-not-inline-editing.ag-cell-auto-height.ag-cell-last-left-pinned.srno-class {
+  ::ng-deep .srno-class {
       left: 32px !important;
   }
+
+  ::ng-deep .ag-cell-value, .ag-cell {
+    overflow: visible !important;
+  }
+
+  ::ng-deep .ag-cell {
+    overflow: visible;
+  }
+  
+  ::ng-deep .ag-row {
+    z-index: 0;
+  }
+  
+  ::ng-deep .ag-row.ag-row-focus {
+    z-index: 1;
+  }
+  
+  ::ng-deep .ag-root,
+  ::ng-deep .ag-root-wrapper,
+  ::ng-deep .ag-body-viewport,
+  ::ng-deep .ag-body-viewport-wrapper {
+    overflow: visible !important;
+  }
+  

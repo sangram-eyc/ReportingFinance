@@ -174,12 +174,14 @@ export class SubmissionComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Report Name',
+        headerName: 'File Name',
         field: 'fileName',
         cellClass: 'custom-report-name',
         wrapText: true,
         autoHeight: true,
         width: 300,
+        sortable: true,
+        filter:true,
         sort:'asc',
         comparator: customComparator
       },
@@ -202,7 +204,7 @@ export class SubmissionComponent implements OnInit {
           ngTemplate:this.dateSubmittedTemplate
         },
         field:'dateSubmitted',
-        headerName:'Date submitted',
+        headerName:'Status Changed',
         sortable: true,
         filter:true,
         minWidth: 180,

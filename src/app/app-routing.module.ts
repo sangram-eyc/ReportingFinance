@@ -27,7 +27,7 @@ import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/s
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
 import { GeneralLedgerComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/general-ledger/general-ledger.component';
-import { UpdateFilingPropertiesComponent } from 'projects/eyc-regulatory-reporting/src/lib/update-filing-properties/components/update-filing-properties.component';
+import { UpdateFilingPropertiesComponent } from './administration/static-data/update-filing-properties/components/update-filing-properties.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},

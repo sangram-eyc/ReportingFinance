@@ -59,6 +59,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   exceptionDetailCellRendererParams;
   exceptionReportRows;
   rowData = [];
+  filingEntityRowData = [];
+  exceptionRowData = [];
   submitFunction;
   submitException;
   submitEntities;
@@ -157,6 +159,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
     };
+    this.columnDefs = [];
+    this.exceptionDefs = [];
+    this.filingEntityRowData = [];
+    this.exceptionRowData = [];
+    setTimeout(() => {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -181,7 +188,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           minWidth: 70,
           width: 70,
           sortable: false,
-          cellClass: 'actions-button-cell'
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -279,7 +287,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           minWidth: 70,
           width: 70,
           sortable: false,
-          cellClass: 'actions-button-cell'
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -356,6 +365,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           width: 50
         }
       ];
+      this.filingEntityRowData = this.rowData;
+      this.exceptionRowData = this.exceptionData;
+    }, 1);
+      
   }
 
   handleGridReady(params) {

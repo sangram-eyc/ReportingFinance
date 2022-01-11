@@ -12,8 +12,7 @@
             [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Active Reports</button>
         <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
             [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Reports History</button>
-        <button *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'View Static Data')" motifButton class="motif-text-link" (click)="reportTabChange(3)"
-            [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Static Data</button>
+        
     </motif-tab-bar>
 </div>
 
@@ -170,8 +169,4 @@
         </motif-card-body>
     </motif-card>
 
-</section>
-
-<section id='static-data' [hidden]="!(tabIn == 3)">
-<lib-static-data [tabHighlighted]="tabIn"></lib-static-data>
 </section>
