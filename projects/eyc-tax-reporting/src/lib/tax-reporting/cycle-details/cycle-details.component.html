@@ -299,3 +299,10 @@
     <button type="button" class="close" (click)="closeToast()">&times;</button>
   </motif-toast>
 </div>
+
+<div class="toast-bulk-download">
+  <motif-toast [type]="'success'" [show]="showToastAfterSubmitBulk">
+    {{toastSuccessMessage}}
+    <button type="button" class="close" (click)="closeToast()">&times;</button>
+  </motif-toast>
+</div>
