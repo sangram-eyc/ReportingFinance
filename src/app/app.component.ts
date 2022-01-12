@@ -2,7 +2,6 @@ import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewC
 import { Component, HostListener} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { timeStamp } from 'console';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
@@ -10,7 +9,6 @@ import { SESSION_ID_TOKEN,SESSION_ACCESS_TOKEN,IS_SURE_FOOT, HIDE_HOME_PAGE } fr
 import {SettingsService} from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
-import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
 import {EycWebSocketService} from './services/eyc-web-socket.service';
 
 
@@ -101,6 +99,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   ngOnInit(): void {
+    this.isNotificationRead = true;
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
        this.router.navigate(['home'])
     }
@@ -185,7 +184,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
     sessionStorage.setItem("isNotificationRead","true");
-    this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? true : false;
+    this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true';
 
     setTimeout(() => {
       this.notifFlag = false;
@@ -262,12 +261,17 @@ onMessage(event) {
   bulkDownloadWarnings(objectFromServer: string) {
     try {
       const objectFromWs = JSON.parse(objectFromServer);
+      // const objectRequest = objectFromWs.request;
+      const storedNotifications = sessionStorage.getItem('notifications');
+      const notifications = storedNotifications ? JSON.parse(storedNotifications) : [];
+      notifications.push(objectFromWs);
       const objectContent = JSON.parse(objectFromWs.request.content);
-      //Enable Below line if you are reading from the server
-      //sessionStorage.setItem('notifications', JSON.stringify(objectFromServer));
+
+      sessionStorage.setItem('notifications', JSON.stringify(notifications));
       //Enable below line if you are reading data from local
-      sessionStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
-      this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true' ? false : true;
+      // sessionStorage.setItem('notifications', JSON.stringify(NOTIFICATIONS_DATA));
+      this.isNotificationRead = false;
+      sessionStorage.setItem('isNotificationRead', 'false');
       const url = objectContent.extraParameters.downloadUrl;
       if (url != "") {
         window.open(url);

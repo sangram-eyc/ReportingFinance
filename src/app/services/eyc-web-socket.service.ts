@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment';
+import {environment} from '@env/environment';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import {notifier_ws} from '../helper/api-config-helper';
 
@@ -21,9 +21,9 @@ export class EycWebSocketService {
    private getNewWebSocket(){
     //let origin = window.location.origin + window.location.pathname;
     const base_url_ws = notifier_ws;
-    const WS_ENDPOINT = !environment.production ? 
+    const WS_ENDPOINT = environment.production ?
                       environment.production + base_url_ws.trim(): base_url_ws;
-    const url_ws = WS_ENDPOINT.replace("https:", "wss:");
+    const url_ws = WS_ENDPOINT.replace("https:", "ws:");
     console.log("url ws->", url_ws);
     return webSocket({url: url_ws,
         deserializer: ({data}) => data,
