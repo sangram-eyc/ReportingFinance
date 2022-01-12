@@ -29,7 +29,7 @@
             <motif-icon [src]="'/assets/icons/image/ic_brightness_1_24px.svg'"></motif-icon>
         </span>
         <div>{{row.status}}</div>
-        <span class="edit_icon"
+        <span class="edit_icon" [ngClass]="{'disabled': selectedRows.length!=0}"
             *ngIf="permissions.validatePermission('Submission', 'File Status Change') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" (click)="enableUpdateStatusModal(row, 'single')">
             </motif-icon>
