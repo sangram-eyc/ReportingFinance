@@ -25,8 +25,50 @@
       font-weight: 300;
       font-size: 14px;
       line-height: 20px;
-      color: #000000;
+      color: #1a1313;
   }
+
+    .charts-comment{
+      .total-comments{
+        background-color: #EAEAF2; 
+        height: 51px; 
+        width: 112px; 
+        margin-left: 7px;
+      }
+    }
+
+    .wrapper-approve-btn{
+      text-align: right;
+      button{
+        display: inline;
+      }
+    }
+      
+    .search-icon-1{
+      margin-left: -15px;
+      svg{
+        fill: rgb(0 0 0 / 0%) !important;
+        display:inline; 
+        width:100%;
+        height:100%;
+      }
+    }
+    
+    .search-icon-2{
+      margin-left: -60px !important;
+      z-index: 1 !important;
+      svg{
+        display:inline; 
+        width:100%;
+        height:100%;
+      }
+    }
+
+    .input-group motif-form-field{
+      margin-left: -25px !important; 
+      width: 92% !important;
+    }
+
   
     #grid-wrapper {
       ::ng-deep {
@@ -203,6 +245,9 @@
     top: 4px;
     position: relative;
     left: 3px;
+    span{
+      font-weight: 400;
+    }
   }
   
   h3 {
@@ -523,7 +568,7 @@
 
   .msg-new-comment{
     font-family: EYInterstate;
-    color: #747580;
+    color: #C4C4CD
   }
 
   .section-list-comments {
