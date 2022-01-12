@@ -322,7 +322,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
       const fails = Number(objectContent.extraParameters.fails);
       if(fails > 0){
-         const fundsNames = JSON.parse(objectContent.extraParameters.failsName).join(',');
+         const fundsNames = objectContent.extraParameters.failsName
          this.openPendingDownloadsTaxModal("Error", 
          "Some of selected files had errors, so that can't be downloaded. Please reload the page and try again the missing file(s) from : " + fundsNames + ".");
       } 
