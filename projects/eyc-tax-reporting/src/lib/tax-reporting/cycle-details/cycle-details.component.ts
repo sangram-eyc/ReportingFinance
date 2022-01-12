@@ -297,7 +297,7 @@ export class CycleDetailComponent implements OnInit {
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
           totalComments: item.totalComments,
-          statusChangesDate: item.statusChangesDate,
+          lastUpdatedDate: item.lastUpdatedDate,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         //total opens comments by product-cycle
@@ -349,7 +349,7 @@ export class CycleDetailComponent implements OnInit {
         openCommentsEY: fund.openCommentsEY,
         openCommentsClient: fund.openCommentsClient,
         totalComments: fund.totalComments,
-        statusChangesDate: fund.statusChangesDate,
+        lastUpdatedDate: fund.lastUpdatedDate,
         assignedTo: fund.assignedTo,
         assignedToSearch: fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
@@ -419,7 +419,7 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.statusChangedToTemplate,
         },
         headerName: 'status changed',
-        field: 'statusChangesDate',
+        field: 'lastUpdatedDate',
         sortable: true,
         filter: true,
         resizeable: true,
