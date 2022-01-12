@@ -288,7 +288,8 @@
   </ng-template>
 
   <ng-template #statusChangedToTemplate let-row>
-    <span class='status-changes'> {{row.statusChangesDate}} </span>
+    <span *ngIf="row.status != 'In EY tax preparation'"class='status-changes'> {{row.lastUpdatedDate | date: 'MM/dd/yyyy'}} </span>
+    <span *ngIf="row.status == 'In EY tax preparation'" class='status-changes'> -- </span>
   </ng-template>
 
 </div>
