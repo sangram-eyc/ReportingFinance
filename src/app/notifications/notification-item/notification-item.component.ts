@@ -56,4 +56,8 @@ export class NotificationItemComponent implements OnInit {
     }
     return Math.floor(seconds) + ' sec';
   }
+
+  getContentHtml(content): any {
+    return JSON.parse(content).content;
+  }
 }

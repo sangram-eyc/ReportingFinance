@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
 
 @Component({
   selector: 'app-notifications-panel',
@@ -14,7 +15,7 @@ export class NotificationsPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
+    this.notifications = JSON.parse(localStorage.getItem('notifications'));
   }
 
   delete(i): void {
@@ -33,12 +34,11 @@ export class NotificationsPanelComponent implements OnInit {
 
   expand(id): void {
    this.notifications.forEach( item => {
-     if (item.id !== id) {
-       item.expanded = false;
+     if (item.engineId !== id) {
+       item.request.expanded = false;
      }
    });
-
-   this.notifications.find(item => item.id === id).expanded = !this.notifications.find(item => item.id === id).expanded;
+   this.notifications.find(item => item.engineId === id).request.expanded = !this.notifications.find(item => item.engineId === id).request.expanded;
   }
 
   countArchived() {

@@ -18,12 +18,26 @@
       font-size: 12px;
       line-height: 16px;
       color: #747480;
+
+      p {
+        margin: 0 !important;
+      }
     }
 
     .notification-short-desc {
       font-size: 12px;
       line-height: 16px;
       color: #23232F;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      p {
+        margin: 0 !important;
+      }
     }
   }
 
