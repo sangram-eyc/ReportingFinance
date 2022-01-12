@@ -182,6 +182,7 @@ export class CycleDetailComponent implements OnInit {
   datasetsSelectedRows;
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
+  showToastAfterSubmitBulk = false;
   widthDivChart;
   dataToChart;
   taxPreparationCount;
@@ -748,6 +749,7 @@ export class CycleDetailComponent implements OnInit {
 
   closeToast() {
     this.showToastAfterSubmit = false;
+    this.showToastAfterSubmitBulk = false;
   }
 
   getOptionsProductCycles() {
@@ -887,10 +889,10 @@ export class CycleDetailComponent implements OnInit {
 
         dialogRef.componentInstance.bulkprocesed.subscribe(result => {
           //console.log('Finalizo el bulk download:', result);   
-          this.toastSuccessMessage = "Bulk Download finished successfully";
-          this.showToastAfterSubmit = true;
+          this.toastSuccessMessage = "Download in progress. This may take a few minutes.";
+          this.showToastAfterSubmitBulk = true;
           setTimeout(() => {
-            this.showToastAfterSubmit = false;
+            this.showToastAfterSubmitBulk = false;
           }, 4000);
         });
       }
