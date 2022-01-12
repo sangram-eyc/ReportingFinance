@@ -112,6 +112,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   highIssueVariant: string = this.lightVariant;
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
+  filterByIssueType: string = 'all';
 
   dataset: GridDataSet[] = [{
     disable: false,
@@ -164,7 +165,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
     this.tabIn = 1;
-    this.getReviewFilesData();
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -528,18 +528,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }));
   }
 
-  getReviewFilesData() {
-    // Mock API integration for Review File
-    this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.stackBarChartGridData = data.data["dataseries"];
-    });
-  }
-
   filterByIssues(issues: string, variants: string) {
     if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
     }
-    issues = 'all';  // When filter-type will be enable remove this line
+    issues = this.filterByIssueType;  // When filter-type will be enable remove this line
     switch (issues) {
       case 'all':
         if (variants === this.lightVariant) {
