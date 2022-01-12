@@ -187,3 +187,7 @@
 .error_msg {
     color: #b9251c;
 }
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
