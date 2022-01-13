@@ -59,11 +59,7 @@
                         <span class="column-header">Status</span>
                         <div class="progress-indicator-container">
                             <motif-progress-indicators>
-                                <motif-progress-step [status]="getStatus(1)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(2)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(3)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(4)"></motif-progress-step>
-                                <motif-progress-step [status]="getStatus(5)"></motif-progress-step>
+                                <motif-progress-step [status]="getStatus(i+1)"  *ngFor="let item of states;index as i"></motif-progress-step>
                             </motif-progress-indicators>
                             <div class="line"></div>
                         </div>
