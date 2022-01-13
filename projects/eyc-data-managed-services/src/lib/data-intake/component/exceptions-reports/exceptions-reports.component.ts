@@ -1,11 +1,10 @@
+import { formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { ColDef } from 'ag-grid-community';
-import { DataManagedService } from '../../services/data-managed.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
-import { formatDate } from '@angular/common';
+import { DataManagedService } from '../../services/data-managed.service';
 
 @Component({
   selector: 'lib-exceptions-reports',

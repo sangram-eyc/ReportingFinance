@@ -190,8 +190,8 @@
 
    <div id="grid-wrapper">
       <motif-card>
-         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="stackBarChartGridData"
-            (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
+         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
+            (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false" [suppressCellSelection]="true"
             [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
          </motif-table>
       </motif-card>
@@ -253,7 +253,10 @@
    </ng-template>
 
    <ng-template #nextButtonTemplate let-row>
-      <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+      <a [routerLink]="['/data-managed-services/files/exceptions',row.dataDomain]"
+               motifTextLink color="primary-alt">
+               <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+            </a>  
    </ng-template>
 
    <!-- Tooltip -->

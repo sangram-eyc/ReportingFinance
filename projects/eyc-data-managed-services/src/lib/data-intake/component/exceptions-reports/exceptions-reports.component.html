@@ -115,23 +115,8 @@
     <div class="grid-wrapper">
         <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
             (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-            [pagination]="true" paginationPageSize="10"></motif-table>
-
-            
-            <ng-template #commentTemplate let-row>
-                <div class="comments-background" (click)="openComments(row)">
-                    {{5}}
-                </div>
-                <div class="commentTemplate"
-                    *ngIf="(row.commentsCount===0 || !row.commentsCount)">
-                    <div class="add_icon">
-                        <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span
-                                class="plus">+</span></motif-icon>
-                    </div>
-                </div>
-            </ng-template>
+            [pagination]="true" paginationPageSize="10"></motif-table> 
+           
     </div>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
-    [filingName]="commentsName" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu> -->

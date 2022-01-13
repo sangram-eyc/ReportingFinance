@@ -16,6 +16,8 @@ import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dt
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RowClickedEvent } from 'ag-grid-community';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-file-review',
@@ -158,7 +160,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2, private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -209,6 +211,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
    
     this.fileSummaryList();
     this.getReviewFileTableData();
+  }
+
+  onRowClicked (event: RowClickedEvent){
+    this._router.navigate(['/data-managed-services/files/exceptions',event.data.dataDomain]);
   }
 
   searchCompleted(input) {

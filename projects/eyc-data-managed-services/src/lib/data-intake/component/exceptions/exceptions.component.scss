@@ -64,15 +64,41 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-  
     ::ng-deep {
       .motif-icon {
         cursor: pointer;
       }
-  
       .motif-button {
         min-height: 30px;
+        
       }
+    }
+  }
+  
+  .date-ui{
+  
+    ::ng-deep .motif-form-field {
+      margin-bottom: 0!important;
+      ::ng-deep .motif-input{
+        background-color: #ffffff !important;
+      }
+      
+      border-bottom: 1px solid #2E2E38 !important;
+      .motif-label{
+        margin:0 !important;
+      }
+      input#datepicker{
+        min-width: 266px !important; 
+      }
+    }
+  
+    ::ng-deep .motif-hover .motif-input{
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #2E2E38 !important;
+    } 
+    ::ng-deep .motif-focus .motif-input{
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #2E2E38 !important;
     }
   }
   
