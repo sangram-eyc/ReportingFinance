@@ -278,3 +278,18 @@
 motif-icon.motif-icon.actionCursor {
     cursor: pointer;
 }
+.result_warning {
+    ::ng-deep svg {
+      fill: #FF9831;
+    }
+  }
+  .result_complete {
+  ::ng-deep svg {
+    fill: #168736;
+  }
+  }
+  .complete {
+    ::ng-deep svg {
+        fill: #168736;
+    }
+  }

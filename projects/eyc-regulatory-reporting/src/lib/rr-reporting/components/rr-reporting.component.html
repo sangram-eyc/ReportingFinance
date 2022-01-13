@@ -50,6 +50,20 @@
                     (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
+
+        <ng-template #exceptionResultTemplate let-row>
+            <div class="actionButtonTemplate">
+                <motif-icon class="complete" *ngIf="(row.resolveOrException.split('/'))[1] == 0" [src]="'/assets/icons/action/ic_done_24px.svg'">
+                </motif-icon>
+                <div class="result_complete"
+                    *ngIf="((row.resolveOrException.split('/'))[1] != 0) && (row.resolveOrException.split('/'))[1] == (row.resolveOrException.split('/'))[0]">
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                </div>
+                <div class="result_warning" *ngIf="(row.resolveOrException.split('/'))[1] != (row.resolveOrException.split('/'))[0]">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                </div>
+            </div>
+        </ng-template>
     </section>
 
     <section id="filingEntities" [hidden]="!(tabs==2)" (click)="outsideClick($event)">
