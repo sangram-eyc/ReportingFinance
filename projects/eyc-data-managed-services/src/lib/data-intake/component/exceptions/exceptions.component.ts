@@ -5,7 +5,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataGrid } from '../../models/data-grid.model';
+import { ExceptionDataGrid } from '../../models/data-grid.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,11 +40,12 @@ export class ExceptionsComponent implements OnInit {
   dailyMonthlyStatus: boolean = false;
   
   
-  clientName: string;
+  ExceptionFileName: string;
+  ExceptionAuditGuidName:string;
   noExceptionDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
-  httpDataGridParams: DataGrid;
+  httpDataGridParams: ExceptionDataGrid;
   columnGl = [];
   glRowdata = [];
   gridApi;
@@ -106,27 +107,27 @@ export class ExceptionsComponent implements OnInit {
         }
       }, [Validators.required])
     });
+    debugger;
     this._Activatedroute.paramMap.subscribe(params => {
-      this.clientName = params.get('client');
+      this.ExceptionFileName = params.get('paramFilename');
+      this.ExceptionAuditGuidName = params.get('paramguidName');
+      debugger;
     });
     this.getExceptionTableData();
   }
 
   ngAfterViewInit(): void {
+    debugger;
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
       dataFrequency: DATA_FREQUENCY.DAILY,
-      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       clientName: '',
-      reportType: '',
-      summaryType: '',
-      queryPhrase: '',
-      filterTypes: [
-        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+      auditFileGuidName:this.ExceptionAuditGuidName,
+      fileId:'',
+      fileName:this.ExceptionFileName
     };
     this.getExceptionTableData();
   }
@@ -138,15 +139,16 @@ export class ExceptionsComponent implements OnInit {
   }
 
   getExceptionTableData() {
-    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
+    this.dataManagedService.getExceptionTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
+      debugger;
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: 'File',
-          field: 'name',
+          headerName: 'Exception Report Type',
+          field: 'type',
           sortable: true,
           filter: true,
           minWidth: 150,
@@ -158,18 +160,8 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Provider',
-          field: 'provider',
-          sortable: true,
-          filter: true,
-          minWidth: 100,
-          wrapText: true,
-          autoHeight: true
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Data Domain',
-          field: 'dataDomain',
+          headerName: 'Exception Report Name',
+          field: 'name',
           sortable: true,
           filter: true,
           minWidth: 100,
@@ -179,8 +171,8 @@ export class ExceptionsComponent implements OnInit {
          {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: 'Status',
-          field: 'status',
+          headerName: 'Exceptions Priority Level',
+          field: 'priority',
           sortable: true,
           filter: false,
           minWidth: 200,
@@ -202,7 +194,7 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerName: 'Exceptions',
-          field: 'exceptions',
+          field: 'exceptionCount',
           sortable: true,
           filter: true,
           minWidth: 200,
@@ -276,8 +268,8 @@ export class ExceptionsComponent implements OnInit {
   }
   
   onRowClicked (event: RowClickedEvent){
-    // event.data.dataDomain
-    this._router.navigate(['/data-managed-services/files/exception-details']);
+    
+    this._router.navigate(['/data-managed-services/files/exception-details',event.data.exceptionReportDetails]);
   }
 
   onGridReady(params) {
