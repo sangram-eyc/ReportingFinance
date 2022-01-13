@@ -243,11 +243,6 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
-    // if (this.innerTabIn == 1) {
-    //   this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
-    // } else {
-    //   this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
-    // }
     this.getExceptionTableData();
   }
 
@@ -259,12 +254,6 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
-
-    // if (this.innerTabIn == 1) {
-    //   this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
-    // } else {
-    //   this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
-    // }
     this.getExceptionTableData();
   }
   
@@ -332,7 +321,6 @@ export class ExceptionsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
       if(result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
