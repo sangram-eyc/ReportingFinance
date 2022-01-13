@@ -214,7 +214,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   onRowClicked (event: RowClickedEvent){
-    this._router.navigate(['/data-managed-services/files/exceptions',event.data.dataDomain]);
+    debugger;
+    this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName]);
   }
 
   searchCompleted(input) {
