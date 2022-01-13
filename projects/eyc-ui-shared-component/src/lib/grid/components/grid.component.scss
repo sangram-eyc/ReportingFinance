@@ -108,6 +108,7 @@
         line-height: 22px  !important;
         color: #2E2E38  !important;
         margin-left: inherit !important;
+        word-break: break-word;
     }
 
     ::ng-deep .ag-theme-material .ag-radio-button-input-wrappe::after {
