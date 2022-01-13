@@ -46,9 +46,6 @@
                 (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
                 [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
             </motif-table>
-            <!-- <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
-            (gridReady)="(onGridReady)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-            [pagination]="true" paginationPageSize="10"></motif-table> -->
         </motif-card>
     </div>
 
@@ -57,35 +54,6 @@
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
     </motif-card>
-
-    <ng-template #headerTemplate>
-        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
-        </motif-icon>
-    </ng-template>
-
-    <ng-template #dropdownTemplate>
-        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifDropdown"></motif-icon>
-    </ng-template>
-    <ng-template #chipTemplate let-row>
-        <motif-chip [removeable]="false" *ngIf="row.priority==1" variant="error" class="grid-motif-error">High</motif-chip>
-        <motif-chip [removeable]="false" *ngIf="row.priority==2" variant="warning" class="grid-motif-warning">Medium</motif-chip>
-        <motif-chip [removeable]="false" *ngIf="row.priority==3" variant="success" class="grid-motif-success">Low</motif-chip>
-    </ng-template>
-    <ng-template #rname let-row>
-        <a href="">{{row.rname}}</a>
-    </ng-template>
-    <ng-template #commentscount let-row>
-        <motif-chip [removeable]="false" variant="monochrome-dark">{{row.comments}}</motif-chip>
-    </ng-template>
-    <ng-template #nextbuttonTemplete let-row>
-        <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-    </ng-template>
-
-    <ng-template #commentTemplate let-row>
-        <div *ngIf="row.comments!==0" class="comments-background">
-            {{row.comments}}
-        </div>
-    </ng-template>
 
     <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
         <motif-pagination>
