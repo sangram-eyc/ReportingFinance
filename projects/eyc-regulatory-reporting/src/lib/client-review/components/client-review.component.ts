@@ -108,7 +108,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('actionButtonTemplate')
   actionButtonTemplate: TemplateRef<any>;
-
+  @ViewChild('exceptionResultTemplate')
+  exceptionResultTemplate: TemplateRef<any>;
+  
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
@@ -275,6 +277,20 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
               {'pointer-events': 'none'}
               : ''
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.exceptionResultTemplate,
+          },
+          headerName: 'Result',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
