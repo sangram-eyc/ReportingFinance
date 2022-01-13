@@ -56,7 +56,7 @@ const routes: Routes = [
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
-  {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName', component: ExceptionsComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },
   {path: 'data-managed-services/files/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
   {path: 'data-managed-services/data-providers', component:DonutGridListComponent, canActivate : [AuthGuardService] },
   {path: '**', component: LoginComponent},

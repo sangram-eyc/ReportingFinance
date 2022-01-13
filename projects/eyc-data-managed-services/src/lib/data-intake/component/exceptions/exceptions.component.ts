@@ -42,6 +42,7 @@ export class ExceptionsComponent implements OnInit {
   
   ExceptionFileName: string;
   ExceptionAuditGuidName:string;
+  ExceptionFileNameAlias:string;
   noExceptionDataAvilable: boolean;
   searchNoDataAvilable: boolean;
 
@@ -111,6 +112,7 @@ export class ExceptionsComponent implements OnInit {
     this._Activatedroute.paramMap.subscribe(params => {
       this.ExceptionFileName = params.get('paramFilename');
       this.ExceptionAuditGuidName = params.get('paramguidName');
+      this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
       debugger;
     });
     this.getExceptionTableData();
@@ -127,7 +129,7 @@ export class ExceptionsComponent implements OnInit {
       clientName: '',
       auditFileGuidName:this.ExceptionAuditGuidName,
       fileId:'',
-      fileName:this.ExceptionFileName
+      fileName:this.ExceptionFileNameAlias
     };
     this.getExceptionTableData();
   }
@@ -268,7 +270,7 @@ export class ExceptionsComponent implements OnInit {
   }
   
   onRowClicked (event: RowClickedEvent){
-    
+
     this._router.navigate(['/data-managed-services/files/exception-details',event.data.exceptionReportDetails]);
   }
 
