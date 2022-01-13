@@ -10,8 +10,8 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 import { HttpClientModule } from '@angular/common/http';
 import { DataManagedService } from './data-intake/services/data-managed.service';
-import { DataManagedSettingsService } from './data-intake/services/data-managed-settings.service'
-import { EycDataApiService } from './data-intake/services/eyc-data-api.service'
+import { DataManagedSettingsService } from './data-intake/services/data-managed-settings.service';
+import { EycDataApiService } from './data-intake/services/eyc-data-api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExceptionsReportsComponent } from './data-intake/component/exceptions-reports/exceptions-reports.component';
 

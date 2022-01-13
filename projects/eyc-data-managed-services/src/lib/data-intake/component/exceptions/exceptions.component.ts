@@ -6,7 +6,7 @@ import { CustomGlobalService, ModalComponent, TableHeaderRendererComponent } fro
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -22,8 +22,8 @@ export class ExceptionsComponent implements OnInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 
 
-  @ViewChild('reportTypeTemplate')
-  reportTypeTemplate: TemplateRef<any>;
+  @ViewChild('reportNameTemplate')
+  reportNameTemplate: TemplateRef<any>;
   @ViewChild('chipTemplate')
   chipTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
@@ -43,8 +43,10 @@ export class ExceptionsComponent implements OnInit {
   ExceptionFileName: string;
   ExceptionAuditGuidName:string;
   ExceptionFileNameAlias:string;
+  FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
+  FILTER_TYPE = FILTER_TYPE;
   noExceptionDataAvilable: boolean;
-  searchNoDataAvilable: boolean;
+  searchNoDataAvilable: boolean=false;
 
   httpDataGridParams: ExceptionDataGrid;
   columnGl = [];
@@ -90,7 +92,7 @@ export class ExceptionsComponent implements OnInit {
   constructor(private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
-    private _Activatedroute: ActivatedRoute,private _router: Router) {
+    private _activatedroute: ActivatedRoute,private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -109,7 +111,7 @@ export class ExceptionsComponent implements OnInit {
       }, [Validators.required])
     });
     debugger;
-    this._Activatedroute.paramMap.subscribe(params => {
+    this._activatedroute.paramMap.subscribe(params => {
       this.ExceptionFileName = params.get('paramFilename');
       this.ExceptionAuditGuidName = params.get('paramguidName');
       this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
@@ -148,27 +150,27 @@ export class ExceptionsComponent implements OnInit {
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exception Report Type',
           field: 'type',
           sortable: true,
           filter: true,
           minWidth: 150,
           wrapText: false,
-          autoHeight: true,
-          cellRendererParams: {
-            ngTemplate: this.reportTypeTemplate
-          }
+          autoHeight: true
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exception Report Name',
           field: 'name',
           sortable: true,
           filter: true,
           minWidth: 100,
           wrapText: true,
-          autoHeight: true
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.reportNameTemplate
+          }
         },
          {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -195,6 +197,7 @@ export class ExceptionsComponent implements OnInit {
           width: 155
         },
         {
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
           sortable: true,
@@ -203,8 +206,8 @@ export class ExceptionsComponent implements OnInit {
           wrapText: false,
           autoHeight: true,
           valueGetter: function (params) {
-            if (params.data.exceptions) {
-              return params.data.exceptions
+            if (params.data.exceptionCount) {
+              return params.data.exceptionCount
             } else {
               return '--'
             }

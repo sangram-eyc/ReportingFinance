@@ -8,7 +8,8 @@
                 </motif-breadcrumb-item>
                 <motif-breadcrumb-item breadcrumbValue='State Street' breadcrumbLink='/'>
                 </motif-breadcrumb-item>
-                <motif-breadcrumb-item [breadcrumbValue]='ExceptionFileName | titlecase' breadcrumbLink='/' active="active">
+                <motif-breadcrumb-item [breadcrumbValue]='ExceptionFileName | titlecase' breadcrumbLink='/'
+                    active="active">
                 </motif-breadcrumb-item>
             </motif-breadcrumb>
         </div>
@@ -22,58 +23,50 @@
             </div>
             <div class="dateWrapper">
                 <div class="px-3 date-ui">
-                   <form [formGroup]="form" novalidate>
-                      <motif-form-field>
-                         <label motifLabel for="datepicker">Date (required)</label>
-                         <input
-                            motifDatepicker
-                            class="motif-input"
-                            name="mydate"
-                            id="datepicker"
-                            #dp="motifDatepicker"
-                            placeholder="YYYY-MM-DD"
-                            (click)="dp.openCalendar()"
-                            (dateChanged)="toggleCalendar($event)"
-                            autocomplete="off"
-                            [required]="true"
-                            formControlName="datepicker"
-                            [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
-                         />
-                     </motif-form-field>
-                   </form>
+                    <form [formGroup]="form" novalidate>
+                        <motif-form-field>
+                            <label motifLabel for="datepicker">Date (required)</label>
+                            <input motifDatepicker class="motif-input" name="mydate" id="datepicker"
+                                #dp="motifDatepicker" placeholder="YYYY-MM-DD" (click)="dp.openCalendar()"
+                                (dateChanged)="toggleCalendar($event)" autocomplete="off" [required]="true"
+                                formControlName="datepicker" [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
+                        </motif-form-field>
+                    </form>
                 </div>
                 <div class="box-center">
-                   <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
-                   <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
+                    <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
+                    <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
                 </div>
-    
-             </div>
+
+            </div>
         </div>
     </div>
 </div>
 
 <div id="table">
     <div class="motif-row">
-      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between my-3">
-         <div class="exception-heading box-center">
-            List of exception reports (#)
-         </div>
-         <div class="data-exporer">
-            <motif-form-field class="search">
-               <input #activeReports motifInput motifSearch type="text" placeholder="Search..." aria-label="Search...">
-            </motif-form-field>
-            <div class="data-exporer buttonstyle">
-                <button motifButton color="secondary" size="fluid">Data Explorer</button>
+        <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between my-3">
+            <div class="exception-heading box-center">
+                List of exception reports (#)
             </div>
-         </div>
-      </div>
-   </div>
+            <div class="data-exporer">
+                <motif-form-field class="search">
+                    <input #activeReports motifInput motifSearch type="text" placeholder="Search..."
+                        aria-label="Search...">
+                </motif-form-field>
+                <div class="data-exporer buttonstyle">
+                    <button motifButton color="secondary" size="fluid">Data Explorer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="grid-wrapper">
         <motif-card>
             <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false" [suppressCellSelection]="true"
-                [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
+                (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)"
+                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout"
+                [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
             </motif-table>
         </motif-card>
     </div>
@@ -83,22 +76,26 @@
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
     </motif-card>
-    
-    <ng-template #reportTypeTemplate let-row>
-        <a href="">{{row.rname}}</a>
+
+    <ng-template #reportNameTemplate let-row>
+        <a href="">{{row.name}}</a>
     </ng-template>
 
     <ng-template #chipTemplate let-row>
-        <motif-chip [removeable]="false" *ngIf="row.priority==1" variant="error" class="grid-motif-error">High</motif-chip>
-        <motif-chip [removeable]="false" *ngIf="row.priority==2" variant="warning" class="grid-motif-warning">Medium</motif-chip>
-        <motif-chip [removeable]="false" *ngIf="row.priority==3" variant="success" class="grid-motif-success">Low</motif-chip>
+        <div class="grid-status">
+            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.HIGH" variant="error">
+                {{FILTER_TYPE.HIGH | titlecase}}</motif-chip>
+            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.LOW" variant="success">
+                {{FILTER_TYPE.LOW | titlecase}}</motif-chip>
+            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.MEDIUM" variant="warning">
+                {{FILTER_TYPE.MEDIUM | titlecase}}</motif-chip>
+        </div>
     </ng-template>
     <ng-template #commentTemplate let-row>
-        <div class="comments-background" (click)="openComments(row)">
-            {{5}}
+        <div class="comments-background" (click)="openComments(row)" *ngIf="(row.comments!==0 || row.comments)">
+            {{row.comments || 0}}
         </div>
-        <div class="commentTemplate"
-            *ngIf="(row.commentsCount===0 || !row.commentsCount)">
+        <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments)">
             <div class="add_icon">
                 <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span
                         class="plus">+</span></motif-icon>
