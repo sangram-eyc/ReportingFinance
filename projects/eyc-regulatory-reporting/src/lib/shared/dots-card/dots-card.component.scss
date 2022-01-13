@@ -26,7 +26,7 @@
 .card-header-wrapper {
     margin-top: 5px;
 }
-.dots-container {
+.dots-container {   
 
     position: relative;
     top: 60px;
@@ -48,8 +48,19 @@
     }
 
     motif-progress-step.progress-active {
-        ::ng-deep .motif-step-container .step-info .step-data-container .first-line {
-            font-weight: bold !important;
+        ::ng-deep  {
+            .motif-step-container .step-info .step-data-container .first-line {
+                font-weight: bold !important;
+                text-decoration: underline;
+                text-underline-offset: 6px;
+                text-decoration-thickness: 3px;
+                text-decoration-color: #23232F;
+            }
+    
+            .motif-step-container .step-info .step-dot {
+                background-color: #EAEAF2 !important;
+                border: 3px solid !important; 
+            }
         }
 
     } 
@@ -88,11 +99,11 @@
             }
 
             .motif-icon.motif-icon.completed-step-icon {
-            width: 32px !important;
-            height: 32px !important;
-            left: -15px;
+            width: 23px !important;
+            height: 22px !important;
+            left: -14px;
             position: relative;
-            top: 2px;
+            top: 3px;
             }
 
            .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
@@ -182,6 +193,12 @@
                 cursor: default;
             }
         }
+
+        .progress-active .motif-step-container .step-info .step-dot.in-progress.in-progress .inner {
+            width: 16px !important;
+            height: 16px !important;
+        }
+        
     }
 
 
