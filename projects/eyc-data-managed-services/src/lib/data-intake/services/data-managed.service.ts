@@ -3,7 +3,7 @@ import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
-import {DataGrid} from '../models/data-grid.model';
+import {DataGrid, ExceptionDataGrid} from '../models/data-grid.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -54,6 +54,27 @@ export class DataManagedService {
     return params;
   }
 
+  httpQueryParamsExceptionGrid(dataGrid: ExceptionDataGrid): HttpParams {
+    // Initialize Params Object
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('startDate', dataGrid.startDate);
+    params = params.append('endDate', dataGrid.endDate);
+    params = params.append('periodType', dataGrid.periodType);
+    params = params.append('dueDate', dataGrid.dueDate);
+    params = params.append('dataFrequency', dataGrid.dataFrequency);
+    params = params.append('auditFileGuidName', dataGrid.auditFileGuidName);
+    params=params.append('fileId',dataGrid.fileId)
+    .append('fileName',dataGrid.fileName)
+    .append('clientName',dataGrid.clientName)
+    return params;
+  }
+
+
+
+// fileName:Daily Working Trial Balance TF2021-03-31
+
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
   }
@@ -99,5 +120,9 @@ export class DataManagedService {
   
   getReviewFileTableData(params: DataGrid) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_review_table_data}`,this.httpQueryParamsGrid(params));
+  }
+
+  getExceptionTableData(params:ExceptionDataGrid) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_table_data}`,this.httpQueryParamsExceptionGrid(params));
   }
 }
