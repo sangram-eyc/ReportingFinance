@@ -8,11 +8,19 @@ import {DataGrid, ExceptionDataGrid} from '../models/data-grid.model';
   providedIn: 'root'
 })
 export class DataManagedService {
+  public exceptionDetails: any;
   constructor(
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
   ) { }
 
+  set setExceptionDetails(val: any) {
+    this.exceptionDetails = val;
+  }
+  get getExceptionDetails(): any {
+    return this.exceptionDetails;
+  }
+  
   httpQueryParams(DataSummary: DataSummary): HttpParams {
     // Initialize Params Object
     let params = new HttpParams();

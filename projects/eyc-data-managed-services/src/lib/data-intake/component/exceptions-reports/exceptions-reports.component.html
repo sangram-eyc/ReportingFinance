@@ -49,13 +49,13 @@
         </motif-card>
     </div>
 
-    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+    <motif-card class="no_data" *ngIf="searchNoDataAvailable">
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
     </motif-card>
 
-    <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
+    <div class="flex-end mt-3" [hidden]="searchNoDataAvailable || noCompletedDataAvailable">
         <motif-pagination>
             <button motifIconButton size="medium" aria-label="Go to first page"
                 (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
@@ -83,40 +83,9 @@
     </div>
 
 
-    <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
+    <motif-card class="no_data" *ngIf="noCompletedDataAvailable">
         <motif-card-body>
             <h5>No results found.</h5>
         </motif-card-body>
     </motif-card>
 </div>
-
-
-<!-- <div class="eyc-dms-tabs">
-    <motif-tab-bar>
-        <h1 class="heading-4">Gav Nav Variance - Quarter
-            <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
-        </h1>
-
-    </motif-tab-bar>
-</div>
-
-<div class="mt-2 mb-3 ">
-    <div class="heading-6">
-        <p>Exception report details</p>
-        <div class="search">
-            <motif-form-field>
-                <input #activeReports motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
-            </motif-form-field>
-        </div>
-    </div>
-</div>
-
-<div class="frame-padding">
-    <div class="grid-wrapper">
-        <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
-            (gridReady)="(handleGridReady)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-            [pagination]="true" paginationPageSize="10"></motif-table> 
-           
-    </div>
-</div>
-

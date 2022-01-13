@@ -269,9 +269,11 @@ export class ExceptionsComponent implements OnInit {
     this.getExceptionTableData();
   }
   
-  onRowClicked (event: RowClickedEvent){
-
-    this._router.navigate(['/data-managed-services/files/exception-details',event.data.exceptionReportDetails]);
+  onRowClicked(event: RowClickedEvent) {
+    if (event.data) {
+      this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+      this._router.navigate(['/data-managed-services/files/exception-details']);
+    }
   }
 
   onGridReady(params) {
