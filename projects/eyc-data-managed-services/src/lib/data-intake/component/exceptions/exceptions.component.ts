@@ -110,18 +110,15 @@ export class ExceptionsComponent implements OnInit {
         }
       }, [Validators.required])
     });
-    debugger;
     this._activatedroute.paramMap.subscribe(params => {
       this.ExceptionFileName = params.get('paramFilename');
       this.ExceptionAuditGuidName = params.get('paramguidName');
       this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
-      debugger;
     });
     this.getExceptionTableData();
   }
 
   ngAfterViewInit(): void {
-    debugger;
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
@@ -146,7 +143,6 @@ export class ExceptionsComponent implements OnInit {
     this.dataManagedService.getExceptionTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
-      debugger;
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
