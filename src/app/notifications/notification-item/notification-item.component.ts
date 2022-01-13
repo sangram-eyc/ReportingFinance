@@ -58,6 +58,14 @@ export class NotificationItemComponent implements OnInit {
   }
 
   getContentHtml(content): any {
-    return JSON.parse(content).content;
+    if (content) {
+      const json = JSON.parse(content);
+      if (json && json.content) {
+        return json.content;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 }
