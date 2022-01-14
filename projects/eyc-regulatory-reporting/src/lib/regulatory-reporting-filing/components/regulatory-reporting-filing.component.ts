@@ -468,6 +468,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   }
   errorModalActiveFiling(errorMessage) {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
+      
       disableClose: true,
       width: '400px',
       data: {
