@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { ColDef } from 'ag-grid-community';
+import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-exceptions-reports',
@@ -11,172 +12,117 @@ import { ModalComponent } from 'eyc-ui-shared-component';
   styleUrls: ['./exceptions-reports.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExceptionsReportsComponent implements OnInit {
-
-  MotifTableHeaderRendererComponent = MotifTableHeaderRendererComponent;
-  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-
-  exceptionTableData = [];
+export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   gridApi;
-  columnDefs: Array<ColDef>;
+  curDate: string;
+  presentDate: Date;
 
+  searchNoDataAvailable: boolean;
 
-  entityId;
-  showComments = false;
-  commentEntityType;
-  commentsName;
-  row={
-    "commentsCount":20
+  noOfCompletdFilingRecords = 10;
+  currentPage = 1;
+  maxPages = 5;
+  noCompletedDataAvailable = false;
+  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  rowData = [];
+  rowClass = 'row-style';
+  columnDefs = [];
+  columnDefsFill = [];
+  rowStyle = {
+    height: '74px'
+  }
+  domLayout = 'autoHeight';
+  dataset: GridDataSet[] = [{
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  },
+  {
+    disable: false,
+    value: 25,
+    name: '25',
+    id: 1
+  },
+  {
+    disable: false,
+    value: 50,
+    name: '50',
+    id: 2
+  }];
+
+  currentlySelectedPageSize: GridDataSet = {
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  };
+  exceptionTableData = [];
+  exceptionTableFillData = [];
+  headerColumnName = [];
+  exceptionReportDetails = "";
+
+  constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
+    private renderer: Renderer2, private customglobalService: CustomGlobalService) {
+      this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
   }
 
-  @ViewChild('motifTable') table: ElementRef;
-  @ViewChild('headerTemplate')
-  headerTemplate: TemplateRef<any>;
-  @ViewChild('dropdownTemplate')
-  dropdownTemplate: TemplateRef<any>;
+  capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+  }
 
-  @ViewChild('commentTemplate')
-  commentTemplate: TemplateRef<any>;
-
-  constructor(private dataManagedService: DataManagedService,public dialog: MatDialog,) {
+  ngAfterViewInit(): void {
+    if (this.headerColumnName && this.headerColumnName.length > 0) {
+      const headerColumnNameUnique = new Set(this.headerColumnName);
+      headerColumnNameUnique.forEach((key) => {
+        this.columnDefsFill.push({
+          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerName: key,
+          field: key,
+          sortable: true
+        });
+      });
+      this.exceptionTableData = this.exceptionTableFillData;
+      this.columnDefs = this.columnDefsFill;
+    }
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
+    this.presentDate = new Date();
+    this.exceptionTableFillData = [];
+    this.headerColumnName = []
+    this.columnDefs = [];
+    this.columnDefsFill = [];
+    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
+      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
+      const prop = str.split(',');
+      prop.forEach((props) => {
+        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
+        const value = props.split(':')[1].trim().replace(/"/g, '');;
+        this.headerColumnName.push(columnName);
+        this.exceptionTableFillData.push({ [`${columnName}`]: value });
+      })
+    }
   }
 
-  openComments(row) {
-    console.log(row);
-     this.showComments = true;  
+  // Table methods
+  searchCompleted(input) {
+    this.gridApi.setQuickFilter(input.el.nativeElement.value);
+    this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
   }
 
-  addComment(row) {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '700px',
-      data: {
-        type: "ConfirmationTextUpload",
-        header: "Add comment",
-        description: `Please add your comment below.`,
-        entityId: row.entityId,
-        entityType: "FILING_ENTITY",
-        forms: {
-          isSelect: false,
-          selectDetails: {
-            label: "Assign to (Optional)",
-            formControl: 'assignTo',
-            type: "select",
-            data:[
-              { name: "Test1", id: 1 },
-              { name: "Test2", id: 2 },
-              { name: "Test3", id: 3 },
-              { name: "Test4", id: 4 }
-            ]
-          },
-          isTextarea: true,
-          textareaDetails:{
-            label:"Comment (required)",
-            formControl: 'comment',
-            type: "textarea",
-            validation: true,
-            validationMessage: "Comment is required"
-          }
-        },
-        footer: {
-          style: "start",
-          YesButton: "Submit",
-          NoButton: "Cancel"
-        }
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
-      if(result.button === "Submit") {
-        const obj = {
-          assignTo: result.data.assignTo,
-          comment: escape(result.data.comment),
-          files: result.data.files
-        }
-        console.log(obj);
-      } else {
-        console.log(result);
-      }
-    });
-  }
-  commentAdded() {
-    
-  }
-  isFirstColumn = (params) => {
-    const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    const thisIsFirstColumn = displayedColumns[0] === params.column;
-    return thisIsFirstColumn;
-  };
-
-  handleGridReady = (params) => {
+  onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
   };
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.columnDefs = [
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Type',
-          field: 'type',
-          sortable: true
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Exposure',
-          field: 'exposure',
-          sortable: true,
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Classification',
-          field: 'classification',
-          sortable: true,
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Category',
-          field: 'category',
-          sortable: true,
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Value',
-          field: 'value',
-          sortable: true,
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: 'Variance',
-          field: 'variance',
-          sortable: true,
-        },
-        {
-          headerComponentFramework: MotifTableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          sortable: true,
-          filter: true,
-          width: 155
-        }
-      ];
-      this.getExceptionReportstable();
-    });
-
+  updatePaginationSize(newPageSize: number) {
+    this.noOfCompletdFilingRecords = newPageSize;
   }
 
-  getExceptionReportstable() {
-    // Mock API integration for exception reports table
-    this.dataManagedService.getExceptionReportstable().subscribe(data => {
-      this.exceptionTableData = data.data['rowData'];
-    });
+  handlePageChange(val: number): void {
+    this.currentPage = val;
   }
 }

@@ -8,3 +8,15 @@ export interface DataGrid extends DataSummary {
     clientName:StringOrNull;
     queryPhrase:StringOrNull;
 }
+
+export interface ExceptionDataGrid{
+    startDate:StringOrNull;
+    endDate:StringOrNull;
+    periodType:StringOrNull;
+    dueDate:StringOrNull;
+    dataFrequency:StringOrNull;
+    auditFileGuidName:StringOrNull;
+    fileId:StringOrNull;
+    fileName:StringOrNull;
+    clientName:StringOrNull;
+}

@@ -16,6 +16,8 @@ import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dt
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RowClickedEvent } from 'ag-grid-community';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-file-review',
@@ -112,6 +114,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   highIssueVariant: string = this.lightVariant;
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
+  filterByIssueType: string = 'all';
 
   dataset: GridDataSet[] = [{
     disable: false,
@@ -157,14 +160,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2, private _router: Router) {
   }
 
   ngOnInit(): void {
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
     this.tabIn = 1;
-    this.getReviewFilesData();
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -209,6 +211,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
    
     this.fileSummaryList();
     this.getReviewFileTableData();
+  }
+
+  onRowClicked (event: RowClickedEvent){
+    this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
   }
 
   searchCompleted(input) {
@@ -528,18 +534,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }));
   }
 
-  getReviewFilesData() {
-    // Mock API integration for Review File
-    this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.stackBarChartGridData = data.data["dataseries"];
-    });
-  }
-
   filterByIssues(issues: string, variants: string) {
     if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
     }
-    issues = 'all';  // When filter-type will be enable remove this line
+    issues = this.filterByIssueType;  // When filter-type will be enable remove this line
     switch (issues) {
       case 'all':
         if (variants === this.lightVariant) {
