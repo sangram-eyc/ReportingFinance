@@ -51,7 +51,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2 = 'Domain';
+  xAxisLabel2 = 'Domains';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines = false;
