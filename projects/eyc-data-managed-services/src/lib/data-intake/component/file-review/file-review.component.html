@@ -207,6 +207,7 @@
       <div class="grid-status">
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.HIGH" variant="warning">{{FILTER_TYPE_TITLE.high}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" variant="info">{{FILTER_TYPE_TITLE.mediumLow}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" variant="info">{{FILTER_TYPE_TITLE.medium}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" variant="error">{{FILTER_TYPE_TITLE.missingFiles}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" variant="success">{{FILTER_TYPE_TITLE.noIssues}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" variant="secondary">{{FILTER_TYPE_TITLE.fileNotReceived}}</motif-chip>
