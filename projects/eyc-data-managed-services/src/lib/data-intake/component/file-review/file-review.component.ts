@@ -291,7 +291,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: 'Function',
+          headerName: 'Functions',
           field: 'functions',
           sortable: true,
           filter: true,
