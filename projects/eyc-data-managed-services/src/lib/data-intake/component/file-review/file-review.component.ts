@@ -352,7 +352,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Status',
           field: 'status',
           sortable: true,
-          filter: false,
+          filter: true,
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
