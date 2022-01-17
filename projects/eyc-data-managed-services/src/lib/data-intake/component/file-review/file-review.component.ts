@@ -51,7 +51,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2 = 'Domain';
+  xAxisLabel2 = 'Domains';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines = false;
@@ -291,7 +291,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: 'Function',
+          headerName: 'Functions',
           field: 'functions',
           sortable: true,
           filter: true,
@@ -352,7 +352,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Status',
           field: 'status',
           sortable: true,
-          filter: false,
+          filter: true,
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,

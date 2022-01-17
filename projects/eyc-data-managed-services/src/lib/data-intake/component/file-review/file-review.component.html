@@ -96,11 +96,11 @@
                <motif-tab-bar>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
                      [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
-                     Provider
+                     Providers
                   </button>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
                      [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
-                     Data Domain
+                     Data Domains
                   </button>
                </motif-tab-bar>
             </div>
@@ -148,7 +148,7 @@
                               [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
                               [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
                               [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                              [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                              [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
                               [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
                               [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                               [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
@@ -178,11 +178,11 @@
    <div class="motif-row">
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between">
          <div class="heading-6 box-center my-3">
-            List of Files (#)
+            List of files (#)
          </div>
          <div  class="my-3">
             <motif-form-field>
-               <input #fileReview motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
+               <input #fileReview motifInput motifSearch type="text" placeholder="Search..." aria-label="Search">
             </motif-form-field>
          </div>
       </div>
@@ -207,6 +207,7 @@
       <div class="grid-status">
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.HIGH" variant="warning">{{FILTER_TYPE_TITLE.high}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" variant="info">{{FILTER_TYPE_TITLE.mediumLow}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" variant="info">{{FILTER_TYPE_TITLE.medium}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" variant="error">{{FILTER_TYPE_TITLE.missingFiles}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" variant="success">{{FILTER_TYPE_TITLE.noIssues}}</motif-chip>
          <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" variant="secondary">{{FILTER_TYPE_TITLE.fileNotReceived}}</motif-chip>
