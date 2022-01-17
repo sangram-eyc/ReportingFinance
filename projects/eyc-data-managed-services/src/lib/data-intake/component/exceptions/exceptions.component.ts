@@ -93,6 +93,11 @@ export class ExceptionsComponent implements OnInit {
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
+      this._activatedroute.paramMap.subscribe(params => {
+        this.ExceptionFileName = params.get('paramFilename');
+        this.ExceptionAuditGuidName = params.get('paramguidName');
+        this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
+      });
   }
 
   ngOnInit(): void {
@@ -110,12 +115,6 @@ export class ExceptionsComponent implements OnInit {
         }
       }, [Validators.required])
     });
-    this._activatedroute.paramMap.subscribe(params => {
-      this.ExceptionFileName = params.get('paramFilename');
-      this.ExceptionAuditGuidName = params.get('paramguidName');
-      this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
-    });
-    this.getExceptionTableData();
   }
 
   ngAfterViewInit(): void {
@@ -258,9 +257,12 @@ export class ExceptionsComponent implements OnInit {
   }
   
   onRowClicked(event: RowClickedEvent) {
-    if (event.data) {
+    if (event && event.data && event.data.exceptionReportDetails) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this._router.navigate(['/data-managed-services/files/exception-details']);
+    } else {
+      console.log("Data (exceptionReportDetails) is not getting");
+      // This console is use for QA34 live env (RouterLink is working in local system but not in QA34)
     }
   }
 
