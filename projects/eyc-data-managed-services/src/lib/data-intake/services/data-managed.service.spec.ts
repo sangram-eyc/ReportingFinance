@@ -4,12 +4,13 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../../../src/environments/environment';
 import { DataManagedService } from './data-managed.service';
 import { DataSummary } from '../models/data-summary.model';
-
+import { DataGrid } from '../models/data-grid.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../config/dms-config-helper';
 
 describe('DataManagedService', () => {
   let service: DataManagedService;
   let httpMock: HttpTestingController;
+  let httpDataGridParams: DataGrid;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,6 +33,21 @@ describe('DataManagedService', () => {
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: '2021-10-22',
       periodType: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+    httpDataGridParams = {
+      startDate: '',
+      endDate: '',
+      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: `2021-10-22`,
+      periodType: '',
+      clientName: '',
+      reportType: '',
+      summaryType: '',
+      queryPhrase: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
@@ -825,7 +841,7 @@ describe('DataManagedService', () => {
           ]
       }
   }
-    service.getReviewFileTableData().subscribe(resp => {
+    service.getReviewFileTableData(httpDataGridParams).subscribe(resp => {
       expect(resp).toEqual(data)
     })
   });
