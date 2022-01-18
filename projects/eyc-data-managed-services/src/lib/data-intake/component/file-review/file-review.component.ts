@@ -161,11 +161,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router) {
+      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
   }
 
   ngOnInit(): void {
+    const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = new Date();
+    this.presentDate = selectedDate ? new Date(selectedDate) : new Date;
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -185,9 +187,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     {
       startDate: '',
       endDate: '',
-      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -196,9 +198,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
-      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataFrequency: this.httpQueryParams.dataFrequency,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: this.httpQueryParams.dueDate,
       periodType: '',
       clientName: '',
       reportType: '',
@@ -208,14 +210,25 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
-   
+    if(this.dailyMonthlyStatus) {
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    } else {
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+    }
     this.fileSummaryList();
     this.getReviewFileTableData();
   }
 
   onRowClicked (event: RowClickedEvent){
-    this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
-  }
+    if(event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
+      this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
+    } else {
+      console.log("Data name is not getting");  
+      // This console is use for QA34 live env (RouterLink is working in local system but not in QA34)
+    }
+ }
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);

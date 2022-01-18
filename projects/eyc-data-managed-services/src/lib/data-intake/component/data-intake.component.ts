@@ -105,6 +105,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
+    sessionStorage.removeItem("selectedDate");
+    sessionStorage.removeItem("dailyMonthlyStatus");
   }
 
   ngAfterViewInit(): void {
@@ -129,6 +131,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if (this.calSelectedDate) {
       this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 
@@ -187,6 +190,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
   monthlyData(status: boolean) {
@@ -201,6 +205,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     this.fileSummaryList();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
   mapBarChartDataWithKey(fData: [ApiSeriesItemDTO]): BarChartSeriesItemDTO[] {
