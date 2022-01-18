@@ -43,27 +43,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isRegReporting: false,
     isDMS:false
   };
-
-  private socket: any;
-  wsBulkService: any;
   pendingDownloads: any;
   pendingDownloadsNew: any;
-
   timeoutWarnDownloads;
-  pendingDownloads: string[] = [];
-  pendingDownloadsNew: string[] = [];
 
-  constructor(
-    private oauthservice: OAuthService,
-    private loaderService: LoaderService,
-    private router: Router,
-    private cdRef: ChangeDetectorRef,
-    private settingsService: SettingsService,
-    public moduleLevelPermission: ModuleLevelPermissionService,
-    public dialog: MatDialog,
-   timeoutWarnDownloads;
-  pendingDownloads: string[] = [];
-  pendingDownloadsNew: string[] = [];
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -166,8 +149,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
               }else{
                 this.bulkDownloadWarnings(resp); 
                 //Some function for notifications with the object resp
-
-                //end the code for notifications
+               //end the code for notifications
               }                      
            }, 
             err => {console.log('ws bulk error', err)}, 
@@ -252,21 +234,17 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       } else {
         this.wsBulkService.closeConection();
         this.settingsService.logoff();
-        //  this.router.navigateByUrl('/logout');
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     }
     else {
       this.wsBulkService.closeConection();
       this.settingsService.logoff();
-      //  this.router.navigateByUrl('/logout');
       this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     }
   }
   @HostListener('document:click', ['$event'])
   public outsideClick(event) {
-    // console.log(event);
-    // console.log(this.notificationCard)
     if (this.notificationCard && !this.notificationCard.nativeElement.contains(event.target) && !this.notificationIcon.nativeElement.contains(event.target)) {
       this.isNotification = false;
     }
@@ -331,9 +309,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     try{
       const objectFromWs = JSON.parse(objectFromServer);
       const objectContent = JSON.parse(objectFromWs.request.content);
-      //console.log('object From Ws bulk->', objectFromWs);
-      //console.log('object content->', objectContent);
-       const url = objectContent.extraParameters.downloadUrl;
+      const url = objectContent.extraParameters.downloadUrl;
       if(url != ""){
          window.open(url);
       }
