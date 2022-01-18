@@ -50,7 +50,7 @@ describe('AppComponent', () => {
   //   component.toggleSubMenu('managed-submenu');
   //   const x = document.getElementById("managed-submenu");
   //   fixture.detectChanges(); 
-  // });
+  // }); 
 
   it( `notification`, () => {
     component.notification();
