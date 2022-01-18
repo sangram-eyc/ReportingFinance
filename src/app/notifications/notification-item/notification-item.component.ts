@@ -1,20 +1,29 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-notification-item',
   templateUrl: './notification-item.component.html',
   styleUrls: ['./notification-item.component.scss']
 })
-export class NotificationItemComponent implements OnInit {
+export class NotificationItemComponent implements OnInit, OnChanges {
 
   @Input() notification;
   @Output() expandNotification = new EventEmitter<any>();
   @Output() deleteNotification = new EventEmitter<any>();
   @Output() archiveNotification = new EventEmitter<any>();
+  @Output() flagNotification = new EventEmitter<any>();
+
+  public content: any;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes && changes.notification) {
+     this.content = JSON.parse(changes.notification.currentValue.content);
+    }
   }
 
   expand(id): void {
@@ -26,7 +35,13 @@ export class NotificationItemComponent implements OnInit {
   }
 
   archive(): void {
+    this.content.extraParameters.isArchived = true;
     this.archiveNotification.emit();
+  }
+
+  flag(): void {
+    this.content.extraParameters.flagged = !this.content.extraParameters.flagged;
+    this.flagNotification.emit();
   }
 
   calculateNotificationTime(date) {

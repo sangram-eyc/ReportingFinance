@@ -4,19 +4,47 @@
       <div class="card-block banner-header">
         Notifications
       </div>
-      <div class="notifications-filter">
-        All (3) <motif-icon class="expand" [src]="'/assets/icons/expand_more.svg'"></motif-icon>
+      <div class="notifications-filter" [class.dark]="showPanel" (click)="showPanel = !showPanel">
+        All ({{notifications?.length}}) <motif-icon class="expand" [src]="showPanel ? '/assets/icons/expand_more_white.svg' : '/assets/icons/expand_more.svg'"></motif-icon>
+      </div>
+      <div class="expanded-panel" *ngIf="showPanel">
+        <div class="expanded-panel-info">
+          <p>Assigned to me (0)</p>
+          <p>@ Mentions (0)</p>
+          <p>Expectations (0)</p>
+          <p>Flagged (0)</p>
+        </div>
+      </div>
+      <div class="filter-panel" *ngIf="showFilters">
+        <div class="filter-panel-header">
+          Filter by Report
+        </div>
+        <div class="filter-panel-info">
+          <label class="container-checkbox">
+            <input type="checkbox">
+            <span class="checkmark"></span>
+            Form PF (2)
+          </label>
+          <label class="container-checkbox">
+            <input type="checkbox">
+            <span class="checkmark"></span>
+            CPO-PQR (0)
+          </label>
+        </div>
+        <div class="filter-panel-actions">
+
+        </div>
       </div>
       <div class="card-block banner-header-right">
         <div>
-          <motif-icon [src]="'/assets/icons/shape.svg'"></motif-icon>
+          <motif-icon (click)="showFilters = !showFilters" [src]="'/assets/icons/shape.svg'"></motif-icon>
         </div>
       </div>
     </div>
   </motif-card-header>
   <div class="notifications-list">
     <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item.request"
-      (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)">
+      (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)" (flagNotification)="flag(i)">
     </app-notification-item>
   </div>
   <div class="notifications-buttons">

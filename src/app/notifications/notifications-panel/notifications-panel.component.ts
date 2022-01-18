@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-notifications-panel',
@@ -10,23 +9,39 @@ import {NOTIFICATIONS_DATA} from "@default/notifications/notifications";
 export class NotificationsPanelComponent implements OnInit {
   public notifications;
   public data: any;
+  public showPanel: boolean;
+  public showFilters: boolean;
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(localStorage.getItem('notifications'));
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
   }
 
   delete(i): void {
     this.notifications.splice(i, 1);
+    this.notifications = Object.assign([], this.notifications);
     event.stopPropagation();
     event.preventDefault();
     sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   archive(i): void {
-    this.notifications[i].status = 'Archived';
+    const notificationContent = JSON.parse(this.notifications[i].request.content);
+    notificationContent.extraParameters.isArchived = true;
+    this.notifications[i].request.content = JSON.stringify(notificationContent);
+    this.notifications = Object.assign([], this.notifications);
+    event.stopPropagation();
+    event.preventDefault();
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
+  }
+
+  flag(i): void {
+    const notificationContent = JSON.parse(this.notifications[i].request.content);
+    notificationContent.extraParameters.flagged = !notificationContent.extraParameters.flagged;
+    this.notifications[i].request.content = JSON.stringify(notificationContent);
+    this.notifications = Object.assign([], this.notifications);
     event.stopPropagation();
     event.preventDefault();
     sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
@@ -38,7 +53,8 @@ export class NotificationsPanelComponent implements OnInit {
        item.request.expanded = false;
      }
    });
-   this.notifications.find(item => item.engineId === id).request.expanded = !this.notifications.find(item => item.engineId === id).request.expanded;
+   this.notifications.find(item => item.engineId === id).request.expanded
+     = !this.notifications.find(item => item.engineId === id).request.expanded;
   }
 
   countArchived() {

@@ -11,6 +11,85 @@
     }
   }
 
+  .filter-panel {
+    width: 200px;
+    height: 230px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translate(-50%);
+    z-index: 10000;
+    padding: 20px;
+
+    .filter-panel-header {
+      color: #747480;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .filter-panel-info {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .container-checkbox {
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+
+  .expanded-panel {
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    width: 200px;
+    height: 180px;
+    position: absolute;
+    z-index: 1000;
+    top: 70px;
+
+    &:after, &:before {
+      bottom: 100%;
+      left: 90%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(238, 238, 238, 0);
+      border-bottom-color: white;
+      border-width: 15px;
+      margin-left: -15px;
+    }
+
+    &:before {
+      border-color: rgba(204, 204, 204, 0);
+      border-bottom-color: #dddc;
+      border-width: 16px;
+      margin-left: -16px;
+    }
+
+    .expanded-panel-info {
+      p {
+        font-family: EYInterstate !important;
+        font-style: normal !important;
+        font-size: 14px;
+        line-height: 16px;
+        color: #2E2E38;
+        margin-top: 23px;
+        font-weight: 100;
+        padding: 0 20px;
+      }
+    }
+  }
+
   .notification-header {
     display: flex;
     justify-content: space-between;
@@ -18,6 +97,7 @@
 
     .banner-header {
       font-size: 14px;
+      font-weight: 700;
     }
   }
 
@@ -55,7 +135,12 @@
     height: 26px;
     display: flex;
     align-items: center;
-    margin-left: -150px;
+    margin-left: -180px;
+
+    &.dark {
+      background: #2E2E38;
+      color: white;
+    }
 
     .expand {
       margin-left: auto;

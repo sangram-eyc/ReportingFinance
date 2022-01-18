@@ -11,6 +11,7 @@
     .notification-title {
       font-size: 14px;
       line-height: 20px;
+      font-weight: 600;
       color: #23232F;
     }
 
@@ -44,6 +45,21 @@
   .notification-actions {
     display: flex;
     flex-direction: column;
+
+    ::ng-deep {
+      motif-tooltip {
+        display: flex;
+        margin-right: 15px;
+
+        &.no-margin {
+          margin-right: 0 !important;
+        }
+
+        &.small-margin {
+          margin-right: 6px !important;
+        }
+      }
+    }
 
     .expand {
       cursor: pointer;
