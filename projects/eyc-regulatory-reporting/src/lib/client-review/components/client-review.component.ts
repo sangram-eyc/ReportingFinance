@@ -59,6 +59,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   exceptionDetailCellRendererParams;
   exceptionReportRows;
   rowData = [];
+  filingEntityRowData = [];
+  exceptionRowData = [];
   submitFunction;
   submitException;
   submitEntities;
@@ -67,7 +69,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve these exception reports?",
+      description: "Are you sure you want to approve these exception report(s)?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -104,7 +106,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
-
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+  @ViewChild('exceptionResultTemplate')
+  exceptionResultTemplate: TemplateRef<any>;
+  
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
@@ -155,6 +161,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
     };
+    this.columnDefs = [];
+    this.exceptionDefs = [];
+    this.filingEntityRowData = [];
+    this.exceptionRowData = [];
+    setTimeout(() => {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -164,8 +175,22 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'template',
           headerName: '',
+          width: 20,
+          sortable: false,
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
           width: 70,
           sortable: false,
+          cellClass: 'actions-button-cell',
           pinned: 'left'
         },
         {
@@ -244,7 +269,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left',
           filter: false,
@@ -252,6 +277,34 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
               {'pointer-events': 'none'}
               : ''
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.exceptionResultTemplate,
+          },
+          headerName: 'Result',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -328,6 +381,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           width: 50
         }
       ];
+      this.filingEntityRowData = this.rowData;
+      this.exceptionRowData = this.exceptionData;
+    }, 1);
+      
   }
 
   handleGridReady(params) {
@@ -660,7 +717,7 @@ actionMenuEnableforException(row) {
       data: {
         type: "Confirmation",
         header: "Unapprove",
-        description: "Are you sure you want to unapprove this exception report? This will move this back to the previous reviewer/step",
+        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
         footer: {
           style: "start",
           YesButton: "Continue",

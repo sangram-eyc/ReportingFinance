@@ -45,6 +45,18 @@
             .second-button {
                 margin-left: 16px;
             }
+            .toggle-left{
+                margin: 0px 0px -8px 20px;
+                display: flex;
+                flex-direction: column;
+                h4{
+                    margin-bottom: 8px;
+                    font-weight: 600px;
+                }
+                .disabled{
+                    color: #747480
+                }
+            }
         }
     }
 }
@@ -84,7 +96,7 @@
         font-family: EYInterstate;
         font-style: normal;
         font-weight: bold;
-        font-size: 14px !important;
+        font-size: 12px !important;
         line-height: 22px;
         color: #2E2E3C;
     }
@@ -92,9 +104,11 @@
         font-family: EYInterstate !important;
         font-style: normal  !important;
         font-weight: normal  !important;
-        font-size: 14px  !important;
+        font-size: 12px  !important;
         line-height: 22px  !important;
         color: #2E2E38  !important;
+        margin-left: inherit !important;
+        word-break: break-word;
     }
 
     ::ng-deep .ag-theme-material .ag-radio-button-input-wrappe::after {
@@ -201,3 +215,31 @@
     border: none !important;
     border-bottom: solid 1px #e1e1e6 !important;
   }
+
+  ::ng-deep .srno-class {
+      left: 32px !important;
+  }
+
+  ::ng-deep .ag-cell-value, .ag-cell {
+    overflow: visible !important;
+  }
+
+  ::ng-deep .ag-cell {
+    overflow: visible;
+  }
+  
+  ::ng-deep .ag-row {
+    z-index: 0;
+  }
+  
+  ::ng-deep .ag-row.ag-row-focus {
+    z-index: 1;
+  }
+  
+  ::ng-deep .ag-root,
+  ::ng-deep .ag-root-wrapper,
+  ::ng-deep .ag-body-viewport,
+  ::ng-deep .ag-body-viewport-wrapper {
+    overflow: visible !important;
+  }
+  

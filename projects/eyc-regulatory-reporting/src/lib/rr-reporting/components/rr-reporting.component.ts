@@ -63,6 +63,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   exceptionDefaultColDef;
   exceptionDetailCellRendererParams;
   rowData = [];
+  filingEntityRowData = [];
+  exceptionRowData = [];
   submitFunction;
   submitException;
   submitTest;
@@ -71,7 +73,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.",
+      description: "Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -108,6 +110,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+  @ViewChild('exceptionResultTemplate')
+  exceptionResultTemplate: TemplateRef<any>;
 
   
   
@@ -151,6 +157,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
 
   createEntitiesRowData(): void {
+    this.columnDefs = [];
+    this.exceptionDefs = [];
+    this.filingEntityRowData = [];
+    this.exceptionRowData = [];
+    setTimeout(() => {
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -160,8 +171,22 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
+          width: 20,
+          sortable: false,
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
           width: 70,
           sortable: false,
+          cellClass: 'actions-button-cell',
           pinned: 'left'
         },
         {
@@ -243,7 +268,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           field: 'approved',
           headerName: '',
-          width: 70,
+          width: 20,
           sortable: false,
           pinned: 'left',
           filter: false,
@@ -251,6 +276,34 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
               {'pointer-events': 'none'}
               : ''        
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.exceptionResultTemplate,
+          },
+          headerName: 'Result',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actionButtonTemplate,
+          },
+          headerName: 'Action',
+          field: 'template',
+          minWidth: 70,
+          width: 70,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -327,6 +380,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 50
         }
       ];
+
+      this.filingEntityRowData = this.rowData;
+      this.exceptionRowData = this.exceptionData;
+    }, 1);
   
     
   
@@ -363,10 +420,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     console.log(this.filingDetails);
     if (this.tabs == 2) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
       this.getFilingEntities();
     } else if (this.tabs == 1) {
-      this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
+      this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.';
       this.getExceptionReports();
     }
   }
@@ -686,7 +743,7 @@ actionMenuEnableforException(row) {
       data: {
         type: "Confirmation",
         header: "Unapprove",
-        description: "Are you sure you want to unapprove this exception report? This will move this back to the previous reviewer/step",
+        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
         footer: {
           style: "start",
           YesButton: "Continue",

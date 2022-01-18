@@ -15,7 +15,7 @@ margin-top: 24px !important;
   margin-bottom: 24px !important;
 }
 
-.bx {
+.box-center {
   min-height: 30px;
   display: flex;
   align-items: center;
@@ -174,7 +174,6 @@ margin-top: 24px !important;
 .icon-size {
   font-size: 16px;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -191,6 +190,62 @@ margin-top: 24px !important;
     }
     .motif-button {
       min-height: 30px;
+      
     }
+  }
+}
+
+.date-ui{
+
+  ::ng-deep .motif-form-field {
+    margin-bottom: 0!important;
+    ::ng-deep .motif-input{
+      background-color: #ffffff !important;
+    }
+    
+    border-bottom: 1px solid #2E2E38 !important;
+    .motif-label{
+      margin:0 !important;
+    }
+    input#datepicker{
+      min-width: 266px !important; 
+    }
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  }
+}
+
+.tooltip-text{
+  font-family: EYInterstate;
+  font-size: 12px;
+  line-height: 17px;
+  color: #ffffff;
+  .label{
+    color: #FFE600;
+  }
+}
+::ng-deep .grid-status {
+  .motif-chip.motif-error{
+    background-color: #FF736A !important;
+    border-color: #FF736A !important;
+  }
+  .motif-chip.motif-success{
+    background-color: #57E188 !important;
+    border-color: #57E188 !important;
+  }
+  .motif-chip.motif-warning{
+    background-color: #FF9831 !important;
+    border-color: #FF9831 !important;
+  }
+  .motif-chip{
+    background-color: #42C9C2 !important;
+    border-color: #42C9C2 !important;
   }
 }

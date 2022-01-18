@@ -22,12 +22,16 @@ import { ProcessingExceptionComponent } from 'projects/eyc-data-intake/src/lib/p
 import { AuthGuardService } from './services/auth-guard.service';
 import { ViewExceptionReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-exception-reports/components/view-exception-reports.component';
 import {EycDataManagementServicesComponent} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.component';
+import { CommentsDetailsComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-details/comments-details.component';
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
 import {
   ArchivedNotificationsComponent
 } from "@default/notifications/archived-notifications/archived-notifications.component";
+import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
+import { UpdateFilingPropertiesComponent } from './administration/static-data/update-filing-properties/components/update-filing-properties.component';
+
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -40,7 +44,8 @@ const routes: Routes = [
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
-  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
+  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type/:cycleId',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
+  {path: 'comments-details/:cycleId/:cycleName',component:CommentsDetailsComponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},
@@ -49,6 +54,7 @@ const routes: Routes = [
   {path: 'submission', component: SubmissionComponent, canActivate : [AuthGuardService]},
   {path: 'user-details/:userId', component: UserDetailsComponent , canActivate : [AuthGuardService]},
   {path: 'team-details/:teamId', component: EycTeamDetailsComponent, canActivate : [AuthGuardService]},
+  {path: 'update-filing', component: UpdateFilingPropertiesComponent, canActivate : [AuthGuardService]},
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
@@ -57,6 +63,11 @@ const routes: Routes = [
   {path:'data-managed-services/files-review', component:FileReviewComponent},
   { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
   { path: 'archived-notifications', component: ArchivedNotificationsComponent },
+  {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
+  {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
+  {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services/files/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
+  {path: 'data-managed-services/data-providers', component:DonutGridListComponent, canActivate : [AuthGuardService] },
   {path: '**', component: LoginComponent},
 ];
 

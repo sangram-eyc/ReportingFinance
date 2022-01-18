@@ -6,11 +6,15 @@
                     <div class="approve-button" *ngIf="permissionToPrimaryButton">
                         <button motifButton color="primary" size="large" (click)="openDialog()"
                         [disabled]="selectedRows.length==0">
-                        <ng-template *ngIf="displayPlusIcon">
-                            <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></ng-template>{{buttonText}}</button>
+                        <span *ngIf="displayPlusIcon">
+                            <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></span>{{buttonText}}</button>
                     </div>
                     <div *ngIf="permissionToSecondaryButton">
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
+                    </div>
+                    <div class="toggle-left" *ngIf="isToggleLeft">
+                        <h4 [ngClass]="{disabled: toggleLeftDisabled}">{{toggleLeftTitle}}</h4>
+                        <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="hideLabels" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
                 <div *ngIf="!button"></div>
@@ -21,7 +25,7 @@
                             aria-label="Search">
                     </motif-form-field>
                     <div class="toggle" *ngIf="isToggle">
-                        <h4>My Tasks</h4>
+                        <h4>Tasks</h4>
                         <motif-toggle-switch [hideLabels]="true" [(ngModel)]="mytasks" (change)="toggleChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
@@ -37,7 +41,7 @@
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData" 
@@ -46,7 +50,7 @@
             [detailCellRendererParams]="detailCellRendererParams"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected($event)"></motif-table>
+            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
 
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
             <motif-card-body>

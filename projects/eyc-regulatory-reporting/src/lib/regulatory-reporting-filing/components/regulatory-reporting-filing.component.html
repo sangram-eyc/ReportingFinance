@@ -12,6 +12,7 @@
             [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Active Reports</button>
         <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
             [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Reports History</button>
+        
     </motif-tab-bar>
 </div>
 
@@ -77,7 +78,7 @@
 
     <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
         <motif-card-body>
-            <h5>No results found.</h5>
+            <h5>There are no assigned filings for you to view.</h5>
         </motif-card-body>
     </motif-card>
 

@@ -1,6 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 
 import { RegulatoryReportingFilingComponent } from './regulatory-reporting-filing.component';
@@ -80,7 +79,6 @@ describe('RegulatoryReportingFilingComponent', () => {
         MotifIconModule,
         MotifProrgressIndicatorsModule,
         MotifTableModule,
-        SlickCarouselModule,
         HttpClientModule,
         MotifPaginationModule,
         RouterTestingModule,
@@ -126,17 +124,6 @@ describe('RegulatoryReportingFilingComponent', () => {
     
   }));
 
-  it('should sort by due date', () => {
-    let a = {
-      dueDate: 1624335301155
-    }
-    let b = {
-      dueDate: 3516243353011
-    }
-    expect(component.sortByDueDate(a,b)).toEqual(1);
-    expect(component.sortByDueDate(b,a)).toEqual(-1);
-    expect(component.sortByDueDate(a,a)).toEqual(0);
-  });
 
   it('should format date', () => {
     expect(component.formatDate(1624288509000)).toEqual('06/21/2021');

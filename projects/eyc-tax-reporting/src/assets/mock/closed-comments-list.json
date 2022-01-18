@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "message": "success",
+  "data": {
+    "totalClosed": 36,
+    "dataSeries": [
+      {
+        "label": "Accepted",
+        "value": 31
+      },
+      {
+        "label": "Declined",
+        "value": 5
+      }
+    ]
+    
+  }
+}

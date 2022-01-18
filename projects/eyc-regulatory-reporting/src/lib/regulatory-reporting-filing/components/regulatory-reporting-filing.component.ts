@@ -91,7 +91,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.tabIn = 1;
+    sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
     this.getActiveFilingsData();
     this.getCompletedFilingsData();
   }
@@ -106,6 +106,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     sessionStorage.removeItem("enableTabsIntake");
+    sessionStorage.removeItem("regReportingLandingpageTab");
   }
 
 
@@ -131,6 +132,10 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
       this.activeReports = this.activeFilings;
       this.createHistoryRowData();
+    },error=>{
+      if (error['errorCode'].includes('RR-0023')) {
+       this.errorModalActiveFiling(error);
+      }
     });
   }
 
@@ -215,7 +220,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 200,
         comparator: customComparator
       },
 
@@ -251,7 +256,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         field: 'dueDate',
         sortable: true,
         filter: true,
-        minWidth: 130,
+        minWidth: 180,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -451,6 +456,24 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       data: {
         header: "Access Denied",
         description: "You do not have access to view the filing. Please contact an administrator.",
+        footer: {
+          style: "start",
+          YesButton: "OK"
+        },
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+  errorModalActiveFiling(errorMessage) {
+    const dialogRef = this.dialog.open(ErrorModalComponent, {
+      
+      disableClose: true,
+      width: '400px',
+      data: {
+        header: errorMessage['errorCode'],
+        description: errorMessage['message'],
         footer: {
           style: "start",
           YesButton: "OK"

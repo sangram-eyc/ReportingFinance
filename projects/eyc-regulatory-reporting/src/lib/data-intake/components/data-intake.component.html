@@ -19,7 +19,7 @@
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable">
         </lib-shared-grid>
 
-        <ng-template #commentExceptionTemplate let-row>
+        <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
             <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
                 class="comments-background" (click)="openComments(row)">
                 {{row.commentCount}}
@@ -50,8 +50,22 @@
         <ng-template #dropdownTemplate let-row *ngIf="!mockDataEnable">
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-
-            <div class="dropdownTemplate" *ngIf="!mockDataEnable">
+        </ng-template>
+        <ng-template #exceptionResultTemplate let-row *ngIf="!mockDataEnable">
+            <div class="actionButtonTemplate" *ngIf="!mockDataEnable">
+                <motif-icon class="complete" *ngIf="row.exceptionCount == 0" [src]="'/assets/icons/action/ic_done_24px.svg'">
+                </motif-icon>
+                <div class="result_complete"
+                    *ngIf="(row.exceptionCount != 0) && row.exceptionCount == row.resolvedCount">
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                </div>
+                <div class="result_warning" *ngIf="row.exceptionCount != row.resolvedCount">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #actionButtonTemplate let-row *ngIf="!mockDataEnable">
+            <div class="actionButtonTemplate" *ngIf="!mockDataEnable">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
                 </motif-icon>
@@ -82,7 +96,10 @@
         <ng-template #datasetsDropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
-            <div class="dropdownTemplate">
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
                 <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
                     tabindex="0">
                 </motif-icon>

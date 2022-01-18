@@ -109,9 +109,6 @@
             color: #1A1A24 !important;
             border: 1px solid #E1E1E6;
         }
-        span.motif-table-end-component-renderer {
-            display: none !important;
-        }
         .ag-theme-material .ag-checkbox .ag-input-wrapper {
             left: 15px !important;
             position: relative !important;
@@ -120,6 +117,10 @@
 
         .cursor-default :hover{
             cursor: default;
+        }
+
+        ::ng-deep .motif-table .date-submitted-class {
+            margin-left: 3px;
         }
     }
 
@@ -145,7 +146,7 @@
     right: 0px;
     margin-right: 2%;
     top: 50px;
-    z-index: 2;
+    z-index: 99;
     .motif-toast-content {
         font-family: EYInterstate
     }
@@ -155,4 +156,38 @@
     .motif-icon-button {
         display: none !important;
     }
+}
+.status_icon {
+    ::ng-deep svg {
+        fill: #57e188 !important;
+        height: 0.91429rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        padding-top: 3px;
+    }
+}
+.edit_icon {
+    ::ng-deep .motif-icon-content {
+        margin-left: 7px;
+        cursor: pointer;
+    }
+    ::ng-deep svg {
+        height: 20px !important;
+    }
+}
+::ng-deep .motif-modal-content {
+    width: 40% !important;
+    box-shadow: none !important;
+}
+
+::ng-deep .motif-modal-overlay {
+    background: rgba(0, 0, 0, 0.32) !important;
+}
+
+.error_msg {
+    color: #b9251c;
+}
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
 }

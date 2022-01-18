@@ -91,4 +91,21 @@ export class TaxCommentService {
     }
   }
 
+  cycleCommentsDetails(cycleId){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}/${cycleId}/more-details`);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.production_cycles_comments_details}`);
+  }}
+
+  getCommentsDetailsPerProductCycle(id){
+    if (this.settingsService.production) {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_details}/${id}/tasks-by-status`);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_details}`);
+    }
+  }
+
 }

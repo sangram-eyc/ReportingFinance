@@ -2,9 +2,9 @@
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
       <div class=" mt-3">
          <motif-breadcrumb maxItems=3>
-            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/'>
+            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item  breadcrumbValue='Files' breadcrumbLink='/'  active="active">
+            <motif-breadcrumb-item  breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'  active="active">
             </motif-breadcrumb-item>
          </motif-breadcrumb>
       </div>
@@ -13,23 +13,36 @@
 <div class="motif-row">
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
       <div class="space-between boder-b">
-         <div class="mt-3 mb-3 bx">
+         <div class="mt-3 mb-3 box-center">
             <h1>Files</h1>
          </div>
-         <div class="mt-3 mb-3 dateWrapper">
-            <div class="bx">
-               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
-               </motif-icon>
-               <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
-               </motif-icon>
+         <div class="dateWrapper">
+            <div class="px-3 date-ui">
+               <form [formGroup]="form" novalidate>
+                  <motif-form-field>
+                     <label motifLabel for="datepicker">Date (required)</label>
+                     <input
+                        motifDatepicker
+                        class="motif-input"
+                        name="mydate"
+                        id="datepicker"
+                        #dp="motifDatepicker"
+                        placeholder="YYYY-MM-DD"
+                        (click)="dp.openCalendar()"
+                        (dateChanged)="toggleCalendar($event)"
+                        autocomplete="off"
+                        [required]="true"
+                        formControlName="datepicker"
+                        [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
+                     />
+                 </motif-form-field>
+               </form>
             </div>
-            <div>{{ curDate }}</div>
-            <div class="px-3"><i class="material-icons" for="datepicker">date_range</i></div>
-            <div class="bx">
-               <button #dailyfilter motifButton color="primary-alt" (click)="dailyData()">Daily</button>
-               <button #monthlyfilter motifButton color="secondary" (click)="monthyData()">Monthly</button>
+            <div class="box-center">
+               <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
+               <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
             </div>
-   
+
          </div>
       </div>
    </div>
@@ -38,14 +51,20 @@
 <div class="motif-row">
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 chip-container">
       <div class="left-div">Fast Filters: </div>
-         <motif-chip-group>
-            <motif-chip [removeable]="false" variant="monochrome-dark">All</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">No issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Medium / low priority issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">High priority issues</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Missing files, past due</motif-chip>
-            <motif-chip [removeable]="false" variant="monochrome-dark">Files not received</motif-chip>
-         </motif-chip-group>
+      <motif-chip-group>
+         <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
+         </motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
+            [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
+            [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.HIGH, highIssueVariant)"
+            [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
+            [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+            [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
+      </motif-chip-group>
    </div>
 </div>
 
@@ -55,19 +74,18 @@
       <motif-card class="donut-chart-card no_data">
          <!-- Donut chart integration -->
          <lib-donut-chart id="donutchart" 
-            [data]="fileSummaries"
-            legendTextSliceNumber=23
-            width=155 
-            height=155 
-            margin=13 
-            innerRadius=90
-            svgTranslateLeft=90
-            svgTranslateRight=90
-            totalFilesText="TOTAL FILES"
-            totalExpected="EXPECTED"> 
-         </lib-donut-chart>
+         [data]="fileSummaries"
+         legendTextSliceNumber=23
+         width=155 
+         height=155 
+         margin=13 
+         innerRadius=90
+         svgTranslateLeft=90
+         svgTranslateRight=90
+         totalFilesText="TOTAL FILES"
+         totalExpected="EXPECTED"> 
+      </lib-donut-chart>
       </motif-card>
-
       <!-- end  -->
    </div>
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
@@ -78,11 +96,11 @@
                <motif-tab-bar>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
                      [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
-                     Provider
+                     Providers
                   </button>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
                      [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
-                     Data Domain
+                     Data Domains
                   </button>
                </motif-tab-bar>
             </div>
@@ -95,18 +113,17 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                           [results]="multi" [animations]="animations" [gradient]="gradient"
-                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
-                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
-                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
-                           (activate)="activate($event)" (deactivate)="deactivate($event)">
-                        </eyc-charts-bar-vertical-stacked>
+                              [results]="stackBarChartData" [animations]="animations" [gradient]="gradient"
+                              [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                              [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                              [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                              [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                              [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                              [maxYAxisTickLength]="maxYAxisTickLength" [barMaxWidth]="100" [customColors]="customColors">
+                           </eyc-charts-bar-vertical-stacked>
                         </div>
 
                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
@@ -127,18 +144,17 @@
                         <div class="chart-container" [hidden]="(totalFileCount==0)">
                            <!-- Chart placeholder -->
                            <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
-                           [results]="multi" [animations]="animations" [gradient]="gradient"
-                           [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                           [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
-                           [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
-                           [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                           [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                           [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                           [maxYAxisTickLength]="maxYAxisTickLength" (select)="select($event)"
-                           (activate)="activate($event)" (deactivate)="deactivate($event)">
-                        </eyc-charts-bar-vertical-stacked>
+                              [results]="stackBarChartData" [animations]="animations" [gradient]="gradient"
+                              [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                              [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                              [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                              [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                              [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [barMaxWidth]="100"
+                              [customColors]="customColors" [maxYAxisTickLength]="maxYAxisTickLength">
+                           </eyc-charts-bar-vertical-stacked>
                         </div>
 
                         <div class="toast-card" [hidden]="!(totalFileCount==0)">
@@ -161,12 +177,12 @@
 <div id="table">
    <div class="motif-row">
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between">
-         <div class="heading-6 bx my-3">
-            List of Files (#)
+         <div class="heading-6 box-center my-3">
+            List of files (#)
          </div>
          <div  class="my-3">
             <motif-form-field>
-               <input #activeReports motifInput motifSearch type="text" placeholder="Search" aria-label="Search">
+               <input #fileReview motifInput motifSearch type="text" placeholder="Search..." aria-label="Search">
             </motif-form-field>
          </div>
       </div>
@@ -174,10 +190,10 @@
 
    <div id="grid-wrapper">
       <motif-card>
-            <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="multiple"
-               (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-               [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
-            </motif-table>
+         <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
+            (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false" [suppressCellSelection]="true"
+            [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
+         </motif-table>
       </motif-card>
    </div>
 
@@ -187,18 +203,64 @@
       </motif-card-body>
    </motif-card>
 
-   <ng-template #chipTemplate let-row class="space-between"> 
-      <div>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='High'" variant="warning">High</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='Medium / Low'" variant="info">Medium / Low</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='Missing'" variant="error">Missing</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.Status=='No Issues'" variant="success">No Issues</motif-chip>
-      </div>
-      <div>  
-      <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+   <ng-template #chipTemplate let-row class="space-between">
+      <div class="grid-status">
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.HIGH" variant="warning">{{FILTER_TYPE_TITLE.high}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" variant="info">{{FILTER_TYPE_TITLE.mediumLow}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" variant="info">{{FILTER_TYPE_TITLE.medium}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" variant="error">{{FILTER_TYPE_TITLE.missingFiles}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" variant="success">{{FILTER_TYPE_TITLE.noIssues}}</motif-chip>
+         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" variant="secondary">{{FILTER_TYPE_TITLE.fileNotReceived}}</motif-chip>
       </div>
    </ng-template>
+   <!-- Tooltip -->
+   <ng-template #threeDotTooltip let-row>
+      {{stringTrim(row.name, 20)}}
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.name?.length > 17">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <div class="tooltip-text">
+            <div>
+               <span class="label">File: </span>
+               <label>{{row.name}}</label>
+            </div>
+            <div>
+               <span class="label">Verison: </span>
+               <label>Verison name</label>
+            </div>
+         </div>
+      </motif-tooltip>
+   </ng-template>
 
+   <ng-template #threeDotFunctionTooltip let-row>
+      {{stringTrim(row.functions,20)}}
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.functions?.length > 17">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <span>{{row.functions}}</span>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #threeDotExceptionsTooltip let-row>
+      {{stringTrim(row.exceptions,20)}}
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 10">
+         <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
+            ...
+         </a>
+         <span>{{row.exceptions}}</span>
+      </motif-tooltip>
+   </ng-template>
+
+   <ng-template #nextButtonTemplate let-row>
+      <a [routerLink]="['/data-managed-services/files/exceptions',row.dataDomain]"
+               motifTextLink color="primary-alt">
+               <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+            </a>  
+   </ng-template>
+
+   <!-- Tooltip -->
    <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
       <motif-pagination>
          <button motifIconButton size="medium" aria-label="Go to first page"

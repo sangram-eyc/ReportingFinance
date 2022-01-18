@@ -25,6 +25,7 @@ import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
+import { DateSubmittedPipePipe } from './pipes/submission/date-submitted-pipe.pipe';
 
  
 
@@ -72,7 +73,9 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
     DataExplorerForReportingAndClientComponent,
     RrVisualisationComponent,
     GridComponent,
-    ViewExceptionReportsComponent
+    ViewExceptionReportsComponent,
+    DateSubmittedPipePipe,
+    
   ],
   /* providers: [EycRrApiService, EycPbiService], */
   exports: [RegulatoryReportingFilingComponent, GridComponent]

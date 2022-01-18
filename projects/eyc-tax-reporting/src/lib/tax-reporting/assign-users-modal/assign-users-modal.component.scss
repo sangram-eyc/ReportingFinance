@@ -1,4 +1,6 @@
-*:focus {
+.assign-users-modal{
+
+  *:focus {
     box-shadow: none;
     outline: none;
   }
@@ -288,7 +290,7 @@
     .motif-table .ag-root .ag-layout-normal{
       max-height: 220px !important;
       padding: 1rem;
-      overflow-y: auto;
+      overflow-y: auto !important;
       direction: ltr;
       margin-top: -45px;
       scrollbar-width: thin !important;
@@ -327,13 +329,28 @@
       border-color: #fff !important;
     }
 
+    #gridContainer .motif-table .ag-pinned-left-cols-container{
+      border-left: 1px solid #fff !important;
+    }
+
+    .ag-cell.ag-cell-not-inline-editing.ag-cell-auto-height.ag-cell-last-left-pinned.srno-class {
+      visibility: hidden;
+     }
+     
+     .ag-horizontal-left-spacer{
+      overflow-x: hidden;
+     }
+  
+    .ag-body-horizontal-scroll-viewport{
+        overflow-x: hidden;
+    }
    }
 
    /* Create a custom checkbox */
 .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 15px;
+  left: 10px;
   height: 20px;
   width: 20px;
   background-color: #FFF;
@@ -375,6 +392,8 @@
   transform: rotate(45deg);
 }
 /*   End ChecBox */
+}
+
 
 
    
