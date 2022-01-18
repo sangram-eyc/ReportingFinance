@@ -1,0 +1,121 @@
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  background: #F6F6FA;
+  opacity: 0.8;
+  padding: 15px;
+  white-space: break-spaces;
+  border: 0.999px solid #EAEAF2;
+
+  .notification-texts {
+    .notification-title {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #23232F;
+    }
+
+    .notification-desc {
+      font-size: 12px;
+      line-height: 16px;
+      color: #747480;
+
+      p {
+        margin: 0 !important;
+      }
+    }
+
+    .notification-short-desc {
+      font-size: 12px;
+      line-height: 16px;
+      color: #23232F;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      p {
+        margin: 0 !important;
+      }
+    }
+  }
+
+  .notification-actions {
+    display: flex;
+    flex-direction: column;
+
+    ::ng-deep {
+      motif-tooltip {
+        display: flex;
+        margin-right: 15px;
+
+        &.no-margin {
+          margin-right: 0 !important;
+        }
+
+        &.small-margin {
+          margin-right: 6px !important;
+        }
+      }
+    }
+
+    .expand {
+      cursor: pointer;
+
+      &.up {
+        ::ng-deep {
+          .motif-icon-content {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      ::ng-deep {
+        .motif-icon-content {
+          width: 12px;
+          height: 14px;
+          display: flex;
+          margin-left: auto;
+        }
+      }
+    }
+
+    .notification-icons {
+      display: flex;
+      margin-top: auto;
+
+      ::ng-deep {
+        .motif-icon-content {
+          width: 12px;
+          height: 14px;
+          display: flex;
+          margin-left: auto;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+      }
+
+      .no-margin {
+        ::ng-deep {
+          .motif-icon-content {
+            width: 12px;
+            height: 14px;
+            display: flex;
+            margin-left: auto;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+
+
+    .notification-date {
+      font-size: 12px;
+      color: #747480;
+      text-align: right;
+    }
+  }
+}

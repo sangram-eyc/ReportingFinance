@@ -1,0 +1,12 @@
+<div class="archived">
+  <div class="title">
+    <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'">
+    </motif-icon> Notifications archive ({{notificationsData?.length}})
+  </div>
+  <div class="table-header">
+
+  </div>
+  <div class="table">
+    <lib-shared-grid [columnDefs]="columnDefs" [rowData]="notificationsData" [defaultColDef]="{}" displayCheckBox="true" gridStyle="third"></lib-shared-grid>
+  </div>
+</div>

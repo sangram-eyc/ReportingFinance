@@ -21,11 +21,18 @@
     </section>
     <ul id="user-info">
       <li class="user-text">Welcome {{ userGivenName }}</li>
+      
       <li class="header-avatar">
         <motif-avatar [userName]="loginName" status="online" *ngIf="loginName"></motif-avatar>
       </li>
       <li class="header-notification" #notificationicon>
         <div id="bell-header">
+          <div *ngIf="!this.isNotificationRead" class="notifier-class">
+            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3.5" cy="3.5" r="3.5" fill="#FF736A" />
+            </svg>
+          </div>
+          
           <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'" (click)="notification()">
           </motif-icon>
         </div>
@@ -38,33 +45,7 @@
 
     <div id="notifcationcontainer" class="admin-container" *ngIf="isNotification">
       <div #notification>
-        <motif-card>
-          <motif-card-header>
-            <div class="notification-header">
-              <div class="card-block banner-header">
-                Notifications
-
-              </div>
-              <div class="card-block banner-header-right">
-                <div style="display: inline-block;">
-                  <motif-icon [src]="'/assets/icons/action/ic_done_all_24px.svg'"></motif-icon>
-                </div>
-
-                <div class="mark-all-message"> Mark all as read</div>
-
-              </div>
-            </div>
-          </motif-card-header>
-          <li class="notification-message">
-            <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'">
-            </motif-icon>
-          </li>
-          <div class="not-error-block">There are no notifications to display.</div>
-          <div class="card-button">
-            <button motifButton color="primary-alt" class="notification-button" (click)="navigatetonotifi()">View
-              All</button>
-          </div>
-        </motif-card>
+        <app-notifications-panel></app-notifications-panel>
       </div>
     </div>
   </mat-toolbar>

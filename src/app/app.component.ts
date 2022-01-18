@@ -2,7 +2,6 @@ import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewC
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { timeStamp } from 'console';
 import { Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
@@ -12,8 +11,6 @@ import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service'
-
-
 
 @Component({
   selector: 'app-root',
@@ -33,6 +30,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   notificationCount = 0;
   loginName;
   notifFlag = false;
+  isNotificationRead =false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
   hide_home_page = HIDE_HOME_PAGE;
@@ -45,7 +43,25 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isRegReporting: false,
     isDMS:false
   };
+
+  private socket: any;
+  wsBulkService: any;
+  pendingDownloads: any;
+  pendingDownloadsNew: any;
+
   timeoutWarnDownloads;
+  pendingDownloads: string[] = [];
+  pendingDownloadsNew: string[] = [];
+
+  constructor(
+    private oauthservice: OAuthService,
+    private loaderService: LoaderService,
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
+    private settingsService: SettingsService,
+    public moduleLevelPermission: ModuleLevelPermissionService,
+    public dialog: MatDialog,
+   timeoutWarnDownloads;
   pendingDownloads: string[] = [];
   pendingDownloadsNew: string[] = [];
   constructor(
@@ -105,7 +121,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.router.navigate(['home'])
     }
@@ -130,14 +146,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   }
 
-
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
 
   }
 
 
-  ngAfterViewChecked() {
+   ngAfterViewChecked() {
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
@@ -188,6 +203,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
+    sessionStorage.setItem("isNotificationRead","true");
+    this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true';
 
     setTimeout(() => {
       this.notifFlag = false;

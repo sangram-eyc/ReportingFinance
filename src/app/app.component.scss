@@ -767,5 +767,20 @@ ul#user-info {
 
 .some-hidden-class{ display: none; }
 
+.notifier-class
+{
+  position: absolute;
+  display: flex;
+  left: 20px;
+  width: 50px;
+  top: -3px;
+  ::ng-deep svg {
+   height: 10px !important;
+   width: 10px !important;
+  }
+}
+
+
+
 
  

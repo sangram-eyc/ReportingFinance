@@ -8,7 +8,7 @@ import {DashboardNotificationComponent} from './notification/dashboard-notificat
 import {RegulatoryReportingFilingComponent} from '../../projects/eyc-regulatory-reporting/src/lib/regulatory-reporting-filing/components/regulatory-reporting-filing.component';
 import {TaxReportingComponent} from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/components/tax-reporting.component';
 import { CycleDetailComponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/cycle-details/cycle-details.component';
-import { CommentsPagecomponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-page/comments-page.component'; 
+import { CommentsPagecomponent } from '../../projects/eyc-tax-reporting/src/lib/tax-reporting/comments-page/comments-page.component';
 import { DataIntakeLandingComponent } from '../../projects/eyc-data-intake/src/lib/data-intake-landing/components/data-intake-landing.component'
 import { UserDetailsComponent } from './administration/user-details/components/user-details.component';
 import { FundScopingComponent } from 'projects/eyc-regulatory-reporting/src/lib/fund-scoping/components/fund-scoping.component';
@@ -26,8 +26,12 @@ import { CommentsDetailsComponent } from '../../projects/eyc-tax-reporting/src/l
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
+import {
+  ArchivedNotificationsComponent
+} from "@default/notifications/archived-notifications/archived-notifications.component";
 import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
 import { UpdateFilingPropertiesComponent } from './administration/static-data/update-filing-properties/components/update-filing-properties.component';
+
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -54,6 +58,11 @@ const routes: Routes = [
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
+  {path:'data-managed-services', component:EycDataManagementServicesComponent},
+  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
+  {path:'data-managed-services/files-review', component:FileReviewComponent},
+  { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
+  { path: 'archived-notifications', component: ArchivedNotificationsComponent },
   {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },

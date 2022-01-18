@@ -1,0 +1,40 @@
+<div class="notification-item" *ngIf="!content?.extraParameters?.isArchived">
+  <div class="notification-texts">
+    <div class="notification-title">{{notification?.subject}}</div>
+    <div [ngClass]="notification?.expanded ? 'notification-desc' : 'notification-short-desc'" [innerHTML]="content?.content"></div>
+  </div>
+  <div class="notification-actions">
+    <motif-icon class="expand" [class.up]="notification?.expanded" [src]="'/assets/icons/expand_more.svg'" (click)="expand(notification?.engineId)">
+    </motif-icon>
+    <div class="notification-date">{{calculateNotificationTime(notification?.createDate)}}</div>
+    <div class="notification-icons" *ngIf="notification?.expanded">
+      <motif-tooltip placement="top">
+        <p motifTooltipTrigger aria-label="tooltip">
+          <span class="filing-name">
+            <motif-icon (click)="archive()" class="icon" [src]="'/assets/icons/archived.svg'">
+        </motif-icon>
+          </span>
+        </p>
+       Archive
+      </motif-tooltip>
+      <motif-tooltip class="small-margin" placement="top">
+        <p motifTooltipTrigger aria-label="tooltip">
+          <span class="filing-name">
+                 <motif-icon (click)="flag()" class="icon" [src]="content?.extraParameters?.flagged ? '/assets/icons/is-flagged.svg' : '/assets/icons/flag.svg'">
+      </motif-icon>
+          </span>
+        </p>
+        Flag
+      </motif-tooltip>
+      <motif-tooltip class="no-margin" placement="top">
+        <p motifTooltipTrigger aria-label="tooltip">
+          <span class="filing-name">
+          <motif-icon (click)="delete()" class="icon no-margin" [src]="'/assets/icons/trash.svg'">
+      </motif-icon>
+          </span>
+        </p>
+        Delete
+      </motif-tooltip>
+    </div>
+  </div>
+</div>
