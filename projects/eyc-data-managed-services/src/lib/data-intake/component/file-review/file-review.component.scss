@@ -244,10 +244,18 @@ margin-top: 24px !important;
     background-color: #FF9831 !important;
     border-color: #FF9831 !important;
   }
-  .motif-chip{
-    background-color: #42C9C2 !important;
-    border-color: #42C9C2 !important;
+  .medium{
+    ::ng-deep .motif-chip{
+      background-color: #42C9C2 !important;
+      border-color: #42C9C2 !important;
+    }
   }
+  .low{
+    ::ng-deep .motif-chip{
+      background-color: #35A4E8 !important;
+      border-color: #35A4E8 !important;
+    }
+  } 
 }
 
 .ag-cursor-pointer{
