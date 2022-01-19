@@ -1,4 +1,4 @@
-<div class="notification-item" *ngIf="!content?.extraParameters?.isArchived">
+<div class="notification-item">
   <div class="notification-texts">
     <div class="notification-title">{{notification?.subject}}</div>
     <div [ngClass]="notification?.expanded ? 'notification-desc' : 'notification-short-desc'" [innerHTML]="content?.content"></div>
