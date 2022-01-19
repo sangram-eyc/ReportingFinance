@@ -249,3 +249,9 @@ margin-top: 24px !important;
     border-color: #42C9C2 !important;
   }
 }
+
+.ag-cursor-pointer{
+  ::ng-deep .ag-column-hover {
+    cursor: pointer !important;
+  }
+}
