@@ -62,8 +62,8 @@
                 border: 3px solid !important; 
             }
             .motif-step-container .step-info .completed.step-dot {
-                // background-color: #EAEAF2 !important;
-                border: 3px solid #57E188 !important; 
+                background-color: #57E188 !important;
+                border: 3px solid #000000 !important; 
             }
             
         }
@@ -128,12 +128,13 @@
 
             .motif-step-container .step-info .step-dot.completed {
             // background-color: #F2F2F2 !important;
-            background: #F2F2F2 !important;
-            border: 2px solid #57E188!important;
+            background: #57E188 !important;
+            border: 2px solid #000000 !important;;
             }
             .motif-step-container .step-info svg {
             //  fill: var(--icon-fill-color) !important;
-            fill: #57E188 !important;
+            // fill: #57E188 !important;
+            fill: #000000 !important;
             cursor: pointer;
             }
 
