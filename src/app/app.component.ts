@@ -10,7 +10,7 @@ import { SettingsService } from './services/settings.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
-import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service'
+import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   notificationCount = 0;
   loginName;
   notifFlag = false;
-  isNotificationRead =false;
+  isNotificationRead = false;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
   hide_home_page = HIDE_HOME_PAGE;
@@ -41,7 +41,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isTaxReporting: false,
     isAdmin: false,
     isRegReporting: false,
-    isDMS:false
+    isDMS: false
   };
   pendingDownloads: any;
   pendingDownloadsNew: any;
@@ -64,22 +64,22 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         if (event instanceof NavigationEnd) {
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
-      });    
+      });
   }
 
   checkTimeOut() {
-    this.inActivityTime = sessionStorage.getItem("inActivityTime");
+    this.inActivityTime = sessionStorage.getItem('inActivityTime');
     this.timeoutId = setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
-        this.openErrorModal("Inactivity", "You will be logged out due to inactivity");
+        this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
       }
     }, this.inActivityTime);
 
     this.timeoutWarnDownloads = setTimeout(() => {
-      if (sessionStorage.getItem("pendingDownloadsBulk") != null) {
-        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+      if (sessionStorage.getItem('pendingDownloadsBulk') != null) {
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
         if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
-          this.openPendingDownloadsTaxModal("Warning", "A download is in progress and if the session expires while the download is in progress, the download request will not complete.");
+          this.openPendingDownloadsTaxModal('Warning', 'A download is in progress and if the session expires while the download is in progress, the download request will not complete.');
         }
       }
     }, (this.inActivityTime - 120000));
@@ -90,11 +90,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       disableClose: true,
       width: '400px',
       data: {
-        header: header,
-        description: description,
+        header,
+        description,
         footer: {
-          style: "start",
-          YesButton: "OK"
+          style: 'start',
+          YesButton: 'OK'
         },
       }
     });
@@ -106,26 +106,26 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
    ngOnInit(): void {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
-      this.router.navigate(['home'])
+      this.router.navigate(['home']);
     }
 
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
           const uname = res;
-          sessionStorage.setItem("userEmail", uname['userEmail']);
+          sessionStorage.setItem('userEmail', uname.userEmail);
           if (uname) {
-            this.userGivenName = uname['firstName'];
-            this.loginName = uname['firstName'] + ' ' + uname['lastName'];
+            this.userGivenName = uname.firstName;
+            this.loginName = uname.firstName + ' ' + uname.lastName;
           }
           this.permission.isDataIntake = this.moduleLevelPermission.checkPermission('Data Intake');
           this.permission.isAdmin = this.moduleLevelPermission.checkPermission('Admin');
           this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
           this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
-          this.permission.isDMS=this.moduleLevelPermission.checkPermission('Data Managed Services');
-        
-      }, 100)
+          this.permission.isDMS = this.moduleLevelPermission.checkPermission('Data Managed Services');
 
-    });       
+      }, 100);
+
+    });
 
   }
 
@@ -141,18 +141,18 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.count++;
         if (this.count == 1) {
           this.checkTimeOut();
-          //for the warnings and notifications bulk download process of tax-reporting
-          this.wsBulkService.connect().subscribe(resp => {  
-              if(resp.trim() === "Connection Established"){
-                //to open the websocket conection
+          // for the warnings and notifications bulk download process of tax-reporting
+          this.wsBulkService.connect().subscribe(resp => {
+              if (resp.trim() === 'Connection Established'){
+                // to open the websocket conection
                 this.openConectionBulkWs();
               }else{
-                this.bulkDownloadWarnings(resp); 
-                //Some function for notifications with the object resp
-               //end the code for notifications
-              }                      
-           }, 
-            err => {console.log('ws bulk error', err)}, 
+                this.bulkDownloadWarnings(resp);
+                // Some function for notifications with the object resp
+               // end the code for notifications
+              }
+           },
+            err => {console.log('ws bulk error', err); },
             () => console.log('ws bulk complete'));
           }
       }
@@ -185,7 +185,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
-    sessionStorage.setItem("isNotificationRead","true");
+    sessionStorage.setItem('isNotificationRead', 'true');
     this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true';
 
     setTimeout(() => {
@@ -204,22 +204,22 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       width: '600px',
       height: '280px',
       data: {
-        header: "Warning",
-        description: "The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.",
-        important: "Please note that logging out of the application before files are finished processing will cancel this request.",
-        question: "Are you sure want to cancel the request?",
+        header: 'Warning',
+        description: 'The selected files will be compressed into a zip file. You will receive an in-app notification alerting you when the files are ready for download.',
+        important: 'Please note that logging out of the application before files are finished processing will cancel this request.',
+        question: 'Are you sure want to cancel the request?',
         footer: {
-          style: "start",
-          YesButton: "Yes",
-          NoButton: "No",
-          cancelOption: "true"
+          style: 'start',
+          YesButton: 'Yes',
+          NoButton: 'No',
+          cancelOption: 'true'
         }
       }
     });
 
     dialogConfirm.beforeClosed().subscribe(result => {
-      if (result.button === "Yes") {
-        console.log('YES CLOSED SESSION')
+      if (result.button === 'Yes') {
+        console.log('YES CLOSED SESSION');
         this.settingsService.logoff();
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
@@ -227,8 +227,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   public logoff() {
-    if (sessionStorage.getItem("pendingDownloadsBulk") != null) {
-      this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+    if (sessionStorage.getItem('pendingDownloadsBulk') != null) {
+      this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
       if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
         this.warningMessage();
       } else {
@@ -280,8 +280,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   @HostListener('window:message', ['$event'])
   onMessage(event) {
-    if (event['data'] && (typeof event['data'] === 'string' || event['data'] instanceof String)) {
-      if (event['data'].includes('#access_token=')) {
+    if (event.data && (typeof event.data === 'string' || event.data instanceof String)) {
+      if (event.data.includes('#access_token=')) {
         setTimeout(() => {
           this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
           this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
@@ -295,43 +295,51 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     const dialogRef = this.dialog.open(ErrorModalComponent, {
       width: '400px',
       data: {
-        header: header,
-        description: description,
+        header,
+        description,
         footer: {
-          style: "start",
-          YesButton: "OK"
+          style: 'start',
+          YesButton: 'OK'
         },
       }
     });
   }
 
-  bulkDownloadWarnings(objectFromServer:string){  
+  bulkDownloadWarnings(objectFromServer: string){
     try{
       const objectFromWs = JSON.parse(objectFromServer);
+      const storedNotifications = sessionStorage.getItem('notifications');
+      const notifications = storedNotifications ? JSON.parse(storedNotifications) : [];
+      notifications.push(objectFromWs);
       const objectContent = JSON.parse(objectFromWs.request.content);
       const url = objectContent.extraParameters.downloadUrl;
-      if(url != ""){
+
+      sessionStorage.setItem('notifications', JSON.stringify(notifications));
+      this.isNotificationRead = false;
+      sessionStorage.setItem('isNotificationRead', 'false');
+
+      if (url != ''){
          window.open(url);
       }
       const fails = Number(objectContent.extraParameters.fails);
-      if(fails > 0){
-         const fundsNames = objectContent.extraParameters.failsName
-         this.openPendingDownloadsTaxModal("Error", 
-         "Some of selected files had errors, so that can't be downloaded. Please reload the page and try again the missing file(s) from : " + fundsNames + ".");
-      } 
-      if(sessionStorage.getItem("pendingDownloadsBulk") != null){
+      if (fails > 0){
+         const fundsNames = objectContent.extraParameters.failsName;
+         this.openPendingDownloadsTaxModal('Error',
+         'Some of selected files had errors, so that can\'t be downloaded. Please reload the page and try again the missing file(s) from : ' + fundsNames + '.');
+      }
+      if (sessionStorage.getItem('pendingDownloadsBulk') != null){
         const id = objectContent.extraParameters.downloadId;
-        this.pendingDownloads = JSON.parse(sessionStorage.getItem("pendingDownloadsBulk"));
+        this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
-        sessionStorage.setItem("pendingDownloadsBulk", JSON.stringify(this.pendingDownloadsNew));
-      } 
-    }catch(err){
+        sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
+      }
+    }catch (err){
       console.log('bulkDownloadWarnings Error ->', err);
     }
   }
 
   openConectionBulkWs(){
-    const userEmail = sessionStorage.getItem("userEmail");
+    const userEmail = sessionStorage.getItem('userEmail');
     this.wsBulkService.openConection(userEmail);
   }
 
