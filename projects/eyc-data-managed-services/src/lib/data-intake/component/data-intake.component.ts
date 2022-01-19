@@ -53,7 +53,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   searchNoDataAvilable: boolean;
 
   fileSummaries = [];
-  fileSummariesObject = [...donutSummariesObject];
+  fileSummariesObject = JSON.parse(JSON.stringify(donutSummariesObject));
   reviewAllDisabled: boolean = true;
 
   // API Request match with response
