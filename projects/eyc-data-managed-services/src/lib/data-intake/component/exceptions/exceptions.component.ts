@@ -93,6 +93,7 @@ export class ExceptionsComponent implements OnInit {
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
+      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
       this._activatedroute.paramMap.subscribe(params => {
         this.ExceptionFileName = params.get('paramFilename');
         this.ExceptionAuditGuidName = params.get('paramguidName');
@@ -101,8 +102,9 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = new Date();
+    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -121,14 +123,21 @@ export class ExceptionsComponent implements OnInit {
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
-      dataFrequency: DATA_FREQUENCY.DAILY,
-      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       clientName: '',
       auditFileGuidName:this.ExceptionAuditGuidName,
       fileId:'',
       fileName:this.ExceptionFileNameAlias
     };
+    if(this.dailyMonthlyStatus) {
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    } else {
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+    }
     this.getExceptionTableData();
   }
 
@@ -243,6 +252,7 @@ export class ExceptionsComponent implements OnInit {
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
     this.getExceptionTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
   monthlyData(status: boolean) {
@@ -254,6 +264,7 @@ export class ExceptionsComponent implements OnInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
     this.getExceptionTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
   
   onRowClicked(event: RowClickedEvent) {

@@ -105,8 +105,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
-    sessionStorage.removeItem("selectedDate");
-    sessionStorage.removeItem("dailyMonthlyStatus");
+    sessionStorage.setItem("selectedDate", `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`);
+    sessionStorage.setItem("dailyMonthlyStatus", DATA_FREQUENCY.DAILY,);
   }
 
   ngAfterViewInit(): void {

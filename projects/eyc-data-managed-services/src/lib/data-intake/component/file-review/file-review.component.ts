@@ -453,6 +453,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
   monthlyData(status: boolean) {
@@ -472,6 +473,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
 
@@ -535,6 +537,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpDataGridParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
       this.getReviewFileTableData();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 
