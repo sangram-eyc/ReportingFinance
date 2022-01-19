@@ -16,7 +16,7 @@ export class NotificationsPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
   }
 
   delete(i): void {
@@ -24,7 +24,7 @@ export class NotificationsPanelComponent implements OnInit {
     this.notifications = Object.assign([], this.notifications);
     event.stopPropagation();
     event.preventDefault();
-    sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.notifications));
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   archive(i): void {
@@ -34,7 +34,7 @@ export class NotificationsPanelComponent implements OnInit {
     this.notifications = Object.assign([], this.notifications);
     event.stopPropagation();
     event.preventDefault();
-    sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.notifications));
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   flag(i): void {
@@ -44,7 +44,7 @@ export class NotificationsPanelComponent implements OnInit {
     this.notifications = Object.assign([], this.notifications);
     event.stopPropagation();
     event.preventDefault();
-    sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.notifications));
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   expand(id): void {
