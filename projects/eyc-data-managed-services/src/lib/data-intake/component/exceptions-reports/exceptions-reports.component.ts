@@ -83,7 +83,19 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           sortable: true
         });
       });
-      this.exceptionTableData = this.exceptionTableFillData;
+     const multiColumnData = [];
+      for (let i = 0; i < this.exceptionTableFillData.length - 1; i++) {
+        let headerColumnNameUniqueWithValue = {};
+        let headerIndex = 0;
+        headerColumnNameUnique.forEach((key) => {
+          const currentValue = this.exceptionTableFillData[i + headerIndex];
+          headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
+          headerIndex++;
+        });
+        multiColumnData.push(headerColumnNameUniqueWithValue);
+        i = i + headerColumnNameUnique.size;
+      }
+      this.exceptionTableData = multiColumnData;
       this.columnDefs = this.columnDefsFill;
     }
   }
@@ -100,7 +112,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
       const prop = str.split(',');
       prop.forEach((props) => {
         const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
-        const value = props.split(':')[1].trim().replace(/"/g, '');;
+        const value = props.split(':')[1].trim().replace(/"/g, '');
         this.headerColumnName.push(columnName);
         this.exceptionTableFillData.push({ [`${columnName}`]: value });
       })
