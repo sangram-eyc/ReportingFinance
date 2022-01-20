@@ -318,9 +318,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       this.isNotificationRead = false;
       sessionStorage.setItem('isNotificationRead', 'false');
 
-      if (url != ''){
-         window.open(url);
-      }
       const fails = Number(objectContent.extraParameters.fails);
       if (fails > 0){
          const fundsNames = objectContent.extraParameters.failsName;
