@@ -19,7 +19,13 @@ export class WebSocketBulkService {
   }
   
    private getNewWebSocket(){
-    const url_ws = this.settingsService.taxReporting.websocket_bulk_url.replace("https:", "wss:");
+    let origin = window.location.origin + window.location.pathname;
+    let base_url_ws = this.settingsService.taxReporting.websocket_bulk_url;
+    let WS_ENDPOINT = this.settingsService.production ? 
+                      origin.trim() + base_url_ws.trim(): 
+                      this.settingsService.taxReporting.websocket_bulk_url;
+    const url_ws = WS_ENDPOINT.replace("https:", "wss:");
+    //const url_ws = this.settingsService.taxReporting.websocket_bulk_url.replace("https:", "wss:");
     console.log("url ws->", url_ws);
     return webSocket({url: url_ws,
         deserializer: ({data}) => data,
