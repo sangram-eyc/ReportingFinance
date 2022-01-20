@@ -51,14 +51,20 @@
       [noData]="'No exceptions found'">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
-      <div *ngIf="row.comments.length!==0" class="comments-background">
-          {{row.comments}}
+      <!--- DONT DELETE below Commented CODE-->
+     <!--  <div *ngIf="commentsCount[row.AuditResultObjectID]!==0" class="comments-background">
+          {{commentsCount[row.AuditResultObjectID]}}
       </div>
-      <div class="commentTemplate" *ngIf="row.comments.length===0 || !row.comments">
+      <div class="commentTemplate" *ngIf="commentsCount[row.AuditResultObjectID]===0">
           <div class="add_icon">
-              <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"><span class="plus">+</span></motif-icon>
+              <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
           </div>
-      </div>
+      </div> -->
+      <div class="commentTemplate">
+        <div class="add_icon">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
+        </div>
+    </div>
   </ng-template>
   </div>
 

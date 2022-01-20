@@ -5,6 +5,8 @@ import { TableHeaderRendererComponent } from './../../table-header-renderer/tabl
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   exceptionAnswersData;
   dataIntakeData;
   parentModule;
+  commentsCount;
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
@@ -35,7 +38,8 @@ export class ViewExceptionReportsComponent implements OnInit {
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog,
   ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
@@ -79,7 +83,7 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
-      this.exceptionAnswersData = res.data;
+     this.exceptionAnswersData = res.data;
       this.createEntitiesRowData();
     });
   }
@@ -98,19 +102,6 @@ export class ViewExceptionReportsComponent implements OnInit {
 
     for (const property in this.exceptionAnswersData[0]) {
       // console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-      if (property === 'comments') {
-        this.exceptionAnswersDefs.push({
-          field: `${property}`,
-          headerName: `${property}`,
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentExceptionTemplate,
-          }, sortable: true, autoHeight: true,
-          wrapText: true
-        });
-      }
-      else {
         this.exceptionAnswersDefs.push({
           field: `${property}`,
           headerName: `${property}`,
@@ -121,13 +112,16 @@ export class ViewExceptionReportsComponent implements OnInit {
           wrapText: true,
           filter: true
         });
-      }
     }
-
-
-
-
-
+    this.exceptionAnswersDefs.push({
+      headerName: 'Comments',
+      headerComponentFramework: TableHeaderRendererComponent,
+      cellRendererFramework: MotifTableCellRendererComponent,
+      cellRendererParams: {
+        ngTemplate: this.commentExceptionTemplate,
+      }, sortable: true, autoHeight: true,
+      wrapText: true
+    });
 }
 
 
@@ -146,4 +140,61 @@ export class ViewExceptionReportsComponent implements OnInit {
     stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
     this.location.back();
   }
+
+  addCommentToException(row) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
+        entityId: row.AuditResultObjectID,
+        entityType: "ANSWER_EXCEPTION_REPORT",
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+        
+        // this.exceptionAnswersDefs[this.exceptionAnswersDefs.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
+        this.createEntitiesRowData(); 
+      } else {
+        console.log(result);
+      }
+    });
+  }
+
 }
