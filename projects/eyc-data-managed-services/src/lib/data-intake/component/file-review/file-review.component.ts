@@ -97,7 +97,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   stackBarChartData: StackChartSeriesItemDTO[];
   dataList: ApiStackSeriesItemDTO[];
-  fileSummariesObject = donutSummariesObject;
+  fileSummariesObject = JSON.parse(JSON.stringify(donutSummariesObject));
   dailyMonthlyStatus: boolean = false;
   tabIn: number = 1;
   motifDatepModel: any;
@@ -167,7 +167,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date;
+    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -453,6 +453,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
   monthlyData(status: boolean) {
@@ -472,11 +473,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
+    this.dataList = [];
     this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem'];
       this.totalFileCount = dataProvider.data[0]['totalCount'];
@@ -534,6 +537,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpDataGridParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
       this.getReviewFileTableData();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 

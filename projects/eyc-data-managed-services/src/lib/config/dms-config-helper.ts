@@ -28,7 +28,8 @@ export const FILTER_TYPE = {
 export abstract class FileFilterStatus {
     public static noIssue: DonutLegend = { apiKey: "noIssues", legendTitle: "No issues" };
     public static mediumLowPriority: DonutLegend = { apiKey: "mediumLow", legendTitle: "Medium / low priority issues" };
-    public static mediumPriority: DonutLegend = { apiKey: "medium", legendTitle: "Medium / low priority issues" };
+    public static mediumPriority: DonutLegend = { apiKey: "medium", legendTitle: "Medium priority issues" };
+    public static lowPriority: DonutLegend = { apiKey: "low", legendTitle: "Low priority issues" };
     public static highPriorityIssues: DonutLegend = { apiKey: "high", legendTitle: "High priority issues" };
     public static missingFilesPastDue: DonutLegend = { apiKey: "missingFiles", legendTitle: "Missing files, past due" };
     public static filesNotReceived: DonutLegend = { apiKey: "fileNotReceived", legendTitle: "Files not received" };
@@ -38,6 +39,7 @@ export const FILTER_TYPE_TITLE = {
     [`${FILTER_TYPE.NO_ISSUES}`]: FileFilterStatus.noIssue.legendTitle,
     [`${FILTER_TYPE.MEDIUM_LOW}`]: FileFilterStatus.mediumLowPriority.legendTitle,
     [`${FILTER_TYPE.MEDIUM}`]: FileFilterStatus.mediumPriority.legendTitle,
+    [`${FILTER_TYPE.LOW}`]: FileFilterStatus.lowPriority.legendTitle,
     [`${FILTER_TYPE.HIGH}`]: FileFilterStatus.highPriorityIssues.legendTitle,
     [`${FILTER_TYPE.MISSING_FILES}`]: FileFilterStatus.missingFilesPastDue.legendTitle,
     [`${FILTER_TYPE.FILE_NOT_RECIEVED}`]: FileFilterStatus.filesNotReceived.legendTitle

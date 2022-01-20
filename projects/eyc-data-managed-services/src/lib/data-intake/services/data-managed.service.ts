@@ -9,6 +9,7 @@ import {DataGrid, ExceptionDataGrid} from '../models/data-grid.model';
 })
 export class DataManagedService {
   public exceptionDetails: any;
+  public exceptionFileName:string;
   constructor(
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
@@ -20,6 +21,13 @@ export class DataManagedService {
   get getExceptionDetails(): any {
     return this.exceptionDetails;
   }
+  set setExceptionFileName(val: string) {
+    this.exceptionFileName = val;
+  }
+  get getExceptionFileName(): string {
+    return this.exceptionFileName;
+  }
+
   
   httpQueryParams(DataSummary: DataSummary): HttpParams {
     // Initialize Params Object
