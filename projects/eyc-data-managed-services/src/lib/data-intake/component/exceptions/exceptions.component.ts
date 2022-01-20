@@ -270,6 +270,7 @@ export class ExceptionsComponent implements OnInit {
   onRowClicked(event: RowClickedEvent) {
     if (event && event.data && event.data.exceptionReportDetails) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+      this.dataManagedService.setExceptionFileName=event.data.name;
       this._router.navigate(['/data-managed-services/files/exception-details']);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
