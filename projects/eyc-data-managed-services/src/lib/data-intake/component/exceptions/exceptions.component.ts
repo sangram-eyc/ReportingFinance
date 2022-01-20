@@ -157,7 +157,7 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exception Report Type',
           field: 'type',
           sortable: true,
-          filter: true,
+          filter: false,
           minWidth: 150,
           wrapText: false,
           autoHeight: true
@@ -168,7 +168,7 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exception Report Name',
           field: 'name',
           sortable: true,
-          filter: true,
+          filter: false,
           minWidth: 100,
           wrapText: true,
           autoHeight: true,
@@ -196,16 +196,16 @@ export class ExceptionsComponent implements OnInit {
           },
           headerName: 'Comments',
           field: 'comments',
-          sortable: true,
-          filter: true,
+          sortable: false,
+          filter: false,
           width: 155
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
-          sortable: true,
-          filter: true,
+          sortable: false,
+          filter: false,
           minWidth: 200,
           wrapText: false,
           autoHeight: true,
@@ -270,6 +270,7 @@ export class ExceptionsComponent implements OnInit {
   onRowClicked(event: RowClickedEvent) {
     if (event && event.data && event.data.exceptionReportDetails) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+      this.dataManagedService.setExceptionFileName=event.data.name;
       this._router.navigate(['/data-managed-services/files/exception-details']);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");

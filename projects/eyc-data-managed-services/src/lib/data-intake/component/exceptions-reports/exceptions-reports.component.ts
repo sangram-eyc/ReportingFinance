@@ -62,10 +62,12 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionTableFillData = [];
   headerColumnName = [];
   exceptionReportDetails = "";
+  exceptionFileName:string="";
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
       this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
+      this.exceptionFileName = this.dataManagedService.getExceptionFileName;
   }
 
   capitalizeFirstLetter(string) {
