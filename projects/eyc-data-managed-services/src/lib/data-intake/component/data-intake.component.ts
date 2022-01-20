@@ -105,8 +105,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
-    sessionStorage.setItem("selectedDate", `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`);
-    sessionStorage.setItem("dailyMonthlyStatus", DATA_FREQUENCY.DAILY,);
+    this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
   }
 
   ngAfterViewInit(): void {
@@ -114,14 +113,23 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     {
       startDate: '',
       endDate: '',
-      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
+
+    if(this.dailyMonthlyStatus) {
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    } else {
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+    }
+
     this.fileSummaryList();
   }
 
@@ -142,8 +150,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = new Date();
+    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
