@@ -28,7 +28,7 @@
         modalForm.get('comment').hasError('required') &&
         modalForm.get('comment').touched">{{modalDetails.forms.textareaDetails.validationMessage}}</motif-error>
             <motif-error *ngIf="
-        modalForm.get('comment').hasError('maxlength')">Comment can be max 750
+        modalForm.get('comment').hasError('maxlength')">Comment can be max 1000
                 characters long
             </motif-error>
             <motif-error *ngIf="modalForm.get('comment').hasError('whitespace') &&
