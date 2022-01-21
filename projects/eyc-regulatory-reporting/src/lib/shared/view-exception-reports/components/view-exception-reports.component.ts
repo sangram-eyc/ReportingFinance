@@ -38,7 +38,8 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
-
+  @ViewChild('exceptionResultTemplate')
+  exceptionResultTemplate: TemplateRef<any>;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -105,6 +106,23 @@ export class ViewExceptionReportsComponent implements OnInit {
   createEntitiesRowData(): void {
     this.exceptionAnswersDefs = [];
 
+    this.exceptionAnswersDefs.push(
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.exceptionResultTemplate,
+        },
+        headerName: 'Result',
+        field: 'Status',
+        minWidth: 70,
+        width: 70,
+        sortable: false,
+        cellClass: 'actions-button-cell',
+        pinned: 'left'
+      },
+    );
+
     for (const property in this.exceptionAnswersData[0]) {
       // console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
         this.exceptionAnswersDefs.push({
@@ -124,7 +142,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       cellRendererFramework: MotifTableCellRendererComponent,
       cellRendererParams: {
         ngTemplate: this.commentExceptionTemplate,
-      }, sortable: true, autoHeight: true,
+      }, sortable: false, autoHeight: true,
       wrapText: true
     });
 }
