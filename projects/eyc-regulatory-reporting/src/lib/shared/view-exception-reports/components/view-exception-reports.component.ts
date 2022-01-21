@@ -40,6 +40,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   commentExceptionTemplate: TemplateRef<any>;
   @ViewChild('exceptionResultTemplate')
   exceptionResultTemplate: TemplateRef<any>;
+  @ViewChild('actionResolvedTemplate')
+  actionResolvedTemplate: TemplateRef<any>;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -118,9 +120,21 @@ export class ViewExceptionReportsComponent implements OnInit {
         minWidth: 70,
         width: 70,
         sortable: false,
-        cellClass: 'actions-button-cell',
-        pinned: 'left'
+        cellClass: 'actions-button-cell'
       },
+      {
+        headerComponentFramework:TableHeaderRendererComponent,
+        cellRendererFramework:MotifTableCellRendererComponent,
+        cellRendererParams:{
+          ngTemplate:this.actionResolvedTemplate
+        },
+        headerName:'Action',
+        field:'template',
+        minWidth:100,
+        width:100,
+        sortable:false,
+        cellClass: 'actions-button-cell'
+      }
     );
 
     for (const property in this.exceptionAnswersData[0]) {
@@ -228,6 +242,57 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   commentAdded() {
    this.getAnswerExceptionReports();
+  }
+
+  actionResolvedClick(row) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '843px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Resolve selected",
+        description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg> When clicked you can view resolution comments.</p>`,
+        entityType: "ANSWER_EXCEPTION",
+        entityId: row.AuditResultObjectID,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Confirm",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Confirm") {
+        // todo : API call to make exception resolved
+        this.commentsCount[row.AuditResultObjectID] += 1;
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)]['resolved'] = true;
+        this.createEntitiesRowData();
+      } else {
+        console.log(result);
+      }
+    });
   }
 
 }
