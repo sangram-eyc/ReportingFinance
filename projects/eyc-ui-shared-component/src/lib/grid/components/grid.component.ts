@@ -104,17 +104,22 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges() {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if (typeof(this.columnDefs) !== 'undefined') {
+    if (typeof (this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
       //sr no column data
-      let object =  {
+      let object = {
         width: 30,
         valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
         pinned: 'left',
         cellClass: this.srnoCls
       }
-        this.columnDefsData.splice(1, 0, object);    
+      if (this.displayCheckBox) {
+        this.columnDefsData.splice(0, 0, object);
+      } else {
+
+        this.columnDefsData.splice(1, 0, object);
+      }
     }
     
   }

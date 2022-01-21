@@ -48,7 +48,8 @@
       [defaultColDef]="{}"
       [disableAddMemberButton]="false"
       gridStyle="third"
-      [noData]="'No exceptions found'">
+      [noData]="'No exceptions found'"
+      [displayCheckBox]="true">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
       <div *ngIf="commentsCount[row.AuditResultObjectID]" class="comments-background" (click)="openComments(row)">
@@ -60,6 +61,20 @@
         </div>
       </div>
   </ng-template>
+  <ng-template #exceptionResultTemplate let-row>
+    <div class="actionButtonTemplate">
+        <motif-icon class="complete" *ngIf="row?.Status == 'No Exception'" [src]="'/assets/icons/action/ic_done_24px.svg'">
+        </motif-icon>
+
+        <div class="result_complete"
+        *ngIf="row?.Status == 'Resolved'">
+            <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'" (click)="openComments(row)"></motif-icon>
+        </div>
+        <div class="result_warning" *ngIf="row?.Status == 'Unresolved'">
+            <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+        </div>
+    </div>
+</ng-template>
   </div>
 
   <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
