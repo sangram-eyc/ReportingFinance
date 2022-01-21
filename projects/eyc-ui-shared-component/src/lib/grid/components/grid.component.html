@@ -40,6 +40,7 @@
             [rowSelection]="rowSelection"
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
+            (sortChanged)="sortChanged($event)"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
     
@@ -48,6 +49,7 @@
             [defaultColDef]="defaultColDef" 
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
+            (sortChanged)="sortChanged($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
             [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
