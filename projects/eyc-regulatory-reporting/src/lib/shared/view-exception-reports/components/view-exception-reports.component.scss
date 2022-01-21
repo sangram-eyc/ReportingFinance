@@ -81,3 +81,19 @@
       }
   }
 }
+.result_warning {
+  ::ng-deep svg {
+    fill: #FF9831;
+  }
+}
+.result_complete {
+  cursor: pointer;
+::ng-deep svg {
+  fill: #168736;
+}
+}
+.complete {
+  ::ng-deep svg {
+      fill: #168736;
+  }
+}
