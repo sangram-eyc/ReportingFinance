@@ -51,22 +51,20 @@
       [noData]="'No exceptions found'">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
-      <!--- DONT DELETE below Commented CODE-->
-     <!--  <div *ngIf="commentsCount[row.AuditResultObjectID]!==0" class="comments-background">
+      <div *ngIf="commentsCount[row.AuditResultObjectID]" class="comments-background" (click)="openComments(row)">
           {{commentsCount[row.AuditResultObjectID]}}
       </div>
-      <div class="commentTemplate" *ngIf="commentsCount[row.AuditResultObjectID]===0">
-          <div class="add_icon">
-              <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
-          </div>
-      </div> -->
-      <div class="commentTemplate">
+      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID]">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
         </div>
-    </div>
+      </div>
   </ng-template>
   </div>
+
+  <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
+    [filingName]="commentsName" [filingStatus]="false" [permissionToAddComment]="true"
+    (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 
   
   

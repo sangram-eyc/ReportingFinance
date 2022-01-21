@@ -30,6 +30,12 @@ export class ViewExceptionReportsComponent implements OnInit {
   parentModule;
   commentsCount;
 
+  showComments = false;
+  commentsData;
+  commentsName;
+  commentEntityType;
+  entityId;
+
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
 
@@ -83,7 +89,8 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
-     this.exceptionAnswersData = res.data;
+      this.exceptionAnswersData =  res.data['exceptionResultJason'];
+      this.commentsCount = res.data['commentCountMap'];
       this.createEntitiesRowData();
     });
   }
@@ -96,9 +103,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   createEntitiesRowData(): void {
-    this.exceptionAnswersDefs = [
-    ];
-
+    this.exceptionAnswersDefs = [];
 
     for (const property in this.exceptionAnswersData[0]) {
       // console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
@@ -149,7 +154,7 @@ export class ViewExceptionReportsComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.AuditResultObjectID,
-        entityType: "ANSWER_EXCEPTION_REPORT",
+        entityType: "ANSWER_EXCEPTION",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -187,14 +192,24 @@ export class ViewExceptionReportsComponent implements OnInit {
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
-        
-        // this.exceptionAnswersDefs[this.exceptionAnswersDefs.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
+        this.commentsCount[row.AuditResultObjectID] = 1;
         this.createEntitiesRowData(); 
       } else {
         console.log(result);
       }
     });
+  }
+
+  openComments(row) {
+      this.commentsName = this.filingName + ' // ' + this.period;
+      this.commentEntityType = 'ANSWER_EXCEPTION'
+      this.entityId = row.AuditResultObjectID;
+      this.showComments = true;
+      console.log(this.entityId);
+  }
+
+  commentAdded() {
+   this.getAnswerExceptionReports();
   }
 
 }
