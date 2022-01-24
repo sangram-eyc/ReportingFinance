@@ -555,22 +555,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
     }
-    issues = this.filterByIssueType;  // When filter-type will be enable remove this line
     switch (issues) {
-      case 'all':
-        if (variants === this.lightVariant) {
-          this.allIssueVariant = this.darkVariant;
-          this.noIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
-          this.highIssueVariant = this.lightVariant;
-          this.missingFileVariant = this.lightVariant;
-          this.fileNotReceivedVariant = this.lightVariant;
-          this.httpQueryParams.filterTypes = [
-            FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-            FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
-        }
-        break;
-
       case FILTER_TYPE.NO_ISSUES:
         if (variants === this.lightVariant) { 
           this.allIssueVariant = this.lightVariant;
@@ -626,6 +611,19 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.filterTypes('pop',[FILTER_TYPE.FILE_NOT_RECIEVED]);
         }
         break;
+      case 'all':
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.darkVariant;
+          this.noIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.lightVariant;
+          this.httpQueryParams.filterTypes = [
+            FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+            FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
+        }
+        break;
         default:
           break;
     }
@@ -640,9 +638,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
     }
-    //this.fileSummaryList(); // When filter-type will be enable uncomment this line
+    this.fileSummaryList();
     this.httpDataGridParams.filterTypes = this.httpQueryParams.filterTypes;
-    //this.getReviewFileTableData(); // When filter-type will be enable uncomment this line
+    this.getReviewFileTableData();
     this.cdr.detectChanges();
   }
 
