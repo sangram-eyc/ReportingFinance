@@ -5,7 +5,7 @@
 
 <div *ngIf="!enableTabs" class="intakeFilesWrapper">
     <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr"
-        [buttonTxt]="'All exceptions'" [filesDatasets]="bdFilesList" (datasetEvent)="getBDFilesList($event)"
+        [buttonTxt]="'All exceptions'" [filesDatasets]="bdFilesList" [isEnabled] ="isAllExcpetion" (datasetEvent)="getBDFilesList($event)"
         (commentClickEvent)="openComments($event)" (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)">
     </shared-lib-intake-files>
 </div>
