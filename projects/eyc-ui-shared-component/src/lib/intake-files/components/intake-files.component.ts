@@ -23,6 +23,7 @@ export class IntakeFilesComponent implements OnInit {
   @Output() datasetEvent = new EventEmitter<any>();
   @Output() commentClickEvent = new EventEmitter<any>();
   @Output() routeToExceptionDetailsEvent = new EventEmitter<any>();
+  @Input() isEnabled;
 
   columnDefs;
 
