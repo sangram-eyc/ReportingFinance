@@ -65,4 +65,15 @@ task buildTax(type: NpmTask) {
   
 }
 
+task buildTRP(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
+  args = ['run', 'eyc-ui-surefoot:package']
+  
+}
+task buildGS(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
+  args = ['run', 'eyc-ui-gs:package']
+  
+}
+
 build.dependsOn(npm_install)
