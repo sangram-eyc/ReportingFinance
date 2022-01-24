@@ -5,9 +5,8 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-// import { customComparator } from '../../config/rr-config-helper';
 import { Router, NavigationExtras } from '@angular/router';
-import {IS_ALL_EXCEPTION} from '../../config/rr-config-helper';
+
 
 @Component({
   selector: 'lib-data-intake',
@@ -71,7 +70,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   showToastAfterApproveExceptionReports = false;
   commentEntityType;
   entityId;
-  isAllExcpetion = IS_ALL_EXCEPTION;
 
   constructor(
     private service: DataIntakeService,
