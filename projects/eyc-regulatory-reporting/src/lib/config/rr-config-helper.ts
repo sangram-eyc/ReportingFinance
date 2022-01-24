@@ -53,3 +53,5 @@ export const customCompareStrIntMix = (valueA, valueB) => {
   }
 }
 
+/*Export Button Constatnt */
+export const IS_ALL_EXCEPTION = false;
