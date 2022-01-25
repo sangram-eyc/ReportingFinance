@@ -59,6 +59,8 @@ export class TaxReportingComponent implements OnInit {
   productTemplate: TemplateRef<any>;
   @ViewChild('statusTracker')
   statusTracker: TemplateRef<any>;
+  @ViewChild('totalFunds')
+  totalFunds: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -139,7 +141,8 @@ export class TaxReportingComponent implements OnInit {
         resp['data'].forEach((item) => {
           const eachitem: any = {
             name: item.name,
-            id: item.id
+            id: item.id,
+            totalFunds:item.totalFunds
           };
           this.completedReports.push(eachitem);
         });
@@ -153,7 +156,8 @@ export class TaxReportingComponent implements OnInit {
     this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id
+        id: filing.id,
+        totalFunds:filing.totalFunds
       })
     });
     this.columnDefs = [
@@ -167,6 +171,20 @@ export class TaxReportingComponent implements OnInit {
         field: 'name',
         sortable: true,
         filter: true,       
+        resizeable: true, 
+        width: 300,
+        sort:'asc'   
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.totalFunds,
+        },
+        headerName: 'Total funds',
+        field: 'name',
+        sortable: true,
+        filter: false,       
         resizeable: true, 
         width: 500,
         sort:'asc'   
