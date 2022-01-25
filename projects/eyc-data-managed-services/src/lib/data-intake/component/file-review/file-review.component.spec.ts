@@ -12,6 +12,7 @@ import { FileReviewComponent } from './file-review.component';
 import { of } from 'rxjs';
 import { DataManagedSettingsService } from '../../services/data-managed-settings.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Renderer2, Type } from '@angular/core';
 
 describe('FileReviewComponent', () => {
     let component: FileReviewComponent;
@@ -437,7 +438,8 @@ describe('FileReviewComponent', () => {
             "rowData": []
         }
     };
-
+    let renderer: Renderer2;
+    
     function getElement(id: string): any {
         return document.body.querySelector(id);
     }
@@ -446,7 +448,7 @@ describe('FileReviewComponent', () => {
         TestBed.configureTestingModule({
             declarations: [FileReviewComponent],
             providers: [DataManagedService, DataManagedSettingsService,
-                EycDataApiService,
+                EycDataApiService, Renderer2,
                 { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
                 { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
             imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
@@ -457,6 +459,13 @@ describe('FileReviewComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FileReviewComponent);
         component = fixture.componentInstance;
+        component.dailyfilter = { nativeElement: 'nativeElement' };
+        component.monthlyfilter = { nativeElement: 'nativeElement' };
+        renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
+        spyOn(renderer, 'setAttribute');
+        renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
+        renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
+        
         component.ngAfterViewInit();
         fixture.detectChanges();
         dataManagedService = TestBed.get(DataManagedService);
