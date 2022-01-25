@@ -3,9 +3,8 @@
   <div class="back-wrapper">
     <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
       (click)="backtoCycleView()"></motif-icon>
-    &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span
-        style="font-weight: 400;">{{productCycleName}}</span>
-      &nbsp;&nbsp;>&nbsp;&nbsp;<span style="font-weight: 300; color: #747480;">All comments</span></span>
+    &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span>{{productCycleName}}</span>
+      &nbsp;&nbsp;>&nbsp;&nbsp;<span class='all-comments'>All comments</span></span>
   </div>
 
   <div class="row comments-cycle-details-header">
@@ -20,13 +19,13 @@
 
   <div class="col-md-12 col-sm-12 mb-12 padding-left-comment donut-charts-wrapper">
     <div class="row">
-      <div class="col-md-3 col-sm-3" style="background-color: #EAEAF2; height: 51px; width: 112px; margin-left: 11px;margin-right:35px">
+      <div class="col-md-3 col-sm-3 wrapper-count-comments">
         <span class="text-count-comments">{{textCountComments}}</span>
         <span class="text-count-number">{{textCountNumber}}</span>
       </div>
-      <div class="col-md-3 col-sm-3" style="width:300px;">
+      <div class="col-md-3 col-sm-3 wrapper-open-comments">
         <span class='donut-chart-card-tax'>
-          <lib-donut-tax-chart style="display: flex;margin-top:-13px" [donut_id]="donut_id_closedC" [data]="totalOpenedCommentsDetails" [colors]="donutByOpenedColors"
+          <lib-donut-tax-chart [donut_id]="donut_id_closedC" [data]="totalOpenedCommentsDetails" [colors]="donutByOpenedColors"
             [totalFilesText]="donutByOpenedText" totalFilesNumberFontSize={{totalFilesNumberFontSize}}
             totalFilesTextFontSize={{totalFilesTextFontSize}} [totalExpected]="totalExpected" innerRadius=50
             svgTranslateLeft=80  svgTranslateRight=80 width=100 height=100 margin=11>
@@ -35,7 +34,7 @@
       </div>
       <div class="col-md-3 col-sm-3">
         <span class='donut-chart-card-tax-2'>
-          <lib-donut-tax-chart style="display: flex;;margin-top:-13px" [donut_id]="donut_id_openedC" [data]="totalClosedCommentsDetails" [colors]="donutByClosedColors"
+          <lib-donut-tax-chart [donut_id]="donut_id_openedC" [data]="totalClosedCommentsDetails" [colors]="donutByClosedColors"
             [totalFilesText]="donutByClosedText" totalFilesNumberFontSize={{totalFilesNumberFontSize}}
             totalFilesTextFontSize={{totalFilesTextFontSize}} [totalExpected]="totalExpected" innerRadius=50
             svgTranslateLeft=80  svgTranslateRight=80 width=100 height=100 margin=11>
@@ -74,12 +73,12 @@
       </ng-template>
 
       <ng-template #completedCommentTemplate let-row>
-        <div *ngIf="row.description.length > 70">
+        <div *ngIf="row.description.length > 70" (click)="openDialog(row.id)">
           <motif-tooltip placement="top">
-            <div style="line-height: initial;" motifTooltipTrigger aria-label="tooltip" (mouseover)="getTooltip()" (mouseout)="getTooltip()">                        
+            <div class='comment-col' motifTooltipTrigger aria-label="tooltip" (mouseover)="getTooltip()" (mouseout)="getTooltip()">                        
                 <div *ngFor="let part of row.splitComment; index as y;">
-                  <span *ngIf="y < 2" style="font-size: 11px;">{{part}}</span>
-                  <span *ngIf="y == 1" style="display: inline;">...</span>  
+                  <span class='comment-span-1' *ngIf="y < 2">{{part}}</span>
+                  <span class='comment-span-2' *ngIf="y == 1">...</span>  
                 </div>       
             </div>
            <div *ngFor="let rowComment of row.completedComment; index as i;">
@@ -87,9 +86,9 @@
            </div>
         </motif-tooltip> 
         </div>
-      <div *ngIf="row.description.length <= 70" style="line-height: initial;">
+      <div class='comment-col-2' *ngIf="row.description.length <= 70" (click)="openDialog(row.id)">
         <div *ngFor="let part of row.splitComment; index as x;">
-          <span style="font-size: 11px;">{{part}}</span>
+          <span class='span-1'>{{part}}</span>
         </div> 
       </div>
       </ng-template>

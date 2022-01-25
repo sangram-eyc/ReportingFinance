@@ -5,39 +5,48 @@
     "data": [
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA0"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA0",
+            "totalFunds":20
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA1"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA1",
+            "totalFunds":20
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H2"
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H2",
+            "totalFunds":25
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX73"
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX73",
+            "totalFunds":40
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ4"
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ4",
+            "totalFunds":44
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS5"
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS5",
+            "totalFunds":11
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y6"
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y6",
+            "totalFunds":11
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ7"
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ7",
+            "totalFunds":11
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID8"
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID8",
+            "totalFunds":11
         },
         {
             "name": "10.31.2021 Estimates",

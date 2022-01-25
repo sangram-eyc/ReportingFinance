@@ -108,4 +108,14 @@ export class TaxCommentService {
     }
   }
 
+  getCommentExpandDetails(id) {
+    if (this.settingsService.production) {
+      //ToDo integrate with Backend
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);
+    }
+  }
+
 }

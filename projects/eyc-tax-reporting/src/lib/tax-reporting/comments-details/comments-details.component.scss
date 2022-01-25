@@ -7,6 +7,23 @@
       box-shadow: none !important;
     }
 
+    .comment-col{
+      line-height: initial;
+      .comment-span-1{
+        font-size: 11px;
+      }
+      .comment-span-2{
+        display: inline;
+      }
+    }
+
+    .comment-col-2{
+      line-height: initial;
+      .span-1{
+        font-size: 11px;
+      }
+    }
+
     .back-wrapper {
         display: flex;
         margin-bottom: 8px;
@@ -44,6 +61,13 @@
     top: 4px;
     position: relative;
     left: 3px;
+      span{
+        font-weight: 400;
+      }
+      .all-comments{
+        font-weight: 300; 
+        color: #747480;
+      }
     }
 
     .comments-cycle-details-header {
@@ -93,6 +117,13 @@
 
    
    .donut-charts-wrapper{
+    .wrapper-count-comments{
+      background-color: #EAEAF2; 
+      height: 51px; 
+      width: 112px; 
+      margin-left: 11px;
+      margin-right:35px;
+    } 
     .text-count-comments{
       font-family: EYInterstate;
       font-size: 12px;
@@ -112,12 +143,26 @@
     }
    }   
 
+.wrapper-open-comments{
+  width:300px;
+}
+
 
 //Donut style
 .donut-chart-card-tax, .donut-chart-card-tax-2 {
   display: flex;
   flex-direction: row;
   min-height: 173px;
+}
+
+.donut-chart-card-tax lib-donut-tax-chart{
+  display: flex;
+  margin-top:-13px;
+}
+
+.donut-chart-card-tax-2 lib-donut-tax-chart{
+  display: flex;
+  margin-top:-13px;
 }
 
 .donut-chart-card-tax ::ng-deep .donut-chart, .donut-chart-card-tax-2 ::ng-deep .donut-chart{

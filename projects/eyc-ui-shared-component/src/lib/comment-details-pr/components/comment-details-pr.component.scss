@@ -20,10 +20,20 @@
             background-color:#F0F0F0 !important;
         }
     }
+
+    .col-one-task-comment{
+        margin-left: inherit;
+        margin-right: inherit;
+    }
+
+    .col-one-replies-task-comment{
+        margin-right: 15px;
+    }
   
     .task-comment{
         color: #2E2E38;
         font-family: EYInterstate;
+        margin-left: inherit;
         .author{
             font-size: 16px;
             line-height: 25px;
@@ -65,23 +75,15 @@
     }
     .motif-card {
         height: 91% !important;
-        width: 100%;
+        width: 94%;
         font-family: EYInterstate;
-        border: 1px solid #c4c4cd !important;
-        margin-left: 10px;
-        // padding: 10px;
-        // margin-right: 22px;
+        border: 1px solid white !important;
+        margin-left: 25px;
+        margin-top: 25px;
 
         .motif-card-header {
             border: none;
-            // display: flex;
-            // justify-content: space-between;
-            // align-items: center;
-            // padding: 28px 20px 18px 23px;
             padding: 18px 20px 5px 22px;
-            .elli-wrap {
-                // width: 67%;
-            }
             .report-name {
                 margin: 0;
                 font-weight: 600;
@@ -93,9 +95,6 @@
                 font-weight: 700;
                 font-size: 16px;
                 line-height: 5px;
-                // width: 62%;
-                /* position: absolute;
-                margin-top: 25px; */
             }
             span.report-name.ellipsis {
                 flex: 1;
@@ -132,10 +131,6 @@
         }
     
         .motif-card-body {
-            // display: flex;
-            // justify-content: space-between;
-            // padding-top: 0;
-            // padding-left: 23px;
              padding-bottom: 25px;
              padding: 0px 22px 0px 22px;
              ::ng-deep {
@@ -301,11 +296,6 @@
     
     ::ng-deep {
         .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
-            // width: 66% !important;
-            // height: 66% !important;
-            // left: 16% !important;
-            // top: 17% !important;
-            // visibility: visible !important;
             width: 0.63rem !important;
             height: 0.63rem !important;
             left: auto !important;
@@ -318,9 +308,6 @@
             border: 1px solid #000000 !important;
             background: #FFFFFF !important;
         }
-       /*  .motif-tooltip {
-            width: 100% !important;
-        } */
         .motif-icon.motif-tooltip-close {
             display: none !important;
         }
@@ -405,8 +392,8 @@
         background: white !important;
         border: 1px solid;
         min-height: 24px;
-        min-width: 75px;
-        padding:0px;
+        min-width: 80px;
+        padding:5px;
         margin:0 !important;
         margin-right: 7px !important;
       
@@ -416,19 +403,17 @@
             font-size: 12px;
             line-height: 24px;
             margin-left:8px;
+            margin-right: inherit;
         }
-       }
+    }
     
-    /*    .mat-chip-p:hover{
-        background: white !important;
-    } */
     
     .icon-cross{
-        width: 1.9rem !important;
+        width: 0.9rem !important;
         cursor: pointer;
        }
        .icon-arrow{
-        width: 1.9rem !important;
+        width: 0.9rem !important;
        }
     
        .margin-from-card{
@@ -436,7 +421,7 @@
        }
     
        .margin-left-btns{
-           margin-left: auto;
+           margin-left: 5px;
        }
     
       /* Toolip */
@@ -762,7 +747,7 @@
 
 .icon-replay{
     width: 65px !important;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .icon-replay-expand{
@@ -770,26 +755,473 @@
     cursor: pointer;
 }
 
+/***************************************************Replies****************************************************/
+.reply-comment-wrapper{
+    height: 100%;
+    margin-left: 19px;
+    .motif-card-body:last-child, .motif-card-body:last-child {
+        padding: 0 !important;   
+        margin-bottom: 25px !important;    
+    }
 
-       /* Radio buttons disabled */
-       .radio-item-v2 {
+    ::ng-deep{
+        .row>* {
+            padding-left: 0px !important;
+        }
+    } 
+
+    .task-comment{
+        color: #2E2E38;
+        font-family: EYInterstate;
+        .author{
+            font-size: 16px;
+            line-height: 25px;
+        }
+        .creation-date{
+            font-size: 12px;
+            line-height: 25px;
+        }
+        .description{
+            color: #2E2E38;
+            font-family: 'EYInterstateLight';
+            font-size: 14px;        
+            line-height: 22px;
+        }
+    }
+    
+    svg {
+        fill:none;
+        display: block;
+        height: 2.71429rem;
+        width: 2.71429rem; 
+    }
+    .motif-card {
+        height: 100% !important;
+        width: 100%;
+        font-family: EYInterstate;
+        border: 1px solid white !important;
+  
+        .motif-card-body {
+             padding-bottom: 25px;
+             padding: 0px 22px 24px 22px;
+             ::ng-deep {
+                &:last-child {
+                    padding: 0px;
+                }
+            } 
+            span {
+                padding: 0;
+            }
+            .card-column {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap-reverse;
+                .status-text {
+                    font-weight: 500;
+                    font-size: 11px;
+                }
+            }
+
+            .card-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .column-header {
+                font-size: 14px;
+                line-height: 20px;
+                color: #747480;
+            }
+            .fund-number {
+                font-weight: 700;
+                font-size: 32px;
+                line-height: 48px;
+            }
+        }
+    }
+       
+    .progress-indicator-container {
+        position: relative;
+        max-width: 10rem;
+        ::ng-deep {
+            .motif-steps-container {
+                position: relative;
+                z-index: 2;
+            }
+        }
+        .line {
+            height: 1px;
+            background-color: #C4C4CD;
+            position: absolute;
+            width: 80%;
+            top: 61%;
+            left: 10px;
+            z-index: 0;
+        }
+    }
+    
+    ::ng-deep {
+        .motif-step-container {
+            .step {
+                height: 1px !important;
+                &.in-progress, &.completed, &.not-set {
+                    background-color: #C4C4CD !important;
+                    display: none !important;
+                }
+            }
+            .step-info {
+                .step-dot {
+                    flex-shrink: 0 !important;
+                    &.completed {
+                        background-color: #FFFFFF !important;
+                    }
+                    &.not-set {
+                        border: 1px solid #C4C4CD !important;
+                        background-color: #FFFFFF !important
+                    }
+                    &.in-progress {
+                        // border: 1px solid #34C768 !important;
+                        // background-color: #34C768 !important;
+                    }
+                    .inner {
+                        visibility: hidden !important;
+                    }
+                }
+    
+                svg {
+                    fill: #000000 !important;
+                }
+            }
+            .completed-step-icon {
+                flex-shrink: 0;
+            }
+        }
+    }
+    .only-period-ellipsis {
+        // display: flex;
+    }
+    
+    ::ng-deep {
+        .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
+            width: 0.63rem !important;
+            height: 0.63rem !important;
+            left: auto !important;
+            top: auto !important;
+            visibility: visible !important;
+            margin: auto;
+            border-radius: 49% !important;
+        }
+        .motif-step-container .step-info .step-dot.in-progress {
+            border: 1px solid #000000 !important;
+            background: #FFFFFF !important;
+        }
+        .motif-icon.motif-tooltip-close {
+            display: none !important;
+        }
+        .motif-tooltip-trigger {
+             cursor: pointer !important;
+        }
+        .motif-step-container .step-info .step-dot {
+            height: 1.24rem !important;
+            width: 1.24rem !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        .motif-step-container .completed-step-icon {
+            width: .78571rem !important;
+            height: .78571rem !important;
+            margin-left: -1.02857rem !important;
+            margin-top: .19rem !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+        .motif-tooltip .motif-tooltip-inner{
+            padding: .85714rem 0px .85714rem 0px !important;
+        }
+        .motif-tooltip.color-default .motif-tooltip-close-button {
+            display: none;
+        }
+
+        .motif-tooltip #arrow::before{
+            border: 11px solid white;
+        }
+    }
+    @media screen and (min-width: 300px) {
+        
+       }
+      @media screen and (min-width: 1000px) {
+       
+      }
+      @media screen and (min-width: 1200px) {
+         span.report-name.ellipsis {
+            width: 200px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 1950px) {
+        span.report-name.ellipsis {
+            width: 241px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+       }
+      
+       @media screen and (min-width: 2600px) {
+        
+       }
+      
+       @media screen and (min-width: 2800px) {
+        
+       }   
+    
+       @media screen and (min-width: 850px) and (max-width: 1000px) {
+        span.report-name.ellipsis {
+            width: 230px !important;
+        }
+        span.report-name.ellipsis-period {
+            width: 200px !important;
+        }
+    }
+
+    @media screen and (min-width: 990px) and (max-width: 1070px) {
+        .report-wrapper .motif-card .motif-card-header .report-date-due {
+            font-size: 10px;
+        }
+       }
+         
+       .mat-chip-p{
+        background: white !important;
+        border: 1px solid;
+        min-height: 24px;
+        min-width: 75px;
+        padding:0px;
+        margin:0 !important;
+        margin-right: 7px !important;
+      
+        .mat-chip-text{
+            color: #2E2E38;
+            font-family: EYInterstate;
+            font-size: 12px;
+            line-height: 24px;
+            margin-left:8px;
+        }
+       }
+        
+    .icon-cross{
+        width: 1.9rem !important;
+        cursor: pointer;
+       }
+       .icon-arrow{
+        width: 1.9rem !important;
+       }
+    
+       .margin-from-card{
+           margin-right: 2rem;
+       }
+    
+       .margin-left-btns{
+           margin-left: auto;
+       }
+    
+      /* Toolip */
+    .report-name {
+        margin: 0;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+      }
+      .eli-report-name {
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 5px;
+      }
+      span.report-name.ellipsis {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        width: 140px;
+      }
+      span.report-name.ellipsis-period {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        width: 114px;
+      }
+      
+      ::ng-deep #tooltip{
+        position: absolute !important;
+        inset: 32px auto auto 47px !important;
+        margin: 0px !important;
+        width: 240px;
+        padding: initial;
+      
+      }
+      
+      ::ng-deep #arrow{
+        position: absolute !important;
+        left: 12px !important;
+        color: white !important;
+      }
+      
+      /* End Toolip */
+      
+      .icon-accept{
+        height: 36px !important;
+        width: 50px !important;
+        margin-left: auto;
+      }
+      
+      .icon-decline{
+        height: 61px !important;
+        width: 68px !important;
+      }
+      
+      .text-accept {
+        margin-left: inherit;
+        
+      }
+      
+      .font-text-tooltip{
+        font-size: small;
+        color: black;
+      }
+        
+      ::nd-deep .motif-tooltip-inner{
+        padding: 0.85714rem 0px 0.85714rem 0px !important;
+      }
+      
+      .div-icon-accept {
+        height: 31px;
+        margin-left: inherit;
+      }
+    
+    .pad-r{
+        padding-right: initial !important;
+        padding-top: 5px !important;
+    }
+    
+    .open-background{
+     background-color: #FF9831 !important;
+    }
+    
+    .accepted-background{
+        background: #168736 !important;
+    
+        .mat-chip-text{
+            color: white !important;
+        }
+    }
+    
+    .declined-background{
+        background: #B9251C !important;
+        .mat-chip-text{
+            color: white !important;
+        }
+    }
+    
+    .row-hover:hover{
+        background-color: #F0F0F0;
+        cursor: pointer;
+    }
+        
+      
+       .reply-icon{
+        width: 24px !important;;    
+        height: 24px !important;;
+       }
+    
+       .reply-comment{
+            margin-top:10px;
+            margin-left:20px;
+       }
+    
+       .reply-comment-text{
+        background: #EAEAF2;
+        max-width: 664px;
+        height: 60px;
+        left: 104px;
+        top: 0px;
+        border: transparent;
+    
+        
+        font-family: 'EYInterstateLight';
+        font-size: 14px;        
+        line-height: 22px;
+       
+       }
+    
+       .comment-status-text{
+        font-family: EYInterstate;
+        font-size: 10px;
+        letter-spacing: 1.25px;
+        color: #2E2E38;
+        font-weight: 600;
+        width: fit-content;
+        margin-top: 12px;
+        margin-bottom: 10px;
+       }
+    
+       .info_icon{
+        height: 16px !important;
+        width: 16px !important;
+        display: inline !important;
+       }
+    
+       .ey-icon{
+        height: 32px !important;
+        width: 32px !important;
+       }
+    
+       .comments-reply-actions{
+           display: flex;
+       }
+    
+       .comments-reply-status-button{
+            margin-bottom: 17px;
+       }
+    
+       .comments-reply-status-button mat-radio-button{
+        font-family: 'EYInterstateLight';
+        font-size: 14px;
+       }
+    
+       .comments-reply-status-button > .mat-radio-label-content{
+           margin-left:6px !important;
+       }
+    
+       .comments-reply-actions button{
+           width: 95px;
+           height: 44px;
+       }
+    
+       /* Radio buttons */
+      .radio-item {
         display: inline-block;
         position: relative;
         padding: 0 6px;
         margin: 10px 0 0;
       }
       
-      .radio-item-v2 input[type='radio'] {
+      .radio-item input[type='radio'] {
         display: none;
       }
       
-      .radio-item-v2 label {
+      .radio-item label {
         color: #2e2e38;
         font-weight: normal;
         font-family: EYInterstate;
       }
       
-      .radio-item-v2 label:before {
+      .radio-item label:before {
         content: " ";
         display: inline-block;
         position: relative;
@@ -798,11 +1230,11 @@
         width: 20px;
         height: 20px;
         border-radius: 11px;
-        border: 1.5px solid #C4C4CD;
+        border: 1.5px solid #2e2e38;
         background-color: transparent;
       }
-    
-      .radio-item-v2 input[type=radio]:checked + label:after {
+     
+      .radio-item input[type=radio]:checked + label:after {
         border-radius: 11px;
         width: 12px;
         height: 12px;
@@ -811,8 +1243,24 @@
         left: 10px;
         content: " ";
         display: block;
-        background: #C4C4CD;
+        background: #2e2e38;
       } 
-      /* End radio buttons disabled */
+      /* End radio buttons */
+    
+      .arrow-replays{
+          width: 15px;
+          float: right;
+          margin-top: -5px;
+          cursor: pointer;
+      }
+      
+      .text-replay{
+        color: #155CB4;
+        cursor: pointer;
+      }
 
+    
+}
+
+   
 
