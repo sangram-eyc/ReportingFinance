@@ -541,16 +541,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  mapBarChartDataWithKey(fData: [ApiSeriesItemDTO]): BarChartSeriesItemDTO[] {
-    return fData.map(({
-      lable: name,
-      ...rest
-    }) => ({
-      name,
-      ...rest
-    }));
-  }
-
   filterByIssues(issues: string, variants: string) {
     if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];

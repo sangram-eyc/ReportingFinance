@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { DataManagedSettingsService } from '../../services/data-managed-settings.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Renderer2, Type } from '@angular/core';
+import { RowClickedEvent } from 'ag-grid-community';
 
 describe('FileReviewComponent', () => {
     let component: FileReviewComponent;
@@ -529,6 +530,16 @@ describe('FileReviewComponent', () => {
         expect(component.dataList).toEqual(mockTotalSeriesItem);
     });
 
+    it('should get file-details grid data', () => {
+        let mockReviewResponse = mockReviewFile;
+        let mockReviewTotalSeriesItem;
+        spyOn(dataManagedService, 'getReviewFileTableData').and.returnValue(of(mockReviewResponse));
+        component.getReviewFileTableData();
+        fixture.detectChanges();
+        mockReviewTotalSeriesItem = mockReviewResponse.data;
+        expect(component.glRowdata).toEqual(mockReviewTotalSeriesItem);
+    });
+
     it('should get file summary data but totalSeriesItem null', () => {
         let mockResponseNoRecords = mockFileSummariesNoRecords;
         let mockTotalSeriesItem = [];
@@ -547,6 +558,12 @@ describe('FileReviewComponent', () => {
         fixture.detectChanges();
         mockTotalSeriesItem = mockResponseNoFilesReceived.data[0]['totalSeriesItem'];
         expect(component.dataList).toEqual(mockTotalSeriesItem);
+    });
+
+    it('should fetch daily data as per data-provider', () => {
+        const event = { data: { name: 'abc', auditFileGuidName: '', fileNameAlias: ''}} as RowClickedEvent;
+        component.onRowClicked(event);
+        fixture.detectChanges();
     });
 
     it('should fetch daily data as per data-provider', () => {
@@ -631,6 +648,14 @@ describe('FileReviewComponent', () => {
         component.innerTabIn = 0;
         component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
         component.filterByIssues('all', component.lightVariant);
+        fixture.detectChanges();
+        expect(component.allIssueVariant).toEqual(component.darkVariant);
+    });
+
+    it('should filterByIssues with junk-data and lightVariant', () => {
+        component.innerTabIn = 0;
+        component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+        component.filterByIssues('abcd', component.lightVariant);
         fixture.detectChanges();
         expect(component.allIssueVariant).toEqual(component.darkVariant);
     });

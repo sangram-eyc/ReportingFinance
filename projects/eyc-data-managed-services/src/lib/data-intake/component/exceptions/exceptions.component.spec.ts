@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExceptionsComponent } from './exceptions.component';
 
-describe('GeneralLedgerComponent', () => {
+describe('ExceptionsComponent', () => {
   let component: ExceptionsComponent;
   let fixture: ComponentFixture<ExceptionsComponent>;
 

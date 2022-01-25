@@ -4,13 +4,14 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../../../src/environments/environment';
 import { DataManagedService } from './data-managed.service';
 import { DataSummary } from '../models/data-summary.model';
-import { DataGrid } from '../models/data-grid.model';
+import { DataGrid, ExceptionDataGrid } from '../models/data-grid.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../config/dms-config-helper';
 
 describe('DataManagedService', () => {
   let service: DataManagedService;
   let httpMock: HttpTestingController;
   let httpDataGridParams: DataGrid;
+  let httpDataGridParamsException: ExceptionDataGrid;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,9 +41,9 @@ describe('DataManagedService', () => {
     httpDataGridParams = {
       startDate: '',
       endDate: '',
-      dataFrequency: DATA_FREQUENCY.DAILY,
+      dataFrequency: httpQueryParams.dataFrequency,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: `2021-10-22`,
+      dueDate: httpQueryParams.dueDate,
       periodType: '',
       clientName: '',
       reportType: '',
@@ -52,10 +53,32 @@ describe('DataManagedService', () => {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
+
+    httpDataGridParamsException = {
+      startDate: '',
+      endDate: '',
+      dataFrequency: DATA_FREQUENCY.DAILY,
+      dueDate: '2021-03-31',
+      periodType: '',
+      clientName: '',
+      auditFileGuidName: '6f43bd8a-2be3-4953-8e69-aa22ff5c4b4d',
+      fileId:'',
+      fileName: 'Security Master2021-03-31'
+    };
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should be assigned setExceptionDetails', () => {
+    service.setExceptionDetails = "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"";
+    expect(service.exceptionDetails).toBeTruthy();
+  });
+
+  it('should be assigned setExceptionFileName', () => {
+    service.setExceptionFileName = "Gau Revas Envou";
+    expect(service.exceptionFileName).toBeTruthy();
   });
 
   it('should return list DataProviderList', () => {
@@ -915,4 +938,43 @@ describe('DataManagedService', () => {
       expect(resp).toEqual(data)
     })
   });
+
+  it('should return ExceptionTableData', () => {
+    const data = {
+      "success": true,
+      "message": "",
+      "corelationId": "9d07b574-4d1a-4a24-8d60-84229203f11b",
+      "data": [
+          {
+              "type": "Integrity",
+              "name": "null check on securitytypedescription",
+              "priority": "medium",
+              "comments": null,
+              "exceptionCount": 3,
+              "exceptionReportDetails": null
+          },
+      {
+              "type": "Integrity",
+              "name": "Date Format Check",
+              "priority": "high",
+              "comments": null,
+              "exceptionCount": 0,
+              "exceptionReportDetails": null
+          },
+          {
+              "type": null,
+              "name": null,
+              "priority": "medium",
+              "comments": null,
+              "exceptionCount": 0,
+              "exceptionReportDetails": null
+          }
+      ],
+      "error": null
+  };
+    service.getExceptionTableData(httpDataGridParamsException).subscribe(resp => {
+      expect(resp).toEqual(data)
+    })
+  })
+  
 });
