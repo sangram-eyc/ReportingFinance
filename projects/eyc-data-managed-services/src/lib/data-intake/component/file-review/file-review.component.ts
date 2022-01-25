@@ -226,7 +226,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
     } else {
       console.log("Data name is not getting");  
-      // This console is use for QA34 live env (RouterLink is working in local system but not in QA34)
+      // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
     }
  }
 

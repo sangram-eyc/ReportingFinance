@@ -560,7 +560,7 @@ describe('FileReviewComponent', () => {
         expect(component.dataList).toEqual(mockTotalSeriesItem);
     });
 
-    it('should fetch daily data as per data-provider', () => {
+    it('should redirect on click at table-row', () => {
         const event = { data: { name: 'abc', auditFileGuidName: '', fileNameAlias: ''}} as RowClickedEvent;
         component.onRowClicked(event);
         fixture.detectChanges();
