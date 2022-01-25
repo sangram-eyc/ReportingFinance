@@ -1,25 +1,25 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { GeneralLedgerComponent } from './general-ledger.component';
+import { ExceptionsComponent } from './exceptions.component';
 
-// describe('GeneralLedgerComponent', () => {
-//   let component: GeneralLedgerComponent;
-//   let fixture: ComponentFixture<GeneralLedgerComponent>;
+describe('GeneralLedgerComponent', () => {
+  let component: ExceptionsComponent;
+  let fixture: ComponentFixture<ExceptionsComponent>;
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ GeneralLedgerComponent ]
-//     })
-//     .compileComponents();
-//   }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ExceptionsComponent ]
+    })
+    .compileComponents();
+  }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(GeneralLedgerComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ExceptionsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
