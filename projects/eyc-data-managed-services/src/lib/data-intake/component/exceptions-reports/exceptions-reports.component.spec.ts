@@ -34,14 +34,14 @@ describe('ExceptionsReportsComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule],
       providers: [DataManagedService, DataManagedSettingsService, EycDataApiService,
-        {provide:"dataManagedEndPoint",  useValue: environment.apiEndpoint},
-      {provide:"dataManagedProduction",  useValue: environment.production}]
+        { provide: "dataManagedEndPoint", useValue: environment.apiEndpoint },
+        { provide: "dataManagedProduction", useValue: environment.production }]
     })
       .compileComponents();
-      fixture = TestBed.createComponent(ExceptionsReportsComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-      dataManagedService = TestBed.get(DataManagedService)
+    fixture = TestBed.createComponent(ExceptionsReportsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    dataManagedService = TestBed.get(DataManagedService)
   }));
 
 
@@ -54,15 +54,16 @@ describe('ExceptionsReportsComponent', () => {
   });
 
   it('should check exceptionReportDetails property ', () => {
-    let mokckExceptionReportDetails =[
-      {Fundnumber:'AECX'},
-      {Fundnumber:'70Rl'},
-      {Fundnumber:'AECW'},
-      {Fundnumber:'AECZ'},
-      {Fundnumber:'AECY'}];
-    component.exceptionReportDetails= "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"";
+    let mokckExceptionReportDetails = [
+      { Fundnumber: 'AECX' },
+      { Fundnumber: '70Rl' },
+      { Fundnumber: 'AECW' },
+      { Fundnumber: 'AECZ' },
+      { Fundnumber: 'AECY' }];
+    component.exceptionReportDetails = "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"";
     fixture.detectChanges();
     component.ngOnInit()
+    component.ngAfterViewInit();
     expect(component.exceptionTableFillData).toEqual(mokckExceptionReportDetails);
   });
 
@@ -71,30 +72,30 @@ describe('ExceptionsReportsComponent', () => {
   });
 
   it('should update PaginationSize', () => {
-   let newSize =10;
-   component.updatePaginationSize(newSize);
+    let newSize = 10;
+    component.updatePaginationSize(newSize);
     expect(component.noOfCompletdFilingRecords).toEqual(10);
   });
 
   it('should update handlePageChange', () => {
-    let value =10;
+    let value = 10;
     component.handlePageChange(value);
-     expect(component.currentPage).toEqual(10);
-   });
+    expect(component.currentPage).toEqual(10);
+  });
 
-  it('should call getExceptionReportstable and return list of exception list', async(()=> {
+  it('should call getExceptionReportstable and return list of exception list', async(() => {
     let activeFilings = [];
     fixture.detectChanges();
     const result$ = dataManagedService.getExceptionReportstable();
-    result$.subscribe(resp  => {
+    result$.subscribe(resp => {
       resp['data'].data['rowData'].forEach((item) => {
-        const eachitem: any  = {
-            type: item.type,
-            exposure: item.exposure,
-            classification: item.classification,
-            category:item.category,
-            value:item.value,
-            variance: item.variance
+        const eachitem: any = {
+          type: item.type,
+          exposure: item.exposure,
+          classification: item.classification,
+          category: item.category,
+          value: item.value,
+          variance: item.variance
         };
         activeFilings.push(eachitem);
       });

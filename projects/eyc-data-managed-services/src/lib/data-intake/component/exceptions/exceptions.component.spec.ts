@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Renderer2, Type } from '@angular/core';
+import { ElementRef, Input, Renderer2, Type } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MotifButtonModule, MotifCardModule, MotifFormsModule, MotifIconModule, MotifPaginationModule, MotifProrgressIndicatorsModule, MotifTableModule } from '@ey-xd/ng-motif';
 import { AgGridModule } from 'ag-grid-angular';
 import { RowClickedEvent } from 'ag-grid-community';
+import { of } from 'rxjs';
 import { environment } from '../../../../../../../src/environments/environment';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../../config/dms-config-helper';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
@@ -27,6 +28,122 @@ describe('ExceptionsComponent', () => {
     let httpQueryParams: DataSummary;
     let httpDataGridParams: ExceptionDataGrid;
     let httpDataGridParamsException: ExceptionDataGrid;
+    
+    const data = {
+        "success": true,
+        "message": "",
+        "corelationId": "9d07b574-4d1a-4a24-8d60-84229203f11b",
+        "data": [
+            {
+                "type": "Integrity",
+                "name": "null check on securitytypedescription",
+                "priority": "medium",
+                "comments": null,
+                "exceptionCount": 3,
+                "exceptionReportDetails": null
+            },
+            {
+                "type": "Integrity",
+                "name": "Date Format Check",
+                "priority": "high",
+                "comments": null,
+                "exceptionCount": 0,
+                "exceptionReportDetails": null
+            },
+            {
+                "type": null,
+                "name": null,
+                "priority": "medium",
+                "comments": null,
+                "exceptionCount": 0,
+                "exceptionReportDetails": null
+            }
+        ],
+
+        "error": null
+    };
+
+    let mockReviewFile = {
+        "success": true,
+        "message": "success",
+        "data": {
+            "totalCount": 50,
+            "rowData": [
+                {
+                    "file": "General_Ledger_09",
+                    "provider": "Data H",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS, ",
+                    "due_date": "10/19/2021 | 9:00am EST",
+                    "exceptions": "Fund completeness",
+                    "Status": "High"
+                },
+                {
+                    "file": "General_Ledger_091",
+                    "provider": "Statestreet",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS,",
+                    "due_date": "10/15/2021 | 9:00am EST",
+                    "exceptions": "",
+                    "Status": "No Issues"
+                },
+                {
+                    "file": "General_Ledger_09",
+                    "provider": "Data H",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS, ",
+                    "due_date": "10/19/2021 | 9:00am EST",
+                    "exceptions": "Fund completeness",
+                    "Status": "High"
+                },
+                {
+                    "file": "Positions_state_071",
+                    "provider": "Facet",
+                    "data_domain": "Positions",
+                    "functions": "RRMS, ",
+                    "due_date": "-12 Days ",
+                    "exceptions": "",
+                    "Status": "Missing"
+                },
+                {
+                    "file": "General_Ledger_09",
+                    "provider": "Data H",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS, ",
+                    "due_date": "10/19/2021 | 9:00am EST",
+                    "exceptions": "Fund completeness",
+                    "Status": "High"
+                },
+                {
+                    "file": "General_Ledger_091",
+                    "provider": "Statestreet",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS, ",
+                    "due_date": "10/15/2021 | 9:00am EST",
+                    "exceptions": "Fund completeness",
+                    "Status": "Medium / Low"
+                },
+                {
+                    "file": "Positions_state_071",
+                    "provider": "Facet",
+                    "data_domain": "Positions",
+                    "functions": "RRMS, ",
+                    "due_date": "-12 Days ",
+                    "exceptions": "",
+                    "Status": "Missing"
+                },
+                {
+                    "file": "General_Ledger_091",
+                    "provider": "Statestreet",
+                    "data_domain": "General Ledger",
+                    "functions": "TRMS, ",
+                    "due_date": "10/15/2021 | 9:00am EST",
+                    "exceptions": "Fund completeness",
+                    "Status": "Medium / Low"
+                }
+            ]
+        }
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -75,6 +192,7 @@ describe('ExceptionsComponent', () => {
         fixture.detectChanges();
         dataManagedService = TestBed.get(DataManagedService);
         httpQueryParams =
+
         {
             startDate: '',
             endDate: '',
@@ -95,11 +213,10 @@ describe('ExceptionsComponent', () => {
             periodType: '',
             clientName: '',
             auditFileGuidName: '6f43bd8a-2be3-4953-8e69-aa22ff5c4b4d',
-            fileId:'',
+            fileId: '',
             fileName: 'Security Master2021-03-31'
-          };
+        };
     });
-
 
     it('should create', () => {
         expect(component).toBeTruthy();
@@ -168,80 +285,43 @@ describe('ExceptionsComponent', () => {
         expect(component.showComments).toEqual(true);
     });
 
-    it('should call getExceptionReportstable and return list of exception list', async(() => {
-        let glRowdata = [];
-        var httpDataGridParams = {
-            startDate: '',
-            endDate: '',
-            dataFrequency: DATA_FREQUENCY.DAILY,
-            dueDate: '2021-03-31',
-            periodType: '',
-            clientName: '',
-            auditFileGuidName: '43448ccf-e8f3-4a33-9f2a-0020f27d8aee',
-            fileId: '',
-            fileName: 'Daily'
-        };
+    it('should dataFrequency as daily', () => {
+        component.dailyData(false);
         fixture.detectChanges();
-        const result$ = dataManagedService.getExceptionTableData(httpDataGridParams);
-        result$.subscribe(resp => {
-            console.log('resp', resp);
-            resp['data'].forEach((item) => {
-                const eachitem: any = {
-                    file: item.file,
-                    provider: item.provider,
-                    data_domain: item.data_domain,
-                    functions: item.functions,
-                    due_date: item.due_date,
-                    exceptions: item.exceptions,
-                    Status: item.Status
-                };
-                glRowdata.push(eachitem);
-            });
-            expect(component.glRowdata).toEqual(glRowdata);
-        })
-    }));
+        expect(component.httpDataGridParams.dataFrequency).toEqual(DATA_FREQUENCY.DAILY);
+    });
+
+    it('should check the service', () => {
+        expect(dataManagedService instanceof DataManagedService).toBeTruthy();
+    });
 
     it('should redirect on click at table-row', () => {
-        const event = { data: { name:'AECX', exceptionReportDetails: "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\""}} as RowClickedEvent;
+        const event = { data: { name: 'AECX', exceptionReportDetails: "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"" } } as RowClickedEvent;
         component.onRowClicked(event);
         fixture.detectChanges();
     });
 
+    it('should get file-details grid data', () => {
+        let mockReviewResponse = data;
+        let mockReviewTotalSeriesItem;
+        spyOn(dataManagedService, 'getExceptionTableData').and.returnValue(of(mockReviewResponse));
+        component.getExceptionTableData();
+        fixture.detectChanges();
+        mockReviewTotalSeriesItem = mockReviewResponse.data;
+        expect(component.glRowdata).toEqual(mockReviewTotalSeriesItem);
+    });
+
     it('should return ExceptionTableData', () => {
-        const data = {
-          "success": true,
-          "message": "",
-          "corelationId": "9d07b574-4d1a-4a24-8d60-84229203f11b",
-          "data": [
-              {
-                  "type": "Integrity",
-                  "name": "null check on securitytypedescription",
-                  "priority": "medium",
-                  "comments": null,
-                  "exceptionCount": 3,
-                  "exceptionReportDetails": null
-              },
-          {
-                  "type": "Integrity",
-                  "name": "Date Format Check",
-                  "priority": "high",
-                  "comments": null,
-                  "exceptionCount": 0,
-                  "exceptionReportDetails": null
-              },
-              {
-                  "type": null,
-                  "name": null,
-                  "priority": "medium",
-                  "comments": null,
-                  "exceptionCount": 0,
-                  "exceptionReportDetails": null
-              }
-          ],
-          "error": null
-      };
-      dataManagedService.getExceptionTableData(httpDataGridParamsException).subscribe(resp => {
-          expect(resp).toEqual(data)
+
+        fixture.detectChanges();
+        component.getExceptionTableData();
+        dataManagedService.getExceptionTableData(httpDataGridParamsException).subscribe(resp => {
+            expect(resp).toEqual(data);
+            expect(resp['data']).toEqual(component.glRowdata);
         })
-      })
+    })
+
 });
+
+
+
