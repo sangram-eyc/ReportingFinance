@@ -121,7 +121,17 @@
             </div>
         </ng-template>
 
+        <ng-template #expandEntityTemplate let-row>
+            <div class="exceptionRouteCls" (click)="routeToFilingEntityExceptionPage(row)">{{ row.entityName}}</div>
+        </ng-template>
 
+        <ng-template #viewFilingEntityTemplate let-row>
+            <div class="view-det-arrow">
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                    (click)="routeToFilingEntityExceptionPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+        
         <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>
