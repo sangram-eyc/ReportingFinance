@@ -1,8 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
-import { LoaderService } from '@default/services/loader.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
-import { ColDef } from 'ag-grid-community';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
@@ -66,10 +64,9 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionFileName:string="";
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
-    private renderer: Renderer2, private customglobalService: CustomGlobalService, public loaderService: LoaderService) {
+    private renderer: Renderer2, private customglobalService: CustomGlobalService) {
       this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
       this.exceptionFileName = this.dataManagedService.getExceptionFileName;
-      this.loaderService.show();
   }
 
   capitalizeFirstLetter(string) {
@@ -142,7 +139,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    this.loaderService.hide();
   };
 
   updatePaginationSize(newPageSize: number) {
