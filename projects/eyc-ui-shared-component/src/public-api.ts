@@ -24,3 +24,4 @@ export * from './lib/panel-right-comment-details/panel-right-comment-details.mod
 export * from './lib/panel-right-comment-details/components/panel-right-comment-details.component';
 export * from './lib/comment-details-pr/comment-details-pr.module'
 export * from './lib/comment-details-pr/components/comment-details-pr.component';
+export * from './lib/modal/resolve-modal/components/resolve-modal.component';

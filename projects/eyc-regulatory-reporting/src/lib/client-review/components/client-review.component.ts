@@ -108,7 +108,12 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('actionButtonTemplate')
   actionButtonTemplate: TemplateRef<any>;
+  @ViewChild('viewFilingEntityTemplate')
+  viewFilingEntityTemplate: TemplateRef<any>;
+  @ViewChild('expandEntityTemplate')
+  expandEntityTemplate: TemplateRef<any>;
   
+
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
@@ -210,6 +215,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.expandEntityTemplate,
+          },
           headerName: 'Entity Name',
           field: 'entityName',
           sortable: true,
@@ -256,6 +265,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 155,
         },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.viewFilingEntityTemplate,
+          },
+          width: 50
+        }
       ];
 
       this.exceptionDefs = [
@@ -761,6 +778,11 @@ actionMenuEnableforException(row) {
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports']);
+  }
+
+  routeToFilingEntityExceptionPage(event:any) {
+    this.filingService.setFilingEntityData = event;
+    this.router.navigate(['/view-filing-entity-exception']);
   }
 
   @HostListener('document:click', ['$event'])
