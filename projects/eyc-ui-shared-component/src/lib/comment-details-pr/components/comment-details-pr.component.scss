@@ -761,7 +761,7 @@
     margin-left: 19px;
     .motif-card-body:last-child, .motif-card-body:last-child {
         padding: 0 !important;   
-        margin-bottom: 25px !important;    
+        margin-bottom: inherit !important;    
     }
 
     ::ng-deep{
@@ -1257,9 +1257,7 @@
       .text-replay{
         color: #155CB4;
         cursor: pointer;
-      }
-
-    
+      } 
 }
 
    
