@@ -26,4 +26,7 @@ export class EycRrCommentApiService {
   listComments(entityId, entityType) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityType+'/'+entityId+'/comments');
   }
+
+  updateStatus(resolveurl) {
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling}`+resolveurl);  }
 }
