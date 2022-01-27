@@ -11,7 +11,7 @@ export class RegulatoryReportingFilingService {
   filingData: any;
   @Output() dotcardStatusDetails = new EventEmitter<any>();
   exceptionData: any;
-
+  filingEntityData: any;
 
   constructor(
     private apiService: EycRrApiService,private settingsService: EycRrSettingsService
@@ -35,6 +35,14 @@ export class RegulatoryReportingFilingService {
 
     get getExceptionData() {
       return this.exceptionData;
+    }
+
+    set setFilingEntityData(data) {
+      this.filingEntityData = data;
+    }
+
+    get getFilingEntityData() {
+      return this.filingEntityData
     }
 
     getFilings() {

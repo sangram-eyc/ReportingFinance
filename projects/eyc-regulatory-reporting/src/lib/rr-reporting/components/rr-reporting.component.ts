@@ -112,7 +112,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('actionButtonTemplate')
   actionButtonTemplate: TemplateRef<any>;
-
+  @ViewChild('viewFilingEntityTemplate')
+  viewFilingEntityTemplate: TemplateRef<any>;
+  @ViewChild('expandEntityTemplate')
+  expandEntityTemplate: TemplateRef<any>;
   
   
   ngOnInit(): void {
@@ -206,6 +209,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.expandEntityTemplate,
+          },
           headerName: 'Entity Name',
           field: 'entityName',
           sortable: true,
@@ -255,6 +262,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         //     return params.value === '' ? '' :'comments-background';
         // }
         },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.viewFilingEntityTemplate,
+          },
+          width: 50
+        }
       ];
 
       this.exceptionDefs = [
@@ -786,6 +801,11 @@ actionMenuEnableforException(row) {
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports']);
+  }
+
+  routeToFilingEntityExceptionPage(event:any) {
+    this.filingService.setFilingEntityData = event;
+    this.router.navigate(['/view-filing-entity-exception']);
   }
 
   @HostListener('document:click', ['$event'])
