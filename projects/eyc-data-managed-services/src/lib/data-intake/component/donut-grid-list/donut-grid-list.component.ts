@@ -27,6 +27,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   dailyMonthlyStatus: boolean = false;
   disabledDailyMonthlyButton: boolean = false;
   dataIntakeType: string;
+  dataIntakeTypeDisplay:string;
   form: FormGroup;
   calSelectedDate: string;
   pieData: PieChartSeriesItemDTO[];
@@ -42,6 +43,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
   dataList:any;
+  totalDataIntakeTypeCount:number;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
   colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
@@ -67,6 +69,12 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
+      if(this.dataIntakeType=='dataProvider'){
+        this.dataIntakeTypeDisplay='Data Providers'
+      }
+      else{
+        this.dataIntakeTypeDisplay='Data Domains'
+      }
     });
   }
 
@@ -308,6 +316,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
       debugger;
       this.dataList=data.data;
+      this.totalDataIntakeTypeCount=this.dataList.length;
     });
   }
 }
