@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, TemplateRef, AfterViewInit, O
 import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
-import {customComparator} from '../../config/rr-config-helper';
+import { customComparator } from '../../config/rr-config-helper';
 import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
@@ -93,11 +93,14 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
     this.getActiveFilingsData();
-    this.getCompletedFilingsData();
+
   }
 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    if (this.tabIn == 2) {
+      this.getCompletedFilingsData();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -131,10 +134,9 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       });
       this.activeFilings = this.customglobalService.sortFilings(this.activeFilings)
       this.activeReports = this.activeFilings;
-      this.createHistoryRowData();
-    },error=>{
+    }, error => {
       if (error['errorCode'].includes('RR-0023')) {
-       this.errorModalActiveFiling(error);
+        this.errorModalActiveFiling(error);
       }
     });
   }
@@ -162,10 +164,12 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   }
 
   createHistoryRowData() {
-   
+
     this.rowData = [];
+    let data = []
+    this.columnDefs = [];
     this.completedFilings.forEach(filing => {
-      this.rowData.push({
+      data.push({
         name: filing.filingName + ' // ' + filing.period,
         filingId: filing.filingId,
         filingName: filing.filingName,
@@ -178,133 +182,136 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         subDate: '-',
         exceptions: 0,
         resolved: 0,
-        completedDate : filing.completedDate,
-        completedBy:filing.completedBy
+        completedDate: filing.completedDate,
+        completedBy: filing.completedBy
       })
     });
-    this.columnDefs = [
-      {
-        headerName: '',
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
+    setTimeout(() => {
+      this.rowData = data;
+      this.columnDefs = [
+        {
+          headerName: '',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dropdownTemplate,
+          },
+          field: 'template',
+          minWidth: 43,
+          width: 43,
+          sortable: false,
+          cellClass: 'actions-button-cell',
+          pinned: 'left'
         },
-        field: 'template',
-        minWidth: 43,
-        width: 43,
-        sortable: false,
-        cellClass: 'actions-button-cell',
-        pinned: 'left'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.filingNameTemplate,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.filingNameTemplate,
+          },
+          headerName: 'Filing Report Name',
+          field: 'name',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 300,
+          sort: 'asc',
+          wrapText: true,
+          autoHeight: true,
+          comparator: customComparator
         },
-        headerName: 'Filing Report Name',
-        field: 'name',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 300,
-        sort:'asc',
-        wrapText: true,
-        autoHeight: true,
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Filing period',
-        field: 'period',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 200,
-        comparator: customComparator
-      },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing period',
+          field: 'period',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 200,
+          comparator: customComparator
+        },
 
-      // Change for User story 288907 and keep this commented code for future US requirement -->
+        // Change for User story 288907 and keep this commented code for future US requirement -->
 
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   cellRendererFramework: MotifTableCellRendererComponent,
-      //   headerName: 'Comments',
-      //   field: 'comments',domLayout
-      //   sortable: true,
-      //   filter: true,
-      //   minWidth: 140,
-      //   cellRendererParams: {
-      //       ngTemplate: this.commentTemplate,
-      //     }
-      // },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Total entities',
-        field: 'totalFunds',
-        sortable: true,
-        filter: true,
-        minWidth: 180
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dueDateTemplate,
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   headerName: 'Comments',
+        //   field: 'comments',domLayout
+        //   sortable: true,
+        //   filter: true,
+        //   minWidth: 140,
+        //   cellRendererParams: {
+        //       ngTemplate: this.commentTemplate,
+        //     }
+        // },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Total entities',
+          field: 'totalFunds',
+          sortable: true,
+          filter: true,
+          minWidth: 180
         },
-        headerName: 'Due date',
-        field: 'dueDate',
-        sortable: true,
-        filter: true,
-        minWidth: 180,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Submission date',
-        field: 'subDate',
-        sortable: true,
-        filter: true,
-        minWidth: 180
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.completedDateTemplate,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dueDateTemplate,
+          },
+          headerName: 'Due date',
+          field: 'dueDate',
+          sortable: true,
+          filter: true,
+          minWidth: 180,
         },
-        headerName: 'Date marked complete',
-        field:'completedDate',
-        sortable: true,
-        filter:true,
-        minWidth: 300
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Marked completed by',
-        field:'completedBy',
-        sortable: true,
-        filter:true,
-        minWidth: 300
-      }
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Submission date',
+          field: 'subDate',
+          sortable: true,
+          filter: true,
+          minWidth: 180
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.completedDateTemplate,
+          },
+          headerName: 'Date marked complete',
+          field: 'completedDate',
+          sortable: true,
+          filter: true,
+          minWidth: 300
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Marked completed by',
+          field: 'completedBy',
+          sortable: true,
+          filter: true,
+          minWidth: 300
+        }
 
-      // Change for User story 288907 and keep this commented code for future US requirement -->
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   headerName: 'Exceptions',
-      //   field: 'exceptions',
-      //   sortable: true,
-      //   filter: true,
-      //   minWidth: 140
-      // },
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   headerName: 'Resolved',
-      //   field: 'resolved',
-      //   sortable: true,
-      //   filter: true,
-      //   minWidth: 140
-      // },
-    ];
+        // Change for User story 288907 and keep this commented code for future US requirement -->
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   headerName: 'Exceptions',
+        //   field: 'exceptions',
+        //   sortable: true,
+        //   filter: true,
+        //   minWidth: 140
+        // },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   headerName: 'Resolved',
+        //   field: 'resolved',
+        //   sortable: true,
+        //   filter: true,
+        //   minWidth: 140
+        // },
+      ];
+    }, 1);
   }
 
   searchActiveReports(input) {
@@ -314,7 +321,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
+    let pastedText = (clipboardData.getData('text')).split("");
     pastedText.forEach((ele, index) => {
       if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
         if ((pastedText.length - 1) === index) {
@@ -325,7 +332,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         return false;
       }
     });
-  } 
+  }
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
@@ -395,36 +402,36 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   routeToViewFiling(row) {
     console.log(row);
     this.filingService.setfilingData = row;
-    if(this.permissions.validatePermission('Submission', 'View Submission')) {
+    if (this.permissions.validatePermission('Submission', 'View Submission')) {
       this.router.navigate(['/submission']);
     } else {
-        for(let i=row.status.length - 1; i >= 0; i--) {
-           if(this.permissions.validatePermission(this.preapreStage(row.status[i].stageCode), this.preapreViewFeature(row.status[i].stageCode))) {
-            this.preapreRouting(row.status[i].stageCode);
-            return;
-           } 
-           if (i===0) {
-            this.errorModalPopup();
-          } 
+      for (let i = row.status.length - 1; i >= 0; i--) {
+        if (this.permissions.validatePermission(this.preapreStage(row.status[i].stageCode), this.preapreViewFeature(row.status[i].stageCode))) {
+          this.preapreRouting(row.status[i].stageCode);
+          return;
         }
+        if (i === 0) {
+          this.errorModalPopup();
+        }
+      }
     }
   }
 
   preapreStage(stageCode) {
     switch (stageCode) {
       case "FUND_SCOPING": return 'Fund Scoping';
-      case "DATA_INTAKE":  return 'Data Intake';
-      case "REPORTING":  return 'Reporting';
+      case "DATA_INTAKE": return 'Data Intake';
+      case "REPORTING": return 'Reporting';
       case "CLIENT_REVIEW": return 'Client Review';
       case "SUBMISSION": return 'Submission';
     }
   }
-  
+
   preapreViewFeature(stageCode) {
     switch (stageCode) {
       case "FUND_SCOPING": return 'View Fund Scoping';
-      case "DATA_INTAKE":  return 'View Data Intake';
-      case "REPORTING":  return 'View Reporting';
+      case "DATA_INTAKE": return 'View Data Intake';
+      case "REPORTING": return 'View Reporting';
       case "CLIENT_REVIEW": return 'View Client Review';
       case "SUBMISSION": return 'View Submission';
     }
@@ -436,8 +443,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         this.router.navigate(['/fund-scoping']);
         break;
       case "DATA_INTAKE":
-          this.router.navigate(['/data-intake']);
-          break;
+        this.router.navigate(['/data-intake']);
+        break;
       case "REPORTING":
         this.router.navigate(['/regulatory-reporting']);
         break;
@@ -468,7 +475,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   }
   errorModalActiveFiling(errorMessage) {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
-      
+
       disableClose: true,
       width: '400px',
       data: {

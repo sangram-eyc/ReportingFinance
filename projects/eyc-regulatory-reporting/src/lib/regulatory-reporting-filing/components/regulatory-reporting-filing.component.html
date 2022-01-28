@@ -85,26 +85,17 @@
 </section>
 
 <section id='reports-history' [hidden]="!(tabIn == 2)">
-    <div id="reports-history-heading">
-        <div class="search">
-            <motif-form-field>
-                <input #reportHistorySearch motifInput motifSearch type="text"
-                    (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(reportHistorySearch)"
-                    (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
-            </motif-form-field>
-        </div>
-    </div>
-    <div id="grid-wrapper" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
-        <motif-table [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple" (gridReady)="onGridReady($event)"
-            [suppressRowClickSelection]="true" [suppressCellSelection]="true" [domLayout]="domLayout" [pagination]="false"
-            [paginationPageSize]="currentlySelectedPageSize.value"></motif-table>
-    </div>
-
-    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
-        <motif-card-body>
-            <h5>Your search has returned no results. Please adjust and try again.</h5>
-        </motif-card-body>
-    </motif-card>
+  
+    <lib-shared-grid
+        gridStyle="second"
+        [displayCheckBox]="true"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="{}"
+        [rowData]="rowData"
+        rowSelection="multiple"
+        buttonPosition="left"
+        [button]="false"
+        ></lib-shared-grid>
 
     <ng-template #filingNameTemplate let-row>
         <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>
