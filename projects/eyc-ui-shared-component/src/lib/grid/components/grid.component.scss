@@ -142,6 +142,26 @@
             }
         }
     }
+    .exportWrapper{
+        display: flex;
+        top: 5px;
+        position: relative;
+        ::ng-deep svg {
+                width: 18px;
+                height: 18px;
+                fill: #155CB4;
+        }
+        span {
+            font-family: EYInterstate;
+            font-size: 14px;
+            line-height: 22px;
+            color: #155CB4;
+            top: -2px;
+            position: relative;
+            left: 2px;
+            font-weight: bold;
+        }
+    }
 }
 
 ::ng-deep.motif-toast {
@@ -198,6 +218,7 @@
 
   .search {
       display: flex;
+      margin-left: 310px;
       .toggle {
         margin: 12px 0px -8px 20px;
         display: flex;

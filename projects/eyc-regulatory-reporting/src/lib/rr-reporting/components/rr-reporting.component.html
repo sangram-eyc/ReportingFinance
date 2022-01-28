@@ -58,7 +58,7 @@
             [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
             [isToggle]="false" [modalConfig]="filingModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)">
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>

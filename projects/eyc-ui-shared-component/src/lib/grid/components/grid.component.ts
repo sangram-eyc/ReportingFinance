@@ -76,6 +76,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
+  @Input() export = false;
   gridHeadingCls;
   gridContainerCls;
   srnoCls;
