@@ -5,7 +5,7 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import {GroupByDataProviderCardGrid} from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, FILTER_TYPE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -21,7 +21,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   curDate: string;
   presentDate: Date;
   view = [];
-  colorSchemeAll: Color;
   showLegend = false;
   legendTitle = 'Legend';
   legendPosition= LegendPosition.Below;
@@ -43,17 +42,28 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
   dataList:any;
+  FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
+  FILTER_TYPE = FILTER_TYPE;
+  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
+
+  customColors: any = [
+    { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
+    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+  ];
+
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-
+  
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService,
     private _activatedroute: ActivatedRoute,private _router: Router) {
-    this.setColorScheme();
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
@@ -91,16 +101,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.getDataIntakeType();
   }
 
-  toggleCalendar(event): void {
-    this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
-    if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
-      this.getDataIntakeType();
-      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
-    }
-  }
-
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
@@ -119,8 +119,15 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
-  setColorScheme() {
-    this.colorSchemeAll=colorSets.find(s => s.name === 'all');
+
+  toggleCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedDate = event.singleDate.formatted;
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.getDataIntakeType();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }
   }
 
   dailyData(status: boolean) {
@@ -163,6 +170,24 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       value,
       ...rest
     }));
+  }
+
+  setLegendColor(status){
+    switch (status){
+      case FILTER_TYPE.NO_ISSUES:
+        return this.colorSchemeAll.domain[0];
+      case FILTER_TYPE.MEDIUM_LOW:
+        return this.colorSchemeAll.domain[1];
+      case FILTER_TYPE.HIGH:
+        return this.colorSchemeAll.domain[2];
+      case FILTER_TYPE.MISSING_FILES:
+        return this.colorSchemeAll.domain[3];
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        return this.colorSchemeAll.domain[4];
+      default:
+        break;
+    
+    }
   }
 
   filterByIssues(issues: string, variants: string) {
@@ -280,11 +305,9 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   getDataIntakeType(){
-    // this.dataList = [];
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
       debugger;
       this.dataList=data.data;
-      console.log(data);
     });
   }
 }

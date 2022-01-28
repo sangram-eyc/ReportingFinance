@@ -95,7 +95,7 @@
                             <div class="pie-chart">
                                 <eyc-charts-pie-chart doughnut="yes" [results]="mapDonutChartDataWithKey(item.dataIntakeDTO)"
                                     [scheme]="colorSchemeAll" animations="true" explodeSlices="false" arcWidth="0.50"
-                                    gradient="false" tooltipDisabled="true" [legend]="showLegend"
+                                    gradient="false" tooltipDisabled="true" [legend]="showLegend" [customColors]="customColors"
                                     [legendTitle]="legendTitle" [legendPosition]="legendPosition">
                                 </eyc-charts-pie-chart>
                             </div>
@@ -103,18 +103,12 @@
                             <div class="pie-legend">
                                 <ul>
                                     <li *ngFor="let filter of Object.keys(item.fastFilters)">
-                                        <div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div> 
+                                        <div class="legend" [style.background]="setLegendColor(filter)"> </div> 
                                         <div>{{item.fastFilters[filter]}} {{filter}}</div> 
                                     </li>
-                                    <!-- <li><div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div> <div>2 Medium/Low priority issues</div></li>
-                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div> <div>12 High priority issues</div></li>
-                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div> <div>4 Missing, past due</div></li>
-                                    <li><div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div> <div>4 Files not received</div></li> -->
                                 </ul>
                             </div>
                         </div>
-
-
                         <!-- donut chart End  -->
                     </div>
                 </div>
