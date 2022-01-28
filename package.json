@@ -21,7 +21,6 @@
     "eyc-ui-dms:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref &&  npm run eyc-data-managed-services",
     "eyc-ui-tax-repoting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-tax-reporting",
     "eyc-ui-shared:package": "npm run eyc-charts-shared && npm run eyc-ui-shared",
-
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -86,7 +85,7 @@
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~5.0.0",
+    "karma": "^6.3.12",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.0.1",
