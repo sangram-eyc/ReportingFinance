@@ -1,7 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
-import { ColDef } from 'ag-grid-community';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
@@ -85,17 +84,27 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           sortable: true
         });
       });
-     const multiColumnData = [];
-      for (let i = 0; i < this.exceptionTableFillData.length - 1; i++) {
+      const multiColumnData = [];
+      for (let i = 0; i < this.exceptionTableFillData.length - 1;) {
         let headerColumnNameUniqueWithValue = {};
         let headerIndex = 0;
-        headerColumnNameUnique.forEach((key) => {
+        for (const headerColumnNameUniqueKey of headerColumnNameUnique) {
           const currentValue = this.exceptionTableFillData[i + headerIndex];
-          headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
-          headerIndex++;
-        });
+            const currentValueKey = Object.keys(currentValue);
+            if (currentValueKey == headerColumnNameUniqueKey) {
+              headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
+            } else {
+              const currentValueNoMatch = this.exceptionTableFillData[i + headerIndex - 1];
+              headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValueNoMatch[`${Object.keys(currentValue)}`];
+              i++;
+              break;
+            }
+            headerIndex++;
+         }
+        if(headerColumnNameUnique.size === headerIndex) {
+          i = i + headerColumnNameUnique.size;
+        }
         multiColumnData.push(headerColumnNameUniqueWithValue);
-        i = i + headerColumnNameUnique.size;
       }
       this.exceptionTableData = multiColumnData;
       this.columnDefs = this.columnDefsFill;

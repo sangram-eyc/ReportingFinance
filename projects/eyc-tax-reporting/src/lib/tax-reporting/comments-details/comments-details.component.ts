@@ -1,9 +1,11 @@
 import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { TableHeaderRendererComponent, PanelRightCommentDetailsComponent } from 'eyc-ui-shared-component';
 import { Subscription } from 'rxjs';
 import { TaxCommentService } from '../services/tax-comment.service';
+import { NgDialogAnimationService } from 'ng-dialog-animation';
+
 
 @Component({
   selector: 'comments-details',
@@ -15,11 +17,13 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private commentService: TaxCommentService) { }
+    private commentService: TaxCommentService,
+    public dialog: NgDialogAnimationService) { }
   productCycleId;
   productCycleName;
   productCycleSubTitle: String = 'Following details belong to all comments received from clients and EY users for '
   completedComments: any[] = [];
+  commentDetails:any;
   rowData;
   columnDefs;
   exceptionDetailCellRendererParams;
@@ -308,6 +312,45 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.getCommentsDetails.unsubscribe();
+  }
+  
+
+  openDialog(_idTaskComment): void {
+    this.completedComments = [];
+    this.commentService.getCommentExpandDetails(_idTaskComment).subscribe(resp => {
+      const item = resp['data'];
+        const comment: any = {
+          id: item.id,
+          entityId: item.entityId,
+          entityType: item.entityType,
+          description: item.description,
+          status: item.status,
+          priority: item.priority,
+          target: item.target,
+          company: item.company,
+          author: item.author,
+          createdBy: item.createdBy,
+          createdDate: item.createdDate,
+          tags: item.tags,
+          replyCount: item.replyCount,
+          attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
+          attachments:item.attachments,
+          priorityToFind: item.priority == 1 ? "critical":"",
+          tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
+          tagIncludeTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 2) != undefined ? item.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "",
+          authorTofind: item.author != null ? item.author.userFirstName + " " + item.author.userLastName : item.createdBy,
+          replies : item.replies
+        };
+        this.commentDetails = comment;      
+        const dialogRef = this.dialog.open(PanelRightCommentDetailsComponent, {
+          width: '50%',
+          height: '100%',
+          data: { idTaskComment: _idTaskComment,
+                   dataComent: this.commentDetails},
+          position: { rowStart : '0' },
+          animation: { to: 'left' }
+        });
+    })
   }
 
 }

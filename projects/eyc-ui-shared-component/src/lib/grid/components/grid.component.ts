@@ -157,6 +157,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     return args.node.rowIndex+1;
   }  
 
+  sortChanged(params) {
+    this.gridApi.refreshCells();
+  }
+
   onRowSelected(): void {
     this.selectedRowEmitterProcess.emit('processing');
     this.selectedRows = [];

@@ -92,20 +92,25 @@ export class RrVisualisationComponent implements OnChanges, OnInit {
           const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
           //this.report.applyTheme({theme:powerbiTheme});
           this.report.on('loaded', function(event) {
-            
+            console.log("Report Data", self.report);
+            console.log("Get Filters", self.report.getFilters());
             self.report.getFilters().then(filters => {
+              console.log("Number of filters defined in PBI", filters);
               self.filters = [];
               for (const filter of filters) {
                 // console.log('Filter', filter);
                 if (filter.target['column'] === 'FilingYear' && IS_FY_FILTER) {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
+                    console.log("Period Filter is working", filter['values']);
                     typeof pbifilters === 'string' ? filter['values'].push(pbifilters) : filter['values'].push(pbifilters[1]);
+                    
                   }
                 }
                 if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER &&  typeof pbifilters !== 'string') {
                   filter['operator'] = 'In';
                   if (filter.hasOwnProperty('values')) {
+                    console.log("Year Filter is working",filter['values']);
                     filter['values'].push(pbifilters[0]);
                   }
                 }

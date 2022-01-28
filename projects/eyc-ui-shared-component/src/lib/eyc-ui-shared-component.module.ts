@@ -11,7 +11,8 @@ import { TableHeaderRendererComponent } from './table-header-renderer/table-head
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CommonModule } from '@angular/common';
 import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.module';
-
+import {PanelRightCommentDetailsModule} from './panel-right-comment-details/panel-right-comment-details.module'
+import {CommentDetailsPrModule} from './comment-details-pr/comment-details-pr.module'
 
 @NgModule({
   declarations: [TableHeaderRendererComponent],
@@ -25,7 +26,9 @@ import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.mod
     CommentSideMenuModule,
     IntakeFilesModule,
     InlineSVGModule.forRoot(),
-    CommonModule
+    CommonModule,
+    PanelRightCommentDetailsModule,
+    CommentDetailsPrModule
   ],
   exports: [
     ModalModule,
@@ -35,7 +38,9 @@ import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.mod
     GridModule,
     CommentSideMenuModule,
     IntakeFilesModule,
-    TableHeaderRendererComponent
+    TableHeaderRendererComponent,
+    PanelRightCommentDetailsModule,
+    CommentDetailsPrModule
   ]
 })
 export class EycUiSharedComponentModule { }

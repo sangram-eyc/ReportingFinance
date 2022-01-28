@@ -31,6 +31,7 @@ import {
 } from "@default/notifications/archived-notifications/archived-notifications.component";
 import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
 import { UpdateFilingPropertiesComponent } from './administration/static-data/update-filing-properties/components/update-filing-properties.component';
+import { ViewFilingEntityExceptionComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
 
 
 const routes: Routes = [
@@ -58,11 +59,8 @@ const routes: Routes = [
   {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
-  {path:'data-managed-services', component:EycDataManagementServicesComponent},
-  {path:'data-managed-services/exception-details', component: ExceptionsReportsComponent },
-  {path:'data-managed-services/files-review', component:FileReviewComponent},
-  { path: 'data-managed-services/data-providers', component:DonutGridListComponent },
-  { path: 'archived-notifications', component: ArchivedNotificationsComponent },
+  {path: 'view-filing-entity-exception', component: ViewFilingEntityExceptionComponent, canActivate : [AuthGuardService]},
+  {path: 'archived-notifications', component: ArchivedNotificationsComponent },
   {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },

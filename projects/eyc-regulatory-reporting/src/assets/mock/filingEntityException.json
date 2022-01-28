@@ -1,0 +1,20 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": [
+        {
+            "exceptionId": 6,
+            "exceptionReportType": "Answer - Variance Analysis Period-over-Period",
+            "exceptionReportName": "PMA Variance - Period over Period",
+            "resolveOrException": "3/6"
+        },
+        {
+            "exceptionId": 8,
+            "exceptionReportType": "Answer - Specific Value Check",
+            "exceptionReportName": "Q36 Collateral should be negative",
+            "resolveOrException": "0/3"
+        }
+    ],
+    "error": null
+}

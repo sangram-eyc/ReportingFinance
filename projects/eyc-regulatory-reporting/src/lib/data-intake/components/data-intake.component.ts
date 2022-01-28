@@ -5,8 +5,8 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-// import { customComparator } from '../../config/rr-config-helper';
 import { Router, NavigationExtras } from '@angular/router';
+
 
 @Component({
   selector: 'lib-data-intake',
