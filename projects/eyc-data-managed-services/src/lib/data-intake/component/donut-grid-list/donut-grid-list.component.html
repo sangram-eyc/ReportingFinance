@@ -77,7 +77,7 @@
 </div>
 <div class="motif-row">
     <div *ngFor="let item of dataList" class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
-        <motif-card class="chart-card no_data">
+        <motif-card class="chart-card no_data" [ngClass]="item.fastFilters.high > 0 ? 'warning-border':''">
             <motif-card-body>
                 <div class="chart-panel">
                     <div class="chart-header">
