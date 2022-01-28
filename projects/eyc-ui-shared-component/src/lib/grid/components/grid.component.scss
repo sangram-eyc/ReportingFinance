@@ -7,7 +7,7 @@
 }
 
 .second-heading {
-    margin-bottom: 20px;
+    padding: 20px 0px;
 }
 
 .user-style-container {
@@ -143,9 +143,9 @@
         }
     }
     .exportWrapper{
-        display: flex;
-        top: 5px;
-        position: relative;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 15px;
         ::ng-deep svg {
                 width: 18px;
                 height: 18px;
@@ -218,12 +218,12 @@
 
   .search {
       display: flex;
-      margin-left: 310px;
       .toggle {
         margin: 12px 0px -8px 20px;
         display: flex;
       }
   }
+
   ::ng-deep #gridAdminContainer .motif-table .custom-file.ag-cell-value {
     color: #155CB4  !important;
   }
