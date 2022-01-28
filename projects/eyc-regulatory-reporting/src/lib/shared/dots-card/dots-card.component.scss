@@ -58,12 +58,13 @@
             }
     
             .motif-step-container .step-info .step-dot {
-                background-color: #EAEAF2 !important;
-                border: 3px solid !important; 
+                // background-color: #EAEAF2 !important;
+                // border: 3px solid !important; 
+                border: 2px solid #23232F !important; 
             }
             .motif-step-container .step-info .completed.step-dot {
-                background-color: #57E188 !important;
-                border: 3px solid #000000 !important; 
+                // background-color: #189D3E !important;
+                border: 3px solid #189D3E !important; 
             }
             
         }
@@ -93,9 +94,10 @@
 
            .motif-step-container .step {
             height: 0px !important;
-            border: 1px solid #C4C4CD !important;
+            border: 2px solid #C4C4CD !important;
             display: block !important; 
-
+            width: 80% !important;
+            margin-left: 22px;
             }
 
            .motif-step-container .step-info .step-dot {
@@ -104,22 +106,29 @@
             }
 
             .motif-icon.motif-icon.completed-step-icon {
-            width: 23px !important;
-            height: 22px !important;
-            left: -14px;
-            position: relative;
-            top: 3px;
+                width: 22px !important;
+                height: 22px !important;
+                left: -14px;
+                position: relative;
+                top: 4px;
+                border-radius: 50%;
+                background: #189D3E;
             }
 
            .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
-            width: 18px !important;
+           /*  width: 18px !important;
             height: 18px !important;
             left: 5px !important;
-            top: 5px !important;
+            top: 5px !important; */
+            width: 22px !important;
+            height: 22px !important;
+            left: 3px !important;
+            top: 3px !important;
             cursor: pointer;
+            background: #23232F !important;
             }
             .motif-step-container .step-info .step-dot.in-progress {
-            border: 2px solid #000000 !important;
+            border: 2px solid #23232F !important;
             background: #FFFFFF !important;
             }
             .motif-step-container .step-info .step-dot .inner {
@@ -128,14 +137,19 @@
 
             .motif-step-container .step-info .step-dot.completed {
             // background-color: #F2F2F2 !important;
-            background: #57E188 !important;
-            border: 2px solid #000000 !important;;
+            background: #FFFFFF !important;
+            border: 2px solid #189D3E !important;;
             }
             .motif-step-container .step-info svg {
             //  fill: var(--icon-fill-color) !important;
-            // fill: #57E188 !important;
-            fill: #000000 !important;
+            // fill: #189D3E !important;
+            fill: #FFFFFF !important;
             cursor: pointer;
+            width: 18px !important;
+            height: 18px !important;
+            position: absolute;
+            left: 1px;
+            top: 2px;
             }
 
         .motif-step-container .step-info .step-data-container .first-line {
@@ -145,7 +159,7 @@
             font-size: 12px !important;
             line-height: 16px !important;
             text-align: center;
-            color: #2E2E38;
+            color: #000000;
             position: absolute !important;
             top: 37px !important;
             margin-left: -50px !important;
@@ -201,8 +215,11 @@
         }
 
         .progress-active .motif-step-container .step-info .step-dot.in-progress.in-progress .inner {
-            width: 16px !important;
-            height: 16px !important;
+           /*  width: 16px !important;
+            height: 16px !important; */
+            width: 22px !important;
+            height: 22px !important;
+            background: #23232F !important;
         }
         
     }
