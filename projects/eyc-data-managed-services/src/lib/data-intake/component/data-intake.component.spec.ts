@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+import { Renderer2, Type } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { datamanagedenvironment } from '../../../../../../src/environments/eyc-data-managed-services/data-managed-environment';
 import { DataManagedSettingsService } from '../services/data-managed-settings.service';
@@ -90,14 +90,16 @@ describe('DataIntakeComponent', () => {
   function getElement(id: string): any {
     return document.body.querySelector(id);
   }
+  let renderer: Renderer2;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DataIntakeComponent],
       providers: [DataManagedService, DataManagedSettingsService,
-        EycDataApiService,
+        EycDataApiService, Renderer2,
         { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
-        { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
+        { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }
+      ],
       imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
     })
       .compileComponents();
@@ -106,6 +108,13 @@ describe('DataIntakeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DataIntakeComponent);
     component = fixture.componentInstance;
+    component.dailyfilter = { nativeElement: 'nativeElement' };
+    component.monthlyfilter = { nativeElement: 'nativeElement' };
+    renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
+    spyOn(renderer, 'setAttribute');
+    renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
+
     component.ngAfterViewInit();
     fixture.detectChanges();
     dataManagedService = TestBed.get(DataManagedService);
@@ -249,6 +258,9 @@ describe('DataIntakeComponent', () => {
   });
 
   it('should fetch date from motif Calendar', () => {
+    renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
+    
     const event = { "isRange": false, "singleDate": { "date": { "year": 2021, "month": 12, "day": 15 }, "jsDate": "2021-12-14T18:30:00.000Z", "formatted": "2021-12-15", "epoc": 1639506600 }, "dateRange": null };
     component.toggleCalendar(event);
     fixture.detectChanges();

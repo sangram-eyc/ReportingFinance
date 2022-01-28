@@ -87,10 +87,6 @@ export class DataManagedService {
     return params;
   }
 
-
-
-// fileName:Daily Working Trial Balance TF2021-03-31
-
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
   }
@@ -113,10 +109,6 @@ export class DataManagedService {
 
   getMonthlyDataDomainList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_domain_monthly}`);
-  }
-
-  getFilings() {
-    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_general_ledger}`);
   }
 
   getDailyGeneralLedgerList(currentPage = 0, noOfRecords = 0) {

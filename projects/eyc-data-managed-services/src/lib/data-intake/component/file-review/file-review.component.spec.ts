@@ -12,6 +12,8 @@ import { FileReviewComponent } from './file-review.component';
 import { of } from 'rxjs';
 import { DataManagedSettingsService } from '../../services/data-managed-settings.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Renderer2, Type } from '@angular/core';
+import { RowClickedEvent } from 'ag-grid-community';
 
 describe('FileReviewComponent', () => {
     let component: FileReviewComponent;
@@ -437,7 +439,8 @@ describe('FileReviewComponent', () => {
             "rowData": []
         }
     };
-
+    let renderer: Renderer2;
+    
     function getElement(id: string): any {
         return document.body.querySelector(id);
     }
@@ -446,7 +449,7 @@ describe('FileReviewComponent', () => {
         TestBed.configureTestingModule({
             declarations: [FileReviewComponent],
             providers: [DataManagedService, DataManagedSettingsService,
-                EycDataApiService,
+                EycDataApiService, Renderer2,
                 { provide: "dataManagedProduction", useValue: datamanagedenvironment.production },
                 { provide: "dataManagedEndPoint", useValue: datamanagedenvironment.apiEndpoint }],
             imports: [RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule, FormsModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifFormsModule, MotifTabBarModule, MotifBreadcrumbModule, MotifChipModule, MotifToastModule]
@@ -457,6 +460,13 @@ describe('FileReviewComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FileReviewComponent);
         component = fixture.componentInstance;
+        component.dailyfilter = { nativeElement: 'nativeElement' };
+        component.monthlyfilter = { nativeElement: 'nativeElement' };
+        renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
+        spyOn(renderer, 'setAttribute');
+        renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
+        renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
+        
         component.ngAfterViewInit();
         fixture.detectChanges();
         dataManagedService = TestBed.get(DataManagedService);
@@ -520,6 +530,16 @@ describe('FileReviewComponent', () => {
         expect(component.dataList).toEqual(mockTotalSeriesItem);
     });
 
+    it('should get file-details grid data', () => {
+        let mockReviewResponse = mockReviewFile;
+        let mockReviewTotalSeriesItem;
+        spyOn(dataManagedService, 'getReviewFileTableData').and.returnValue(of(mockReviewResponse));
+        component.getReviewFileTableData();
+        fixture.detectChanges();
+        mockReviewTotalSeriesItem = mockReviewResponse.data;
+        expect(component.glRowdata).toEqual(mockReviewTotalSeriesItem);
+    });
+
     it('should get file summary data but totalSeriesItem null', () => {
         let mockResponseNoRecords = mockFileSummariesNoRecords;
         let mockTotalSeriesItem = [];
@@ -538,6 +558,12 @@ describe('FileReviewComponent', () => {
         fixture.detectChanges();
         mockTotalSeriesItem = mockResponseNoFilesReceived.data[0]['totalSeriesItem'];
         expect(component.dataList).toEqual(mockTotalSeriesItem);
+    });
+
+    it('should redirect on click at table-row', () => {
+        const event = { data: { name: 'abc', auditFileGuidName: '', fileNameAlias: ''}} as RowClickedEvent;
+        component.onRowClicked(event);
+        fixture.detectChanges();
     });
 
     it('should fetch daily data as per data-provider', () => {
@@ -622,6 +648,14 @@ describe('FileReviewComponent', () => {
         component.innerTabIn = 0;
         component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
         component.filterByIssues('all', component.lightVariant);
+        fixture.detectChanges();
+        expect(component.allIssueVariant).toEqual(component.darkVariant);
+    });
+
+    it('should filterByIssues with junk-data and lightVariant', () => {
+        component.innerTabIn = 0;
+        component.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+        component.filterByIssues('abcd', component.lightVariant);
         fixture.detectChanges();
         expect(component.allIssueVariant).toEqual(component.darkVariant);
     });
