@@ -83,7 +83,7 @@
                     <div class="chart-header">
                         <div>{{item.dataIntakeName | titlecase}} <span class="file-count">{{item.dataIntakeCount}} Files</span></div>
                         <div class="box-center">
-                            <div class="mr-2 warning-info">
+                            <div class="mr-2 warning-info" *ngIf="item.fastFilters.high > 0">
                                 <i class="material-icons p-0">ic_info</i>
                              </div>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
@@ -104,7 +104,7 @@
                                 <ul>
                                     <li *ngFor="let filter of Object.keys(item.fastFilters)">
                                         <div class="legend" [style.background]="setLegendColor(filter)"> </div> 
-                                        <div>{{item.fastFilters[filter]}} {{filter}}</div> 
+                                        <div>{{item.fastFilters[filter]}} {{setLegendTitle(filter)}}</div> 
                                     </li>
                                 </ul>
                             </div>

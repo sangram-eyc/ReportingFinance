@@ -198,6 +198,25 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setLegendTitle(status){
+    debugger;
+    switch (status){
+      case FILTER_TYPE.NO_ISSUES:
+        return this.FILTER_TYPE_TITLE.noIssues;
+      case FILTER_TYPE.MEDIUM_LOW:
+        return this.FILTER_TYPE_TITLE.mediumLow;
+      case FILTER_TYPE.HIGH:
+        return this.FILTER_TYPE_TITLE.high;
+      case FILTER_TYPE.MISSING_FILES:
+        return this.FILTER_TYPE_TITLE.missingFiles;
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        return this.FILTER_TYPE_TITLE.fileNotReceived;
+      default:
+        break;
+    
+    }
+  }
+
   filterByIssues(issues: string, variants: string) {
     if (this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
