@@ -61,12 +61,14 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionTableFillData = [];
   headerColumnName = [];
   exceptionReportDetails = "";
-  exceptionFileName:string="";
+  exceptionFileName: string = "";
+  isLoading = true;
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService) {
-      this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
-      this.exceptionFileName = this.dataManagedService.getExceptionFileName;
+    this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
+    this.exceptionFileName = this.dataManagedService.getExceptionFileName;
+    this.isLoading = true;
   }
 
   capitalizeFirstLetter(string) {
@@ -85,23 +87,23 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         });
       });
       const multiColumnData = [];
-      for (let i = 0; i < this.exceptionTableFillData.length - 1;) {
+      for (let i = 0; i < this.exceptionTableFillData.length;) {
         let headerColumnNameUniqueWithValue = {};
         let headerIndex = 0;
         for (const headerColumnNameUniqueKey of headerColumnNameUnique) {
           const currentValue = this.exceptionTableFillData[i + headerIndex];
-            const currentValueKey = Object.keys(currentValue);
-            if (currentValueKey == headerColumnNameUniqueKey) {
-              headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
-            } else {
-              const currentValueNoMatch = this.exceptionTableFillData[i + headerIndex - 1];
-              headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValueNoMatch[`${Object.keys(currentValue)}`];
-              i++;
-              break;
-            }
-            headerIndex++;
-         }
-        if(headerColumnNameUnique.size === headerIndex) {
+          const currentValueKey = Object.keys(currentValue);
+          if (currentValueKey == headerColumnNameUniqueKey) {
+            headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
+          } else {
+            const currentValueNoMatch = this.exceptionTableFillData[i + headerIndex - 1];
+            headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValueNoMatch[`${Object.keys(currentValue)}`];
+            i++;
+            break;
+          }
+          headerIndex++;
+        }
+        if (headerColumnNameUnique.size === headerIndex) {
           i = i + headerColumnNameUnique.size;
         }
         multiColumnData.push(headerColumnNameUniqueWithValue);
@@ -139,6 +141,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
+    this.isLoading = false;
   };
 
   updatePaginationSize(newPageSize: number) {
