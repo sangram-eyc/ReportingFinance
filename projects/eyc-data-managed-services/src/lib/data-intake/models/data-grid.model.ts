@@ -20,3 +20,12 @@ export interface ExceptionDataGrid{
     fileName:StringOrNull;
     clientName:StringOrNull;
 }
+
+export interface GroupByDataProviderCardGrid extends DataSummary{
+    auditFileGuidName:StringOrNull;
+    clientName:StringOrNull;
+    fileId:StringOrNull;
+    fileName:StringOrNull;
+    reportId:StringOrNull;
+    reportName:StringOrNull;    
+}

@@ -9,7 +9,7 @@
             "entityType": "Fund",
             "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
             "status": "OPEN",
-            "priority": 0,
+            "priority": 1,
             "target": "EY",
             "company": "EY",
             "author": {
@@ -31,7 +31,24 @@
                 }
             ],
             "replyCount": 7,
-            "attachmentsCount": 0
+            "attachmentsCount": 3,
+            "attachments": [
+                {
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
+                },
+                {
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
+                },
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                }
+            ]
         },
         {
             "id": 1234,

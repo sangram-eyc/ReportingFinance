@@ -46,6 +46,10 @@
         <button class="btn btn-link" (click)="getProdCycleDetail(row)">{{row.name}}</button>
     </ng-template>
 
+    <ng-template #totalFunds let-row>
+        <span>{{(row.totalFunds > 0) ? row.totalFunds : 0}}</span>
+    </ng-template>
+
     <ng-template #statusTracker let-row>
         <div class="ml-4">
             <a class="link-status-tracker" (click)="getStatusTracker(row)">

@@ -274,7 +274,7 @@ export class ExceptionsComponent implements OnInit {
       this._router.navigate(['/data-managed-services/files/exception-details']);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
-      // This console is use for QA34 live env (RouterLink is working in local system but not in QA34)
+      // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
     }
   }
 
