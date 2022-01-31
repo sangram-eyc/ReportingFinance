@@ -4,7 +4,7 @@
             <motif-breadcrumb maxItems=2>
                 <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
                 </motif-breadcrumb-item>
-                <motif-breadcrumb-item breadcrumbValue="{{dataIntakeTypeDisplay | titlecase}}"
+                <motif-breadcrumb-item breadcrumbValue="{{ (totalDataIntakeTypeCount<=9) ? dataIntakeTypeDisplay['Singular'] : dataIntakeTypeDisplay['Plural'] | titlecase}}"
                     breadcrumbLink="/data-managed-services/data-intake/{{dataIntakeType}}" active="active">
                 </motif-breadcrumb-item>
             </motif-breadcrumb>
@@ -13,60 +13,52 @@
 </div>
 <div class="motif-row">
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
-       <div class="space-between boder-b">
-          <div class="mt-3 mb-3 box-center">
-             <h1>{{totalDataIntakeTypeCount}} {{dataIntakeTypeDisplay}}</h1>
-          </div>
-          <div class="dateWrapper">
-             <div class="px-3 date-ui">
-                <form [formGroup]="form" novalidate>
-                   <motif-form-field>
-                      <label motifLabel for="datepicker">Date (required)</label>
-                      <input
-                         motifDatepicker
-                         class="motif-input"
-                         name="mydate"
-                         id="datepicker"
-                         #dp="motifDatepicker"
-                         placeholder="YYYY-MM-DD"
-                         (click)="dp.openCalendar()"
-                         (dateChanged)="toggleCalendar($event)"
-                         autocomplete="off"
-                         [required]="true"
-                         formControlName="datepicker"
-                         [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
-                      />
-                  </motif-form-field>
-                </form>
-             </div>
-             <div class="box-center">
-                <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
-                <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
-             </div>
- 
-          </div>
-       </div>
+        <div class="space-between boder-b">
+            <div class="mt-3 mb-3 box-center">
+                <h1>{{totalDataIntakeTypeCount}} {{ (totalDataIntakeTypeCount<=9) ? dataIntakeTypeDisplay['Singular'] : dataIntakeTypeDisplay['Plural'] }}</h1>
+            </div>
+            <div class="dateWrapper">
+                <div class="px-3 date-ui">
+                    <form [formGroup]="form" novalidate>
+                        <motif-form-field>
+                            <label motifLabel for="datepicker">Date (required)</label>
+                            <input motifDatepicker class="motif-input" name="mydate" id="datepicker"
+                                #dp="motifDatepicker" placeholder="YYYY-MM-DD" (click)="dp.openCalendar()"
+                                (dateChanged)="toggleCalendar($event)" autocomplete="off" [required]="true"
+                                formControlName="datepicker" [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
+                        </motif-form-field>
+                    </form>
+                </div>
+                <div class="box-center">
+                    <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
+                    <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
+                </div>
+
+            </div>
+        </div>
     </div>
- </div>
+</div>
 
 <div class="motif-row">
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-9 motif-col-lg-9 motif-col-xl-9">
         <div class="chip-container">
             <div class="left-div">FAST FILTERS: </div>
             <motif-chip-group>
-                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
+                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)"
+                    [variant]="allIssueVariant">All
                 </motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
-                   [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
+                    [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
-                   [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
+                    [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.HIGH, highIssueVariant)"
-                   [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
+                    [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
-                   [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
-                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
-                   [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
-             </motif-chip-group>
+                    [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
+                <motif-chip [removeable]="false"
+                    (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+                    [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
+            </motif-chip-group>
         </div>
     </div>
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3 mt-3 mb-3">
@@ -76,16 +68,21 @@
     </div>
 </div>
 <div class="motif-row">
-    <div *ngFor="let item of dataList" class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
+    <div *ngFor="let item of dataList"
+        class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
         <motif-card class="chart-card no_data" [ngClass]="item.fastFilters.high > 0 ? 'warning-border':''">
             <motif-card-body>
                 <div class="chart-panel">
                     <div class="chart-header">
-                        <div>{{item.dataIntakeName | titlecase}} <span class="file-count">{{item.dataIntakeCount}} Files</span></div>
+                        <div>
+                            {{item.dataIntakeName}}
+                            <span class="file-count"> {{item.dataIntakeCount}} {{ (item.dataIntakeCount<=9) ? 'File' : 'Files' }}
+                            </span>
+                        </div>
                         <div class="box-center">
                             <div class="mr-2 warning-info" *ngIf="item.fastFilters.high > 0">
                                 <i class="material-icons p-0">ic_info</i>
-                             </div>
+                            </div>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
                         </div>
                     </div>
@@ -93,18 +90,19 @@
                         <!-- donut chart placeholder  -->
                         <div class="chart-container">
                             <div class="pie-chart">
-                                <eyc-charts-pie-chart doughnut="yes" [results]="mapDonutChartDataWithKey(item.dataIntakeDTO)"
-                                    [scheme]="colorSchemeAll" animations="true" explodeSlices="false" arcWidth="0.50"
-                                    gradient="false" tooltipDisabled="true" [legend]="showLegend" [customColors]="customColors"
+                                <eyc-charts-pie-chart doughnut="yes"
+                                    [results]="mapDonutChartDataWithKey(item.fastFilters)" [scheme]="colorSchemeAll"
+                                    animations="true" explodeSlices="false" arcWidth="0.50" gradient="false"
+                                    tooltipDisabled="true" [legend]="showLegend" [customColors]="customColors"
                                     [legendTitle]="legendTitle" [legendPosition]="legendPosition">
                                 </eyc-charts-pie-chart>
                             </div>
 
                             <div class="pie-legend">
                                 <ul>
-                                    <li *ngFor="let filter of Object.keys(item.fastFilters)">
-                                        <div class="legend" [style.background]="setLegendColor(filter)"> </div> 
-                                        <div>{{item.fastFilters[filter]}} {{setLegendTitle(filter)}}</div> 
+                                    <li *ngFor="let filter of item.fastFilters">
+                                        <div class="legend" [style.background]="setLegendColor(filter)"> </div>
+                                        <div>{{filter.value}} {{setLegendTitle(filter.lable)}}</div>
                                     </li>
                                 </ul>
                             </div>
@@ -113,7 +111,7 @@
                     </div>
                 </div>
 
-                
+
             </motif-card-body>
         </motif-card>
     </div>

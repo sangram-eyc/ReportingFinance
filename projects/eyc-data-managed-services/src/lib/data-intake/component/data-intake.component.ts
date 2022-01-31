@@ -124,10 +124,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     }
 
     this.fileSummaryList();

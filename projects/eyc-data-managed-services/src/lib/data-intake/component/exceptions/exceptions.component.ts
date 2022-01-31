@@ -133,10 +133,10 @@ export class ExceptionsComponent implements OnInit {
     };
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     }
     this.getExceptionTableData();
   }
@@ -250,7 +250,7 @@ export class ExceptionsComponent implements OnInit {
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -262,7 +262,7 @@ export class ExceptionsComponent implements OnInit {
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
