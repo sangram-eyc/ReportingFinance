@@ -196,6 +196,10 @@
             left: 34px;
         }
 
+        motif-progress-step.last-item-class .motif-step-container .step-info  {
+           top: -19px;
+        }
+
         .motif-step-container .step.in-progress, .motif-step-container .step.completed {
             background-color: #C4C4CD !important;
         }
