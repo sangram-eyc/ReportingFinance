@@ -58,12 +58,11 @@
             }
     
             .motif-step-container .step-info .step-dot {
-                // background-color: #EAEAF2 !important;
-                // border: 3px solid !important; 
-                border: 2px solid #23232F !important; 
+                background-color: #EAEAF2 !important;
+                border: 2px solid !important; 
             }
             .motif-step-container .step-info .completed.step-dot {
-                // background-color: #189D3E !important;
+                background-color: #F6F6FA !important;
                 border: 2px solid #189D3E !important; 
             }
             
@@ -93,7 +92,7 @@
             }
 
            .motif-step-container .step {
-            height: 0px !important;
+            height: 4px !important;
             border: 2px solid #C4C4CD !important;
             display: block !important; 
             width: 80% !important;
@@ -113,6 +112,7 @@
                 top: 4px;
                 border-radius: 50%;
                 background: #189D3E;
+                border: 1px solid #189D3E;
             }
 
            .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
@@ -165,7 +165,7 @@
             margin-left: -50px !important;
         }
         .motif-step-container .step-info .step-dot.not-set {
-            border: 2px solid #AAAAB1 !important;
+            border: 2px solid #2E2E38 !important;
             box-sizing: border-box !important;
             border-radius: 109.091px !important;
             background: #F2F2F2 !important;
@@ -215,8 +215,6 @@
         }
 
         .progress-active .motif-step-container .step-info .step-dot.in-progress.in-progress .inner {
-           /*  width: 16px !important;
-            height: 16px !important; */
             width: 22px !important;
             height: 22px !important;
             background: #23232F !important;
