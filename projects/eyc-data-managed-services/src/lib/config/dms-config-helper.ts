@@ -15,6 +15,18 @@ export const DATA_INTAKE_TYPE = {
     DATA_DOMAIN: 'dataDomain'
 }
 
+export const DATA_INTAKE_TYPE_DISPLAY_TEXT = {
+    DATA_PROVIDER:{
+        Singular:'Data Provider',
+        Plural:'Data Providers'
+    },
+    DATA_DOMAIN:{
+        Singular:'Data Domain',
+        Plural:'Data Domains' 
+    }
+    
+}
+
 export const FILTER_TYPE = {
     NO_ISSUES: 'noIssues',
     HIGH: 'high',

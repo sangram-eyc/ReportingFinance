@@ -5,7 +5,7 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -27,7 +27,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   dailyMonthlyStatus: boolean = false;
   disabledDailyMonthlyButton: boolean = false;
   dataIntakeType: string;
-  dataIntakeTypeDisplay: string;
+  dataIntakeTypeDisplay: object;
+  dataIntakeTypeDisplayText=DATA_INTAKE_TYPE_DISPLAY_TEXT;
   form: FormGroup;
   calSelectedDate: string;
   pieData: PieChartSeriesItemDTO[];
@@ -69,11 +70,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
-      if (this.dataIntakeType == 'dataProvider') {
-        this.dataIntakeTypeDisplay = 'Data Providers'
+      if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
       }
       else {
-        this.dataIntakeTypeDisplay = 'Data Domains'
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
       }
     });
   }
@@ -100,10 +101,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
     if (this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     }
 
     this.getDataIntakeType();
@@ -199,7 +200,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   setLegendTitle(status){
-    debugger;
     switch (status){
       case FILTER_TYPE.NO_ISSUES:
         return this.FILTER_TYPE_TITLE.noIssues;

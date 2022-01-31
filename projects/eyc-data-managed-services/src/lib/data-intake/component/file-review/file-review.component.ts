@@ -212,10 +212,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     };
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
@@ -443,7 +443,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'secondary')
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
@@ -463,7 +463,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'secondary');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
