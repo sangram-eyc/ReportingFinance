@@ -79,7 +79,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-providers']"  motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-intake','dataProvider']"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -95,7 +95,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
-                        <a [isDisabled]="true" motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-intake','dataDomain']"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
