@@ -172,11 +172,9 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   mapDonutChartDataWithKey(fData: [ApiDonutSeriesItemDTO]): SmallDonutChartSeriesItemDTO[] {
     return fData.map(({
       lable: name,
-      count: value,
       ...rest
     }) => ({
       name,
-      value,
       ...rest
     }));
   }

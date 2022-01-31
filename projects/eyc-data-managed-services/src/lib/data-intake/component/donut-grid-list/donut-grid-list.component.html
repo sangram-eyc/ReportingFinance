@@ -91,7 +91,7 @@
                         <div class="chart-container">
                             <div class="pie-chart">
                                 <eyc-charts-pie-chart doughnut="yes"
-                                    [results]="mapDonutChartDataWithKey(item.dataIntakeDTO)" [scheme]="colorSchemeAll"
+                                    [results]="mapDonutChartDataWithKey(item.fastFilters)" [scheme]="colorSchemeAll"
                                     animations="true" explodeSlices="false" arcWidth="0.50" gradient="false"
                                     tooltipDisabled="true" [legend]="showLegend" [customColors]="customColors"
                                     [legendTitle]="legendTitle" [legendPosition]="legendPosition">
@@ -102,7 +102,7 @@
                                 <ul>
                                     <li *ngFor="let filter of item.fastFilters">
                                         <div class="legend" [style.background]="setLegendColor(filter)"> </div>
-                                        <div>{{item.fastFilters[filter]}} {{setLegendTitle(filter)}}</div>
+                                        <div>{{filter.value}} {{setLegendTitle(filter.lable)}}</div>
                                     </li>
                                 </ul>
                             </div>
