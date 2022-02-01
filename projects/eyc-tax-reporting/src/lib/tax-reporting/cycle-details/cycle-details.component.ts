@@ -59,9 +59,8 @@ export class CycleDetailComponent implements OnInit {
     public permissions: PermissionService,
     private fb: FormBuilder,
     private LoaderService: TaxLoaderService
-  ) {
-           
-  }
+  ) { }
+
   isLoading: Subject<boolean> = this.LoaderService.isLoading;
   pageName: string = 'Cycle Details';
   toggleLeftTitle: string = "View my assigned funds";
@@ -764,6 +763,14 @@ export class CycleDetailComponent implements OnInit {
       this.productCycleName = cycle.name;
       this.productCycleId = idCycle;
       this.getCompletedProductCyclesData(this.productCycleId);
+
+      //To clean de selected option class
+      let allElements:any = document.querySelectorAll('#selectNewCycle .motif-select-field-list button');
+      if(allElements.length > 0){
+        allElements.forEach(element => {
+          element.classList.remove('checked');
+        });
+      }
     }
   }
 
@@ -924,6 +931,14 @@ export class CycleDetailComponent implements OnInit {
       });
     }
     return result.join(",");
+  }
+
+  OptionsClassSelected(){
+      let optionSelected = document.querySelector('#selectNewCycle .motif-select-field-list button[data-value="' + this.productCycleId + '"]');
+      if(optionSelected != null){
+        optionSelected.classList.remove('unchecked');
+        optionSelected.classList.add('checked');
+      }
   }
 }
 
