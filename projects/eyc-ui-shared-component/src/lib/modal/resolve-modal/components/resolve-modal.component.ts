@@ -62,7 +62,7 @@ export class ResolveModalComponent implements OnInit {
   }
 
   onClickYes() {
-    console.log("reslove URL > ", this.modalDetails.resolveUrl);
+    //console.log("reslove URL > ", this.modalDetails.resolveUrl);
     if (this.modalDetails.type === "ConfirmationTextUpload") {
       const commentObj = {
         "comment": escape(this.modalForm.get('comment').value.trim()),
@@ -70,8 +70,17 @@ export class ResolveModalComponent implements OnInit {
         "entityType": this.modalDetails.entityType,
       };
       
-      this.commentService.updateStatus(this.modalDetails.resolveUrl).subscribe(res => {
-
+      const dataObj = {
+        "auditResultObjectId": [
+          this.modalDetails.entityId
+        ],
+        "filingName": this.modalDetails.filingName,
+        "period": this.modalDetails.period,
+        "stage": this.modalDetails.stage
+      
+      }
+      let exceptionId = this.modalDetails.exceptionId;
+      this.commentService.updateStatus(exceptionId,dataObj).subscribe(resolveResp => {
       this.commentService.addComment(commentObj).subscribe(res => {
         console.log(res);
         if (this.filesList.length) {
@@ -88,13 +97,13 @@ export class ResolveModalComponent implements OnInit {
           });
           this.commentService.uploadFile(formData).subscribe(uploadRes => {
             console.log(uploadRes);
-            this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue(),resolveResp:resolveResp});
           }, uploadError => {
             console.log(uploadError);
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
           });
         } else {
-          this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
+          this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue(),resolveResp:resolveResp });
         }
 
       }, error => {
