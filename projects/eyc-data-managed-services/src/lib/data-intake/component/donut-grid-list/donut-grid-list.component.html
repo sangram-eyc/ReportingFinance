@@ -80,9 +80,7 @@
                             </span>
                         </div>
                         <div class="box-center">
-                            <div class="mr-2 warning-info" *ngIf="item.fastFilters[2].lable=='high' && (item.fastFilters[2].value > 0)">
-                                <i class="material-icons p-0">ic_info</i>
-                            </div>
+                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="item.fastFilters[2].lable=='high' && (item.fastFilters[2].value > 0)">info</i>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
                         </div>
                     </div>
@@ -101,7 +99,7 @@
                             <div class="pie-legend">
                                 <ul>
                                     <li *ngFor="let filter of item.fastFilters">
-                                        <div class="legend" [style.background]="setLegendColor(filter)"> </div>
+                                        <div class="legend" [style.background]="setLegendColor(filter.lable)"> </div>
                                         <div>{{filter.value}} {{setLegendTitle(filter.lable)}}</div>
                                     </li>
                                 </ul>

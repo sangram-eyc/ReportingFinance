@@ -330,7 +330,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   getDataIntakeType() {
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
       this.dataList = data.data;
-      debugger;
       this.totalDataIntakeTypeCount = this.dataList.length;
       this.cdr.detectChanges();
     });
