@@ -157,7 +157,7 @@
 
 .warning-border{
   box-sizing: border-box;
-	Use pseudo-element to create inset border
+	//Use pseudo-element to create inset border
 	&:before {
 		position: absolute;
 		content: ' ';
