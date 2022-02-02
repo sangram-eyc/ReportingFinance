@@ -47,10 +47,9 @@
                margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
                totalExpected="EXPECTED">
             </lib-donut-chart>
-
-            <a [isDisabled]="reviewAllDisabled"
-               [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/files-review']"
-               motifTextLink color="primary-alt" class="review-all">
+         
+            <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/files-review', 
+                           {paramDataIntakeName:'',paramDataIntakeType:''}]" motifTextLink color="primary-alt" class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>

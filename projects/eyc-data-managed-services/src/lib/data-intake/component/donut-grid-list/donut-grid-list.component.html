@@ -80,8 +80,10 @@
                             </span>
                         </div>
                         <div class="box-center">
-                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0)">info</i>
-                            <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
+                            <div class="mr-2 warning-info" *ngIf="item.fastFilters[2].lable=='high' && (item.fastFilters[2].value > 0)">
+                                <i class="material-icons p-0">ic_info</i>
+                            </div>
+                            <button motifButton color="secondary" size="fluid" class="btn-secondary" (click)="viewCardDetail(item)">View</button>
                         </div>
                     </div>
                     <div class="chart-body">

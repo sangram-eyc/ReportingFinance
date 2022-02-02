@@ -114,7 +114,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       reportName: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED],
+      isViewClicked: false
     };
 
     if (this.dailyMonthlyStatus) {
@@ -373,12 +374,17 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  viewCardDetail(item) {
+    if (item && item.dataIntakeName) {
+      this._router.navigate(['/data-managed-services/files-review', item.dataIntakeName, this.dataIntakeType]);
+    }
+  }
+
   getDataIntakeType() {
     this.dataListClone = [];
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
-      this.dataList = of(data.data);
-      this.dataListClone = data.data;
-      this.totalDataIntakeTypeCount = this.dataListClone.length;
+      this.dataList = data.data;
+      this.totalDataIntakeTypeCount = this.dataList.length;
       this.cdr.detectChanges();
     });
   }

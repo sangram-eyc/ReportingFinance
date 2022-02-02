@@ -117,7 +117,8 @@ export class DataManagedService {
     .append('fileName',dataGrid.fileName)
     .append('clientName',dataGrid.clientName)
     .append('reportId',dataGrid.reportId)
-    .append('reportName',dataGrid.reportName);
+    .append('reportName',dataGrid.reportName)
+    .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
 
@@ -171,6 +172,7 @@ export class DataManagedService {
   }
 
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
+    debugger;
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
   }
 }

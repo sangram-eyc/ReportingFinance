@@ -7,7 +7,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { AutoUnsubscriberService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
-import { DataGrid } from '../../models/data-grid.model';
+import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
 import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
@@ -17,7 +17,8 @@ import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RowClickedEvent } from 'ag-grid-community';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dto.model';
 
 @Component({
   selector: 'lib-file-review',
@@ -27,6 +28,7 @@ import { Router } from '@angular/router';
 export class FileReviewComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+  private unsubscriber: AutoUnsubscriberService;
   stackBarChartGridData = [];
   gridApi;
   innerTabIn: number = 1;
@@ -148,7 +150,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   // API Request match with response
   httpQueryParams: DataSummary;
   httpDataGridParams: DataGrid;
-  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
+  httpReviewByGroupParams: GroupByDataProviderCardGrid;
+  clientName = '';
+  isViewClicked = false;
+  dataIntakeType = '';
+  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -158,19 +164,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
   ];
 
-  lastMonthDate: Date;
-  lastMonthDueDateFormat: string;
-  presentDateFormat: string;
-
-  constructor(
-    private unsubscriber: AutoUnsubscriberService,
-    private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
-    private renderer: Renderer2, private _router: Router) {
-    this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
-    const currentDate = new Date();
-    currentDate.setMonth(currentDate.getMonth());
-    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+    private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute) {
+      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+      this._activatedroute.paramMap.subscribe(params => {
+        debugger;
+       this.clientName = params.get('paramDataIntakeName');
+       this.isViewClicked = true;
+       this.dataIntakeType = params.get('paramDataIntakeType');
+      });
   }
 
   ngOnInit(): void {
@@ -237,7 +239,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       startDate: '',
       endDate: '',
       dataFrequency: this.httpQueryParams.dataFrequency,
-      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,  // this.dataIntakeType as per last page
       dueDate: this.httpQueryParams.dueDate,
       periodType: '',
       clientName: '',
@@ -248,13 +250,34 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
-    if (this.dailyMonthlyStatus) {
+    this.httpReviewByGroupParams =
+    {
+      startDate: '',
+      endDate: '',
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
+      dataIntakeType: this.dataIntakeType,
+      dueDate: this.httpQueryParams.dueDate,
+      periodType: '',
+      auditFileGuidName: '',
+      fileId: '',
+      fileName: '',
+      clientName: this.clientName,
+      reportId: '',
+      reportName: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED],
+      isViewClicked: this.isViewClicked
+    };
+
+    if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
     }
+
     this.fileSummaryList();
     this.getReviewFileTableData();
   }
@@ -554,11 +577,17 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataList = [];
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
-      this.dataList = dataProvider.data[0]['totalSeriesItem'];
-      this.totalFileCount = dataProvider.data[0]['totalCount'];
-      this.manipulateStatusWithResponse(this.dataList);
-    });
+    if(this.httpReviewByGroupParams.isViewClicked) {
+      this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
+        this.manipulateStatusWithReviewByGroup(reviewData.data);
+      });
+    } else {
+      this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
+        this.dataList = dataProvider.data[0]['totalSeriesItem'];
+        this.totalFileCount = dataProvider.data[0]['totalCount'];
+        this.manipulateStatusWithResponse(this.dataList);
+      });
+    }
   }
 
   manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
@@ -601,6 +630,34 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       })
     }
     this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
+  }
+
+  manipulateStatusWithReviewByGroup(fetchData: ApiReviewByGroupSeriesItemDTO[]) {
+    let stackBarChartDataReviewByGroup = fetchData.map((fData) => {
+      fData.fastFilters.map((fDataSeries) => {
+        this.fileSummariesObject.map((summaryObject) => {
+          if (fDataSeries.lable === summaryObject.apiKey) {
+            summaryObject.value += fDataSeries.value;
+          }
+        });
+      });
+      return {
+        name: fData.dataIntakeName,
+        series: this.mapBarChartDataWithKey(fData.fastFilters)
+      };
+    });
+    this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
+    this.stackBarChartData = stackBarChartDataReviewByGroup as StackChartSeriesItemDTO[];
+  }
+
+  mapBarChartDataWithKey(fData: any): BarChartSeriesItemDTO[] {
+    return fData.map(({
+      lable: name,
+      ...rest
+    }) => ({
+      name,
+      ...rest
+    }));
   }
 
   toggleCalendar(event): void {
