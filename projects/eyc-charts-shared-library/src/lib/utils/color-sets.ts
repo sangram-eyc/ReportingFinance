@@ -37,7 +37,7 @@ export let colorSets: Color[] = [
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#57E188','#42C9C2','#FF9831','#FF736A','#E7E7EA'
+      '#57E188','#42C9C2','#FF9831','#FF736A','#E7E7EA','#42C9C2','#35A4E8'
     ]
   }
 ];
