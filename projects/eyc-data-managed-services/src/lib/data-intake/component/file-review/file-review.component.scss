@@ -239,31 +239,19 @@ margin-top: 24px !important;
     color: #FFE600;
   }
 }
-::ng-deep .grid-status {
-  .motif-chip.motif-error{
-    background-color: #FF736A !important;
-    border-color: #FF736A !important;
+
+.pie-legend {
+  padding: 0;
+  color: #2e2e38;
+
+  .legend {
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+    margin-right: 8px;
+    border-radius: 50%;
+    justify-items: center;
   }
-  .motif-chip.motif-success{
-    background-color: #57E188 !important;
-    border-color: #57E188 !important;
-  }
-  .motif-chip.motif-warning{
-    background-color: #FF9831 !important;
-    border-color: #FF9831 !important;
-  }
-  .medium{
-    ::ng-deep .motif-chip{
-      background-color: #42C9C2 !important;
-      border-color: #42C9C2 !important;
-    }
-  }
-  .low{
-    ::ng-deep .motif-chip{
-      background-color: #35A4E8 !important;
-      border-color: #35A4E8 !important;
-    }
-  } 
 }
 
 .ag-cursor-pointer{
