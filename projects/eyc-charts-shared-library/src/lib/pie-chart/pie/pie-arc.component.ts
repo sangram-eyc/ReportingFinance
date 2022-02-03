@@ -27,6 +27,8 @@ import { BarOrientation } from '../../common/types/bar-orientation.enum';
         class="arc"
         [class.active]="isActive"
         [attr.fill]="getGradient()"
+        [attr.stroke]="getStroke()"
+        [attr.stroke-width]="getStrokeWidth()"
         (click)="onClick()"
         (dblclick)="onDblClick($event)"
         (mouseenter)="activate.emit(data)"
@@ -79,6 +81,14 @@ export class PieArcComponent implements OnChanges {
 
   getGradient(): string {
     return this.gradient ? this.gradientFill : this.fill;
+  }
+
+  getStroke(): string {
+    return 'white';
+  }
+
+  getStrokeWidth(): string {
+    return '4px';
   }
 
   getPointerEvents(): string {
