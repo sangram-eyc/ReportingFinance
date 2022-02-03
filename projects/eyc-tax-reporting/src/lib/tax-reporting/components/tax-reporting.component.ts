@@ -89,10 +89,11 @@ export class TaxReportingComponent implements OnInit {
     id: 0
   };
 
-  dataToChart:any[]=[];
-  widthDivChart:number;
-  colorsBarChart:string[] = [];
-  labelsChart:string[] = [];
+  dataToChart: any[] = [];
+  widthDivChart: number;
+  colorsBarChart: string[] = [];
+  labelsChart: string[] = [];
+  statusIndicatorEv: any;
 
 
   ngOnInit(): void {
@@ -101,17 +102,21 @@ export class TaxReportingComponent implements OnInit {
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
     this.tabIn = 1;
     this.getCompletedProductCyclesData();
-    const statusIndicatorEv = setTimeout(this.statusIndicatorEvclick.bind(this),500);
+    this.statusIndicatorEv = setInterval(this.statusIndicatorEvclick.bind(this), 500);
   }
 
   statusIndicatorEvclick() {
     const cycleStatusBtn = document.getElementById('cycle-status-indicator-id');
-    const clicks = fromEvent(cycleStatusBtn, 'click')
-      .subscribe((event: MouseEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
-        this.openDialog();
-      });
+    if (cycleStatusBtn != undefined) {
+      cycleStatusBtn.setAttribute('style', 'display:flex')
+      window.clearInterval(this.statusIndicatorEv)
+      const clicks = fromEvent(cycleStatusBtn, 'click')
+        .subscribe((event: MouseEvent) => {
+          event.preventDefault();
+          event.stopPropagation();
+          this.openDialog();
+        });
+    }
   }
 
   reportTabChange(selectedTab) {
