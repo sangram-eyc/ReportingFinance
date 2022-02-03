@@ -70,7 +70,7 @@
 <div class="motif-row">
     <div *ngFor="let item of dataList"
         class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
-        <motif-card class="chart-card no_data" [ngClass]="(item.fastFilters[0].lable=='noIssues' || item.fastFilters[1].lable=='mediumLow' || item.fastFilters[2].lable=='high') && (item.fastFilters[0].value > 0 || item.fastFilters[1].value > 0 || item.fastFilters[2].value > 0) ? 'warning-border':''">
+        <motif-card class="chart-card no_data" [ngClass]="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0) ? 'warning-border':''">
             <motif-card-body>
                 <div class="chart-panel">
                     <div class="chart-header">
@@ -80,7 +80,7 @@
                             </span>
                         </div>
                         <div class="box-center">
-                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[0].lable=='noIssues' || item.fastFilters[1].lable=='mediumLow' || item.fastFilters[2].lable=='high') && (item.fastFilters[0].value > 0 || item.fastFilters[1].value > 0 || item.fastFilters[2].value > 0)">info</i>
+                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0)">info</i>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button>
                         </div>
                     </div>
