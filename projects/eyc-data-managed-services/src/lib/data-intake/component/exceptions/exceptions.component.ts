@@ -47,7 +47,8 @@ export class ExceptionsComponent implements OnInit {
   FILTER_TYPE = FILTER_TYPE;
   noExceptionDataAvilable: boolean;
   searchNoDataAvilable: boolean=false;
-
+  dataExplorer = false;
+  
   httpDataGridParams: ExceptionDataGrid;
   columnGl = [];
   glRowdata = [];
