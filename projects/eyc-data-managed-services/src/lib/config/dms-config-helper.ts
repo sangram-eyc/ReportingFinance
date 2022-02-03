@@ -56,3 +56,16 @@ export const FILTER_TYPE_TITLE = {
     [`${FILTER_TYPE.MISSING_FILES}`]: FileFilterStatus.missingFilesPastDue.legendTitle,
     [`${FILTER_TYPE.FILE_NOT_RECIEVED}`]: FileFilterStatus.filesNotReceived.legendTitle
 }
+
+export const customComparator = (valueA, valueB) => {
+    const statusCol = [FILTER_TYPE.MISSING_FILES, FILTER_TYPE.HIGH, FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW,FILTER_TYPE.NO_ISSUES,FILTER_TYPE.FILE_NOT_RECIEVED];
+	if (valueA == null) {
+		return false;
+	}
+	else if (valueB == null) {
+		return false;
+	} else {
+        if (valueA == valueB) return 0;
+        return (statusCol.indexOf(valueA) > statusCol.indexOf(valueB)) ? 1 : -1;
+	}
+};

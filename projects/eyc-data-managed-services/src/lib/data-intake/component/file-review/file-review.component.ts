@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -369,10 +369,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Status',
-          field: 'status',
+          field: 'maxPriority',
           sortable: true,
           filter: true,
           minWidth: 200,
+          sort:'asc',
+          comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }

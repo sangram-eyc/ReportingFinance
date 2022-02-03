@@ -21,21 +21,11 @@
                <form [formGroup]="form" novalidate>
                   <motif-form-field>
                      <label motifLabel for="datepicker">Date (required)</label>
-                     <input
-                        motifDatepicker
-                        class="motif-input"
-                        name="mydate"
-                        id="datepicker"
-                        #dp="motifDatepicker"
-                        placeholder="YYYY-MM-DD"
-                        (click)="dp.openCalendar()"
-                        (dateChanged)="toggleCalendar($event)"
-                        autocomplete="off"
-                        [required]="true"
-                        formControlName="datepicker"
-                        [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
-                     />
-                 </motif-form-field>
+                     <input motifDatepicker class="motif-input" name="mydate" id="datepicker" #dp="motifDatepicker"
+                        placeholder="YYYY-MM-DD" (click)="dp.openCalendar()" (dateChanged)="toggleCalendar($event)"
+                        autocomplete="off" [required]="true" formControlName="datepicker"
+                        [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
+                  </motif-form-field>
                </form>
             </div>
             <div class="box-center">
@@ -52,7 +42,8 @@
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 chip-container">
       <div class="left-div">FAST FILTERS: </div>
       <motif-chip-group>
-         <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
+         <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">
+            All
          </motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
             [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
@@ -62,7 +53,8 @@
             [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
             [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
-         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+         <motif-chip [removeable]="false"
+            (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
             [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
       </motif-chip-group>
    </div>
@@ -71,22 +63,14 @@
 <div class="motif-row">
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
       <!-- Card Files Review Start -->
-      
+
       <motif-card class="donut-chart-card">
          <h5 class="heading-7">Summary</h5>
          <!-- Donut chart integration -->
-         <lib-donut-chart id="donutchart" 
-         [data]="fileSummaries"
-         legendTextSliceNumber=23
-         width=155 
-         height=155 
-         margin=13 
-         innerRadius=90
-         svgTranslateLeft=90
-         svgTranslateRight=90
-         totalFilesText="TOTAL FILES"
-         totalExpected="EXPECTED"> 
-      </lib-donut-chart>
+         <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155 margin=13
+            innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
+            totalExpected="EXPECTED">
+         </lib-donut-chart>
       </motif-card>
       <!-- end  -->
    </div>
@@ -124,7 +108,8 @@
                               [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                               [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
                               [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                              [maxYAxisTickLength]="maxYAxisTickLength" [barMaxWidth]="100" [customColors]="customColors">
+                              [maxYAxisTickLength]="maxYAxisTickLength" [barMaxWidth]="100"
+                              [customColors]="customColors">
                            </eyc-charts-bar-vertical-stacked>
                         </div>
 
@@ -154,8 +139,9 @@
                               [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
                               [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
                               [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [barMaxWidth]="100"
-                              [customColors]="customColors" [maxYAxisTickLength]="maxYAxisTickLength">
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                              [barMaxWidth]="100" [customColors]="customColors"
+                              [maxYAxisTickLength]="maxYAxisTickLength">
                            </eyc-charts-bar-vertical-stacked>
                         </div>
 
@@ -182,7 +168,7 @@
          <div class="heading-6 box-center my-3">
             List of files (#)
          </div>
-         <div  class="my-3">
+         <div class="my-3">
             <motif-form-field>
                <input #fileReview motifInput motifSearch type="text" placeholder="Search..." aria-label="Search">
             </motif-form-field>
@@ -192,10 +178,10 @@
 
    <div id="grid-wrapper">
       <motif-card>
-         <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" 
-         rowSelection="single"
-            (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false" [suppressCellSelection]="true"
-            [domLayout]="domLayout" [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
+         <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
+            (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false"
+            [suppressCellSelection]="true" [domLayout]="domLayout" [pagination]="false"
+            [paginationPageSize]="currentlySelectedPageSize.value">
          </motif-table>
       </motif-card>
    </div>
@@ -206,21 +192,43 @@
       </motif-card-body>
    </motif-card>
 
-   <ng-template #chipTemplate let-row class="space-between">
-      <div class="grid-status">
-         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.HIGH" variant="warning">{{FILTER_TYPE_TITLE.high}}</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" variant="info">{{FILTER_TYPE_TITLE.mediumLow}}</motif-chip>
-         <motif-chip class="medium" [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM">{{FILTER_TYPE_TITLE.medium}}</motif-chip>
-         <motif-chip class="low" [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.LOW">{{FILTER_TYPE_TITLE.low}}</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" variant="error">{{FILTER_TYPE_TITLE.missingFiles}}</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" variant="success">{{FILTER_TYPE_TITLE.noIssues}}</motif-chip>
-         <motif-chip [removeable]="false" *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" variant="secondary">{{FILTER_TYPE_TITLE.fileNotReceived}}</motif-chip>
-      </div>
+   <ng-template #chipTemplate let-row>
+         <div class="pie-legend">
+            <div *ngIf="row.maxPriority==FILTER_TYPE.NO_ISSUES" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div>
+               <div>{{FILTER_TYPE_TITLE.noIssues}}</div>
+            </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div>
+               <div>{{FILTER_TYPE_TITLE.mediumLow}}</div>
+            </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[5]"> </div>
+               <div>{{FILTER_TYPE_TITLE.medium}}</div>
+            </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.LOW" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[6]"> </div>
+               <div>{{FILTER_TYPE_TITLE.low}}</div>
+            </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.HIGH" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div> 
+               <div>{{FILTER_TYPE_TITLE.high}}</div> 
+            </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div>
+               <div>{{FILTER_TYPE_TITLE.missingFiles}}</div>
+            </div>
+            
+            <div *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div>
+               <div>{{FILTER_TYPE_TITLE.fileNotReceived}}</div>
+            </div>
+         </div>
    </ng-template>
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
       {{stringTrim(row.name, 20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.name?.length > 17">
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.name?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -239,7 +247,7 @@
 
    <ng-template #threeDotFunctionTooltip let-row>
       {{stringTrim(row.functions,20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.functions?.length > 17">
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.functions?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -249,7 +257,7 @@
 
    <ng-template #threeDotExceptionsTooltip let-row>
       {{stringTrim(row.exceptions,20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 10">
+      <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -259,7 +267,7 @@
 
    <ng-template #nextButtonTemplate let-row>
       <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-  
+
    </ng-template>
 
    <!-- Tooltip -->
