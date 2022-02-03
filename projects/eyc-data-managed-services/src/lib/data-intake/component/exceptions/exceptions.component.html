@@ -51,7 +51,7 @@
                     <input #activeReports motifInput motifSearch type="text" placeholder="Search..."
                         aria-label="Search...">
                 </motif-form-field>
-                <div class="data-exporer buttonstyle">
+                <div class="data-exporer buttonstyle" *ngIf="dataExplorer">
                     <button motifButton color="secondary" size="fluid">Data Explorer</button>
                 </div>
             </div>
