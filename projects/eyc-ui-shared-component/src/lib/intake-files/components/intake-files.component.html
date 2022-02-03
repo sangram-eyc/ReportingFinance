@@ -24,7 +24,7 @@
                 <div class="col-lg-2 late">
                     Past Due<span> - {{item.lateFiles}} </span>
                 </div>
-                <div class="col-lg-2" [ngClass]="item.comments >= 1 ? 'comments' : 'nocomments' ">
+                <div class="col-lg-2" [ngClass]="item.comments && item.comments >= 1 ? 'comments' : 'nocomments' ">
 
                     <span *ngIf="item.comments >= 1">{{item.comments}} Comments</span>
                     <span *ngIf="item.comments == 0 || item.comments == ''"></span>
@@ -42,7 +42,7 @@
             rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}"></lib-shared-grid>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments!==0" class="comments-background" (click)="commentClicked()">
+            <div *ngIf="row.comments && row.comments !== 0" class="comments-background" (click)="commentClicked()">
                 {{row.comments}}
             </div>
         </ng-template>
