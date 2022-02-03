@@ -335,9 +335,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }
   }
 
-  openConectionBulkWs(){
-    const userEmail = sessionStorage.getItem('userEmail');
-    this.wsBulkService.openConection(userEmail);
+  openConectionBulkWs(){   
+    let timerIdUserEmail = setInterval(() => {
+      if(sessionStorage.getItem('userEmail') != null){
+        clearInterval(timerIdUserEmail);
+        this.wsBulkService.openConection(sessionStorage.getItem('userEmail'));
+      }
+    }, 100)   
   }
-
 }

@@ -5,7 +5,7 @@ import { TableHeaderRendererComponent } from './../../table-header-renderer/tabl
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, ResolveModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -52,14 +52,14 @@ export class ViewExceptionReportsComponent implements OnInit {
   ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
-      const state = navigation.extras.state as {dataIntakeData: string};
+      const state = navigation.extras.state as { dataIntakeData: string };
       this.dataIntakeData = state.dataIntakeData;
     }
-   }
+  }
 
   ngOnInit(): void {
     if (this.dataIntakeData) {
-      console.log('Date Intake Module',this.dataIntakeData);
+      console.log('Date Intake Module', this.dataIntakeData);
       this.exceptionReportName = this.dataIntakeData.exceptionReportName;
       this.filingId = this.dataIntakeData.filingId;
       this.dueDate = this.dataIntakeData.dueDate;
@@ -81,9 +81,9 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       this.stage = 'reporting'
-      sessionStorage.setItem("reportingTab", '1'); 
+      sessionStorage.setItem("reportingTab", '1');
     }
-    if(this.dataIntakeData) {
+    if (this.dataIntakeData) {
       this.getExceptionResults();
     } else {
       this.getAnswerExceptionReports();
@@ -92,7 +92,7 @@ export class ViewExceptionReportsComponent implements OnInit {
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
-      this.exceptionAnswersData =  res.data['exceptionResultJason'];
+      this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.commentsCount = res.data['commentCountMap'];
       this.createEntitiesRowData();
     });
@@ -123,32 +123,32 @@ export class ViewExceptionReportsComponent implements OnInit {
         cellClass: 'actions-button-cell'
       },
       {
-        headerComponentFramework:TableHeaderRendererComponent,
-        cellRendererFramework:MotifTableCellRendererComponent,
-        cellRendererParams:{
-          ngTemplate:this.actionResolvedTemplate
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.actionResolvedTemplate
         },
-        headerName:'Action',
-        field:'template',
-        minWidth:100,
-        width:100,
-        sortable:false,
+        headerName: 'Actions',
+        field: 'template',
+        minWidth: 100,
+        width: 100,
+        sortable: false,
         cellClass: 'actions-button-cell'
       }
     );
 
     for (const property in this.exceptionAnswersData[0]) {
       // console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-        this.exceptionAnswersDefs.push({
-          field: `${property}`,
-          headerName: `${property}`,
-          headerComponentFramework: TableHeaderRendererComponent,
-          sortable: true,
-          autoHeight: true,
-          width: 320,
-          wrapText: true,
-          filter: true
-        });
+      this.exceptionAnswersDefs.push({
+        field: `${property}`,
+        headerName: `${property}`,
+        headerComponentFramework: TableHeaderRendererComponent,
+        sortable: true,
+        autoHeight: true,
+        width: 320,
+        wrapText: true,
+        filter: true
+      });
     }
     this.exceptionAnswersDefs.push({
       headerName: 'Comments',
@@ -159,14 +159,14 @@ export class ViewExceptionReportsComponent implements OnInit {
       }, sortable: false, autoHeight: true,
       wrapText: true
     });
-}
+  }
 
 
   formatDate() {
     const due = new Date(this.dueDate);
     const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-    + ('0' + due.getDate()).slice(-2) + '/'
-    + due.getFullYear();
+      + ('0' + due.getDate()).slice(-2) + '/'
+      + due.getFullYear();
     this.dueDate = newdate;
   }
 
@@ -193,7 +193,7 @@ export class ViewExceptionReportsComponent implements OnInit {
             label: "Assign to (Optional)",
             formControl: 'assignTo',
             type: "select",
-            data:[
+            data: [
               { name: "Test1", id: 1 },
               { name: "Test2", id: 2 },
               { name: "Test3", id: 3 },
@@ -201,8 +201,8 @@ export class ViewExceptionReportsComponent implements OnInit {
             ]
           },
           isTextarea: true,
-          textareaDetails:{
-            label:"Comment (required)",
+          textareaDetails: {
+            label: "Comment (required)",
             formControl: 'comment',
             type: "textarea",
             validation: true,
@@ -218,14 +218,14 @@ export class ViewExceptionReportsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.button === "Submit") {
+      if (result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
         this.commentsCount[row.AuditResultObjectID] = 1;
-        this.createEntitiesRowData(); 
+        this.createEntitiesRowData();
       } else {
         console.log(result);
       }
@@ -233,19 +233,19 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   openComments(row) {
-      this.commentsName = this.filingName + ' // ' + this.period;
-      this.commentEntityType = 'ANSWER_EXCEPTION'
-      this.entityId = row.AuditResultObjectID;
-      this.showComments = true;
-      console.log(this.entityId);
+    this.commentsName = this.filingName + ' // ' + this.period;
+    this.commentEntityType = 'ANSWER_EXCEPTION'
+    this.entityId = row.AuditResultObjectID;
+    this.showComments = true;
+    console.log(this.entityId);
   }
 
   commentAdded() {
-   this.getAnswerExceptionReports();
+    this.getAnswerExceptionReports();
   }
 
   actionResolvedClick(row) {
-    const dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open(ResolveModalComponent, {
       width: '843px',
       data: {
         type: "ConfirmationTextUpload",
@@ -253,13 +253,17 @@ export class ViewExceptionReportsComponent implements OnInit {
         description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg> When clicked you can view resolution comments.</p>`,
         entityType: "ANSWER_EXCEPTION",
         entityId: row.AuditResultObjectID,
+        filingName: this.filingName,
+        period: this.period,
+        stage: this.stage,
+        exceptionId: this.filingService.getExceptionData.exceptionId,
         forms: {
           isSelect: false,
           selectDetails: {
             label: "Assign to (Optional)",
             formControl: 'assignTo',
             type: "select",
-            data:[
+            data: [
               { name: "Test1", id: 1 },
               { name: "Test2", id: 2 },
               { name: "Test3", id: 3 },
@@ -267,8 +271,8 @@ export class ViewExceptionReportsComponent implements OnInit {
             ]
           },
           isTextarea: true,
-          textareaDetails:{
-            label:"Comment (required)",
+          textareaDetails: {
+            label: "Comment (required)",
             formControl: 'comment',
             type: "textarea",
             validation: true,
@@ -282,12 +286,66 @@ export class ViewExceptionReportsComponent implements OnInit {
         }
       }
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
-      if(result.button === "Confirm") {
-        // todo : API call to make exception resolved
+      if (result.button === "Confirm") {
+        this.commentsCount[row.AuditResultObjectID] ? this.commentsCount[row.AuditResultObjectID] += 1 : this.commentsCount[row.AuditResultObjectID] = 1;
+        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        this.createEntitiesRowData();
+      } else {
+        console.log(result);
+      }
+    });
+  }
+
+
+  actionUnResolvedClick(row) {
+    const dialogRef = this.dialog.open(ResolveModalComponent, {
+      width: '843px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Unresolve selected",
+        description: `<p>Are you sure you want to unresolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b>  Unesolved exceptions will be be changed back to this icon <svg style="display: inline;" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1667 17.4167L10.0833 0L0 17.4167H20.1667ZM9.16667 14.6667V12.8333H11V14.6667H9.16667ZM9.16667 11H11V7.33333H9.16667V11Z" fill="#FF9831"/></svg>.</p>`,
+        entityType: "ANSWER_EXCEPTION",
+        entityId: row.AuditResultObjectID,
+        filingName: this.filingName,
+        period: this.period,
+        stage: this.stage,
+        filingId: this.filingId,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data: [
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails: {
+            label: "Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Confirm",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.button === "Confirm") {
         this.commentsCount[row.AuditResultObjectID] += 1;
-        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)]['resolved'] = true;
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)]['Status'] = "Unresolved";
         this.createEntitiesRowData();
       } else {
         console.log(result);
