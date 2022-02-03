@@ -1,11 +1,17 @@
 <div class="motif-row">
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
       <div class=" mt-3">
-         <motif-breadcrumb maxItems=3>
+         <motif-breadcrumb maxItems=3 *ngIf="!isViewClicked">
             <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
             </motif-breadcrumb-item>
             <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'>
             </motif-breadcrumb-item>
+         </motif-breadcrumb>
+         <motif-breadcrumb maxItems=3 *ngIf="isViewClicked">
+            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
+            </motif-breadcrumb-item>
+            <!-- <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'>
+            </motif-breadcrumb-item> -->
          </motif-breadcrumb>
       </div>
    </div>
@@ -77,7 +83,7 @@
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
       <!-- Provide Stack bar chart Start  -->
       <motif-card class="bar-chart-card no_data">
-         <motif-card-header>
+         <motif-card-header *ngIf="!isViewClicked">
             <div class="inner-tabs">
                <motif-tab-bar>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(1)"

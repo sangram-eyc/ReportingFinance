@@ -168,10 +168,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
       this._activatedroute.paramMap.subscribe(params => {
-        debugger;
-       this.clientName = params.get('paramDataIntakeName');
-       this.isViewClicked = true;
-       this.dataIntakeType = params.get('paramDataIntakeType');
+        if(params.get('paramDataIntakeName') !== '') {
+          this.clientName = params.get('paramDataIntakeName');
+          this.isViewClicked = true;
+          this.dataIntakeType = params.get('paramDataIntakeType');
+        }
       });
   }
 
@@ -577,12 +578,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataList = [];
-    if(this.httpReviewByGroupParams.isViewClicked) {
+    if(this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
         this.manipulateStatusWithReviewByGroup(reviewData.data);
       });
     } else {
-      this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
+      this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
         this.dataList = dataProvider.data[0]['totalSeriesItem'];
         this.totalFileCount = dataProvider.data[0]['totalCount'];
         this.manipulateStatusWithResponse(this.dataList);
