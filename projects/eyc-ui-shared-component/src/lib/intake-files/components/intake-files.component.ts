@@ -13,7 +13,6 @@ export class IntakeFilesComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  
   @Input() filesData;
   @Input() buttonTxt;
   @Input() redirectURL;
@@ -127,7 +126,7 @@ export class IntakeFilesComponent implements OnInit {
         autoHeight: true,
         width: 400,
         comparator: customComparator
-      },/* ,
+      },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -139,6 +138,7 @@ export class IntakeFilesComponent implements OnInit {
         sortable: true,
         filter: false,
       },
+      /*
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,

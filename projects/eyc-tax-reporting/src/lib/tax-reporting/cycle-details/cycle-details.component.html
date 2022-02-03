@@ -19,7 +19,7 @@
     <div class="col-md-12 col-sm-12">
       <p>{{dropdownMessage}}</p>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div id="selectNewCycle" class="col-md-4 col-sm-4" (click)="OptionsClassSelected()">
       <form [formGroup]="cycleSelectForm">
         <motif-form-field>
           <motif-select aria-label="Please select an option" formControlName="mySelect"
