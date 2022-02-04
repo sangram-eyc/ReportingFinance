@@ -95,7 +95,7 @@
   ::ng-deep .motif-tab-bar>.motif-tab-bar-wrapper {
     border-bottom: none;
     padding-top: 1.06544901065449vh;
-    padding-left: 2vw;
+    padding-left: 1.7vw;
   }
 }
 
@@ -110,8 +110,8 @@
   line-height: 20px;
   color: #000000;
 
-  div {
-    padding-left: 0;
+  .last-div {
+    padding: 0 !important;
   }
 
   .bar-chart-header {
