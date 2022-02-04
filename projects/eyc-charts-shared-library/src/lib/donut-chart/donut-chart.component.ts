@@ -75,11 +75,9 @@ export class DonutChartComponent {
         : [];
 
     const color: any = d3.scaleOrdinal().range(this._colors); // color code inject in radius
-    var pie = d3.pie()   
-    .startAngle(Math.PI / 4) // startAngle of the layout
-    .endAngle(Math.PI * 2 + Math.PI / 4) // endAngle
-    .sort(d => d[1])                          
-    .value(d => d[1]);
+    var pie = d3.pie()
+      .sort(d => d[1])
+      .value(d => d[1]);
     const data_ready = pie(data_map as any); // data inject into donut chart
 
     // Configure SVG for donut chart
