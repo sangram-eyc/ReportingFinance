@@ -23,7 +23,7 @@
                      <label motifLabel for="datepicker">Date (required)</label>
                      <input motifDatepicker class="motif-input" name="mydate" id="datepicker" #dp="motifDatepicker"
                         placeholder="YYYY-MM-DD" (click)="dp.openCalendar()" (dateChanged)="toggleCalendar($event)"
-                        autocomplete="off" [required]="true" formControlName="datepicker"
+                        autocomplete="off" [required]="true" formControlName="datepicker" [readonly]="true"
                         [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
                   </motif-form-field>
                </form>

@@ -22,7 +22,7 @@
                     <form [formGroup]="form" novalidate>
                         <motif-form-field>
                             <label motifLabel for="datepicker">Date (required)</label>
-                            <input motifDatepicker class="motif-input" name="mydate" id="datepicker"
+                            <input motifDatepicker class="motif-input" name="mydate" id="datepicker" [readonly]="true"
                                 #dp="motifDatepicker" placeholder="YYYY-MM-DD" (click)="dp.openCalendar()"
                                 (dateChanged)="toggleCalendar($event)" autocomplete="off" [required]="true"
                                 formControlName="datepicker" [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
