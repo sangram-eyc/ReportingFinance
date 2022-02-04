@@ -116,6 +116,8 @@ setToken = (value) => {
     sessionStorage.removeItem('inActivityTime');
     sessionStorage.removeItem('adminPermissionList');
     sessionStorage.removeItem('pendingDownloadsBulk');
+    sessionStorage.removeItem('dailyMonthlyStatus');
+    sessionStorage.removeItem('selectedDate');
   }
   
   public get name() {
