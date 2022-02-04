@@ -66,7 +66,6 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
           this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
         }
       }
-      this.getFilingAssignments();
     }
 
     this.addTeamForm = this._createTeam()
@@ -115,6 +114,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   getTeamList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
+      this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
