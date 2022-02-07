@@ -127,6 +127,7 @@ export class IntakeFilesComponent implements OnInit {
         width: 400,
         comparator: customComparator
       },
+      /*
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -138,7 +139,7 @@ export class IntakeFilesComponent implements OnInit {
         sortable: true,
         filter: false,
       },
-      /*
+      
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
