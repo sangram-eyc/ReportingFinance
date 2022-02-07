@@ -11,7 +11,7 @@ export class ViewFilingEntityExceptionService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getAnswerExceptionReports(entityName, filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}${entityName}/exception-details?filingName=${filingName}&period=${period}`);
+  getAnswerExceptionReports(entityName, filingName, period, exceptionCnt) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}${entityName}/exception-details?filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}`);
   }
 }

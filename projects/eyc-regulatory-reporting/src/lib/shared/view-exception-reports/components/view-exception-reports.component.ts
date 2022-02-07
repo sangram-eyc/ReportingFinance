@@ -35,6 +35,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   commentsName;
   commentEntityType;
   entityId;
+  exceptionCnt = '';
 
   @ViewChild('commentExceptionTemplate')
   commentExceptionTemplate: TemplateRef<any>;
@@ -77,7 +78,10 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      // console.log(this.filingService.getExceptionData);
+      if( this.filingService.getExceptionData.resolveOrException && this.filingService.getExceptionData.resolveOrException.indexOf("/") !== -1){ 
+        let exceptionVal =  this.filingService.getExceptionData.resolveOrException.split("/");
+        this.exceptionCnt = exceptionVal[1];
+      }
       this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       this.stage = 'reporting'
@@ -91,7 +95,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.commentsCount = res.data['commentCountMap'];
       this.createEntitiesRowData();

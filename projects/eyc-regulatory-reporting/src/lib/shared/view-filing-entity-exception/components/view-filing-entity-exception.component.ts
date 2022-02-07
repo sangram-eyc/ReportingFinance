@@ -23,6 +23,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionAnswersDefs;
   exceptionAnswersData;
   rowData;
+  exceptionCnt = '';
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
@@ -43,7 +44,11 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      // console.log(this.filingService.getExceptionData);
+      console.log("resolveException > ", this.filingService.getFilingData.resolveException);
+      if( this.filingService.getFilingData.resolveException && this.filingService.getFilingData.resolveException.indexOf("/") !== -1){ 
+        let exceptionVal =  this.filingService.getFilingData.resolveException.split("/");
+        this.exceptionCnt = exceptionVal[1];
+      }
       this.entityName = this.filingService.getFilingEntityData.entityName;
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '2'); 
@@ -52,7 +57,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period, this.exceptionCnt).subscribe(res => {
       this.exceptionAnswersData =  res.data['entityExceptionMap'];
       this.createEntitiesRowData();
     });
