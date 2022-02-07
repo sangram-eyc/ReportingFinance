@@ -44,9 +44,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      console.log("resolveException > ", this.filingService.getFilingData.resolveException);
-      if( this.filingService.getFilingData.resolveException && this.filingService.getFilingData.resolveException.indexOf("/") !== -1){ 
-        let exceptionVal =  this.filingService.getFilingData.resolveException.split("/");
+      console.log("resolveException > ", this.filingService.filingEntityData.resolveException);
+      if( this.filingService.filingEntityData.resolveException && this.filingService.filingEntityData.resolveException.indexOf("/") !== -1){ 
+        let exceptionVal =  this.filingService.filingEntityData.resolveException.split("/");
         this.exceptionCnt = exceptionVal[1];
       }
       this.entityName = this.filingService.getFilingEntityData.entityName;
