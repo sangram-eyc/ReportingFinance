@@ -35,6 +35,7 @@
                            autocomplete="off"
                            [required]="true"
                            formControlName="datepicker"
+                           [readonly]="true"
                            [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}"
                         />
                     </motif-form-field>
@@ -207,7 +208,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues">
+                     <div id="low-priority-issues" class="last-div">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>
@@ -305,7 +306,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues-domain">
+                     <div id="low-priority-issues-domain" class="last-div">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low priority
                               issues</div>

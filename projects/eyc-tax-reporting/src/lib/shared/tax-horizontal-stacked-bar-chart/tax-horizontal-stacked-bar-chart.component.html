@@ -1,22 +1,19 @@
-<div id="taxBarChart">
-  <!-- <svg width="widthServer" [style.width.px]="widthServer" style="cursor: pointer;">
-    <g></g>
-</svg> -->
-</div>
+<div id={{chart_id}}></div>
 
 <div class="row" *ngIf="totalValues === 0">
-  <div class="col-sm-12 col-md-12" style="height: 20px; background-color: #FAFAFC; border-style: solid; border-color: #C4C4CD; border-width: thin;">
-    <p style="text-align: center; color: #C4C4CD; font-size: 11px;">{{emptyMsg}}</p> 
-</div>
+  <div class="col-sm-12 col-md-12"
+    style="height: 20px; background-color: #FAFAFC; border-style: solid; border-color: #C4C4CD; border-width: thin;">
+    <p style="text-align: center; color: #C4C4CD; font-size: 11px;">{{emptyMsg}}</p>
+  </div>
 </div>
 
- <div class="row" *ngIf="totalValues > 0">
- <div class="col" *ngFor="let item of labelsChart; index as i; trackBy: trackItem">
-   <span class="tax-legend-text">
-    <div class="tax-legend" [style.background]="colors[i]" style="display: inline-block;"> </div>
-    {{(dataValues && dataValues.length >= 0) ? dataValues[i] : "" }} {{item}}       
-   </span>
- </div>
-</div> 
+<div class="row" *ngIf="(totalValues > 0 && !gridEnabled)">
+  <div class="col" *ngFor="let item of labelsChart; index as i; trackBy: trackItem">
+    <span class="tax-legend-text">
+      <div class="tax-legend" [style.background]="colors[i]" style="display: inline-block;"> </div>
+      {{(dataValues && dataValues.length >= 0) ? dataValues[i] : "" }} {{item}}
+    </span>
+  </div>
+</div>
 
 

@@ -58,9 +58,13 @@
             </span>
           </p>
 
-          <lib-tax-horizontal-stacked-bar-chart [dataInput]="dataToChart" [width]="widthDivChart"
-            [colorsInput]="colorsBarChart" [labels]="labelsChart">
-          </lib-tax-horizontal-stacked-bar-chart>
+          <lib-tax-horizontal-stacked-bar-chart 
+          [dataInput]="dataToChart" 
+          [width]="widthDivChart"
+          [colorsInput]="colorsBarChart" 
+          [labels]="labelsChart"
+          [gridEnabled]="false">
+        </lib-tax-horizontal-stacked-bar-chart>
         </div>
         <!-- Donut chart integration -->
         <div>
