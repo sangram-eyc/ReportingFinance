@@ -172,6 +172,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.clientName = params.get('paramDataIntakeName');
           this.isViewClicked = true;
           this.dataIntakeType = params.get('paramDataIntakeType');
+          this.xAxisLabel = '';
         }
       });
   }
@@ -634,6 +635,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   manipulateStatusWithReviewByGroup(fetchData: ApiReviewByGroupSeriesItemDTO[]) {
+    const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     let stackBarChartDataReviewByGroup = fetchData.map((fData) => {
       fData.fastFilters.map((fDataSeries) => {
         this.fileSummariesObject.map((summaryObject) => {
@@ -648,7 +650,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       };
     });
     this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
+    this.fileSummariesObject = cloneFileSummury;
     this.stackBarChartData = stackBarChartDataReviewByGroup as StackChartSeriesItemDTO[];
+    this.totalFileCount = this.stackBarChartData.length;
   }
 
   mapBarChartDataWithKey(fData: any): BarChartSeriesItemDTO[] {
@@ -760,6 +764,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
     }
+    this.httpReviewByGroupParams.filterTypes = this.httpQueryParams.filterTypes;
     this.fileSummaryList();
     this.httpDataGridParams.filterTypes = this.httpQueryParams.filterTypes;
     this.getReviewFileTableData();
