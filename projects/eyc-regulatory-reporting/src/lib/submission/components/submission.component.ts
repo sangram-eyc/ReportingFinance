@@ -21,12 +21,58 @@ export class SubmissionComponent implements OnInit {
 
   @ViewChild('statusTemplate')
   statusTemplate: TemplateRef<any>;
+  @ViewChild('lastUpdatedByTemplate')
+  lastUpdatedByTemplate: TemplateRef<any>;
   updateStatusModal= false;
   updateStatusForm: FormGroup;
   updateSubmissionStatusList = [];
   updateStatusType = 'single;'
   isUpdateStatusError = false;
   updateStatusErrorMsg = '';
+  showAuditLog = false;
+  fileDetail;
+  auditLogs = [
+    {
+      "duration": "NOV",
+      "progress": [
+        {
+          "title": "Client L2 review",
+          "subtitle": "",
+          "status": "NOT_STARTED"
+        },
+        {
+          "title": "Client L1 review",
+          "subtitle": "In progress.",
+          "status": "IN_PROGRESS"
+        },
+        {
+          "title": "EY L2 review",
+          "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
+          "status": "COMPLETED"
+        },
+        {
+          "title": "EY L2 review",
+          "subtitle": "Joseph Burrows unapproved on 11/18/2021 21:27",
+          "status": "ERROR"
+        },
+        {
+          "title": "EY L2 review",
+          "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
+          "status": "COMPLETED"
+        },
+        {
+          "title": "EY L1 review",
+          "subtitle": "Suzanne Little approved on 11/18/2021 21:27",
+          "status": "COMPLETED"
+        },
+        {
+          "title": "Exception report available for EY L1 review",
+          "subtitle": "System modified on 11/18/2021 21:27",
+          "status": "COMPLETED"
+        }
+      ]
+    }
+  ]
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
@@ -215,6 +261,10 @@ export class SubmissionComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.lastUpdatedByTemplate,
+        },
         headerName: 'Last updated by',
         field: 'updatedBy',
         wrapText: true,
@@ -337,5 +387,11 @@ export class SubmissionComponent implements OnInit {
     this.updateStatusModal = false;
     this.isUpdateStatusError = false;
     this.updateStatusErrorMsg = '';
+  }
+
+  onClickLastUpdatedBy(row) {
+    console.log(row);
+    this.showAuditLog = true;
+    this.fileDetail = row;
   }
 }
