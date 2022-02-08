@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.module';
 import {PanelRightCommentDetailsModule} from './panel-right-comment-details/panel-right-comment-details.module'
 import {CommentDetailsPrModule} from './comment-details-pr/comment-details-pr.module'
+import { AuditLogModule } from './audit-log/audit-log.module';
 
 @NgModule({
   declarations: [TableHeaderRendererComponent],
@@ -28,7 +29,8 @@ import {CommentDetailsPrModule} from './comment-details-pr/comment-details-pr.mo
     InlineSVGModule.forRoot(),
     CommonModule,
     PanelRightCommentDetailsModule,
-    CommentDetailsPrModule
+    CommentDetailsPrModule,
+    AuditLogModule
   ],
   exports: [
     ModalModule,
@@ -40,7 +42,8 @@ import {CommentDetailsPrModule} from './comment-details-pr/comment-details-pr.mo
     IntakeFilesModule,
     TableHeaderRendererComponent,
     PanelRightCommentDetailsModule,
-    CommentDetailsPrModule
+    CommentDetailsPrModule,
+    AuditLogModule
   ]
 })
 export class EycUiSharedComponentModule { }

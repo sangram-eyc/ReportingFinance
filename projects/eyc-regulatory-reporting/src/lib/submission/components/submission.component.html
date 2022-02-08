@@ -40,6 +40,13 @@
             </motif-icon>
         </span>
     </ng-template>
+
+    <ng-template #lastUpdatedByTemplate let-row>
+        <span class="last_updated_by_icon">
+            <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
+        </span>
+        <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+    </ng-template>
 </div>
 <motif-modal [show]="updateStatusModal" (close)="updateStatusModal = false">
     <motif-modal-header>
@@ -66,3 +73,5 @@
         <button motifButton color="secondary" (click)="onCancelChangeStatus()">Cancel</button>
     </motif-modal-footer>
 </motif-modal>
+
+<lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" ></lib-audit-log>

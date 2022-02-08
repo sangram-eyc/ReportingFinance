@@ -204,3 +204,17 @@
   ::ng-deep .no_data:hover {
     box-shadow: none !important;
   }
+  .last_updated_by {
+      color: #155CB4;
+      cursor: pointer;
+      font-weight: 600;
+  }
+  .last_updated_by_icon {
+    width: 30px;
+    ::ng-deep svg {
+        fill: #155CB4 !important;
+    }
+    ::ng-deep .motif-icon-content {
+        cursor: pointer;
+    }
+  }
