@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChange
 })
 export class AuditLogComponent implements OnInit, OnDestroy {
 
-  appContainer;
+  // appContainer;
   @Input() show: boolean;
   @Input() fileDetail;
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -16,7 +16,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
 
   @Input() auditLogs = [];
   constructor() {
-    this.appContainer = document.getElementById('main-container');
+    // this.appContainer = document.getElementById('main-container');
    }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.appContainer.style.paddingRight = '0';
+    // this.appContainer.style.paddingRight = '0';
   }
 
   viewAuditLog() {
@@ -42,14 +42,14 @@ if (this.show) {
   }
 
   openAuditLog() {
-    this.appContainer.style.paddingRight = '33%';
-    console.log(this.appContainer);
+    // this.appContainer.style.paddingRight = '33%';
+    // console.log(this.appContainer);
     this.show = true;
     this.showChange.emit(this.show);
   }
 
   closeAuditLog() {
-    this.appContainer.style.paddingRight = '0';
+    // this.appContainer.style.paddingRight = '0';
     this.show = false;
     this.showChange.emit(this.show);
   }
