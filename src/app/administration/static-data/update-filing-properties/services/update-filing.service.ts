@@ -48,4 +48,8 @@ export class UpdateFilingService {
   addPBIMapping(mappingData) {
     return this.apiService.invokePutAPI(`${userAdminstration.static_data.add_pbi_mapping}`, mappingData)
   }
+
+  deleteTeamMember(pbiMappingData) {
+    return this.apiService.invokeDeleteAPIBody(`${userAdminstration.static_data.delete_pbi_mapping}`,pbiMappingData);
+  }
 }
