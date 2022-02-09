@@ -256,7 +256,7 @@ export class SubmissionComponent implements OnInit {
         headerName:'Status Changed',
         sortable: true,
         filter:true,
-        minWidth: 180,
+        minWidth: 220,
         cellClass:'date-submitted-class'
       },
       {
