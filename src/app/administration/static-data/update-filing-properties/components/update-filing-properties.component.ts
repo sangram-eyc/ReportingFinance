@@ -50,6 +50,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   filingData;
   backendFilingInfo;
   invalidEditReportIDs = [];
+  showToastAfterDeleteTeams = false;
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -295,16 +296,16 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         sort: 'asc',
         comparator: customComparator
       },
-      // {
-      //   width: 80,
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   cellRendererFramework: MotifTableCellRendererComponent,
-      //   cellRendererParams: this.editAct.bind(this),
-      //   headerName: 'Actions',
-      //   field: 'userId',
-      //   sortable: false,
-      //   filter: false,
-      // }
+      {
+        width: 80,
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: this.editAct.bind(this),
+        headerName: 'Actions',
+        field: 'name',
+        sortable: false,
+        filter: false,
+      }
     ];
 
   }
@@ -433,6 +434,46 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   onChangeQuestionSwitch(event) {
     this.addPBIReportForm.reset();
+  }
+
+  deletePBIMapping(row){
+
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Delete PBI mapping",
+        description: "Are you sure you want to remove PBI mapping?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+    let mappingData = {
+      "formId": this.filingData.formId,
+      "questionNames": [row.name]
+    }
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result.button == 'Yes') {
+      this.service.deleteTeamMember(mappingData).subscribe(resp => {
+        const pbimappingList = this.PBIMappingData;
+        this.PBIMappingData = [];
+        pbimappingList.splice(pbimappingList.findIndex(item => item.name === row.name),1);
+        pbimappingList.forEach(ele => {
+          this.PBIMappingData.push(ele);
+        });
+        this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        setTimeout(() => {
+          this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        }, 5000);  });
+      }
+    });
+  
+    
   }
 
   onChangeEditReportID(question, isValid) {
