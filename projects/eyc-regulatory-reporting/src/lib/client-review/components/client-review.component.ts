@@ -6,6 +6,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
+import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 
 @Component({
   selector: 'lib-client-review',
@@ -24,10 +25,13 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     private router: Router,
-    public permissions: PermissionService
+    public permissions: PermissionService,
+    private settingsService: EycRrSettingsService
     ) { }
 
   tabs;
+  exportURL;
+  exportHeaders;
   entityId;
   selectedRows = [];
   selectedEntities = [];
@@ -459,8 +463,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       "stage": "Client review"
     };
     this.service.approveAnswerExceptions(selectedFiling).subscribe(res => {
-      res['data']['answerExceptions'].forEach(ele => {        
+      res['data']['answerExceptions'].forEach(ele => {
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = ele.resolveOrException;
         /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
         console.log('resolve exception val >', selectedException);
         if(selectedException.resolveOrException.indexOf("/") !== -1){ 
@@ -791,5 +796,15 @@ actionMenuEnableforException(row) {
       this.actionMenuModal = false;
       this.actionMenuModalEnabled = false;
     }
+  }
+  exportData(type) {
+    if(type == 'entities') {
+      this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    } else {
+      this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    }
+    console.log("export URL > ", this.exportURL);
   }
 }

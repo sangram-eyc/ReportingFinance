@@ -9,6 +9,7 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import {customComparator} from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
+import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 
 @Component({
   selector: 'lib-rr-reporting',
@@ -24,9 +25,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     public permissions: PermissionService,
+    private settingsService: EycRrSettingsService
   ) { }
 
   tabs;
+  exportURL;
+  exportHeaders;
   entityId;
   selectedRows = [];
   selectedEntities = [];
@@ -482,7 +486,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     };
     this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
       res['data']['answerExceptions'].forEach(ele => {
+        console.log("resolveOrException count after approval >", ele.resolveOrException);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = ele.resolveOrException;
         /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
         if(selectedException.resolveOrException.indexOf("/") !== -1){ 
           let exceptionVal = selectedException.resolveOrException.split("/");
@@ -814,6 +820,17 @@ actionMenuEnableforException(row) {
       this.actionMenuModal = false;
       this.actionMenuModalEnabled = false;
     }
+  }
+
+  exportData(type) {
+    if(type == 'entities') {
+      this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    } else {
+      this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    }
+    console.log("export URL > ", this.exportURL);
   }
 
 }
