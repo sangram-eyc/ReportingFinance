@@ -20,33 +20,36 @@ import {
   EycUiSharedComponentModule
 } from "../../../projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module";
 import {UserRolesModule} from "@default/administration/user-roles/user-roles.module";
+import { NotificationsPreferencesComponent } from './notifications-preferences/notifications-preferences.component';
+import {RouterModule} from "@angular/router";
 
 
 
 @NgModule({
 
-  imports: [
-    CommonModule,
-    FormsModule,
-    MotifModule,
-    MotifIconModule,
-    MotifFormsModule,
-    MotifModule,
-    MotifTabBarModule,
-    MotifFormsModule,
-    MotifTableModule,
-    MotifModalModule,
-    MotifChipModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MotifToastModule,
-    HttpClientModule,
-    MotifIconModule,
-    EycRegulatoryReportingModule,
-    EycUiSharedComponentModule,
-    UserRolesModule
-  ],
-  declarations: [NotificationsPanelComponent, NotificationItemComponent, ArchivedNotificationsComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MotifModule,
+        MotifIconModule,
+        MotifFormsModule,
+        MotifModule,
+        MotifTabBarModule,
+        MotifFormsModule,
+        MotifTableModule,
+        MotifModalModule,
+        MotifChipModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MotifToastModule,
+        HttpClientModule,
+        MotifIconModule,
+        EycRegulatoryReportingModule,
+        EycUiSharedComponentModule,
+        UserRolesModule,
+        RouterModule
+    ],
+  declarations: [NotificationsPanelComponent, NotificationItemComponent, ArchivedNotificationsComponent, NotificationsPreferencesComponent],
   exports: [
     NotificationsPanelComponent
   ]

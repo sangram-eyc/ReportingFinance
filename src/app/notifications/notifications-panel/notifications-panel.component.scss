@@ -99,7 +99,17 @@
       font-size: 14px;
       font-weight: 700;
     }
+
+    .banner-header-right {
+      .right-icons {
+        display: flex;
+        width: 70px;
+        justify-content: space-between;
+      }
+    }
   }
+
+  .toggle-
 
   .notifications-list {
     padding: 15px;

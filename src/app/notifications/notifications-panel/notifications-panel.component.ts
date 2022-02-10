@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {PouchdbService} from "@default/services/pouchdb.service";
 
 @Component({
   selector: 'app-notifications-panel',
@@ -7,16 +8,23 @@ import {Router} from '@angular/router';
   styleUrls: ['./notifications-panel.component.scss']
 })
 export class NotificationsPanelComponent implements OnInit {
-  public notifications;
+  public notifications = [];
   public data: any;
   public showPanel: boolean;
   public showFilters: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private pouchDbService: PouchdbService) {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
+    this.pouchDbService.fetch().then(result => {
+      result.rows.forEach(item => {
+        console.log(item.doc)
+        this.notifications.push(item.doc)
+      });
+    }, error => {
+      console.error(error);
+    });
   }
 
   delete(i): void {
