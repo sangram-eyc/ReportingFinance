@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
+import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy, TemplateRef, SimpleChanges, SimpleChange} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
@@ -68,7 +68,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() firstColumnBorderRight=true;
   @Input() supressCellSelection = true;
   @Input() pagination = false;
-  @Input() paginationSize = 10;
+  @Input() paginationSize = 100;
   @Input() displayPlusIcon = true;
   @Input() hideHeaderCheckbox = false;
   @Output() newEventToParent = new EventEmitter<string>();
@@ -76,11 +76,41 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
+  @Output() exportFlagToParent = new EventEmitter<boolean>();
   @Input() export = false;
+  // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
   srnoCls;
   isAllRecordSelected = false;
+
+  dataset = [{
+    disable: false,
+    value: 100,
+    name: '100',
+    id: 0
+  },
+  {
+    disable: false,
+    value: 200,
+    name: '200',
+    id: 1
+  },
+  {
+    disable: false,
+    value: 300,
+    name: '300',
+    id: 2
+  }];
+
+  currentlySelectedPageSize = {
+    disable: false,
+    value: 100,
+    name: '100',
+    id: 0
+  };
+
+pageSize;
 
   ngOnInit(): void {
     if (!this.defaultColDef) {
@@ -103,7 +133,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (typeof (this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
@@ -122,7 +152,6 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
         this.columnDefsData.splice(1, 0, object);
       }
     }
-    
   }
 
   async submit() {
@@ -135,6 +164,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     setTimeout(() => {
       this.showToastAfterSubmit = !this.showToastAfterSubmit;
     }, 5000);
+  }
+
+  updatePaginationSize(newPageSize: number) {
+    this.gridApi.paginationSetPageSize(newPageSize);
   }
 
   openDialog() {
@@ -229,7 +262,16 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   toggleLeftChanged(event){
     this.toggleLeftEventToParent.emit(event);
   }
+
+  exportData(event) {
+   /*  const exportURL = requestDetails.exportEndPoint + "?filingName=" + requestDetails.filingName + "&period=" + requestDetails.period + "&headers=" + requestDetails.headers;
+    console.log("exportURL > ", exportURL);
+    // */
+    this.exportFlagToParent.emit(true);
+  }
+
   ngOnDestroy(): void {
     this.columnDefs = undefined;
+    console.log("Grid Destory");
   }
 }

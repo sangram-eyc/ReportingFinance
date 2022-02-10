@@ -12,13 +12,14 @@
         successful!
     </motif-toast>
 
-    <section id="exceptionReports" [hidden]="!(tabs==1)">
+    <section id="exceptionReports" *ngIf="tabs==1">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" 
-            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"  [export] = "false"
+            (exportFlagToParent)="exportData('exceptions')" [pagination]="true">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -53,12 +54,12 @@
 
     </section>
 
-    <section id="filingEntities" [hidden]="!(tabs==2)" (click)="outsideClick($event)">
+    <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
         <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
             [isToggle]="false" [modalConfig]="filingModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true">
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="false" (exportFlagToParent)="exportData('entities')" [pagination]="false">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>
