@@ -12,15 +12,16 @@
         successful!
     </motif-toast>
 
-    <section id="exceptionReports" [hidden]="!(tabs==1)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionData"
+    <section id="exceptionReports" *ngIf="tabs==1">
+        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-shared-grid>
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+            [export]="false" (exportFlagToParent)="exportData('exceptions')" [pagination]="true"></lib-shared-grid>
 
 
         <ng-template #commentExceptionTemplate let-row>
@@ -52,14 +53,15 @@
         </ng-template>
     </section>
 
-    <section id="filingEntities" [hidden]="!(tabs==2)" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+    <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
+        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
             [isToggle]="false" [modalConfig]="entitiesModalConfig"
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"></lib-shared-grid>
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
+            [export]="false" (exportFlagToParent)="exportData('entities')" [pagination]="false"></lib-shared-grid>
 
         <ng-template #headerTemplate>
             <div>
@@ -71,6 +73,11 @@
             <div class="dropdownTemplate">
                 <motif-icon class="complete" *ngIf="row.approved == true"
                     [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
                 <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
@@ -116,7 +123,17 @@
             </div>
         </ng-template>
 
+        <ng-template #expandEntityTemplate let-row>
+            <div class="exceptionRouteCls" (click)="routeToFilingEntityExceptionPage(row)">{{ row.entityName}}</div>
+        </ng-template>
 
+        <ng-template #viewFilingEntityTemplate let-row>
+            <div class="view-det-arrow">
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                    (click)="routeToFilingEntityExceptionPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+        
         <motif-toast [type]="'success'" [show]="showToastAfterApproveFilingEntities"
             (close)="showToastAfterApproveFilingEntities = !showToastAfterApproveFilingEntities">Approved successfully
         </motif-toast>

@@ -5,131 +5,259 @@
     "data": [
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA0",
+            "totalFunds":20,
+            "valor1":0,
+            "valor2":0,
+            "valor3":0
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA1",
+            "totalFunds":20,
+            "valor1":10,
+            "valor2":15,
+            "valor3":20
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H2",
+            "totalFunds":25,
+            "valor1":23,
+            "valor2":67,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX73",
+            "totalFunds":40,
+            "valor1":20,
+            "valor2":30,
+            "valor3":70
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ4",
+            "totalFunds":44,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS5",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y6",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ7",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID8",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA9",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H10",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX711",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ12",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS13",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y14",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ15",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID16",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA17",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H18",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX719",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ20",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS21",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y22",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ23",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "01.31.2022 Estimates",
-            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID"
+            "id": "01KV7KIYAT73SKWPTQINBICW53SLYYEYID24",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Estimates",
-            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA"
+            "id": "01KV7KIYHIJZK7RTXLJFGLTIEHIZC6EQUA25",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "11.30.2021 Estimates",
-            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H"
+            "id": "01KV7KIYD3F3YG5BCFBZCLDSU3G57NMW5H26",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Estimates",
-            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX7"
+            "id": "01KV7KIYHC5HF7KM63MJAL3FU6WGDOIZX727",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Fiscal",
-            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ"
+            "id": "01KV7KIYGOJIRQYFFGNZD3BH56G5X7TFFJ28",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Fiscal",
-            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS"
+            "id": "01KV7KIYDI5H643LT4YVCYWYWYEBDRIEVS29",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "10.31.2021 Excise",
-            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y"
+            "id": "01KV7KIYAWF7Y4SF6AFVE3OB5T2F6GVZ5Y30",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         },
         {
             "name": "12.31.2021 Excise",
-            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ"
+            "id": "01KV7KIYHVVAB5XCMG65F2KTDS3VNDCYAQ31",
+            "totalFunds":11,
+            "valor1":10,
+            "valor2":32,
+            "valor3":50
         }
     ],
     "error": null

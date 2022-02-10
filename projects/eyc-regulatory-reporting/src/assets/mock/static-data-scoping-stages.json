@@ -1,0 +1,15 @@
+{
+   "success": true,
+   "message": "Default stages returned successfully",
+   "corelationId": "6857efe8-ec17-4cf5-a1bd-7dca1d1213b4",
+   "data": [
+     {
+       "stageId": 0,
+       "stageCode": "EY_REVIEW",
+       "stageName": "EY Review",
+       "displayOrder": 1
+     }
+   ],
+   "error": null
+ }
+ 

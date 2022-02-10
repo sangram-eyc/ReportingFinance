@@ -11,7 +11,7 @@ export class RegulatoryReportingFilingService {
   filingData: any;
   @Output() dotcardStatusDetails = new EventEmitter<any>();
   exceptionData: any;
-
+  filingEntityData: any;
 
   constructor(
     private apiService: EycRrApiService,private settingsService: EycRrSettingsService
@@ -37,13 +37,22 @@ export class RegulatoryReportingFilingService {
       return this.exceptionData;
     }
 
+    set setFilingEntityData(data) {
+      this.filingEntityData = data;
+    }
+
+    get getFilingEntityData() {
+      return this.filingEntityData
+    }
+
     getFilings() {
       return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
     }
     getFilingsHistory(currentPage,noOfRecords) {
       // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
       // After API integration will remove above line and uncomment below line
-      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
+      // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
     }
   
     getFilingSearch(noOfRecords) {

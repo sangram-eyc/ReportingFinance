@@ -1,0 +1,39 @@
+{
+   "success": true,
+   "message": "Default stages returned successfully",
+   "corelationId": "0f31371b-365d-41e9-af1c-0125697f5583",
+   "data": [
+     {
+       "stageId": 0,
+       "stageCode": "FUND_SCOPING",
+       "stageName": "Scoping",
+       "displayOrder": 1
+     },
+     {
+       "stageId": 0,
+       "stageCode": "DATA_INTAKE",
+       "stageName": "Intake",
+       "displayOrder": 2
+     },
+     {
+       "stageId": 0,
+       "stageCode": "REPORTING",
+       "stageName": "Reporting",
+       "displayOrder": 3
+     },
+     {
+       "stageId": 0,
+       "stageCode": "CLIENT_REVIEW",
+       "stageName": "Client review",
+       "displayOrder": 4
+     },
+     {
+       "stageId": 0,
+       "stageCode": "SUBMISSION",
+       "stageName": "Submission",
+       "displayOrder": 5
+     }
+   ],
+   "error": null
+ }
+ 

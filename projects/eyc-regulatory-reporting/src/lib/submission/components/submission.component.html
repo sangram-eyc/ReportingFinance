@@ -13,13 +13,65 @@
 <!--  <lib-download [buttonLabel]="'Download selected'" [downloadFilesList]="selectedRows" (downloadFilesEmitter)="donwloadFilesOnSelected($event)"></lib-download>    </div>
  -->    <section id="xml-files-list">
        
-        <div >
+        <div [hidden]="noFilesDataAvilable">
             <motif-table title="Answer Files" [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="{
         headerCheckboxSelection: isFirstColumn,
         checkboxSelection: isFirstColumn}" rowSelection="multiple" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="true"
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div> 
+        <motif-card class="no_data" *ngIf="noFilesDataAvilable">
+            <motif-card-body>
+                <h5>No result found.</h5>
+            </motif-card-body>
+        </motif-card>
+        <ng-template #dateSubmittedTemplate let-row>
+            <div>{{row.dateSubmitted | date : 'MMM dd y hh:mma zzzz'| uppercase | dateSubmittedPipe}}</div>
+        </ng-template>
     </section>
-</div>
+    <ng-template #statusTemplate let-row>
+        <span class="status_icon">
+            <motif-icon [src]="'/assets/icons/image/ic_brightness_1_24px.svg'"></motif-icon>
+        </span>
+        <div>{{row.status}}</div>
+        <span class="edit_icon" [ngClass]="{'disabled': selectedRows.length!=0}"
+            *ngIf="permissions.validatePermission('Submission', 'File Status Change') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" (click)="enableUpdateStatusModal(row, 'single')">
+            </motif-icon>
+        </span>
+    </ng-template>
 
+    <ng-template #lastUpdatedByTemplate let-row>
+        <span class="last_updated_by_icon">
+            <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
+        </span>
+        <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+    </ng-template>
+</div>
+<motif-modal [show]="updateStatusModal" (close)="updateStatusModal = false">
+    <motif-modal-header>
+        Change Status
+    </motif-modal-header>
+    <motif-modal-body>
+        <p> </p>
+        <form [formGroup]="updateStatusForm">
+            <motif-form-field>
+                <motif-radio-group aria-labelledby="radio-group-label-2" formControlName="status">
+                    <motif-radio-button value="Draft">Draft</motif-radio-button>
+                    <br>
+                    <motif-radio-button value="Submitted to client">Submitted to client</motif-radio-button>
+                    <br>
+                    <motif-radio-button value="Submitted to regulator">Submitted to regulator</motif-radio-button>
+                </motif-radio-group>
+            </motif-form-field>
+        </form>
+        <p *ngIf="isUpdateStatusError" class="error_msg">{{updateStatusErrorMsg}}</p>
+    </motif-modal-body>
+    <motif-modal-footer>
+        <button motifButton color="primary-alt" [disabled]="updateStatusForm.invalid"
+            (click)="onSaveChangeStatus()">Save</button>
+        <button motifButton color="secondary" (click)="onCancelChangeStatus()">Cancel</button>
+    </motif-modal-footer>
+</motif-modal>
+
+<lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" ></lib-audit-log>

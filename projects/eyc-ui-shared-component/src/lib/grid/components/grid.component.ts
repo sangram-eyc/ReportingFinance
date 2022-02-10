@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild, Output, EventEmitter , OnChanges, OnDestroy} from '@angular/core';
-import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy, TemplateRef, SimpleChanges, SimpleChange} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
-import { TableHeaderRendererComponent } from '../../table-header-renderer/table-header-renderer.component';
+
 
 @Component({
   selector: 'lib-shared-grid',
@@ -29,6 +28,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() enableAutoId = false;
   @Input() search = true;
   @Input() isToggle = false;
+  @Input() isToggleLeft = false;
+  @Input() toggleLeftTitle = "";
+  @Input() toggleLeftDisabled :boolean = false;
+  @Input() hideLabels:boolean = false;
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() secondbuttonText = 'Reject selected';
@@ -65,70 +68,97 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() firstColumnBorderRight=true;
   @Input() supressCellSelection = true;
   @Input() pagination = false;
-  @Input() paginationSize = 10;
+  @Input() paginationSize = 100;
   @Input() displayPlusIcon = true;
   @Input() hideHeaderCheckbox = false;
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
+  @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
+  @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
+  @Output() exportFlagToParent = new EventEmitter<boolean>();
+  @Input() export = false;
+  // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
+  srnoCls;
+  isAllRecordSelected = false;
 
+  dataset = [{
+    disable: false,
+    value: 100,
+    name: '100',
+    id: 0
+  },
+  {
+    disable: false,
+    value: 200,
+    name: '200',
+    id: 1
+  },
+  {
+    disable: false,
+    value: 300,
+    name: '300',
+    id: 2
+  }];
 
-  // MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
-  // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  currentlySelectedPageSize = {
+    disable: false,
+    value: 100,
+    name: '100',
+    id: 0
+  };
 
-  // @ViewChild('headerTemplate')
-  // headerTemplate: TemplateRef<any>;
-  // @ViewChild('dropdownTemplate')
-  // dropdownTemplate: TemplateRef<any>;
+pageSize;
 
   ngOnInit(): void {
-    // console.log(this.defaultColDef);
-    // console.log('GRID COMPONENT INIT');
     if (!this.defaultColDef) {
       this.defaultColDef = {
         headerCheckboxSelection: this.hideHeaderCheckbox ? false : this.isFirstColumn,
         checkboxSelection: this.isFirstColumn
       }
     }
-    if(this.displayCheckBox) {
-      //this.buttonText = 'Add team';
+    if (this.displayCheckBox) {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
       this.gridContainerCls = 'gridAdminContainer';
+      this.srnoCls = '';
     } else {
       this.gridHeadingCls = 'grid-heading';
       this.gridContainerCls = 'gridContainer';
+      this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
-
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
   }
 
 
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: SimpleChanges) {
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if (typeof(this.columnDefs) !== 'undefined') {
+    if (typeof (this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
-      let object =  {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'S.No',
-        width: 100,
+      //sr no column data
+      let object = {
+        width: 30,
         valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
-        pinned: 'left'
+        pinned: 'left',
+        cellClass: this.srnoCls
       }
-        this.columnDefsData.push(object);    
+      if (this.displayCheckBox) {
+        this.columnDefsData.splice(0, 0, object);
+      } else {
+
+        this.columnDefsData.splice(1, 0, object);
+      }
     }
-    
   }
 
   async submit() {
-    console.log('CALLING SUBMIT SHARED GRID');
+    this.selectedRowEmitter.emit(this.selectedRows);
     await this.submitFunction();
     this.selectedRows = [];
-    this.gridApi.deselectAll();
-    this.selectedRowEmitter.emit(this.selectedRows);
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
     this.buttonModal = false;
     this.showToastAfterSubmit = !this.showToastAfterSubmit;
     setTimeout(() => {
@@ -136,21 +166,20 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     }, 5000);
   }
 
+  updatePaginationSize(newPageSize: number) {
+    this.gridApi.paginationSetPageSize(newPageSize);
+  }
+
   openDialog() {
-    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer") {
+    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
       return;
     }
     const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
-    console.log('OPEN DIALOG SHARED GRID');
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
-        console.log('Calling Submit ...');
         this.submit();
-      } else {
-        // console.log(result);
-      }
+      } 
     });
   }
 
@@ -162,26 +191,24 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     return args.node.rowIndex+1;
   }  
 
-  onRowSelected(event: any): void {
-    // console.log('Search',this.search);
-    // console.log('Button',this.button);
-    // console.log('Position',this.buttonPosition);
-    let selectedArr = [];
+  sortChanged(params) {
+    this.gridApi.refreshCells();
+  }
+
+  onRowSelected(): void {
+    this.selectedRowEmitterProcess.emit('processing');
     this.selectedRows = [];
-    selectedArr = this.gridApi.getSelectedRows();
-    // this.selectedRows =selectedArr.filter(item => item.approved === false);
-    for(let i = 0; i < selectedArr.length; i++) {
-      if (selectedArr[i].approved == false) {
-        this.selectedRows.push(selectedArr[i]);
-      }
-    }
+    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
     this.selectedRowEmitter.emit(this.selectedRows);
-    if(this.selectedRows.length === 0){
-      this.gridApi.deselectAll();
-    }
-    if(this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length){
+    this.selectedRowEmitterProcess.emit('finished');
+    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
       this.gridApi.selectAll();
+      this.isAllRecordSelected = true;
+    } else {
+      this.isAllRecordSelected = false;
     }
+
   }
 
   isFirstColumn = (params) => {
@@ -200,8 +227,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   searchGrid(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
-    // console.log(this.search);
-    // console.log(this.rowData);
+    
   }
 
   searchFilingValidation(event) {
@@ -233,7 +259,19 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     this.toggleEventToParent.emit(event);
   }
 
+  toggleLeftChanged(event){
+    this.toggleLeftEventToParent.emit(event);
+  }
+
+  exportData(event) {
+   /*  const exportURL = requestDetails.exportEndPoint + "?filingName=" + requestDetails.filingName + "&period=" + requestDetails.period + "&headers=" + requestDetails.headers;
+    console.log("exportURL > ", exportURL);
+    // */
+    this.exportFlagToParent.emit(true);
+  }
+
   ngOnDestroy(): void {
     this.columnDefs = undefined;
+    console.log("Grid Destory");
   }
 }

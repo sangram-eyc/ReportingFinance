@@ -1,0 +1,34 @@
+<div class="side-menu" *ngIf="show">
+
+    <div class="menu-header">
+        <h3 class="menu-header-title">Audit History</h3>
+        <button class="icon-button" motifIconButton aria-label="Close Menu" title="Close Menu"
+            (click)="closeAuditLog()">
+            <motif-icon [src]="'/assets/icons/navigation/ic_close_24px.svg'"></motif-icon>
+        </button>
+    </div>
+    <h4 class="file-name">{{fileDetail?.fileName}}</h4>
+    <div class="list">
+        <div class="container" *ngFor="let auditlog of auditLogs">
+            <div class="duration">
+                <span>{{auditlog?.duration}}</span>
+            </div>
+            <div class="audit-progress">
+                <motif-progress-indicators orientation="vertical">
+                    <motif-progress-step *ngFor= "let p of auditlog?.progress"
+                    title="{{p?.title}}" 
+                    subtitle="{{p?.subtitle}}" 
+                    [status]="getStatus(p?.status)"
+                    [error]="getError(p?.status)">
+                    </motif-progress-step>
+                </motif-progress-indicators>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <div class="menu-footer">
+        <button motifButton color="secondary" (click)="closeComments()">Close</button>
+    </div> -->
+
+</div>

@@ -10,7 +10,7 @@ import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/
 import { EycUiSharedComponentModule } from 'projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
 import { EycTeamDetailsComponent } from './eyc-team-details/eyc-team-details.component';
 import { UserRolesModule } from '../user-roles/user-roles.module';
-
+import { StaticDataModule } from '../static-data/static-data.module.';
 
 
 
@@ -36,7 +36,8 @@ import { UserRolesModule } from '../user-roles/user-roles.module';
     MotifIconModule,
     EycRegulatoryReportingModule,
     EycUiSharedComponentModule,
-    UserRolesModule
+    UserRolesModule,
+    StaticDataModule
   ]
 })
 export class AdminRegulatoryReportingModule { }

@@ -10,19 +10,23 @@ import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 import { HttpClientModule } from '@angular/common/http';
 import { DataManagedService } from './data-intake/services/data-managed.service';
-import { DataManagedSettingsService } from './data-intake/services/data-managed-settings.service'
-import { EycDataApiService } from './data-intake/services/eyc-data-api.service'
-import { FormsModule } from '@angular/forms';
+import { DataManagedSettingsService } from './data-intake/services/data-managed-settings.service';
+import { EycDataApiService } from './data-intake/services/eyc-data-api.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExceptionsReportsComponent } from './data-intake/component/exceptions-reports/exceptions-reports.component';
 
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from './data-intake/component/donut-grid-list/donut-grid-list.component';
+import { ExceptionsComponent } from './data-intake/component/exceptions/exceptions.component';
+
+
 @NgModule({
   declarations: [
     EycDataManagementServicesComponent,
     DataIntakeComponent,
     ExceptionsReportsComponent,
     FileReviewComponent,
+    ExceptionsComponent,
     DonutGridListComponent],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { DonutGridListComponent } from './data-intake/component/donut-grid-list/
     EycChartsSharedLibraryModule,
     HttpClientModule,
     FormsModule,
+    MotifTooltipModule,
+    ReactiveFormsModule
   ],
   providers: [
     DataManagedService,

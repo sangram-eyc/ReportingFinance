@@ -14,8 +14,11 @@ margin-top: 24px !important;
 .mb-3{
   margin-bottom: 24px !important;
 }
+.ml-3{
+  margin-left: 24px !important;
+}
 
-.bx {
+.box-center {
   min-height: 30px;
   display: flex;
   align-items: center;
@@ -64,11 +67,16 @@ margin-top: 24px !important;
   line-height: 18px;
   color: #2e2e38;
 }
+.heading-7 {
+  font-family: EYInterstate;
+  font-size: 14px;
+  line-height: 22px;
+  color: #2e2e38;
+  margin-top: 19px !important;
+  margin-left: 21px !important;
+}
 
 .donut-chart-card {
-  display: flex;
-  align-items: center;
-  padding-top: 6.0882800608828vh;
   min-height: 74.73vh;
 }
 
@@ -174,7 +182,6 @@ margin-top: 24px !important;
 .icon-size {
   font-size: 16px;
 }
-
 .dateWrapper {
   font-family: EYInterstate;
   font-style: normal;
@@ -191,6 +198,64 @@ margin-top: 24px !important;
     }
     .motif-button {
       min-height: 30px;
+      
     }
+  }
+}
+
+.date-ui{
+
+  ::ng-deep .motif-form-field {
+    margin-bottom: 0!important;
+    ::ng-deep .motif-input{
+      background-color: #ffffff !important;
+    }
+    
+    border-bottom: 1px solid #2E2E38 !important;
+    .motif-label{
+      margin:0 !important;
+    }
+    input#datepicker{
+      min-width: 266px !important; 
+    }
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  }
+}
+
+.tooltip-text{
+  font-family: EYInterstate;
+  font-size: 12px;
+  line-height: 17px;
+  color: #ffffff;
+  .label{
+    color: #FFE600;
+  }
+}
+
+.pie-legend {
+  padding: 0;
+  color: #2e2e38;
+
+  .legend {
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+    margin-right: 8px;
+    border-radius: 50%;
+    justify-items: center;
+  }
+}
+
+.ag-cursor-pointer{
+  ::ng-deep .ag-column-hover {
+    cursor: pointer !important;
   }
 }

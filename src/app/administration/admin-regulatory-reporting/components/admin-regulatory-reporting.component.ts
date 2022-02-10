@@ -30,7 +30,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   addTeamModal = false;
   addTeamForm: FormGroup;
   roles = []
-  assignments = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6']
+  filingType = [];
   showToastAfterAddTeam = false;
   is_Tax_Reporting = IS_SURE_FOOT;
   moduleName;
@@ -71,13 +71,29 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.addTeamForm = this._createTeam()
   }
 
+  getFilingAssignments() {
+    if (this.moduleName == 'Regulatory Reporting') {
+      this.teamsService.getFileType().subscribe(resp => {
+        this.filingType = resp['data'];
+      });
+    }
+  }
+
   private _createTeam () {
-    return this.fb.group({
-      teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
-      role: ['', [Validators.required]],
-      // assignments: [''],
-      description: ['', [Validators.maxLength(250)]]
-    });
+    if(this.moduleName == 'Regulatory Reporting') {
+      return this.fb.group({
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        role: ['', [Validators.required]],
+        filingType: ['', [Validators.required]],
+        description: ['', [Validators.maxLength(250)]]
+      });
+    } else {
+      return this.fb.group({
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        role: ['', [Validators.required]],
+        description: ['', [Validators.maxLength(250)]]
+      });
+    }
   }
 
   adminTabChange(selectedTab){
@@ -98,6 +114,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   getTeamList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
+      this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
       });
@@ -135,17 +152,19 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         sort: 'asc',
         comparator: customComparator
       },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Assignments',
-        field: 'numberOfAssignments',
-        sortable: true,
-        filter: false,
-        wrapText: true,
-        autoHeight: true,
-        width: 150,
+
+      // Commenting this column as part of User Story 299890: Assign filing type to new team
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Assignments',
+      //   field: 'numberOfAssignments',
+      //   sortable: true,
+      //   filter: false,
+      //   wrapText: true,
+      //   autoHeight: true,
+      //   width: 150,
         
-      },
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Members',
@@ -216,15 +235,24 @@ editTeams(row) {
 
   onSubmitNewTeam() {
     const obj = this.addTeamForm.getRawValue();
-    this.addTeamModal = false
-    // below code will change after api integration
-    
-    const team = {
-      "teamName": obj.teamName.trim(),
-      "roleName": obj.role,
-      "teamDescription": escape(obj.description.trim()),
-      "moduleName": this.moduleName,
-      // "assignments": obj.assignments
+    this.addTeamModal = false;
+    let team
+    if(this.moduleName == 'Regulatory Reporting') {
+    let selectedFilingTypes = this.getFillingTypes(obj);
+      team = {
+        "teamName": obj.teamName.trim(),
+        "roleName": obj.role,
+        "teamDescription": obj.description ? escape(obj.description.trim()):'',
+        "moduleName": this.moduleName,
+        "assignments": this.getAssignments(selectedFilingTypes)
+      }
+    } else {
+      team = {
+        "teamName": obj.teamName.trim(),
+        "roleName": obj.role,
+        "teamDescription": obj.description ? escape(obj.description.trim()):'',
+        "moduleName": this.moduleName
+      }
     }
     
     this.teamsService.addTeam(team).subscribe(resp => {
@@ -242,9 +270,32 @@ editTeams(row) {
     }, 5000);
       
     });
+  }
 
-    
+  getFillingTypes(obj){
+    let formId = [];
+    let selectedFilings = [];
+    obj.filingType.forEach(id => {
+      formId.push(id);
+    });
+    formId.forEach((id)=>{
+      this.filingType.filter((el)=>{
+        el.formId === id ? selectedFilings.push(el): '';
+      })
+    });
+    return selectedFilings;
+  }
 
+  getAssignments(selectedFilings){
+    let assignments = [];
+    selectedFilings.forEach((el)=>{
+      let assignmentObj = {
+        "entityId": el.formId,
+        "entityName": el.filingName
+      }
+      assignments.push(assignmentObj);
+    })
+    return assignments;
   }
 
   closeTeamModal() {

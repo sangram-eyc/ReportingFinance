@@ -5,8 +5,8 @@ import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
-// import { customComparator } from '../../config/rr-config-helper';
 import { Router, NavigationExtras } from '@angular/router';
+
 
 @Component({
   selector: 'lib-data-intake',
@@ -59,7 +59,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Approve Selected",
-      description: "Are you sure you want to approve the selected exception reports?",
+      description: "Are you sure you want to approve the selected exception report(s)?",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -104,6 +104,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   viewDetTemplate: TemplateRef<any>;
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
+  @ViewChild('actionButtonTemplate')
+  actionButtonTemplate: TemplateRef<any>;
+
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
@@ -206,9 +209,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         },
         field: 'approved',
         headerName: '',
-        width: 70,
+        width: 20,
         sortable: false,
         pinned: 'left'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.actionButtonTemplate,
+        },
+        headerName: 'Action',
+        field: 'template',
+        minWidth: 70,
+        width: 70,
+        sortable: false,
+        cellClass: 'actions-button-cell'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

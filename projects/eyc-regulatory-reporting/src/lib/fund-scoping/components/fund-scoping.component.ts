@@ -148,8 +148,7 @@ export class FundScopingComponent implements OnInit {
         width: 85,
         maxWidth: 85,
         sortable: false,
-        cellClass: 'actions-button-cell',
-        pinned: 'left'
+        cellClass: 'actions-button-cell'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

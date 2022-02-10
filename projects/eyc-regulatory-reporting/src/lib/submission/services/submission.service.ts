@@ -26,4 +26,7 @@ export class SubmissionService {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.complete_filing}${filingId}/complete`)
   }
 
+  updateStatus(data) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.updateSubmissionStatus}`, data);
+  }
 }

@@ -1,0 +1,91 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data" : {
+        "id": 123,
+        "entityId": 111,       
+        "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "status": "OPEN",
+        "priority": 1,
+        "target": "EY",
+        "company": "EY",
+        "author": {
+            "userId": null,
+            "userEmail": "Patrick.Mahomes@ey.com",
+            "userFirstName": "Patrick",
+            "userLastName": "Mahomes"
+        },
+        "createdBy": "Patrick.Mahomes@ey.com",
+        "createdDate": "2021-09-21T00:00:00Z",
+        "tags": [
+            {
+                "id": 1,
+                "name": "Edit Required",
+                "description": "Indicates that deliverable files need to be updated"
+            },
+            {
+                "id": 2,
+                "name": "Include in cycle debrief",
+                "description": "Indicates that deliverable files need to be included in the cycle debrief"
+            }
+        ],
+        "replyCount": 3,
+        "attachments": [
+            {
+                "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                "fileName": "prueba.xlsx",
+                "attachmentId": 4
+            },
+            {
+                "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                "fileName": "prueba.xlsx",
+                "attachmentId": 4
+            },
+            {
+                "storageFileName": "SOME_STORAGE_FILE_NAME",
+                "fileName": "File_name_012345589.xls",
+                "attachmentId": 1
+            }
+        ],
+        "replies": [
+            {
+                "commentId": 1,
+                "commentText": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                "assignee": null,
+                "timeStamp": 1633440262725,
+                "status": "NEW",
+                "replies": [],
+                "commentGrouping": "TASK",
+                "authorFirstName": "anonymousUser",
+                "authorLastName": "",
+                "attachments": []
+            },
+            {
+                "commentId": 2,
+                "commentText": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                "assignee": null,
+                "timeStamp": 1633440262725,
+                "status": "NEW",
+                "replies": [],
+                "commentGrouping": "TASK",
+                "authorFirstName": "anonymousUser",
+                "authorLastName": "",
+                "attachments": []
+            },
+            {
+                "commentId": 3,
+                "commentText": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                "assignee": null,
+                "timeStamp": 1633442133470,
+                "status": "NEW",
+                "replies": [],
+                "commentGrouping": "TASK",
+                "authorFirstName": "Diego",
+                "authorLastName": "Morini",
+                "attachments": []
+            }
+        ]
+    },
+    "error": null
+}

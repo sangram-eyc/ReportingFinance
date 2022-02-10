@@ -70,6 +70,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent  {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+  @Input() barMaxWidth: number = 120;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -185,8 +186,9 @@ export class BarVerticalStackedComponent extends BaseChartComponent  {
   }
 
   getXScale(): any {
-    const spacing = this.groupDomain.length / (this.dims.width / this.barPadding + 1);
-    return scaleBand().rangeRound([0, this.dims.width]).paddingInner(spacing).domain(this.groupDomain);
+    const maxWidth = Math.min(this.barMaxWidth * this.groupDomain.length,  this.dims.width);
+    const spacing = this.groupDomain.length / (maxWidth / this.barPadding + 1);
+    return scaleBand().range([0, this.barMaxWidth ? maxWidth :this.dims.width]).paddingInner(spacing).align(0).domain(this.groupDomain);
   }
 
   getYScale(): any {

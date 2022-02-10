@@ -27,7 +27,7 @@ node {
 
 task buildSharedComponent(type: NpmTask) {
   println "Building eyc shared component"
-  args = ['run', 'eyc-ui-shared']
+  args = ['run', 'eyc-ui-shared:package']
   
 }
 
@@ -53,9 +53,26 @@ task build(type: NpmTask) {
   
 }
 
+task buildDMS(type: NpmTask) {
+  println "Building eyc-DMS-UI"
+  args = ['run', 'eyc-ui-dms:package']
+  
+}
+
 task buildTax(type: NpmTask) {
   println "Building eyc-tax-reporting UI"
-  args = ['run', 'eyc-tax-reporting']
+  args = ['run', 'eyc-ui-tax-repoting:package']
+  
+}
+
+task buildTRP(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
+  args = ['run', 'eyc-ui-surefoot:package']
+  
+}
+task buildGS(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
+  args = ['run', 'eyc-ui-gs:package']
   
 }
 

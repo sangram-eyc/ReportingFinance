@@ -24,7 +24,7 @@
   margin-right: 16px !important;
 }
 
-.bx {
+.box-center {
   min-height: 30px;
   display: flex;
   align-items: center;
@@ -114,8 +114,38 @@
     }
     .motif-button {
       min-height: 30px;
+      
     }
   }
+}
+
+.date-ui{
+
+  ::ng-deep .motif-form-field {
+    margin-bottom: 0!important;
+    ::ng-deep .motif-input{
+      background-color: #ffffff !important;
+    }
+    
+    border-bottom: 1px solid #2E2E38 !important;
+    .motif-label{
+      margin:0 !important;
+    }
+    input#datepicker{
+      min-width: 266px !important; 
+    }
+  }
+
+  ::ng-deep .motif-hover .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  } 
+  ::ng-deep .motif-focus .motif-input{
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #2E2E38 !important;
+  }
+
+  
 }
 
 .chart-card {
@@ -123,11 +153,27 @@
   ::ng-deep motif-card-body {
     padding: 22px 11px !important;
   }
-  border-bottom: 3px solid #ff736a;
+}
+
+.warning-border{
+  box-sizing: border-box;
+	//Use pseudo-element to create inset border
+	&:before {
+		position: absolute;
+		content: ' ';
+		display: flex;
+		left: 12px;
+		right: 12px;
+		top: 2px;
+		bottom: 0;
+		border-bottom: 3px solid #FF9831;
+		// Important: We must deduct border size from width and height 
+		height: calc(100% - 3px);
+	} 
 }
 
 .warning-info{
-  color: #FF736A;
+  color: #FF9831;
 }
 .chart-panel {
   padding: 0;
@@ -162,6 +208,7 @@
     .btn-secondary {
       width: 69px;
       color: #2e2e38;
+      z-index: 10;
     }
 
     .motif-button[color="secondary"]:hover,
@@ -184,8 +231,8 @@
 
       .pie-chart {
         padding: 0;
-        min-width: 85px;
-        min-height: 85px;
+        min-width: 90px;
+        min-height: 90px;
         margin-bottom: 22px;
         ::ng-deep .eyc-charts {
           text {
@@ -209,8 +256,8 @@
           margin-bottom: 5px;
         }
         .legend {
-          width: 14px;
-          height: 14px;
+          width: 10px;
+          height: 10px;
           margin-top: 4px;
           margin-right: 8px;
           border-radius: 50%;

@@ -1,28 +1,38 @@
-import { Component, OnInit,ElementRef,Renderer2, ViewChild, TemplateRef } from '@angular/core';
-import { LegendPosition, colorSets } from 'eyc-charts-shared-library';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { DataSummary } from '../../models/data-summary.model'
+import { GridDataSet } from '../../models/grid-dataset.model';
+import { DataGrid } from '../../models/data-grid.model';
+
+import { donutSummariesObject } from '../../models/donut-chart-summary.model';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
+import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
+import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
+import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RowClickedEvent } from 'ag-grid-community';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-file-review',
   templateUrl: './file-review.component.html',
   styleUrls: ['./file-review.component.scss']
 })
-export class FileReviewComponent implements OnInit {
-  single:any[]=[];
+export class FileReviewComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
-  multi;
+  stackBarChartGridData = [];
   gridApi;
   innerTabIn: number = 1;
-  activeReports: any;
-  curDate;
-  presentDate;
-  totalFileCount=50;
-  // totalFileCount=0;
+  curDate: string;
+  presentDate: Date;
+  totalFileCount = 0;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -30,10 +40,7 @@ export class FileReviewComponent implements OnInit {
 
   dataFetch: number[];
   fileSummaries = [];
-
   // bar chart start
-
-  
   fitContainer: boolean = false;
   // options
   showXAxis = true;
@@ -46,17 +53,17 @@ export class FileReviewComponent implements OnInit {
   tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
-  xAxisLabel2='Domain';
+  xAxisLabel2 = 'Domains';
   showYAxisLabel = true;
   yAxisLabel = 'Files';
-  showXAxisGridLines=false;
+  showXAxisGridLines = false;
   showYAxisGridLines = true;
   barPadding = 50;
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  xScaleMin: any;
-  xScaleMax: any;
+  xScaleMin: number;
+  xScaleMax: number;
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel: boolean = true;
@@ -66,96 +73,163 @@ export class FileReviewComponent implements OnInit {
   rotateXAxisTicks: boolean = true;
   maxXAxisTickLength: number = 16;
   maxYAxisTickLength: number = 16;
-  colorScheme;
-  colorScheme2;
-  colorScheme3;
-  colorSchemeAll;
+  //end option
 
-//end option
-
-
-// table options
-
-
-activeFilings: any[] = [];
-completedFilings: any[] = [];
-filingResp: any[] = [];
-
-noOfCompletdFilingRecords = 10;
-currentPage = 1;
-maxPages = 5;
-// searchNoDataAvilable = false;
-// activeReportsSearchNoDataAvilable = false;
-noCompletedDataAvilable = false;
-// noActivatedDataAvilable = false;
-MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-TableHeaderRendererComponent = TableHeaderRendererComponent;
-// gridApi;
-rowData;
-rowClass = 'row-style';
-columnDefs;
-rowStyle = {
-  height: '74px'
-}
-domLayout = 'autoHeight';
-
-@ViewChild('chipTemplate')
-chipTemplate : TemplateRef<any>;
-
-dataset = [{
-  disable: false,
-  value: 10,
-  name: '10',
-  id: 0
-},
-{
-  disable: false,
-  value: 25,
-  name: '25',
-  id: 1
-},
-{
-  disable: false,
-  value: 50,
-  name: '50',
-  id: 2
-}];
-currentlySelectedPageSize = {
-  disable: false,
-  value: 10,
-  name: '10',
-  id: 0
-};
-
-pageSize;
-columnGl:any
-glRowdata:any
-// end 
-
-constructor(private dataManagedService: DataManagedService,private elementRef: ElementRef,
-     private renderer: Renderer2,private customglobalService: CustomGlobalService) { 
-    this.setColorScheme();
+  // table options
+  noOfCompletdFilingRecords = 10;
+  currentPage = 1;
+  maxPages = 5;
+  noCompletedDataAvilable = false;
+  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  rowClass = 'row-style';
+  rowStyle = {
+    height: '74px'
   }
-  setColorScheme() {
-    // this.selectedColorScheme = 'red';
-    this.colorScheme = colorSets.find(s => s.name === 'red');
-    this.colorScheme2 = colorSets.find(s => s.name === 'orange');
-    this.colorScheme3 = colorSets.find(s => s.name === 'teal');
-    this.colorSchemeAll=colorSets.find(s => s.name === 'all');
+  domLayout = 'autoHeight';
+
+  @ViewChild('chipTemplate') chipTemplate: TemplateRef<any>;
+  @ViewChild('threeDotTooltip') threeDotTooltip: TemplateRef<any>;
+  @ViewChild('nextButtonTemplate') nextButtonTemplate: TemplateRef<any>;
+
+  @ViewChild('threeDotFunctionTooltip') threeDotFunctionTooltip: TemplateRef<any>;
+  @ViewChild('threeDotExceptionsTooltip') threeDotExceptionsTooltip: TemplateRef<any>;
+
+  stackBarChartData: StackChartSeriesItemDTO[];
+  dataList: ApiStackSeriesItemDTO[];
+  fileSummariesObject = JSON.parse(JSON.stringify(donutSummariesObject));
+  dailyMonthlyStatus: boolean = false;
+  tabIn: number = 1;
+  motifDatepModel: any;
+  form: FormGroup;
+  disabledDailyMonthlyButton: boolean = false;
+  calSelectedDate: string;
+  FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
+  FILTER_TYPE = FILTER_TYPE;
+  lightVariant: string = "monochrome-light";
+  darkVariant: string = "monochrome-dark";
+  allIssueVariant: string = this.darkVariant;
+  noIssueVariant: string = this.lightVariant;
+  mediumLowIssueVariant: string = this.lightVariant;
+  highIssueVariant: string = this.lightVariant;
+  missingFileVariant: string = this.lightVariant;
+  fileNotReceivedVariant: string = this.lightVariant;
+  filterByIssueType: string = 'all';
+
+  dataset: GridDataSet[] = [{
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  },
+  {
+    disable: false,
+    value: 25,
+    name: '25',
+    id: 1
+  },
+  {
+    disable: false,
+    value: 50,
+    name: '50',
+    id: 2
+  }];
+
+  currentlySelectedPageSize: GridDataSet = {
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  };
+
+  columnGl = [];
+  glRowdata = [];
+  // end 
+
+  // API Request match with response
+  httpQueryParams: DataSummary;
+  httpDataGridParams: DataGrid;
+  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
+
+  customColors: any = [
+    { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
+    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+  ];
+
+  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+    private renderer: Renderer2, private _router: Router) {
+      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
   }
 
   ngOnInit(): void {
+    const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = new Date();
-    this.dailyManagedData();
-    this.dailyDataProvider();
-    this.getReviewFilesData();
+    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    this.tabIn = 1;
+    this.form = new FormGroup({
+      datepicker: new FormControl({
+        isRange: false,
+        singleDate: {
+          date: {
+            year: this.presentDate.getFullYear(),
+            month: this.presentDate.getMonth() + 1,
+            day: this.presentDate.getDate()
+          }
+        }
+      }, [Validators.required])
+    });
+  }
+  ngAfterViewInit(): void {
+    this.httpQueryParams =
+    {
+      startDate: '',
+      endDate: '',
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      periodType: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+    this.httpDataGridParams = {
+      startDate: '',
+      endDate: '',
+      dataFrequency: this.httpQueryParams.dataFrequency,
+      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
+      dueDate: this.httpQueryParams.dueDate,
+      periodType: '',
+      clientName: '',
+      reportType: '',
+      summaryType: '',
+      queryPhrase: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+    if(this.dailyMonthlyStatus) {
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+    } else {
+      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    }
+    this.fileSummaryList();
     this.getReviewFileTableData();
-    
   }
 
-  // table methods
-  
+  onRowClicked (event: RowClickedEvent){
+    if(event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
+      this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
+    } else {
+      console.log("Data name is not getting");  
+      // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
+    }
+ }
+
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -163,7 +237,7 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
+    let pastedText = (clipboardData.getData('text')).split("");
     pastedText.forEach((ele, index) => {
       if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
         if ((pastedText.length - 1) === index) {
@@ -174,8 +248,8 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
         return false;
       }
     });
-  } 
-  
+  }
+
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
     if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
@@ -186,106 +260,141 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     }
   }
 
+  stringTrim(params, paramSize) {
+    if (params?.length > paramSize) {
+      return (params).substr(0, paramSize) + ''
+    } else {
+      return params
+    }
+  }
+
   getReviewFileTableData() {
-      this.dataManagedService.getReviewFileTableData().subscribe(resp => {
-      resp.data["rowData"].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      this.glRowdata=resp.data["rowData"];
+    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
+      resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
+      this.glRowdata = resp['data'];
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'File',
-          field: 'file',
+          field: 'name',
           sortable: true,
           filter: true,
-          resizeable: true,
-          minWidth: 100,
-          sort:'asc',
-          wrapText: true,
-          autoHeight: true
+          minWidth: 150,
+          wrapText: false,
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotTooltip
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Provider',
           field: 'provider',
           sortable: true,
           filter: true,
-          minWidth: 10,
+          minWidth: 100,
           wrapText: true,
           autoHeight: true
-          
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Data Domain',
-          field: 'data_domain',
-  
+          field: 'dataDomain',
           sortable: true,
           filter: true,
           minWidth: 100,
           wrapText: true,
           autoHeight: true
-          
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
-          headerName: 'Function',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: 'Functions',
           field: 'functions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
-          autoHeight: true
+          minWidth: 100,
+          wrapText: false,
+          autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotFunctionTooltip
+          },
+          valueGetter: function (params) {
+            if ((params.data.functions).length > 4) {
+              return (params.data.functions).substr(0, 4) + ' ...'
+            } else {
+              return params.data.functions
+            }
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-  
           headerName: 'Due Date',
-          field: 'due_date',
+          field: 'dueDate',
           sortable: true,
           filter: true,
-          minWidth: 10,
+          minWidth: 100,
           wrapText: true,
-          autoHeight: true
-          
+          autoHeight: true,
+          cellStyle: function (params) {
+            if ((params.data.dataDomain).length < 10) {
+              return { color: 'red' }
+            } else {
+              return true;
+            }
+          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
           sortable: true,
           filter: true,
-          minWidth: 10,
-          wrapText: true,
+          minWidth: 200,
+          wrapText: false,
           autoHeight: true,
+          cellRendererParams: {
+            ngTemplate: this.threeDotExceptionsTooltip
+          },
+          valueGetter: function (params) {
+            if (params.data.exceptions) {
+              return params.data.exceptions
+            } else {
+              return '--'
+            }
+          }
         }, {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Status',
-          field: 'Status',
+          field: 'maxPriority',
           sortable: true,
           filter: true,
-          minWidth: 300,
-          wrapText: true,
-          autoHeight: true,
+          minWidth: 200,
+          sort:'asc',
+          comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }
-        }
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: '',
+          field: 'next',
+          sortable: false,
+          filter: false,
+          minWidth: 100,
+          cellRendererParams: {
+            ngTemplate: this.nextButtonTemplate,
+          }
+        },
       ];
-    })
+    });
   }
 
-
-  formatDate(timestamp) {
-    let due = new Date(timestamp);
-    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-      + ('0' + due.getDate()).slice(-2) + '/'
-      + due.getFullYear();
-    return newdate;
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
@@ -300,97 +409,251 @@ constructor(private dataManagedService: DataManagedService,private elementRef: E
     this.currentPage = val;
     this.getReviewFileTableData();
   }
-  // end 
+
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+
+      this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+      
+      this.dailyMonthlyStatus ? this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+      : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
+        
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+
+      this.dailyMonthlyStatus ?
+        this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
+
+        this.dailyMonthlyStatus ?
+        this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
+        : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
+    }
+    this.fileSummaryList();
+    this.getReviewFileTableData();
   }
 
-  select(event) {
-    console.log(event);
-  }
-  activate(event) {
-    console.log(event);
-  }
-  deactivate(event) {
-    console.log(event);
+  dailyData(status: boolean) {
+    // Daily data fetch as per click
+    this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
+    this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
+
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+    }
+    this.fileSummaryList();
+    this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
 
-  getFileSummuries() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getFileSummaryList().subscribe(dataSummuries => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
+  monthlyData(status: boolean) {
+    // Monthly data fetch as per click
+    this.dailyMonthlyStatus = status;
+    this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+    this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+    if (this.innerTabIn == 1) {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+    } else {
+      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+    }
+    this.fileSummaryList();
+    this.getReviewFileTableData();
+    sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
+  }
+
+
+  fileSummaryList() {
+    // Mock API integration for bar chart (Data Providers/ Data Domains)
+    this.dataList = [];
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+      this.dataList = dataProvider.data[0]['totalSeriesItem'];
+      this.totalFileCount = dataProvider.data[0]['totalCount'];
+      this.manipulateStatusWithResponse(this.dataList);
     });
   }
 
-  dateSub(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() - 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
-  dateAdd(presentDate) {
-    let curDateVal = presentDate;
-    curDateVal.setMonth(curDateVal.getMonth() + 1);
-    this.curDate = formatDate(curDateVal, 'MMM. dd, yyyy', 'en');
-  }
-
-  dailyData(){
-    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'secondary')
-    this.dailyManagedData();
-    this.dailyDataProvider();
-  }
-  monthyData(){
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement,  'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement,  'color', 'secondary');
-    this.monthyManagedData();
-    this.monthyDataProvider();
-  }
-
-  dailyManagedData() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getDailyFileSummaryList().subscribe(dataSummuries => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
+  manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
+    // Manipulate fetch-data as per status
+    const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
+    const stackBarChart = [];
+    fetchData.find((fData) => {
+      this.fileSummariesObject.map((summaryObject) => {
+        if (fData.label === summaryObject.apiKey) {
+          summaryObject.value = fData.value;
+        }
+      });
+      fData.seriesItemDTO.map((seriesData) => {
+        stackBarChart.push({
+          name: FILTER_TYPE_TITLE[`${fData.label}`], // key mapping ,
+          lable: seriesData.lable,
+          value: seriesData.value
+        }
+        )
+      });
     });
+    // GroupBy fetch-data as per status
+    const groupBy = (array, key) => {
+      return array.reduce((result, currentValue) => {
+        (result[currentValue[key]] = result[currentValue[key]] || []).push(
+          { name: currentValue.name, value: currentValue.value }
+        );
+        return result;
+      }, {});
+    };
+    this.fileSummaries = JSON.parse(JSON.stringify(this.fileSummariesObject));
+    this.fileSummariesObject = cloneFileSummury;
+    const stackBarChartNew = groupBy(stackBarChart, 'lable');
+    const stackBarChartUpdated = [];
+    // Fetch-data as per Stack Bar Chart
+    for (const [key, value] of Object.entries(stackBarChartNew)) {
+      stackBarChartUpdated.push({
+        name: `${key}`,
+        series: value
+      })
+    }
+    this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
   }
 
-  monthyManagedData() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getMonthlyFileSummaryList().subscribe(dataSummuries => {
-      this.fileSummaries = dataSummuries.data['dataSeries'];
-    });
+  toggleCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedDate = event.singleDate.formatted;
+    if (this.calSelectedDate) {
+      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpDataGridParams.dueDate = this.calSelectedDate;
+      this.fileSummaryList();
+      this.getReviewFileTableData();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }
   }
 
-
-  getDataProviderList(){
-    this.dataManagedService.getDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
-    });  
+  filterByIssues(issues: string, variants: string) {
+    if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
+      this.httpQueryParams.filterTypes = [];
+    }
+    switch (issues) {
+      case FILTER_TYPE.NO_ISSUES:
+        if (variants === this.lightVariant) { 
+          this.allIssueVariant = this.lightVariant;
+          this.noIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.NO_ISSUES]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.noIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.NO_ISSUES]);
+        }
+        break;
+      case FILTER_TYPE.MEDIUM_LOW:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+        }
+        break;
+      case FILTER_TYPE.HIGH:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.HIGH]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.HIGH]);
+        }
+        break;
+      case FILTER_TYPE.MISSING_FILES:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.MISSING_FILES]);
+         } else {
+          this.allIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.MISSING_FILES]);
+         }
+        break;
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.darkVariant;
+          this.filterTypes('push',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.lightVariant;
+          this.filterTypes('pop',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+        }
+        break;
+      case 'all':
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.darkVariant;
+          this.noIssueVariant = this.lightVariant;
+          this.mediumLowIssueVariant = this.lightVariant;
+          this.highIssueVariant = this.lightVariant;
+          this.missingFileVariant = this.lightVariant;
+          this.fileNotReceivedVariant = this.lightVariant;
+          this.httpQueryParams.filterTypes = [
+            FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+            FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
+        }
+        break;
+        default:
+          break;
+    }
+    if(this.httpQueryParams.filterTypes.length <= 0) {
+      this.allIssueVariant = this.darkVariant;
+      this.noIssueVariant = this.lightVariant;
+      this.mediumLowIssueVariant = this.lightVariant;
+      this.highIssueVariant = this.lightVariant;
+      this.missingFileVariant = this.lightVariant;
+      this.fileNotReceivedVariant = this.lightVariant;
+      this.httpQueryParams.filterTypes = [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
+    }
+    this.fileSummaryList();
+    this.httpDataGridParams.filterTypes = this.httpQueryParams.filterTypes;
+    this.getReviewFileTableData();
+    this.cdr.detectChanges();
   }
 
-  dailyDataProvider() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getDailyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
-    });
+  filterTypes(method: string, types: string[]) {
+    switch (method) {
+      case 'push':
+        types.map((type) => {
+          const index = this.httpQueryParams.filterTypes.indexOf(type);
+          (index < 0) 
+          ? this.httpQueryParams.filterTypes.push(type) 
+          : null ;
+        });
+        break;
+      case 'pop':
+        types.map((type) => {
+          const index = this.httpQueryParams.filterTypes.indexOf(type);
+          (index !== -1) ? this.httpQueryParams.filterTypes.splice(index, 1) : null ;
+        });
+        break;
+      default:
+        break;
+    }
   }
-
-  monthyDataProvider() {
-    // Mock API integration for donut chart
-    this.dataManagedService.getMonthlyDataProviderList().subscribe(data => {
-      this.single = data.data['dataSeries'];
-      this.totalFileCount=data.data['totalCount'];
-    });
-  }
-
-
-  getReviewFilesData() {
-    // Mock API integration for Review File
-    this.dataManagedService.getReviewFilesData().subscribe(data => {
-      this.multi = data.data["dataseries"];
-    });
-  }
-  
 }

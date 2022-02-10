@@ -9,6 +9,7 @@
     <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
     <!-- <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button> -->
     <button motifButton *ngIf="this.moduleLevelPermission.checkPermission('All')" (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn == 4 ? 'motif-active' : ''">Admin</button>
+    <button motifButton *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'View Static Data') && moduleId == 2" (click)="adminTabChange(5)" class="motif-text-link" [ngClass]="tabIn == 5 ? 'motif-active' : '' ">Static Data</button>
 </motif-tab-bar>
 
 <app-users *ngIf="tabIn == 2"></app-users>
@@ -65,7 +66,7 @@
               </div>
               <div class="motif-col-xs-4 motif-col-lg-6">
                 <motif-form-field>
-                  <label motifLabel class="select-label">Role (Required)</label>
+                  <label motifLabel class="select-label">Role (required)</label>
                   <motif-select aria-label="Please select an option"  formControlName="role" ngDefaultControl>
                     <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
                   </motif-select>
@@ -75,17 +76,17 @@
                 </motif-form-field>
       
               </div>
-            <!--   <div class="motif-col-xs-4 motif-col-lg-6">
+              <div class="motif-col-xs-4 motif-col-lg-6" *ngIf="(moduleName == 'Regulatory Reporting')">
                 <motif-form-field>
-                  <label motifLabel class="select-label">Assignment (Optional)</label>
-                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="assignments">
-                    <motif-option [value]="assignment" *ngFor="let assignment of assignments">{{assignment}}</motif-option>
+                  <label motifLabel class="select-label">Filing type (required)</label>
+                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="filingType" ngDefaultControl>
+                    <motif-option [value]="fType.formId" *ngFor="let fType of filingType">{{fType.filingName}}</motif-option>
                   </motif-select>
                   <motif-error *ngIf="
-                                    addTeamForm.get('assignments').hasError('required') &&
-                                    addTeamForm.get('assignments').touched">Please provide a assignment!</motif-error>
+                                    addTeamForm.get('filingType').hasError('required') &&
+                                    addTeamForm.get('filingType').touched">Please provide a Filing type!</motif-error>
                 </motif-form-field>
-              </div> -->
+              </div>
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
                   <label motifLabel>Description (Optional)</label>
@@ -110,3 +111,7 @@
 </div>
 <div *ngIf="tabIn == 3"><br>Filings</div>
 <div *ngIf="tabIn == 4"><br><app-user-roles></app-user-roles></div>
+
+<section id='static-data' [hidden]="!(tabIn == 5)">
+  <lib-static-data [tabHighlighted]="tabIn"></lib-static-data>
+</section>

@@ -1,0 +1,209 @@
+
+.filing-wrapper {
+
+  .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
+      padding: 0 !important;
+  }
+  
+  .motif-card {
+      width: 100%;
+      font-family: EYInterstate;
+      border: 1px solid #747480 !important;
+      .motif-card-header {
+          border: none;
+          min-height: 85px;
+          padding: 28px 20px 5px 22px;;
+          .filing-name {
+              margin: 0;
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 18px;
+          }
+          .eli-filing-name {
+              margin: 0;
+              font-weight: 700;
+              font-size: 16px;
+              line-height: 5px;
+          }
+          span.filing-name.ellipsis {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: block;
+              max-width: 390px;
+          }
+          span.filing-name.ellipsis-period {
+              flex: 1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: block;
+              width: 114px;
+          }
+         
+      }
+  
+      .filing-card-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        padding-left: 23px;
+        padding-right: 22px;
+       
+        .card-button {
+            .motif-button {
+                width: 66px;
+                min-height: 31px;
+                height: 31px;
+            }
+        }
+    }
+  }
+  
+//   @media screen and (min-width: 300px) {
+      
+//      }
+//     @media screen and (min-width: 1000px) {
+     
+//     }
+//     @media screen and (min-width: 1200px) {
+//        span.filing-name.ellipsis {
+//           width: 200px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
+    
+//      @media screen and (min-width: 1950px) {
+//       span.filing-name.ellipsis {
+//           width: 241px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//      }
+    
+//      @media screen and (min-width: 2600px) {
+      
+//      }
+    
+//      @media screen and (min-width: 2800px) {
+      
+//      }   
+  
+//      @media screen and (min-width: 850px) and (max-width: 1000px) {
+//       span.filing-name.ellipsis {
+//           width: 230px !important;
+//       }
+//       span.filing-name.ellipsis-period {
+//           width: 200px !important;
+//       }
+//   }
+}
+
+.each-card {
+  margin-bottom: 12px;
+  padding: 0px 5px;
+}
+
+#static-card-wrapper{
+  // margin-top: 45px;
+  position: relative;
+}
+
+@media screen and (min-width: 990px) and (max-width: 1070px) {
+  .filing-wrapper .motif-card .motif-card-header .filing-date-due {
+      font-size: 10px;
+  }
+ }
+
+
+ @media screen and (min-width: 300px) {
+  .each-card {
+     width: 100% !important;
+   }
+ }
+@media screen and (min-width: 1000px) {
+ .each-card {
+    width: 50% !important;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .each-card {
+     width: 33.33% !important;
+   }
+ }
+
+ @media screen and (min-width: 1950px) {
+  .each-card {
+     width: 25% !important;
+   }
+ }
+
+ @media screen and (min-width: 2600px) {
+  .each-card {
+     width: 20% !important;
+   }
+ }
+
+ @media screen and (min-width: 2800px) {
+  .each-card {
+     width: 14% !important;
+   }
+ }
+
+
+ #static-add-new {
+  position: absolute;
+  top: 155px;
+  right: 25px;
+  // z-index: 99999;
+}
+
+::ng-deep.motif-toast {
+  // width: 30%;
+  position: fixed;
+  right: 0px;
+  margin-right: 2%;
+  top: 50px;
+  z-index: 2;
+  .motif-toast-content {
+      font-family: EYInterstate
+  }
+  .motif-button {
+      color: #1a1a24;
+  }
+  .motif-icon-button {
+      display: none !important;
+  }
+}
+.search {
+  float: right;
+  margin-bottom: 40px;
+  .motif-form-field input{
+    width: 228px;
+    float: right;
+  }
+}
+.no_data {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+    font-weight: bold;
+  }
+}
+
+
+  ::ng-deep {
+    #staticDataModal .motif-modal-content {
+      width: 100% !important;
+    }  
+  }
+

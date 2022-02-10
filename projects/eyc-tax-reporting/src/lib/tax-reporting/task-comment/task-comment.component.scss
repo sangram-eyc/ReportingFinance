@@ -4,6 +4,23 @@
         padding: 0 !important;
     }
 
+    .custom-ml{
+        margin-left: inherit;
+    }
+
+    .disabled-color{
+        color: #C4C4CD;
+    }
+
+    .container{
+        .update-task-status{
+            background-color:#F0F0F0 !important;
+        }
+        .decline-close{
+            background-color:#F0F0F0 !important;
+        }
+    }
+  
     .task-comment{
         color: #2E2E38;
         font-family: EYInterstate;
@@ -588,6 +605,9 @@
     
        .comments-reply-actions{
            display: flex;
+           .cancel-btn{
+            margin-left: 2px;
+           }
        }
     
        .comments-reply-status-button{
@@ -662,6 +682,7 @@
       .text-replay{
         color: #155CB4;
         cursor: pointer;
+        font-weight: 800;
       }
 
 

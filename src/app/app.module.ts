@@ -32,12 +32,13 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
  import {EycDataManagementServicesModule} from 'projects/eyc-data-managed-services/src/lib/eyc-data-managed-services.module';
 import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
 import {NotificationsModule} from "@default/notifications/notifications.module";
+import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorAlertComponent,
-
+   ErrorAlertComponent
   ],
   imports: [
     BrowserModule,

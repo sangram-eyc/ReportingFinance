@@ -1,0 +1,17 @@
+.tax-flexbox {
+    display: flex;
+    align-items: left;
+    margin-right: auto;
+  }
+
+.tax-legend {
+    width: 9.9px;
+    height: 9.9px;
+    border-radius: 50%;
+  }
+  
+  .tax-legend-text {
+    font-family: EYInterstate;
+    font-size: 11px;
+    color: #2E2E38;
+  }

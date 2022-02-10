@@ -1,4 +1,5 @@
 import { ScaleType } from '../common/types/scale-type.enum';
+import { ColorCode } from '../common/types/color-code.enum';
 
 export interface Color {
   name: string;
@@ -13,7 +14,7 @@ export let colorSets: Color[] = [
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#FF736A'
+      ColorCode.Red
     ]
   },
   {
@@ -21,7 +22,7 @@ export let colorSets: Color[] = [
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#FF9831'
+      ColorCode.Orange
     ]
   },
   {
@@ -29,7 +30,7 @@ export let colorSets: Color[] = [
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#42C9C2'
+      ColorCode.Teal
     ]
   },
   {
@@ -37,7 +38,8 @@ export let colorSets: Color[] = [
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      '#57E188','#42C9C2','#FF9831','#FF736A','#E7E7EA'
+      ColorCode.Green, ColorCode.Teal, ColorCode.Orange, 
+      ColorCode.Red, ColorCode.Grey, ColorCode.Teal, ColorCode.Blue
     ]
   }
 ];

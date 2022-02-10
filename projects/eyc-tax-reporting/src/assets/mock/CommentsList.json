@@ -9,9 +9,9 @@
             "entityType": "Fund",
             "description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
             "status": "OPEN",
-            "priority": 0,
+            "priority": 1,
             "target": "EY",
-            "company": "CLIENT",
+            "company": "EY",
             "author": {
                 "userId": null,
                 "userEmail": "Patrick.Mahomes@ey.com",
@@ -31,7 +31,24 @@
                 }
             ],
             "replyCount": 7,
-            "attachmentsCount": 0
+            "attachmentsCount": 3,
+            "attachments": [
+                {
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
+                },
+                {
+                    "storageFileName": "ac3eb5b9-0217-4655-9c24-405b662abc4d.xlsx",
+                    "fileName": "prueba.xlsx",
+                    "attachmentId": 4
+                },
+                {
+                    "storageFileName": "SOME_STORAGE_FILE_NAME",
+                    "fileName": "File_name_012345589.xls",
+                    "attachmentId": 1
+                }
+            ]
         },
         {
             "id": 1234,
@@ -41,7 +58,7 @@
             "status": "OPEN",
             "priority": 1,
             "target": "CLIENT",
-            "company": "EY",
+            "company": "Client",
             "author": {
                 "userId": null,
                 "userEmail": "David.Miller@ey.com",
@@ -69,7 +86,7 @@
             "status": "OPEN",
             "priority": 0,
             "target": "CLIENT",
-            "company": "CLIENT",
+            "company": "Client",
             "author": {
                 "userId": null,
                 "userEmail": "Eric.Taylor@ey.com",
@@ -107,7 +124,7 @@
             "status": "ACCEPTED",
             "priority": 1,
             "target": "EY",
-            "company": "CLIENT",
+            "company": "EY",
             "author": {
                 "userId": null,
                 "userEmail": "Michael.Brown@ey.com",
@@ -139,7 +156,7 @@
             "description": "Please fix the file. Calculations are wrong 1234567",
             "status": "DECLINED",
             "priority": 1,
-            "target": "CLIENT",
+            "target": "EY",
             "company": "EY",
             "author": null,
             "createdBy": "Michael.Brown@ey.com",

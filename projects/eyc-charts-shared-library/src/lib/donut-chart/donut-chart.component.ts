@@ -52,6 +52,7 @@ export class DonutChartComponent {
     this.renderSVG();
   }
 
+
   // Create dynamic donut SVG as per data/api
   renderSVG() {
     // Calculate TotalFileNumber 
@@ -74,7 +75,9 @@ export class DonutChartComponent {
         : [];
 
     const color: any = d3.scaleOrdinal().range(this._colors); // color code inject in radius
-    const pie = d3.pie().value(d => d[1]);
+    var pie = d3.pie()
+      .sort(d => d[1])
+      .value(d => d[1]);
     const data_ready = pie(data_map as any); // data inject into donut chart
 
     // Configure SVG for donut chart
@@ -90,6 +93,7 @@ export class DonutChartComponent {
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", `${this.totalFilesNumberFontSize}px`)
+      .attr("class",'totalFilesNumber')     
       .attr("style",  `${this.totalFilesNumberStyle}`)
       .text(this.totalFilesNumber);
 

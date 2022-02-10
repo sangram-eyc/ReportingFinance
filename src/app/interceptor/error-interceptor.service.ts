@@ -87,7 +87,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
               //   errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
               //   console.log('Generic Error Message');
               // }
-            } else {
+            }
+            else if (error['errorCode'].includes('RR-0023')) {
+              errorMessage = error['message'];
+            }
+            else {
               errorMessage = `Message: ${error.message}`;
               errorCode = `${error.status} ${error.statusText}`;
             }

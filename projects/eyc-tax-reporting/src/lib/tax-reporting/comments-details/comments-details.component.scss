@@ -1,0 +1,252 @@
+.comments-cycle-details-wrapper{
+
+    top: 20px;
+    position: relative;
+  
+    *:focus {
+      box-shadow: none !important;
+    }
+
+    .comment-col{
+      line-height: initial;
+      .comment-span-1{
+        font-size: 11px;
+      }
+      .comment-span-2{
+        display: inline;
+      }
+    }
+
+    .comment-col-2{
+      line-height: initial;
+      .span-1{
+        font-size: 11px;
+      }
+    }
+
+    .back-wrapper {
+        display: flex;
+        margin-bottom: 8px;
+      
+        h2 {
+          color: #1A1A24;
+          margin-left: 17px;
+        }
+      
+      }
+
+    .back-button {
+    ::ng-deep svg {
+        background-color: #e1e1e6;
+        cursor: pointer;
+        fill: #747480 !important;
+    }
+    }
+      
+    .back-button:hover {
+    ::ng-deep svg {
+        background-color: #2e2e3c;
+        cursor: pointer;
+        fill: #ffffff !important;
+     }
+    }
+
+    .back-opt {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #2E2E3C;
+    top: 4px;
+    position: relative;
+    left: 3px;
+      span{
+        font-weight: 400;
+      }
+      .all-comments{
+        font-weight: 300; 
+        color: #747480;
+      }
+    }
+
+    .comments-cycle-details-header {
+        display: flex;
+        margin-top: 25px;
+        margin-bottom: 12px;
+      
+        h3{
+          font-weight: 600;
+        }
+      }
+
+      .icon-count{
+        width: 8px;
+        height: 8px;
+        display: inline;
+        margin-right: 10px;
+        margin-left: 10px; 
+      }
+
+      .icon-client-ey{
+        width: 30px;
+        height: 30px;
+        display: inline;
+        margin-right: 10px;
+        margin-left: 10px; 
+      }
+
+      .text-count-span{
+        padding-right: inherit; 
+        font-size: 14px; 
+        font-family: EYInterstate;
+      }
+
+     //To show the search at left
+/*       ::ng-deep .search.ng-star-inserted{
+         margin-right: auto;
+      } */
+
+      ::ng-deep .motif-pagination-select-wrapper{
+        margin-left: -500px; 
+        /* .motif-icon.motif-tooltip-close {
+          display: none !important;
+          cursor:  default !important;
+        } */
+      }
+
+   
+   .donut-charts-wrapper{
+    .wrapper-count-comments{
+      background-color: #EAEAF2; 
+      height: 51px; 
+      width: 112px; 
+      margin-left: 11px;
+      margin-right:35px;
+    } 
+    .text-count-comments{
+      font-family: EYInterstate;
+      font-size: 12px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #747480;
+      margin-top:4px;
+    }
+    .text-count-number{
+      font-family: EYInterstate;
+      font-size: 24px;
+      line-height: 28px;
+      display: flex;
+      align-items: center;
+    }
+   }   
+
+.wrapper-open-comments{
+  width:300px;
+}
+
+
+//Donut style
+.donut-chart-card-tax, .donut-chart-card-tax-2 {
+  display: flex;
+  flex-direction: row;
+  min-height: 173px;
+}
+
+.donut-chart-card-tax lib-donut-tax-chart{
+  display: flex;
+  margin-top:-13px;
+}
+
+.donut-chart-card-tax-2 lib-donut-tax-chart{
+  display: flex;
+  margin-top:-13px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart, .donut-chart-card-tax-2 ::ng-deep .donut-chart{
+  width: max-content;
+  margin-top: -17px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg, .donut-chart-card-tax-2 ::ng-deep .donut-chart > svg  {
+  height: 135px !important;
+  width: 135px !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-chart > svg .totalFilesNumber, .donut-chart-card-tax-2 ::ng-deep .donut-chart > svg .totalFilesNumber {
+  letter-spacing: 0px !important;
+  font-weight:600 !important;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox, .donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-text, .donut-chart-card-tax-2 ::ng-deep .legend-text {
+  font-family: EYInterstate;
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+}
+
+.donut-chart-card-tax ::ng-deep .legend-value, .donut-chart-card-tax-2 ::ng-deep .legend-value {
+  font-size: 11px;
+  line-height: 16px;
+  color: #2E2E38;
+  text-align: inherit;
+  letter-spacing:0px;
+  font-weight: 600;
+  display: contents;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary, .donut-chart-card-tax-2 ::ng-deep .donut-summary{
+  width: 12.5em;
+} 
+
+//Donut style only for opened comments
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange-dark.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url('../../../assets/mock/icons/chat-booble-orange.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px; 
+}
+
+//Donut style only for closed comments
+.donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox:first-child .legend{
+  content: url('../../../assets/mock/icons/check-circle.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px;
+}
+
+.donut-chart-card-tax-2 ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
+  content: url('../../../assets/mock/icons/cancel-icon.svg');
+  background: transparent !important;
+  order: 2;
+  width: 31px;
+  height: 14px; 
+}
+
+#comments-grid::ng-deep .left-button {
+  flex-direction: row-reverse !important;
+}
+
+#comments-grid::ng-deep .toggle-left{
+ flex-direction: row !important;
+}
+
+}

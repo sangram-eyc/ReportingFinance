@@ -173,7 +173,7 @@ motif-icon.motif-icon.user-edit {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 28px;
     color: #2E2E38;
     word-wrap: break-word;
   }
@@ -225,16 +225,16 @@ motif-icon.motif-icon.user-edit {
       font-style: normal !important;
       font-weight: 600 !important;
       font-size: 16px !important;
-      line-height: 25px !important;
+      line-height: 28px !important;
       color: #2E2E38 !important;
       // margin-top: -5px;
-      margin-top: 2px;
-      width: 85% !important;
+      // margin-top: 2px;
+      width: 95% !important;
     }
 
     .motif-select-field {
-      top: -5px !important;
-      width: 83.9% !important;
+      top: -2px !important;
+      width: 95% !important;
     }
 
     .motif-select-view-value  {
@@ -273,6 +273,14 @@ motif-icon.motif-icon.user-edit {
     
   }
 
+}
+
+button.motif-active.motif-text-link, button.motif-text-link {
+  font-family: EYInterstate;
+  font-style: normal;
+  font-size: 14px!important;
+  line-height: 22px;
+  color: #2e2e38!important;
 }
  
 ::ng-deep {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-eyc-data-managed-services',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class EycDataManagementServicesComponent implements OnInit {
+export class EycDataManagementServicesComponent implements OnInit, OnDestroy {
 
   constructor() { }
+
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
   }

@@ -1,37 +1,31 @@
 <div class="filesHeaderWrapper">
     <span class="head-text">Files Assigned</span>
-    <!-- <button class="filter-button" size="medium" motifButton color="secondary">
-        <motif-icon class="filter-icon" [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>         
-        Filters
-    </button> -->
     <div class="nobutton">&nbsp;</div>
-    <div class="right-side">
-        <!-- <button motifButton color="primary" size="large">All exceptions</button> -->
+    <div class="right-side" *ngIf="isEnabled">
         <button class="exceptions-button" size="medium" motifButton color="secondary" (click)="routeToexceptions()">
             <motif-icon class="exceptions-icon" [src]="'/assets/icons/alert/ic_error_outline_24px.svg'"></motif-icon>
             {{buttonTxt}}
         </button>
-       <!--  <button motifButton color="primary" size="medium">Data explorer</button> -->
     </div>
-    
+
 </div>
 
 <motif-accordion id="intake_files" *ngFor="let item of filesData;index as i;" (open)="openAccord(i, $event)">
     <motif-accordion-header>
-        
+
         <div class="container-fluid intake-files-header-wrapper">
             <div class="row">
                 <div class="col-lg-2 date-bd">
                     {{item.dueDate}}
                 </div>
                 <div class="col-lg-3 files-recv">
-                    Files received<span> -  {{item.filesReceived}} of  {{item.filesExpected}} </span>
+                    Files received<span> - {{item.filesReceived}} of {{item.filesExpected}} </span>
                 </div>
                 <div class="col-lg-2 late">
                     Past Due<span> - {{item.lateFiles}} </span>
                 </div>
-                <div class="col-lg-2" [ngClass]="item.comments >= 1 ? 'comments' : 'nocomments' ">
-                    
+                <div class="col-lg-2" [ngClass]="item.comments && item.comments >= 1 ? 'comments' : 'nocomments' ">
+
                     <span *ngIf="item.comments >= 1">{{item.comments}} Comments</span>
                     <span *ngIf="item.comments == 0 || item.comments == ''"></span>
                 </div>
@@ -39,37 +33,20 @@
                     <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
                     <div class="unresolved"> Unresolved exceptions <span>{{item.unresolve_exception}}</span> </div>
                 </div>
-               <!--  <div class="col-lg-4 res-head" *ngIf="!item.unresolve_exception">
-                        <motif-icon [src]="'/assets/icons/navigation/ic_check_24px.svg'"></motif-icon>                
-                    <div class="resolved"> No exceptions, ready for reporting</div>
-                </div> -->
             </div>
         </div>
     </motif-accordion-header>
 
     <motif-accordion-content>
-        <lib-shared-grid 
-            gridStyle="second"
-            [columnDefs]="columnDefs" 
-            [rowData]="filesDatasets[i]" 
-            rowSelection="multiple" 
-            [button]="false"
-            [search]="false"
-            [defaultColDef]="{}" 
-        ></lib-shared-grid>
+        <lib-shared-grid gridStyle="second" [columnDefs]="columnDefs" [rowData]="filesDatasets[i]"
+            rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}"></lib-shared-grid>
 
         <ng-template #commentTemplate let-row>
-            <div *ngIf="row.comments!==0" class="comments-background" (click)="commentClicked()">
+            <div *ngIf="row.comments && row.comments !== 0" class="comments-background" (click)="commentClicked()">
                 {{row.comments}}
             </div>
-            <!-- <div class="commentTemplate" *ngIf="row.comments===0 || !row.comments">
-                <div class="add_icon">
-                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"><span
-                            class="plus">+</span></motif-icon>
-                </div>
-            </div> -->
         </ng-template>
-        
+
         <ng-template #unresolveTemplate let-row>
             <div class="unresolve-Exception" *ngIf="row.unresolve_exception > 0">
                 <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
@@ -77,9 +54,9 @@
             </div>
             <div *ngIf="row.unresolve_exception === '--'">
                 {{row.unresolve_exception}}
-            </div>    
+            </div>
         </ng-template>
-        
+
         <ng-template #resolveTemplate let-row>
             <div class="resolve-Exception" *ngIf="row.resolve_exception > 0">
                 <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
@@ -87,15 +64,15 @@
             </div>
             <div *ngIf="row.resolve_exception === '--'">
                 {{row.resolve_exception}}
-            </div>   
+            </div>
         </ng-template>
 
         <ng-template #viewDetTemplate let-row>
             <div>
-                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                    (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
 
     </motif-accordion-content>
 </motif-accordion>
-
