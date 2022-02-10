@@ -75,7 +75,8 @@
     "tslib": "^1.10.0",
     "uuid": "^8.3.2",
     "vsts-npm-auth": "^0.41.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "pouchdb": "^7.2.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.15",
