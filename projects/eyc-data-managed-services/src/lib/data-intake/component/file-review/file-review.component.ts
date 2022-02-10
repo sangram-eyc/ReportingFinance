@@ -261,10 +261,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   stringTrim(params, paramSize) {
-    if (params?.length > paramSize) {
-      return (params).substr(0, paramSize) + ''
+    const newstr=params.replace(/\s+/g, ' ').trim();
+    if (newstr?.length > paramSize) {
+      return (newstr).substr(0, paramSize)+ '';
     } else {
-      return params
+      return newstr;
     }
   }
 
