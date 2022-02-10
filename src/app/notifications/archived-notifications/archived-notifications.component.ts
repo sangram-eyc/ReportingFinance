@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   TableHeaderRendererComponent
 } from '../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
+import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-archived-notifications',
@@ -10,7 +11,7 @@ import {
 })
 export class ArchivedNotificationsComponent implements OnInit {
 
-  public notificationsData = JSON.parse(localStorage.getItem('notifications')).filter(item => item.status === 'Archived');
+  public notificationsData = null;
   public columnDefs = [
     {
       headerComponentFramework: TableHeaderRendererComponent,
@@ -65,9 +66,14 @@ export class ArchivedNotificationsComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit(): void {
+    this.notificationService.getArchivedNotifications().subscribe( (res: any) => {
+      this.notificationsData = res.content;
+    });
   }
 
 }

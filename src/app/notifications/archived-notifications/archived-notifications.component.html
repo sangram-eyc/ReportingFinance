@@ -7,6 +7,7 @@
 
   </div>
   <div class="table">
-    <lib-shared-grid [columnDefs]="columnDefs" [rowData]="notificationsData" [defaultColDef]="{}" displayCheckBox="true" gridStyle="third"></lib-shared-grid>
+    <lib-shared-grid gridStyle="second" displayCheckBox="true" [columnDefs]="columnDefs" [rowData]="notificationsData"
+                     rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}"></lib-shared-grid>
   </div>
 </div>

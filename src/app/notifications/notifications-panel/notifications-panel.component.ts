@@ -17,14 +17,7 @@ export class NotificationsPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pouchDbService.fetch().then(result => {
-      result.rows.forEach(item => {
-        console.log(item.doc)
-        this.notifications.push(item.doc)
-      });
-    }, error => {
-      console.error(error);
-    });
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications'))
   }
 
   delete(i): void {
