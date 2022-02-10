@@ -49,7 +49,8 @@
       [disableAddMemberButton]="false"
       gridStyle="third"
       [noData]="'No exceptions found'"
-      [displayCheckBox]="true">
+      [displayCheckBox]="true"
+      [pagination]="true">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
       <div *ngIf="commentsCount[row.AuditResultObjectID]" class="comments-background" (click)="openComments(row)">

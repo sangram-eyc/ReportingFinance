@@ -146,6 +146,7 @@
     display: flex;
     margin-top: 20px;
     margin-left: 15px;
+cursor: pointer;
         ::ng-deep svg {
                 width: 18px;
                 height: 18px;
@@ -262,5 +263,9 @@
   ::ng-deep .ag-body-viewport,
   ::ng-deep .ag-body-viewport-wrapper {
     overflow: visible !important;
+  }
+
+  ::ng-deep .motif-pagination-select-trigger {
+    font-family: EYInterstate !important;
   }
   
