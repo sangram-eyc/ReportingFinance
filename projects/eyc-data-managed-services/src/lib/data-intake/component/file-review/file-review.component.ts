@@ -153,7 +153,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   httpReviewByGroupParams: GroupByDataProviderCardGrid;
   clientName = '';
   isViewClicked = false;
-  dataIntakeType = '';
+  dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
   colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
 
   customColors: any = [
@@ -168,7 +168,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
       this._activatedroute.paramMap.subscribe(params => {
-        if(params.get('paramDataIntakeName') !== '') {
+        if(params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
           this.clientName = params.get('paramDataIntakeName');
           this.isViewClicked = true;
           this.dataIntakeType = params.get('paramDataIntakeType');
@@ -241,7 +241,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       startDate: '',
       endDate: '',
       dataFrequency: this.httpQueryParams.dataFrequency,
-      dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,  // this.dataIntakeType as per last page
+      dataIntakeType: this.dataIntakeType,
       dueDate: this.httpQueryParams.dueDate,
       periodType: '',
       clientName: '',

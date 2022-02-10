@@ -376,7 +376,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   viewCardDetail(item) {
     if (item && item.dataIntakeName) {
-      this._router.navigate(['/data-managed-services/files-review', item.dataIntakeName, this.dataIntakeType]);
+      this._router.navigate(['/data-managed-services/files-review', this.dataIntakeType, item.dataIntakeName]);
     }
   }
 
