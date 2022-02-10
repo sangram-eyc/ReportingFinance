@@ -12,6 +12,6 @@ export class ViewFilingEntityExceptionService {
   ) { }
 
   getAnswerExceptionReports(entityName, filingName, period, exceptionCnt) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}${entityName}/exception-details?filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&entityName=${entityName}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityName=${encodeURIComponent(entityName)}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}`);
   }
 }
