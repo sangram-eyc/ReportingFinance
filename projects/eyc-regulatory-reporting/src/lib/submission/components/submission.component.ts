@@ -184,7 +184,7 @@ export class SubmissionComponent implements OnInit {
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;
     this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
-      if (res['data']) {
+      if (res['data'] && res['data'].length) {
         this.noFilesDataAvilable = false;
         this.submittedFiles = res['data'];
         this.getSubmissionRowData();
