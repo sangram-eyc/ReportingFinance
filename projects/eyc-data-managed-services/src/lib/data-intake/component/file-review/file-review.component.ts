@@ -168,11 +168,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
       this._activatedroute.paramMap.subscribe(params => {
-        if(params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
+        if (params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
           this.clientName = params.get('paramDataIntakeName');
           this.isViewClicked = true;
           this.dataIntakeType = params.get('paramDataIntakeType');
-          this.xAxisLabel = '';
+          if (this.dataIntakeType === DATA_INTAKE_TYPE.DATA_DOMAIN) {
+            this.xAxisLabel = 'Domains';
+          } else {
+            this.xAxisLabel = 'Providers';
+          }
         }
       });
   }
