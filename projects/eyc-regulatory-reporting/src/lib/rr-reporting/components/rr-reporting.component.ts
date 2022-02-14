@@ -776,6 +776,7 @@ actionMenuEnableforException(row) {
         this.rrservice.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolveOrException = ele.resolveOrException;
           });
           this.exceptionData = tempRowData;
           this.createEntitiesRowData();
