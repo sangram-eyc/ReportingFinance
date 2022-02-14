@@ -9,9 +9,9 @@ import { formatDate } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,
-  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList,ROUTE_URL_CONST
 }
-  from '../../config/dms-config-helper'
+  from '../../config/dms-config-helper';
 import { DataSummary } from '../models/data-summary.model'
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
@@ -38,6 +38,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
   noHighPriorityIssues = NO_HIGH_PRIORITY_ISSUES;
   noMediumLowPriority = NO_MEDUIM_LOW_PRIORITY;
+  routeUrlConst=ROUTE_URL_CONST;
+  dataIntakeType=DATA_INTAKE_TYPE;
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;

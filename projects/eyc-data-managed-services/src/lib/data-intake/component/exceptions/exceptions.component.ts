@@ -6,7 +6,7 @@ import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHead
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG,DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,6 +26,7 @@ export class ExceptionsComponent implements OnInit {
   dataIntakeTypeDisplay: object;
   dataIntakeTypeDisplayText = DATA_INTAKE_TYPE_DISPLAY_TEXT;
   dataIntakeTypeUrl: string = '';
+  routeUrlConst=ROUTE_URL_CONST;
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 
@@ -152,10 +153,10 @@ export class ExceptionsComponent implements OnInit {
       else {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
       }
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes("/data-managed-services/data-intake"));
+      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
     }
     else if (routePart == "files") {
-      const urlPartArray=this.routeHistory.find(url => url.includes("/data-managed-services/files-review")).split("/");
+      const urlPartArray=this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
       const urlPart=urlPartArray[urlPartArray.length - 2]
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
@@ -165,7 +166,7 @@ export class ExceptionsComponent implements OnInit {
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
         }
-        this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes("/data-managed-services/data-intake"));
+        this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
       }
       else {
         this.isDataIntaketype = false;
@@ -174,7 +175,7 @@ export class ExceptionsComponent implements OnInit {
     else {
       this.isDataIntaketype = false;
     }
-      this.filereviewUrl = this.routeHistory.find(url => url.includes("/data-managed-services/files-review"));
+      this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
   }
 
   ngAfterViewInit(): void {
@@ -385,7 +386,7 @@ export class ExceptionsComponent implements OnInit {
     if (event && event.data && event.data.exceptionReportDetails) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this.dataManagedService.setExceptionFileName = event.data.name;
-      this._router.navigate(['/data-managed-services/files/exception-details']);
+      this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
       // This console is use for QA live env (RouterLink is working in local system but not in QA Env)

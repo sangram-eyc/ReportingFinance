@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 export class RoutingStateService {
 
   private history = [];
+   DMS_Landing_Url = "/data-managed-services";
 
   constructor(
     private router: Router
@@ -16,12 +17,11 @@ export class RoutingStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((e: any) => {
-        var urlAfterRedirects=decodeURI(e.urlAfterRedirects)
-        const str = "/data-managed-services"
-        if (this.matchExact(str, urlAfterRedirects)) {
+        var urlAfterRedirects=decodeURI(e.urlAfterRedirects);
+        if (this.matchExact(this.DMS_Landing_Url, urlAfterRedirects)) {
           this.history.splice(0, this.history.length)
         }
-        if (urlAfterRedirects.includes(str) && this.isNotExistInArray(this.history,urlAfterRedirects)) {
+        if (urlAfterRedirects.includes(this.DMS_Landing_Url) && this.isNotExistInArray(this.history,urlAfterRedirects)) {
           this.history = [...this.history, urlAfterRedirects];
         }
       });
@@ -32,11 +32,11 @@ export class RoutingStateService {
   }
 
   public getPreviousUrl(): string {
-    return this.history[this.history.length - 2] || '/data-managed-services';
+    return this.history[this.history.length - 2] || this.DMS_Landing_Url;
   }
 
   public getCurrentUrl(): string {
-    return this.history[this.history.length - 1] || '/data-managed-services';
+    return this.history[this.history.length - 1] || this.DMS_Landing_Url;
   }
 
   public matchExact(r, str) {

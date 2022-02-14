@@ -5,7 +5,7 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST,INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -49,6 +49,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
+  routeUrlConst=ROUTE_URL_CONST;
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -376,7 +377,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   viewCardDetail(item) {
     if (item && item.dataIntakeName) {
-      this._router.navigate(['/data-managed-services/files-review', this.dataIntakeType, item.dataIntakeName]);
+      this._router.navigate([ROUTE_URL_CONST.FILE_REVIEW_URL, this.dataIntakeType, item.dataIntakeName]);
     }
   }
 

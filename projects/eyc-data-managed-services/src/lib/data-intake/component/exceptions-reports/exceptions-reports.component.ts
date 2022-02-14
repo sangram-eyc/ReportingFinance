@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef,
 import { RoutingStateService } from '@default/services/routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT } from '../../../config/dms-config-helper';
+import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
 
@@ -23,6 +23,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   filereviewUrl: string;
   exceptionUrl:string;
   ExceptionFileName: string;
+  routeUrlConst=ROUTE_URL_CONST;
   gridApi;
   presentDate: Date;
 
@@ -142,7 +143,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
 
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
-    const routeArray = this.routeHistory.find(url => url.includes("/data-managed-services/files-review")).split("/");
+    const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
     const routePart=routeArray[routeArray.length - 2];
 
 if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA_DOMAIN){
@@ -153,12 +154,12 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
   else {
     this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
   }
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes("/data-managed-services/data-intake"));
+      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
   }
   else{
     this.isDataIntaketype=false;
   }
-    this.filereviewUrl = this.routeHistory.find(url => url.includes("/data-managed-services/files-review"));
+    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
     this.exceptionUrl=this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];

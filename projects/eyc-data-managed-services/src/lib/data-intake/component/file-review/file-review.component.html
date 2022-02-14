@@ -2,13 +2,13 @@
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
       <div class=" mt-3">
          <motif-breadcrumb maxItems=3 *ngIf="!isViewClicked">
-            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
+            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink={{routeUrlConst.DMS_LANDING_URL}}>
             </motif-breadcrumb-item>
             <motif-breadcrumb-item breadcrumbValue='Files'>
             </motif-breadcrumb-item>
          </motif-breadcrumb>
          <motif-breadcrumb maxItems=3 *ngIf="isViewClicked">
-            <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
+            <motif-breadcrumb-item breadcrumbValue='Data Intake' [breadcrumbLink]='routeUrlConst.DMS_LANDING_URL'>
             </motif-breadcrumb-item>
             <motif-breadcrumb-item [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]' [breadcrumbLink]='dataIntakeTypeUrl'>
             </motif-breadcrumb-item>

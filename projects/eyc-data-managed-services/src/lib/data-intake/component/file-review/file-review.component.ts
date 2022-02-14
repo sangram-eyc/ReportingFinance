@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -39,6 +39,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   totalFileCount = 0;
   dataIntakeTypeDisplay: object;
   dataIntakeTypeDisplayText=DATA_INTAKE_TYPE_DISPLAY_TEXT;
+  routeUrlConst=ROUTE_URL_CONST;
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
@@ -211,7 +212,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     });
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
-     this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes("/data-managed-services/data-intake"));
+     this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
   }
 
   patchDatePicker(patchDatePickerValue: Date) {
@@ -299,7 +300,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   onRowClicked(event: RowClickedEvent) {
     if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
-      this._router.navigate(['/data-managed-services/files/exceptions', event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
+      this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION, event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
     } else {
       console.log("Data name is not getting");
       // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
