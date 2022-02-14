@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -19,6 +19,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RowClickedEvent } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dto.model';
+import { RoutingStateService } from '../../../../../../../src/app/services/routing-state.service';
 
 @Component({
   selector: 'lib-file-review',
@@ -26,6 +27,8 @@ import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dt
   styleUrls: ['./file-review.component.scss']
 })
 export class FileReviewComponent implements OnInit, AfterViewInit {
+  previousRoute: string;
+  routeHistory: any;
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   private unsubscriber: AutoUnsubscriberService;
@@ -34,7 +37,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   innerTabIn: number = 1;
   presentDate: Date;
   totalFileCount = 0;
-
+  dataIntakeTypeDisplay: object;
+  dataIntakeTypeDisplayText=DATA_INTAKE_TYPE_DISPLAY_TEXT;
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
@@ -53,8 +57,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
-  xAxisLabel = 'Providers';
-  xAxisLabel2 = 'Domains';
+  xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_PROVIDER.Plural;
+  xAxisLabel2 = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines = false;
@@ -116,6 +120,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
+  dataIntakeTypeUrl: string = '';
 
   dataset: GridDataSet[] = [{
     disable: false,
@@ -154,7 +159,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   clientName = '';
   isViewClicked = false;
   dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
-  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
+  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -165,20 +170,22 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
-    private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute) {
-      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
-      this._activatedroute.paramMap.subscribe(params => {
-        if (params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
-          this.clientName = params.get('paramDataIntakeName');
-          this.isViewClicked = true;
-          this.dataIntakeType = params.get('paramDataIntakeType');
-          if (this.dataIntakeType === DATA_INTAKE_TYPE.DATA_DOMAIN) {
-            this.xAxisLabel = 'Domains';
-          } else {
-            this.xAxisLabel = 'Providers';
-          }
+    private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
+    this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    this._activatedroute.paramMap.subscribe(params => {
+      if (params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
+        this.clientName = params.get('paramDataIntakeName');
+        this.isViewClicked = true;
+        this.dataIntakeType = params.get('paramDataIntakeType');
+        if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+          this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
-      });
+        else {
+          this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+        }
+        this.xAxisLabel = '';
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -203,6 +210,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         }
       }, [Validators.required])
     });
+    this.previousRoute = this.routingState.getPreviousUrl();
+    this.routeHistory = this.routingState.getHistory();
+     this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes("/data-managed-services/data-intake"));
   }
 
   patchDatePicker(patchDatePickerValue: Date) {
@@ -276,7 +286,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       isViewClicked: this.isViewClicked
     };
 
-    if(this.dailyMonthlyStatus) {
+    if (this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
@@ -289,7 +299,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   onRowClicked(event: RowClickedEvent) {
-    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias && event.data.exceptions) {
+    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
       this._router.navigate(['/data-managed-services/files/exceptions', event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
     } else {
       console.log("Data name is not getting");
@@ -508,10 +518,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
-
       this.dailyMonthlyStatus ? this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
-
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
@@ -583,7 +591,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataList = [];
-    if(this.isViewClicked) {
+    if (this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
         this.manipulateStatusWithReviewByGroup(reviewData.data);
       });

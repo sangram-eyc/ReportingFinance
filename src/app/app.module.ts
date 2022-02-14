@@ -33,6 +33,7 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
 import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
 import {NotificationsModule} from "@default/notifications/notifications.module";
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { RoutingStateService } from './services/routing-state.service';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
 
   providers: [
     LoaderService,
+    RoutingStateService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
   { provide:"mockDataEnable",  useValue: environment.mockDataEnable},

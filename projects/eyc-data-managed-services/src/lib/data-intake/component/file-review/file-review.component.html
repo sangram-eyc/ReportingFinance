@@ -4,14 +4,16 @@
          <motif-breadcrumb maxItems=3 *ngIf="!isViewClicked">
             <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'>
+            <motif-breadcrumb-item breadcrumbValue='Files'>
             </motif-breadcrumb-item>
          </motif-breadcrumb>
          <motif-breadcrumb maxItems=3 *ngIf="isViewClicked">
             <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
             </motif-breadcrumb-item>
-            <!-- <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'>
-            </motif-breadcrumb-item> -->
+            <motif-breadcrumb-item [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]' [breadcrumbLink]='dataIntakeTypeUrl'>
+            </motif-breadcrumb-item>
+            <motif-breadcrumb-item breadcrumbValue='Files'>
+            </motif-breadcrumb-item>
          </motif-breadcrumb>
       </div>
    </div>

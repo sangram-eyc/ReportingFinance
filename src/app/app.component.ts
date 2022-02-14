@@ -1,18 +1,17 @@
-import {AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {Component, HostListener} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {OAuthService} from 'angular-oauth2-oidc';
-import {Subject} from 'rxjs';
-import {LoaderService} from './services/loader.service';
-import {ModuleLevelPermissionService} from './services/module-level-permission.service';
-import {SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE} from './services/settings-helpers';
-import {SettingsService} from './services/settings.service';
-import {ErrorModalComponent} from 'eyc-ui-shared-component';
-import {MatDialog} from '@angular/material/dialog';
-import {
-  BulkDownloadModalComponent
-} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
-import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Subject } from 'rxjs';
+import { LoaderService } from './services/loader.service';
+import { ModuleLevelPermissionService } from './services/module-level-permission.service';
+import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
+import { SettingsService } from './services/settings.service';
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
+import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
+import { RoutingStateService } from './services/routing-state.service';
 
 @Component({
   selector: 'app-root',
@@ -58,6 +57,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
+    private routingState:RoutingStateService
   ) {
     // To hide header and footer from login page
 
@@ -68,6 +68,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
+      this.routingState.loadRouting();
   }
 
   checkTimeOut() {
