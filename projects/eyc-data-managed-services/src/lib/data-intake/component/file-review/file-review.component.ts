@@ -173,7 +173,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     this._activatedroute.paramMap.subscribe(params => {
-      if (params.get('paramDataIntakeName') !== '' && params.get('paramDataIntakeType') !== '') {
+      if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
         this.clientName = params.get('paramDataIntakeName');
         this.isViewClicked = true;
         this.dataIntakeType = params.get('paramDataIntakeType');
@@ -183,7 +183,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
         }
-        this.xAxisLabel = '';
       }
     });
   }
