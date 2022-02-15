@@ -17,7 +17,7 @@
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" 
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)"
             [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"  [export] = "false"
             (exportFlagToParent)="exportData('exceptions')" [pagination]="true">
         </lib-shared-grid>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="commentTemplate"
-                *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('Reporting', 'Add Comments') &&  
+                *ngIf="(row.comments===0 || !row.comments) && permissions.validatePermission('Reporting', 'Add Comments') &&
             !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"

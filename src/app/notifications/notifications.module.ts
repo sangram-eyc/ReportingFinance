@@ -12,21 +12,20 @@ import {
 import { NotificationsPanelComponent } from './notifications-panel/notifications-panel.component';
 import { NotificationItemComponent } from './notification-item/notification-item.component';
 import { ArchivedNotificationsComponent } from './archived-notifications/archived-notifications.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 import {
   EycRegulatoryReportingModule
-} from "../../../projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module";
+} from '../../../projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
 import {
   EycUiSharedComponentModule
-} from "../../../projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module";
-import {UserRolesModule} from "@default/administration/user-roles/user-roles.module";
+} from '../../../projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
+import {UserRolesModule} from '@default/administration/user-roles/user-roles.module';
 import { NotificationsPreferencesComponent } from './notifications-preferences/notifications-preferences.component';
-import {RouterModule} from "@angular/router";
+import {RouterModule} from '@angular/router';
 
 
 
 @NgModule({
-
     imports: [
         CommonModule,
         FormsModule,

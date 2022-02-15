@@ -109,8 +109,6 @@
     }
   }
 
-  .toggle-
-
   .notifications-list {
     padding: 15px;
     max-height: 300px;
@@ -121,6 +119,8 @@
   .notifications-buttons {
     display: flex;
     align-self: center;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 15px;
 
     .notification-button {

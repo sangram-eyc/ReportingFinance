@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-notification-item',
@@ -15,7 +16,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
   public content: any;
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -23,10 +24,12 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.notification) {
      this.content = JSON.parse(changes.notification.currentValue.content);
+     console.log(this.content)
     }
   }
 
   expand(id): void {
+    this.notificationService.setNotificationRead(id).subscribe();
     this.expandNotification.emit(id);
   }
 
@@ -35,12 +38,14 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   archive(): void {
-    this.content.extraParameters.isArchived = true;
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.content.extraParameters.flagged = !this.content.extraParameters.flagged;
+    this.notificationService.setNotificationFlagged(this.notification.engineId).subscribe( res => {
+
+    });
+    this.content.flagged = !this.content.flagged;
     this.flagNotification.emit();
   }
 

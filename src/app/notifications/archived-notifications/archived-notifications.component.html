@@ -3,11 +3,24 @@
     <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'">
     </motif-icon> Notifications archive ({{notificationsData?.length}})
   </div>
-  <div class="table-header">
-
+  <div class="archived-table-heading">
+    <div class="search">
+      <motif-form-field>
+        <input #archivedInput motifInput motifSearch type="text"
+               placeholder="Search" aria-label="Search">
+      </motif-form-field>
+      <p class="export" (click)="exportCsv()">Export to CSV</p>
+    </div>
   </div>
   <div class="table">
-    <lib-shared-grid gridStyle="second" displayCheckBox="true" [columnDefs]="columnDefs" [rowData]="notificationsData"
-                     rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}"></lib-shared-grid>
+    <ng-template #dropdownTemplate let-row>
+      <div class="dropdownTemplate">
+       <input type="checkbox" (change)="changeCheck(row)"/>
+      </div>
+    </ng-template>
+    <lib-shared-grid gridStyle="second" isToggle="false"
+                     displayCheckBox="true"
+                     buttonPosition="left"[masterDetail]="true" [columnDefs]="columnDefs" [rowData]="notificationsData"
+                     rowSelection="multiple" [button]="false" [search]="false"></lib-shared-grid>
   </div>
 </div>
