@@ -327,7 +327,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
         sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
         console.log('startDownloading->', startDownloading);
-        if(startDownloading != undefined){
+        if (startDownloading != undefined){
             if (url != ''){
                 window.open(url);
             }
@@ -347,11 +347,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   openConectionBulkWs(){
-    let timerIdUserEmail = setInterval(() => {
-      if(sessionStorage.getItem('userEmail') != null){
+    const timerIdUserEmail = setInterval(() => {
+      if (sessionStorage.getItem('userEmail') != null){
         clearInterval(timerIdUserEmail);
         this.wsBulkService.openConection(sessionStorage.getItem('userEmail'));
       }
-    }, 100)
+    }, 100);
   }
 }

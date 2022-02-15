@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from "@env/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +14,22 @@ export class PreferencesService {
   }
 
   getPreferencesTypes() {
-    return this.http.get('https://10.48.234.20/qa32/gatewayService/api/notification/config/notification-type?page-size=10&page-no=1');
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/config/notification-type?page-size=10&page-no=1`);
   }
 
   emailToRecipient() {
-    return this.http.get(`https://10.48.234.20/qa32/gatewayService/api/notification/config/preferences/email-to-recipient-id?email=${sessionStorage.getItem('userEmail')}`, {responseType: 'text'});
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/config/preferences/email-to-recipient-id?email=${sessionStorage.getItem('userEmail')}`, {responseType: 'text'});
   }
 
   notificationSubscription() {
-    return this.http.post('https://10.48.234.20/qa32/gatewayService/api/notification/config/notification-subscription', {});
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/config/notification-subscription`, {});
   }
 
   recipientPreferences() {
-    return this.http.post('https://10.48.234.20/qa32/gatewayService/api/notification/config/recipient-preferences', {});
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/config/recipient-preferences`, {});
   }
 
   getRecipientPreferences(recipient) {
-    return this.http.get(`https://10.48.234.20/qa32/gatewayService/api/notification/config/recipient-preferences/${recipient}`);
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/config/recipient-preferences/${recipient}`);
   }
 }
