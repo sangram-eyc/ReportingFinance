@@ -7,6 +7,13 @@
 }
 
 
+::ng-deep .filter-badge {
+    right: -30px !important;
+    top: -7px !important;
+    font-size: 10px !important;
+    line-height: 18px !important;
+}
+
 
 .motif-table-header-renderer {
     display: flex;
@@ -23,6 +30,7 @@
     .header-menu-button {
         width: 20px;
         margin-left: 8px;
+        // margin-top: 2px;
     }
 
     .motif-icon-button {
