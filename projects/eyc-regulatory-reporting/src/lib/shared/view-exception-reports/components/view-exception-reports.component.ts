@@ -5,7 +5,7 @@ import { TableHeaderRendererComponent } from './../../table-header-renderer/tabl
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ModalComponent, ResolveModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService, ResolveModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -43,16 +43,18 @@ export class ViewExceptionReportsComponent implements OnInit {
   exceptionResultTemplate: TemplateRef<any>;
   @ViewChild('actionResolvedTemplate')
   actionResolvedTemplate: TemplateRef<any>;
-
+  componentStage;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
     private router: Router,
     private location: Location,
     public dialog: MatDialog,
+    public permissions: PermissionService
   ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
+      this.componentStage= navigation.extras.state.componentStage
       const state = navigation.extras.state as { dataIntakeData: string };
       this.dataIntakeData = state.dataIntakeData;
     }
