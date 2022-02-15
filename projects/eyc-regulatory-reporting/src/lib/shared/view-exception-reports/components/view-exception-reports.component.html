@@ -53,10 +53,10 @@
       [pagination]="true">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
-      <div *ngIf="commentsCount[row.AuditResultObjectID]" class="comments-background" (click)="openComments(row)">
+      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
           {{commentsCount[row.AuditResultObjectID]}}
       </div>
-      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID]">
+      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'Add Comments')">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
         </div>
@@ -64,11 +64,11 @@
   </ng-template>
   <ng-template #exceptionResultTemplate let-row>
     <div class="actionButtonTemplate">
-        <motif-icon class="complete" *ngIf="row?.Status == 'No Exception'" [src]="'/assets/icons/action/ic_done_24px.svg'">
-        </motif-icon>
+        <!-- <motif-icon class="complete" *ngIf="row?.Status == 'No Exception'" [src]="'/assets/icons/action/ic_done_24px.svg'">
+        </motif-icon> -->
 
         <div class="result_complete"
-        *ngIf="row?.Status == 'Resolved'">
+        *ngIf="(row?.Status == 'Resolved') && permissions.validatePermission(componentStage, 'View Comments')">
             <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'" (click)="openComments(row)"></motif-icon>
         </div>
         <div class="result_warning" *ngIf="row?.Status == 'Unresolved' || row?.Status == '' ">
@@ -78,7 +78,7 @@
 </ng-template>
 
 <ng-template #actionResolvedTemplate let-row>
-  <div class="actionResolvedTemplate">
+  <div class="actionResolvedTemplate" [hidden]="!this.permissions.validatePermission(componentStage, 'Exception Status Change Resolve')">
     <div *ngIf="row?.Status == 'Unresolved' || row?.Status == '' " (click)="actionResolvedClick(row)">
       <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.15243 13.25H1.45968C0.649558 13.25 0 12.5949 0 11.7778V1.47222C0 0.65514 0.649558 0 1.45968 0H11.6774C12.4876 0 13.1371 0.65514 13.1371 1.47222V7.2139C12.6919 6.95626 12.2029 6.77223 11.6774 6.6839V1.47222H1.45968V11.7778H6.62695C6.71453 12.3078 6.89699 12.801 7.15243 13.25ZM10.2175 13.2501L8.21045 11.0417L9.05707 10.1878L10.2175 11.3582L12.8376 8.7156L13.6843 9.75352L10.2175 13.2501ZM2.91938 10.3056H6.56858V8.83336H2.91938V10.3056ZM8.52455 7.36113H2.91938V5.88891H10.2178V6.68391C9.59742 6.78696 9.02814 7.02252 8.52455 7.36113ZM2.91938 4.41668H10.2178V2.94445H2.91938V4.41668Z" fill="#155CB4"/>
@@ -95,7 +95,7 @@
   </div>
 
   <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
-    [filingName]="commentsName" [filingStatus]="false" [permissionToAddComment]="true"
+    [filingName]="commentsName" [filingStatus]="false" [permissionToAddComment]="permissions.validatePermission(componentStage, 'Add Comments')"
     (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
 
   

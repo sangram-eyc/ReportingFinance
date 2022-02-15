@@ -807,7 +807,7 @@ actionMenuEnableforException(row) {
 
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
-    this.router.navigate(['/view-exception-reports']);
+    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: 'Reporting' }});
   }
 
   routeToFilingEntityExceptionPage(event:any) {
