@@ -84,8 +84,6 @@ export class TableHeaderRendererComponent implements IHeaderAngularComp {
     this.sorted = value;
   }
 
-  // this.params.column.gridApi.filterManager.activeAdvancedFilters[0].appliedModel
-
   onMenuClick(e) {
     e.stopPropagation();
     this.params.showColumnMenu(this.querySelector('.header-menu-button'));
