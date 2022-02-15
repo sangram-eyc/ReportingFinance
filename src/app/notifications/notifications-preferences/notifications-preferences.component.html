@@ -1,0 +1,44 @@
+<div class="preferences">
+  <div class="title">
+    Notifications preferences
+  </div>
+  <div class="tabs">
+    <div class="tab-item active">
+      <p>Notifications</p>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="title">Notifications</div>
+    <div class="toggle-panels">
+      <div class="toggle-panel">
+        <div class="name">
+          <span class="pointer-plus" (click)="webOpen = !webOpen">{{webOpen ? '- ' : '+ '}}</span> Web application
+        </div>
+        <div class="toggle-content" *ngIf="webOpen">
+          <div class="toggle" *ngFor="let web of preferences">
+            <div class="toggle-name">
+              {{web?.name}}
+            </div>
+            <div class="toggle-input">
+              <div class="toggle-switcher">
+                <motif-toggle-switch [hideLabels]="true"></motif-toggle-switch>
+                <span class="permission-on">On</span>
+                <span class="permission-off">Off</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toggle-panel">
+        <div class="name">
+          <span class="pointer-plus" (click)="emailOpen = !emailOpen">{{emailOpen ? '- ' : '+ '}}</span> Email
+        </div>
+      </div>
+      <div class="toggle-panel">
+        <div class="name">
+          <span class="pointer-plus" (click)="mobileOpen = !mobileOpen">{{mobileOpen ? '- ' : '+ '}}</span> Mobile TEXT/SMS
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

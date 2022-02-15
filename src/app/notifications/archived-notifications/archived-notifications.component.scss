@@ -8,3 +8,26 @@
     margin-top: 25px;
   }
 }
+
+.archived-table-heading {
+  width: 300px;
+  margin-left: auto;
+  display: flex;
+
+  .search {
+    display: flex;
+    align-items: self-end;
+    justify-content: space-between;
+  }
+
+  .export {
+    font-size: 14px;
+    color: #155CB4;
+    font-weight: 600;
+    margin-left: 15px;
+  }
+}
+
+.dropdownTemplate {
+  display: flex;
+}

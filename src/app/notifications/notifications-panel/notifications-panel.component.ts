@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {PouchdbService} from "@default/services/pouchdb.service";
+import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-notifications-panel',
@@ -7,16 +9,26 @@ import {Router} from '@angular/router';
   styleUrls: ['./notifications-panel.component.scss']
 })
 export class NotificationsPanelComponent implements OnInit {
-  public notifications;
+  public notifications = [];
   public data: any;
   public showPanel: boolean;
   public showFilters: boolean;
+  public archivedItems: number;
 
-  constructor(private router: Router) {
+  constructor(
+    private notificationService: NotificationService,
+    private router: Router,
+    private pouchDbService: PouchdbService) {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
+    this.getArchivedNotifications();
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications')) || [];
+    this.notificationService.getNotArchivedNotifications().subscribe( res => {
+      res.content.forEach(item => {
+        this.notifications.push(item);
+      });
+    });
   }
 
   delete(i): void {
@@ -57,9 +69,10 @@ export class NotificationsPanelComponent implements OnInit {
      = !this.notifications.find(item => item.engineId === id).request.expanded;
   }
 
-  countArchived() {
-    const items = this.notifications.filter(item => item.status === 'Archived');
-    return items.length;
+  getArchivedNotifications() {
+    this.notificationService.getArchivedNotifications().subscribe( res => {
+      this.archivedItems = res.totalElements;
+    });
   }
 
   goToArchived(): void {

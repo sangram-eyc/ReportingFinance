@@ -11,7 +11,7 @@
         <div class="expanded-panel-info">
           <p>Assigned to me (0)</p>
           <p>@ Mentions (0)</p>
-          <p>Expectations (0)</p>
+          <p>Exceptions (0)</p>
           <p>Flagged (0)</p>
         </div>
       </div>
@@ -36,13 +36,14 @@
         </div>
       </div>
       <div class="card-block banner-header-right">
-        <div>
+        <div class="right-icons">
+          <motif-icon routerLink="/notifications-preferences" [src]="'/assets/icons/preferences.svg'"></motif-icon>
           <motif-icon (click)="showFilters = !showFilters" [src]="'/assets/icons/shape.svg'"></motif-icon>
         </div>
       </div>
     </div>
   </motif-card-header>
-  <div class="notifications-list">
+  <div class="notifications-list mt-3">
     <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item.request"
       (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)" (flagNotification)="flag(i)">
     </app-notification-item>
@@ -50,12 +51,18 @@
   <div class="notifications-buttons">
     <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
     <!-- Archived button needs to be enabled once the page functionality is completed -->
-    <!-- <div class="card-button">
-      <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()" [disabled]="true">
-        <motif-icon [src]="'/assets/icons/archived.svg'" class="notification-icon-disabled"></motif-icon>
-        Archived ({{countArchived()}})
+     <div class="card-button" *ngIf="archivedItems > 0">
+      <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
+        <motif-icon [src]="'/assets/icons/archived.svg'" class="notification-icon"></motif-icon>
+        Archived ({{archivedItems}})
       </button>
-    </div> -->
+    </div>
       <!-- Archived button needs to be enabled once the page functionality is completed -->
   </div>
 </motif-card>
+<ng-template #dropdownTemplate let-row>
+  <div class="dropdownTemplate">
+    <motif-icon class="complete" *ngIf="row.approved == true"
+                [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+  </div>
+</ng-template>
