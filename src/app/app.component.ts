@@ -327,8 +327,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
         sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
         console.log('startDownloading->', startDownloading);
-        if (startDownloading != undefined){
-            if (url != ''){
+        if (startDownloading !== undefined){
+            if (url !== ''){
                 window.open(url);
             }
         }else{

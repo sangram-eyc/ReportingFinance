@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "@env/environment";
+import {notification} from "@default/helper/api-config-helper";
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,13 @@ export class NotificationService {
   }
 
   getArchivedNotifications(): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=true`);
+    return this.http.get(`${notification.archived_Notifications}`);
   }
 
   getNotArchivedNotifications(): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false`);
+    return this.http.get(`${notification.no_Archived_Notifications}`);
   }
+
   setNotificationFlagged(id): Observable<any> {
     return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/set-flagged?flagged=true`, {});
   }
@@ -30,6 +32,6 @@ export class NotificationService {
   }
 
   exportCsv(): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true`, {responseType: 'text'});
+    return this.http.get(`${notification.export_Archived_Csv}`, {responseType: 'text'});
   }
 }

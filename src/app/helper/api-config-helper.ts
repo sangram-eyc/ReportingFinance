@@ -32,8 +32,8 @@ export const userAdminstration = {
         pbi_question_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/questions' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/questions',
         add_pbi_mapping: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
         delete_pbi_mapping: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : environment.apiEndpoint + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
-        
-       
+
+
 
 
     }
@@ -45,10 +45,16 @@ export const authorization = {
     rr_permission_list: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/moduleFeatures' : environment.apiEndpoint + 'assets/mock/reg_reporting_permissions.json',
 };
 
+export const notification = {
+  archived_Notifications: environment.production ? environment.apiEndpoint + 'gatewayService/api/notification?isArchived=true' : environment.apiEndpoint + 'gatewayService/api/notification?isArchived=true',
+  no_Archived_Notifications: environment.production ? environment.apiEndpoint + 'gatewayService/api/notification?isArchived=false' : environment.apiEndpoint + 'gatewayService/api/notification?isArchived=false',
+  export_Archived_Csv: environment.production ? environment.apiEndpoint + 'gatewayService/api/notification/csv?isArchived=true' : environment.apiEndpoint + 'gatewayService/api/notification/csv?isArchived=true',
+}
+
 export const token_interceptor = {
-  
+
    auth_Header: environment.production ? '/api/v2/authentication/getDetails' : 'assets/mock/auth.json',
-   
+
 };
 
 export const notifier_ws = environment.production ? 'wss://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication': 'https://127.0.0.1:8081/notifierAgentService/ws-notifier-agent-communication';
