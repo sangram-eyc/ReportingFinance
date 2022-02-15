@@ -19,7 +19,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RowClickedEvent } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dto.model';
-import { RoutingStateService } from '../../../../../../../src/app/services/routing-state.service';
+import { RoutingStateService } from '../../services/routing-state.service';
 
 @Component({
   selector: 'lib-file-review',

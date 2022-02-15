@@ -10,7 +10,7 @@ import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RoutingStateService } from '../../../../../../../src/app/services/routing-state.service';
+import { RoutingStateService } from '../../services/routing-state.service';
 
 
 @Component({

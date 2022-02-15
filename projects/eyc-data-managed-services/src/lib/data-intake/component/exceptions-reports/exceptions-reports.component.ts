@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
-import { RoutingStateService } from '@default/services/routing-state.service';
+import { RoutingStateService } from '../../services/routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
