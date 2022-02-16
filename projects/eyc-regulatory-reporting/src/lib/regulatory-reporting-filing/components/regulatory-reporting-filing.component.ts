@@ -6,7 +6,7 @@ import { customComparator } from '../../config/rr-config-helper';
 import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
@@ -18,6 +18,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   tabIn;
   constructor(
+    private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
     private customglobalService: CustomGlobalService,
     private oauthservice: OAuthService,
@@ -94,6 +95,11 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
     this.getActiveFilingsData();
 
+    this.route.queryParams.subscribe(res => {
+      if (res && res.open_comments_panel) {
+        this.router.navigate(['/regulatory-reporting']);
+      }
+    });
   }
 
   reportTabChange(selectedTab) {
