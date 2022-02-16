@@ -26,7 +26,7 @@
             </motif-card-body>
         </motif-card>
         <ng-template #dateSubmittedTemplate let-row>
-            <div>{{row.dateSubmitted | date : 'MMM dd y hh:mma zzzz'| uppercase | dateSubmittedPipe}}</div>
+            <div>{{row.dateSubmitted | date : 'MMM dd y hh:mma'| uppercase | dateSubmittedPipe}} GMT </div>
         </ng-template>
     </section>
     <ng-template #statusTemplate let-row>
