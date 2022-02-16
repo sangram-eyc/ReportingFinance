@@ -12,18 +12,18 @@
     <div class="toggle-panels">
       <div class="toggle-panel">
         <div class="name">
-          <span class="pointer-plus" (click)="webOpen = !webOpen">{{webOpen ? '- ' : '+ '}}</span> Web application
+          <span class="pointer-plus" (click)="emailOpen = !emailOpen">{{emailOpen ? '- ' : '+ '}}</span> Email
         </div>
-        <div class="toggle-content" *ngIf="webOpen">
-          <div class="toggle" *ngFor="let web of preferences">
+        <div class="toggle-content" *ngIf="emailOpen">
+          <div class="toggle" *ngFor="let web of emailPreferences">
             <div class="toggle-name">
-              {{web?.name}}
+              {{web?.description}}
             </div>
             <div class="toggle-input">
               <div class="toggle-switcher">
-                <motif-toggle-switch [hideLabels]="true"></motif-toggle-switch>
-                <span class="permission-on">On</span>
                 <span class="permission-off">Off</span>
+                <motif-toggle-switch [(ngModel)]="web.selected" (click)="changeEmailPreferences(web, web.selected)" [hideLabels]="true"></motif-toggle-switch>
+                <span class="permission-on">On</span>
               </div>
             </div>
           </div>
@@ -31,12 +31,21 @@
       </div>
       <div class="toggle-panel">
         <div class="name">
-          <span class="pointer-plus" (click)="emailOpen = !emailOpen">{{emailOpen ? '- ' : '+ '}}</span> Email
+          <span class="pointer-plus" (click)="mobileOpen = !mobileOpen">{{mobileOpen ? '- ' : '+ '}}</span> Web application
         </div>
-      </div>
-      <div class="toggle-panel">
-        <div class="name">
-          <span class="pointer-plus" (click)="mobileOpen = !mobileOpen">{{mobileOpen ? '- ' : '+ '}}</span> Mobile TEXT/SMS
+        <div class="toggle-content" *ngIf="mobileOpen">
+          <div class="toggle" *ngFor="let web of inAppPreferences">
+            <div class="toggle-name">
+              {{web?.description}}
+            </div>
+            <div class="toggle-input">
+              <div class="toggle-switcher">
+                <span class="permission-off">Off</span>
+                <motif-toggle-switch [(ngModel)]="web.selected" (click)="changeInAppPreferences(web, web.selected)" [hideLabels]="true"></motif-toggle-switch>
+                <span class="permission-on">On</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

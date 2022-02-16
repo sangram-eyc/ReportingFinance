@@ -24,7 +24,6 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.notification) {
      this.content = JSON.parse(changes.notification.currentValue.content);
-     console.log(this.content)
     }
   }
 
@@ -38,6 +37,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   archive(): void {
+    this.notificationService.setAsArchived(this.notification.engineId).subscribe()
     this.archiveNotification.emit();
   }
 

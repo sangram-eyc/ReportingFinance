@@ -6,7 +6,7 @@
   <div class="archived-table-heading">
     <div class="search">
       <motif-form-field>
-        <input #archivedInput motifInput motifSearch type="text"
+        <input (keyup)="onKey($event)" motifInput motifSearch type="text"
                placeholder="Search" aria-label="Search">
       </motif-form-field>
       <p class="export" (click)="exportCsv()">Export to CSV</p>

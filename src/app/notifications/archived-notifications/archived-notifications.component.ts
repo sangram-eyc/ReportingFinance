@@ -105,11 +105,25 @@ export class ArchivedNotificationsComponent implements OnInit {
     console.log(row);
   }
 
+  changes(change) {
+    console.log(change)
+  }
+
+  onKey(event): void {
+    this.notificationService.getArchivedNotifications(event.target.value).subscribe( (res: any) =>{
+      this.notificationsData = res.content;
+      this.notificationsData.forEach( item => {
+        item.selected = false;
+        item.subject = item.request.subject;
+        item.category = JSON.parse(item.request.content).category;
+      });
+    })
+  }
+
   exportCsv() {
     this.notificationService.exportCsv().subscribe( res => {
         const blob = new Blob([res], {type: 'csv'});
-        FileSaver.saveAs(blob, 'archived.csv');
+        FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
     });
   }
-
 }
