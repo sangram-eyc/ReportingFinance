@@ -75,7 +75,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  //permissionApproval = true
+  // permissionApproval = true
 
 
 
@@ -296,7 +296,7 @@ export class CycleDetailComponent implements OnInit {
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
           totalComments: item.totalComments,
-          lastUpdatedDate: item.lastUpdatedDate,
+          statusChangedDate: item.statusChangedDate,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         //total opens comments by product-cycle
@@ -348,7 +348,7 @@ export class CycleDetailComponent implements OnInit {
         openCommentsEY: fund.openCommentsEY,
         openCommentsClient: fund.openCommentsClient,
         totalComments: fund.totalComments,
-        lastUpdatedDate: fund.lastUpdatedDate,
+        statusChangedDate: fund.statusChangedDate,
         assignedTo: fund.assignedTo,
         assignedToSearch: fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
@@ -418,7 +418,7 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.statusChangedToTemplate,
         },
         headerName: 'status changed',
-        field: 'lastUpdatedDate',
+        field: 'statusChangedDate',
         sortable: true,
         filter: true,
         resizeable: true,
@@ -490,6 +490,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   checkDataProcess(data) {
+    console.log('click',data)
     this.processingCheck = data;
   }
 

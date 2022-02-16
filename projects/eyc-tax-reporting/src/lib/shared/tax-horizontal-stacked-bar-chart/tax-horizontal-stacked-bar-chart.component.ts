@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
@@ -93,7 +93,7 @@ export class TaxHorizontalStackedBarChartComponent{
             });
 
           // create a tooltip
-          var tooltip = d3.select(chartId)
+          var tooltip:any = d3.select(chartId)
           .append("div")
           .style("opacity", 0)
           .attr("class", "tooltip")
@@ -118,6 +118,7 @@ export class TaxHorizontalStackedBarChartComponent{
       tooltip
         .style("left", (event.offsetX)+"px")
         .style("top", "40px") 
+        .style("z-index", 2)
     }
     var mouseleave = function(d) {
       tooltip

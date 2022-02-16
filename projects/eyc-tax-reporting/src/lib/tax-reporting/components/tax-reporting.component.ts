@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import { ManagementReportsService } from '../services/management-reports.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -95,7 +95,6 @@ export class TaxReportingComponent implements OnInit {
   labelsChart: string[] = [];
   statusIndicatorEv: any;
 
-
   ngOnInit(): void {
     this.widthDivChart = 950;
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
@@ -104,7 +103,7 @@ export class TaxReportingComponent implements OnInit {
     this.getCompletedProductCyclesData();
     this.statusIndicatorEv = setInterval(this.statusIndicatorEvclick.bind(this), 500);
   }
-
+ 
   statusIndicatorEvclick() {
     const cycleStatusBtn = document.getElementById('cycle-status-indicator-id');
     if (cycleStatusBtn != undefined) {
@@ -162,17 +161,14 @@ export class TaxReportingComponent implements OnInit {
           const eachitem: any = {
             name: item.name,
             id: item.id,
-            totalFunds: item.totalFunds,
-            valor1: item.valor1,
-            valor2: item.valor2,
-            valor3: item.valor3,
+            totalFunds: item.fundCount != null ? item.fundCount.fundTotalCount : 0,
             dataToChart: [
               {
-                "in EY tax preparation": item.valor1,
-                "in client review": item.valor2,
-                "Approved by client": item.valor3,
+                "in EY tax preparation": item.fundCount != null ? item.fundCount.fundCountByStatus[0].fundCount : 0,
+                "in client review": item.fundCount != null ? item.fundCount.fundCountByStatus[1].fundCount: 0,
+                "Approved by client": item.fundCount != null ? item.fundCount.fundCountByStatus[2].fundCount: 0,
               }
-            ]
+            ]  
           };
           this.completedReports.push(eachitem);
         });
@@ -188,16 +184,13 @@ export class TaxReportingComponent implements OnInit {
         name: filing.name,
         id: filing.id,
         totalFunds: filing.totalFunds,
-        valor1: filing.valor1,
-        valor2: filing.valor2,
-        valor3: filing.valor3,
         dataToChart: [
           {
-            "in EY tax preparation": filing.valor1,
-            "in client review": filing.valor2,
-            "Approved by client": filing.valor3,
+            "in EY tax preparation": filing.dataToChart[0]["in EY tax preparation"],
+            "in client review": filing.dataToChart[0]["in client review"],
+            "Approved by client": filing.dataToChart[0]["Approved by client"],
           }
-        ]
+        ]  
       })
     });
     this.columnDefs = [
