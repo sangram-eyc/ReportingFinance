@@ -11,7 +11,7 @@
         "openCommentsEY": 2,
         "openCommentsClient": 3,
         "totalComments":20,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers": [
             {
                 "userId": 123, 
@@ -53,7 +53,7 @@
         "openCommentsEY": 200,
         "openCommentsClient": 2,
         "totalComments":100,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[
             {
                 "userId": 123, 
@@ -83,7 +83,7 @@
         "openCommentsEY": 99,
         "openCommentsClient": 660,
         "totalComments":2,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[
             {
 
@@ -101,7 +101,7 @@
         "openCommentsEY":"10",
         "openCommentsClient":"10",
         "totalComments":30,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[
             {
             "userId": 123, 
@@ -118,7 +118,7 @@
         "status": "open",
         "openCommentsEY": 0,
         "openCommentsClient": 5,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[]
     },
     {
@@ -128,7 +128,7 @@
         "status": "approved",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[]
 
     },
@@ -139,7 +139,7 @@
         "status": "approved",
         "openCommentsEY": 0,
         "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
+        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
         "assignedUsers":[]
 
     },
