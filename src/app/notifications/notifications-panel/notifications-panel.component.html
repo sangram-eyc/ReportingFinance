@@ -49,7 +49,7 @@
     </app-notification-item>
   </div>
   <div class="notifications-buttons">
-    <div class="not-error-block" *ngIf="!notifications?.length">There are no notifications to display.</div>
+    <div class="not-error-block p-3" *ngIf="!notifications?.length">There are no notifications to display.</div>
     <!-- Archived button needs to be enabled once the page functionality is completed -->
      <div class="card-button" [class.mt-3]="notifications?.length" *ngIf="archivedItems > 0">
       <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
