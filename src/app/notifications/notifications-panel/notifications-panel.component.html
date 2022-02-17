@@ -1,10 +1,11 @@
+<script src="notifications-panel.component.spec.ts"></script>
 <motif-card class="notifications">
   <motif-card-header>
     <div class="notification-header">
       <div class="card-block banner-header">
         Notifications
       </div>
-      <div class="notifications-filter" [class.dark]="showPanel" (click)="showPanel = !showPanel">
+      <div class="notifications-filter" [class.dark]="showPanel" (click)="showPanel = !showPanel; showFilters = false">
         All ({{notifications?.length}}) <motif-icon class="expand" [src]="showPanel ? '/assets/icons/expand_more_white.svg' : '/assets/icons/expand_more.svg'"></motif-icon>
       </div>
       <div class="expanded-panel" *ngIf="showPanel">
@@ -38,7 +39,7 @@
       <div class="card-block banner-header-right">
         <div class="right-icons">
           <motif-icon routerLink="/notifications-preferences" [src]="'/assets/icons/preferences.svg'"></motif-icon>
-          <motif-icon (click)="showFilters = !showFilters" [src]="'/assets/icons/shape.svg'"></motif-icon>
+          <motif-icon (click)="showFilters = !showFilters; showPanel = false" [src]="'/assets/icons/shape.svg'"></motif-icon>
         </div>
       </div>
     </div>

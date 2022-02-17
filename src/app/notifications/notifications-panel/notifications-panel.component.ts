@@ -47,6 +47,7 @@ export class NotificationsPanelComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
+    this.getArchivedNotifications();
   }
 
   flag(i): void {

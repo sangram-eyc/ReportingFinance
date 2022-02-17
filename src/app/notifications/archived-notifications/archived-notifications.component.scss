@@ -29,6 +29,23 @@
   }
 }
 
+.actionsTemplate {
+  display: flex;
+
+  ::ng-deep {
+    .margin-icon {
+      margin-right: 10px;
+    }
+
+    .motif-icon-content {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      margin-left: auto;
+    }
+  }
+}
+
 .dropdownTemplate {
   display: flex;
 }

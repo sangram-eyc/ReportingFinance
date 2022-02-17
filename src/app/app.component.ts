@@ -62,6 +62,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
+          this.isNotification = false;
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });

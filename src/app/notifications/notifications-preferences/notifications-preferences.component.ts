@@ -178,7 +178,10 @@ export class NotificationsPreferencesComponent implements OnInit {
           recipientId: this.recipientId,
           notification: this.notificationInAppObject.concat(this.notificationEmailObject),
           channel: this.channel
-        }).subscribe()
+        }).subscribe( (res: any) => {
+          this.havePreferences = true;
+          this.recipientId = res.id;
+      });
     }
   }
 
@@ -219,7 +222,10 @@ export class NotificationsPreferencesComponent implements OnInit {
           recipientId: this.recipientId,
           notification: this.notificationInAppObject.concat(this.notificationEmailObject),
           channel: this.channel
-        }).subscribe();
+        }).subscribe( (res: any) => {
+        this.havePreferences = true;
+        this.recipientId = res.id;
+      });
     }
   }
 }

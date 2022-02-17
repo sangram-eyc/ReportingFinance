@@ -15,6 +15,9 @@ export class ArchivedNotificationsComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  @ViewChild('actions')
+  actions: TemplateRef<any>;
+
   public notificationsData = null;
   public columnDefs;
 
@@ -54,7 +57,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
           sort: 'asc',
         },
         {
@@ -65,7 +68,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
           sort: 'asc',
         },
         {
@@ -76,7 +79,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
 
         },
         {
@@ -87,15 +90,18 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200
+          width: 300
         },
         {
-          width: 200,
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actions,
+          },
+          field: 'actions',
           headerName: 'Actions',
-          field: 'Actions',
+          width: 200,
           sortable: false,
-          filter: false,
         },
       ];
     });
@@ -125,5 +131,14 @@ export class ArchivedNotificationsComponent implements OnInit {
         const blob = new Blob([res], {type: 'csv'});
         FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
     });
+  }
+
+  flag(notification?): void {
+    this.notificationService.setNotificationFlagged(1).subscribe( res => {
+
+    });
+  }
+
+  delete(): void {
   }
 }
