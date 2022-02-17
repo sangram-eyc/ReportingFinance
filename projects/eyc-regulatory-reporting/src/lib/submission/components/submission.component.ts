@@ -271,7 +271,7 @@ export class SubmissionComponent implements OnInit {
         autoHeight: true,
         sortable: true,
         filter:true,
-        width: 200,
+        width: 300,
         sort:'asc',
         comparator: customComparator
       }
