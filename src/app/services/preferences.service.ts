@@ -50,10 +50,10 @@ export class PreferencesService {
 
   createRecipient() {
     const body = {
-      recipientName: localStorage.getItem('userEmail'),
+      recipientName: sessionStorage.getItem('userEmail'),
       addresses: [
         {
-          addressValue: localStorage.getItem('userEmail'),
+          addressValue: sessionStorage.getItem('userEmail'),
           channel: 'IN_APP'
         },
         {
@@ -61,7 +61,7 @@ export class PreferencesService {
           channel: 'TEXT_MESSAGE'
         },
         {
-          addressValue: localStorage.getItem('userEmail'),
+          addressValue: sessionStorage.getItem('userEmail'),
           channel: 'EMAIL'
         }
       ],
