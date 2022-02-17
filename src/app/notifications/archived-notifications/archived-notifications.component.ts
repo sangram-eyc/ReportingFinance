@@ -20,6 +20,7 @@ export class ArchivedNotificationsComponent implements OnInit {
 
   public notificationsData = null;
   public columnDefs;
+  public searchText = '';
 
   constructor(
     private notificationService: NotificationService
@@ -112,18 +113,19 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   changes(change) {
-    console.log(change)
+    console.log(change);
   }
 
   onKey(event): void {
-    this.notificationService.getArchivedNotifications(event.target.value).subscribe( (res: any) =>{
+    this.searchText = event.target.value;
+    this.notificationService.getArchivedNotifications(this.searchText).subscribe( (res: any) => {
       this.notificationsData = res.content;
       this.notificationsData.forEach( item => {
         item.selected = false;
         item.subject = item.request.subject;
         item.category = JSON.parse(item.request.content).category;
       });
-    })
+    });
   }
 
   exportCsv() {

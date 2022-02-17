@@ -21,7 +21,7 @@
 
     <ng-template #actions let-row>
       <div class="actionsTemplate">
-        <motif-icon (click)="flag()" class="icon margin-icon" [src]="content?.flagged ? '/assets/icons/is-flagged.svg' : '/assets/icons/flag.svg'">
+        <motif-icon (click)="flag()" class="icon margin-icon" [src]="'/assets/icons/flag.svg'">
         </motif-icon>
         <motif-icon (click)="delete()" class="icon" [src]="'/assets/icons/trash.svg'">
         </motif-icon>
