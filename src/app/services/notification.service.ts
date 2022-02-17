@@ -36,6 +36,6 @@ export class NotificationService {
   }
 
   setAsArchived(id): Observable<any> {
-    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/set-flagged?flagged=true`, {});
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/mark-as-archived`, {});
   }
 }

@@ -15,8 +15,12 @@ export class ArchivedNotificationsComponent implements OnInit {
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
 
+  @ViewChild('actions')
+  actions: TemplateRef<any>;
+
   public notificationsData = null;
   public columnDefs;
+  public searchText = '';
 
   constructor(
     private notificationService: NotificationService
@@ -54,7 +58,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
           sort: 'asc',
         },
         {
@@ -65,7 +69,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
           sort: 'asc',
         },
         {
@@ -76,7 +80,7 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200,
+          width: 300,
 
         },
         {
@@ -87,15 +91,18 @@ export class ArchivedNotificationsComponent implements OnInit {
           filter: false,
           wrapText: true,
           autoHeight: true,
-          width: 200
+          width: 300
         },
         {
-          width: 200,
           headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.actions,
+          },
+          field: 'actions',
           headerName: 'Actions',
-          field: 'Actions',
+          width: 200,
           sortable: false,
-          filter: false,
         },
       ];
     });
@@ -106,18 +113,19 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   changes(change) {
-    console.log(change)
+    console.log(change);
   }
 
   onKey(event): void {
-    this.notificationService.getArchivedNotifications(event.target.value).subscribe( (res: any) =>{
+    this.searchText = event.target.value;
+    this.notificationService.getArchivedNotifications(this.searchText).subscribe( (res: any) => {
       this.notificationsData = res.content;
       this.notificationsData.forEach( item => {
         item.selected = false;
         item.subject = item.request.subject;
         item.category = JSON.parse(item.request.content).category;
       });
-    })
+    });
   }
 
   exportCsv() {
@@ -125,5 +133,14 @@ export class ArchivedNotificationsComponent implements OnInit {
         const blob = new Blob([res], {type: 'csv'});
         FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
     });
+  }
+
+  flag(notification?): void {
+    this.notificationService.setNotificationFlagged(1).subscribe( res => {
+
+    });
+  }
+
+  delete(): void {
   }
 }

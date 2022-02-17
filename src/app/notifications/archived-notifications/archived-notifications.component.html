@@ -18,6 +18,16 @@
        <input type="checkbox" (change)="changeCheck(row)"/>
       </div>
     </ng-template>
+
+    <ng-template #actions let-row>
+      <div class="actionsTemplate">
+        <motif-icon (click)="flag()" class="icon margin-icon" [src]="'/assets/icons/flag.svg'">
+        </motif-icon>
+        <motif-icon (click)="delete()" class="icon" [src]="'/assets/icons/trash.svg'">
+        </motif-icon>
+
+      </div>
+    </ng-template>
     <lib-shared-grid gridStyle="second" isToggle="false"
                      displayCheckBox="true"
                      buttonPosition="left"[masterDetail]="true" [columnDefs]="columnDefs" [rowData]="notificationsData"
