@@ -44,6 +44,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   @ViewChild('actionResolvedTemplate')
   actionResolvedTemplate: TemplateRef<any>;
   componentStage;
+  filingDetails;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
@@ -75,6 +76,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.stage = 'intake';
     }
     else if (this.filingService.getFilingData) {
+      this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
