@@ -86,7 +86,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: this.dataIntakeType,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       auditFileGuidName: '',
       fileId: '',
@@ -110,10 +110,47 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.getDataIntakeType();
   }
 
+  businessDate(businessWeekDay: Date) {
+    const weekDay = businessWeekDay.getDay();
+    switch (weekDay) {
+      case 0:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 2);
+        break;
+      case 1:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 3);
+        break;
+      case 6:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 1);
+        break;
+      default:
+        break;
+    }
+    this.presentDate = businessWeekDay;
+  }
+
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    // this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.businessDate(new Date());
+    }
 
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -150,6 +187,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpQueryParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      this.patchDatePicker(this.presentDate);
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -165,6 +207,16 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    
+    if(!sessionStorage.getItem("selectedDate")){
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+      this.patchDatePicker(lastMonthDate);
+      this.httpQueryParams.dueDate = dueDateFormat;
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }

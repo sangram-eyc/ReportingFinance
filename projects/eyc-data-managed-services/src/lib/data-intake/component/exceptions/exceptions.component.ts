@@ -105,7 +105,13 @@ export class ExceptionsComponent implements OnInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    // this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.businessDate(new Date());
+    }
+
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -125,7 +131,7 @@ export class ExceptionsComponent implements OnInit {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`,
       periodType: '',
       clientName: '',
       auditFileGuidName:this.ExceptionAuditGuidName,
@@ -244,6 +250,38 @@ export class ExceptionsComponent implements OnInit {
     }
   }
 
+  businessDate(businessWeekDay: Date) {
+    const weekDay = businessWeekDay.getDay();
+    switch (weekDay) {
+      case 0:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 2);
+        break;
+      case 1:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 3);
+        break;
+      case 6:
+        businessWeekDay.setDate(businessWeekDay.getDate() - 1);
+        break;
+      default:
+        break;
+    }
+    this.presentDate = businessWeekDay;
+  }
+
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   dailyData(status: boolean) {
     // Daily data fetch as per click
 
@@ -252,6 +290,11 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpDataGridParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      this.patchDatePicker(this.presentDate);
+    }
+
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -264,6 +307,16 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+    
+    if(!sessionStorage.getItem("selectedDate")){
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+      this.patchDatePicker(lastMonthDate);
+      this.httpDataGridParams.dueDate = dueDateFormat;
+    }
+
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
