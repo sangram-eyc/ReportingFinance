@@ -33,7 +33,7 @@ export class PreferencesService {
   }
 
   deleteSubscription(id) {
-    return this.http.delete(`${environment.apiEndpoint}gatewayService/api/notification/config/notification-subscription/${id}`);
+    return this.http.delete(`${environment.apiEndpoint}gatewayService/api/notification/config/notification-subscription/${id}`, {responseType: 'text'});
   }
 
   getRecipientPreferences(id) {
