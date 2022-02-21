@@ -90,9 +90,9 @@ export class NotificationsPreferencesComponent implements OnInit {
       const types = JSON.parse(JSON.stringify(this.subscriptionTypes));
       types.forEach(item => {
         if (res) {
+          this.notificationInAppObject = [];
           res.notification.forEach(preference => {
             if (preference.preferredChannel === 'IN_APP') {
-              this.notificationInAppObject = [];
               this.notificationInAppObject.push(preference);
             }
             if (item.name === preference.notificationTypeName && preference.preferredChannel === 'IN_APP') {
@@ -114,9 +114,9 @@ export class NotificationsPreferencesComponent implements OnInit {
       const types = JSON.parse(JSON.stringify(this.subscriptionTypes));
       types.forEach(item => {
         if (res) {
+          this.notificationEmailObject = [];
           res.notification.forEach(preference => {
             if (preference.preferredChannel === 'EMAIL') {
-              this.notificationEmailObject = [];
               this.notificationEmailObject.push(preference);
             }
             if (item.name === preference.notificationTypeName && preference.preferredChannel === 'EMAIL') {
