@@ -92,6 +92,7 @@ export class ExceptionsComponent implements OnInit {
  
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
+  presentDateFormat: string;
 
   constructor(private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
@@ -112,13 +113,12 @@ export class ExceptionsComponent implements OnInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    // this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
     } else {
-      this.businessDate(new Date());
+      this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-
+    this.presentDateFormat = formatDate( this.presentDate, 'MMM. dd, yyyy', 'en');
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -267,23 +267,23 @@ export class ExceptionsComponent implements OnInit {
     }
   }
 
-  businessDate(businessWeekDay: Date) {
-    const weekDay = businessWeekDay.getDay();
-    switch (weekDay) {
-      case 0:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 2);
-        break;
-      case 1:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 3);
-        break;
-      case 6:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 1);
-        break;
-      default:
-        break;
-    }
-    this.presentDate = businessWeekDay;
-  }
+  // businessDate(businessWeekDay: Date) {
+  //   const weekDay = businessWeekDay.getDay();
+  //   switch (weekDay) {
+  //     case 0:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 2);
+  //       break;
+  //     case 1:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 3);
+  //       break;
+  //     case 6:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 1);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.presentDate = businessWeekDay;
+  // }
 
   patchDatePicker(patchDatePickerValue: Date) {
     const updateDatePicker = {
@@ -308,7 +308,8 @@ export class ExceptionsComponent implements OnInit {
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if(!sessionStorage.getItem("selectedDate")){
-      this.httpDataGridParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      // this.httpDataGridParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      this.httpDataGridParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
     }
 
