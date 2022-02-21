@@ -98,6 +98,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   //end option
   form: FormGroup;
   businessDays: boolean = false;
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -106,16 +108,30 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    }
+
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -255,14 +271,14 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
-    
+
     if(!sessionStorage.getItem("selectedDate")){
-      const currentDate = new Date();
-      currentDate.setMonth(currentDate.getMonth());
-      const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-      this.patchDatePicker(lastMonthDate);
-      this.httpQueryParams.dueDate = dueDateFormat;
+      // const currentDate = new Date();
+      // currentDate.setMonth(currentDate.getMonth());
+      // const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      // const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
     }
 
     this.fileSummaryList();

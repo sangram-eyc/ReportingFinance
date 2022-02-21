@@ -159,9 +159,16 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
   ];
 
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
   }
 
   ngOnInit(): void {
@@ -220,13 +227,22 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    }
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
