@@ -90,11 +90,18 @@ export class ExceptionsComponent implements OnInit {
   commentsName;
   entityId;
  
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+
   constructor(private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
       this._activatedroute.paramMap.subscribe(params => {
         this.ExceptionFileName = params.get('paramFilename');
         this.ExceptionAuditGuidName = params.get('paramguidName');
@@ -127,11 +134,21 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    }
+
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       clientName: '',
       auditFileGuidName:this.ExceptionAuditGuidName,
@@ -307,7 +324,7 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-    
+
     if(!sessionStorage.getItem("selectedDate")){
       const currentDate = new Date();
       currentDate.setMonth(currentDate.getMonth());
