@@ -100,6 +100,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   businessDays: boolean = false;
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
+  presentDateFormat: string;
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -165,23 +166,23 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
   }
 
-  businessDate(businessWeekDay: Date) {
-    const weekDay = businessWeekDay.getDay();
-    switch (weekDay) {
-      case 0:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 2);
-        break;
-      case 1:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 3);
-        break;
-      case 6:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 1);
-        break;
-      default:
-        break;
-    }
-    this.presentDate = businessWeekDay;
-  }
+  // businessDate(businessWeekDay: Date) {
+  //   const weekDay = businessWeekDay.getDay();
+  //   switch (weekDay) {
+  //     case 0:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 2);
+  //       break;
+  //     case 1:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 3);
+  //       break;
+  //     case 6:
+  //       businessWeekDay.setDate(businessWeekDay.getDate() - 1);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.presentDate = businessWeekDay;
+  // }
 
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
@@ -189,8 +190,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
     } else {
-      this.businessDate(new Date());
+      // this.businessDate(new Date());
+      this.presentDate = this.dataManagedService.businessDate(new Date());
     }
+    this.presentDateFormat = formatDate( this.presentDate, 'MMM. dd, yyyy', 'en');
+
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -252,7 +256,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
     
     if(!sessionStorage.getItem("selectedDate")){
-      this.httpQueryParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      // this.httpQueryParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      this.httpQueryParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
     }
 
