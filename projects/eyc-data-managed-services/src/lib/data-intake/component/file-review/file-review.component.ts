@@ -534,12 +534,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
 
     if(!sessionStorage.getItem("selectedDate")){
-      const currentDate = new Date();
-      currentDate.setMonth(currentDate.getMonth());
-      const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-      this.patchDatePicker(lastMonthDate);
-      this.httpQueryParams.dueDate = dueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
     }
     this.fileSummaryList();

@@ -273,10 +273,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
 
     if(!sessionStorage.getItem("selectedDate")){
-      // const currentDate = new Date();
-      // currentDate.setMonth(currentDate.getMonth());
-      // const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      // const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
       this.patchDatePicker(this.lastMonthDate);
       this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
     }

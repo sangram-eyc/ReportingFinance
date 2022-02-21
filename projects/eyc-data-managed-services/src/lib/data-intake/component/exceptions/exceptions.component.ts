@@ -326,12 +326,8 @@ export class ExceptionsComponent implements OnInit {
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
     if(!sessionStorage.getItem("selectedDate")){
-      const currentDate = new Date();
-      currentDate.setMonth(currentDate.getMonth());
-      const lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      const dueDateFormat = `${formatDate(lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-      this.patchDatePicker(lastMonthDate);
-      this.httpDataGridParams.dueDate = dueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpDataGridParams.dueDate = this.lastMonthDueDateFormat;
     }
 
     this.getExceptionTableData();
