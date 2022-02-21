@@ -138,7 +138,7 @@ export class ExceptionsComponent implements OnInit {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
     } else {
-      dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      dueDate = this.presentDateFormat;
     }
 
     this.httpDataGridParams = {

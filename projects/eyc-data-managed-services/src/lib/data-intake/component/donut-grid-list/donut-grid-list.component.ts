@@ -94,7 +94,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
     } else {
-      dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+      dueDate = this.presentDateFormat;
     }
     this.httpQueryParams =
     {
