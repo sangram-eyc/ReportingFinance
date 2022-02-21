@@ -21,6 +21,7 @@ export class NotificationsPreferencesComponent implements OnInit {
   public subscriptionTypes;
   public emailPreferences;
   public inAppPreferences;
+  public recipientSubscriptions = [];
 
   public channel = [
     {
@@ -54,7 +55,7 @@ export class NotificationsPreferencesComponent implements OnInit {
         this.transformInAppPreferences(this.recipientId);
       });
     }, error => {
-      this.preferencesService.createRecipient().subscribe( recipient => {
+      this.preferencesService.createRecipient().subscribe(recipient => {
         this.preferencesService.emailToRecipient().subscribe(res => {
           this.recipientId = res;
           this.preferencesService.getSubscriptionTypes().subscribe((types: any) => {
@@ -71,20 +72,21 @@ export class NotificationsPreferencesComponent implements OnInit {
   transformNotifications(recipientId) {
     this.preferencesService.getRecipientSubscriptions(recipientId).subscribe((recipientPreferences: any) => {
       const types = JSON.parse(JSON.stringify(this.subscriptionTypes));
+      this.recipientSubscriptions = recipientPreferences;
       types.forEach(item => {
-          recipientPreferences.forEach(preference => {
-            if (item.name === preference.notificationTypeName) {
-              item.selected = true;
-              item.id = preference.id;
-            }
-          });
+        recipientPreferences.forEach(preference => {
+          if (item.name === preference.notificationTypeName) {
+            item.selected = true;
+            item.id = preference.id;
+          }
         });
-      this.subscriptions = types;
       });
+      this.subscriptions = types;
+    });
   }
 
   transformInAppPreferences(recipientId) {
-    this.preferencesService.getRecipientPreferences(recipientId).subscribe( (res: any) => {
+    this.preferencesService.getRecipientPreferences(recipientId).subscribe((res: any) => {
       const types = JSON.parse(JSON.stringify(this.subscriptionTypes));
       types.forEach(item => {
         if (res) {
@@ -108,7 +110,7 @@ export class NotificationsPreferencesComponent implements OnInit {
   }
 
   transformEmailPreferences(recipientId) {
-    this.preferencesService.getRecipientPreferences(recipientId).subscribe( (res: any) => {
+    this.preferencesService.getRecipientPreferences(recipientId).subscribe((res: any) => {
       const types = JSON.parse(JSON.stringify(this.subscriptionTypes));
       types.forEach(item => {
         if (res) {
@@ -125,9 +127,9 @@ export class NotificationsPreferencesComponent implements OnInit {
       });
       this.emailPreferences = types;
       if (res) {
-       this.havePreferences = true;
-       this.preferencesId = res.id;
-     }
+        this.havePreferences = true;
+        this.preferencesId = res.id;
+      }
     });
   }
 
@@ -137,7 +139,10 @@ export class NotificationsPreferencesComponent implements OnInit {
         this.transformNotifications(this.recipientId);
       });
     } else {
-      this.preferencesService.deleteSubscription(web.id).subscribe();
+      const index = this.subscriptions.findIndex(item => item.name == web.name);
+      this.preferencesService.deleteSubscription(this.subscriptions[index].id).subscribe( res => {
+        this.transformNotifications(this.recipientId);
+      });
     }
   }
 
@@ -145,17 +150,18 @@ export class NotificationsPreferencesComponent implements OnInit {
     if (this.havePreferences) {
       if (!event) {
         this.notificationEmailObject.forEach(item => {
-          if (item.notificationTypeName == web.name) {
-            item = null;
+          if (item.notificationTypeName === web.name) {
+            const index = this.notificationEmailObject.findIndex(preference => preference.notificationTypeName == web.name);
+            this.notificationEmailObject.splice(index, 1);
           }
         });
       } else {
         this.notificationEmailObject.push({
-            notificationTypeName: web.name,
-            preferredChannel: 'EMAIL',
-            preferredContentType: 'HTML',
-            preferredLanguage: 'enUS'
-          });
+          notificationTypeName: web.name,
+          preferredChannel: 'EMAIL',
+          preferredContentType: 'HTML',
+          preferredLanguage: 'enUS'
+        });
       }
       this.preferencesService.updateRecipientPreferences(
         {
@@ -164,9 +170,22 @@ export class NotificationsPreferencesComponent implements OnInit {
           notification: this.notificationEmailObject.concat(this.notificationInAppObject),
           channel: this.channel
         }
-      ).subscribe();
+      ).subscribe( res => {
+        if (event) {
+          const recipientPreferenceIndex = this.recipientSubscriptions.findIndex(item => item.notificationTypeName == web.name);
+          if (recipientPreferenceIndex < 0) {
+            this.changeSubscription(web, true);
+          }
+        } else {
+          const inAppIndex = this.notificationInAppObject.findIndex(item => item.notificationTypeName == web.name);
+          const inEmailIndex = this.notificationEmailObject.findIndex(item => item.notificationTypeName == web.name);
+          if (inAppIndex < 0 && inEmailIndex < 0) {
+            this.changeSubscription(web, false);
+          }
+        }
+      });
     } else {
-      this.notificationInAppObject.push({
+      this.notificationEmailObject.push({
         notificationTypeName: web.name,
         preferredChannel: 'EMAIL',
         preferredContentType: 'HTML',
@@ -178,9 +197,15 @@ export class NotificationsPreferencesComponent implements OnInit {
           recipientId: this.recipientId,
           notification: this.notificationInAppObject.concat(this.notificationEmailObject),
           channel: this.channel
-        }).subscribe( (res: any) => {
-          this.havePreferences = true;
-          this.recipientId = res.id;
+        }).subscribe((res: any) => {
+        this.havePreferences = true;
+        this.preferencesId = res.id;
+        if (event) {
+          const recipientPreferenceIndex = this.recipientSubscriptions.findIndex(item => item.notificationTypeName == web.name);
+          if (recipientPreferenceIndex < 0) {
+            this.changeSubscription(web, true);
+          }
+        }
       });
     }
   }
@@ -189,8 +214,9 @@ export class NotificationsPreferencesComponent implements OnInit {
     if (this.havePreferences) {
       if (!event) {
         this.notificationInAppObject.forEach(item => {
-          if (item.notificationTypeName == web.name) {
-            item = null;
+          if (item.notificationTypeName === web.name) {
+            const index = this.notificationInAppObject.findIndex(preference => preference.notificationTypeName == web.name);
+            this.notificationInAppObject.splice(index, 1);
           }
         });
       } else {
@@ -208,7 +234,20 @@ export class NotificationsPreferencesComponent implements OnInit {
           notification: this.notificationInAppObject.concat(this.notificationEmailObject),
           channel: this.channel
         }
-      ).subscribe();
+      ).subscribe(res => {
+        if (event) {
+          const recipientPreferenceIndex = this.recipientSubscriptions.findIndex(item => item.notificationTypeName == web.name);
+          if (recipientPreferenceIndex < 0) {
+            this.changeSubscription(web, true);
+          }
+        } else {
+          const inAppIndex = this.notificationInAppObject.findIndex(item => item.notificationTypeName == web.name);
+          const inEmailIndex = this.notificationEmailObject.findIndex(item => item.notificationTypeName == web.name);
+          if (inAppIndex < 0 && inEmailIndex < 0) {
+            this.changeSubscription(web, false);
+          }
+        }
+      });
     } else {
       this.notificationInAppObject.push({
         notificationTypeName: web.name,
@@ -222,9 +261,15 @@ export class NotificationsPreferencesComponent implements OnInit {
           recipientId: this.recipientId,
           notification: this.notificationInAppObject.concat(this.notificationEmailObject),
           channel: this.channel
-        }).subscribe( (res: any) => {
+        }).subscribe((res: any) => {
         this.havePreferences = true;
-        this.recipientId = res.id;
+        this.preferencesId = res.id;
+        if (event) {
+          const recipientPreferenceIndex = this.recipientSubscriptions.findIndex(item => item.notificationTypeName == web.name);
+          if (recipientPreferenceIndex < 0) {
+            this.changeSubscription(web, true);
+          }
+        }
       });
     }
   }
