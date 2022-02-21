@@ -25,7 +25,7 @@ export class EycTaxSettingsService {
       download: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/attachmentsByComments.json',
       tasks_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
       add_comment: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
-      comments_list: this.production ? this.API_ENDPOINT + 'commentaryService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
+      comments_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/replyCommentsList.json',
       comments_details: this.production ?  this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comments-details-charts.json',
       update_task_status: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
       delete_tag: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
@@ -35,7 +35,7 @@ export class EycTaxSettingsService {
       production_cycles_comments_details : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/cycle-more-details.json',
       bulk_download_service1 : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/download/downloads' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/bulk-download-response.json',
       websocket_bulk_url : this.production ? 'gatewayService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa34/gatewayService/ws-notifier-agent-communication',
-      comment_expand_details: this.production ? this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comment-Expand-Details.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comment-Expand-Details.json'
+      comment_expand_details: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comment-Expand-Details.json'
     }
 
     return tax_Reporting;

@@ -12,34 +12,18 @@ export class EycTaxCommentApiService {
     private settingsService: SettingService
   ) { }
 
-  getTasksData(id) {
-    if (this.settingsService.tax_Production) {
-      //uncomment when endpoint is ready
-      //return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.tasks_list}/funds/${id}/tasks`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.tasks_list}`);
-    }
-    else {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.tasks_list}`);
-    }
-  }
-
   updateTaskStatus(idTask, data) {
     if (this.settingsService.tax_Production) {
-      //uncomment when endpoint is ready
-      //return this.apiService.invokePutAPI(`${this.settingsService.taxReportingComments.update_task_status}/tasks/${idTask}/status`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.update_task_status}`);
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReportingComments.update_task_status}/tasks/${idTask}/status`, data);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.update_task_status}`);
     }
   }
-
 
   deleteTag(idTask, tagId) {
     if (this.settingsService.tax_Production) {
-      //uncomment when endpoint is ready
-      //return this.apiService.invokeDeleteAPI(`${this.settingsService.taxReportingComments.delete_tag}/tasks/${idTask}/tags/${tagId}`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.delete_tag}`);
+      return this.apiService.invokeDeleteAPI(`${this.settingsService.taxReportingComments.delete_tag}/tasks/${idTask}/tags/${tagId}`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.delete_tag}`);
@@ -48,9 +32,7 @@ export class EycTaxCommentApiService {
 
   deletePriority(idTask, data) {
     if (this.settingsService.tax_Production) {
-      //uncomment when endpoint is ready
-      //return this.apiService.invokePutAPI(`${this.settingsService.taxReportingComments.delete_priority}/tasks/${idTask}/priority`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.delete_priority}`);
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReportingComments.delete_priority}/tasks/${idTask}/priority`, data);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.delete_priority}`);
@@ -59,9 +41,7 @@ export class EycTaxCommentApiService {
 
   downloadFile(data) {
     if (this.settingsService.tax_Production) {
-      //uncomment when endpoint is ready
-      //return this.apiService.invokePostAPI(`${this.settingsService.taxReportingComments.download}`, data);
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.download}`);
+      return this.apiService.invokePostAPI(`${this.settingsService.taxReportingComments.download}`, data);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReportingComments.download}`);

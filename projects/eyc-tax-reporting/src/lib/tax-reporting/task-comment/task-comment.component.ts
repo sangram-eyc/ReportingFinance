@@ -55,7 +55,7 @@ export class TaskCommentComponent implements OnInit {
   ) {
 
     this.ReplayForm = this.fb.group({
-      comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator,Validators.pattern('[a-zA-Z0-9_.,;? ]*')]],
+      comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator, Validators.pattern('[a-zA-Z0-9-_:/*$%.,@+? ]*')]],
       statusReplay:['open']
     });
   }

@@ -41,6 +41,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   completedCommentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate')
   dateTemplate: TemplateRef<any>;
+  @ViewChild('fundTemplate')
+  fundTemplate: TemplateRef<any>;
+  @ViewChild('replyTemplate')
+  replyTemplate: TemplateRef<any>;
   tooltipFunCall = false;
 
   //Total-comments-box
@@ -200,6 +204,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.fundTemplate,
+        },
         headerName: 'Fund/entity workbook',
         field: 'entityName',
         sortable: true,
@@ -252,6 +260,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.replyTemplate,
+        },
         headerName: 'Replies',
         field: 'replyCount',
         sortable: true,
@@ -318,11 +330,12 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   openDialog(_idTaskComment): void {
     this.completedComments = [];
     this.commentService.getCommentExpandDetails(_idTaskComment).subscribe(resp => {
-      const item = resp['data'];
+      const item = resp['data'].taskResponse;
+      const _replies = resp['data'].commentDetail;
         const comment: any = {
           id: item.id,
           entityId: item.entityId,
-          entityType: item.entityType,
+          //entityType: item.entityType,
           description: item.description,
           status: item.status,
           priority: item.priority,
@@ -333,13 +346,13 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           createdDate: item.createdDate,
           tags: item.tags,
           replyCount: item.replyCount,
-          attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
+          //attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
           attachments:item.attachments,
           priorityToFind: item.priority == 1 ? "critical":"",
           tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
           tagIncludeTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 2) != undefined ? item.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "",
           authorTofind: item.author != null ? item.author.userFirstName + " " + item.author.userLastName : item.createdBy,
-          replies : item.replies
+          replies : _replies
         };
         this.commentDetails = comment;      
         const dialogRef = this.dialog.open(PanelRightCommentDetailsComponent, {
