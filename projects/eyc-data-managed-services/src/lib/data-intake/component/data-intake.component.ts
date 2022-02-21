@@ -43,7 +43,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  curDate: string;
   presentDate: Date;
   totalFileCount = 0;
   calSelectedDate: string;
@@ -166,34 +165,14 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
   }
 
-  // businessDate(businessWeekDay: Date) {
-  //   const weekDay = businessWeekDay.getDay();
-  //   switch (weekDay) {
-  //     case 0:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 2);
-  //       break;
-  //     case 1:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 3);
-  //       break;
-  //     case 6:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 1);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   this.presentDate = businessWeekDay;
-  // }
-
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
     } else {
-      // this.businessDate(new Date());
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    this.presentDateFormat = formatDate( this.presentDate, 'MMM. dd, yyyy', 'en');
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
 
     this.tabIn = 1;
     this.form = new FormGroup({
@@ -256,7 +235,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     }
     
     if(!sessionStorage.getItem("selectedDate")){
-      // this.httpQueryParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
     }
