@@ -29,20 +29,12 @@ export class DataManagedService {
   }
 
   businessDate(businessWeekDay: Date): Date {
-    debugger;
     const weekDay = businessWeekDay.getDay();
     switch (weekDay) {
-      case 0:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 2);
-        break;
-      case 1:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 3);
-        break;
-      case 6:
-        businessWeekDay.setDate(businessWeekDay.getDate() - 1);
-        break;
-      default:
-        break;
+      case 0: businessWeekDay.setDate(businessWeekDay.getDate() - 2); break;
+      case 1: businessWeekDay.setDate(businessWeekDay.getDate() - 3); break;
+      case 6: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
+      default: break;
     }
     return businessWeekDay;
   }
