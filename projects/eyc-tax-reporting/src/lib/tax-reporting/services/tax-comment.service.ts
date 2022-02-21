@@ -110,8 +110,7 @@ export class TaxCommentService {
 
   getCommentExpandDetails(id) {
     if (this.settingsService.production) {
-      //ToDo integrate with Backend
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}/task/${id}`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);

@@ -29,17 +29,10 @@ export class SettingService {
   public tax_Production = this.taxproduction;
   get taxReportingComments():any{
       const tax_reporting = {
-        /* uncomment when endpoint is ready */
-/*         tasks_list: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
         update_task_status: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
         delete_tag: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
         delete_priority: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json', 
-        download: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/attachmentsByComments.json',*/
-        tasks_list: this.tax_Production ? this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/CommentsList.json',
-        update_task_status: this.tax_Production ? this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/updateStatusResponse.json',
-        delete_tag: this.tax_Production ? this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
-        delete_priority: this.tax_Production ? this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/addCommentResponse.json',
-        download: this.tax_Production ? this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/attachmentsByComments.json' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/attachmentsByComments.json',
+        download: this.tax_Production ? this.TAX_API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download' : this.TAX_API_ENDPOINT + 'assets/eyc-tax-reporting/mock/attachmentsByComments.json',
       }
      return tax_reporting;
   }
