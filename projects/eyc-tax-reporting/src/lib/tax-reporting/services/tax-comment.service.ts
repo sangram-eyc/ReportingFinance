@@ -110,7 +110,7 @@ export class TaxCommentService {
 
   getCommentExpandDetails(id) {
     if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}/task/${id}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}/tasks/${id}`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);
