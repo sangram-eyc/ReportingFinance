@@ -30,7 +30,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   stackBarChartGridData = [];
   gridApi;
   innerTabIn: number = 1;
-  curDate: string;
   presentDate: Date;
   totalFileCount = 0;
 
@@ -174,14 +173,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
     } else {
-      // this.businessDate(new Date());
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    this.presentDateFormat = formatDate( this.presentDate, 'MMM. dd, yyyy', 'en');
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
 
     this.tabIn = 1;
     this.form = new FormGroup({
@@ -197,24 +194,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
-
-  // businessDate(businessWeekDay: Date) {
-  //   const weekDay = businessWeekDay.getDay();
-  //   switch (weekDay) {
-  //     case 0:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 2);
-  //       break;
-  //     case 1:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 3);
-  //       break;
-  //     case 6:
-  //       businessWeekDay.setDate(businessWeekDay.getDate() - 1);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   this.presentDate = businessWeekDay;
-  // }
 
   patchDatePicker(patchDatePickerValue: Date) {
     const updateDatePicker = {
@@ -512,7 +491,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
     if(!sessionStorage.getItem("selectedDate")){
-      // this.httpQueryParams.dueDate = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
       this.patchDatePicker(this.presentDate);
