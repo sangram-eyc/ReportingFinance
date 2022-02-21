@@ -50,6 +50,7 @@
     position: absolute;
     z-index: 1000;
     top: 70px;
+    left: 5px;
 
     &:after, &:before {
       bottom: 100%;
@@ -78,7 +79,7 @@
 
     .expanded-panel-info {
       p {
-        font-family: EYInterstate !important;
+        font-family: EYInterstate, sans-serif !important;
         font-style: normal !important;
         font-size: 14px;
         line-height: 16px;
@@ -86,6 +87,7 @@
         margin-top: 23px;
         font-weight: 100;
         padding: 0 20px;
+        cursor: pointer;
       }
     }
   }
