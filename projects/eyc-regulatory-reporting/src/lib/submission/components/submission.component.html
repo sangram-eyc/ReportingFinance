@@ -30,7 +30,10 @@
         </ng-template>
     </section>
     <ng-template #statusTemplate let-row>
-        <span class="status_icon">
+        <span class="status_icon_submitted" *ngIf="row.status =='Submitted to client' || row.status =='Submitted to regulator'">
+            <motif-icon [src]="'/assets/icons/image/ic_brightness_1_24px.svg'"></motif-icon>
+        </span>
+        <span class="status_icon_draft" *ngIf="row.status == 'Draft'">
             <motif-icon [src]="'/assets/icons/image/ic_brightness_1_24px.svg'"></motif-icon>
         </span>
         <div>{{row.status}}</div>
