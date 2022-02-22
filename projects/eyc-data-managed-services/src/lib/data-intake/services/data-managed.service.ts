@@ -33,8 +33,7 @@ export class DataManagedService {
     switch (weekDay) {
       case 0: businessWeekDay.setDate(businessWeekDay.getDate() - 2); break;
       case 1: businessWeekDay.setDate(businessWeekDay.getDate() - 3); break;
-      case 6: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
-      default: break;
+      default: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
     }
     return businessWeekDay;
   }
