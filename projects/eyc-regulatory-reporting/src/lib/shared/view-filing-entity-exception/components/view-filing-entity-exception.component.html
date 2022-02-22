@@ -28,11 +28,27 @@
 
 
 <div class="exceptionResults">
-    <lib-shared-grid (newEventToParent)="redirecttoDataExplorer($event)" [columnDefs]="exceptionAnswersDefs"
+   <!--  <lib-shared-grid (newEventToParent)="redirecttoDataExplorer($event)" [columnDefs]="exceptionAnswersDefs"
         [rowData]="rowData" [buttonText]="'Data Explorer'" rowSelection="multiple" buttonPosition="left"
         [defaultColDef]="{}" [disableAddMemberButton]="false" gridStyle="third" [noData]="'No exceptions found'"
-        [displayCheckBox]="true" [pagination]="true">
-    </lib-shared-grid>
+        [displayCheckBox]="true" [pagination]="true"  [export]="true" (exportFlagToParent)="exportData()">
+    </lib-shared-grid> -->
+
+    <lib-shared-grid
+    (newEventToParent)="redirecttoDataExplorer($event)" 
+    [columnDefs]="exceptionAnswersDefs" 
+    [rowData]="rowData"
+    [buttonText]="'Data Explorer'"
+    rowSelection="multiple"
+    buttonPosition="left"
+    [defaultColDef]="{}"
+    [disableAddMemberButton]="false"
+    gridStyle="third"
+    [noData]="'No exceptions found'"
+    [displayCheckBox]="true"
+    [pagination]="true"
+    [export]="true" (exportFlagToParent)="exportData()">
+  </lib-shared-grid>
 
     <ng-template #expandExceptionTemplate let-row>
         <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{ row.exceptionReportName}}</div>

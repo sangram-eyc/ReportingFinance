@@ -7,6 +7,9 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { customComparator, customCompareStrIntMix } from '../../config/rr-config-helper';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
+import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
+import { letProto } from 'rxjs-compat/operator/let';
+
 @Component({
   selector: 'lib-fund-scoping',
   templateUrl: './fund-scoping.component.html',
@@ -19,10 +22,13 @@ export class FundScopingComponent implements OnInit {
     private fundScopingService: FundScopingService,
     private filingService: RegulatoryReportingFilingService,
     public permissions: PermissionService,
-    private unsubscriber: AutoUnsubscriberService
+    private unsubscriber: AutoUnsubscriberService,
+    private settingsService: EycRrSettingsService
   ) { }
 
   filingDetails: any;
+  exportURL;
+  exportHeaders;
   fundScopingStatus = null;
   searchNoDataAvilable = false;
   approveModal = false;
@@ -82,6 +88,7 @@ export class FundScopingComponent implements OnInit {
         this.funds.push(eachitem);
       });
       this.createFundRowData();
+
       this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
         this.fundScopingStatus = resp['data'];
         console.log('FUND SCOPING STATUS', this.fundScopingStatus);
@@ -91,7 +98,6 @@ export class FundScopingComponent implements OnInit {
       this.rowData =[];
       console.log("FUnd Scoping error");
     });
-    
   }
 
   receiveFilingDetails(event) {
@@ -123,7 +129,6 @@ export class FundScopingComponent implements OnInit {
       }
     });
   } 
-
   createFundRowData() {
     this.rowData = [];
     this.funds.forEach( fund => {
@@ -250,6 +255,17 @@ export class FundScopingComponent implements OnInit {
     //     setTimeout(() => {
     //       this.showToastAfterApproveFunds = !this.showToastAfterApproveFunds;
     //     }, 5000);
+  }
+
+  exportScopeData() {
+  this.exportHeaders = 'fundId:ID,fundCode:Code,fundName:Entity name,adviser:Adviser,businessUnit:Business Unit,filerType:Filing Type'
+  this.exportURL =  this.settingsService.regReportingFiling.fund_scoping_details + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+  console.log("exportRequestDetails > ", this.exportURL);
+
+  this.fundScopingService.exportScopeData(this.exportURL).subscribe(resp => {
+    console.log(resp);
+  })
+
   }
 
 }

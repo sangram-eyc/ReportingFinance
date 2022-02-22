@@ -78,6 +78,8 @@
         [disableAddMemberButton]="fundScopingStatus === null || fundScopingStatus[0].progress === 'Completed'"
         [submitFunction]="onSubmitApproveFund" 
         [displayCheckBox] = "true"
+        [export] = "true"
+        (exportFlagToParent)="exportScopeData()"
         ></lib-shared-grid>
     </section>
     

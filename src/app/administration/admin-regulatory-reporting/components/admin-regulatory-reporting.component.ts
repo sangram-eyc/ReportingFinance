@@ -11,6 +11,7 @@ import { AdministrationService } from '@default/administration/services/administ
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
+import * as helpers from './../../../helper/api-config-helper';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -18,6 +19,7 @@ import { ModuleLevelPermissionService } from '@default/services/module-level-per
 })
 export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
+  apiHelpers = helpers.userAdminstration;
   tabIn;
   gridApi;
   columnDefs;
@@ -35,6 +37,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   is_Tax_Reporting = IS_SURE_FOOT;
   moduleName;
   moduleId;
+  exportHeaders;
+  exportUrl: string;
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -42,7 +46,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fb: FormBuilder,
     public permissions: PermissionService,
-    public moduleLevelPermission: ModuleLevelPermissionService
+    public moduleLevelPermission: ModuleLevelPermissionService,
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -343,4 +347,15 @@ openErrorModal(header, description) {
 
   });
 }
+
+exportTeamsData() {
+this.exportHeaders = '';
+this.exportHeaders = 'teamName:Team  Name,role:Role,numberOfTeamMembers:Members';
+this.exportUrl = this.apiHelpers.teams.teams_list+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+console.log("export URL > ", this.apiHelpers.teams.teams_list+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv");
+this.teamsService.exportTeamsData(this.exportUrl).subscribe(resp => {
+  console.log(resp);
+})
+}
+
 }

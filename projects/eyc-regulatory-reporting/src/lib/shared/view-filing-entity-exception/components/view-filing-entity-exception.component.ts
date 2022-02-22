@@ -29,6 +29,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  exportsHeader: string;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -129,5 +130,13 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   routeToExceptionDetailsPage(event:any) {
     // this.filingService.setExceptionData = event;
     // this.router.navigate(['/']);
+  }
+  exportData() {
+    this.exportsHeader = '';
+    this.exportsHeader = 'Audit:Exception Report Name,resolveOrException:Resolved/Exception';
+    this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader).subscribe(res => {
+     
+    });
+    
   }
 }

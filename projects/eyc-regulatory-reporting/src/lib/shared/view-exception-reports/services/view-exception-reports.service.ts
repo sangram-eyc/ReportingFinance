@@ -19,6 +19,10 @@ export class ViewExceptionReportsService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}exceptionId=${exceptionId}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}`);
   }
 
+  exportData(filingName, period, exceptionId, exceptionCnt, exportsHeader) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_reports}exceptionId=${exceptionId}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&headers=${exportsHeader}&export=true&reportType=csv`);
+  }
+
   getExceptionResults(exceptionRuleId) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_report_results}exceptionRuleId=${exceptionRuleId}`);
   }

@@ -29,6 +29,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   dataIntakeData;
   parentModule;
   commentsCount;
+  exportsHeader;
 
   showComments = false;
   commentsData;
@@ -359,6 +360,22 @@ export class ViewExceptionReportsComponent implements OnInit {
         console.log(result);
       }
     });
+  }
+
+  exportData() {
+    this.exportsHeader = '';
+    for (const property in this.exceptionAnswersData[0]) {
+      let hedars = property+":"+property;
+      if(this.exportsHeader)
+       this.exportsHeader = this.exportsHeader+","+hedars;
+      else  
+      this.exportsHeader = hedars;
+    }
+    this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
+    this.viewService.exportData(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.exportsHeader).subscribe(res => {
+     
+    });
+    
   }
 
 }

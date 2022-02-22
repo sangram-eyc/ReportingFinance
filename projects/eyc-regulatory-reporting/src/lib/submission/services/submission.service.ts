@@ -29,4 +29,8 @@ export class SubmissionService {
   updateStatus(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.updateSubmissionStatus}`, data);
   }
+
+  exportSubmissionData(exportURL) {
+       return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
 }

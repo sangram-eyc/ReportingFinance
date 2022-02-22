@@ -6,6 +6,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { Router, NavigationExtras } from '@angular/router';
+import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 
 
 @Component({
@@ -70,12 +71,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   showToastAfterApproveExceptionReports = false;
   commentEntityType;
   entityId;
+  exportHeaders: string;
+  exportURL: string;
 
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
     public permissions: PermissionService,
     private router: Router,
+    private settingsService: EycRrSettingsService,
     @Inject('mockDataEnable') public mockDataEnable
   ) { }
 
@@ -642,6 +646,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       ruleExceptionId: event.ruleExceptionId
     }}};
     this.router.navigate(['/view-exception-reports'], navigationExtras);
+  }
+
+  exportData(type) {
+    if(type == 'exceptions') {
+      this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+      this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    } else {
+      this.exportHeaders = 'due:Due,file:File,source:Source,resolved:Resolved,version:Version';
+      this.exportURL =  this.settingsService.regReportingFiling.datasets_list + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    }
+    console.log("export URL > ", this.exportURL);
+
+    this.service.exportIntakeData(this.exportURL).subscribe(resp => {
+      console.log(resp);
+    })
+
   }
 
 }

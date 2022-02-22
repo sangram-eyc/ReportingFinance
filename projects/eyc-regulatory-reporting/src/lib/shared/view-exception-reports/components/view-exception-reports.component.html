@@ -50,7 +50,8 @@
       gridStyle="third"
       [noData]="'No exceptions found'"
       [displayCheckBox]="true"
-      [pagination]="true">
+      [pagination]="true"
+      [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
       <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
