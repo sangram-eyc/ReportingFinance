@@ -73,7 +73,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   entityId;
   exportHeaders: string;
   exportURL: string;
-
+  lastFileDueDate;
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -168,6 +168,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     let businessDay = this.filesListArr[index].exceptionDue;
     console.log('businessDay > ', businessDay);
     console.log('INDEX', event);
+    this.lastFileDueDate = this.filesListArr[index].lastFileDueDate
     this.service.getBDFilesList(this.filingDetails.filingName, this.filesListArr[index].lastFileDueDate, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
         this.bdFilesList[index] = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName && item.exceptionDue == businessDay);
@@ -652,9 +653,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     if(type == 'exceptions') {
       this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
-    } else {
+    } else if(type == 'dataset') {
       this.exportHeaders = 'due:Due,file:File,source:Source,resolved:Resolved,version:Version';
       this.exportURL =  this.settingsService.regReportingFiling.datasets_list + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    } else if(type == 'accordion') {
+      this.exportHeaders = 'dataset:Dataset,fileName:File Name,status:Status,report:Report,source:Source,dataOwner:Data Owner,sourceType:Source Type,ownerEmail:Data Owner Email';
+      this.exportURL =  this.settingsService.regReportingFiling.bd_files_list +"filingName=" +this.filingDetails.filingName+ "&lastFileDueDate="+ this.lastFileDueDate+"&period="+this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
     console.log("export URL > ", this.exportURL);
 

@@ -8,6 +8,7 @@ import { customComparator } from 'eyc-ui-shared-component';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { resolvePtr } from 'dns';
+import * as helpers from './../../../../helper/api-config-helper';
 
 @Component({
   selector: 'lib-update-filing-properties',
@@ -16,6 +17,7 @@ import { resolvePtr } from 'dns';
 })
 export class UpdateFilingPropertiesComponent implements OnInit {
 
+  apiHelpers = helpers.userAdminstration;
   enableEditor = false;
   showToaster = false;
   toasterMessage;
@@ -485,5 +487,14 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         this.invalidEditReportIDs.splice(index, 1);
       }
     }
+  }
+
+  exportData() {
+    let exportHeaders = 'name:Question,pbiReportId:Report ID';
+    let exportURL =  this.apiHelpers.static_data.pbi_mapping +this.filingData.formId +'/pbi-mapping' + "&export=" + true +"&headers=" + exportHeaders + "&reportType=csv";
+  
+    this.service.exportPBIMappingData(exportURL).subscribe(resp => {
+      console.log(resp);
+    })
   }
 }

@@ -17,7 +17,7 @@
                         <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="hideLabels" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
-                <div *ngIf="!button"></div>
+                <div *ngIf="!button" class="buttons"></div>
                 <div class="search" *ngIf="search">
                     <motif-form-field>
                         <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
@@ -37,7 +37,16 @@
                         <span>Export to CSV</span>
                     </div>
                 </div>
-                <div *ngIf="!search"></div>
+                <div class="search" *ngIf="!search">
+                    <div class="exportWrapper" *ngIf="export && (rowData?.length > 1)" (click)="exportData($event)">        
+                        <div class="export_icon">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.25 6.75H11.25V2.25H6.75V6.75H3.75L9 12L14.25 6.75ZM8.25 8.25V3.75H9.75V8.25H10.6275L9 9.8775L7.3725 8.25H8.25ZM3.75 13.5H14.25V15H3.75V13.5Z" fill="#155CB4"/>
+                            </svg>
+                        </div>           
+                        <span>Export to CSV</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div [hidden]="!permissionToShowDataTable">
