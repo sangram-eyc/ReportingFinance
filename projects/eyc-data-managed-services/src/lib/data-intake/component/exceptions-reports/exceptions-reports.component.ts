@@ -13,7 +13,6 @@ import { DataManagedService } from '../../services/data-managed.service';
 })
 export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   gridApi;
-  curDate: string;
   presentDate: Date;
 
   searchNoDataAvailable: boolean;
@@ -114,7 +113,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
     this.presentDate = new Date();
     this.exceptionTableFillData = [];
     this.headerColumnName = []

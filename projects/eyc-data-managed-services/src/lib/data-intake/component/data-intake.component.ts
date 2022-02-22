@@ -43,7 +43,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
-  curDate: string;
   presentDate: Date;
   totalFileCount = 0;
   calSelectedDate: string;
@@ -98,6 +97,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   //end option
   form: FormGroup;
   businessDays: boolean = false;
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -106,16 +108,30 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = this.presentDateFormat;
+    }
+
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -151,8 +167,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());
+    }
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -187,6 +208,20 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.fileSummaryList();
   }
 
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
@@ -198,6 +233,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
+    
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpQueryParams.dueDate = this.presentDateFormat;
+      this.patchDatePicker(this.presentDate);
+    }
+
     this.fileSummaryList();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -213,6 +254,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
+
+    if(!sessionStorage.getItem("selectedDate")){
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
+    }
+
     this.fileSummaryList();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }

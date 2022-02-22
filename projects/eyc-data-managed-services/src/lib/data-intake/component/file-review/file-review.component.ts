@@ -30,7 +30,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   stackBarChartGridData = [];
   gridApi;
   innerTabIn: number = 1;
-  curDate: string;
   presentDate: Date;
   totalFileCount = 0;
 
@@ -159,15 +158,28 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
   ];
 
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
+
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
   }
 
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());
+    }
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+
     this.tabIn = 1;
     this.form = new FormGroup({
       datepicker: new FormControl({
@@ -182,14 +194,38 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
+
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = this.presentDateFormat;
+    }
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -454,6 +490,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpQueryParams.dueDate = this.presentDateFormat;
+      this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
+      this.patchDatePicker(this.presentDate);
+    }
     this.fileSummaryList();
     this.getReviewFileTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
@@ -473,6 +514,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
+    }
+
+    if(!sessionStorage.getItem("selectedDate")){
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
+      this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
     }
     this.fileSummaryList();
     this.getReviewFileTableData();

@@ -18,7 +18,6 @@ import { SmallDonutChartSeriesItemDTO } from '../../models/bar-chart-series-Item
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DonutGridListComponent implements OnInit, AfterViewInit {
-  curDate: string;
   presentDate: Date;
   view = [];
   showLegend = false;
@@ -61,6 +60,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
+
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -68,6 +71,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     private unsubscriber: AutoUnsubscriberService,
     private _activatedroute: ActivatedRoute, private _router: Router) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
       if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
@@ -80,13 +87,22 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = this.presentDateFormat;
+    }
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: this.dataIntakeType,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       auditFileGuidName: '',
       fileId: '',
@@ -110,11 +126,28 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.getDataIntakeType();
   }
 
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
-
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());
+    }
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -150,6 +183,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpQueryParams.dueDate = this.presentDateFormat;
+      this.patchDatePicker(this.presentDate);
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -165,6 +203,12 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    
+    if(!sessionStorage.getItem("selectedDate")){
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }

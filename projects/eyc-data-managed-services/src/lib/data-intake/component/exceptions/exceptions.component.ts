@@ -32,14 +32,12 @@ export class ExceptionsComponent implements OnInit {
   @ViewChild('nextButtonTemplate')
   nextButtonTemplate: TemplateRef<any>;
   
-  curDate: string;
   presentDate: Date;
   form: FormGroup;
   calSelectedDate: string;
   disabledDailyMonthlyButton: boolean = false;
   dailyMonthlyStatus: boolean = false;
-  
-  
+    
   ExceptionFileName: string;
   ExceptionAuditGuidName:string;
   ExceptionFileNameAlias:string;
@@ -60,7 +58,7 @@ export class ExceptionsComponent implements OnInit {
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
   maxPages = 5;
- dataset: GridDataSet[] = [{
+  dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
     name: '10',
@@ -90,11 +88,19 @@ export class ExceptionsComponent implements OnInit {
   commentsName;
   entityId;
  
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
+
   constructor(private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth());
+      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
       this._activatedroute.paramMap.subscribe(params => {
         this.ExceptionFileName = params.get('paramFilename');
         this.ExceptionAuditGuidName = params.get('paramguidName');
@@ -104,8 +110,12 @@ export class ExceptionsComponent implements OnInit {
 
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());
+    }
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -121,11 +131,21 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = this.presentDateFormat;
+    }
+
     this.httpDataGridParams = {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       clientName: '',
       auditFileGuidName:this.ExceptionAuditGuidName,
@@ -244,14 +264,31 @@ export class ExceptionsComponent implements OnInit {
     }
   }
 
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   dailyData(status: boolean) {
     // Daily data fetch as per click
-
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpDataGridParams.dueDate = this.presentDateFormat;
+      this.patchDatePicker(this.presentDate);
+    }
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -264,6 +301,12 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+
+    if(!sessionStorage.getItem("selectedDate")){
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpDataGridParams.dueDate = this.lastMonthDueDateFormat;
+    }
+
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
