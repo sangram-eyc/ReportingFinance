@@ -17,11 +17,13 @@
     background: #FFFFFF;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    left: 50%;
+    right: 5px;
     top: 50px;
-    transform: translate(-50%);
     z-index: 10000;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .filter-panel-header {
       color: #747480;
@@ -33,6 +35,11 @@
       display: flex;
       flex-direction: column;
       margin-top: 20px;
+    }
+    .filter-panel-actions {
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
     }
 
     .container-checkbox {
