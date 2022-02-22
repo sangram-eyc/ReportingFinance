@@ -16,7 +16,7 @@ export class NotificationService {
   }
 
   getArchivedNotifications(search = ''): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=true&search=${search}`);
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=true&channelType=IN_APP&search=${search}`);
   }
 
   getNotArchivedNotifications(): Observable<any> {
