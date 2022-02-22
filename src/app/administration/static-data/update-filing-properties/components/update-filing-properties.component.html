@@ -145,7 +145,8 @@
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third"
-      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
+      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+      [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
