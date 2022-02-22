@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 
 
 @Component({
@@ -73,12 +74,15 @@ export class SubmissionComponent implements OnInit {
       ]
     }
   ]
+  exportHeaders: string;
+  exportURL;
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
     public permissions: PermissionService,
     private filingService: RegulatoryReportingFilingService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private settingsService: EycRrSettingsService
     ) { }
 
 
@@ -393,5 +397,13 @@ export class SubmissionComponent implements OnInit {
     console.log(row);
     this.showAuditLog = true;
     this.fileDetail = row;
+  }
+  exportSubmissionData(){
+    this.exportHeaders = '';
+    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Chnaged,updatedBy: Last updated by';
+    this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    this.service.exportSubmissionData(this.exportURL).subscribe(resp => {
+      console.log(resp);
+    })
   }
 }

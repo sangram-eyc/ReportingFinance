@@ -825,13 +825,18 @@ actionMenuEnableforException(row) {
 
   exportData(type) {
     if(type == 'entities') {
-      this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
-      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportHeaders = 'entityId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
       this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,reviewLevel:Review Level';
-      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
     console.log("export URL > ", this.exportURL);
+
+    this.rrservice.exportRRData(this.exportURL).subscribe(resp => {
+      console.log(resp);
+    })
+
   }
 
 }

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
 import { AdministrationService } from '@default/administration/services/administration.service';
+import * as helpers from './../../../helper/api-config-helper';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -18,7 +19,9 @@ import { AdministrationService } from '@default/administration/services/administ
 })
 export class EycTeamDetailsComponent implements OnInit {
 
-
+  apiHelpers = helpers.userAdminstration;
+  exportHeaders;
+  exportUrl: string;
   constructor(private location: Location,
     private teamService: TeamsService,
     private adminService: AdministrationService,
@@ -446,6 +449,16 @@ export class EycTeamDetailsComponent implements OnInit {
     this.editTeamForm.patchValue({
       assignments: model
     });
+  }
+
+  exportTeamsDetailsData() {
+    this.exportHeaders = '';
+    this.exportHeaders = 'userFirstName:First Name,userLastName:Last Name,userEmail:Email';
+    this.exportUrl = this.apiHelpers.teams.teams_Details + this.curentTeamId +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    console.log("export URL > ", this.exportUrl);
+    this.teamService.exportTeamsDetailsData(this.exportUrl).subscribe(resp => {
+      console.log(resp);
+    })
   }
 
 }

@@ -7,6 +7,8 @@ import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubs
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
+import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+
 
 @Component({
   selector: 'lib-regulatory-reporting-filing',
@@ -17,6 +19,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   tabIn;
+  exportHeaders: string;
+  exportURL;
   constructor(
     private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
@@ -25,7 +29,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     public permissions: PermissionService,
     public dialog: MatDialog,
     private router: Router,
-    private unsubscriber: AutoUnsubscriberService
+    private unsubscriber: AutoUnsubscriberService,
+    private settingsService: EycRrSettingsService
   ) { }
 
   activeFilings: any[] = [];
@@ -497,4 +502,15 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
     });
   }
+
+  exportReportHistoryData() {
+    this.exportHeaders = '';
+    this.exportHeaders = 'name:Filing Report Name,period:Filing period,totalFunds:Total entities,dueDate:Due date,subDate:Submission date,completedDate:Date marked complete,completedBy:Marked completed by';
+    this.exportURL = this.settingsService.regReportingFiling.filing_history  +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    console.log("export URL > ", this.exportURL);
+    this.filingService.exportReportsHistory(this.exportURL).subscribe(resp => {
+      console.log(resp);
+    })
+  }
+
 }

@@ -21,7 +21,8 @@
     displayCheckBox="{{displayCheckBox}}" 
     gridStyle="third"
     [disableAddMemberButton]="false"
-    (newEventToParent)="addUser($event)">
+    (newEventToParent)="addUser($event)"
+    [export] = "true" (exportFlagToParent)="exportUsersData()">
     </lib-shared-grid>
 
     <ng-template #headerTemplate>

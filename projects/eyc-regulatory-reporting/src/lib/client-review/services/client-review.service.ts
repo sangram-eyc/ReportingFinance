@@ -42,4 +42,7 @@ export class ClientReviewService {
   getComments(type, id) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
   }
+  exportCRData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
 }

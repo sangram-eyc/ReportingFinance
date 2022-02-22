@@ -30,6 +30,31 @@
             box-shadow: none !important;
         }
     }
+    .exportWrapper{
+        display: flex;
+        top: 13px;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        z-index: 999999;
+        right: 6px;
+        cursor: pointer;
+            ::ng-deep svg {
+                    width: 18px;
+                    height: 18px;
+                    fill: #155CB4;
+            }
+            span {
+                font-family: EYInterstate;
+                font-size: 14px;
+                line-height: 22px;
+                color: #155CB4;
+                top: -2px;
+                position: relative;
+                left: 2px;
+                font-weight: bold;
+            }
+        }
 }
 
 #xml-files-list {

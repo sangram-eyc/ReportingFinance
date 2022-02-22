@@ -52,4 +52,10 @@ export class TeamsService {
   EditTeam(teamData) {
     return this.apiService.invokePostAPI(`${userAdminstration.teams.teamUpdate}`,teamData);
   }
+  exportTeamsData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
+  exportTeamsDetailsData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
 }
