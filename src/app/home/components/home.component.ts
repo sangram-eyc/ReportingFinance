@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 import { Router } from '@angular/router';
+import {PreferencesService} from "@default/services/preferences.service";
 
 
 @Component({
@@ -19,12 +20,18 @@ export class HomeComponent implements OnInit {
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private moduleLevelPermission: ModuleLevelPermissionService,
+    private preferencesService: PreferencesService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
+      this.preferencesService.emailToRecipient().subscribe(res => {
+      }, error => {
+        this.preferencesService.createRecipient().subscribe(recipient => {
+        });
+      });
     }
 
     this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {

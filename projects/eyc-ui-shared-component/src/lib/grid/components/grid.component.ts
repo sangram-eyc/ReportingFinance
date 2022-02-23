@@ -35,6 +35,8 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() buttonPosition: 'left' | 'right';
   @Input() buttonText = 'Approve selected';
   @Input() secondbuttonText = 'Reject selected';
+  @Input() unresolveButtonText ="Unresolve"
+  @Input() resolveButtonText ="Resolve"
   @Input() displaySecondButton = false;
   @Input() displayCheckBox = false;
   @Input() modalMessage;
@@ -57,6 +59,8 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() permissionToPrimaryButton = true;
   @Input() permissionToSecondaryButton = true;
   @Input() permissionToShowDataTable = true;
+  @Input() permissionToResolveExceptionButton = false;
+  @Input() permissionToUnresolveExceptionButton = false;
   @Input() rowData: any;
   @Input() disableAddMemberButton = true;
   @Input() columnDefs: any;
@@ -71,7 +75,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() paginationSize = 100;
   @Input() displayPlusIcon = true;
   @Input() hideHeaderCheckbox = false;
+  @Input() disableResolveButton = false;
+  @Input() disableUnresolveButton = false;
   @Output() newEventToParent = new EventEmitter<string>();
+  @Output() unresolveEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() toggleEventToParent = new EventEmitter<boolean>();
@@ -170,6 +177,9 @@ pageSize;
     this.gridApi.paginationSetPageSize(newPageSize);
   }
 
+  openResolveUnresolveDialog(type:string){
+    type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
+  }
   openDialog() {
     if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();

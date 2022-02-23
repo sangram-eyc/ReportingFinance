@@ -62,25 +62,25 @@ export class ResolveModalComponent implements OnInit {
   }
 
   onClickYes() {
-    //console.log("reslove URL > ", this.modalDetails.resolveUrl);
     if (this.modalDetails.type === "ConfirmationTextUpload") {
       const commentObj = {
         "comment": escape(this.modalForm.get('comment').value.trim()),
-        "entityId": this.modalDetails.entityId,
+        "entityId": this.modalDetails.entityId[0],
         "entityType": this.modalDetails.entityType,
       };
       
       const dataObj = {
         "auditResultObjectId": [
-          this.modalDetails.entityId
+          ...this.modalDetails.entityId
         ],
         "filingName": this.modalDetails.filingName,
         "period": this.modalDetails.period,
         "stage": this.modalDetails.stage
       
       }
+      let statusTo = this.modalDetails.statusTo
       let exceptionId = this.modalDetails.exceptionId;
-      this.commentService.updateStatus(exceptionId,dataObj).subscribe(resolveResp => {
+      this.commentService.updateStatus(exceptionId,dataObj,statusTo).subscribe(resolveResp => {
       this.commentService.addComment(commentObj).subscribe(res => {
         console.log(res);
         if (this.filesList.length) {
