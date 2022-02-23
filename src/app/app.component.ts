@@ -119,11 +119,14 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
 
-        this.preferencesService.emailToRecipient().subscribe(res => {
-        }, error => {
-          this.preferencesService.createRecipient().subscribe(recipient => {
+        setTimeout(() => {
+          this.preferencesService.emailToRecipient().subscribe(recipient => {
+          }, error => {
+            this.preferencesService.createRecipient().subscribe(err => {
+            });
           });
-        });
+        }, 1000);
+
         if (uname) {
           this.userGivenName = uname.firstName;
           this.loginName = uname.firstName + ' ' + uname.lastName;

@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 import { Router } from '@angular/router';
-import {PreferencesService} from "@default/services/preferences.service";
 
 
 @Component({
