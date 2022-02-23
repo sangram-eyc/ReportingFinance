@@ -335,7 +335,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         const comment: any = {
           id: item.id,
           entityId: item.entityId,
-          //entityType: item.entityType,
           description: item.description,
           status: item.status,
           priority: item.priority,
@@ -346,7 +345,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           createdDate: item.createdDate,
           tags: item.tags,
           replyCount: item.replyCount,
-          //attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
           attachments:item.attachments,
           priorityToFind: item.priority == 1 ? "critical":"",
           tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
@@ -363,6 +361,11 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           position: { rowStart : '0' },
           animation: { to: 'left' }
         });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getCommentsList();
+        });
+
     })
   }
 
