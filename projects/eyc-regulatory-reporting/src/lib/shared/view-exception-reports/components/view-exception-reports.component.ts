@@ -365,13 +365,13 @@ export class ViewExceptionReportsComponent implements OnInit {
   exportData() {
     this.exportsHeader = '';
     for (const property in this.exceptionAnswersData[0]) {
-      let hedars = property+":"+property;
+      let hedars = property;
       if(this.exportsHeader)
        this.exportsHeader = this.exportsHeader+","+hedars;
       else  
       this.exportsHeader = hedars;
     }
-    this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
+    this.exportsHeader =  this.exportsHeader+",Comments";
     this.viewService.exportData(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.exportsHeader).subscribe(res => {
      
     });
