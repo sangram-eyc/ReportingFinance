@@ -20,18 +20,12 @@ export class HomeComponent implements OnInit {
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private moduleLevelPermission: ModuleLevelPermissionService,
-    private preferencesService: PreferencesService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
-      this.preferencesService.emailToRecipient().subscribe(res => {
-      }, error => {
-        this.preferencesService.createRecipient().subscribe(recipient => {
-        });
-      });
     }
 
     this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {
