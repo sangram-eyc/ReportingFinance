@@ -20,7 +20,7 @@ export class NotificationService {
   }
 
   getNotArchivedNotifications(): Observable<any> {
-    return this.http.get(`${notification.no_Archived_Notifications}`);
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP`);
   }
 
   setNotificationFlagged(id): Observable<any> {
