@@ -353,8 +353,11 @@ export class ViewExceptionReportsComponent implements OnInit {
     console.log('Data explorer');
   }
   backtoParent(stage) {
-    stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
-    this.location.back();
+    this.count++;
+    if (this.count == 1) {
+      stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
+      this.location.back();
+    }
   }
 
   addCommentToException(row) {
