@@ -12,6 +12,12 @@
                     <div *ngIf="permissionToSecondaryButton">
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                     </div>
+                    <div class="approve-button" *ngIf="permissionToResolveExceptionButton">
+                        <button motifButton color="secondary" size="small" [disabled]="disableResolveButton" (click)="openResolveUnresolveDialog('resolve')">{{resolveButtonText}}</button>
+                    </div>
+                    <div class="second-button" *ngIf="permissionToUnresolveExceptionButton">
+                        <button motifButton color="secondary" size="small" [disabled]="disableUnresolveButton" (click)="openResolveUnresolveDialog('unresolve')">{{unresolveButtonText}}</button>
+                    </div>
                     <div class="toggle-left" *ngIf="isToggleLeft">
                         <h4 [ngClass]="{disabled: toggleLeftDisabled}">{{toggleLeftTitle}}</h4>
                         <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="hideLabels" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
