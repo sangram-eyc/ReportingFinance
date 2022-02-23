@@ -491,7 +491,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   exportData() {
     let exportHeaders = 'name:Question,pbiReportId:Report ID';
-    let exportURL =  this.apiHelpers.static_data.pbi_mapping +this.filingData.formId +'/pbi-mapping' + "&export=" + true +"&headers=" + exportHeaders + "&reportType=csv";
+    let exportURL =  this.apiHelpers.static_data.pbi_mapping +this.filingData.formId +'/pbi-mapping' + "?export=" + true +"&headers=" + exportHeaders + "&reportType=csv";
   
     this.service.exportPBIMappingData(exportURL).subscribe(resp => {
       console.log(resp);
