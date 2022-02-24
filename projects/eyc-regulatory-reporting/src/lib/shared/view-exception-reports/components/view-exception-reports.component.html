@@ -70,7 +70,7 @@
     (unresolveEventToParent)="actionUnResolvedClick($event)"
     [disableResolveButton]="!enableResolveButton"
     [disableUnresolveButton]="!enableUnresolveButton"
-    [hideHeaderCheckbox]="false">
+    [hideHeaderCheckbox]="false"  [export]="true" (exportFlagToParent)="exportData()">
   </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
       <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
