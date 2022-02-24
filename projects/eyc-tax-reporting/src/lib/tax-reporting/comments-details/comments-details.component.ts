@@ -331,7 +331,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
     this.completedComments = [];
     this.commentService.getCommentExpandDetails(_idTaskComment).subscribe(resp => {
       const item = resp['data'].taskResponse;
-      const _replies = resp['data'].commentDetail;
+      const _replies = resp['data'].repliesDetail;
         const comment: any = {
           id: item.id,
           entityId: item.entityId,

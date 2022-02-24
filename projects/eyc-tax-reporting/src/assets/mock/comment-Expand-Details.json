@@ -40,7 +40,7 @@
                 }
             ]
         },
-        "commentDetail": [
+        "repliesDetail": [
             {
                 "commentId": 1,
                 "commentText": "This is a test comment",
