@@ -132,6 +132,17 @@
       </div>
     </ng-template>
 
+    <ng-template #tagsTemplate let-row>  
+        <motif-chip-group>
+          <motif-chip *ngIf="row.priority == 1" [removeable]="false" (click)="openDialog(row.id)" [variant]="lightVariant">
+            {{ tagCritical }}
+         </motif-chip>
+          <motif-chip *ngFor="let item of row.tags; index as y;" [removeable]="false" (click)="openDialog(row.id)" [variant]="lightVariant">
+             {{ item.name }}
+          </motif-chip>
+      	</motif-chip-group>        
+    </ng-template>
+
 </div>
 
 

@@ -45,6 +45,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   fundTemplate: TemplateRef<any>;
   @ViewChild('replyTemplate')
   replyTemplate: TemplateRef<any>;
+  @ViewChild('tagsTemplate')
+  tagsTemplate: TemplateRef<any>;
   tooltipFunCall = false;
 
   //Total-comments-box
@@ -75,7 +77,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   disabledLeftToggle: boolean = true;
   showOnlyMyAssignedFunds: boolean = false;
   getCommentsDetails:Subscription;
-
+  lightVariant: string = "monochrome-light";
+  tagCritical: string = 'Critical';
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -182,7 +185,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         createdDate: item.createdDate,
         tags: item.tags,
         replyCount: item.replyCount,
-        assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
+        assignedTo: item.assignedUsers == null ? [] : item.assignedUsers,
+        tagsToSearch: item.priority == 1 ? this.splitTags(item.tags, true): this.splitTags(item.tags, false)
       })
     });
     this.isToggleLeftDisabled()
@@ -270,6 +274,20 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         filter: true,
         resizeable: true,
         width: 200,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.tagsTemplate,
+        },
+        headerName: 'Tags',
+        field: 'tagsToSearch',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        width: 350,
         sort: 'asc'
       }
     ];
@@ -367,6 +385,19 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         });
 
     })
+  }
+
+  splitTags(arrayTags: any, flagCritical:boolean) {
+    var result: string[] = [];
+    if (arrayTags) {
+      arrayTags.forEach(tag => {
+        result.push(tag.name);
+      });
+    }
+    if(flagCritical){
+      result.push(this.tagCritical);
+    }
+    return result.join(",");
   }
 
 }
