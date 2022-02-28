@@ -23,14 +23,9 @@ export class NotificationsPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArchivedNotifications();
-    this.notifications = JSON.parse(sessionStorage.getItem('notifications')) || [];
+    this.notifications = [];
     this.notificationService.getNotArchivedNotifications().subscribe(res => {
-      res.content.forEach(item => {
-        const index = this.notifications.findIndex(notification => item.engineId == item.name);
-        if (index < 0) {
-          this.notifications.push(item);
-        }
-      });
+      this.notifications = res.content;
     });
   }
 
