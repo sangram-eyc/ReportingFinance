@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {PouchdbService} from "@default/services/pouchdb.service";
 import {NotificationService} from "@default/services/notification.service";
@@ -24,9 +24,12 @@ export class NotificationsPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getArchivedNotifications();
     this.notifications = JSON.parse(sessionStorage.getItem('notifications')) || [];
-    this.notificationService.getNotArchivedNotifications().subscribe( res => {
+    this.notificationService.getNotArchivedNotifications().subscribe(res => {
       res.content.forEach(item => {
-        this.notifications.push(item);
+        const index = this.notifications.findIndex(notification => item.engineId == item.name);
+        if (index < 0) {
+          this.notifications.push(item);
+        }
       });
     });
   }
@@ -40,38 +43,27 @@ export class NotificationsPanelComponent implements OnInit {
   }
 
   archive(i): void {
-    const notificationContent = JSON.parse(this.notifications[i].request.content);
-    notificationContent.extraParameters.isArchived = true;
-    this.notifications[i].request.content = JSON.stringify(notificationContent);
-    this.notifications = Object.assign([], this.notifications);
-    event.stopPropagation();
-    event.preventDefault();
-    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
-    this.getArchivedNotifications();
-  }
-
-  flag(i): void {
-    const notificationContent = JSON.parse(this.notifications[i].request.content);
-    notificationContent.extraParameters.flagged = !notificationContent.extraParameters.flagged;
-    this.notifications[i].request.content = JSON.stringify(notificationContent);
-    this.notifications = Object.assign([], this.notifications);
-    event.stopPropagation();
-    event.preventDefault();
-    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
+    this.delete(i);
+    setTimeout(() => {
+      this.getArchivedNotifications();
+    }, 1000);
   }
 
   expand(id): void {
-   this.notifications.forEach( item => {
-     if (item.engineId !== id) {
-       item.request.expanded = false;
-     }
-   });
-   this.notifications.find(item => item.engineId === id).request.expanded
-     = !this.notifications.find(item => item.engineId === id).request.expanded;
+    this.notifications.forEach(item => {
+      if (item.engineId !== id) {
+        item.request.expanded = false;
+      }
+    });
+    this.notifications.find(item => item.engineId === id).request.expanded
+      = !this.notifications.find(item => item.engineId === id).request.expanded;
+
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   getArchivedNotifications() {
-    this.notificationService.getArchivedNotifications().subscribe( res => {
+    this.notificationService.getArchivedNotifications().subscribe(res => {
       this.archivedItems = res.totalElements;
     });
   }
