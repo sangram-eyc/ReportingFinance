@@ -27,15 +27,7 @@ export class ArchivedNotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.notificationService.getArchivedNotifications().subscribe( (res: any) => {
-      this.notificationsData = res.content;
-      this.notificationsData.forEach( item => {
-        item.selected = false;
-        item.subject = item.request.subject;
-        item.category = JSON.parse(item.request.content).category;
-      });
-    });
-
+    this.getData();
     setTimeout(() => {
       this.columnDefs = [
         {
@@ -136,11 +128,31 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   flag(notification?): void {
-    this.notificationService.setNotificationFlagged(1).subscribe( res => {
-
+    const content = JSON.parse(notification.request.content);
+    this.notificationService.setNotificationFlagged(notification.engineId, !content.flagged).subscribe( res => {
+      this.getData();
     });
   }
 
-  delete(): void {
+  delete(notification?): void {
+    this.notificationService.deleteNotification(notification.engineId).subscribe( res => {
+      this.getData();
+    });
+  }
+
+  isFlagged(notification): boolean {
+    const content = JSON.parse(notification.request.content);
+    return content.flagged;
+  }
+
+  getData(): void {
+    this.notificationService.getArchivedNotifications().subscribe( (res: any) => {
+      this.notificationsData = res.content;
+      this.notificationsData.forEach( item => {
+        item.selected = false;
+        item.subject = item.request.subject;
+        item.category = JSON.parse(item.request.content).category;
+      });
+    });
   }
 }

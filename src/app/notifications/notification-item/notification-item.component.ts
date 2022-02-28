@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {NotificationService} from "@default/services/notification.service";
+import {NotificationService} from '@default/services/notification.service';
 
 @Component({
   selector: 'app-notification-item',
@@ -16,14 +16,15 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
   public content: any;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService) {
+  }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.notification) {
-     this.content = JSON.parse(changes.notification.currentValue.content);
+      this.content = JSON.parse(changes.notification.currentValue.content);
     }
   }
 
@@ -33,27 +34,28 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   delete(): void {
+    this.notificationService.deleteNotification(this.notification.engineId).subscribe(res => {
+
+    });
     this.deleteNotification.emit();
   }
 
   archive(): void {
-    this.notificationService.setAsArchived(this.notification.engineId).subscribe()
+    this.notificationService.setAsArchived(this.notification.engineId).subscribe();
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.notificationService.setNotificationFlagged(this.notification.engineId).subscribe( res => {
-
+    this.notificationService.setNotificationFlagged(this.notification.engineId, !this.content.flagged).subscribe(res => {
+      this.content.flagged = !this.content.flagged;
     });
-    this.content.flagged = !this.content.flagged;
-    this.flagNotification.emit();
   }
 
   calculateNotificationTime(date) {
 
     if (date instanceof Array) {
       return `${date[0]} - ${date[1]} - ${date[2]}`;
-    } else  {
+    } else {
       // @ts-ignore
       const seconds = Math.floor((new Date() - new Date(date)) / 1000);
 

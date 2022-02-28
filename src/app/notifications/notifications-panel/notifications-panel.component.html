@@ -47,7 +47,7 @@
   </motif-card-header>
   <div class="notifications-list mt-3" *ngIf="notifications?.length">
     <app-notification-item *ngFor="let item of notifications; let i = index" [notification]="item.request"
-      (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)" (flagNotification)="flag(i)">
+      (expandNotification)="expand($event)" (deleteNotification)="delete(i)" (archiveNotification)="archive(i)">
     </app-notification-item>
   </div>
   <div class="notifications-buttons">

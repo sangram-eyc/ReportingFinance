@@ -23,12 +23,16 @@ export class NotificationService {
     return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP`);
   }
 
-  setNotificationFlagged(id): Observable<any> {
-    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/set-flagged?flagged=true`, {});
+  setNotificationFlagged(id, flag): Observable<any> {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/set-flagged?flagged=${flag}`, {});
   }
 
   setNotificationRead(id): Observable<any> {
     return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/mark-as-read`, {});
+  }
+
+  deleteNotification(id): Observable<any> {
+    return this.http.delete(`${environment.apiEndpoint}gatewayService/api/notification/${id}`);
   }
 
   exportCsv(): Observable<any> {
