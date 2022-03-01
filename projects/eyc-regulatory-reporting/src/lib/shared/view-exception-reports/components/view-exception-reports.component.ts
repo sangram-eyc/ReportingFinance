@@ -604,14 +604,25 @@ export class ViewExceptionReportsComponent implements OnInit {
   exportData() {
     this.exportsHeader = '';
     for (const property in this.exceptionAnswersData[0]) {
-      let hedars = property;
+      let hedars = property+":"+property;
       if(this.exportsHeader)
        this.exportsHeader = this.exportsHeader+","+hedars;
       else  
       this.exportsHeader = hedars;
     }
-    this.exportsHeader =  this.exportsHeader+",Comments";
-    this.viewService.exportData(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.exportsHeader).subscribe(res => {
+    this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
+
+    const requestobj = {
+      "exceptionId": this.filingService.getExceptionData.exceptionId,
+      "export": true,
+      "reportType": "CSV",
+      "filingName": this.filingName,
+      "period": this.period,
+      "totalExceptions": this.exceptionCnt,
+      "titles": this.exportsHeader
+    }
+
+    this.viewService.exportData(requestobj).subscribe(res => {
      
     });
     
