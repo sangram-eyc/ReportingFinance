@@ -5,7 +5,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
-import { PermissionService } from 'eyc-ui-shared-component';
+import { PermissionService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
@@ -105,7 +105,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.columnDefs1 = [
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Name',
           field: 'name',
           sortable: true,
@@ -118,7 +118,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         },
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Email',
           field: 'email',
           cellClass: 'custom-user-email',
@@ -131,7 +131,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         },
         // {
         //   width: 90,
-        //   headerComponentFramework: MotifTableHeaderRendererComponent,
+        //   headerComponentFramework: TableHeaderRendererComponent,
         //   headerName: 'Teams',
         //   field: 'teams',
         //   sortable: true,
@@ -139,7 +139,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         // },
         {
           width: 80,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
