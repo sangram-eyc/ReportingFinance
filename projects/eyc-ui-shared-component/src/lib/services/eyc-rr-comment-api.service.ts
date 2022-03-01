@@ -30,4 +30,12 @@ export class EycRrCommentApiService {
   updateStatus(exceptionId,data,statusTo) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.resolve}`+exceptionId+'/'+statusTo,data);
   }
+
+  addBulkComment(data){
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_bulk_comment}`, data);
+  }
+
+  uploadBulkFile(data) { 
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.bulk_upload}`, data);
+  }
 }
