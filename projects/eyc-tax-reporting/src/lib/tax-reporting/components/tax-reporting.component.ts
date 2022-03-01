@@ -219,7 +219,7 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: false,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
@@ -244,7 +244,7 @@ export class TaxReportingComponent implements OnInit {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 500
+        width: 150
       }
     ];
   }
