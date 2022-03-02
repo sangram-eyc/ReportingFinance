@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -11,11 +12,12 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   @Input() show: boolean;
   @Input() fileDetail;
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Input() stage;
+  updatedText = "approved on"
   step: number = 6;
 
   @Input() auditLogs = [];
-  constructor() {
+  constructor(public datepipe: DatePipe) {
     // this.appContainer = document.getElementById('main-container');
    }
 
@@ -57,11 +59,11 @@ if (this.show) {
   getStatus(progress) {
     let state = 'not-set';
 
-    if (progress === 'In Progress' || progress === 'in-progress' || progress === 'IN_PROGRESS') {
+    if (progress === 'In Progress' || progress === 'in-progress' || progress === 'IN_PROGRESS'|| progress === 'Started') {
       state = "in-progress";
-    } else if ((progress === 'Completed' || progress === 'completed' || progress === 'COMPLETED')) {
+    } else if ((progress === 'Completed' || progress === 'completed' || progress === 'COMPLETED' || progress === 'Approval')) {
       state = 'completed';
-    } else if(progress === 'ERROR') {
+    } else if(progress === 'ERROR' || progress === 'Unapproval') {
       return 'error'
     } else {
       state = 'not-set';
@@ -70,10 +72,26 @@ if (this.show) {
   }
 
   getError(progress) {
-    if (progress == "ERROR") {
+    if (progress == "ERROR" || progress === 'Unapproval') {
       return true;
     } else {
       return false;
+    }
+  }
+
+  getSubtitle(auditActionType, modifieruserName, modifiedDateTime) {
+    let status = this.getStatus(auditActionType)
+
+    if(status == 'in-progress') {
+      return 'In progress';
+    } else if (status == 'not-set') {
+      return '';
+    } else {
+      if (status == 'error') {
+        return modifieruserName +' ' + "unapproved on" + ' '+ this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+      } else {
+        return modifieruserName +' ' + this.updatedText + ' '+ this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+      }
     }
   }
 }
