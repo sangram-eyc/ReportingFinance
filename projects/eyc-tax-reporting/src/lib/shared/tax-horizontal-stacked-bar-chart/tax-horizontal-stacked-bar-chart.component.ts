@@ -137,9 +137,9 @@ export class TaxHorizontalStackedBarChartComponent{
       .join('rect')
       .attr('width',(x)=> {
         let total: any = Object.values(this.data[0]).reduce((a: number, b: number) => a + b);
-        let widthValue: any = Math.round(((Math.round((x[1] * 100) / (total))) * this.widthServer) / 100)
-        arrWidthPosition.push(widthValue)
-        return total > 0 ? widthValue : 0;
+        let widthValue: any = Math.round(((Math.round(((x[1] - x[0]) * 100) / (total))) * this.widthServer) / 100)
+        arrWidthPosition.push(widthValue - 3)
+        return total > 0 ? (widthValue - 3) : 0; //the -3 it's for separation
       })
       .attr('x',(x)=> {
         let total: any = Object.values(this.data[0]).reduce((a: number, b: number) => a + b);
@@ -158,8 +158,8 @@ export class TaxHorizontalStackedBarChartComponent{
 
       if (this.gridEnabled){
         d3.select(chartId).selectAll('g').filter(":nth-child(1)").append('text').text(this.dataValues[0]).attr('x', (arrPositionX[0] + (arrWidthPosition[0] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
-        d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + ((arrWidthPosition[1] - arrWidthPosition[0]) / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
-        d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + ((arrWidthPosition[2] - arrWidthPosition[1]) / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
+        d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + (arrWidthPosition[1] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
+        d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + (arrWidthPosition[2] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
       }
       }
 
