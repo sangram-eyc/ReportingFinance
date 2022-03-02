@@ -20,6 +20,8 @@ export class SettingService {
       upload: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload',
       download: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/file/download',
       resolve: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/answerExceptionResults/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/answerExceptionResults/',
+      add_bulk_comment: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment/bulk' : this.API_ENDPOINT + 'gatewayService/api/v2/commentary/comment/bulk',
+      bulk_upload: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload/comments/bulk' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload/comments/bulk',
     }
     return regulatory_Reporting;
   }
