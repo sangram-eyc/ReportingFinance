@@ -34,48 +34,7 @@ export class SubmissionComponent implements OnInit {
   fileDetail;
   
   auditLogs = [];
-  // auditLogs = [
-  //   {
-  //     "duration": "NOV",
-  //     "progress": [
-  //       {
-  //         "title": "Client L2 review",
-  //         "subtitle": "",
-  //         "status": "NOT_STARTED"
-  //       },
-  //       {
-  //         "title": "Client L1 review",
-  //         "subtitle": "In progress.",
-  //         "status": "IN_PROGRESS"
-  //       },
-  //       {
-  //         "title": "EY L2 review",
-  //         "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
-  //         "status": "COMPLETED"
-  //       },
-  //       {
-  //         "title": "EY L2 review",
-  //         "subtitle": "Joseph Burrows unapproved on 11/18/2021 21:27",
-  //         "status": "ERROR"
-  //       },
-  //       {
-  //         "title": "EY L2 review",
-  //         "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
-  //         "status": "COMPLETED"
-  //       },
-  //       {
-  //         "title": "EY L1 review",
-  //         "subtitle": "Suzanne Little approved on 11/18/2021 21:27",
-  //         "status": "COMPLETED"
-  //       },
-  //       {
-  //         "title": "Exception report available for EY L1 review",
-  //         "subtitle": "System modified on 11/18/2021 21:27",
-  //         "status": "COMPLETED"
-  //       }
-  //     ]
-  //   }
-  // ]
+
   exportHeaders: string;
   exportURL;
   constructor(
@@ -122,14 +81,6 @@ export class SubmissionComponent implements OnInit {
     })
   }
 
-  sortAuditlogData(data) {
-    let months = new Array("Jan", "Feb", "Mar",
-    "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-    "Oct", "Nov", "Dec");
-    data.forEach(element => {
-      
-    });
-  }
 
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
