@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AuditLogComponent } from './components/audit-log.component';
 import { MotifIconModule, MotifProrgressIndicatorsModule, MotifButtonModule } from '@ey-xd/ng-motif';
 
@@ -14,6 +14,7 @@ import { MotifIconModule, MotifProrgressIndicatorsModule, MotifButtonModule } fr
     MotifIconModule,
     MotifButtonModule
   ],
-  exports: [AuditLogComponent]
+  exports: [AuditLogComponent],
+  providers: [DatePipe]
 })
 export class AuditLogModule { }

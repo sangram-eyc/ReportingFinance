@@ -32,48 +32,50 @@ export class SubmissionComponent implements OnInit {
   updateStatusErrorMsg = '';
   showAuditLog = false;
   fileDetail;
-  auditLogs = [
-    {
-      "duration": "NOV",
-      "progress": [
-        {
-          "title": "Client L2 review",
-          "subtitle": "",
-          "status": "NOT_STARTED"
-        },
-        {
-          "title": "Client L1 review",
-          "subtitle": "In progress.",
-          "status": "IN_PROGRESS"
-        },
-        {
-          "title": "EY L2 review",
-          "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
-          "status": "COMPLETED"
-        },
-        {
-          "title": "EY L2 review",
-          "subtitle": "Joseph Burrows unapproved on 11/18/2021 21:27",
-          "status": "ERROR"
-        },
-        {
-          "title": "EY L2 review",
-          "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
-          "status": "COMPLETED"
-        },
-        {
-          "title": "EY L1 review",
-          "subtitle": "Suzanne Little approved on 11/18/2021 21:27",
-          "status": "COMPLETED"
-        },
-        {
-          "title": "Exception report available for EY L1 review",
-          "subtitle": "System modified on 11/18/2021 21:27",
-          "status": "COMPLETED"
-        }
-      ]
-    }
-  ]
+  
+  auditLogs = [];
+  // auditLogs = [
+  //   {
+  //     "duration": "NOV",
+  //     "progress": [
+  //       {
+  //         "title": "Client L2 review",
+  //         "subtitle": "",
+  //         "status": "NOT_STARTED"
+  //       },
+  //       {
+  //         "title": "Client L1 review",
+  //         "subtitle": "In progress.",
+  //         "status": "IN_PROGRESS"
+  //       },
+  //       {
+  //         "title": "EY L2 review",
+  //         "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
+  //         "status": "COMPLETED"
+  //       },
+  //       {
+  //         "title": "EY L2 review",
+  //         "subtitle": "Joseph Burrows unapproved on 11/18/2021 21:27",
+  //         "status": "ERROR"
+  //       },
+  //       {
+  //         "title": "EY L2 review",
+  //         "subtitle": "Joseph Burrows approved on 11/18/2021 21:27",
+  //         "status": "COMPLETED"
+  //       },
+  //       {
+  //         "title": "EY L1 review",
+  //         "subtitle": "Suzanne Little approved on 11/18/2021 21:27",
+  //         "status": "COMPLETED"
+  //       },
+  //       {
+  //         "title": "Exception report available for EY L1 review",
+  //         "subtitle": "System modified on 11/18/2021 21:27",
+  //         "status": "COMPLETED"
+  //       }
+  //     ]
+  //   }
+  // ]
   exportHeaders: string;
   exportURL;
   constructor(
@@ -120,6 +122,14 @@ export class SubmissionComponent implements OnInit {
     })
   }
 
+  sortAuditlogData(data) {
+    let months = new Array("Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+    "Oct", "Nov", "Dec");
+    data.forEach(element => {
+      
+    });
+  }
 
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
@@ -397,6 +407,10 @@ export class SubmissionComponent implements OnInit {
     console.log(row);
     this.showAuditLog = true;
     this.fileDetail = row;
+    this.service.getAuditlog().subscribe(res => {
+      this.groupbyMonth(res['data'])
+      this.auditLogs= this.groupbyMonth(res['data'])
+    });
   }
   exportSubmissionData(){
     this.exportHeaders = '';
@@ -405,5 +419,25 @@ export class SubmissionComponent implements OnInit {
     this.service.exportSubmissionData(this.exportURL).subscribe(resp => {
       console.log(resp);
     })
+  }
+
+  groupbyMonth(data) {
+    let months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    var results = [];
+    data.forEach(element => {
+      let date = new Date(element.modifiedDateTime);
+      var month = date.getMonth();
+      let checkMonth = results.filter(cls => cls.duration == months[month])
+      if (checkMonth.length) {
+        results[results.findIndex(item => item.duration == months[month])].progress.push(element)
+      } else {
+        results.push({
+          "duration": months[month],
+          "progress": [element]
+        })
+      }
+    });
+    console.log(results);
+    return results
   }
 }

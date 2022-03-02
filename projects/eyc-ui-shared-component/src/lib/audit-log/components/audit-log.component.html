@@ -16,10 +16,10 @@
             <div class="audit-progress">
                 <motif-progress-indicators orientation="vertical">
                     <motif-progress-step *ngFor= "let p of auditlog?.progress"
-                    title="{{p?.title}}" 
-                    subtitle="{{p?.subtitle}}" 
-                    [status]="getStatus(p?.status)"
-                    [error]="getError(p?.status)">
+                    title="{{p?.auditDetails?.auditObjectCurValue}}" 
+                    [subtitle]="getSubtitle(p?.auditActionType, p?.modifierDetails?.modifieruserName, p?.modifiedDateTime)" 
+                    [status]="getStatus(p?.auditActionType)"
+                    [error]="getError(p?.auditActionType)">
                     </motif-progress-step>
                 </motif-progress-indicators>
             </div>

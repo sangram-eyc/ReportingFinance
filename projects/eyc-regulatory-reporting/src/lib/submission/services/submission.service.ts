@@ -33,4 +33,8 @@ export class SubmissionService {
   exportSubmissionData(exportURL) {
        return this.apiService.invokeGetAPI(`${exportURL}`);
   }
+
+  getAuditlog() {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.audit_log}`)
+  }
 }
