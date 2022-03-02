@@ -15,7 +15,7 @@
   <div class="table">
     <ng-template #dropdownTemplate let-row>
       <div class="dropdownTemplate">
-       <input type="checkbox" (change)="changeCheck(row)"/>
+       <input type="checkbox" [checked]="row.selected" (change)="changeCheck(row)"/>
       </div>
     </ng-template>
 
@@ -28,6 +28,9 @@
 
       </div>
     </ng-template>
+    <div class="select-all">
+      <input type="checkbox" (change)="selectAll($event)"/>
+    </div>
     <lib-shared-grid gridStyle="second" isToggle="false"
                      displayCheckBox="true"
                      buttonPosition="left"[masterDetail]="true" [columnDefs]="columnDefs" [rowData]="notificationsData"
