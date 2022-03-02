@@ -21,6 +21,7 @@ export class ArchivedNotificationsComponent implements OnInit {
   public notificationsData = null;
   public columnDefs;
   public searchText = '';
+  public selectedItems = [];
 
   constructor(
     private notificationService: NotificationService
@@ -101,11 +102,13 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   changeCheck(row) {
-    console.log(row);
-  }
-
-  changes(change) {
-    console.log(change);
+    row.selected = !row.selected;
+    if (row.selected) {
+      this.selectedItems.push(row.engineId);
+    } else {
+      const index = this.selectedItems.findIndex(id => id === row.engineId);
+      this.selectedItems.splice(index, 1);
+    }
   }
 
   onKey(event): void {
@@ -121,7 +124,7 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   exportCsv() {
-    this.notificationService.exportCsv().subscribe( res => {
+    this.notificationService.exportCsv(this.selectedItems).subscribe( res => {
         const blob = new Blob([res], {type: 'csv'});
         FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
     });
@@ -154,5 +157,20 @@ export class ArchivedNotificationsComponent implements OnInit {
         item.category = JSON.parse(item.request.content).category;
       });
     });
+  }
+
+  selectAll(event): void {
+    if (event.target.checked) {
+      this.notificationsData.forEach( item => {
+        const index = this.selectedItems.findIndex(id => id === item.engineId);
+        if (index < 0) {
+          this.selectedItems.push(item.engineId);
+        }
+      });
+    } else {
+      this.selectedItems = [];
+    }
+
+    this.notificationsData.forEach( item => item.selected = event.target.checked);
   }
 }

@@ -29,6 +29,13 @@
   }
 }
 
+.select-all {
+  position: absolute;
+  top: 266px;
+  left: 325px;
+  z-index: 100;
+}
+
 .actionsTemplate {
   display: flex;
 

@@ -20,7 +20,7 @@ export class NotificationService {
   }
 
   getNotArchivedNotifications(): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP`);
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP&sort=receiveTime,DESC`);
   }
 
   setNotificationFlagged(id, flag): Observable<any> {
@@ -35,8 +35,8 @@ export class NotificationService {
     return this.http.delete(`${environment.apiEndpoint}gatewayService/api/notification/${id}`);
   }
 
-  exportCsv(): Observable<any> {
-    return this.http.get(`${notification.export_Archived_Csv}`, {responseType: 'text'});
+  exportCsv(ids): Observable<any> {
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true`, {responseType: 'text'});
   }
 
   setAsArchived(id): Observable<any> {
