@@ -17,6 +17,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\.\<\$\%\*\>\(\)\_/ ]+/,
    }
   gridApi;
+  params;
   selectedRows = [];
   approveFilingEntitiesModal = false;
   showToastAfterSubmit = false;
@@ -72,11 +73,14 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() firstColumnBorderRight=true;
   @Input() supressCellSelection = true;
   @Input() pagination = false;
+  @Input() paginationApi = false;
   @Input() paginationSize = 100;
+  @Input() pageChangeFunc: () => void;
   @Input() displayPlusIcon = true;
   @Input() hideHeaderCheckbox = false;
   @Input() disableResolveButton = false;
   @Input() disableUnresolveButton = false;
+  @Output() customSortChange = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() unresolveEventToParent = new EventEmitter<string>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
@@ -84,38 +88,48 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() toggleEventToParent = new EventEmitter<boolean>();
   @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   @Output() exportFlagToParent = new EventEmitter<boolean>();
+  @Output() currentPageChange = new EventEmitter<number>(); 
+  @Output() updatePageSize = new EventEmitter<number>();
+  @Output() gridReady = new EventEmitter<any>();
+  @Output() searchInput = new EventEmitter<string>();
   @Input() export = false;
+  @Input() totalRecords = null;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
   srnoCls;
   isAllRecordSelected = false;
-
-  dataset = [{
+  dataset;
+  currentlySelectedPageSize;
+  currentPage = 1;
+  maxPages = 5;
+  prevPageSize;
+  dataset1 = [{
     disable: false,
-    value: 100,
-    name: '100',
+    value: 5,
+    name: '5',
     id: 0
   },
   {
     disable: false,
-    value: 200,
-    name: '200',
+    value: 10,
+    name: '10',
     id: 1
   },
   {
     disable: false,
-    value: 300,
-    name: '300',
+    value: 15,
+    name: '15',
     id: 2
   }];
 
-  currentlySelectedPageSize = {
+  currentlySelectedPageSize1 = {
     disable: false,
-    value: 100,
-    name: '100',
+    value: 5,
+    name: '5',
     id: 0
   };
+
 
 pageSize;
 
@@ -137,10 +151,38 @@ pageSize;
       this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
+    this.dataset = [{
+      disable: false,
+      value: this.paginationSize,
+      name: this.paginationSize.toString(),
+      id: 0
+    },
+    {
+      disable: false,
+      value: this.paginationSize * 2,
+      name: (this.paginationSize * 2).toString(),
+      id: 1
+    },
+    {
+      disable: false,
+      value: this.paginationSize * 3,
+      name: (this.paginationSize * 3).toString(),
+      id: 2
+    }];
+  
+    this.currentlySelectedPageSize = {
+      disable: false,
+      value: this.paginationSize,
+      name: this.paginationSize.toString(),
+      id: 0
+    };
+    this.prevPageSize = this.paginationSize;
+    console.log('PAGINATION PAGE SIZE',this.currentlySelectedPageSize);
   }
 
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log('GRID CHANGES', changes);
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (typeof (this.columnDefs) !== 'undefined') {
       this.columnDefsData = []
@@ -159,6 +201,14 @@ pageSize;
         this.columnDefsData.splice(1, 0, object);
       }
     }
+    if (this.paginationApi) {
+      if (this.totalRecords >= 0) {
+        this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
+      } else {
+        this.maxPages = 1;
+      }
+      console.log(this.maxPages);
+    }
   }
 
   async submit() {
@@ -173,7 +223,30 @@ pageSize;
     }, 5000);
   }
 
+  async handlePageChange(val: number) {
+    this.currentPage = val;
+    this.currentPageChange.emit(val);
+    console.log('HANDLE PAGE CHANGE', val);
+    await this.pageChangeFunc();
+  }
+
   updatePaginationSize(newPageSize: number) {
+    this.gridApi.paginationSetPageSize(newPageSize);
+  }
+
+  updatePaginationSizeApi(newPageSize: number) {
+    const lastRow = this.prevPageSize * this.currentPage - (this.prevPageSize + 1);
+    this.prevPageSize = newPageSize;
+    let newPage = 1;
+    let rowsVisited = newPageSize;
+    while(rowsVisited < lastRow) {
+      newPage += 1;
+      rowsVisited += newPageSize;
+    }
+    this.currentPage = newPage;
+    this.maxPages = Math.ceil(this.totalRecords / newPageSize);
+    this.currentPageChange.emit(this.currentPage);
+    this.updatePageSize.emit(newPageSize);
     this.gridApi.paginationSetPageSize(newPageSize);
   }
 
@@ -194,7 +267,9 @@ pageSize;
   }
 
   handleGridReady(params) {
+    this.params = params;
     this.gridApi = params.api;
+    this.gridReady.emit(this.params);
   }
 
   _getIndexValue(args: ValueGetterParams): any {
@@ -202,7 +277,21 @@ pageSize;
   }  
 
   sortChanged(params) {
-    this.gridApi.refreshCells();
+    let sortModel = this.gridApi.getSortModel();
+    if (sortModel.length > 0) {
+      sortModel = sortModel[0];
+      const colId = sortModel['colId'];
+      console.log('SORT MODEL', sortModel);
+      console.log('TEST', sortModel['colId']);
+      console.log('COLID', colId);
+      const order = sortModel['sort'] === 'asc' ? 'true' : 'false';
+      console.log('GRID COMPONENT SORT', colId + ':' + order);
+      this.customSortChange.emit(colId + ':' + order);
+      this.gridApi.refreshCells();
+    } else {
+      this.customSortChange.emit('');
+      this.gridApi.refreshCells();
+    }
   }
 
   onRowSelected(): void {
@@ -237,7 +326,11 @@ pageSize;
   searchGrid(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
-    
+  }
+
+  searchGridPagination(input) {
+    this.searchInput.emit(input.el.nativeElement.value);
+    console.log('SEARCH GRID PAGINATION EMIT');
   }
 
   searchFilingValidation(event) {
@@ -282,6 +375,6 @@ pageSize;
 
   ngOnDestroy(): void {
     this.columnDefs = undefined;
-    console.log("Grid Destory");
+    console.log("Grid Destroy");
   }
 }

@@ -13,13 +13,13 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
-            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
-            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
+        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc"
+            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
+            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig" (updatePageSize)="updatePageSize($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)"
             [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"  [export] = "true"
-            (exportFlagToParent)="exportData('exceptions')" [pagination]="true">
+            (exportFlagToParent)="exportData('exceptions')" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -81,11 +81,12 @@
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
-            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
-            [isToggle]="false" [modalConfig]="filingModalConfig"
+        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
+            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true" (updatePageSize)="updatePageSize($event)" (searchInput)="searchGrid($event)"
+            [isToggle]="false" [modalConfig]="filingModalConfig" (gridReady)="handleGridReady($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')" [pagination]="false">
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
+            [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>

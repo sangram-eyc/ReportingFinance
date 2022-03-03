@@ -10,11 +10,11 @@ export class DataIntakeService {
 
   constructor(private apiService: EycRrApiService, private settingsService: EycRrSettingsService, @Inject('mockDataEnable') private mockDataEnable) { }
 
-  getExceptionReports(filingName, period) {
+  getExceptionReports(filingName, period, page, size, filter, sort) {
     if(this.mockDataEnable) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}`);
     } else {
-      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}filingName=${filingName}&period=${period}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.di_exception_reports}filingName=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
     }
     // After backend API up will remove above line and uncomment below line
   }
@@ -40,11 +40,11 @@ export class DataIntakeService {
     }
   }
 
-  getDatasetsrecords(filingName, period) {
+  getDatasetsrecords(filingName, period, page, size, filter, sort) {
     if(this.mockDataEnable) {
       return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}`);
     } else {
-      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}filingName=${filingName}&period=${period}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.datasets_list}filingName=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
     }
   }
 

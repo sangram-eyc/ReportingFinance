@@ -68,7 +68,7 @@
         gridStyle="first"
         [columnDefs]="columnDefs"
         [defaultColDef]="{}"
-        [rowData]="rowData"
+        [rowData]="scopingRowData"
         rowSelection="multiple"
         buttonPosition="left"
         [modalConfig]="fundScopingModalConfig"
@@ -80,6 +80,8 @@
         [displayCheckBox] = "true"
         [export] = "true"
         (exportFlagToParent)="exportScopeData()"
+        (gridReady)="handleGridReady($event)" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+        (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"
         ></lib-shared-grid>
     </section>
     

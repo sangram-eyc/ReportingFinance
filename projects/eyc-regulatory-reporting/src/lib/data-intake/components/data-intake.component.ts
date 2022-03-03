@@ -27,7 +27,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   tabs = 1;
   filingDetails: any;
   exceptionData;
+  exceptionGridApi;
   rowData = [];
+  datasetData = [];
   exceptionReportRows;
   exceptionDetailCellRendererParams;
   submitException;
@@ -74,6 +76,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exportHeaders: string;
   exportURL: string;
   lastFileDueDate;
+  pageInfoException = {
+    currentPage: 0,
+    totalRecords: 5,
+    pageSize: 10,
+    filter: '',
+    sort: '',
+  }
+  pageInfoData = {
+    currentPage: 0,
+    totalRecords: 5,
+    pageSize: 10,
+    filter: '',
+    sort: '',
+  }
+  pageChangeFunc;
+
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -86,6 +104,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
+    this.pageChangeFunc = this.onPageChange.bind(this);
   }
 
   @ViewChild('headerTemplate')
@@ -117,18 +136,28 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.getFiles();
     if(sessionStorage.getItem("enableTabsIntake")) {
       this.enableTabs = true;
-      this.getExceptionReports();
+      this.getExceptionReports(true);
       this.tabs == 1;
     }
   }
-  getExceptionReports() {
-    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+
+  getExceptionReports(resetData = false) {
+    this.pageInfoException.sort = resetData ? 'file:true' : this.pageInfoException.sort;
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, this.pageInfoException.currentPage, this.pageInfoException.pageSize, this.pageInfoException.filter, this.pageInfoException.sort).subscribe(res => {
       if(this.mockDataEnable) {
         this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      } else { this.exceptionData = res['data']; }
+        this.createEntitiesRowData();
+      } else { 
+        this.exceptionData = res['data']; 
+        this.pageInfoException.totalRecords = res['totalRecords'];
+        if (resetData) {
+          this.createEntitiesRowData();
+        } else {
+          this.exceptionGridApi.setRowData(this.exceptionData);
+          console.log('SET ROW DATA');
+        }
+      }
       console.log(this.exceptionData);
-      this.createEntitiesRowData();
-
     }, error => {
       this.exceptionData = [];
       console.log("exception data error");
@@ -149,14 +178,22 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   }
 
-  getDatasets() {
-    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+  getDatasets(resetData = false) {
+    this.pageInfoData.sort = resetData ? 'file:true' : this.pageInfoData.sort;
+    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period, this.pageInfoData.currentPage, this.pageInfoData.pageSize, this.pageInfoData.filter, this.pageInfoData.sort).subscribe(res => {
       if(this.mockDataEnable) {
         this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
-      } else {  this.datasets = res['data']; }
+        this.createEntitiesRowData();
+      } else {  
+        this.datasets = res['data']; 
+        this.pageInfoData.totalRecords = res['totalRecords'];
+        if (resetData) {
+          this.createEntitiesRowData();
+        } else {
+          this.gridApi.setRowData(this.datasets);
+        }
+      }
       console.log('DATASETS:', this.datasets);
-      this.createEntitiesRowData();
-
     }, error => {
       this.datasets = [];
       console.log("Datasets error");
@@ -184,10 +221,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   receiveMessage($event) {
     this.tabs = $event;
     if (this.tabs == 2) {
-      this.getDatasets();
+      this.getDatasets(true);
     } else if (this.tabs == 1) {
-      this.getExceptionReports();
+      this.getExceptionReports(true);
     }
+    console.log('TAB EVENT', $event);
     /* else if (this.tabs == 3) {
       this.getDatasets();
     } */
@@ -203,8 +241,62 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.exceptionReportRows = event;
   }
 
-  createEntitiesRowData(): void {
+  handleGridReady(params) {
+    this.gridApi = params.api;
+  }
 
+  handleExceptionGridReady(params) {
+    this.exceptionGridApi = params.api;
+  }
+
+  onPageChange() {
+    this.exceptionEntitySwitch();
+  }
+
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
+  exceptionEntitySwitch() {
+    if (this.tabs == 2) {
+      this.getDatasets();
+    } else if (this.tabs == 1) {
+      this.getExceptionReports();
+    }
+  }
+
+  currentPageChange(event) {
+    console.log('CURRENT PAGE CHANGE', event - 1);
+    this.tabs == 2 ? this.pageInfoData.currentPage = event - 1 : this.pageInfoException.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
+    this.tabs == 2 ? this.pageInfoData.pageSize = event : this.pageInfoException.pageSize = event;
+    this.exceptionEntitySwitch();
+  }
+
+  searchGrid(input) {
+    if (this.tabs == 2) {
+      this.pageInfoData.filter = input;
+      this.pageInfoData.currentPage = 0;
+    } else {
+      this.pageInfoException.filter = input;
+      this.pageInfoException.currentPage = 0;
+    }
+    this.exceptionEntitySwitch();
+  }
+
+  sortChanged(event) {
+    this.tabs == 2 ? this.pageInfoData.sort = event : this.pageInfoException.sort = event;
+    this.exceptionEntitySwitch();
+  }
+
+  createEntitiesRowData(): void {
+    this.datasetsDefs = [];
+    this.exceptionDefs = [];
+    this.datasetData = [];
+    this.rowData = [];
     this.exceptionDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -237,8 +329,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'due',
         sortable: true,
         filter: true,
-        sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -254,7 +345,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -265,8 +356,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'exceptionReportType',
         sortable: true,
         filter: true,
-        sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 250
@@ -281,7 +371,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         autoHeight: true,
         width: 250,
         sort: 'asc',
-        // comparator: customComparator
+        comparator: this.disableComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -293,7 +383,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'comments',
         sortable: true,
         filter: true,
-        width: 150
+        width: 150,
+        comparator: this.disableComparator,
       } ,
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -306,6 +397,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 200,
+        comparator: this.disableComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -314,6 +406,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 200,
+        comparator: this.disableComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -353,8 +446,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'due',
         sortable: true,
         filter: true,
-        sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 130
@@ -366,7 +458,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 300
@@ -377,8 +469,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'source',
         sortable: true,
         filter: true,
-        sort: 'asc',
-        // comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
         width: 150
@@ -418,6 +509,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 150,
+        comparator: this.disableComparator,
       },
      /* {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -440,12 +532,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'version',
         sortable: true,
         filter: true,
+        comparator: this.disableComparator,
       }
     ];
-  }
-
-  handleGridReady(params) {
-    this.gridApi = params.api;
+    this.rowData = this.exceptionData;
+    this.datasetData = this.datasets;
   }
 
   addCommentToException(row) {

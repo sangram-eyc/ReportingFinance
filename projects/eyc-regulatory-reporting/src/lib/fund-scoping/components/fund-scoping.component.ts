@@ -44,6 +44,13 @@ export class FundScopingComponent implements OnInit {
   rowData;
   columnDefs;
   onSubmitApproveFund;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
+  pageChangeFunc;
+  scopingRowData;
   rowClass = 'row-style';
   domLayout = 'autoHeight';
   fundScopingModalConfig = {
@@ -66,29 +73,62 @@ export class FundScopingComponent implements OnInit {
   funds: any[] = [];
 
   ngOnInit(): void {
-    this.onSubmitApproveFund = this.onSubmitApproveFunds.bind(this)
+    this.onSubmitApproveFund = this.onSubmitApproveFunds.bind(this);
+    this.pageChangeFunc = this.onPageChange.bind(this);
   }
 
-  onGridReady(params)  {
+  handleGridReady(params) {
     this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
-  };
+  }
 
-  getFundsData() {
-    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
-      resp['data'].forEach((item) => {
-        const eachitem: any  = {
-          name: item.fundName,
-          code: item.fundCode,
-          id: item.fundId,
-          adviser: item.adviser,
-          businessUnit: item.businessUnit,
-          filerType: item.filerType
-        };
-        this.funds.push(eachitem);
-      });
-      this.createFundRowData();
+  onPageChange() {
+    this.getFundsData();
+  }
 
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
+  currentPageChange(event) {
+    console.log('CURRENT PAGE CHANGE', event - 1);
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
+    this.pageSize = event;
+    this.getFundsData();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getFundsData();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getFundsData();
+  }
+
+  resetData() {
+    this.createFundRowData();
+    this.currentPage = 0;
+    this.pageSize = 10;
+    this.filter = '';
+  }
+
+  getFundsData(resetData = false) {
+    this.funds = [];
+    this.sort = resetData ? 'fundName:true' : this.sort;
+    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+      this.totalRecords = resp['totalRecords'];
+      this.rowData = resp['data'];
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.rowData);
+      }
       this.fundScopingService.getFundScopingStatus(this.filingDetails.filingId).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
         this.fundScopingStatus = resp['data'];
         console.log('FUND SCOPING STATUS', this.fundScopingStatus);
@@ -102,7 +142,7 @@ export class FundScopingComponent implements OnInit {
 
   receiveFilingDetails(event) {
     this.filingDetails = event;
-    this.getFundsData();
+    this.getFundsData(true);
   }
 
   searchFilingValidation(event) {
@@ -130,17 +170,7 @@ export class FundScopingComponent implements OnInit {
     });
   } 
   createFundRowData() {
-    this.rowData = [];
-    this.funds.forEach( fund => {
-      this.rowData.push({
-        name: fund.name,
-        id: fund.id,
-        code: fund.code,
-        adviser: fund.adviser,
-        businessUnit: fund.businessUnit,
-        filerType: fund.filerType
-      })
-    });
+
     this.columnDefs = [
       {
         headerName: 'Action',
@@ -158,30 +188,30 @@ export class FundScopingComponent implements OnInit {
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'ID',
-        field: 'id',
+        field: 'fundId',
         sortable: true,
         filter: true,
         resizeable: true,
         maxWidth: 140,
-        comparator: customCompareStrIntMix,
+        comparator: this.disableComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Code',
-        field: 'code',
+        field: 'fundCode',
         sortable: true,
         filter: true,
         maxWidth: 140,
-        comparator: customCompareStrIntMix,
+        comparator: this.disableComparator,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Entity name',
-        field: 'name',
+        field: 'fundName',
         sortable: true,
         filter: true,
         sort:'asc',
-        comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
       },
@@ -192,7 +222,7 @@ export class FundScopingComponent implements OnInit {
         sortable: true,
         filter: true,
         sort:'asc',
-        comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
       },
@@ -203,7 +233,7 @@ export class FundScopingComponent implements OnInit {
         sortable: true,
         filter: true,
         sort:'asc',
-        comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true
       },
@@ -214,11 +244,12 @@ export class FundScopingComponent implements OnInit {
         sortable: true,
         filter: true,
         sort:'asc',
-        comparator: customComparator,
+        comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true
       }
     ]; 
+    this.scopingRowData = this.rowData;
   }
 
   searchFunds(input) {
