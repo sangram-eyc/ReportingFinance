@@ -110,9 +110,6 @@ export class ViewExceptionReportsComponent implements OnInit {
     }
   }
 
-  sortByUnresolvedException(){
-    this.exceptionAnswersData.sort((a, b) => a.Status > b.Status ? -1 : (a.Status < b.Status ? 1 : 0))
-  }
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
@@ -120,7 +117,6 @@ export class ViewExceptionReportsComponent implements OnInit {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
-      this.sortByUnresolvedException()
       this.commentsCount = res.data['commentCountMap'];
       this.createEntitiesRowData();
     });
@@ -533,8 +529,7 @@ export class ViewExceptionReportsComponent implements OnInit {
           e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
           return;
         });
-        this.sortByUnresolvedException();
-        this.resetResolveUnresolveButtons();
+        this.resetResolveUnresolveButtons()
         this.createEntitiesRowData();
       } else {
         console.log(result);
@@ -598,7 +593,6 @@ export class ViewExceptionReportsComponent implements OnInit {
           e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
           return;
         });
-        this.sortByUnresolvedException();
         this.resetResolveUnresolveButtons()
         this.createEntitiesRowData();
       } else {
@@ -610,11 +604,13 @@ export class ViewExceptionReportsComponent implements OnInit {
   exportData() {
     this.exportsHeader = '';
     for (const property in this.exceptionAnswersData[0]) {
-      let hedars = property+":"+property;
+      if(property != 'approved') {
+        let hedars = property+":"+property;
       if(this.exportsHeader)
        this.exportsHeader = this.exportsHeader+","+hedars;
       else  
       this.exportsHeader = hedars;
+      }
     }
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
 
