@@ -47,6 +47,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   commentsData;
   commentsName;
   commentEntityType;
+  sort = '';
   status = {
     stage: 'Reporting',
     progress: 'in-progress'
@@ -60,6 +61,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
+  columnApi;
   columnDefs;
   exceptionDefs;
   exceptionData;
@@ -72,6 +74,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   submitFunction;
   submitException;
   submitTest;
+  pageChangeFunc;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
   exceptionModalConfig = {
     width: '550px',
     data: {
@@ -127,6 +134,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
    this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
    this.submitTest = this.onSubmitTest.bind(this);
+   this.pageChangeFunc = this.onPageChange.bind(this);
    console.log(this.filingDetails);
    sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
   //  this.getExceptionReports();
@@ -136,13 +144,25 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("reportingTab");
   }
 
-  getExceptionReports() {
-    this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting').subscribe(res => {
+  resetData() {
+    this.createEntitiesRowData();
+    this.currentPage = 0;
+    this.pageSize = 10;
+    this.filter = '';
+  }
+
+  getExceptionReports(resetData = false) {
+    this.sort = resetData ? 'exceptionReportName:true' : this.sort;
+    this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
+      this.totalRecords = res['totalRecords'];
       console.log(this.exceptionData);
-      this.createEntitiesRowData();
-      
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.exceptionData);
+      }
     },error=>{
       this.exceptionData =[];
       console.log("Client Review error");
@@ -150,16 +170,22 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   }
 
-  getFilingEntities() {
-    this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+  getFilingEntities(resetData = false) {
+    this.sort = resetData ? 'entityName:true' : this.sort;
+    this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.rowData = res['data'];
-      this.createEntitiesRowData();
+      this.totalRecords = res['totalRecords'];
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.rowData);
+      }
+      console.log('FILING ENTITIES',res['data']);
     }, error => {
       this.rowData = [];
-      console.log("Reporting error");
+      console.log("FILING ENTITIES API error");
     });
   }
-
 
   createEntitiesRowData(): void {
     this.columnDefs = [];
@@ -201,6 +227,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 140,
+          comparator: this.disableComparator
         },
         /* {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -220,12 +247,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Entity Name',
           field: 'entityName',
           sortable: true,
+          sort:'asc',
           filter: true,
           wrapText: true,
           autoHeight: true,
           width: 300,
-          sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -241,6 +268,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'reviewLevel',
           sortable: true,
           filter: true,
+          comparator: this.disableComparator
         },
         /* ,
         {
@@ -262,6 +290,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 155,
+          comparator: this.disableComparator
         //   cellClass: params => {
         //     return params.value === '' ? '' :'comments-background';
         // }
@@ -314,11 +343,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'exceptionReportType',
           sortable: true,
           filter: true,
-          sort:'asc',
-         comparator: customComparator,
-         autoHeight: true,
-         wrapText: true,
-         width: 300
+          comparator: this.disableComparator,
+          autoHeight: true,
+          wrapText: true,
+          width: 300
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -334,7 +362,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           autoHeight: true,
           width: 300,
           sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -343,6 +371,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 210,
+          comparator: this.disableComparator
         },
         /* {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -372,7 +401,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'comments',
           sortable: true,
           filter: true,
-          width: 155
+          width: 155,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -380,18 +410,16 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           cellRendererParams: {
             ngTemplate: this.viewDetTemplate,
           },
-          width: 50
+          width: 50,
+          comparator: this.disableComparator
         }
       ];
 
       this.filingEntityRowData = this.rowData;
       this.exceptionRowData = this.exceptionData;
     }, 1);
-  
-    
-  
-
   }
+
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     if (params.data) {
@@ -405,6 +433,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   handleGridReady(params) {
     this.gridApi = params.api;
+    this.columnApi = params.columnApi;
   }
 
   onRowSelected(event: any): void {
@@ -424,10 +453,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     console.log(this.filingDetails);
     if (this.tabs == 2) {
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
-      this.getFilingEntities();
+      this.getFilingEntities(true);
     } else if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.';
-      this.getExceptionReports();
+      this.getExceptionReports(true);
     }
   }
 
@@ -437,11 +466,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.filingDetails = event;
     if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
-      this.getExceptionReports();
+      this.getExceptionReports(true);
     } 
     if (this.tabs == 2) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will move them to client review.';
-      this.getFilingEntities();
+      this.getFilingEntities(true);
     }
 
   }
@@ -473,6 +502,44 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       }, 5000);
     });
 
+  }
+
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
+  exceptionEntitySwitch() {
+    if (this.tabs == 2) {
+      this.getFilingEntities();
+    } else if (this.tabs == 1) {
+      this.getExceptionReports();
+    }
+  }
+
+  onPageChange() {
+    this.exceptionEntitySwitch();
+  }
+
+  currentPageChange(event) {
+    console.log('CURRENT PAGE CHANGE', event - 1);
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
+    this.pageSize = event;
+    this.exceptionEntitySwitch();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.exceptionEntitySwitch();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.exceptionEntitySwitch();
   }
 
   onSubmitApproveExceptionReports() {

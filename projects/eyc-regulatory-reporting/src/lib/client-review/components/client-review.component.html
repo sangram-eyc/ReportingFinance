@@ -21,7 +21,9 @@
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
-            [export]="true" (exportFlagToParent)="exportData('exceptions')" [pagination]="true"></lib-shared-grid>
+            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="true"
+            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
 
         <ng-template #commentExceptionTemplate let-row>
@@ -89,7 +91,9 @@
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
-            [export]="true" (exportFlagToParent)="exportData('entities')" [pagination]="false"></lib-shared-grid>
+            [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="true"
+            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
         <ng-template #headerTemplate>
             <div>
