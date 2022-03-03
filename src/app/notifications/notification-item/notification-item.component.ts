@@ -54,7 +54,33 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   calculateNotificationTime(date) {
 
     if (date instanceof Array) {
-      return `${date[0]} - ${date[1]} - ${date[2]}`;
+      // tslint:disable-next-line:radix
+      const transformedDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5], parseInt(date[6]) / 1000)
+      // @ts-ignore
+      const seconds = Math.floor((new Date() - transformedDate) / 1000);
+
+      let interval = seconds / 31536000;
+
+      if (interval > 1) {
+        return Math.floor(interval) + ' y';
+      }
+      interval = seconds / 2592000;
+      if (interval > 1) {
+        return Math.floor(interval) + ' m';
+      }
+      interval = seconds / 86400;
+      if (interval > 1) {
+        return Math.floor(interval) + ' d';
+      }
+      interval = seconds / 3600;
+      if (interval > 1) {
+        return Math.floor(interval) + ' h';
+      }
+      interval = seconds / 60;
+      if (interval > 1) {
+        return Math.floor(interval) + ' min';
+      }
+      return Math.floor(seconds) + ' sec';
     } else {
       // @ts-ignore
       const seconds = Math.floor((new Date() - new Date(date)) / 1000);

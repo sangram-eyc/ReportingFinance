@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '@env/environment';
-import {notification} from '@default/helper/api-config-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class NotificationService {
     return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=true&channelType=IN_APP&search=${search}`);
   }
 
-  getNotArchivedNotifications(): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP&sort=receiveTime,DESC`);
+  getNotArchivedNotifications(page: number): Observable<any> {
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification?isArchived=false&channelType=IN_APP&sort=receiveTime,DESC&page=${page}&pageSize=20`);
   }
 
   setNotificationFlagged(id, flag): Observable<any> {

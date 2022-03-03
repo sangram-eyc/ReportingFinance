@@ -22,6 +22,7 @@ import {
 import {UserRolesModule} from '@default/administration/user-roles/user-roles.module';
 import { NotificationsPreferencesComponent } from './notifications-preferences/notifications-preferences.component';
 import {RouterModule} from '@angular/router';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 
 
@@ -46,7 +47,8 @@ import {RouterModule} from '@angular/router';
         EycRegulatoryReportingModule,
         EycUiSharedComponentModule,
         UserRolesModule,
-        RouterModule
+        RouterModule,
+        InfiniteScrollModule
     ],
   declarations: [NotificationsPanelComponent, NotificationItemComponent, ArchivedNotificationsComponent, NotificationsPreferencesComponent],
   exports: [

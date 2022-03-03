@@ -110,9 +110,9 @@
   }
 
   .notifications-list {
+    height: 300px;
+    overflow-y: scroll;
     padding: 15px;
-    max-height: 300px;
-    overflow: auto;
     margin-bottom: 20px;
   }
 
@@ -170,7 +170,5 @@
   cursor: not-allowed;
   pointer-events: none;
 }
-
-
 
 
