@@ -365,7 +365,7 @@ export class SubmissionComponent implements OnInit {
   }
   exportSubmissionData(){
     this.exportHeaders = '';
-    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Chnaged,updatedBy: Last updated by';
+    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy: Last updated by';
     this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     this.service.exportSubmissionData(this.exportURL).subscribe(resp => {
       console.log(resp);
