@@ -73,12 +73,21 @@ export class TaxCommentService {
     }
   }
 
-  deletePriority(idTask, data) {
+  addTag(idTask, tagId) {
     if (this.settingsService.production) {
-      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.delete_priority}/tasks/${idTask}/priority`, data);
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.add_tag}/tasks/${idTask}/tags/${tagId}`);
     }
     else {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_priority}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_tag}`);
+    }
+  }
+
+  updatePriority(idTask, data) {
+    if (this.settingsService.production) {
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.update_priority}/tasks/${idTask}/priority`, data);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_priority}`);
     }
   }
 

@@ -1,5 +1,8 @@
 .comment-wrapper-new{
     height: 100%;
+
+   
+
     .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
         padding: 0 !important;
     }
@@ -349,7 +352,7 @@
         }
 
         .motif-tooltip #arrow::before{
-            border: 11px solid white;
+            border: 11px solid white;   
         }
     }
     @media screen and (min-width: 300px) {
@@ -696,6 +699,33 @@
         }
       }
     
+    //action menu to add tags
+    .motif-dropdown-toggle{
+        border:0px;
+    }
+
+    .motif-dropdown-menu:before{
+        border:0px
+    }
+
+    .tag_menu{
+        width: auto;
+        margin-inline-start: auto;
+        
+        .tag_menu_icon{
+            display: block;
+        }
+
+        .buttons_wrapper{
+            margin-right: 27px;
+            border: 0px;
+            padding:0px;
+        }
+        
+    }
+
+    
+    //action menu to add tags
 }
 
 ::ng-deep .toast-replays{
