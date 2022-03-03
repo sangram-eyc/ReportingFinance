@@ -433,17 +433,20 @@ export class ViewExceptionReportsComponent implements OnInit {
   onClickMyTask(e) { }
 
   getResolveButtonPermission() {
-    if (!this.exceptionAnswersData && !this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') &&
-      (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed')) {
-      return false
-    } else return true;
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+      return true
+    } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (!this.exceptionAnswersData && !this.permissions.validatePermission(this.componentStage, 'Exception unapproved') &&
-      (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed')) {
-      return false
-    } else return true;
+    this.checkFilingCompletedStatus()
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+      return true;
+    } else return false;
+  }
+  
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
   exceptionResolveRowsSelected(e) {
@@ -549,7 +552,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       data: {
         type: "ConfirmationTextUpload",
         header: "Unresolve selected",
-        description: `<p>Are you sure you want to unresolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b>  Unesolved exceptions will be changed back to this icon <svg style="display: inline;" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1667 17.4167L10.0833 0L0 17.4167H20.1667ZM9.16667 14.6667V12.8333H11V14.6667H9.16667ZM9.16667 11H11V7.33333H9.16667V11Z" fill="#FF9831"/></svg>.</p>`,
+        description: `<p>Are you sure you want to unresolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b>  Unresolved exceptions will be changed back to this icon <svg style="display: inline;" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1667 17.4167L10.0833 0L0 17.4167H20.1667ZM9.16667 14.6667V12.8333H11V14.6667H9.16667ZM9.16667 11H11V7.33333H9.16667V11Z" fill="#FF9831"/></svg>.</p>`,
         entityType: "ANSWER_EXCEPTION",
         entityId: this.getEnitityIds('Resolved'),
         filingName: this.filingName,
