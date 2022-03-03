@@ -52,7 +52,8 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
     console.log(this.entityId);
     if(this.entityId) {
       this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
-        this.commentsData = resp['data']
+        this.commentsData = resp['data'];
+        this.commentsData.sort((a, b) => b.timeStamp - a.timeStamp);
         this.formattedTimes = [];
         this.commentsData.forEach(comment => {
           comment.commentText = unescape(comment.commentText);
@@ -144,6 +145,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         this.commentAddedEmitter.emit(true);
         this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
           this.commentsData = resp['data'];
+          this.commentsData.sort((a, b) => b.timeStamp - a.timeStamp);
           this.formattedTimes = [];
           this.commentsData.forEach(comment => {
             comment.commentText = unescape(comment.commentText);

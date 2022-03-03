@@ -27,4 +27,8 @@ export class UsersService {
     return this.apiService.invokeDeleteAPI(`${userAdminstration.regulatory_Reporting.remove_User}/${userId}`);
   }
 
+  exportUsersData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
+
 }

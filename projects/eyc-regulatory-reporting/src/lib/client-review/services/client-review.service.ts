@@ -12,15 +12,15 @@ export class ClientReviewService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getExceptionReports(filingName, period, stage) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}&filingName=${filingName}&period=${period}&stage=${stage}`);
+  getExceptionReports(filingName, period, stage, page, size, filter, sort) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}&filingName=${filingName}&period=${period}&stage=${stage}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
     // After backend API up will remove above line and uncomment below line
   }
   
-  getfilingEntities(filingName, period) {
+  getfilingEntities(filingName, period, page, size, filter, sort) {
     // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}`);
     // After backend API up will remove above line and uncomment below line
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}&filingName=${filingName}&period=${period}`);
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.client_review_filing_entities}&filingName=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
   }
 
   approvefilingEntities(data) {
@@ -41,5 +41,8 @@ export class ClientReviewService {
 
   getComments(type, id) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_comments}`);
+  }
+  exportCRData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
   }
 }

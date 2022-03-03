@@ -5,10 +5,11 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
-import { PermissionService } from 'eyc-ui-shared-component';
+import { PermissionService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import * as helpers from './../../../helper/api-config-helper';
 
 
 @Component({
@@ -21,12 +22,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   showAddUserModal = false;
   addUserForm: FormGroup;
   showToastAfterAddUser = false;
+  exportHeaders;
+  apiHelpers = helpers.userAdminstration;
 
   showDeleteUserModal = false;
   showToastAfterDeleteUser = false;
   selectedUser: any;
   moduleName;
   displayCheckBox = true;
+  exportUrl: any;
 
   constructor(
     private userService: UsersService,
@@ -101,7 +105,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.columnDefs1 = [
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Name',
           field: 'name',
           sortable: true,
@@ -114,7 +118,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         },
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Email',
           field: 'email',
           cellClass: 'custom-user-email',
@@ -127,7 +131,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         },
         // {
         //   width: 90,
-        //   headerComponentFramework: MotifTableHeaderRendererComponent,
+        //   headerComponentFramework: TableHeaderRendererComponent,
         //   headerName: 'Teams',
         //   field: 'teams',
         //   sortable: true,
@@ -135,7 +139,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         // },
         {
           width: 80,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
@@ -285,4 +289,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
   
     });
   }
+
+  exportUsersData() {
+    this.exportHeaders = '';
+    this.exportHeaders = 'userFirstName:First Name,userLastName:Last Name,userEmail:Email';
+    this.exportUrl = this.apiHelpers.regulatory_Reporting.view_User+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    console.log("export URL > ", this.apiHelpers.regulatory_Reporting.view_User+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv");
+    this.userService.exportUsersData(this.exportUrl).subscribe(resp => {
+      console.log(resp);
+    })
+    }
 }

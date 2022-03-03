@@ -95,7 +95,7 @@
         rowSelection="multiple"
         buttonPosition="left"
         [button]="false"
-        ></lib-shared-grid>
+        [export] = "true" (exportFlagToParent)="exportReportHistoryData()"></lib-shared-grid>
 
     <ng-template #filingNameTemplate let-row>
         <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>

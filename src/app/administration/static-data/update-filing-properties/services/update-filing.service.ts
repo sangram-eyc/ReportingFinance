@@ -52,4 +52,8 @@ export class UpdateFilingService {
   deleteTeamMember(pbiMappingData) {
     return this.apiService.invokeDeleteAPIBody(`${userAdminstration.static_data.delete_pbi_mapping}`,pbiMappingData);
   }
+
+  exportPBIMappingData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
 }

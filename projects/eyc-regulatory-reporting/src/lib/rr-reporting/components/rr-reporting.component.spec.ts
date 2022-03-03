@@ -85,7 +85,7 @@ describe('RrReportingComponent', () => {
         }]
     };
     component.filingDetails = { filingName: "FormPF", period: "Q3 2021" };
-    spyOn(testBedService, 'getfilingEntities').withArgs("FormPF", "Q3 2021").and.returnValue(of(response));
+    spyOn(testBedService, 'getfilingEntities').withArgs("FormPF", "Q3 2021", 0, 10, '', '').and.returnValue(of(response));
     component.getFilingEntities();
     expect(component.rowData).toBeDefined();
   });

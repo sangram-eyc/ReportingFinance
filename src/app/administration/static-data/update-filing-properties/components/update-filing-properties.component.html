@@ -71,7 +71,7 @@
               </motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Please enter valid data
               </motif-error>
-              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 150 characters
+              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters
                 long</motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
               </motif-error>
@@ -145,7 +145,8 @@
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third"
-      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
+      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+      [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">

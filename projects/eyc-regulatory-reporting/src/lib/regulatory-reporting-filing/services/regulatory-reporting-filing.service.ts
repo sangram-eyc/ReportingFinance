@@ -69,4 +69,14 @@ export class RegulatoryReportingFilingService {
     //   return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_permission_list}`);
     // }
 
+    exportReportsHistory(exportURL) {
+      return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
+
+  checkFilingCompletedStatus(filingStages:any){
+    let statusArr = [...filingStages.status]
+    let lastStageIndex = statusArr.length-1;
+    return filingStages.status[lastStageIndex].progress === 'COMPLETED' || filingStages.status[lastStageIndex].progress === 'Completed'
+  }
+
 }

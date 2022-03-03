@@ -57,7 +57,13 @@
                 <div class="col-md-5 col-sm-5">
                     <div class="card-column">
                         <span class="column-header">Status</span>
-                        <div class="progress-indicator-container">
+                        <div class="progress-indicator-container" *ngIf="this.states.length == 5">
+                            <motif-progress-indicators>
+                                <motif-progress-step [status]="getStatus(i+1)"  *ngFor="let item of states;index as i"></motif-progress-step>
+                            </motif-progress-indicators>
+                            <div class="line"></div>
+                        </div>
+                        <div class="progress-indicator-container-{{this.states.length}}" *ngIf="this.states.length != 5">
                             <motif-progress-indicators>
                                 <motif-progress-step [status]="getStatus(i+1)"  *ngFor="let item of states;index as i"></motif-progress-step>
                             </motif-progress-indicators>

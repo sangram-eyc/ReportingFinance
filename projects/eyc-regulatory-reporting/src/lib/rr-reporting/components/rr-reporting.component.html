@@ -13,13 +13,13 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
-            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
-            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
+        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc"
+            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
+            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig" (updatePageSize)="updatePageSize($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)"
-            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"  [export] = "false"
-            (exportFlagToParent)="exportData('exceptions')" [pagination]="true">
+            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"  [export] = "true"
+            (exportFlagToParent)="exportData('exceptions')" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -52,14 +52,41 @@
             </div>
         </ng-template>
 
+        <ng-template #dropdownTemplate let-row>
+            <div class="dropdownTemplate">
+                <motif-icon class="complete" *ngIf="row.approved == true"
+                    [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
+                <motif-icon *ngIf='tabs==1' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
+                    (click)="actionMenuEnableforException(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
+                </motif-icon>
+              
+                <div #actionMenuTemp *ngIf='tabs==1'>
+                    <motif-card class="action-menu-card"
+                        *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                            (click)="unApproveException()" class="action-mode">
+                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
+                            <span>Unapprove</span>
+                        </div>
+                    </motif-card>
+                </div>
+            </div>
+        </ng-template>
+
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
-            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
-            [isToggle]="false" [modalConfig]="filingModalConfig"
+        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
+            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true" (updatePageSize)="updatePageSize($event)" (searchInput)="searchGrid($event)"
+            [isToggle]="false" [modalConfig]="filingModalConfig" (gridReady)="handleGridReady($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="false" (exportFlagToParent)="exportData('entities')" [pagination]="false">
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
+            [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>
@@ -79,9 +106,7 @@
                 <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
-                <motif-icon *ngIf='tabs==1' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnableforException(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
+    
                 <div #actionMenuTemp *ngIf='tabs==2'>
                     <motif-card class="action-menu-card"
                         *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
@@ -92,16 +117,7 @@
                         </div>
                     </motif-card>
                 </div>
-                <div #actionMenuTemp *ngIf='tabs==1'>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
-                            (click)="unApproveException()" class="action-mode">
-                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
-                            <span>Unapprove</span>
-                        </div>
-                    </motif-card>
-                </div>
+               
             </div>
         </ng-template>
 

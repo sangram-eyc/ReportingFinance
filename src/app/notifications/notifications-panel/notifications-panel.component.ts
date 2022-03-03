@@ -76,4 +76,25 @@ export class NotificationsPanelComponent implements OnInit {
   goToArchived(): void {
     this.router.navigate(['archived-notifications']);
   }
+
+  onClickFilters($event) {
+    this.eventStop($event);
+    this.showFilters = !this.showFilters;
+    this.showPanel = false
+  }
+
+  onApplyFilters($event: MouseEvent) {
+    this.eventStop($event);
+    // TODO apply filters here
+  }
+
+  onCancelApplyFilters($event: MouseEvent) {
+    this.eventStop($event);
+    this.showFilters = false;
+  }
+
+  eventStop($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+  }
 }

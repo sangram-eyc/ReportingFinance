@@ -39,7 +39,8 @@
 
     <motif-accordion-content>
         <lib-shared-grid gridStyle="second" [columnDefs]="columnDefs" [rowData]="filesDatasets[i]"
-            rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}"></lib-shared-grid>
+            rowSelection="multiple" [button]="false" [search]="false" [defaultColDef]="{}" buttonPosition="left"
+            [export]="export" (exportFlagToParent)="exportData()"></lib-shared-grid>
 
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.comments && row.comments !== 0" class="comments-background" (click)="commentClicked()">

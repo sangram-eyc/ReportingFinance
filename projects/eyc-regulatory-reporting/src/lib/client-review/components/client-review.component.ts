@@ -68,6 +68,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   submitFunction;
   submitException;
   submitEntities;
+
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
+  
+  pageChangeFunc;
   exceptionModalConfig = {
     width: '550px',
     data: {
@@ -121,6 +129,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
+    this.pageChangeFunc = this.onPageChange.bind(this);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
 
   }
@@ -129,12 +138,25 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem("reportingTab");
   }
 
-  getExceptionReports() {
-    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review').subscribe(res => {
+  resetData() {
+    this.createEntitiesRowData();
+    this.currentPage = 0;
+    this.pageSize = 10;
+    this.filter = '';
+  }
+
+  getExceptionReports(resetData = false) {
+    this.sort = resetData ? 'exceptionReportName:true' : this.sort;
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
+      this.totalRecords = res['totalRecords'];
       console.log(this.exceptionData);
-      this.createEntitiesRowData();
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.exceptionData);
+      }
       
     },error=>{
       this.exceptionData =[];
@@ -143,10 +165,16 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   }
 
-  getFilingEntities(){
-    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
+  getFilingEntities(resetData = false){
+    this.sort = resetData ? 'entityName:true' : this.sort;
+    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.rowData = res['data'];
-      this.createEntitiesRowData();
+      this.totalRecords = res['totalRecords'];
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.rowData);
+      }
     },error=>{
       this.rowData =[];
       console.log("Client Review error");
@@ -207,6 +235,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 140,
+          comparator: this.disableComparator
         },
         /* {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -231,7 +260,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           autoHeight: true,
           width: 300,
           sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -240,6 +269,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 210,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -247,6 +277,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           field: 'reviewLevel',
           sortable: true,
           filter: true,
+          comparator: this.disableComparator
         },
          /*,
         {
@@ -268,6 +299,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 155,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -318,7 +350,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           sort:'asc',
-          comparator: customComparator,
+          comparator: this.disableComparator,
           autoHeight: true,
          wrapText: true,
          width: 300
@@ -336,8 +368,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           wrapText: true,
           autoHeight: true,
           width: 300,
-          sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -346,6 +377,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 210,
+          comparator: this.disableComparator
         },
        /*  {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -375,7 +407,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           field: 'comments',
           sortable: true,
           filter: true,
-          width: 155
+          width: 155,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -396,6 +429,44 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.gridApi = params.api;
   }
 
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+  
+  exceptionEntitySwitch() {
+    if (this.tabs == 2) {
+      this.getFilingEntities();
+    } else if (this.tabs == 1) {
+      this.getExceptionReports();
+    }
+  }
+
+  onPageChange() {
+    this.exceptionEntitySwitch();
+  }
+
+  currentPageChange(event) {
+    console.log('CURRENT PAGE CHANGE', event - 1);
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
+    this.pageSize = event;
+    this.exceptionEntitySwitch();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.exceptionEntitySwitch();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.exceptionEntitySwitch();
+  }
+
   /* onRowSelected(event: any): void {
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
@@ -412,10 +483,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     if(this.tabs == 2){
       this.modalMessage = ' Are you sure you want to approve the selected entities? This will approve them for submission.';
-      this.getFilingEntities();
+      this.getFilingEntities(true);
     } else if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve these exception reports?';
-      this.getExceptionReports();
+      this.getExceptionReports(true);
     }
   }
   
@@ -424,10 +495,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.filingDetails = event;
     // this.getFilingEntities();
     if (this.tabs == 2) {
-      this.getFilingEntities();
+      this.getFilingEntities(true);
     }
     if (this.tabs == 1) {
-      this.getExceptionReports();
+      this.getExceptionReports(true);
     }
   }
 
@@ -751,6 +822,7 @@ actionMenuEnableforException(row) {
         this.service.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolveOrException = ele.resolveOrException;
           });
           this.exceptionData = tempRowData;
           this.createEntitiesRowData();
@@ -782,7 +854,7 @@ actionMenuEnableforException(row) {
   
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
-    this.router.navigate(['/view-exception-reports']);
+    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: 'Client Review' }});
   }
 
   routeToFilingEntityExceptionPage(event:any) {
@@ -799,12 +871,17 @@ actionMenuEnableforException(row) {
   }
   exportData(type) {
     if(type == 'entities') {
-      this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
-      this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportHeaders = 'entityId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,comments:Comments';
+      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
-      this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,reviewLevel:Review Level';
+      this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
       this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
     console.log("export URL > ", this.exportURL);
+
+    this.service.exportCRData(this.exportURL).subscribe(resp => {
+      console.log(resp);
+    })
+    
   }
 }
