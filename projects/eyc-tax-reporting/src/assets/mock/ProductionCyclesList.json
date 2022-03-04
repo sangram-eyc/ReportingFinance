@@ -14,11 +14,11 @@
             "id": "01KV7KIYGSEE4YRXLQXBFKESDBC6JOFFLH",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount": 3,
+                "fundTotalCount": 13,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",
-                        "fundCount": 0
+                        "fundCount": 4
                     },
                     {
                         "statusName": "in client review",
@@ -26,7 +26,7 @@
                     },
                     {
                         "statusName": "Approved by client",
-                        "fundCount": 0
+                        "fundCount": 6
                     }
                 ]
             }
@@ -36,19 +36,19 @@
             "id": "01KV7KIYHWSXPAXR2E7FEY4FWXL22DFCX2",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount": 3,
+                "fundTotalCount":15,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",
-                        "fundCount": 0
+                        "fundCount": 5
                     },
                     {
                         "statusName": "in client review",
-                        "fundCount": 3
+                        "fundCount": 5
                     },
                     {
                         "statusName": "Approved by client",
-                        "fundCount": 0
+                        "fundCount": 5
                     }
                 ]
             }
@@ -58,19 +58,19 @@
             "id": "01KV7KIYBR63NX7U7DLBEKGGP7SWQ2SHB6",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount": 3,
+                "fundTotalCount":90,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",
-                        "fundCount": 3
+                        "fundCount": 30
                     },
                     {
                         "statusName": "in client review",
-                        "fundCount": 0
+                        "fundCount": 20
                     },
                     {
                         "statusName": "Approved by client",
-                        "fundCount": 0
+                        "fundCount": 40
                     }
                 ]
             }
@@ -80,7 +80,7 @@
             "id": "01KV7KIYGI4HU4JSGDNJBY6PO54ARRCGNO",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount": 6,
+                "fundTotalCount":6,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",
@@ -102,7 +102,7 @@
             "id": "01KV7KIYG4L4LM6GQLDBBYSXQALLCNVBM2",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount": 6,
+                "fundTotalCount":6,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",

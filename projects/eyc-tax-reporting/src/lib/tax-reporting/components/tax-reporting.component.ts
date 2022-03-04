@@ -215,7 +215,7 @@ export class TaxReportingComponent implements OnInit {
           ngTemplate: this.totalFunds,
         },
         headerName: 'Total funds',
-        field: 'name',
+        field: 'totalFunds',
         sortable: true,
         filter: false,
         resizeable: true,
