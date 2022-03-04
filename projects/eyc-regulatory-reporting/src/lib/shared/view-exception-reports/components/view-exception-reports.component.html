@@ -38,7 +38,7 @@
 
 
   <div class="exceptionResults">
-    <lib-shared-grid [hidden]="!dataIntakeExceptionsTable"
+    <lib-shared-grid *ngIf="dataIntakeExceptionsTable"
       (newEventToParent)="redirecttoDataExplorer($event)" 
       [columnDefs]="exceptionAnswersDefs" 
       [rowData]="exceptionAnswersData"
@@ -54,7 +54,7 @@
       [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
-  <lib-shared-grid [hidden]="!answerExceptionTable"
+  <lib-shared-grid *ngIf="answerExceptionTable"
     [columnDefs]="exceptionAnswersDefs" 
     [rowData]="exceptionAnswersData"
     rowSelection="multiple"

@@ -130,7 +130,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   getExceptionResults() {
     this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
       this.exceptionAnswersData = res.data;
-      this.createDataIntakeExceptionsRowData();
+      this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
     });
   }
 
