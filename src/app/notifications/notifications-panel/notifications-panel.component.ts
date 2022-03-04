@@ -14,6 +14,7 @@ export class NotificationsPanelComponent implements OnInit {
   public showPanel: boolean;
   public showFilters: boolean;
   public archivedItems: number;
+  public currentPage = 0;
 
   constructor(
     private notificationService: NotificationService,
@@ -24,7 +25,7 @@ export class NotificationsPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getArchivedNotifications();
     this.notifications = [];
-    this.notificationService.getNotArchivedNotifications().subscribe(res => {
+    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
       this.notifications = res.content;
     });
   }
@@ -55,6 +56,15 @@ export class NotificationsPanelComponent implements OnInit {
 
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  onScroll() {
+    this.currentPage += 1;
+    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
+      res.content.forEach( item => {
+        this.notifications.push(item);
+      });
+    });
   }
 
   getArchivedNotifications() {
