@@ -119,6 +119,7 @@ export class ArchivedNotificationsComponent implements OnInit {
         item.selected = false;
         item.subject = item.request.subject;
         item.category = JSON.parse(item.request.content).category;
+        item.sendDate = `${item.sendDate[0]}/${item.sendDate[1]}/${item.sendDate[2]}`;
       });
     });
   }
@@ -155,6 +156,7 @@ export class ArchivedNotificationsComponent implements OnInit {
         item.selected = false;
         item.subject = item.request.subject;
         item.category = JSON.parse(item.request.content).category;
+        item.sendDate = `${item.sendDate[0]}/${item.sendDate[1]}/${item.sendDate[2]}`;
       });
     });
   }
