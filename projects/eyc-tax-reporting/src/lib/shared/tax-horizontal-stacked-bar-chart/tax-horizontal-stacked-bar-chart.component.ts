@@ -81,6 +81,7 @@ export class TaxHorizontalStackedBarChartComponent{
             .append("svg")
             .style("width", this.widthServer + "px")
             .style("height", "25px")
+            .style("margin-top", "-7px")
             .style("cursor", "pointer")
             .attr("viewBox", "0 0 " + this.widthServer + " 25")
             .selectAll('g.series')
@@ -151,15 +152,15 @@ export class TaxHorizontalStackedBarChartComponent{
       .attr('y',(x, i)=> {
         return i * 20;
       })
-      .attr('height', 30)
+      .attr('height', 80)
       .on("mouseover", mouseover)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
 
       if (this.gridEnabled){
-        d3.select(chartId).selectAll('g').filter(":nth-child(1)").append('text').text(this.dataValues[0]).attr('x', (arrPositionX[0] + (arrWidthPosition[0] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
-        d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + (arrWidthPosition[1] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
-        d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + (arrWidthPosition[2] / 2))).attr('y', 25).attr('font-size', 24).attr('fill', '#212529')
+        d3.select(chartId).selectAll('g').filter(":nth-child(1)").append('text').text(this.dataValues[0]).attr('x', (arrPositionX[0] + (arrWidthPosition[0] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle')
+        d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + (arrWidthPosition[1] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle')
+        d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + (arrWidthPosition[2] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle')
       }
       }
 
