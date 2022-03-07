@@ -247,6 +247,8 @@
                     <motif-error *ngIf="ReplayForm.get('comment').hasError('maxlength')">
                         Comment can be max 250 characters long
                     </motif-error>
+                    <motif-error *ngIf="ReplayForm.get('comment').hasError('pattern')">Special characters cannot be used
+                    </motif-error>
                     <motif-error *ngIf="ReplayForm.get('comment').hasError('whitespace') &&
                     ReplayForm.get('comment').touched">Please enter valid data</motif-error>
                     

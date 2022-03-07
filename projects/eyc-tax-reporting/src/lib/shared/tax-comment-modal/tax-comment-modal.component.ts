@@ -34,7 +34,7 @@ export class TaxCommentModalComponent implements OnInit {
         this.ConfirmationTextUpload = true;
         this.modalForm = this.fb.group({
           sendTo: ['EY'],
-          comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator]],
+          comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator, Validators.pattern('[a-zA-Z0-9-_:/*$%.,@+? ]*')]],
           edit:[false],
           assignTo:['1'],
           critical: [false],
