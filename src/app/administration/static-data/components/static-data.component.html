@@ -82,9 +82,12 @@
                     </motif-error>
                     <motif-error *ngIf="addFilingForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters long
                     </motif-error>
+                    <motif-error *ngIf="addFilingForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
+                    </motif-error>
                     <motif-error *ngIf="addFilingForm.get('filerType').hasError('whitespace') &&
                                 addFilingForm.get('filerType').touched">Please enter valid data</motif-error>
                   </motif-form-field>
+                  
             </div>
         </div>
         <div class="motif-row">

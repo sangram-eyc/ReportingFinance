@@ -213,7 +213,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   private _updateForm() {
     return this.formBuilder.group({
-      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$')]],
+      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'),this.checkDuplicate.bind(this)]],
       filingStage: ['', [Validators.required]],
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]]
@@ -497,4 +497,16 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       console.log(resp);
     })
   }
+
+  checkDuplicate(control: FormControl){
+    let value = (control.value).toUpperCase().split(',');
+    if(value && new Set(value).size !== value.length){
+      return {
+        duplicateName: {
+          filerType: value[0]
+        }
+    }
+  }
+}
+  
 }
