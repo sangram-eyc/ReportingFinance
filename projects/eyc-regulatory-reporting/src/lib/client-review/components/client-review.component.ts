@@ -871,7 +871,7 @@ actionMenuEnableforException(row) {
   }
   exportData(type) {
     if(type == 'entities') {
-      this.exportHeaders = 'entityId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,comments:Comments';
+      this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,commentsCount:Comments';
       this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
       this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
