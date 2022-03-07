@@ -23,6 +23,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   showToastAfterSubmit = false;
   searchNoDataAvilable;
   buttonModal = false;
+  toastAfterExport = false;
 
   @Input() gridStyle = 'first';
   @Input() button = true;
@@ -370,6 +371,10 @@ pageSize;
    /*  const exportURL = requestDetails.exportEndPoint + "?filingName=" + requestDetails.filingName + "&period=" + requestDetails.period + "&headers=" + requestDetails.headers;
     console.log("exportURL > ", exportURL);
     // */
+    this.toastAfterExport = true;
+    setTimeout(() => {
+      this.toastAfterExport = !this.toastAfterExport;
+    }, 5000);
     this.exportFlagToParent.emit(true);
   }
 
