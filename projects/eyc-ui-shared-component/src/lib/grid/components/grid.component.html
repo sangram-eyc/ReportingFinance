@@ -144,3 +144,7 @@
                 (click)="buttonModal = false">Cancel</button>
         </motif-modal-footer>
     </motif-modal>
+
+    <motif-toast [type]="'success'" [show]="toastAfterExport"
+        (close)="toastAfterExport = !toastAfterExport">Download in progress. This may take a few minutes.
+    </motif-toast> 

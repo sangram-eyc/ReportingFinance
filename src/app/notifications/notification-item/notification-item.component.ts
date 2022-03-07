@@ -134,7 +134,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     let target = <HTMLAnchorElement>event.target;
     console.log("target > ", target);
     // Navigate to the path in the link
-    window.open(target.href);
+    window.open(target.href, "_self");
   }
 
 }
