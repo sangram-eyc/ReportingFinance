@@ -75,6 +75,8 @@
                 long</motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
               </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
+              </motif-error>
             </motif-form-field>
           </div>
           <div class="col-md-6">
