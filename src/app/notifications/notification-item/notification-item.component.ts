@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener } from '@angular/core';
 import {NotificationService} from '@default/services/notification.service';
 
 @Component({
@@ -122,4 +122,19 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     }
     return false;
   }
+
+  @HostListener("click", ['$event'])
+  onClick(event: MouseEvent) {
+    // If we don't have an anchor tag, we don't need to do anything.
+    if (event.target instanceof HTMLAnchorElement === false) { 
+      return;
+    }
+    // Prevent page from reloading
+    event.preventDefault();
+    let target = <HTMLAnchorElement>event.target;
+    console.log("target > ", target);
+    // Navigate to the path in the link
+    window.open(target.href);
+  }
+
 }
