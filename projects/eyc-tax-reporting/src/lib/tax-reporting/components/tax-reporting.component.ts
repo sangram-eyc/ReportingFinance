@@ -205,7 +205,7 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 300,
+        width: 250,
         sort: 'asc'
       },
       {
@@ -217,7 +217,7 @@ export class TaxReportingComponent implements OnInit {
         headerName: 'Total funds',
         field: 'totalFunds',
         sortable: true,
-        filter: false,
+        filter: true,
         resizeable: true,
         width: 150,
         sort: 'asc'
@@ -240,7 +240,7 @@ export class TaxReportingComponent implements OnInit {
           ngTemplate: this.statusTracker,
         },
         headerName: 'Status tracker',
-        sortable: true,
+        sortable: false,
         filter: false,
         wrapText: true,
         autoHeight: true,
