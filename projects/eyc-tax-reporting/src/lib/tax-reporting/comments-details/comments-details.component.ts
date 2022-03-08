@@ -217,7 +217,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 400,
+        width: 300,
         sort: 'asc'
       },
       {
@@ -245,7 +245,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
@@ -259,7 +259,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
@@ -273,7 +273,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
@@ -287,7 +287,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 350,
+        width: 300,
         sort: 'asc'
       }
     ];
@@ -295,6 +295,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
 
   getTooltip() {
     const arrayTooltips = document.querySelectorAll(".motif-tooltip");
+    console.log('getTooltip ->', arrayTooltips);
     arrayTooltips.forEach((userItem) => {
       document.querySelector('.motif-pagination-select-wrapper').appendChild(userItem);
       window.scrollTo(0, window.scrollY + 1);

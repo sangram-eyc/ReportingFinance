@@ -380,7 +380,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 400,
+        minWidth: 300,
         sort: 'asc'
       },
       {
@@ -394,7 +394,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: false,
-        minWidth: 400,
+        minWidth: 200,
         sort: 'asc'
       },
       {
@@ -408,7 +408,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -422,7 +422,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -436,7 +436,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -450,7 +450,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -464,7 +464,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -474,10 +474,10 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.urlDownload,
         },
         headerName: 'Actions',
-        sortable: true,
+        sortable: false,
         filter: false,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       }
     ];
