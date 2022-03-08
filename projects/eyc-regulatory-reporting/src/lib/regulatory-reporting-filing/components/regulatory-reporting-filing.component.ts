@@ -505,7 +505,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   exportReportHistoryData() {
     this.exportHeaders = '';
-    this.exportHeaders = 'name:Filing Report Name,period:Filing period,totalFunds:Total entities,dueDate:Due date,subDate:Submission date,completedDate:Date marked complete,completedBy:Marked completed by';
+    this.exportHeaders = 'filingName:Filing Report Name,period:Filing period,totalFunds:Total entities,dueDate:Due date,subDate:Submission date,completedDate:Date marked complete,completedBy:Marked completed by';
     this.exportURL = this.settingsService.regReportingFiling.filing_history  +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     console.log("export URL > ", this.exportURL);
     this.filingService.exportReportsHistory(this.exportURL).subscribe(resp => {
