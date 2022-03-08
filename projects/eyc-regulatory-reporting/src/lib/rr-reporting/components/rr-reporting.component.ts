@@ -187,6 +187,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
+  }
+  
   createEntitiesRowData(): void {
     this.columnDefs = [];
     this.exceptionDefs = [];

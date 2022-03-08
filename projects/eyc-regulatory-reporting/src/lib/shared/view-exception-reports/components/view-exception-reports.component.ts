@@ -440,7 +440,6 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getUnresolveButtonPermission() {
-    this.checkFilingCompletedStatus()
     if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;

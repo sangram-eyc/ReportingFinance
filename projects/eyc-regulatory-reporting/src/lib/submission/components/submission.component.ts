@@ -141,6 +141,9 @@ export class SubmissionComponent implements OnInit {
     return new Blob(byteArrays, {type: contentType});
   }
 
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
+  }
 
   receiveFilingDetails(event) {
     this.submittedFiles = []

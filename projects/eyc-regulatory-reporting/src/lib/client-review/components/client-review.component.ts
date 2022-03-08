@@ -192,6 +192,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
+  }
+  
   createEntitiesRowData(): void {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());

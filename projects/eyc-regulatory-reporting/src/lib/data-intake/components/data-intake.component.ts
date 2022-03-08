@@ -7,6 +7,7 @@ import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { Router, NavigationExtras } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 
 @Component({
@@ -95,6 +96,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
+    private filingService: RegulatoryReportingFilingService,
     public permissions: PermissionService,
     private router: Router,
     private settingsService: EycRrSettingsService,
@@ -239,6 +241,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exceptionReportRowsSelected(event) {
     console.log(event);
     this.exceptionReportRows = event;
+  }
+
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
   handleGridReady(params) {

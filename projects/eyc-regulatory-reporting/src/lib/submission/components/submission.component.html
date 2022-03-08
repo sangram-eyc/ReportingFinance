@@ -46,7 +46,7 @@
         </span>
         <div>{{row.status}}</div>
         <span class="edit_icon" [ngClass]="{'disabled': selectedRows.length!=0}"
-            *ngIf="permissions.validatePermission('Submission', 'File Status Change') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+            *ngIf="permissions.validatePermission('Submission', 'File Status Change') && !checkFilingCompletedStatus()">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" (click)="enableUpdateStatusModal(row, 'single')">
             </motif-icon>
         </span>
