@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -273,9 +273,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");
+    let pastedText = (clipboardData.getData('text')).split("");    
     pastedText.forEach((ele, index) => {
-      if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
         if ((pastedText.length - 1) === index) {
           return true;
         }
@@ -288,7 +288,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
-    if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
       return true;
     } else {
       event.preventDefault();

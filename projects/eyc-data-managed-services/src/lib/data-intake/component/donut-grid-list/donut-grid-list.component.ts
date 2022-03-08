@@ -5,11 +5,12 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { SmallDonutChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'lib-donut-grid-list',
@@ -42,7 +43,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
-  dataList: any;
+  dataList: Observable<any[]>;
+  dataListClone: [];
   totalDataIntakeTypeCount: number;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
@@ -372,10 +374,57 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   getDataIntakeType() {
+    this.dataListClone = [];
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
-      this.dataList = data.data;
-      this.totalDataIntakeTypeCount = this.dataList.length;
+      this.dataList = of(data.data);
+      this.dataListClone = data.data;
+      this.totalDataIntakeTypeCount = this.dataListClone.length;
       this.cdr.detectChanges();
     });
   }
+
+   // Table methods
+  searchCompleted(input) {
+    const searchItem = (input.el.nativeElement.value).toLowerCase();
+    if (searchItem && searchItem.length <= 0) {
+      this.dataList = of(JSON.parse(JSON.stringify(this.dataListClone)));
+    } else {
+      this.dataList.subscribe(() => {
+        const dataListClone = JSON.parse(JSON.stringify(this.dataListClone));
+        const searchedDataList = dataListClone.filter(({ dataIntakeName }) => {
+          const regex = new RegExp(`${searchItem}`, "g");
+          return (dataIntakeName).toLowerCase().match(regex);
+        });
+        this.totalDataIntakeTypeCount = searchedDataList.length;
+        this.dataList = of(searchedDataList);
+      });
+    }
+  }
+
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+
 }
