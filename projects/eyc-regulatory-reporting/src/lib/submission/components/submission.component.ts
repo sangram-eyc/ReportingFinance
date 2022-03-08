@@ -37,6 +37,7 @@ export class SubmissionComponent implements OnInit {
 
   exportHeaders: string;
   exportURL;
+  toastAfterExportInSubmission: boolean = false;
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
@@ -367,6 +368,10 @@ export class SubmissionComponent implements OnInit {
     });
   }
   exportSubmissionData(){
+    this.toastAfterExportInSubmission = true;
+    setTimeout(() => {
+      this.toastAfterExportInSubmission = !this.toastAfterExportInSubmission;
+    }, 5000);
     this.exportHeaders = '';
     this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy: Last updated by';
     this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
