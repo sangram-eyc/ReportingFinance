@@ -121,9 +121,13 @@ export class ViewExceptionReportsComponent implements OnInit {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
-      this.sortByUnresolvedException();
+      if (this.exceptionAnswersData) {
+        this.sortByUnresolvedException();
+        this.createEntitiesRowData();
+      } else {
+        this.exceptionAnswersDefs = [];
+      }
       this.commentsCount = res.data['commentCountMap'];
-      this.createEntitiesRowData();
     });
   }
 
@@ -178,162 +182,24 @@ export class ViewExceptionReportsComponent implements OnInit {
         width: 70,
         sortable: false,
         cellClass: 'actions-button-cell'
-      },
-      {
-        field: 'AuditResultObjectID',
-        headerName: 'AuditResultObjectID',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Entity Name',
-        headerName: 'Entity Name',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Entity ID',
-        headerName: 'Entity ID',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Report Date (Current)',
-        headerName: 'Report Date (Current)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: "Report Date (Previous)",
-        headerName: "Report Date (Previous)",
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Context',
-        headerName: 'Context',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Context Desc',
-        headerName: 'Context Desc',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Field',
-        headerName: 'Field',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Value (Current)',
-        headerName: 'Value (Current)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Value (Previous)',
-        headerName: 'Value (Previous)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Diff',
-        headerName: 'Diff',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Diff Pct',
-        headerName: 'Diff Pct',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Status',
-        headerName: 'Status',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Last Modified By',
-        headerName: 'Last Modified By',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
+      }
     );
-
-    // for (const property in this.exceptionAnswersData[0]) {
-    //   console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-    //   this.exceptionAnswersDefs.push({
-    //     field: `${property}`,
-    //     headerName: `${property}`,
-    //     headerComponentFramework: TableHeaderRendererComponent,
-    //     sortable: true,
-    //     autoHeight: true,
-    //     width: 320,
-    //     wrapText: true,
-    //     filter: true
-    //   });
-    // }
+    
+    for (const property in this.exceptionAnswersData[0]) {
+      console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
+      if(property != 'approved') {
+        this.exceptionAnswersDefs.push({
+          field: `${property}`,
+          headerName: `${property}`,
+          headerComponentFramework: TableHeaderRendererComponent,
+          sortable: true,
+          autoHeight: true,
+          width: 320,
+          wrapText: true,
+          filter: true
+        });
+      }
+    }
     this.exceptionAnswersDefs.push({
       headerName: 'Comments',
       headerComponentFramework: TableHeaderRendererComponent,
