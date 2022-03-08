@@ -133,7 +133,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'Audit:Exception Report Name,resolveOrException:Resolved/Exception';
+    this.exportsHeader = 'Audit:Exception Report Name,Resolved:Resolved,Exceptions:Exception';
     this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader).subscribe(res => {
      
     });
