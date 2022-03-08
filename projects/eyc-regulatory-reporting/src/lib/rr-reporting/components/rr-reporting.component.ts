@@ -127,6 +127,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   viewFilingEntityTemplate: TemplateRef<any>;
   @ViewChild('expandEntityTemplate')
   expandEntityTemplate: TemplateRef<any>;
+  @ViewChild('lastUpdatedByTemplate')
+  lastUpdatedByTemplate: TemplateRef<any>;
   
   
   ngOnInit(): void {
@@ -298,6 +300,22 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         //   cellClass: params => {
         //     return params.value === '' ? '' :'comments-background';
         // }
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
