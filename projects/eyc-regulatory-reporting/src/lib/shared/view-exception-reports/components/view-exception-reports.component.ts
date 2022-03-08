@@ -487,8 +487,9 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.exportsHeader = hedars;
       }
     }
+    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
-
+    }
     const requestobj = {
       "exceptionId": this.filingService.getExceptionData.exceptionId,
       "export": true,

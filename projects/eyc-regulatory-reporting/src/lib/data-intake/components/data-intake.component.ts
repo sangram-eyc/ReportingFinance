@@ -748,7 +748,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   exportData(type) {
     if(type == 'exceptions') {
-      this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+      if(this.permissions.validatePermission('Data Intake', 'View Comments')) { 
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+      } else {
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolvedCount:Resolved,exceptionCount:Exceptions';
+      }
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else if(type == 'dataset') {
       this.exportHeaders = 'due:Due,file:File,source:Source,resolved:Resolved,version:Version';
