@@ -29,7 +29,7 @@
                 {{row.commentCount}}
             </div>
             <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount ">
-                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments') && !checkFilingCompletedStatus()">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
@@ -113,7 +113,7 @@
 </div>
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')"
-    (commentAddedEmitter)="commentAdded()" [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-comment-side-menu>
+    (commentAddedEmitter)="commentAdded()" [filingStatus]="checkFilingCompletedStatus()"></lib-comment-side-menu>
 
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
