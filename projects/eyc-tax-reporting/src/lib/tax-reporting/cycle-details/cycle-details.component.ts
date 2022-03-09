@@ -375,7 +375,7 @@ export class CycleDetailComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.fundName,
         },
-        headerName: 'Fund Name',
+        headerName: 'Fund name',
         field: 'name',
         sortable: true,
         filter: true,
@@ -417,7 +417,7 @@ export class CycleDetailComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.statusChangedToTemplate,
         },
-        headerName: 'status changed',
+        headerName: 'Status changed',
         field: 'statusChangedDate',
         sortable: true,
         filter: true,

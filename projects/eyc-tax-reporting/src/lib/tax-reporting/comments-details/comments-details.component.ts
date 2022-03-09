@@ -295,7 +295,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
 
   getTooltip() {
     const arrayTooltips = document.querySelectorAll(".motif-tooltip");
-    console.log('getTooltip ->', arrayTooltips);
     arrayTooltips.forEach((userItem) => {
       document.querySelector('.motif-pagination-select-wrapper').appendChild(userItem);
       window.scrollTo(0, window.scrollY + 1);
