@@ -40,9 +40,12 @@
   display: flex;
 
   ::ng-deep {
+    .motif-icon {
+      cursor: pointer;
+    }
+
     .margin-icon {
       margin-right: 10px;
-      cursor: pointer;
     }
 
     .motif-icon-content {
