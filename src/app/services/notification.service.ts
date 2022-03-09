@@ -38,7 +38,12 @@ export class NotificationService {
   }
 
   exportCsv(ids): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true`, {responseType: 'text'});
+    let params = '';
+
+    if (ids.length) {
+     params = `&ids=${ids}`;
+    }
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true${params}`, {responseType: 'text'});
   }
 
   setAsArchived(id): Observable<any> {

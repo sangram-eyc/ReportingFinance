@@ -32,7 +32,7 @@
 .select-all {
   position: absolute;
   top: 266px;
-  left: 372px;
+  left: 325px;
   z-index: 100;
 }
 
@@ -42,6 +42,7 @@
   ::ng-deep {
     .margin-icon {
       margin-right: 10px;
+      cursor: pointer;
     }
 
     .motif-icon-content {
