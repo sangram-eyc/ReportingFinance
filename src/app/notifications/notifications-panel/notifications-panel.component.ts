@@ -34,7 +34,7 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
       res.forEach( item => {
         const index = this.notifications.findIndex(noti => noti.engineId == item.engineId);
         if (index < 0) {
-          this.notifications.push(item);
+          this.notifications.unshift(item);
         }
       });
     });

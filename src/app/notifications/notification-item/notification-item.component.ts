@@ -55,7 +55,13 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
     if (Array.isArray(date)) {
       // tslint:disable-next-line:radix
-      const transformedDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5], parseInt(date[6]) / 240);
+      const initialDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5]);
+      const offset = initialDate.getTimezoneOffset();
+      // tslint:disable-next-line:radix
+      const transformedDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5], Math.abs(offset) * 6000);
+
+
+      // tslint:disable-next-line:radix
       // @ts-ignore
 
       const seconds = Math.floor((new Date() - transformedDate) / 1000);
