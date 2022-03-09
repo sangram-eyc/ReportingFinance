@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '@env/environment';
 
 @Injectable({
@@ -8,6 +8,9 @@ import {environment} from '@env/environment';
 })
 
 export class NotificationService {
+
+  notification = new BehaviorSubject<any>(null);
+  notificationObs$ = this.notification.asObservable();
 
   constructor(
     private http: HttpClient
