@@ -1,20 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {PouchdbService} from "@default/services/pouchdb.service";
-import {NotificationService} from "@default/services/notification.service";
+import {PouchdbService} from '@default/services/pouchdb.service';
+import {NotificationService} from '@default/services/notification.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-notifications-panel',
   templateUrl: './notifications-panel.component.html',
   styleUrls: ['./notifications-panel.component.scss']
 })
-export class NotificationsPanelComponent implements OnInit {
+export class NotificationsPanelComponent implements OnInit, OnDestroy {
   public notifications = [];
   public data: any;
   public showPanel: boolean;
   public showFilters: boolean;
   public archivedItems: number;
   public currentPage = 0;
+  private notifiSub$: Subscription;
 
   constructor(
     private notificationService: NotificationService,
@@ -27,6 +29,14 @@ export class NotificationsPanelComponent implements OnInit {
     this.notifications = [];
     this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
       this.notifications = res.content;
+    });
+    this.notifiSub$ = this.notificationService.notificationObs$.subscribe( res => {
+      res.forEach( item => {
+        const index = this.notifications.findIndex(noti => noti.engineId == item.engineId);
+        if (index < 0) {
+          this.notifications.push(item);
+        }
+      });
     });
   }
 
@@ -80,7 +90,7 @@ export class NotificationsPanelComponent implements OnInit {
   onClickFilters($event) {
     this.eventStop($event);
     this.showFilters = !this.showFilters;
-    this.showPanel = false
+    this.showPanel = false;
   }
 
   onApplyFilters($event: MouseEvent) {
@@ -96,5 +106,9 @@ export class NotificationsPanelComponent implements OnInit {
   eventStop($event) {
     $event.stopPropagation();
     $event.preventDefault();
+  }
+
+  ngOnDestroy() {
+    this.notifiSub$.unsubscribe();
   }
 }

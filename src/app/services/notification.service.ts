@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '@env/environment';
 
 @Injectable({
@@ -8,6 +8,9 @@ import {environment} from '@env/environment';
 })
 
 export class NotificationService {
+
+  notification = new BehaviorSubject<any>(null);
+  notificationObs$ = this.notification.asObservable();
 
   constructor(
     private http: HttpClient
@@ -35,7 +38,12 @@ export class NotificationService {
   }
 
   exportCsv(ids): Observable<any> {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true`, {responseType: 'text'});
+    let params = '';
+
+    if (ids.length) {
+     params = `&ids=${ids}`;
+    }
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/csv?isArchived=true${params}`, {responseType: 'text'});
   }
 
   setAsArchived(id): Observable<any> {
