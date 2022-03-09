@@ -880,7 +880,7 @@ actionMenuEnableforException(row) {
       } else {
         this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
       }
-      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
       if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
         this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
