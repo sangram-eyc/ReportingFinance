@@ -24,6 +24,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionAnswersData;
   rowData;
   exceptionCnt = '';
+  componentStage;
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
@@ -36,7 +37,12 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
     private router: Router,
     private location: Location,
     private viewService: ViewFilingEntityExceptionService
-  ) { }
+  ) { 
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation.extras.state) {
+      this.componentStage = navigation.extras.state.componentStage;
+    }
+  }
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
@@ -134,7 +140,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exportData() {
     this.exportsHeader = '';
     this.exportsHeader = 'Audit:Exception Report Name,Resolved:Resolved,Exceptions:Exception';
-    this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader).subscribe(res => {
+    this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
      
     });
     

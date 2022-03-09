@@ -496,6 +496,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       "reportType": "CSV",
       "filingName": this.filingName,
       "period": this.period,
+      "stage": this.componentStage,
       "totalExceptions": this.exceptionCnt,
       "titles": this.exportsHeader
     }
