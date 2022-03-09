@@ -115,7 +115,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.exceptionAnswersData ? this.exceptionAnswersData.map(e => {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
