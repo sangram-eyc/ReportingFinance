@@ -883,7 +883,7 @@ actionMenuEnableforException(row) {
 
   routeToFilingEntityExceptionPage(event:any) {
     this.filingService.setFilingEntityData = event;
-    this.router.navigate(['/view-filing-entity-exception']);
+    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: 'Reporting' }});
   }
 
   @HostListener('document:click', ['$event'])
