@@ -28,7 +28,7 @@
 
       </div>
     </ng-template>
-    <div class="select-all">
+    <div class="select-all" *ngIf="notificationsData?.length">
       <input type="checkbox" (change)="selectAll($event)"/>
     </div>
     <lib-shared-grid gridStyle="second" isToggle="false"

@@ -14,6 +14,7 @@ import {
 } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import {PreferencesService} from "@default/services/preferences.service";
+import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   notificationCount = 0;
   loginName;
   notifFlag = false;
-  isNotificationRead = false;
+  isNotificationRead = true;
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
   hide_home_page = HIDE_HOME_PAGE;
@@ -59,7 +60,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private preferencesService: PreferencesService,
-    private wsBulkService: WebSocketBulkService
+    private wsBulkService: WebSocketBulkService,
+    private notificationService: NotificationService
   ) {
     // To hide header and footer from login page
 
@@ -123,6 +125,14 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.preferencesService.emailToRecipient().subscribe(recipient => {
           }, error => {
             this.preferencesService.createRecipient().subscribe(err => {
+            });
+          });
+
+          this.notificationService.getNotArchivedNotifications(0).subscribe((notifications: any) => {
+            notifications.content.forEach(item => {
+              if (!item.isRead) {
+                this.isNotificationRead = false;
+              }
             });
           });
         }, 1000);
@@ -198,11 +208,16 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   public notification() {
-
     this.isNotification = !this.isNotification;
     this.notifFlag = true;
     sessionStorage.setItem('isNotificationRead', 'true');
     this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true';
+
+    this.notificationService.getNotArchivedNotifications(0).subscribe(res => {
+      res.content.forEach(item => {
+        this.notificationService.setNotificationRead(item.engineId).subscribe();
+      });
+    });
 
     setTimeout(() => {
       this.notifFlag = false;
@@ -350,11 +365,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           sessionStorage.setItem('notifications', JSON.stringify(notifications));
           this.isNotificationRead = false;
           sessionStorage.setItem('isNotificationRead', 'false');
+          this.notificationService.notification.next(notifications);
         }
       } else {
         sessionStorage.setItem('notifications', JSON.stringify(notifications));
         this.isNotificationRead = false;
         sessionStorage.setItem('isNotificationRead', 'false');
+        this.notificationService.notification.next(notifications);
       }
     } catch (err) {
       console.log('bulkDownloadWarnings Error ->', err);
