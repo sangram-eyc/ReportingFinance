@@ -124,6 +124,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   viewFilingEntityTemplate: TemplateRef<any>;
   @ViewChild('expandEntityTemplate')
   expandEntityTemplate: TemplateRef<any>;
+  @ViewChild('lastUpdatedByTemplate')
+  lastUpdatedByTemplate: TemplateRef<any>;
   
 
   ngOnInit(): void {
@@ -304,6 +306,22 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           filter: true,
           width: 155,
           comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 300,
+          sort:'asc',
+          comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,

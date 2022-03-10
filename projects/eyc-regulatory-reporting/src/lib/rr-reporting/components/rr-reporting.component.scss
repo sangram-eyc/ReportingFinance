@@ -293,3 +293,26 @@ motif-icon.motif-icon.actionCursor {
         fill: #168736;
     }
   }
+
+  .last_updated_by {
+    color: #155CB4;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .last_updated_by_icon {
+    ::ng-deep svg {
+        fill: #155CB4 !important;
+        height: 1.111rem !important;
+        width: 1.111rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        cursor: pointer;
+        padding-top: 0.24rem;
+        padding-right: 5px;
+    }
+  }

@@ -146,6 +146,13 @@
             <div class="exceptionRouteCls" (click)="routeToFilingEntityExceptionPage(row)">{{ row.entityName}}</div>
         </ng-template>
 
+        <ng-template #lastUpdatedByTemplate let-row>
+            <span class="last_updated_by_icon" *ngIf="row.updatedBy">
+                <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
+            </span>
+            <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+        </ng-template>
+
         <ng-template #viewFilingEntityTemplate let-row>
             <div class="view-det-arrow">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
