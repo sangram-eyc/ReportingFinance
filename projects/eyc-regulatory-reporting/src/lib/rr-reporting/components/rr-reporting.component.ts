@@ -774,6 +774,8 @@ actionMenuEnableforException(row) {
   }, 1);
 }
 
+onClickLastUpdatedBy(row){}
+
   unApproveEntity(){
     this.actionMenuModal = false;
     const dialogRef = this.dialog.open(ModalComponent, {
