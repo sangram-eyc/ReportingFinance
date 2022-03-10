@@ -28,6 +28,15 @@ export class DataManagedService {
     return this.exceptionFileName;
   }
 
+  businessDate(businessWeekDay: Date): Date {
+    const weekDay = businessWeekDay.getDay();
+    switch (weekDay) {
+      case 0: businessWeekDay.setDate(businessWeekDay.getDate() - 2); break;
+      case 1: businessWeekDay.setDate(businessWeekDay.getDate() - 3); break;
+      default: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
+    }
+    return businessWeekDay;
+  }
   
   httpQueryParams(DataSummary: DataSummary): HttpParams {
     // Initialize Params Object

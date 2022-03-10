@@ -38,7 +38,7 @@
          </div>
          <div class="data-exporer">
             <motif-form-field class="search">
-               <input #activeReports motifInput motifSearch type="text" placeholder="Search..." aria-label="Search...">
+               <input #activeReports motifInput motifSearch type="text" placeholder="Search..." aria-label="Search..." (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(activeReports)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
          </div>
       </div>

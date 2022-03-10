@@ -63,12 +63,12 @@
     </div>
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3 mt-3 mb-3">
         <motif-form-field class="search-bar">
-            <input #activeReports motifInput motifSearch type="text" placeholder="   Search..." aria-label="Search">
+            <input #activeReports motifInput motifSearch type="text" placeholder="   Search..." aria-label="Search" (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(activeReports)" (paste)="onPasteSearchActiveReports($event)">
         </motif-form-field>
     </div>
 </div>
 <div class="motif-row">
-    <div *ngFor="let item of dataList"
+    <div *ngFor="let item of dataList | async; index as i"
         class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
         <motif-card class="chart-card no_data" [ngClass]="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0) ? 'warning-border':''">
             <motif-card-body>

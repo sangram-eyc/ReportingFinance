@@ -117,7 +117,7 @@
                            <div class="toast-icon">
                               <i class="material-icons md-light">check_circle</i>
                            </div>
-                           <div class="toast-card-body">No files missing at the moment
+                           <div class="toast-card-body">Data is not available
                            </div>
                         </div>
                      </div>
@@ -149,7 +149,7 @@
                            <div class="toast-icon">
                               <i class="material-icons md-light">check_circle</i>
                            </div>
-                           <div class="toast-card-body">No files missing at the moment
+                           <div class="toast-card-body">Data is not available
                            </div>
                         </div>
                      </div>
@@ -170,7 +170,7 @@
          </div>
          <div class="my-3">
             <motif-form-field>
-               <input #fileReview motifInput motifSearch type="text" placeholder="Search..." aria-label="Search">
+               <input #gridSearch motifInput motifSearch type="text" placeholder="Search..." aria-label="Search" (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(gridSearch)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
          </div>
       </div>
