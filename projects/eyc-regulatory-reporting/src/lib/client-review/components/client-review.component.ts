@@ -197,6 +197,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   checkFilingCompletedStatus(){
     return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
+
+  onClickLastUpdatedBy(row){}
   
   createEntitiesRowData(): void {
     const customComparator = (valueA, valueB) => {
