@@ -496,6 +496,7 @@ motif-icon.motif-icon.user-edit {
       enable-background:new 0 0 480 480;
       fill:black;
     }
+    margin-right: 12px;
   }
   .btn-download-disabled{
     svg{
@@ -503,6 +504,7 @@ motif-icon.motif-icon.user-edit {
       cursor:auto;
       enable-background:new 0 0 480 480;
     }
+    margin-right: 12px;
   }
   .btn-comment-enabled{
     svg{
@@ -838,6 +840,7 @@ button.close {
   width: 9.9px;
   height: 9.9px;
   border-radius: 50%;
+  margin-right: 7px;
 }
 
 .tax-legend-text {
