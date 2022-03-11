@@ -464,7 +464,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 150,
+        minWidth: 220,
         sort: 'asc'
       },
       {
