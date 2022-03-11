@@ -16,6 +16,7 @@ export class TaskCommentComponent implements OnInit {
   @Input() TaskCommentData: any;
   @Output() onCommentStatusChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() onCommentTagDeleted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCommentaddTag: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCommentPriorityUpdated: EventEmitter<any> = new EventEmitter<any>();
 
   Requestfrom: string = 'Client'
@@ -338,20 +339,29 @@ export class TaskCommentComponent implements OnInit {
     return new Blob(byteArrays, { type: contentType });
   }
 
-updatePriority(){
-  const data = {
-    "priority": 1
-  }
-  this.commentService.updatePriority(this.idTask, data).subscribe(resp => {
-    this.priority = 1;
-    console.log('response update priority', resp);
-    const PriorityUpdated = {
-      "id": this.idTask,
+  updatePriority() {
+    const data = {
       "priority": 1
-    };
-    this.onCommentPriorityUpdated.emit(PriorityUpdated);
-  });
-}
+    }
+    this.commentService.updatePriority(this.idTask, data).subscribe(resp => {
+      this.priority = 1;
+      console.log('response update priority', resp);
+      const PriorityUpdated = {
+        "id": this.idTask,
+        "priority": 1
+      };
+      this.onCommentPriorityUpdated.emit(PriorityUpdated);
+    });
+  }
 
-
+  addTag(tagId) {
+    this.commentService.addTag(this.idTask, tagId).subscribe(resp => {
+      tagId === 1 ? this.editRequired = { "id": 1, "name": "Edit Required" } : this.includeDebrief = { "id": 2, "name": "Include in cycle debrief" }
+      const tagAdded = {
+        "id": this.idTask,
+        "idTag": tagId
+      };
+      this.onCommentaddTag.emit(tagAdded);
+    });
+  }
 }

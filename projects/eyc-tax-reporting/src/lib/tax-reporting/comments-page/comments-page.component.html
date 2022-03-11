@@ -149,7 +149,11 @@
       <!-- Task component -->
       <div class="section-list-comments row">
         <div class="each-element" *ngFor="let comment of filteredComments">
-          <app-task-comment [TaskCommentData]='comment' (onCommentStatusChanged)="commentStatusUpdated($event)" (onCommentTagDeleted)="commentTagUpdateSearch($event)" (onCommentPriorityUpdated)="commentPriorityUpdateSearch($event)">
+          <app-task-comment [TaskCommentData]='comment' 
+            (onCommentStatusChanged)="commentStatusUpdated($event)" 
+            (onCommentTagDeleted)="commentTagUpdateSearch($event)" 
+            (onCommentaddTag)="commentaddTagSearch($event)"
+            (onCommentPriorityUpdated)="commentPriorityUpdateSearch($event)">
           </app-task-comment>
         </div>   
         <div class="col-md-12 col-sm-12 mt-5 no_data_task" *ngIf="emptyCommentSearch && isData"> 
