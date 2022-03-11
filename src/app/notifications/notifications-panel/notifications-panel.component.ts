@@ -78,7 +78,7 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   }
 
   getArchivedNotifications() {
-    this.notificationService.getArchivedNotifications().subscribe(res => {
+    this.notificationService.getArchivedNotifications('', 0).subscribe(res => {
       this.archivedItems = res.totalElements;
     });
   }

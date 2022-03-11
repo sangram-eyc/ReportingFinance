@@ -31,9 +31,16 @@
 
 .select-all {
   position: absolute;
-  top: 266px;
-  left: 325px;
+  top: 298px;
+  left: 340px;
   z-index: 100;
+}
+
+.notifications-list {
+  height: 900px;
+  overflow-y: scroll;
+  padding: 15px;
+  margin-bottom: 20px;
 }
 
 .actionsTemplate {
