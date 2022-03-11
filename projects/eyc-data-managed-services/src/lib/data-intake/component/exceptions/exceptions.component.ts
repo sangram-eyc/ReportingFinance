@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
@@ -92,7 +92,9 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
 
-  constructor(private dataManagedService: DataManagedService,
+  constructor(
+    private unsubscriber: AutoUnsubscriberService,
+    private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
@@ -194,7 +196,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   getExceptionTableData() {
-    this.dataManagedService.getExceptionTableData(this.httpDataGridParams).subscribe(resp => {
+    this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
       this.columnGl = [
