@@ -4,7 +4,7 @@ import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid } from '../../models/data-grid.model';
@@ -162,7 +162,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
 
-  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+  constructor(
+    private unsubscriber: AutoUnsubscriberService,
+    private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
@@ -306,7 +308,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
-    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
+    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
       this.columnGl = [
@@ -552,7 +554,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataList = [];
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem'];
       this.totalFileCount = dataProvider.data[0]['totalCount'];
       this.manipulateStatusWithResponse(this.dataList);

@@ -61,9 +61,8 @@
     <div id="grid-wrapper">
         <motif-card>
             <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)"
-                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout"
-                [pagination]="false" [paginationPageSize]="currentlySelectedPageSize.value">
+                (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false"
+                [suppressCellSelection]="true" [domLayout]="domLayout">
             </motif-table>
         </motif-card>
     </div>
@@ -102,35 +101,6 @@
     <ng-template #nextButtonTemplate let-row>
         <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
     </ng-template>
-
-    <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noExceptionDataAvilable">
-        <motif-pagination>
-            <button motifIconButton size="medium" aria-label="Go to first page"
-                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
-                <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
-            </button>
-            <button motifIconButton size="medium" aria-label="Go to previous page"
-                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
-                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
-            </button>
-            <span class="page-description">Page <span class="page-number">{{currentPage}}</span> of <span
-                    class="page-number">{{maxPages}}</span></span>
-            <button motifIconButton size="medium" aria-label="Go to next page"
-                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
-                <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-            </button>
-            <button motifIconButton size="medium" aria-label="Go to last page"
-                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
-                <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
-            </button>
-        </motif-pagination>
-
-        <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
-            (paginationSelectChange)="updatePaginationSize($event.value)">
-        </motif-pagination-select>
-    </div>
-
-
     <motif-card class="no_data" *ngIf="noExceptionDataAvilable">
         <motif-card-body>
             <h5>No results found.</h5>
