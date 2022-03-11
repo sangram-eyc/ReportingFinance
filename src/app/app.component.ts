@@ -213,12 +213,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     sessionStorage.setItem('isNotificationRead', 'true');
     this.isNotificationRead = sessionStorage.getItem('isNotificationRead') === 'true';
 
-    this.notificationService.getNotArchivedNotifications(0).subscribe(res => {
-      res.content.forEach(item => {
-        this.notificationService.setNotificationRead(item.engineId).subscribe();
-      });
-    });
-
     setTimeout(() => {
       this.notifFlag = false;
     }, 1000);

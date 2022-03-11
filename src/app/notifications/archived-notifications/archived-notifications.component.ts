@@ -22,10 +22,12 @@ export class ArchivedNotificationsComponent implements OnInit {
   public columnDefs;
   public searchText = '';
   public selectedItems = [];
+  public currentPage = 0;
 
   constructor(
     private notificationService: NotificationService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -113,11 +115,11 @@ export class ArchivedNotificationsComponent implements OnInit {
 
   onKey(event): void {
     this.searchText = event.target.value;
-    this.notificationService.getArchivedNotifications(this.searchText).subscribe( (res: any) => {
+    this.notificationService.getArchivedNotifications(this.searchText, 0).subscribe((res: any) => {
       this.notificationsData = res.content;
-      this.notificationsData.forEach( item => {
+      this.notificationsData.forEach(item => {
         item.selected = false;
-        item.subject = item.request.subject;
+        item.subject = item.request.subject < 20 ? item.request.subject : item.request.subject + '...';
         item.category = JSON.parse(item.request.content).category;
         item.sendDate = `${item.sendDate[0]}/${item.sendDate[1]}/${item.sendDate[2]}`;
       });
@@ -125,36 +127,37 @@ export class ArchivedNotificationsComponent implements OnInit {
   }
 
   exportCsv() {
-    this.notificationService.exportCsv(this.selectedItems).subscribe( res => {
-        const blob = new Blob([res], {type: 'csv'});
-        FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
+    this.notificationService.exportCsv(this.selectedItems).subscribe(res => {
+      const blob = new Blob([res], {type: 'csv'});
+      FileSaver.saveAs(blob, 'EY Comply - archived notifications.csv');
     });
   }
 
   flag(notification?): void {
     const content = JSON.parse(notification.request.content);
-    this.notificationService.setNotificationFlagged(notification.engineId, !content.flagged).subscribe( res => {
-      this.getData();
+    notification.flagged = true;
+    this.notificationService.setNotificationFlagged(notification.engineId, !content.flagged).subscribe(res => {
     });
   }
 
   delete(notification?): void {
-    this.notificationService.deleteNotification(notification.engineId).subscribe( res => {
-      this.getData();
+    const index = this.notificationsData.findIndex(item => item.engineId == notification.engineId);
+    this.notificationsData.splice(index, 1);
+    this.notificationService.deleteNotification(notification.engineId).subscribe(res => {
     });
   }
 
   isFlagged(notification): boolean {
     const content = JSON.parse(notification.request.content);
-    return content.flagged;
+    return content.flagged || notification.flagged;
   }
 
   getData(): void {
-    this.notificationService.getArchivedNotifications().subscribe( (res: any) => {
+    this.notificationService.getArchivedNotifications('', this.currentPage).subscribe((res: any) => {
       this.notificationsData = res.content;
-      this.notificationsData.forEach( item => {
+      this.notificationsData.forEach(item => {
         item.selected = false;
-        item.subject = item.request.subject;
+        item.subject = item.request.subject < 20 ? item.request.subject : item.request.subject + '...';
         item.category = JSON.parse(item.request.content).category;
         item.sendDate = `${item.sendDate[0]}/${item.sendDate[1]}/${item.sendDate[2]}`;
       });
@@ -163,7 +166,7 @@ export class ArchivedNotificationsComponent implements OnInit {
 
   selectAll(event): void {
     if (event.target.checked) {
-      this.notificationsData.forEach( item => {
+      this.notificationsData.forEach(item => {
         const index = this.selectedItems.findIndex(id => id === item.engineId);
         if (index < 0) {
           this.selectedItems.push(item.engineId);
@@ -173,6 +176,15 @@ export class ArchivedNotificationsComponent implements OnInit {
       this.selectedItems = [];
     }
 
-    this.notificationsData.forEach( item => item.selected = event.target.checked);
+    this.notificationsData.forEach(item => item.selected = event.target.checked);
+  }
+
+  onScroll() {
+    this.currentPage += 1;
+    this.notificationService.getArchivedNotifications(this.searchText, this.currentPage).subscribe( res => {
+      res.content.forEach(item => {
+        this.notificationsData.push(item);
+      });
+    });
   }
 }
