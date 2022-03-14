@@ -1,4 +1,11 @@
 @import '../../../styles/variables.scss';
+::ng-deep #cyclePage{
+    .ag-row-hover{
+           position: absolute !important;
+           z-index: 1 !important;
+       }
+   }
+
 .page-header {
     margin-top: 25px;
 }
@@ -300,3 +307,5 @@
 .link-status-tracker:hover {
     cursor: pointer;
 }
+
+

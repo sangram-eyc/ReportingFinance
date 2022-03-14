@@ -113,13 +113,21 @@ export class TaxHorizontalStackedBarChartComponent{
       tooltip
           .html(subgroupValue + " " + subgroupName)
           .style("opacity", 1)
-          .style("z-index", 2)
+          .style("z-index", 10)      
     } 
-    var mousemove = function(event) {
-      tooltip
+    var mousemove = (event) => {
+       let grid = this.gridEnabled;
+       if(grid){
+        tooltip
+        .style("left", (event.offsetX + 30)+"px")
+        .style("top", "-10px")
+        .style("z-index", 10) 
+       }else{
+        tooltip
         .style("left", (event.offsetX)+"px")
-        .style("top", "40px") 
-        .style("z-index", 2)
+        .style("top", "40px")
+        .style("z-index", 10) 
+       }   
     }
     var mouseleave = function(d) {
       tooltip
