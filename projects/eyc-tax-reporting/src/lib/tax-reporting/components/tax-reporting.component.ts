@@ -161,7 +161,7 @@ export class TaxReportingComponent implements OnInit {
         resp['data'].forEach((item) => {
           const eachitem: any = {
             name: item.name,
-            id: item.id,
+            id: item.id/* ,
             totalFunds: item.totalFunds,
             valor1: item.valor1,
             valor2: item.valor2,
@@ -172,7 +172,7 @@ export class TaxReportingComponent implements OnInit {
                 "in client review": item.valor2,
                 "Approved by client": item.valor3,
               }
-            ]
+            ] */
           };
           this.completedReports.push(eachitem);
         });
@@ -186,7 +186,7 @@ export class TaxReportingComponent implements OnInit {
     this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id,
+        id: filing.id/* ,
         totalFunds: filing.totalFunds,
         valor1: filing.valor1,
         valor2: filing.valor2,
@@ -197,7 +197,7 @@ export class TaxReportingComponent implements OnInit {
             "in client review": filing.valor2,
             "Approved by client": filing.valor3,
           }
-        ]
+        ] */
       })
     });
     this.columnDefs = [
@@ -212,10 +212,10 @@ export class TaxReportingComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 300,
+        width: 500,
         sort: 'asc'
       },
-      {
+/*       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
@@ -239,7 +239,7 @@ export class TaxReportingComponent implements OnInit {
         field: "name",
         sortable: false,
         width: 400
-      },
+      }, */
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,

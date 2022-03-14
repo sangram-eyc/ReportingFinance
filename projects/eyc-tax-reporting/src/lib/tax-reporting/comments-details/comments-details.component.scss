@@ -108,7 +108,7 @@
       } */
 
       ::ng-deep .motif-pagination-select-wrapper{
-        margin-left: -500px; 
+        //margin-left: -500px; 
         /* .motif-icon.motif-tooltip-close {
           display: none !important;
           cursor:  default !important;
@@ -247,6 +247,24 @@
 
 #comments-grid::ng-deep .toggle-left{
  flex-direction: row !important;
+}
+
+::ng-deep.ag-row-hover{
+  position: absolute !important;
+  z-index: 1 !important;
+}
+
+::ng-deep .motif-tooltip-active{
+  position: absolute !important;
+  margin: 0px !important;
+  visibility: visible !important;
+  inset: auto auto -27px 226px !important;
+
+  #arrow{
+    position: absolute !important;
+    left: 0px !important;
+    top: 49px !important;
+  }
 }
 
 }
