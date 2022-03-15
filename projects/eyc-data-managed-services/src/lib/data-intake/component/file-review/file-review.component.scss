@@ -115,6 +115,9 @@ margin-top: 24px !important;
 ::ng-deep .motif-card-header {
   padding: 0 !important;
 }
+::ng-deep .motif-card-body{
+  padding-bottom: 0 !important;
+}
 
 .bar-chart-panel {
   padding: 0;
