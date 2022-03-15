@@ -39,6 +39,11 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   moduleId;
   exportHeaders;
   exportUrl: string;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -116,11 +121,32 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     };
   }
 
+  currentPageChange(event) {
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageSize = event;
+    this.getTeamList();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getTeamList();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getTeamList();
+  }
+
   getTeamList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
-      this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
+      this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.teamsData = resp.data;
+        this.totalRecords=resp['totalRecords']
       });
       this.createTeamsRowData();
     } else {
