@@ -91,7 +91,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     if (interval > 1) {
       return Math.floor(interval) + ' min';
     }
-    return 'now';
+    return 'Just Now!';
   }
 
   getContentHtml(content): any {
