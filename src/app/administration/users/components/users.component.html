@@ -22,7 +22,10 @@
     gridStyle="third"
     [disableAddMemberButton]="false"
     (newEventToParent)="addUser($event)"
-    [export] = "true" (exportFlagToParent)="exportUsersData()">
+    [export] = "true" (exportFlagToParent)="exportUsersData()" [paginationApi]="true"
+    [pagination]="true" paginationSize="10" [totalRecords]="totalRecords"
+    (customSortChange)="sortChanged($event)" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
+    (updatePageSize)="updatePageSize($event)">
     </lib-shared-grid>
 
     <ng-template #headerTemplate>

@@ -60,6 +60,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   motifTypeahead = [];
   userResp: any[] = [];
   gridApi;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
 
   ngOnInit(): void {
     this.addUserForm = this._createAddUser();
@@ -67,7 +72,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   getUsersData() {
     if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
-      this.userService.getUsersList().subscribe(resp => {
+      this.userService.getUsersList(this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.userResp =[];
         this.usersListArr= [];
         this.userResp.push(resp.data);
@@ -81,6 +86,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           };
           this.usersListArr.push(eachitem);
           this.rowData = this.usersListArr;
+          this.totalRecords=resp['totalRecords'];
           // this.gridApi.setRowData(this.usersListArr);
         });
   
@@ -193,6 +199,26 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  sortChanged(event){
+    this.sort = event;
+    this.getUsersData();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getUsersData();
+  }
+
+  currentPageChange(event) {
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageSize = event;
+    this.getUsersData();
+  }
+  
   public noWhitespaceValidator(control: FormControl) {
     if (control.value.length === 0) {
       return false;
