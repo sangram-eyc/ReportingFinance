@@ -236,18 +236,18 @@ export class ExceptionsComponent implements OnInit {
             ngTemplate: this.chipTemplate,
           }
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          sortable: false,
-          filter: false,
-          width: 155
-        },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   cellRendererParams: {
+        //     ngTemplate: this.commentTemplate,
+        //   },
+        //   headerName: 'Comments',
+        //   field: 'comments',
+        //   sortable: false,
+        //   filter: false,
+        //   width: 155
+        // },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
