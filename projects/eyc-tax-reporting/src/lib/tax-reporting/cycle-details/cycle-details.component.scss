@@ -7,21 +7,6 @@
     box-shadow: none !important;
   }
 
- /*  .add-user-enabled{
-    svg{
-     width:24px; 
-     height:14px;  
-     fill:#155CB4
-    }
-  }
-  .add-user-disabled{
-    svg{
-      width:24px; 
-      height:14px;  
-      fill:#C4C4CD
-    }
-  }
- */
   #grid-wrapper {
     ::ng-deep {
       .ag-root-wrapper {
@@ -122,13 +107,7 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    // color: #2E2E38 !important;
-    // border: 0px;
   }
-
-  /* .save-submit:hover {
-    background-color: var(--btn-primary-bg-color);
-  } */
 
   button.motif-button.save-submit.dis-button:hover {
     background-color: var(--btn-primary-disabled-bg-color) !important;
@@ -142,9 +121,6 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-   /*  color: #2E2E38 !important;
-    border: 0.5px solid #2E2E38 !important; */
-
   }
 
   .dropdownTemplate-v2{
@@ -182,6 +158,17 @@
       display: none !important;
       cursor: help !important;
     }
+  }
+
+  .actions-in-funds{
+    position: relative; 
+    z-index: 1; 
+    margin-left: 8px;
+  }
+
+  .gray-check{
+    height: 18px;
+    width: 18px;
   }
 }
 
@@ -701,8 +688,6 @@ button.close {
 
 }
 
-
-
 .production-cycle-summary-header {
   font-family: EYInterstate;
   font-size: 19px;
@@ -773,10 +758,6 @@ button.close {
   letter-spacing: 0px !important;
   font-weight:600 !important;
 }
-
-/* .donut-chart-card-tax ::ng-deep .donut-summary{
-  margin-top:56px !important;
-} */
 
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox{
     display: flex;
