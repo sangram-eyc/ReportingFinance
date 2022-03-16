@@ -12,7 +12,9 @@
 
 <div class="submission-content-container">
     <div class="approve-button">
-      <button *ngIf="permissions.validatePermission('Submission', 'Download Files')" motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
+        <div class="download_button">
+            <button *ngIf="permissions.validatePermission('Submission', 'Download Files')" motifButton color="primary" size="large" (click)="approveSelected()" [disabled]= "selectedRows.length==0">Download selected</button>
+        </div>
       <div class="exportWrapper" (click)="exportSubmissionData()" *ngIf="submittedFiles?.length > 0">        
         <div class="export_icon">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +39,7 @@
             </motif-card-body>
         </motif-card>
         <ng-template #dateSubmittedTemplate let-row>
-            <div *ngIf="row.dateSubmitted">{{row.dateSubmitted | date : 'MMM dd y hh:mm a'| uppercase | dateSubmittedPipe}} GMT </div>
+            <div *ngIf="row.dateSubmitted">{{row.dateSubmitted | date : 'MMM dd y hh:mm a' }} GMT </div>
         </ng-template>
     </section>
     <ng-template #statusTemplate let-row>
