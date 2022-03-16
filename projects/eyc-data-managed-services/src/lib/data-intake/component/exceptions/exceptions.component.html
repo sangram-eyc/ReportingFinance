@@ -61,7 +61,7 @@
     <div id="grid-wrapper">
         <motif-card>
             <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false"
+                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [suppressRowClickSelection]="false"
                 [suppressCellSelection]="true" [domLayout]="domLayout">
             </motif-table>
         </motif-card>
