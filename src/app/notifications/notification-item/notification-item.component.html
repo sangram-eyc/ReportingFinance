@@ -1,6 +1,6 @@
 <div class="notification-item">
   <div class="notification-texts">
-    <div class="notification-title">{{notification?.subject.length < 20 ? notification?.subject : notification?.subject.substring(0, 20) + '...'}}</div>
+    <div class="notification-title">{{notification?.subject.length < 30 ? notification?.subject : notification?.subject.substring(0, 30) + '...'}}</div>
     <div [ngClass]="notification?.expanded ? 'notification-desc' : 'notification-short-desc'" [innerHTML]="content?.content"></div>
   </div>
   <div class="notification-actions">
