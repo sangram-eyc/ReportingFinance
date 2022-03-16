@@ -112,7 +112,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       let splittedFilerTypes = types.map(el => el.trim());
       return splittedFilerTypes;
     } else {
-      return [];
+      return [''];
     }
   }
 
