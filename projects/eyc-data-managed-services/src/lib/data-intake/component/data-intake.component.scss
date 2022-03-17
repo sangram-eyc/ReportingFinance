@@ -320,6 +320,67 @@
   }
 }
 
+.data_explorer-card {
+   width: 1017px !important;
+   height: 400px;
+   box-sizing: border-box;
+   flex: 0 0 auto;
+   position: relative;
+   flex-basis: 75%;
+   background: #FFFFFF;
+}
+
+.heading-7 {
+position: absolute;
+width: 607px;
+height: 47px;
+font-family: 'EYInterstate';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 20px;
+display: flex;
+align-items: center;
+color: #000000;
+left: 27px;
+right: 475px;
+top: 30px;
+bottom: 649px;
+}
+
+.dropdown{
+  position: absolute;
+  left: 27px;
+  right: 24px;
+  top: 78px;
+  bottom: 604px;
+  height: 44px;
+  width: min;
+}
+
+.results_Button{
+  display: -webkit-inline-box !important;
+  font-family: EYInterstate !important;
+  position: absolute;
+  width: min;
+  height: 45px;
+  left: 27px;
+  right: 24px;
+  top: 160px;
+  bottom: 521px;
+  padding: 0px;
+}
+
+.form_text{
+  font-family: EYInterstate !important;
+  text-align: center;
+  padding-left: 6px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
 .date-ui{
 
   ::ng-deep .motif-form-field {
