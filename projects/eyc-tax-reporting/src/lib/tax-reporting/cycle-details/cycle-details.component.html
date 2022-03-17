@@ -22,9 +22,10 @@
     <div id="selectNewCycle" class="col-md-4 col-sm-4" (click)="OptionsClassSelected()">
       <form [formGroup]="cycleSelectForm">
         <motif-form-field>
+          <label motifLabel class="select-label">Production cycles</label>
           <motif-select aria-label="Please select an option" formControlName="mySelect"
             (ngModelChange)="onOptionsSelected($event)">
-            <motif-option *ngFor="let item of options;index as i;" [value]="item.id">{{item.name}}</motif-option>
+            <motif-option *ngFor="let item of options; index as i;" [value]="item.id">{{item.name}}</motif-option>
           </motif-select>
         </motif-form-field>
       </form>
