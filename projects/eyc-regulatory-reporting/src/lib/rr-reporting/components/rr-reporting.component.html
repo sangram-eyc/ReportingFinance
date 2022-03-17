@@ -37,6 +37,12 @@
                 </div>
             </div>
         </ng-template>
+        <ng-template #lastUpdatedByTemplate let-row>
+            <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
+            </span>
+            <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updateBy}}</div>
+        </ng-template>
         <ng-template #myTasksExceptionTemplate let-row>
             <div class="mytask" *ngIf="row.mytask">
                 <motif-icon [src]="'/assets/icons/action/ic_assignment_24px.svg'"></motif-icon>
