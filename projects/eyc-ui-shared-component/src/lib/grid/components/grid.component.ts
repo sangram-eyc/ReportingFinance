@@ -81,6 +81,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hideHeaderCheckbox = false;
   @Input() disableResolveButton = false;
   @Input() disableUnresolveButton = false;
+  @Input() customRowSelected = false;
   @Output() customSortChange = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() unresolveEventToParent = new EventEmitter<string>();
@@ -95,6 +96,8 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() searchInput = new EventEmitter<string>();
   @Input() export = false;
   @Input() totalRecords = null;
+  @Output() rowSelected = new EventEmitter<any>();
+  @Input() omitModal = false;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -252,6 +255,15 @@ pageSize;
   openResolveUnresolveDialog(type:string){
     type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
+
+  primaryButtonAction() {
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialog();
+    }
+  }
+
   openDialog() {
     if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
@@ -297,20 +309,24 @@ pageSize;
     }
   }
 
-  onRowSelected(): void {
-    this.selectedRowEmitterProcess.emit('processing');
-    this.selectedRows = [];
-    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
-    this.selectedRowEmitter.emit(this.selectedRows);
-    this.selectedRowEmitterProcess.emit('finished');
-    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
-    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
-      this.gridApi.selectAll();
-      this.isAllRecordSelected = true;
+  onRowSelected(event): void {
+    if (this.customRowSelected) {
+      this.rowSelected.emit(event);
+      this.selectedRows = this.gridApi.getSelectedRows();
     } else {
-      this.isAllRecordSelected = false;
+      this.selectedRowEmitterProcess.emit('processing');
+      this.selectedRows = [];
+      this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
+      this.selectedRowEmitter.emit(this.selectedRows);
+      this.selectedRowEmitterProcess.emit('finished');
+      if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+      if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+        this.gridApi.selectAll();
+        this.isAllRecordSelected = true;
+      } else {
+        this.isAllRecordSelected = false;
+      }
     }
-
   }
 
   isFirstColumn = (params) => {
@@ -333,6 +349,7 @@ pageSize;
 
   searchGridPagination(input) {
     this.searchInput.emit(input.el.nativeElement.value);
+    this.currentPage = 1;
     console.log('SEARCH GRID PAGINATION EMIT');
   }
 

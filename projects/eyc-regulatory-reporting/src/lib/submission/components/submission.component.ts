@@ -53,6 +53,7 @@ export class SubmissionComponent implements OnInit {
   gridApi;
   columnDefs;
   rowData = [];
+  subRowData = [];
   selectedRows = [];
   slectedFiles: any[] = [];
   filingDetails;
@@ -64,14 +65,25 @@ export class SubmissionComponent implements OnInit {
   showToastAfterStatusChange = false;
   enableComplete = false;
   downloadMsg;
+  downloadSubmit;
   filingStatusChangeMsg;
   submittedFiles = [];
   noFilesDataAvilable:boolean;
+  pageChangeFunc;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 2;
+  filter = '';
+  sort = '';
+  defaultColDef;
+
   @ViewChild('dateSubmittedTemplate')
   dateSubmittedTemplate: TemplateRef<any>;
   @ViewChild(DotsCardComponent) private childDot: DotsCardComponent;
 
   ngOnInit(): void {
+    this.pageChangeFunc = this.onPageChange.bind(this);
+    this.downloadSubmit = this.onDownloadSelected.bind(this);
     this.updateStatusForm = this.fb.group({
       status: ['',[Validators.required]]
     });
@@ -79,7 +91,11 @@ export class SubmissionComponent implements OnInit {
     this.updateStatusForm.get('status').valueChanges.subscribe(res => {
       this.isUpdateStatusError = false;
       this.updateStatusErrorMsg = '';
-    })
+    });
+    this.defaultColDef = {
+      headerCheckboxSelection: this.isFirstColumn,
+      checkboxSelection: this.isFirstColumn
+    };
   }
 
 
@@ -98,8 +114,15 @@ export class SubmissionComponent implements OnInit {
     this.gridApi = params.api;
   }
 
-  onRowSelected() {
+  onRowSelected(event) {
+    console.log(event);
     this.selectedRows = this.gridApi.getSelectedRows();
+    console.log(this.selectedRows);
+  }
+
+  downloadRowsSelected(event) {
+    console.log(event);
+    this.selectedRows = event;
   }
 
   approveSelected() {
@@ -110,6 +133,27 @@ export class SubmissionComponent implements OnInit {
     });
 
 
+    this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
+      this.downloadFilesRes = res.data;
+      this.downloadMsg = res.message;
+      this.showToastAfterDownload = !this.showToastAfterDownload;
+      this.downloadFilesRes.forEach((item: any) => {
+        const data = this.base64ToBlob(item.file);
+        FileSaver.saveAs(data, item.fileName);
+      });
+      setTimeout(() => {
+        this.showToastAfterDownload = !this.showToastAfterDownload;
+      }, 5000);
+    });
+  }
+
+  onDownloadSelected() {
+    console.log('DOWNLOADING SELECTED');
+    this.selectedRows = this.gridApi.getSelectedRows();
+    this.slectedFiles = [];
+    this.selectedRows.forEach((item) => {
+      this.slectedFiles.push(item['fileName']);
+    });
     this.service.downloadXMl(this.slectedFiles, this.filingName, this.period).subscribe((res: any) => {
       this.downloadFilesRes = res.data;
       this.downloadMsg = res.message;
@@ -146,106 +190,119 @@ export class SubmissionComponent implements OnInit {
     return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
+
   receiveFilingDetails(event) {
     this.submittedFiles = []
     this.filingDetails = event;
     console.log("filing details > ", this.filingDetails)
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;
-    this.service.getXmlFilesList(this.filingName, this.period).subscribe(res => {
-      if (res['data'] && res['data'].length) {
-        this.noFilesDataAvilable = false;
-        this.submittedFiles = res['data'];
-        this.getSubmissionRowData();
+    this.getXmlFilesList(true);
+  }
+
+  resetData() {
+    this.getSubmissionRowData();
+    this.currentPage = 0;
+    this.pageSize = 2;
+  }
+
+  getXmlFilesList(resetData = false) {
+    this.sort = resetData ? 'fileName:true' : this.sort;
+    this.service.getXmlFilesListTest(this.filingName, this.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+      this.totalRecords = res['totalRecords'];
+      this.noFilesDataAvilable = false;
+      this.submittedFiles = res['data'];
+      this.rowData = res['data'];
+      console.log('GET XML FILES ROW DATA', this.rowData);
+      if (resetData) {
+        this.resetData();
       } else {
-        this.noFilesDataAvilable = true;
+        this.gridApi.setRowData(this.rowData);
       }
+    },
+    error=>{
+      this.rowData = [];
+      console.log("Submission error");
     });
-  }​​​​​​​​
+  }
+
+  disableComparator(data1, data2) {
+    return 0; 
+  }
 
   getSubmissionRowData(){
-    this.rowData = [];
-    this.submittedFiles.forEach(filing=>{
-      this.rowData.push({
-        fileId:filing.fileId,
-        fileName : filing.fileName,
-        status: filing.status,
-        addedBy: filing.addedBy,
-        dateAdded: filing.dateAdded,
-        dateSubmitted: filing.dateSubmitted,
-        updatedBy: filing.updatedBy
-      })
-    });
-
-    this.columnDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-        
+    this.subRowData = [];
+    this.columnDefs = [];
+    setTimeout(() => {
+      this.columnDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+          
+          },
+          field: 'template',
+          headerName: '',
+          width: 70,
+          sortable: false,
+          pinned: 'left'
         },
-        field: 'template',
-        headerName: '',
-        width: 70,
-        sortable: false,
-        pinned: 'left'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'File Name',
-        field: 'fileName',
-        cellClass: 'custom-report-name',
-        wrapText: true,
-        autoHeight: true,
-        width: 300,
-        sortable: true,
-        filter:true,
-        sort:'asc',
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.statusTemplate,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'File Name',
+          field: 'fileName',
+          cellClass: 'custom-report-name',
+          wrapText: true,
+          autoHeight: true,
+          width: 300,
+          sortable: true,
+          filter:true,
+          sort:'asc',
+          comparator: this.disableComparator
         },
-        headerName: 'Status',
-        field:'status',
-        sortable: true,
-        filter:true,
-        minWidth: 200
-      },
-      {
-        headerComponentFramework:TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams:{
-          ngTemplate:this.dateSubmittedTemplate
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.statusTemplate,
+          },
+          headerName: 'Status',
+          field:'status',
+          sortable: true,
+          filter:true,
+          minWidth: 200
         },
-        field:'dateSubmitted',
-        headerName:'Status Changed',
-        sortable: true,
-        filter:true,
-        minWidth: 220,
-        cellClass:'date-submitted-class'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.lastUpdatedByTemplate,
+        {
+          headerComponentFramework:TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams:{
+            ngTemplate:this.dateSubmittedTemplate
+          },
+          field:'dateSubmitted',
+          headerName:'Status Changed',
+          sortable: true,
+          filter:true,
+          minWidth: 220,
+          cellClass:'date-submitted-class'
         },
-        headerName: 'Last updated by',
-        field: 'updatedBy',
-        wrapText: true,
-        autoHeight: true,
-        sortable: true,
-        filter:true,
-        width: 350,
-        sort:'asc',
-        comparator: customComparator
-      }
-    ];
-
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 350,
+          comparator: this.disableComparator
+        }
+      ];
+      this.subRowData = this.rowData;
+    }, 1);
   }
 
   getFileStatus(event){
@@ -286,6 +343,32 @@ export class SubmissionComponent implements OnInit {
     });
   
     
+  }
+
+  onPageChange() {
+    this.getXmlFilesList();
+  }
+
+  currentPageChange(event) {
+    console.log('CURRENT PAGE CHANGE', event - 1);
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
+    this.pageSize = event;
+    this.getXmlFilesList();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getXmlFilesList(true);
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getXmlFilesList();
   }
 
   enableUpdateStatusModal(row, typeSelected) {
@@ -368,10 +451,7 @@ export class SubmissionComponent implements OnInit {
     });
   }
   exportSubmissionData(){
-    this.toastAfterExportInSubmission = true;
-    setTimeout(() => {
-      this.toastAfterExportInSubmission = !this.toastAfterExportInSubmission;
-    }, 5000);
+    console.log('GRID API', this.gridApi);
     this.exportHeaders = '';
     this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy: Last updated by';
     this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
@@ -399,4 +479,5 @@ export class SubmissionComponent implements OnInit {
     console.log(results);
     return results
   }
+
 }
