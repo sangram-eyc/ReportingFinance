@@ -322,8 +322,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter:true,
           width: 300,
-          sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -432,6 +431,21 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 155,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 300,
           comparator: this.disableComparator
         },
         {
