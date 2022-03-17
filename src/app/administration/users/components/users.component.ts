@@ -60,19 +60,34 @@ export class UsersComponent implements OnInit, AfterViewInit {
   motifTypeahead = [];
   userResp: any[] = [];
   gridApi;
-  currentPage = 0;
-  totalRecords = 5;
-  pageSize = 10;
-  filter = '';
-  sort = '';
+  pageInfo = {
+    currentPage: 0,
+    totalRecords: 5,
+    pageSize: 10,
+    filter: '',
+    sort: '',
+  }
+  pageChangeFunc;
+  resetRowData = [];
 
   ngOnInit(): void {
     this.addUserForm = this._createAddUser();
+    this.pageChangeFunc = this.onPageChange.bind(this);
+    this.pageInfo.sort = 'userLastName:true';
   }
 
-  getUsersData() {
+  resetData() {
+    this.setUserRows();
+    this.pageInfo.currentPage = 0;
+    this.pageInfo.pageSize = 10;
+    this.pageInfo.filter = '';
+  }
+
+
+  getUsersData(resetData = false) {
+    this.pageInfo.sort = resetData ? 'userLastName:true' : this.pageInfo.sort;
     if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
-      this.userService.getUsersList(this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
+      this.userService.getUsersList(this.pageInfo.currentPage,this.pageInfo.pageSize,this.pageInfo.sort,this.pageInfo.filter).subscribe(resp => {
         this.userResp =[];
         this.usersListArr= [];
         this.userResp.push(resp.data);
@@ -85,10 +100,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
             options: '',
           };
           this.usersListArr.push(eachitem);
-          this.rowData = this.usersListArr;
-          this.totalRecords=resp['totalRecords'];
-          // this.gridApi.setRowData(this.usersListArr);
         });
+        this.rowData = this.usersListArr;
+        this.pageInfo.totalRecords=resp['totalRecords'];
+        if (resetData) {
+          this.resetData();
+        } else {
+          this.gridApi.setRowData(this.rowData);
+        }
+        // this.gridApi.setRowData(this.usersListArr);
   
       });
     } else {
@@ -104,10 +124,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
     };
   }
 
-  ngAfterViewInit(): void {
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
+  setUserRows() {
+    this.columnDefs1 = [];
+    this.resetRowData = [];
     setTimeout(() => {
-    this.getUsersData();
-      
       this.columnDefs1 = [
         {
           width: 410,
@@ -120,7 +144,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           sort: 'asc',
           wrapText: true,
           autoHeight: true,
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           width: 410,
@@ -132,17 +156,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
-        // {
-        //   width: 90,
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   headerName: 'Teams',
-        //   field: 'teams',
-        //   sortable: true,
-        //   filter: true,
-        // },
         {
           width: 80,
           headerComponentFramework: TableHeaderRendererComponent,
@@ -154,9 +169,16 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: false,
         },
       ];
+      this.resetRowData = this.rowData;
+    },1);
+  }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.getUsersData(true);
     });
   }
+
   handleGridReady(params) {
     this.gridApi = params.api;
   }
@@ -199,23 +221,43 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onPageChange() {
+    this.getUsersData();
+  }
+
   sortChanged(event){
-    this.sort = event;
+    switch(true) {
+      case event === 'name:true':
+        this.pageInfo.sort = 'userLastName:true';
+        break;
+      case event === 'name:false':
+        this.pageInfo.sort = 'userLastName:false';
+        break;
+      case event === 'email:true':
+        this.pageInfo.sort = 'userEmail:true';
+        break;
+      case event === 'email:false':
+        this.pageInfo.sort = 'userEmail:false';
+        break;
+      default:
+        this.pageInfo.sort =event;
+    }
+    console.log(this.pageInfo.sort);
     this.getUsersData();
   }
 
   searchGrid(input) {
-    this.filter = input;
-    this.currentPage = 0;
+    this.pageInfo.filter = input;
+    this.pageInfo.currentPage = 0;
     this.getUsersData();
   }
 
   currentPageChange(event) {
-    this.currentPage = event - 1;
+    this.pageInfo.currentPage = event - 1;
   }
 
   updatePageSize(event) {
-    this.pageSize = event;
+    this.pageInfo.pageSize = event;
     this.getUsersData();
   }
   
