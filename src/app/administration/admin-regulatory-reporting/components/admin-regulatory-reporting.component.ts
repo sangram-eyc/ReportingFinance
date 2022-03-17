@@ -44,6 +44,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   pageSize = 10;
   filter = '';
   sort = '';
+  pageChangeFunc;
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -64,6 +65,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
+    this.pageChangeFunc = this.onPageChange.bind(this);
     if (this.tabIn == 1) {
       this.getTeamList();
       if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
@@ -119,6 +121,10 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     return {
       ngTemplate: this.actionSection,
     };
+  }
+
+  onPageChange() {
+    this.getFilingAssignments();
   }
 
   currentPageChange(event) {
