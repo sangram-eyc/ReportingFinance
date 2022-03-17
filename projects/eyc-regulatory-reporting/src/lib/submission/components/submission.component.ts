@@ -72,7 +72,7 @@ export class SubmissionComponent implements OnInit {
   pageChangeFunc;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 2;
+  pageSize = 10;
   filter = '';
   sort = '';
   defaultColDef;
@@ -203,7 +203,7 @@ export class SubmissionComponent implements OnInit {
   resetData() {
     this.getSubmissionRowData();
     this.currentPage = 0;
-    this.pageSize = 2;
+    this.pageSize = 10;
   }
 
   getXmlFilesList(resetData = false) {

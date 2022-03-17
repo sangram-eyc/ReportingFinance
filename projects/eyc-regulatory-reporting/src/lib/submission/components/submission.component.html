@@ -37,7 +37,7 @@
             rowSelection="multiple" [submitFunction]="downloadSubmit" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" buttonText="Download selected"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" (updatePageSize)="updatePageSize($event)" (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
             [permissionToPrimaryButton]="permissions.validatePermission('Submission', 'Download Files')" [export] = "true" [defaultColDef]="defaultColDef" (rowSelected)="onRowSelected($event)"
-            (exportFlagToParent)="exportSubmissionData()" [pagination]="true" [paginationApi]="true" paginationSize="2" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
+            (exportFlagToParent)="exportSubmissionData()" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <!-- <motif-card class="no_data" *ngIf="noFilesDataAvilable">
             <motif-card-body>
