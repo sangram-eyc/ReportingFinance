@@ -103,7 +103,7 @@ export class FundScopingComponent implements OnInit {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getFundsData();
+    this.getFundsData(true);
   }
 
   sortChanged(event) {

@@ -185,23 +185,6 @@ pageSize;
   ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if (typeof (this.columnDefs) !== 'undefined') {
-      this.columnDefsData = []
-      this.columnDefsData = this.columnDefs.slice(0);
-      //sr no column data
-      let object = {
-        width: 30,
-        valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
-        pinned: 'left',
-        cellClass: this.srnoCls
-      }
-      if (this.displayCheckBox) {
-        this.columnDefsData.splice(0, 0, object);
-      } else {
-
-        this.columnDefsData.splice(1, 0, object);
-      }
-    }
     if (this.paginationApi) {
       if (this.totalRecords >= 0) {
         this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
@@ -209,6 +192,21 @@ pageSize;
         this.maxPages = 1;
       }
       console.log(this.maxPages);
+    } 
+    if (typeof (this.columnDefs) !== 'undefined') {
+      this.columnDefsData = []
+      this.columnDefsData = this.columnDefs.slice(0);
+      let object = { 
+        width: 30,
+        valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: true,
+        pinned: 'left',
+        cellClass: this.srnoCls
+      }
+      if (this.displayCheckBox) {
+        this.columnDefsData.splice(0, 0, object);
+      } else {
+        this.columnDefsData.splice(1, 0, object);
+      }
     }
   }
 
@@ -276,6 +274,10 @@ pageSize;
   _getIndexValue(args: ValueGetterParams): any {
     return args.node.rowIndex+1;
   }  
+
+  filterChanged(event) {
+    this.gridApi.refreshCells();
+  }
 
   sortChanged(params) {
     let sortModel = this.gridApi.getSortModel();

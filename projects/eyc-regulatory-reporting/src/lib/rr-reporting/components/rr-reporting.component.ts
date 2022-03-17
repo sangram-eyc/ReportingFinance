@@ -530,11 +530,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     return 0; 
   }
 
-  exceptionEntitySwitch() {
+  exceptionEntitySwitch(resetData = false) {
     if (this.tabs == 2) {
-      this.getFilingEntities();
+      this.getFilingEntities(resetData);
     } else if (this.tabs == 1) {
-      this.getExceptionReports();
+      this.getExceptionReports(resetData);
     }
   }
 
@@ -556,7 +556,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.exceptionEntitySwitch();
+    this.exceptionEntitySwitch(true);
   }
 
   sortChanged(event) {
