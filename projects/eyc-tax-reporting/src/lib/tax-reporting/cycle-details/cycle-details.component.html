@@ -72,7 +72,7 @@
           <lib-donut-chart [data]="fileSummaries" [colors]="colors" [totalFilesText]="totalFilesText"
             totalFilesNumberFontSize={{totalFilesNumberFontSize}} totalFilesTextFontSize={{totalFilesTextFontSize}}
             [totalExpected]="totalExpected" innerRadius=50 svgTranslateLeft=80  svgTranslateRight=80 width=100
-            height=100 margin=11>
+            height=100 margin=11 [legendTextSliceNumber]=20>
           </lib-donut-chart>
           <p class="more-details-comments" (click)="getMoreDetailsPage()">More details</p>
         </div>
