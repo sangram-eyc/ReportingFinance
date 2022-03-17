@@ -753,9 +753,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getOptionsProductCycles() {
-    this.productcyclesService.getProductionCycles().subscribe(resp => {
-      this.options = resp['data'];
-    });
+    this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
   }
 
   onOptionsSelected(idCycle) {

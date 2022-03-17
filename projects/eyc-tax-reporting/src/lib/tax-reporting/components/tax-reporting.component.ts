@@ -94,6 +94,7 @@ export class TaxReportingComponent implements OnInit {
   colorsBarChart: string[] = [];
   labelsChart: string[] = [];
   statusIndicatorEv: any;
+  prodCyclesSessionStorage: any[] = [];
 
   ngOnInit(): void {
     this.widthDivChart = 950;
@@ -155,6 +156,7 @@ export class TaxReportingComponent implements OnInit {
     if (this.calledProductCyclesList === false) {
       this.calledProductCyclesList = true;
       this.completedReports = [];
+      this.prodCyclesSessionStorage = [];
       this.productcyclesService.getProductionCycles().subscribe(resp => {
         resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
         resp['data'].forEach((item) => {
@@ -171,8 +173,10 @@ export class TaxReportingComponent implements OnInit {
             ]  
           };
           this.completedReports.push(eachitem);
+          this.prodCyclesSessionStorage.push(eachitem);
         });
         this.createHistoryRowData();
+        sessionStorage.setItem('productionCyclesList', JSON.stringify(this.prodCyclesSessionStorage));
       });
     }
   }
@@ -299,14 +303,12 @@ export class TaxReportingComponent implements OnInit {
   };
 
   getProdCycleDetail(row) {
-    console.log("Show details->", row)
     this.router.navigate(['cycle-details', row.id, row.name]);
   }
 
   getStatusTracker(row) {
     let urlStatusTracker = '';
     this.productcyclesService.getStatusTrackerLink(row.id).subscribe(resp => {
-      console.log("data Url-->", resp);
       urlStatusTracker = resp['data'].webUrl;
       window.open(urlStatusTracker);
     });
