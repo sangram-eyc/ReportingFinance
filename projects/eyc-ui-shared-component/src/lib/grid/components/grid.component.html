@@ -64,6 +64,7 @@
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
             [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
@@ -73,6 +74,7 @@
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
             [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
