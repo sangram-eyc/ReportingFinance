@@ -150,7 +150,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.createEntitiesRowData();
     this.currentPage = 0;
     this.pageSize = 10;
-    this.filter = '';
   }
 
   getExceptionReports(resetData = false) {
