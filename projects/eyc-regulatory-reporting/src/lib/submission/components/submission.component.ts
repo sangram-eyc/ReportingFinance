@@ -38,6 +38,7 @@ export class SubmissionComponent implements OnInit {
   exportHeaders: string;
   exportURL;
   toastAfterExportInSubmission: boolean = false;
+  previousStatus: any;
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
@@ -373,6 +374,7 @@ export class SubmissionComponent implements OnInit {
 
   enableUpdateStatusModal(row, typeSelected) {
     console.log(row);
+    this.previousStatus  = row.status;
 
     this.updateStatusType = typeSelected;
     if (typeSelected == 'single') {
@@ -404,7 +406,8 @@ export class SubmissionComponent implements OnInit {
         this.updateSubmissionStatusList = this.updateSubmissionStatusList.map(ele => ({
           "fileId": ele.fileId,
           "filingId": this.filingDetails.filingId,
-          "status": ele.status
+          "currStatus": ele.status,
+          "prevStatus": this.previousStatus
         }));
         const obj = {
           "submissionFileRequestList": this.updateSubmissionStatusList
