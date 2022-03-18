@@ -59,9 +59,7 @@ export class AssignUsersModalComponent implements OnInit {
     this.dialogRef.close({ button: this.modalDetails.footer.NoButton });
   }
 
-  onClickYes() {
-   console.log('Users selected->', this.selectedUsers);
-   console.log('Fund id ->', this.modalDetails.idFund);  
+  onClickYes() { 
    const usersToAdd = {
     "userIds": this.selectedUsers
     };
@@ -115,25 +113,11 @@ export class AssignUsersModalComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.datasetsDropdownTemplate,
         }, 
-        field: 'template',
+        field: 'name',
         headerName: '',
-        width: 70,
+        width: 100,
         sortable: false,
         pinned: 'left',
-      },
-      {
-         headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.userName,
-        }, 
-        headerName: 'Users',
-        field: 'name',
-        sortable: false,
-        filter: false,       
-        resizeable: true, 
-        minWidth: 300,
-        sort:'asc'
       }
     ]
   }
