@@ -54,6 +54,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   };
 
   filingDetails: any;
+  currentEntityReviewLevel;
   submitEntities: any;
   selectedEntityId;
   selectedExceptionId;
@@ -518,6 +519,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   onSubmitApproveFilingEntities() {
     const filingDetails = this.filingDetails;
     let selectedFiling = {
+      // "currentReviewlavel": this.selectedRows.map(({ reviewLevel }) => reviewLevel),
+      "currentReviewlavel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
       "entityIds": this.selectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
@@ -771,7 +774,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   actionMenuEnableforEntity(row) {
     console.log('Reporting > unapprove > entity');
+    this.currentEntityReviewLevel = '';
     this.selectedEntityId = row.entityId;
+    this.currentEntityReviewLevel = row.reviewLevel;
   setTimeout(() => {
     this.actionMenuModalEnabled = true;
     this.actionMenuModal = true;
@@ -812,6 +817,7 @@ onClickLastUpdatedBy(row){}
         this.selectedEntities.push(this.selectedEntityId);
         const filingDetails = this.filingDetails;
         let selectedFiling = {
+        "currentReviewlavel": this.currentEntityReviewLevel,
         "entityType": "Filing Entity",
         "entities":  this.selectedEntities,
         "filingName": this.filingDetails.filingName,

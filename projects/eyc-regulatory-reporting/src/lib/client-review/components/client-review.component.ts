@@ -20,6 +20,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   commentsName;
   commentEntityType
   showComments = false;
+  currentEntityReviewLevel;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -541,6 +542,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   onSubmitApproveFilingEntities() {
     let selectedFiling = {
+      "currentReviewlavel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
       "entityIds": this.selectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
@@ -751,8 +753,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   actionMenuEnableforEntity(row) {
+    this.currentEntityReviewLevel = '';
     console.log('Client Review > unapprove > entity');
     this.selectedEntityId = row.entityId;
+    this.currentEntityReviewLevel = row.reviewLevel;
   setTimeout(() => {
     this.actionMenuModalEnabled = true;
     this.actionMenuModal = true;
@@ -791,6 +795,7 @@ actionMenuEnableforException(row) {
         this.selectedEntities.push(this.selectedEntityId);
         const filingDetails = this.filingDetails;
         let selectedFiling = {
+          "currentReviewlavel": this.currentEntityReviewLevel,
           "entityType": "Filing Entity",
           "entities": this.selectedEntities,
           "filingName": this.filingDetails.filingName,
