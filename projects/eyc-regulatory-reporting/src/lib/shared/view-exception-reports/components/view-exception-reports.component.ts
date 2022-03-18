@@ -85,18 +85,18 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.stage = 'intake';
     }
-    else if (this.filingService.getFilingData) {
+    if (this.filingService.getFilingData) {
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      if (this.filingService.getExceptionData.resolveOrException && this.filingService.getExceptionData.resolveOrException.indexOf("/") !== -1) {
+      if (this.filingService.getExceptionData?.resolveOrException && this.filingService.getExceptionData?.resolveOrException.indexOf("/") !== -1) {
         let exceptionVal = this.filingService.getExceptionData.resolveOrException.split("/");
         this.exceptionCnt = exceptionVal[1];
       }
-      this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
+      this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '1');
