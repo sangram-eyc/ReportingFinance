@@ -743,6 +743,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       period: this.filingDetails.period,
       ruleExceptionId: event.ruleExceptionId
     }}};
+    this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
 
