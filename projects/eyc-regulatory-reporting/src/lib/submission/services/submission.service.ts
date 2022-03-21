@@ -38,7 +38,7 @@ export class SubmissionService {
        return this.apiService.invokeGetAPI(`${exportURL}`);
   }
 
-  getAuditlog() {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.audit_log}`)
+  getAuditlog(auditObjectId, auditObjectType) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.audit_log}?auditObjectId=${auditObjectId}&auditObjectType=${auditObjectType}&fetchDetails=true`)
   }
 }

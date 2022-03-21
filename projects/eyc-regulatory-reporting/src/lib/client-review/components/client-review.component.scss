@@ -309,3 +309,21 @@ motif-icon.motif-icon.actionCursor {
         padding-right: 5px;
     }
   }
+  .last_updated_by_icon_disable{
+    ::ng-deep svg {
+        fill: #155CB4 !important;
+        height: 1.111rem !important;
+        width: 1.111rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        cursor: pointer;
+        padding-top: 0.24rem;
+        padding-right: 5px;
+    }
+  }
+  .last_updated_by_content {
+      display: contents;
+  }
+  ::ng-deep.motif-tooltip-trigger {
+        display: contents !important;
+  }

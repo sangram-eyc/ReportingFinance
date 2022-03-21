@@ -40,10 +40,28 @@
             </div>
         </ng-template>
         <ng-template #lastUpdatedByTemplate let-row>
-            <span class="last_updated_by_icon" *ngIf="row.updateBy">
-                <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
-            </span>
-            <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updateBy}}</div>
+            <div *ngIf="isAuditlogs && row.exceptionReportName == fileDetail?.fileName">
+                <motif-tooltip placement="top">
+                    <div motifTooltipTrigger motifButton aria-label="tooltip">
+                        <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                            <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                                (click)="onClickLastUpdatedByException(row)"></motif-icon>
+                        </span>
+                        <div class="last_updated_by" (click)="onClickLastUpdatedByException(row)">{{row.updateBy}}</div>
+                    </div>
+                    <span *ngIf="isAuditlogs">
+                        No records found
+                    </span>
+                </motif-tooltip>    
+            </div>
+            
+            <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.exceptionReportName == fileDetail?.fileName)">
+                <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                    <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                        (click)="onClickLastUpdatedByException(row)"></motif-icon>
+                </span>
+                <div class="last_updated_by" (click)="onClickLastUpdatedByException(row)">{{row.updateBy}}</div>
+            </div>
         </ng-template>
         <ng-template #myTasksExceptionTemplate let-row>
             <div class="mytask" *ngIf="row.mytask">
@@ -153,10 +171,28 @@
         </ng-template>
 
         <ng-template #lastUpdatedByTemplate let-row>
-            <span class="last_updated_by_icon" *ngIf="row.updatedBy">
-                <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
-            </span>
-            <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+            <div *ngIf="isAuditlogs && row.entityName == fileDetail?.fileName">
+                <motif-tooltip placement="top">
+                    <div motifTooltipTrigger motifButton aria-label="tooltip">
+                        <span class="last_updated_by_icon_disable" *ngIf="row.updateBy">
+                            <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                                (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
+                        </span>
+                        <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updateBy}}</div>
+                    </div>
+                    <span *ngIf="isAuditlogs">
+                        No records found
+                    </span>
+                </motif-tooltip>
+            </div>
+        
+            <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.entityName == fileDetail?.fileName)">
+                <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                    <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                        (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
+                </span>
+                <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updateBy}}</div>
+            </div>
         </ng-template>
 
         <ng-template #viewFilingEntityTemplate let-row>
@@ -177,3 +213,6 @@
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
     (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+
+    
+<lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>
