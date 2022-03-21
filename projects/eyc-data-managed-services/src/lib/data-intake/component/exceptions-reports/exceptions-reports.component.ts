@@ -83,7 +83,9 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: key.replace(/_/g, ' '),
           field: key,
-          sortable: true
+          sortable: true,
+          wrapText: true,
+          autoHeight: true
         });
       });
       const multiColumnData = [];
