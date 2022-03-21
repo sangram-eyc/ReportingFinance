@@ -81,7 +81,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
           headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: key.replace(/-/g, ' '),
+          headerName: key.replace(/_/g, ' '),
           field: key,
           sortable: true
         });
