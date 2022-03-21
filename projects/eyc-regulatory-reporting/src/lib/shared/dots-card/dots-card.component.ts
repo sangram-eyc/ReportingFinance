@@ -93,7 +93,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
         switch (item['stageCode']) {
           case "FUND_SCOPING":
             if(itemLen === this.states.findIndex(x => x.stageCode ==="FUND_SCOPING")+1){
-              item.customCls = 'last-item-class';
+              item.customCls = 'last-item-class last-item-class-cust-fund';
             }else{
               item.customCls = 'cust-fund';
             }
@@ -102,7 +102,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
             break;
           case "DATA_INTAKE":
             if(itemLen === this.states.findIndex(x => x.stageCode ==="DATA_INTAKE")+1){
-              item.customCls = 'last-item-class';
+              item.customCls = 'last-item-class last-item-class-cust-intake';
             }else{
               item.customCls = 'cust-intake';
             }
@@ -111,7 +111,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
             break;
           case "REPORTING":
             if(itemLen === this.states.findIndex(x => x.stageCode ==="REPORTING")+1){
-              item.customCls = 'last-item-class';
+              item.customCls = 'last-item-class last-item-class-cust-report';
             }else{
               item.customCls = 'cust-report';
             }
@@ -120,7 +120,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
             break;
           case "CLIENT_REVIEW":
             if(itemLen === this.states.findIndex(x => x.stageCode ==="CLIENT_REVIEW")+1){
-              item.customCls = 'last-item-class';
+              item.customCls = 'last-item-class last-item-class-cust-review';
             }else{
               item.customCls = 'cust-review';
             }
