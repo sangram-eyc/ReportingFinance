@@ -519,8 +519,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   onSubmitApproveFilingEntities() {
     const filingDetails = this.filingDetails;
     let selectedFiling = {
-      // "currentReviewlavel": this.selectedRows.map(({ reviewLevel }) => reviewLevel),
-      "currentReviewlavel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
+      // "currentReviewlevel": this.selectedRows.map(({ reviewLevel }) => reviewLevel),
+      "currentReviewlevel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
       "entityIds": this.selectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
@@ -529,6 +529,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].updatedBy = ele.updatedBy;
       });
       this.createEntitiesRowData();
       this.selectedRows = [];
@@ -594,6 +595,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         console.log("resolveOrException count after approval >", ele.resolveOrException);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = ele.resolveOrException;
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].updateBy =  ele.updatedBy;
         /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
         if(selectedException.resolveOrException.indexOf("/") !== -1){ 
           let exceptionVal = selectedException.resolveOrException.split("/");
@@ -817,7 +819,7 @@ onClickLastUpdatedBy(row){}
         this.selectedEntities.push(this.selectedEntityId);
         const filingDetails = this.filingDetails;
         let selectedFiling = {
-        "currentReviewlavel": this.currentEntityReviewLevel,
+        "currentReviewlevel": this.currentEntityReviewLevel,
         "entityType": "Filing Entity",
         "entities":  this.selectedEntities,
         "filingName": this.filingDetails.filingName,
@@ -831,6 +833,7 @@ onClickLastUpdatedBy(row){}
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
             tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
+            tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].updatedBy = ele.updatedBy;
           });
           this.rowData = tempRowData;
           this.createEntitiesRowData();
@@ -887,6 +890,7 @@ onClickLastUpdatedBy(row){}
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolveOrException = ele.resolveOrException;
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].updateBy = ele.updatedBy;
           });
           this.exceptionData = tempRowData;
           this.createEntitiesRowData();
