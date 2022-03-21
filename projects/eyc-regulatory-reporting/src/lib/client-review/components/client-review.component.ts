@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'lib-client-review',
@@ -27,7 +28,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     public permissions: PermissionService,
-    private settingsService: EycRrSettingsService
+    private settingsService: EycRrSettingsService,
+    public datepipe: DatePipe
     ) { }
 
   tabs;
@@ -104,6 +106,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       }
     }
   };
+  showAuditLog = false;
+  fileDetail;
+  isAuditlogs = false;
+  auditLogs = [];
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -198,7 +204,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
-  onClickLastUpdatedBy(row){}
   
   createEntitiesRowData(): void {
     const customComparator = (valueA, valueB) => {
@@ -937,5 +942,130 @@ actionMenuEnableforException(row) {
       console.log(resp);
     })
     
+  }
+
+  onClickLastUpdatedByEntity(row) {
+    console.log(row);
+    
+    let auditObjectId = row.entityId;
+    let auditObjectType = 'Filing Entity'
+
+    this.fileDetail={
+      "fileName": row.entityName
+    }
+    let auditList = []
+    this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
+
+      let data = res['data'].filter(item => item.auditDetails.auditObjectAttribute =='Stage')
+      data.forEach((element, index) => {
+        let item = this.copy(element)
+        let item1 = this.copy(element)
+        if(element.auditActionType == 'Approve') {
+          
+          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'Unapprove') {
+          if(index==0) {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'New') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+            if (data.length == 1) {
+              item1['auditActionType'] = 'Started'
+              item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
+              auditList.push(item1)
+            }
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['auditActionType'] = 'Approve'
+            item.auditDetails['auditObjectCurValue'] = 'Filing entity ready for reporting'
+            auditList.push(item)
+          } 
+        }
+      });
+      this.auditLogs= this.groupbyMonth(auditList)
+    });
+  }
+
+  onClickLastUpdatedByException(row) {
+    console.log(row);
+    
+    let auditObjectId = row.exceptionId;
+    let auditObjectType = 'Exception Report'
+    
+    this.fileDetail={
+      "fileName": row.exceptionReportName
+    }
+    let auditList = []
+    this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
+
+      let data = res['data'].filter(item => item.auditDetails.auditObjectAttribute =='Stage')
+      data.forEach((element, index) => {
+        let item = this.copy(element)
+        let item1 = this.copy(element)
+        if(element.auditActionType == 'Approve') {
+          
+          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'Unapprove') {
+          if(index==0) {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'New') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+            if (data.length == 1) {
+              item1['auditActionType'] = 'Started'
+              item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
+              auditList.push(item1)
+            }
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['auditActionType'] = 'Approve'
+            item.auditDetails['auditObjectCurValue'] = 'Exception ready for reporting'
+            auditList.push(item)
+          } 
+        }
+      });
+      this.auditLogs= this.groupbyMonth(auditList)
+    });
+  }
+
+  groupbyMonth(data) {
+    let months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    var results = [];
+    data.forEach(element => {
+      let date = new Date(element.modifiedDateTime);
+      var month = date.getMonth();
+      let checkMonth = results.filter(cls => cls.duration == months[month])
+      if (checkMonth.length) {
+        results[results.findIndex(item => item.duration == months[month])].progress.push(element)
+      } else {
+        results.push({
+          "duration": months[month],
+          "progress": [element]
+        })
+      }
+    });
+    return results
+  }
+
+  copy(x) {
+    return JSON.parse(JSON.stringify(x));
   }
 }

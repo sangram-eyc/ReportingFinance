@@ -10,6 +10,7 @@ import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -45,7 +46,8 @@ export class SubmissionComponent implements OnInit {
     public permissions: PermissionService,
     private filingService: RegulatoryReportingFilingService,
     private fb: FormBuilder,
-    private settingsService: EycRrSettingsService
+    private settingsService: EycRrSettingsService,
+    public datepipe: DatePipe
     ) { }
 
 
@@ -448,11 +450,34 @@ export class SubmissionComponent implements OnInit {
     console.log(row);
     this.showAuditLog = true;
     this.fileDetail = row;
-    this.service.getAuditlog().subscribe(res => {
-      this.groupbyMonth(res['data'])
-      this.auditLogs= this.groupbyMonth(res['data'])
+    let auditObjectId = row.fileId;
+    let auditObjectType = 'Submission File';
+    let auditList = []
+    this.service.getAuditlog(auditObjectId,auditObjectType).subscribe(res => {
+      console.log(res);
+      let data = res['data'];
+      data.forEach((element, index) => {
+        let item = this.copy(element)
+        if (element.auditActionType == 'New') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+            item['auditActionType'] = 'completed'
+            item.auditDetails['auditObjectCurValue'] = 'Draft available for submission';
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            auditList.push(item)
+          } else {
+            item['auditActionType'] = 'completed';
+            auditList.push(item);
+          }
+        }
+      });
+      this.auditLogs= this.groupbyMonth(auditList);
     });
   }
+
+  copy(x) {
+    return JSON.parse(JSON.stringify(x));
+  }
+
   exportSubmissionData(){
     console.log('GRID API', this.gridApi);
     this.exportHeaders = '';

@@ -61,9 +61,9 @@ if (this.show) {
 
     if (progress === 'In Progress' || progress === 'in-progress' || progress === 'IN_PROGRESS'|| progress === 'Started') {
       state = "in-progress";
-    } else if ((progress === 'Completed' || progress === 'completed' || progress === 'COMPLETED' || progress === 'Approval')) {
+    } else if ((progress === 'Completed' || progress === 'completed' || progress === 'COMPLETED' || progress === 'Approve')) {
       state = 'completed';
-    } else if(progress === 'ERROR' || progress === 'Unapproval') {
+    } else if(progress === 'ERROR' || progress === 'Unapprove') {
       return 'error'
     } else {
       state = 'not-set';
@@ -72,25 +72,33 @@ if (this.show) {
   }
 
   getError(progress) {
-    if (progress == "ERROR" || progress === 'Unapproval') {
+    if (progress == "ERROR" || progress === 'Unapprove') {
       return true;
     } else {
       return false;
     }
   }
 
-  getSubtitle(auditActionType, modifieruserName, modifiedDateTime) {
+  getSubtitle(auditActionType, modifieruserName, modifiedDateTime, index, progress, item) {
     let status = this.getStatus(auditActionType)
 
-    if(status == 'in-progress') {
+    if (status == 'in-progress') {
       return 'In progress';
     } else if (status == 'not-set') {
       return '';
     } else {
-      if (status == 'error') {
-        return modifieruserName +' ' + "unapproved on" + ' '+ this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+      if(item.hasOwnProperty('subTitle')){
+        return item.subTitle
       } else {
-        return modifieruserName +' ' + this.updatedText + ' '+ this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+        if (status == 'error') {
+          return modifieruserName + ' ' + "unapproved on" + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+        } else {
+          if (this.stage == 'Submission') {
+            return modifieruserName + ' ' + 'on' + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+          } else {
+            return modifieruserName + ' ' + this.updatedText + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+          }
+        }
       }
     }
   }
