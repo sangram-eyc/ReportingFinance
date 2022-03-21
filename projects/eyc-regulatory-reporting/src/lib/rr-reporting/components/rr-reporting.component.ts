@@ -529,6 +529,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.rrservice.approvefilingEntities(selectedFiling).subscribe(res => {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].updatedBy = sessionStorage.getItem('userEmail');
       });
       this.createEntitiesRowData();
       this.selectedRows = [];
@@ -594,6 +595,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         console.log("resolveOrException count after approval >", ele.resolveOrException);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = ele.resolveOrException;
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].updateBy =  sessionStorage.getItem('userEmail');
         /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
         if(selectedException.resolveOrException.indexOf("/") !== -1){ 
           let exceptionVal = selectedException.resolveOrException.split("/");
@@ -831,6 +833,7 @@ onClickLastUpdatedBy(row){}
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
             tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
+            tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].updatedBy =  sessionStorage.getItem('userEmail');
           });
           this.rowData = tempRowData;
           this.createEntitiesRowData();
@@ -887,6 +890,7 @@ onClickLastUpdatedBy(row){}
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolveOrException = ele.resolveOrException;
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].updateBy =  sessionStorage.getItem('userEmail');
           });
           this.exceptionData = tempRowData;
           this.createEntitiesRowData();
