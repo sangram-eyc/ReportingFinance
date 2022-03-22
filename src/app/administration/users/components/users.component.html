@@ -13,7 +13,7 @@
     [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')"
     [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')"
     [columnDefs]="columnDefs1"
-    [rowData]="rowData"
+    [rowData]="resetRowData"
     [buttonText] ="'Add User'"
     rowSelection="multiple"
     buttonPosition="right"
@@ -22,7 +22,11 @@
     gridStyle="third"
     [disableAddMemberButton]="false"
     (newEventToParent)="addUser($event)"
-    [export] = "true" (exportFlagToParent)="exportUsersData()">
+    (gridReady)="handleGridReady($event)"
+    [export] = "true" (exportFlagToParent)="exportUsersData()" [paginationApi]="true"
+    [pagination]="true" paginationSize="10" [totalRecords]="pageInfo.totalRecords" [pageChangeFunc]="pageChangeFunc"
+    (customSortChange)="sortChanged($event)" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
+    (updatePageSize)="updatePageSize($event)">
     </lib-shared-grid>
 
     <ng-template #headerTemplate>

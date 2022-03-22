@@ -4,7 +4,7 @@
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
                 <div *ngIf="button" class="buttons">
                     <div class="approve-button" *ngIf="permissionToPrimaryButton">
-                        <button motifButton color="primary" size="large" (click)="openDialog()"
+                        <button motifButton color="primary" size="large" (click)="primaryButtonAction()"
                         [disabled]="selectedRows.length==0">
                         <span *ngIf="displayPlusIcon">
                             <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></span>{{buttonText}}</button>
@@ -64,8 +64,9 @@
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData" 
@@ -73,9 +74,10 @@
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
 
             <ng-template #paginationSelectTemplate>
                 <div *ngIf="pagination && !paginationApi">
@@ -144,3 +146,7 @@
                 (click)="buttonModal = false">Cancel</button>
         </motif-modal-footer>
     </motif-modal>
+
+    <motif-toast [type]="'success'" [show]="toastAfterExport"
+        (close)="toastAfterExport = !toastAfterExport">Download in progress. This may take a few minutes, Please check notification icon to access the exported file.
+    </motif-toast> 

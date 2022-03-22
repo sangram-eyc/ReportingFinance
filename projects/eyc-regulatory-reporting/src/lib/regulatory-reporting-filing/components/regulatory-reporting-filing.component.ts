@@ -39,7 +39,6 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   filingResp: any[] = [];
 
   noOfCompletdFilingRecords = 10;
-  currentPage = 1;
   maxPages = 5;
   searchNoDataAvilable = false;
   activeReportsSearchNoDataAvilable = false;
@@ -93,8 +92,11 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     id: 0
   };
 
-  pageSize;
-
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
 
   ngOnInit(): void {
     sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
@@ -154,7 +156,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   getCompletedFilingsData() {
     this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage - 1, this.noOfCompletdFilingRecords).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords,this.sort,this.filter).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       // resp['data'].forEach((item) => {
       //   const eachitem: any = {
@@ -170,8 +172,29 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       //   this.completedFilings.push(eachitem);
       // });
       this.completedFilings = resp['data'];
+      this.totalRecords = resp['totalRecords'];
       this.createHistoryRowData();
     })
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getCompletedFilingsData();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getCompletedFilingsData();
+  }
+
+  currentPageChange(event) {
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageSize = event;
+    this.getCompletedFilingsData();
   }
 
   createHistoryRowData() {
@@ -505,7 +528,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   exportReportHistoryData() {
     this.exportHeaders = '';
-    this.exportHeaders = 'name:Filing Report Name,period:Filing period,totalFunds:Total entities,dueDate:Due date,subDate:Submission date,completedDate:Date marked complete,completedBy:Marked completed by';
+    this.exportHeaders = 'filingName:Filing Report Name,period:Filing period,totalFunds:Total entities,dueDate:Due date,subDate:Submission date,completedDate:Date marked complete,completedBy:Marked completed by';
     this.exportURL = this.settingsService.regReportingFiling.filing_history  +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     console.log("export URL > ", this.exportURL);
     this.filingService.exportReportsHistory(this.exportURL).subscribe(resp => {

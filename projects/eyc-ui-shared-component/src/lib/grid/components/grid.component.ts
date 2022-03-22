@@ -23,6 +23,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   showToastAfterSubmit = false;
   searchNoDataAvilable;
   buttonModal = false;
+  toastAfterExport = false;
 
   @Input() gridStyle = 'first';
   @Input() button = true;
@@ -80,6 +81,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hideHeaderCheckbox = false;
   @Input() disableResolveButton = false;
   @Input() disableUnresolveButton = false;
+  @Input() customRowSelected = false;
   @Output() customSortChange = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() unresolveEventToParent = new EventEmitter<string>();
@@ -94,6 +96,8 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() searchInput = new EventEmitter<string>();
   @Input() export = false;
   @Input() totalRecords = null;
+  @Output() rowSelected = new EventEmitter<any>();
+  @Input() omitModal = false;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -184,23 +188,6 @@ pageSize;
   ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if (typeof (this.columnDefs) !== 'undefined') {
-      this.columnDefsData = []
-      this.columnDefsData = this.columnDefs.slice(0);
-      //sr no column data
-      let object = {
-        width: 30,
-        valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
-        pinned: 'left',
-        cellClass: this.srnoCls
-      }
-      if (this.displayCheckBox) {
-        this.columnDefsData.splice(0, 0, object);
-      } else {
-
-        this.columnDefsData.splice(1, 0, object);
-      }
-    }
     if (this.paginationApi) {
       if (this.totalRecords >= 0) {
         this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
@@ -208,6 +195,21 @@ pageSize;
         this.maxPages = 1;
       }
       console.log(this.maxPages);
+    } 
+    if (typeof (this.columnDefs) !== 'undefined') {
+      this.columnDefsData = []
+      this.columnDefsData = this.columnDefs.slice(0);
+      let object = { 
+        width: 30,
+        valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: true,
+        pinned: 'left',
+        cellClass: this.srnoCls
+      }
+      if (this.displayCheckBox) {
+        this.columnDefsData.splice(0, 0, object);
+      } else {
+        this.columnDefsData.splice(1, 0, object);
+      }
     }
   }
 
@@ -253,6 +255,15 @@ pageSize;
   openResolveUnresolveDialog(type:string){
     type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
+
+  primaryButtonAction() {
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialog();
+    }
+  }
+
   openDialog() {
     if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
@@ -276,6 +287,10 @@ pageSize;
     return args.node.rowIndex+1;
   }  
 
+  filterChanged(event) {
+    this.gridApi.refreshCells();
+  }
+
   sortChanged(params) {
     let sortModel = this.gridApi.getSortModel();
     if (sortModel.length > 0) {
@@ -294,20 +309,24 @@ pageSize;
     }
   }
 
-  onRowSelected(): void {
-    this.selectedRowEmitterProcess.emit('processing');
-    this.selectedRows = [];
-    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
-    this.selectedRowEmitter.emit(this.selectedRows);
-    this.selectedRowEmitterProcess.emit('finished');
-    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
-    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
-      this.gridApi.selectAll();
-      this.isAllRecordSelected = true;
+  onRowSelected(event): void {
+    if (this.customRowSelected) {
+      this.rowSelected.emit(event);
+      this.selectedRows = this.gridApi.getSelectedRows();
     } else {
-      this.isAllRecordSelected = false;
+      this.selectedRowEmitterProcess.emit('processing');
+      this.selectedRows = [];
+      this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
+      this.selectedRowEmitter.emit(this.selectedRows);
+      this.selectedRowEmitterProcess.emit('finished');
+      if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+      if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+        this.gridApi.selectAll();
+        this.isAllRecordSelected = true;
+      } else {
+        this.isAllRecordSelected = false;
+      }
     }
-
   }
 
   isFirstColumn = (params) => {
@@ -330,6 +349,7 @@ pageSize;
 
   searchGridPagination(input) {
     this.searchInput.emit(input.el.nativeElement.value);
+    this.currentPage = 1;
     console.log('SEARCH GRID PAGINATION EMIT');
   }
 
@@ -370,6 +390,10 @@ pageSize;
    /*  const exportURL = requestDetails.exportEndPoint + "?filingName=" + requestDetails.filingName + "&period=" + requestDetails.period + "&headers=" + requestDetails.headers;
     console.log("exportURL > ", exportURL);
     // */
+    this.toastAfterExport = true;
+    setTimeout(() => {
+      this.toastAfterExport = !this.toastAfterExport;
+    }, 5000);
     this.exportFlagToParent.emit(true);
   }
 

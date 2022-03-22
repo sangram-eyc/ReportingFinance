@@ -117,7 +117,7 @@
                            <div class="toast-icon">
                               <i class="material-icons md-light">check_circle</i>
                            </div>
-                           <div class="toast-card-body">No files missing at the moment
+                           <div class="toast-card-body">Data is not available
                            </div>
                         </div>
                      </div>
@@ -149,7 +149,7 @@
                            <div class="toast-icon">
                               <i class="material-icons md-light">check_circle</i>
                            </div>
-                           <div class="toast-card-body">No files missing at the moment
+                           <div class="toast-card-body">Data is not available
                            </div>
                         </div>
                      </div>
@@ -170,7 +170,7 @@
          </div>
          <div class="my-3">
             <motif-form-field>
-               <input #fileReview motifInput motifSearch type="text" placeholder="Search..." aria-label="Search">
+               <input #gridSearch motifInput motifSearch type="text" placeholder="Search..." aria-label="Search" (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(gridSearch)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
          </div>
       </div>
@@ -180,8 +180,7 @@
       <motif-card>
          <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
             (gridReady)="onGridReady($event)" (rowSelected)="onRowClicked($event)" [suppressRowClickSelection]="false"
-            [suppressCellSelection]="true" [domLayout]="domLayout" [pagination]="false"
-            [paginationPageSize]="currentlySelectedPageSize.value">
+            [suppressCellSelection]="true" [domLayout]="domLayout">
          </motif-table>
       </motif-card>
    </div>
@@ -239,7 +238,7 @@
             </div>
             <div>
                <span class="label">Verison: </span>
-               <label>Verison name</label>
+               <label>{{row.auditVersion}}</label>
             </div>
          </div>
       </motif-tooltip>
@@ -270,33 +269,6 @@
 
    </ng-template>
 
-   <!-- Tooltip -->
-   <div class="flex-end mt-3" [hidden]="searchNoDataAvilable || noCompletedDataAvilable">
-      <motif-pagination>
-         <button motifIconButton size="medium" aria-label="Go to first page"
-            (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
-            <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
-         </button>
-         <button motifIconButton size="medium" aria-label="Go to previous page"
-            (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
-            <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
-         </button>
-         <span class="page-description">Page <span class="page-number">{{currentPage}}</span> of <span
-               class="page-number">{{maxPages}}</span></span>
-         <button motifIconButton size="medium" aria-label="Go to next page" (click)="handlePageChange(currentPage + 1)"
-            [disabled]="currentPage === maxPages">
-            <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-         </button>
-         <button motifIconButton size="medium" aria-label="Go to last page"
-            (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
-            <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
-         </button>
-      </motif-pagination>
-
-      <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
-         (paginationSelectChange)="updatePaginationSize($event.value)">
-      </motif-pagination-select>
-   </div>
    <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
       <motif-card-body>
          <h5>No results found.</h5>

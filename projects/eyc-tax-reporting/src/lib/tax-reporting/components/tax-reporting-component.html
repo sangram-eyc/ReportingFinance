@@ -46,11 +46,11 @@
         <button class="btn btn-link" (click)="getProdCycleDetail(row)">{{row.name}}</button>
     </ng-template>
 
-    <ng-template #totalFunds let-row>
+<!--     <ng-template #totalFunds let-row>
         <span>{{(row.totalFunds > 0) ? row.totalFunds : 0}}</span>
-    </ng-template>
+    </ng-template> -->
 
-    <ng-template #cycleStatus let-row>
+<!--     <ng-template #cycleStatus let-row>
         <lib-tax-horizontal-stacked-bar-chart 
            [dataInput]="row.dataToChart"
            [width]="widthDivChart"
@@ -59,7 +59,7 @@
            [id]= "'T' + row.id"
            [gridEnabled]="true">       
        </lib-tax-horizontal-stacked-bar-chart>
-   </ng-template>
+   </ng-template> -->
 
     <ng-template #statusTracker let-row>
         <div class="ml-4">
@@ -72,6 +72,6 @@
                 </svg>
             </a>
         </div>
-    </ng-template>
+    </ng-template> 
 
 </section>

@@ -59,7 +59,7 @@
       <form [formGroup]="editForm" *ngIf="editForm">
         <div class="row">
           <div class="col-md-6 lablel-heading">
-            Filer Types
+            Filer Types (Values must be separated by commas)
           </div>
           <div class="col-md-6 lablel-heading">
             Filing Stages
@@ -74,6 +74,8 @@
               <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters
                 long</motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
               </motif-error>
             </motif-form-field>
           </div>

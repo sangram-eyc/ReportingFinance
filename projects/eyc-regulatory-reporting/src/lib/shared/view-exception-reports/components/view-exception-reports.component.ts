@@ -85,18 +85,18 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.stage = 'intake';
     }
-    else if (this.filingService.getFilingData) {
+    if (this.filingService.getFilingData) {
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      if (this.filingService.getExceptionData.resolveOrException && this.filingService.getExceptionData.resolveOrException.indexOf("/") !== -1) {
+      if (this.filingService.getExceptionData?.resolveOrException && this.filingService.getExceptionData?.resolveOrException.indexOf("/") !== -1) {
         let exceptionVal = this.filingService.getExceptionData.resolveOrException.split("/");
         this.exceptionCnt = exceptionVal[1];
       }
-      this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
+      this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '1');
@@ -115,22 +115,26 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.exceptionAnswersData ? this.exceptionAnswersData.map(e => {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
-      this.sortByUnresolvedException();
+      if (this.exceptionAnswersData) {
+        this.sortByUnresolvedException();
+        this.createEntitiesRowData();
+      } else {
+        this.exceptionAnswersDefs = [];
+      }
       this.commentsCount = res.data['commentCountMap'];
-      this.createEntitiesRowData();
     });
   }
 
   getExceptionResults() {
     this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
       this.exceptionAnswersData = res.data;
-      this.createDataIntakeExceptionsRowData();
+      this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
     });
   }
 
@@ -178,162 +182,24 @@ export class ViewExceptionReportsComponent implements OnInit {
         width: 70,
         sortable: false,
         cellClass: 'actions-button-cell'
-      },
-      {
-        field: 'AuditResultObjectID',
-        headerName: 'AuditResultObjectID',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Entity Name',
-        headerName: 'Entity Name',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Entity ID',
-        headerName: 'Entity ID',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Report Date (Current)',
-        headerName: 'Report Date (Current)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: "Report Date (Previous)",
-        headerName: "Report Date (Previous)",
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Context',
-        headerName: 'Context',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Context Desc',
-        headerName: 'Context Desc',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Field',
-        headerName: 'Field',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Value (Current)',
-        headerName: 'Value (Current)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Value (Previous)',
-        headerName: 'Value (Previous)',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Diff',
-        headerName: 'Diff',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Diff Pct',
-        headerName: 'Diff Pct',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Status',
-        headerName: 'Status',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
-      {
-        field: 'Last Modified By',
-        headerName: 'Last Modified By',
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      },
+      }
     );
-
-    // for (const property in this.exceptionAnswersData[0]) {
-    //   console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-    //   this.exceptionAnswersDefs.push({
-    //     field: `${property}`,
-    //     headerName: `${property}`,
-    //     headerComponentFramework: TableHeaderRendererComponent,
-    //     sortable: true,
-    //     autoHeight: true,
-    //     width: 320,
-    //     wrapText: true,
-    //     filter: true
-    //   });
-    // }
+    
+    for (const property in this.exceptionAnswersData[0]) {
+      console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
+      if(property != 'approved') {
+        this.exceptionAnswersDefs.push({
+          field: `${property}`,
+          headerName: `${property}`,
+          headerComponentFramework: TableHeaderRendererComponent,
+          sortable: true,
+          autoHeight: true,
+          width: 320,
+          wrapText: true,
+          filter: true
+        });
+      }
+    }
     this.exceptionAnswersDefs.push({
       headerName: 'Comments',
       headerComponentFramework: TableHeaderRendererComponent,
@@ -440,7 +306,6 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getUnresolveButtonPermission() {
-    this.checkFilingCompletedStatus()
     if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
@@ -622,14 +487,16 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.exportsHeader = hedars;
       }
     }
+    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
-
+    }
     const requestobj = {
       "exceptionId": this.filingService.getExceptionData.exceptionId,
       "export": true,
       "reportType": "CSV",
       "filingName": this.filingName,
       "period": this.period,
+      "stage": this.componentStage,
       "totalExceptions": this.exceptionCnt,
       "titles": this.exportsHeader
     }

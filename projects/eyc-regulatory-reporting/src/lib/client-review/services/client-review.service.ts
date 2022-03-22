@@ -45,4 +45,8 @@ export class ClientReviewService {
   exportCRData(exportURL) {
     return this.apiService.invokeGetAPI(`${exportURL}`);
   }
+
+  getAuditlog(auditObjectId, auditObjectType) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.audit_log}?auditObjectId=${auditObjectId}&auditObjectType=${auditObjectType}&fetchDetails=true`);
+  }
 }

@@ -92,7 +92,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$')]]
+      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'),this.checkDuplicate.bind(this)]]
     });
   }
 
@@ -112,7 +112,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       let splittedFilerTypes = types.map(el => el.trim());
       return splittedFilerTypes;
     } else {
-      return [];
+      return [''];
     }
   }
 
@@ -199,4 +199,15 @@ export class StaticDataComponent implements OnInit, OnChanges {
     this.updateFilingService.setData = filing;
     this.router.navigate(['/update-filing']);
   }
+
+  checkDuplicate(control: FormControl){
+    let value = (control.value).toUpperCase().split(',');
+    if(value && new Set(value).size !== value.length){
+      return {
+        duplicateName: {
+          filerType: value[0]
+        }
+    }
+  }
+}
 }

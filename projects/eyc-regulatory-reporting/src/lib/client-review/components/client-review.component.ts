@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'lib-client-review',
@@ -20,13 +21,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   commentsName;
   commentEntityType
   showComments = false;
+  currentEntityReviewLevel;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
     public dialog: MatDialog,
     private router: Router,
     public permissions: PermissionService,
-    private settingsService: EycRrSettingsService
+    private settingsService: EycRrSettingsService,
+    public datepipe: DatePipe
     ) { }
 
   tabs;
@@ -103,6 +106,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       }
     }
   };
+  showAuditLog = false;
+  fileDetail;
+  isAuditlogs = false;
+  auditLogs = [];
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -124,6 +131,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   viewFilingEntityTemplate: TemplateRef<any>;
   @ViewChild('expandEntityTemplate')
   expandEntityTemplate: TemplateRef<any>;
+  @ViewChild('lastUpdatedByTemplate')
+  lastUpdatedByTemplate: TemplateRef<any>;
   
 
   ngOnInit(): void {
@@ -142,7 +151,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.createEntitiesRowData();
     this.currentPage = 0;
     this.pageSize = 10;
-    this.filter = '';
   }
 
   getExceptionReports(resetData = false) {
@@ -192,6 +200,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
+  }
+
+  
   createEntitiesRowData(): void {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
@@ -299,6 +312,21 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           width: 155,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 300,
           comparator: this.disableComparator
         },
         {
@@ -414,6 +442,21 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
+            ngTemplate: this.lastUpdatedByTemplate,
+          },
+          headerName: 'Last updated by',
+          field: 'updatedBy',
+          wrapText: true,
+          autoHeight: true,
+          sortable: true,
+          filter:true,
+          width: 300,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
             ngTemplate: this.viewDetTemplate,
           },
           width: 50
@@ -433,11 +476,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     return 0; 
   }
   
-  exceptionEntitySwitch() {
+  exceptionEntitySwitch(resetData = false) {
     if (this.tabs == 2) {
-      this.getFilingEntities();
+      this.getFilingEntities(resetData);
     } else if (this.tabs == 1) {
-      this.getExceptionReports();
+      this.getExceptionReports(resetData);
     }
   }
 
@@ -459,7 +502,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.exceptionEntitySwitch();
+    this.exceptionEntitySwitch(true);
   }
 
   sortChanged(event) {
@@ -504,6 +547,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   onSubmitApproveFilingEntities() {
     let selectedFiling = {
+      "currentReviewlevel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
       "entityIds": this.selectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
@@ -512,6 +556,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.service.approvefilingEntities(selectedFiling).subscribe(res => {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].updatedBy =  ele.updatedBy;
       });
       this.createEntitiesRowData();
       this.selectedRows = [];
@@ -536,6 +581,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.service.approveAnswerExceptions(selectedFiling).subscribe(res => {
       res['data']['answerExceptions'].forEach(ele => {
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
+        this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].updateBy = ele.updatedBy;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = ele.resolveOrException;
         /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
         console.log('resolve exception val >', selectedException);
@@ -714,8 +760,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   actionMenuEnableforEntity(row) {
+    this.currentEntityReviewLevel = '';
     console.log('Client Review > unapprove > entity');
     this.selectedEntityId = row.entityId;
+    this.currentEntityReviewLevel = row.reviewLevel;
   setTimeout(() => {
     this.actionMenuModalEnabled = true;
     this.actionMenuModal = true;
@@ -754,6 +802,7 @@ actionMenuEnableforException(row) {
         this.selectedEntities.push(this.selectedEntityId);
         const filingDetails = this.filingDetails;
         let selectedFiling = {
+          "currentReviewlevel": this.currentEntityReviewLevel,
           "entityType": "Filing Entity",
           "entities": this.selectedEntities,
           "filingName": this.filingDetails.filingName,
@@ -767,6 +816,7 @@ actionMenuEnableforException(row) {
             res['data'].forEach(ele => {
               tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
               tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
+              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].updatedBy =  ele.updatedBy;
           });
           this.rowData = tempRowData;
           this.createEntitiesRowData();
@@ -823,6 +873,7 @@ actionMenuEnableforException(row) {
           res['data'].forEach(ele => {
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
             tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolveOrException = ele.resolveOrException;
+            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].updateBy = ele.updatedBy;
           });
           this.exceptionData = tempRowData;
           this.createEntitiesRowData();
@@ -859,7 +910,7 @@ actionMenuEnableforException(row) {
 
   routeToFilingEntityExceptionPage(event:any) {
     this.filingService.setFilingEntityData = event;
-    this.router.navigate(['/view-filing-entity-exception']);
+    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: 'Client Review' }});
   }
 
   @HostListener('document:click', ['$event'])
@@ -871,10 +922,18 @@ actionMenuEnableforException(row) {
   }
   exportData(type) {
     if(type == 'entities') {
-      this.exportHeaders = 'entityId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,comments:Comments';
-      this.exportURL =  this.settingsService.regReportingFiling.rr_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,commentsCount:Comments';
+      } else {
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
+      }
+      this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
-      this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
+      if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
+      } else {
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception';
+      }
       this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
     console.log("export URL > ", this.exportURL);
@@ -883,5 +942,132 @@ actionMenuEnableforException(row) {
       console.log(resp);
     })
     
+  }
+
+  onClickLastUpdatedByEntity(row) {
+    console.log(row);
+    
+    let auditObjectId = row.entityId;
+    let auditObjectType = 'Filing Entity'
+
+    this.fileDetail={
+      "fileName": row.entityName
+    }
+    let auditList = []
+    this.isAuditlogs = false;
+    this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
+
+      let data = res['data'].filter(item => item.auditDetails.auditObjectAttribute =='Stage')
+      data.forEach((element, index) => {
+        let item = this.copy(element)
+        let item1 = this.copy(element)
+        if(element.auditActionType == 'Approve') {
+          
+          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'Unapprove') {
+          if(index==0) {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'New') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+            if (data.length == 1) {
+              item1['auditActionType'] = 'Started'
+              item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
+              auditList.push(item1)
+            }
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['auditActionType'] = 'Approve'
+            item.auditDetails['auditObjectCurValue'] = 'Filing entity ready for reporting'
+            auditList.push(item)
+          } 
+        }
+      });
+      this.auditLogs= this.groupbyMonth(auditList)
+    });
+  }
+
+  onClickLastUpdatedByException(row) {
+    console.log(row);
+    
+    let auditObjectId = row.exceptionId;
+    let auditObjectType = 'Exception Report'
+    
+    this.fileDetail={
+      "fileName": row.exceptionReportName
+    }
+    let auditList = []
+    this.isAuditlogs = false;
+    this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
+
+      let data = res['data'].filter(item => item.auditDetails.auditObjectAttribute =='Stage')
+      data.forEach((element, index) => {
+        let item = this.copy(element)
+        let item1 = this.copy(element)
+        if(element.auditActionType == 'Approve') {
+          
+          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'Unapprove') {
+          if(index==0) {
+            item1['auditActionType'] = 'Started'
+              auditList.push(item1)
+          }
+          auditList.push(item)
+
+        } else if (element.auditActionType == 'New') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+            if (data.length == 1) {
+              item1['auditActionType'] = 'Started'
+              item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
+              auditList.push(item1)
+            }
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['auditActionType'] = 'Approve'
+            item.auditDetails['auditObjectCurValue'] = 'Exception ready for reporting'
+            auditList.push(item)
+          } 
+        }
+      });
+      this.auditLogs= this.groupbyMonth(auditList)
+    });
+  }
+
+  groupbyMonth(data) {
+    let months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    var results = [];
+    data.forEach(element => {
+      let date = new Date(element.modifiedDateTime);
+      var month = date.getMonth();
+      let checkMonth = results.filter(cls => cls.duration == months[month])
+      if (checkMonth.length) {
+        results[results.findIndex(item => item.duration == months[month])].progress.push(element)
+      } else {
+        results.push({
+          "duration": months[month],
+          "progress": [element]
+        })
+      }
+    });
+    return results
+  }
+
+  copy(x) {
+    return JSON.parse(JSON.stringify(x));
   }
 }

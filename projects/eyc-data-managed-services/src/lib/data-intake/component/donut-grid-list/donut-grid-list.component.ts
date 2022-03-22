@@ -5,11 +5,12 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { SmallDonutChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'lib-donut-grid-list',
@@ -18,7 +19,6 @@ import { SmallDonutChartSeriesItemDTO } from '../../models/bar-chart-series-Item
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DonutGridListComponent implements OnInit, AfterViewInit {
-  curDate: string;
   presentDate: Date;
   view = [];
   showLegend = false;
@@ -43,7 +43,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
-  dataList: any;
+  dataList: Observable<any[]>;
+  dataListClone: [];
   totalDataIntakeTypeCount: number;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
@@ -61,6 +62,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
+
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -68,6 +73,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     private unsubscriber: AutoUnsubscriberService,
     private _activatedroute: ActivatedRoute, private _router: Router) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
       if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
@@ -80,13 +89,22 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    let dueDate;
+    if (sessionStorage.getItem("selectedDate")) {
+      dueDate = sessionStorage.getItem("selectedDate");
+    } else if (this.dailyMonthlyStatus) {
+      dueDate = this.lastMonthDueDateFormat;
+      this.patchDatePicker(this.lastMonthDate);
+    } else {
+      dueDate = this.presentDateFormat;
+    }
     this.httpQueryParams =
     {
       startDate: '',
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: this.dataIntakeType,
-      dueDate: sessionStorage.getItem("selectedDate") ? sessionStorage.getItem("selectedDate") : `${formatDate(new Date(), 'yyyy-MM-dd', 'en')}`,
+      dueDate: dueDate,
       periodType: '',
       auditFileGuidName: '',
       fileId: '',
@@ -110,11 +128,28 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.getDataIntakeType();
   }
 
+  patchDatePicker(patchDatePickerValue: Date) {
+    const updateDatePicker = {
+      isRange: false,
+      singleDate: {
+        date: {
+          year: patchDatePickerValue.getFullYear(),
+          month: patchDatePickerValue.getMonth() + 1,
+          day: patchDatePickerValue.getDate()
+        }
+      }
+    };
+    this.form.patchValue({ datepicker: updateDatePicker });
+  }
+
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
-    this.curDate = formatDate(new Date(), 'MMM. dd, yyyy', 'en');
-    this.presentDate = selectedDate ? new Date(selectedDate) : new Date();
-
+    if (selectedDate) {
+      this.presentDate = new Date(selectedDate);
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());
+    }
+    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -150,6 +185,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    if(!sessionStorage.getItem("selectedDate")){
+      this.httpQueryParams.dueDate = this.presentDateFormat;
+      this.patchDatePicker(this.presentDate);
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -165,6 +205,12 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.httpQueryParams.dataIntakeType = '';
     }
+    
+    if(!sessionStorage.getItem("selectedDate")){
+      this.patchDatePicker(this.lastMonthDate);
+      this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
+    }
+
     this.getDataIntakeType();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
@@ -328,10 +374,57 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   getDataIntakeType() {
+    this.dataListClone = [];
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
-      this.dataList = data.data;
-      this.totalDataIntakeTypeCount = this.dataList.length;
+      this.dataList = of(data.data);
+      this.dataListClone = data.data;
+      this.totalDataIntakeTypeCount = this.dataListClone.length;
       this.cdr.detectChanges();
     });
   }
+
+   // Table methods
+  searchCompleted(input) {
+    const searchItem = (input.el.nativeElement.value).toLowerCase();
+    if (searchItem && searchItem.length <= 0) {
+      this.dataList = of(JSON.parse(JSON.stringify(this.dataListClone)));
+    } else {
+      this.dataList.subscribe(() => {
+        const dataListClone = JSON.parse(JSON.stringify(this.dataListClone));
+        const searchedDataList = dataListClone.filter(({ dataIntakeName }) => {
+          const regex = new RegExp(`${searchItem}`, "g");
+          return (dataIntakeName).toLowerCase().match(regex);
+        });
+        this.totalDataIntakeTypeCount = searchedDataList.length;
+        this.dataList = of(searchedDataList);
+      });
+    }
+  }
+
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+
 }

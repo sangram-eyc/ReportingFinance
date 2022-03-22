@@ -20,9 +20,9 @@ export class TeamsService {
   get getTeamDetailsData() {
     return this.TeamsData;
   }
-  
-  getTeamsList(moduleName) {
-    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}?module=`+moduleName);
+
+  getTeamsList(moduleName,page,size,sort,filter) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.teams.teams_list}?module=${moduleName}&page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
   }
 
   getTeamsDetails(teamId) {

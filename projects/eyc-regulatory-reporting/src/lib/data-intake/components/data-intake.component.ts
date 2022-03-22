@@ -7,6 +7,7 @@ import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { Router, NavigationExtras } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 
 @Component({
@@ -95,6 +96,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
+    private filingService: RegulatoryReportingFilingService,
     public permissions: PermissionService,
     private router: Router,
     private settingsService: EycRrSettingsService,
@@ -239,6 +241,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exceptionReportRowsSelected(event) {
     console.log(event);
     this.exceptionReportRows = event;
+  }
+
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
   handleGridReady(params) {
@@ -737,12 +743,17 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       period: this.filingDetails.period,
       ruleExceptionId: event.ruleExceptionId
     }}};
+    this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports'], navigationExtras);
   }
 
   exportData(type) {
     if(type == 'exceptions') {
-      this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+      if(this.permissions.validatePermission('Data Intake', 'View Comments')) { 
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+      } else {
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolvedCount:Resolved,exceptionCount:Exceptions';
+      }
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else if(type == 'dataset') {
       this.exportHeaders = 'due:Due,file:File,source:Source,resolved:Resolved,version:Version';
