@@ -167,11 +167,11 @@
             <div *ngIf="isAuditlogs && row.entityName == fileDetail?.fileName">
                 <motif-tooltip placement="top">
                     <div motifTooltipTrigger motifButton aria-label="tooltip">
-                        <span class="last_updated_by_icon_disable" *ngIf="row.updateBy">
+                        <span class="last_updated_by_icon_disable" *ngIf="row.updatedBy">
                             <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
                                 (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
                         </span>
-                        <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updateBy}}</div>
+                        <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updatedBy}}</div>
                     </div>
                     <span *ngIf="isAuditlogs">
                         No records found
@@ -180,11 +180,11 @@
             </div>
         
             <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.entityName == fileDetail?.fileName)">
-                <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                <span class="last_updated_by_icon" *ngIf="row.updatedBy">
                     <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
                         (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
                 </span>
-                <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updateBy}}</div>
+                <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updatedBy}}</div>
             </div>
         </ng-template>
 
