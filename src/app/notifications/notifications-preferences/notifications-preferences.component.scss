@@ -1,0 +1,126 @@
+.preferences {
+  .title {
+    padding: 20px;
+    font-size: 36px;
+    font-weight: 600;
+    color: #1A1A24;
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+  }
+
+  .tabs {
+    padding: 20px;
+
+    .tab-item {
+      font-size: 14px;
+      width: fit-content;
+
+      &.active {
+        font-weight: 800;
+        border-bottom: 2px solid #2E2E38;
+      }
+    }
+  }
+
+  .toggle-panels {
+    padding: 20px;
+    .toggle-panel {
+      background: #FFFFFF;
+      padding-left: 10px;
+      margin-top: 20px;
+      .name {
+        height: 44px;
+        display: flex;
+        font-size: 16px;
+        color: #2E2E38;
+        font-weight: 700;
+        align-items: center;
+        padding-left: 20px;
+
+        .pointer-plus {
+          cursor: pointer;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .toggle-content {
+      .toggle {
+        border-bottom: 1px solid #C4C4CD;
+        margin-left: 30px;
+        margin-top: 20px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .toggle-name {
+          font-size: 12px;
+          color: #000000;
+          font-weight: 700;
+        }
+
+        .toggle-input {
+          .toggle-switcher {
+            width: 105px;
+            text-align: end;
+            ::ng-deep  *:focus {
+              box-shadow: none !important;
+
+            }
+            .permission-on {
+              font-weight: 300;
+              font-size: 12px;
+              line-height: 14px;
+              font-family: EYInterstate !important;
+              color: #2E2E38;
+            }
+            .permission-off {
+              font-weight: 300;
+              font-size: 12px;
+              line-height: 14px;
+              color: #747480;
+              font-family: EYInterstate !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .panel {
+    background: #F6F6FA;
+    border: 1px solid #E1E1E6;
+    box-sizing: border-box;
+    margin-top: 60px;
+    width: 650px;
+
+    .title {
+      font-size: 16px;
+      color: #2E2E38;
+      font-weight: 600;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .notification-types {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .preferences-item {
+      border: 1px solid;
+      padding: 25px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .subscription-buttons {
+    display: flex;
+
+    .notification-button {
+      width: 150px;
+    }
+  }
+}

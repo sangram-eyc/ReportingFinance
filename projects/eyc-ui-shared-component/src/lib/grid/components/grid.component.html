@@ -4,7 +4,7 @@
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
                 <div *ngIf="button" class="buttons">
                     <div class="approve-button" *ngIf="permissionToPrimaryButton">
-                        <button motifButton color="primary" size="large" (click)="openDialog()"
+                        <button motifButton color="primary" size="large" (click)="primaryButtonAction()"
                         [disabled]="selectedRows.length==0">
                         <span *ngIf="displayPlusIcon">
                             <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></span>{{buttonText}}</button>
@@ -12,23 +12,29 @@
                     <div *ngIf="permissionToSecondaryButton">
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                     </div>
+                    <div class="approve-button" *ngIf="permissionToResolveExceptionButton">
+                        <button motifButton color="secondary" size="small" [disabled]="disableResolveButton" (click)="openResolveUnresolveDialog('resolve')">{{resolveButtonText}}</button>
+                    </div>
+                    <div class="second-button" *ngIf="permissionToUnresolveExceptionButton">
+                        <button motifButton color="secondary" size="small" [disabled]="disableUnresolveButton" (click)="openResolveUnresolveDialog('unresolve')">{{unresolveButtonText}}</button>
+                    </div>
                     <div class="toggle-left" *ngIf="isToggleLeft">
                         <h4 [ngClass]="{disabled: toggleLeftDisabled}">{{toggleLeftTitle}}</h4>
                         <motif-toggle-switch [disabled]="toggleLeftDisabled" [hideLabels]="hideLabels" (change)="toggleLeftChanged($event)"></motif-toggle-switch>
                     </div>
                 </div>
-                <div *ngIf="!button"></div>
+                <div *ngIf="!button" class="buttons"></div>
                 <div class="search" *ngIf="search">
                     <motif-form-field>
                         <input #gridSearch motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
-                            (keyup)="searchGrid(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search"
+                            (keyup.enter)="searchGridPagination(gridSearch)" (paste)="onPasteSearchValidation($event)" placeholder="Search"
                             aria-label="Search">
                     </motif-form-field>
                     <div class="toggle" *ngIf="isToggle">
                         <h4>Tasks</h4>
                         <motif-toggle-switch [hideLabels]="true" [(ngModel)]="mytasks" (change)="toggleChanged($event)"></motif-toggle-switch>
                     </div>
-                    <div class="exportWrapper" *ngIf="export">        
+                    <div class="exportWrapper" *ngIf="export && (rowData?.length >= 1)" (click)="exportData($event)">        
                         <div class="export_icon">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.25 6.75H11.25V2.25H6.75V6.75H3.75L9 12L14.25 6.75ZM8.25 8.25V3.75H9.75V8.25H10.6275L9 9.8775L7.3725 8.25H8.25ZM3.75 13.5H14.25V15H3.75V13.5Z" fill="#155CB4"/>
@@ -37,7 +43,16 @@
                         <span>Export to CSV</span>
                     </div>
                 </div>
-                <div *ngIf="!search"></div>
+                <div class="search" *ngIf="!search">
+                    <div class="exportWrapper" *ngIf="export && (rowData?.length >= 1)" (click)="exportData($event)">        
+                        <div class="export_icon">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.25 6.75H11.25V2.25H6.75V6.75H3.75L9 12L14.25 6.75ZM8.25 8.25V3.75H9.75V8.25H10.6275L9 9.8775L7.3725 8.25H8.25ZM3.75 13.5H14.25V15H3.75V13.5Z" fill="#155CB4"/>
+                            </svg>
+                        </div>           
+                        <span>Export to CSV</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div [hidden]="!permissionToShowDataTable">
@@ -49,8 +64,9 @@
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             (sortChanged)="sortChanged($event)"
-            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
+            (filterChanged)="filterChanged($event)"
+            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [rowData]="rowData" 
@@ -58,9 +74,16 @@
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
-            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination"
-            [paginationPageSize]="paginationSize" (rowSelected)="onRowSelected()"></motif-table>
+            [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+
+            <ng-template #paginationSelectTemplate>
+                <div *ngIf="pagination && !paginationApi">
+                    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize1" [options]="dataset1" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
+                </div>
+            </ng-template>
 
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
             <motif-card-body>
@@ -73,6 +96,37 @@
                 <h5>{{noData}}.</h5>
             </motif-card-body>
         </motif-card>
+
+        <div class="pagination" *ngIf="paginationApi" [hidden]="searchNoDataAvilable">
+
+            <motif-pagination>
+                <button motifIconButton size="small" aria-label="Go to first page"
+                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
+                    <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
+                </button>
+              
+                <button motifIconButton size="small" aria-label="Go to previous page"
+                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                    <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
+                </button>
+              
+                <motif-count [currentPage]="currentPage" [numberOfPages]="maxPages" aria-label="Current Page"></motif-count>
+              
+                <button motifIconButton size="small" aria-label="Go to next page"
+                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
+                    <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+                </button>
+              
+                <button motifIconButton size="small" aria-label="Go to last page"
+                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
+                    <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
+                </button>
+            </motif-pagination>
+    
+            <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
+                (paginationSelectChange)="updatePaginationSizeApi($event.value)">
+            </motif-pagination-select>
+        </div>
     </div>
     </section>
     
@@ -92,3 +146,7 @@
                 (click)="buttonModal = false">Cancel</button>
         </motif-modal-footer>
     </motif-modal>
+
+    <motif-toast [type]="'success'" [show]="toastAfterExport"
+        (close)="toastAfterExport = !toastAfterExport">Download in progress. This may take a few minutes, Please check notification icon to access the exported file.
+    </motif-toast> 

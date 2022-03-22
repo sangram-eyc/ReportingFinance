@@ -48,11 +48,11 @@ export class RegulatoryReportingFilingService {
     getFilings() {
       return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_details}`);
     }
-    getFilingsHistory(currentPage,noOfRecords) {
+    getFilingsHistory(currentPage,noOfRecords,sort,filter) {
       // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
       // After API integration will remove above line and uncomment below line
       // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&noOfRecords=${noOfRecords}&sortBy=${sort}&filterKey=${filter}`);
     }
   
     getFilingSearch(noOfRecords) {
@@ -68,5 +68,15 @@ export class RegulatoryReportingFilingService {
     // getPermissionsList() {
     //   return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_permission_list}`);
     // }
+
+    exportReportsHistory(exportURL) {
+      return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
+
+  checkFilingCompletedStatus(filingStages:any){
+    let statusArr = [...filingStages.status]
+    let lastStageIndex = statusArr.length-1;
+    return filingStages.status[lastStageIndex].progress === 'COMPLETED' || filingStages.status[lastStageIndex].progress === 'Completed'
+  }
 
 }

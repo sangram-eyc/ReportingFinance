@@ -11,6 +11,7 @@ import { AdministrationService } from '@default/administration/services/administ
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import {IS_SURE_FOOT} from '../../../services/settings-helpers';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
+import * as helpers from './../../../helper/api-config-helper';
 @Component({
   selector: 'app-admin-regulatory-reporting',
   templateUrl: './admin-regulatory-reporting.component.html',
@@ -18,6 +19,7 @@ import { ModuleLevelPermissionService } from '@default/services/module-level-per
 })
 export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
+  apiHelpers = helpers.userAdminstration;
   tabIn;
   gridApi;
   columnDefs;
@@ -35,6 +37,15 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   is_Tax_Reporting = IS_SURE_FOOT;
   moduleName;
   moduleId;
+  exportHeaders;
+  exportUrl: string;
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
+  pageChangeFunc;
+  resetRowData = [];
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -42,7 +53,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fb: FormBuilder,
     public permissions: PermissionService,
-    public moduleLevelPermission: ModuleLevelPermissionService
+    public moduleLevelPermission: ModuleLevelPermissionService,
   ) {
     const module = adminService.getCurrentModule;
     this.moduleName = module.moduleName;
@@ -55,8 +66,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     sessionStorage.getItem("adminTab") ? this.tabIn = sessionStorage.getItem("adminTab") : this.tabIn = 1;
+    this.pageChangeFunc = this.onPageChange.bind(this);
     if (this.tabIn == 1) {
-      this.getTeamList();
+      this.getTeamList(true);
       if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')) {
         if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Roles')) {
           this.teamsService.getRoles(this.moduleName).subscribe(resp => {
@@ -66,7 +78,6 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
           this.openErrorModal("Access Denied", "User does not have access to view roles. Please contact an administrator.");
         }
       }
-      this.getFilingAssignments();
     }
 
     this.addTeamForm = this._createTeam()
@@ -113,20 +124,66 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     };
   }
 
-  getTeamList() {
+  onPageChange() {
+    this.getTeamList();
+  }
+
+  currentPageChange(event) {
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageSize = event;
+    this.getTeamList();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getTeamList();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getTeamList();
+  }
+
+  handleGridReady(params) {
+    this.gridApi = params.api;
+  }
+
+  resetData() {
+    this.createTeamsRowData();
+    this.currentPage = 0;
+    this.pageSize = 10;
+    this.filter = '';
+  }
+
+  getTeamList(resetData = false) {
+    this.sort = resetData ? 'teamName:true' : this.sort;
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
-      this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
+      this.getFilingAssignments();
+      this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.teamsData = resp.data;
-      });
-      this.createTeamsRowData();
+        this.totalRecords=resp['totalRecords'];
+        if (resetData) {
+          this.createTeamsRowData();
+        } else {
+          this.gridApi.setRowData(this.teamsData);
+        }
+      }); 
     } else {
       this.openErrorModal("Access Denied", "User does not have access to view teams. Please contact an administrator.");
     }
   }
 
+  disableComparator(data1, data2) {
+    return 0; 
+  }
   
   createTeamsRowData(): void {
-   
+    this.resetRowData = [];
+    this.columnDefs = [];
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -138,7 +195,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         autoHeight: true,
         width: 350,
         sort: 'asc',
-        comparator: customComparator
+        comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -149,8 +206,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         wrapText: true,
         autoHeight: true,
         width: 200,
-        sort: 'asc',
-        comparator: customComparator
+        comparator: this.disableComparator
       },
 
       // Commenting this column as part of User Story 299890: Assign filing type to new team
@@ -173,7 +229,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 150
+        width: 150,
+        comparator: this.disableComparator
       },
       {
         width: 80,
@@ -186,7 +243,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
         filter: false,
       },
     ];
-
+    this.resetRowData = this.teamsData;
 }
 
 deleteTeams(row){
@@ -343,4 +400,15 @@ openErrorModal(header, description) {
 
   });
 }
+
+exportTeamsData() {
+this.exportHeaders = '';
+this.exportHeaders = 'teamName:Team  Name,role:Role,numberOfTeamMembers:Members';
+this.exportUrl = this.apiHelpers.teams.teams_list+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+console.log("export URL > ", this.apiHelpers.teams.teams_list+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv");
+this.teamsService.exportTeamsData(this.exportUrl).subscribe(resp => {
+  console.log(resp);
+})
+}
+
 }

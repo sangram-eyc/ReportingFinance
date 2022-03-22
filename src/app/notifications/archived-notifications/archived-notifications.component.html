@@ -1,12 +1,49 @@
 <div class="archived">
   <div class="title">
     <motif-icon [src]="'/assets/icons/social/ic_notifications_none_24px.svg'">
-    </motif-icon> Notifications archive ({{notificationsData?.length}})
+    </motif-icon>
+    Notifications archive ({{notificationsData?.length}})
   </div>
-  <div class="table-header">
-
+  <div class="archived-table-heading">
+    <div class="search">
+      <motif-form-field>
+        <input (keyup)="onKey($event)" motifInput motifSearch type="text"
+               placeholder="Search" aria-label="Search">
+      </motif-form-field>
+      <p class="export" (click)="exportCsv()">Export to CSV</p>
+    </div>
   </div>
   <div class="table">
-    <lib-shared-grid [columnDefs]="columnDefs" [rowData]="notificationsData" [defaultColDef]="{}" displayCheckBox="true" gridStyle="third"></lib-shared-grid>
+    <ng-template #dropdownTemplate let-row>
+      <div class="dropdownTemplate">
+        <input type="checkbox" [checked]="row.selected" (change)="changeCheck(row)"/>
+      </div>
+    </ng-template>
+
+    <ng-template #actions let-row>
+      <div class="actionsTemplate">
+        <motif-icon (click)="flag(row)" class="icon margin-icon"
+                    [src]="isFlagged(row) ? '/assets/icons/is-flagged.svg' : '/assets/icons/flag.svg'">
+        </motif-icon>
+        <motif-icon (click)="delete(row)" class="icon" [src]="'/assets/icons/trash.svg'">
+        </motif-icon>
+
+      </div>
+    </ng-template>
+    <div class="select-all" *ngIf="notificationsData?.length">
+      <input type="checkbox" (change)="selectAll($event)"/>
+    </div>
+    <div class="notifications-list mt-3"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         [scrollWindow]="false"
+         (scrolled)="onScroll()">
+      <lib-shared-grid gridStyle="second" isToggle="false"
+                       displayCheckBox="true"
+                       buttonPosition="left" [masterDetail]="true" [columnDefs]="columnDefs"
+                       [rowData]="notificationsData"
+                       rowSelection="multiple" [button]="false" [search]="false"></lib-shared-grid>
+    </div>
   </div>
 </div>

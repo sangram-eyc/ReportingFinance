@@ -1,0 +1,53 @@
+<div class="preferences">
+  <div class="title">
+    Notifications preferences
+  </div>
+  <div class="tabs">
+    <div class="tab-item active">
+      <p>Notifications</p>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="title">Notifications</div>
+    <div class="toggle-panels">
+      <div class="toggle-panel">
+        <div class="name">
+          <span class="pointer-plus" (click)="emailOpen = !emailOpen">{{emailOpen ? '- ' : '+ '}}</span> Email
+        </div>
+        <div class="toggle-content" *ngIf="emailOpen">
+          <div class="toggle" *ngFor="let web of emailPreferences">
+            <div class="toggle-name">
+              {{web?.description}}
+            </div>
+            <div class="toggle-input">
+              <div class="toggle-switcher">
+                <span class="permission-off">Off</span>
+                <motif-toggle-switch [(ngModel)]="web.selected" (click)="changeEmailPreferences(web, web.selected)" [hideLabels]="true"></motif-toggle-switch>
+                <span class="permission-on">On</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toggle-panel">
+        <div class="name">
+          <span class="pointer-plus" (click)="mobileOpen = !mobileOpen">{{mobileOpen ? '- ' : '+ '}}</span> Web application
+        </div>
+        <div class="toggle-content" *ngIf="mobileOpen">
+          <div class="toggle" *ngFor="let web of inAppPreferences">
+            <div class="toggle-name">
+              {{web?.description}}
+            </div>
+            <div class="toggle-input">
+              <div class="toggle-switcher">
+                <span class="permission-off">Off</span>
+                <motif-toggle-switch [(ngModel)]="web.selected" (click)="changeInAppPreferences(web, web.selected)" [hideLabels]="true"></motif-toggle-switch>
+                <span class="permission-on">On</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

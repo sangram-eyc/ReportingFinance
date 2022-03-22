@@ -7,10 +7,9 @@ import { userAdminstration } from '../../../helper/api-config-helper';
 export class UsersService {
   constructor(private apiService: ApiService) { }
 
-  getUsersList() {
-    return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User}`);
+  getUsersList(page,size,sort,filter) {
+    return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User}?page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
   }
-
   addUser(data) {
     return this.apiService.invokePostAPI(`${userAdminstration.regulatory_Reporting.add_User}`, data);
   }
@@ -25,6 +24,10 @@ export class UsersService {
 
   removeUser(userId) {
     return this.apiService.invokeDeleteAPI(`${userAdminstration.regulatory_Reporting.remove_User}/${userId}`);
+  }
+
+  exportUsersData(exportURL) {
+    return this.apiService.invokeGetAPI(`${exportURL}`);
   }
 
 }

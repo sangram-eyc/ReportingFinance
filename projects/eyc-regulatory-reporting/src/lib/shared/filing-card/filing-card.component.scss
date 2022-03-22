@@ -189,6 +189,63 @@
             z-index: 0;
         }
     }
+    .progress-indicator-container-4 {
+        position: relative;
+        max-width: 8rem;
+        ::ng-deep {
+            .motif-steps-container {
+                position: relative;
+                z-index: 2;
+            }
+        }
+        .line {
+            height: 1px;
+            background-color: #C4C4CD;
+            position: absolute;
+            width: 80%;
+            top: 61%;
+            left: 10px;
+            z-index: 0;
+        }
+    }
+    .progress-indicator-container-3 {
+        position: relative;
+        max-width: 5rem;
+        ::ng-deep {
+            .motif-steps-container {
+                position: relative;
+                z-index: 2;
+            }
+        }
+        .line {
+            height: 1px;
+            background-color: #C4C4CD;
+            position: absolute;
+            width: 80%;
+            top: 61%;
+            left: 10px;
+            z-index: 0;
+        }
+    }
+    .progress-indicator-container-2 {
+        position: relative;
+        max-width: 3rem;
+        ::ng-deep {
+            .motif-steps-container {
+                position: relative;
+                z-index: 2;
+            }
+        }
+        .line {
+            height: 1px;
+            background-color: #C4C4CD;
+            position: absolute;
+            width: 80%;
+            top: 61%;
+            left: 10px;
+            z-index: 0;
+        }
+    }
     
     ::ng-deep {
         .motif-step-container {

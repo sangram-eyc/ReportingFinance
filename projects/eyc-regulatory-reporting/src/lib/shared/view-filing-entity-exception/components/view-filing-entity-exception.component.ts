@@ -23,18 +23,26 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionAnswersDefs;
   exceptionAnswersData;
   rowData;
+  exceptionCnt = '';
+  componentStage;
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
+  exportsHeader: string;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private router: Router,
     private location: Location,
     private viewService: ViewFilingEntityExceptionService
-  ) { }
+  ) { 
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation.extras.state) {
+      this.componentStage = navigation.extras.state.componentStage;
+    }
+  }
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
@@ -43,7 +51,11 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      // console.log(this.filingService.getExceptionData);
+      console.log("resolveException > ", this.filingService.filingEntityData.resolveException);
+      if( this.filingService.filingEntityData.resolveException && this.filingService.filingEntityData.resolveException.indexOf("/") !== -1){ 
+        let exceptionVal =  this.filingService.filingEntityData.resolveException.split("/");
+        this.exceptionCnt = exceptionVal[1];
+      }
       this.entityName = this.filingService.getFilingEntityData.entityName;
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '2'); 
@@ -52,7 +64,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['entityExceptionMap'];
       this.createEntitiesRowData();
     });
@@ -124,5 +136,13 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   routeToExceptionDetailsPage(event:any) {
     // this.filingService.setExceptionData = event;
     // this.router.navigate(['/']);
+  }
+  exportData() {
+    this.exportsHeader = '';
+    this.exportsHeader = 'Audit:Exception Report Name,Resolved:Resolved,Exceptions:Exception';
+    this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
+     
+    });
+    
   }
 }

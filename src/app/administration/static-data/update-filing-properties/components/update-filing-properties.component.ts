@@ -8,6 +8,7 @@ import { customComparator } from 'eyc-ui-shared-component';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { resolvePtr } from 'dns';
+import * as helpers from './../../../../helper/api-config-helper';
 
 @Component({
   selector: 'lib-update-filing-properties',
@@ -16,6 +17,7 @@ import { resolvePtr } from 'dns';
 })
 export class UpdateFilingPropertiesComponent implements OnInit {
 
+  apiHelpers = helpers.userAdminstration;
   enableEditor = false;
   showToaster = false;
   toasterMessage;
@@ -50,6 +52,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   filingData;
   backendFilingInfo;
   invalidEditReportIDs = [];
+  showToastAfterDeleteTeams = false;
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -210,7 +213,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   private _updateForm() {
     return this.formBuilder.group({
-      filerType: ['', [Validators.maxLength(150), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$')]],
+      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'),this.checkDuplicate.bind(this)]],
       filingStage: ['', [Validators.required]],
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]]
@@ -295,16 +298,16 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         sort: 'asc',
         comparator: customComparator
       },
-      // {
-      //   width: 80,
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   cellRendererFramework: MotifTableCellRendererComponent,
-      //   cellRendererParams: this.editAct.bind(this),
-      //   headerName: 'Actions',
-      //   field: 'userId',
-      //   sortable: false,
-      //   filter: false,
-      // }
+      {
+        width: 80,
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: this.editAct.bind(this),
+        headerName: 'Actions',
+        field: 'name',
+        sortable: false,
+        filter: false,
+      }
     ];
 
   }
@@ -435,6 +438,46 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     this.addPBIReportForm.reset();
   }
 
+  deletePBIMapping(row){
+
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: "Delete PBI mapping",
+        description: "Are you sure you want to remove PBI mapping?",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "No"
+        }
+      }
+    });
+    let mappingData = {
+      "formId": this.filingData.formId,
+      "questionNames": [row.name]
+    }
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result.button == 'Yes') {
+      this.service.deleteTeamMember(mappingData).subscribe(resp => {
+        const pbimappingList = this.PBIMappingData;
+        this.PBIMappingData = [];
+        pbimappingList.splice(pbimappingList.findIndex(item => item.name === row.name),1);
+        pbimappingList.forEach(ele => {
+          this.PBIMappingData.push(ele);
+        });
+        this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        setTimeout(() => {
+          this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
+        }, 5000);  });
+      }
+    });
+  
+    
+  }
+
   onChangeEditReportID(question, isValid) {
     if (isValid) {
       if (!this.invalidEditReportIDs.includes(question)) this.invalidEditReportIDs.push(question);
@@ -445,4 +488,25 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       }
     }
   }
+
+  exportData() {
+    let exportHeaders = 'name:Question,pbiReportId:Report ID';
+    let exportURL =  this.apiHelpers.static_data.pbi_mapping +this.filingData.formId +'/pbi-mapping' + "?export=" + true +"&headers=" + exportHeaders + "&reportType=csv";
+  
+    this.service.exportPBIMappingData(exportURL).subscribe(resp => {
+      console.log(resp);
+    })
+  }
+
+  checkDuplicate(control: FormControl){
+    let value = (control.value).toUpperCase().split(',');
+    if(value && new Set(value).size !== value.length){
+      return {
+        duplicateName: {
+          filerType: value[0]
+        }
+    }
+  }
+}
+  
 }

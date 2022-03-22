@@ -326,13 +326,13 @@
     display: flex;
     width: 100%;
     align-items: center;
-   .motif-form-field-select {
-     width: 100%;
-     margin-top: 14px;
-   }
-   .motif-form-field {
-     width: 100%;
-   }
+    ::ng-deep .motif-form-field {
+      width: 100%;
+      margin-bottom: 0px !important;
+    }
+    .motif-input {
+      line-height:0.99rem;
+    }
   }
   .edit_button {
     position: absolute;

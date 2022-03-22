@@ -62,32 +62,37 @@ export class ResolveModalComponent implements OnInit {
   }
 
   onClickYes() {
-    //console.log("reslove URL > ", this.modalDetails.resolveUrl);
     if (this.modalDetails.type === "ConfirmationTextUpload") {
       const commentObj = {
+        "assignee":'',
         "comment": escape(this.modalForm.get('comment').value.trim()),
-        "entityId": this.modalDetails.entityId,
+        "entityIds": [
+          ...this.modalDetails.entityId
+        ],
         "entityType": this.modalDetails.entityType,
+        "moduleOriginated":'',
+        "parentCommentId":0
       };
       
       const dataObj = {
         "auditResultObjectId": [
-          this.modalDetails.entityId
+          ...this.modalDetails.entityId
         ],
         "filingName": this.modalDetails.filingName,
         "period": this.modalDetails.period,
         "stage": this.modalDetails.stage
       
       }
+      let statusTo = this.modalDetails.statusTo
       let exceptionId = this.modalDetails.exceptionId;
-      this.commentService.updateStatus(exceptionId,dataObj).subscribe(resolveResp => {
-      this.commentService.addComment(commentObj).subscribe(res => {
+      this.commentService.updateStatus(exceptionId,dataObj,statusTo).subscribe(resolveResp => {
+      this.commentService.addBulkComment(commentObj).subscribe(res => {
         console.log(res);
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
           formData.append('application', "REG");
-          formData.append('entityId', res['data']['commentId']);
+          formData.append('entityIds', res['data'].map(e => e.commentId));
           formData.append('entityType', "COMMENT");
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);
@@ -95,7 +100,7 @@ export class ResolveModalComponent implements OnInit {
             console.log(element);
             formData.append('files', element.file.rawFile);
           });
-          this.commentService.uploadFile(formData).subscribe(uploadRes => {
+          this.commentService.uploadBulkFile(formData).subscribe(uploadRes => {
             console.log(uploadRes);
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue(),resolveResp:resolveResp});
           }, uploadError => {

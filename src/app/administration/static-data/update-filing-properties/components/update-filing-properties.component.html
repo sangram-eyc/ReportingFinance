@@ -59,7 +59,7 @@
       <form [formGroup]="editForm" *ngIf="editForm">
         <div class="row">
           <div class="col-md-6 lablel-heading">
-            Filer Types
+            Filer Types (Values must be separated by commas)
           </div>
           <div class="col-md-6 lablel-heading">
             Filing Stages
@@ -71,9 +71,11 @@
               </motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Please enter valid data
               </motif-error>
-              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 150 characters
+              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters
                 long</motif-error>
               <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
               </motif-error>
             </motif-form-field>
           </div>
@@ -145,10 +147,11 @@
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third"
-      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
+      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+      [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
-    <!-- <ng-template #actionSection let-row>
+    <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
       <div class="delete-icon" (click)="deletePBIMapping(row)" *ngIf="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -156,7 +159,7 @@
             fill="#155CB4" />
         </svg>
       </div>
-    </ng-template> -->
+    </ng-template>
     <!-- <ng-template #questionSection let-row>
       <div class="displayReportID" *ngIf="!enableEditReportID">
         <span class="reportid">
@@ -249,5 +252,6 @@
         <button motifButton class="approve-no" color="secondary" (click)="closeAddQuestionModal()">Cancel</button>
       </motif-modal-footer>
     </motif-modal>
+    <motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">PBI Mapping Deleted successfully</motif-toast>
   </div>
 </div>

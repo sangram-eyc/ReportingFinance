@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { UsersService } from '../../users/services/users.service';
 import { AdministrationService } from '@default/administration/services/administration.service';
+import * as helpers from './../../../helper/api-config-helper';
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
@@ -18,7 +19,9 @@ import { AdministrationService } from '@default/administration/services/administ
 })
 export class EycTeamDetailsComponent implements OnInit {
 
-
+  apiHelpers = helpers.userAdminstration;
+  exportHeaders;
+  exportUrl: string;
   constructor(private location: Location,
     private teamService: TeamsService,
     private adminService: AdministrationService,
@@ -69,7 +72,11 @@ export class EycTeamDetailsComponent implements OnInit {
   presentRole;
   module;
   moduleId;
-
+  currentPage = 0;
+  totalRecords = 5;
+  pageSize = 10;
+  filter = '';
+  sort = '';
 
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
@@ -118,6 +125,26 @@ export class EycTeamDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  currentPageChange(event) {
+    this.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageSize = event;
+    this.getUsersList();
+  }
+
+  searchGrid(input) {
+    this.filter = input;
+    this.currentPage = 0;
+    this.getUsersList();
+  }
+
+  sortChanged(event) {
+    this.sort = event;
+    this.getUsersList();
+  }
+
   enableEditForm() {
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
@@ -125,7 +152,7 @@ export class EycTeamDetailsComponent implements OnInit {
 
   getUsersList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
-      this.userService.getUsersList().subscribe(resp => {
+      this.userService.getUsersList(this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.allUsers = resp.data
         this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
       });
@@ -446,6 +473,16 @@ export class EycTeamDetailsComponent implements OnInit {
     this.editTeamForm.patchValue({
       assignments: model
     });
+  }
+
+  exportTeamsDetailsData() {
+    this.exportHeaders = '';
+    this.exportHeaders = 'userFirstName:First Name,userLastName:Last Name,userEmail:Email';
+    this.exportUrl = this.apiHelpers.teams.teams_Details + this.curentTeamId + "&module="+ this.module+"&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    console.log("export URL > ", this.exportUrl);
+    this.teamService.exportTeamsDetailsData(this.exportUrl).subscribe(resp => {
+      console.log(resp);
+    })
   }
 
 }

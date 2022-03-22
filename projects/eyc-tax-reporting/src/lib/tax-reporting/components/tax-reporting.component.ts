@@ -186,7 +186,7 @@ export class TaxReportingComponent implements OnInit {
     this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id,
+        id: filing.id ,
         totalFunds: filing.totalFunds,
         dataToChart: [
           {
@@ -236,7 +236,7 @@ export class TaxReportingComponent implements OnInit {
         field: "name",
         sortable: false,
         width: 400
-      },
+      }, 
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,

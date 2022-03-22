@@ -17,6 +17,10 @@ export class SubmissionService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}`);
   }
 
+  getXmlFilesListTest(filingName: any, period: any, page, size, filter, sort) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
+  }
+
   downloadXMl(filesList: any, filingName: any,period: any) {
     return this.apiService.invokePostDownloadAPI(`${this.settingsService.regReportingFiling.submission_download_xml}?filing=${filingName}&period=${period}`, filesList);
     // return this.http.get(this.settingsService.API_ENDPOINT+'assets/eyc-regulatory-reporting/mock/'+id+'.xml',  { headers , responseType: 'blob' as 'json' , observe: 'response' });
@@ -28,5 +32,13 @@ export class SubmissionService {
 
   updateStatus(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.updateSubmissionStatus}`, data);
+  }
+
+  exportSubmissionData(exportURL) {
+       return this.apiService.invokeGetAPI(`${exportURL}`);
+  }
+
+  getAuditlog(auditObjectId, auditObjectType) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.audit_log}?auditObjectId=${auditObjectId}&auditObjectType=${auditObjectType}&fetchDetails=true`)
   }
 }
