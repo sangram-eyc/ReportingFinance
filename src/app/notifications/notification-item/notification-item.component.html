@@ -1,7 +1,11 @@
 <div class="notification-item">
   <div class="notification-texts">
-    <div class="notification-title">{{notification?.subject.length < 20 ? notification?.subject : notification?.subject.substring(0, 20) + '...'}}</div>
-    <div [ngClass]="notification?.expanded ? 'notification-desc' : 'notification-short-desc'" [innerHTML]="content?.content"></div>
+    <div class="notification-title">
+      <motif-icon *ngIf="content?.flagged" class="icon" [src]="'/assets/icons/is-flagged.svg'"></motif-icon>
+      {{notification?.subject.length && !notification?.expanded < 20 ? notification?.subject : notification?.subject.substring(0, 20) + '...'}}
+    </div>
+    <div [ngClass]="notification?.expanded ? 'notification-desc' : 'notification-short-desc'"
+         [innerHTML]="content?.content"></div>
   </div>
   <div class="notification-actions">
     <motif-icon class="expand" [class.up]="notification?.expanded" [src]="'/assets/icons/expand_more.svg'" (click)="expand(notification?.engineId)">

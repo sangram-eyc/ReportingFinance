@@ -5,8 +5,10 @@
       <div class="card-block banner-header">
         Notifications
       </div>
-      <div class="notifications-filter dark" (click)="showPanel = !showPanel; showFilters = false; $event.preventDefault(); $event.stopPropagation();">
-        All ({{notifications?.length}}) <motif-icon class="expand" [src]="'/assets/icons/expand_more_white.svg'"></motif-icon>
+      <div class="notifications-filter dark"
+           (click)="showPanel = !showPanel; showFilters = false; $event.preventDefault(); $event.stopPropagation();">
+        All ({{totalElements}})
+        <motif-icon class="expand" [src]="'/assets/icons/expand_more_white.svg'"></motif-icon>
       </div>
       <div class="expanded-panel" *ngIf="showPanel">
         <div class="expanded-panel-info">
