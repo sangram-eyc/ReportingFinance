@@ -478,7 +478,7 @@ export class EycTeamDetailsComponent implements OnInit {
   exportTeamsDetailsData() {
     this.exportHeaders = '';
     this.exportHeaders = 'userFirstName:First Name,userLastName:Last Name,userEmail:Email';
-    this.exportUrl = this.apiHelpers.teams.teams_Details + this.curentTeamId +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    this.exportUrl = this.apiHelpers.teams.teams_Details + this.curentTeamId + "&module="+ this.module+"&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     console.log("export URL > ", this.exportUrl);
     this.teamService.exportTeamsDetailsData(this.exportUrl).subscribe(resp => {
       console.log(resp);
