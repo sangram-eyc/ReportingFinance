@@ -321,6 +321,9 @@ cursor: pointer;
 
   ::ng-deep .motif-button[color='primary'] {
     &:disabled {
+      path {
+        fill: var(--btn-primary-disabled-color);
+          }
         &:hover {
             path {
               fill: var(--btn-primary-disabled-color);
