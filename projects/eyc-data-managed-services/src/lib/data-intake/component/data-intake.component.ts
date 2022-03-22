@@ -2,6 +2,7 @@ import {
   Component, OnInit, ElementRef,
   Renderer2, ViewChild, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
 import { formatDate } from '@angular/common';
@@ -16,7 +17,6 @@ import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-intake',
@@ -41,11 +41,17 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
+
+  @ViewChild('dailyfilter2', { static: false }) dailyfilter2: ElementRef;
+  @ViewChild('monthlyfilter2', { static: false }) monthlyfilter2: ElementRef;
   tabIn: number = 1;
   innerTabIn: number = 1;
   presentDate: Date;
   totalFileCount = 0;
   calSelectedDate: string;
+  powerBiReportId:any;
+  pod:string="DMS";
+  reportID:string="304fc8b5-4ba4-4760-b0c3-a85af3b1c17b";
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -223,11 +229,15 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyData(status: boolean) {
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+
+    this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', '');
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
@@ -244,11 +254,15 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   monthlyData(status: boolean) {
+    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+
+    this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
+    this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
-    this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+  
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
     } else {
@@ -323,4 +337,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.reviewAllDisabled = (this.dataList.length > 0) ? false : true;
     });
   }
+
+  visualizePowerBiReport(){
+    
+  }
+
 }
