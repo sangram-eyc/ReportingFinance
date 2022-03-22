@@ -954,6 +954,7 @@ actionMenuEnableforException(row) {
       "fileName": row.entityName
     }
     let auditList = []
+    this.isAuditlogs = false;
     this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
       res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
 
@@ -1005,6 +1006,7 @@ actionMenuEnableforException(row) {
       "fileName": row.exceptionReportName
     }
     let auditList = []
+    this.isAuditlogs = false;
     this.service.getAuditlog(auditObjectId, auditObjectType).subscribe(res => {
       res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
 
