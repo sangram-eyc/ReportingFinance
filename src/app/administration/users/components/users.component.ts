@@ -5,10 +5,11 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {INPUT_VALIDATION,customComparator} from '../../../services/settings-helpers';
-import { PermissionService } from 'eyc-ui-shared-component';
+import { PermissionService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { AdministrationService } from '@default/administration/services/administration.service';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import * as helpers from './../../../helper/api-config-helper';
 
 
 @Component({
@@ -21,12 +22,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   showAddUserModal = false;
   addUserForm: FormGroup;
   showToastAfterAddUser = false;
+  exportHeaders;
+  apiHelpers = helpers.userAdminstration;
 
   showDeleteUserModal = false;
   showToastAfterDeleteUser = false;
   selectedUser: any;
   moduleName;
   displayCheckBox = true;
+  exportUrl: any;
 
   constructor(
     private userService: UsersService,
@@ -56,14 +60,34 @@ export class UsersComponent implements OnInit, AfterViewInit {
   motifTypeahead = [];
   userResp: any[] = [];
   gridApi;
+  pageInfo = {
+    currentPage: 0,
+    totalRecords: 5,
+    pageSize: 10,
+    filter: '',
+    sort: '',
+  }
+  pageChangeFunc;
+  resetRowData = [];
 
   ngOnInit(): void {
     this.addUserForm = this._createAddUser();
+    this.pageChangeFunc = this.onPageChange.bind(this);
+    this.pageInfo.sort = 'userLastName:true';
   }
 
-  getUsersData() {
+  resetData() {
+    this.setUserRows();
+    this.pageInfo.currentPage = 0;
+    this.pageInfo.pageSize = 10;
+    this.pageInfo.filter = '';
+  }
+
+
+  getUsersData(resetData = false) {
+    this.pageInfo.sort = resetData ? 'userLastName:true' : this.pageInfo.sort;
     if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
-      this.userService.getUsersList().subscribe(resp => {
+      this.userService.getUsersList(this.pageInfo.currentPage,this.pageInfo.pageSize,this.pageInfo.sort,this.pageInfo.filter).subscribe(resp => {
         this.userResp =[];
         this.usersListArr= [];
         this.userResp.push(resp.data);
@@ -76,9 +100,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
             options: '',
           };
           this.usersListArr.push(eachitem);
-          this.rowData = this.usersListArr;
-          // this.gridApi.setRowData(this.usersListArr);
         });
+        this.rowData = this.usersListArr;
+        this.pageInfo.totalRecords=resp['totalRecords'];
+        if (resetData) {
+          this.resetData();
+        } else {
+          this.gridApi.setRowData(this.rowData);
+        }
+        // this.gridApi.setRowData(this.usersListArr);
   
       });
     } else {
@@ -94,14 +124,18 @@ export class UsersComponent implements OnInit, AfterViewInit {
     };
   }
 
-  ngAfterViewInit(): void {
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
+  setUserRows() {
+    this.columnDefs1 = [];
+    this.resetRowData = [];
     setTimeout(() => {
-    this.getUsersData();
-      
       this.columnDefs1 = [
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Name',
           field: 'name',
           sortable: true,
@@ -110,11 +144,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
           sort: 'asc',
           wrapText: true,
           autoHeight: true,
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           width: 410,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Email',
           field: 'email',
           cellClass: 'custom-user-email',
@@ -122,20 +156,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: true,
           wrapText: true,
           autoHeight: true,
-          sort:'asc',
-          comparator: customComparator
+          comparator: this.disableComparator
         },
-        // {
-        //   width: 90,
-        //   headerComponentFramework: MotifTableHeaderRendererComponent,
-        //   headerName: 'Teams',
-        //   field: 'teams',
-        //   sortable: true,
-        //   filter: true,
-        // },
         {
           width: 80,
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
@@ -144,9 +169,16 @@ export class UsersComponent implements OnInit, AfterViewInit {
           filter: false,
         },
       ];
+      this.resetRowData = this.rowData;
+    },1);
+  }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.getUsersData(true);
     });
   }
+
   handleGridReady(params) {
     this.gridApi = params.api;
   }
@@ -189,6 +221,46 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onPageChange() {
+    this.getUsersData();
+  }
+
+  sortChanged(event){
+    switch(true) {
+      case event === 'name:true':
+        this.pageInfo.sort = 'userLastName:true';
+        break;
+      case event === 'name:false':
+        this.pageInfo.sort = 'userLastName:false';
+        break;
+      case event === 'email:true':
+        this.pageInfo.sort = 'userEmail:true';
+        break;
+      case event === 'email:false':
+        this.pageInfo.sort = 'userEmail:false';
+        break;
+      default:
+        this.pageInfo.sort =event;
+    }
+    console.log(this.pageInfo.sort);
+    this.getUsersData();
+  }
+
+  searchGrid(input) {
+    this.pageInfo.filter = input;
+    this.pageInfo.currentPage = 0;
+    this.getUsersData();
+  }
+
+  currentPageChange(event) {
+    this.pageInfo.currentPage = event - 1;
+  }
+
+  updatePageSize(event) {
+    this.pageInfo.pageSize = event;
+    this.getUsersData();
+  }
+  
   public noWhitespaceValidator(control: FormControl) {
     if (control.value.length === 0) {
       return false;
@@ -285,4 +357,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
   
     });
   }
+
+  exportUsersData() {
+    this.exportHeaders = '';
+    this.exportHeaders = 'userFirstName:First Name,userLastName:Last Name,userEmail:Email';
+    this.exportUrl = this.apiHelpers.regulatory_Reporting.view_User+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+    console.log("export URL > ", this.apiHelpers.regulatory_Reporting.view_User+ "?module=" + this.moduleName +  "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv");
+    this.userService.exportUsersData(this.exportUrl).subscribe(resp => {
+      console.log(resp);
+    })
+    }
 }

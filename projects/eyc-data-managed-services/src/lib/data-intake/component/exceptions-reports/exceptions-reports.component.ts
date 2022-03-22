@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
 
@@ -80,7 +81,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
           headerComponentFramework: MotifTableHeaderRendererComponent,
-          headerName: key,
+          headerName: key.replace(/-/g, ' '),
           field: key,
           sortable: true
         });
@@ -134,6 +135,31 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  }
+
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   onGridReady(params) {

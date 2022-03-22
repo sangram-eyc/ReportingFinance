@@ -27,7 +27,15 @@ export class EycRrCommentApiService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityType+'/'+entityId+'/comments');
   }
 
-  updateStatus(exceptionId,data) {
-    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.resolve}`+exceptionId+'/resolve',data);
+  updateStatus(exceptionId,data,statusTo) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.resolve}`+exceptionId+'/'+statusTo,data);
+  }
+
+  addBulkComment(data){
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_bulk_comment}`, data);
+  }
+
+  uploadBulkFile(data) { 
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.bulk_upload}`, data);
   }
 }

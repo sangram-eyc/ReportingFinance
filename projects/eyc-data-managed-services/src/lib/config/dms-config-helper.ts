@@ -69,3 +69,7 @@ export const customComparator = (valueA, valueB) => {
         return (statusCol.indexOf(valueA) > statusCol.indexOf(valueB)) ? 1 : -1;
 	}
 };
+
+export const INPUT_VALIDATON_CONFIG = {
+    SEARCH_INPUT_VALIDATION: /[A-Za-z0-9\-\_/ ]+/,
+}

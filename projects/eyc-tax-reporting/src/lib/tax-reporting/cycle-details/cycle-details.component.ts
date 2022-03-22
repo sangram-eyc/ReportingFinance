@@ -774,12 +774,12 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getTooltip() {
-    var element = document.querySelector('.motif-tooltip-active');
+    /* var element = document.querySelector('.motif-tooltip-active');
     if (element != null) {
       document.querySelector('.motif-pagination-select-wrapper').appendChild(element);
       window.scrollTo(0, window.scrollY + 1);
       window.scrollTo(0, window.scrollY - 1);
-    }
+    } */
   }
 
   getFileSummuries() {

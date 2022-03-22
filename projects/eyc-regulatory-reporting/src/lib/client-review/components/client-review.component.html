@@ -12,7 +12,7 @@
         successful!
     </motif-toast>
 
-    <section id="exceptionReports" [hidden]="!(tabs==1)">
+    <section id="exceptionReports" *ngIf="tabs==1">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
@@ -20,7 +20,10 @@
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [hideHeaderCheckbox]="(filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"></lib-shared-grid>
+            [hideHeaderCheckbox]="checkFilingCompletedStatus()"
+            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="true"
+            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
 
         <ng-template #commentExceptionTemplate let-row>
@@ -29,11 +32,35 @@
                 {{row.comments}}
             </div>
             <div class="commentTemplate"
-                *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+                *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
                         (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
                 </div>
+            </div>
+        </ng-template>
+        <ng-template #lastUpdatedByTemplate let-row>
+            <div *ngIf="isAuditlogs && row.exceptionReportName == fileDetail?.fileName">
+                <motif-tooltip placement="top">
+                    <div motifTooltipTrigger motifButton aria-label="tooltip">
+                        <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                            <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                                (click)="onClickLastUpdatedByException(row)"></motif-icon>
+                        </span>
+                        <div class="last_updated_by" (click)="onClickLastUpdatedByException(row)">{{row.updateBy}}</div>
+                    </div>
+                    <span *ngIf="isAuditlogs">
+                        No records found
+                    </span>
+                </motif-tooltip>    
+            </div>
+            
+            <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.exceptionReportName == fileDetail?.fileName)">
+                <span class="last_updated_by_icon" *ngIf="row.updateBy">
+                    <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                        (click)="onClickLastUpdatedByException(row)"></motif-icon>
+                </span>
+                <div class="last_updated_by" (click)="onClickLastUpdatedByException(row)">{{row.updateBy}}</div>
             </div>
         </ng-template>
         <ng-template #myTasksExceptionTemplate let-row>
@@ -50,16 +77,47 @@
                     (click)="routeToExceptionDetailsPage(row)"></motif-icon>
             </div>
         </ng-template>
+        <ng-template #dropdownTemplate let-row>
+            <div class="dropdownTemplate">
+                <motif-icon class="complete" *ngIf="row.approved == true"
+                    [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
+
+                <motif-icon *ngIf='tabs==1' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
+                    (click)="actionMenuEnableforException(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
+                </motif-icon>
+
+                <div #actionMenuTemp *ngIf='tabs==1'>
+                    <motif-card class="action-menu-card"
+                        *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
+                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Exception Unapprove') && !checkFilingCompletedStatus()"
+                            (click)="unApproveException()" class="action-mode">
+                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
+                            <span>Unapprove</span>
+                        </div>
+                    </motif-card>
+                </div>
+
+            </div>
+        </ng-template>
+
     </section>
 
-    <section id="filingEntities" [hidden]="!(tabs==2)" (click)="outsideClick($event)">
+    <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
         <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
             [isToggle]="false" [modalConfig]="entitiesModalConfig"
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
-            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"></lib-shared-grid>
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
+            [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="true"
+            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
         <ng-template #headerTemplate>
             <div>
@@ -79,25 +137,12 @@
                 <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
                 </motif-icon>
-                <motif-icon *ngIf='tabs==1' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnableforException(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
 
                 <div #actionMenuTemp *ngIf='tabs==2'>
                     <motif-card class="action-menu-card"
                         *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
                             (click)="unApproveEntity()" class="action-mode">
-                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
-                            <span>Unapprove</span>
-                        </div>
-                    </motif-card>
-                </div>
-                <div #actionMenuTemp *ngIf='tabs==1'>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedExceptionId == row.exceptionId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Exception Unapprove') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
-                            (click)="unApproveException()" class="action-mode">
                             <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
                             <span>Unapprove</span>
                         </div>
@@ -113,7 +158,7 @@
                 {{row.commentsCount}}
             </div>
             <div class="commentTemplate"
-                *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments') && !(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')">
+                *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">
                 <div class="add_icon">
                     <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span
                             class="plus">+</span></motif-icon>
@@ -123,6 +168,31 @@
 
         <ng-template #expandEntityTemplate let-row>
             <div class="exceptionRouteCls" (click)="routeToFilingEntityExceptionPage(row)">{{ row.entityName}}</div>
+        </ng-template>
+
+        <ng-template #lastUpdatedByTemplate let-row>
+            <div *ngIf="isAuditlogs && row.entityName == fileDetail?.fileName">
+                <motif-tooltip placement="top">
+                    <div motifTooltipTrigger motifButton aria-label="tooltip">
+                        <span class="last_updated_by_icon" *ngIf="row.updatedBy">
+                            <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                                (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
+                        </span>
+                        <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updatedBy}}</div>
+                    </div>
+                    <span *ngIf="isAuditlogs">
+                        No records found
+                    </span>
+                </motif-tooltip>
+            </div>
+        
+            <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.entityName == fileDetail?.fileName)">
+                <span class="last_updated_by_icon" *ngIf="row.updatedBy">
+                    <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                        (click)="onClickLastUpdatedByEntity(row)"></motif-icon>
+                </span>
+                <div class="last_updated_by" (click)="onClickLastUpdatedByEntity(row)">{{row.updatedBy}}</div>
+            </div>
         </ng-template>
 
         <ng-template #viewFilingEntityTemplate let-row>
@@ -141,5 +211,8 @@
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName"
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
-    [filingStatus]="(filingDetails.status[4].progress === null || filingDetails.status[4].progress === 'COMPLETED' || filingDetails.status[4].progress === 'Completed')"
+    [filingStatus]="checkFilingCompletedStatus()"
     (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+
+    
+<lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>

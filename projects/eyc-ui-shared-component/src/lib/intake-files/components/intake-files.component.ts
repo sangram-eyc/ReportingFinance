@@ -23,7 +23,8 @@ export class IntakeFilesComponent implements OnInit {
   @Output() commentClickEvent = new EventEmitter<any>();
   @Output() routeToExceptionDetailsEvent = new EventEmitter<any>();
   @Input() isEnabled;
-
+  @Output() exportFlagToDataIntakeformSharedIntake = new EventEmitter<boolean>();
+  @Input() export = true;
   columnDefs;
 
   @ViewChild('headerTemplate')
@@ -127,6 +128,7 @@ export class IntakeFilesComponent implements OnInit {
         width: 400,
         comparator: customComparator
       },
+      /*
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -138,7 +140,7 @@ export class IntakeFilesComponent implements OnInit {
         sortable: true,
         filter: false,
       },
-      /*
+      
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -191,4 +193,7 @@ export class IntakeFilesComponent implements OnInit {
     // this.router.navigate(['/view-exception-reports']);
   }
 
+  exportData() {
+    this.exportFlagToDataIntakeformSharedIntake.emit(true);
+  }
 }

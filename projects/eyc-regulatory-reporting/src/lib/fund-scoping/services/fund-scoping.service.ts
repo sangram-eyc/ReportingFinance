@@ -23,10 +23,10 @@ export class FundScopingService {
   //   });
   // }
 
-  getFundScopingDetails(filingName, period) {
+  getFundScopingDetails(filingName, period, page, size, filter, sort) {
   //  return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}`);
     // After backend API up will remove above line and uncomment below line
-     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}&filingName=${filingName}&period=${period}`);
+     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_details}&filingName=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
   }
 
   getFundScopingStatus(filingId) {
@@ -34,6 +34,12 @@ export class FundScopingService {
     // After backend API up will remove above line and uncomment below line
      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}&filingId=${filingId}`);
   }
+
+  exportScopeData(exportURL) {
+    //  return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.fund_scoping_status}`);
+      // After backend API up will remove above line and uncomment below line
+       return this.apiService.invokeGetAPI(`${exportURL}`);
+    }
 
   approveFundScopingStatus(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.approve_fund_scoping_status}`, data);

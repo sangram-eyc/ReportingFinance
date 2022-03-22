@@ -17,11 +17,13 @@
     background: #FFFFFF;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    left: 50%;
+    right: 5px;
     top: 50px;
-    transform: translate(-50%);
     z-index: 10000;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .filter-panel-header {
       color: #747480;
@@ -33,6 +35,11 @@
       display: flex;
       flex-direction: column;
       margin-top: 20px;
+    }
+    .filter-panel-actions {
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
     }
 
     .container-checkbox {
@@ -50,6 +57,7 @@
     position: absolute;
     z-index: 1000;
     top: 70px;
+    left: 5px;
 
     &:after, &:before {
       bottom: 100%;
@@ -78,7 +86,7 @@
 
     .expanded-panel-info {
       p {
-        font-family: EYInterstate !important;
+        font-family: EYInterstate, sans-serif !important;
         font-style: normal !important;
         font-size: 14px;
         line-height: 16px;
@@ -86,6 +94,7 @@
         margin-top: 23px;
         font-weight: 100;
         padding: 0 20px;
+        cursor: pointer;
       }
     }
   }
@@ -99,18 +108,28 @@
       font-size: 14px;
       font-weight: 700;
     }
+
+    .banner-header-right {
+      .right-icons {
+        display: flex;
+        width: 70px;
+        justify-content: space-between;
+      }
+    }
   }
 
   .notifications-list {
+    height: 300px;
+    overflow-y: scroll;
     padding: 15px;
-    max-height: 300px;
-    overflow: auto;
     margin-bottom: 20px;
   }
 
   .notifications-buttons {
     display: flex;
     align-self: center;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 15px;
 
     .notification-button {
@@ -135,7 +154,8 @@
     height: 26px;
     display: flex;
     align-items: center;
-    margin-left: -180px;
+    margin-left: -140px;
+    cursor: pointer;
 
     &.dark {
       background: #2E2E38;
@@ -144,6 +164,7 @@
 
     .expand {
       margin-left: auto;
+      cursor: pointer;
       ::ng-deep {
         .motif-icon-content {
           width: 14px;
@@ -158,7 +179,5 @@
   cursor: not-allowed;
   pointer-events: none;
 }
-
-
 
 

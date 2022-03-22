@@ -2,6 +2,9 @@
     margin-top: 40px;
     top: 50px;
     position: relative;
+    ::ng-deep .ag-header-cell-text {
+      font-size: 12px !important;
+    }
 }
 
 #funds {

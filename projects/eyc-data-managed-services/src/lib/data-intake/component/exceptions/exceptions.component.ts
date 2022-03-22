@@ -2,11 +2,11 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from
 import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -92,7 +92,9 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
 
-  constructor(private dataManagedService: DataManagedService,
+  constructor(
+    private unsubscriber: AutoUnsubscriberService,
+    private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
     private _activatedroute: ActivatedRoute,private _router: Router) {
@@ -168,8 +170,33 @@ export class ExceptionsComponent implements OnInit {
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
   }
 
+  onPasteSearchActiveReports(event: ClipboardEvent) {
+    let clipboardData = event.clipboardData;
+    let pastedText = (clipboardData.getData('text')).split("");    
+    pastedText.forEach((ele, index) => {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+        if ((pastedText.length - 1) === index) {
+          return true;
+        }
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
+  searchFilingValidation(event) {
+    var inp = String.fromCharCode(event.keyCode);
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   getExceptionTableData() {
-    this.dataManagedService.getExceptionTableData(this.httpDataGridParams).subscribe(resp => {
+    this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
       this.columnGl = [
@@ -209,18 +236,18 @@ export class ExceptionsComponent implements OnInit {
             ngTemplate: this.chipTemplate,
           }
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          sortable: false,
-          filter: false,
-          width: 155
-        },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   cellRendererParams: {
+        //     ngTemplate: this.commentTemplate,
+        //   },
+        //   headerName: 'Comments',
+        //   field: 'comments',
+        //   sortable: false,
+        //   filter: false,
+        //   width: 155
+        // },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',

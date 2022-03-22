@@ -690,3 +690,11 @@ button.motif-select-trigger{
 span.ag-icon.ag-icon-grip {
   display: none !important;
 }
+
+.view-det-arrow {
+  cursor: pointer;
+  float: right;
+  right: 10px;
+  position: fixed;
+  top: 10px;
+}

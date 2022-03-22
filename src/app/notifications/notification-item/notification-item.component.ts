@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener } from '@angular/core';
+import {NotificationService} from '@default/services/notification.service';
 
 @Component({
   selector: 'app-notification-item',
@@ -15,39 +16,60 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
   public content: any;
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) {
+  }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.notification) {
-     this.content = JSON.parse(changes.notification.currentValue.content);
+      this.content = JSON.parse(changes.notification.currentValue.content);
     }
   }
 
   expand(id): void {
+    this.notificationService.setNotificationRead(id).subscribe();
     this.expandNotification.emit(id);
   }
 
   delete(): void {
+    this.notificationService.deleteNotification(this.notification.engineId).subscribe(res => {
+
+    });
     this.deleteNotification.emit();
   }
 
   archive(): void {
-    this.content.extraParameters.isArchived = true;
+    this.notificationService.setAsArchived(this.notification.engineId).subscribe();
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.content.extraParameters.flagged = !this.content.extraParameters.flagged;
-    this.flagNotification.emit();
+    this.notificationService.setNotificationFlagged(this.notification.engineId, !this.content.flagged).subscribe(res => {
+      this.content.flagged = !this.content.flagged;
+    });
   }
 
   calculateNotificationTime(date) {
-    // @ts-ignore
-    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let seconds = 0;
+    if (Array.isArray(date)) {
+      // tslint:disable-next-line:radix
+      const initialDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5]);
+      // tslint:disable-next-line:radix
+      const transformedDate = initialDate.getTime() - new Date().getTimezoneOffset() * 60 * 1000;
 
+      // tslint:disable-next-line:radix
+      // @ts-ignore
+      seconds = Math.floor((new Date() - transformedDate) / 1000);
+    } else {
+      // @ts-ignore
+      seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    }
+    return this.getFormattedInterval(seconds);
+  }
+
+  private getFormattedInterval(seconds: number): string {
     let interval = seconds / 31536000;
 
     if (interval > 1) {
@@ -69,7 +91,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     if (interval > 1) {
       return Math.floor(interval) + ' min';
     }
-    return Math.floor(seconds) + ' sec';
+    return 'Just Now!';
   }
 
   getContentHtml(content): any {
@@ -83,4 +105,19 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     }
     return false;
   }
+
+  @HostListener("click", ['$event'])
+  onClick(event: MouseEvent) {
+    // If we don't have an anchor tag, we don't need to do anything.
+    if (event.target instanceof HTMLAnchorElement === false) { 
+      return;
+    }
+    // Prevent page from reloading
+    event.preventDefault();
+    let target = <HTMLAnchorElement>event.target;
+    console.log("target > ", target);
+    // Navigate to the path in the link
+    window.open(target.href, "_self");
+  }
+
 }

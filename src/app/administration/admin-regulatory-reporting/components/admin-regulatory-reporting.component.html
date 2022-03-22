@@ -18,8 +18,11 @@
 
     <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
     [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
-    [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
-    [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="teamsData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"></lib-shared-grid>
+    [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')" (gridReady)="handleGridReady($event)"
+    [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="resetRowData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"
+    [export] = "true" (exportFlagToParent)="exportTeamsData()" [paginationApi]="true" (searchInput)="searchGrid($event)"
+    [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)" [pageChangeFunc]="pageChangeFunc"
+    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">

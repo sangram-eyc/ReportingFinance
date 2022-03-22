@@ -56,6 +56,15 @@ export class EycRrApiService {
     const headers = this.setHeaders();
     return this.httpClient.delete<Response>(url, { headers });
   }
+  // /*--------------GENERIC API FOR DELETE METHOD with a request body -------------*/
+  invokeDeleteAPIBody(url: string, body: any): Observable<Response> {
+  const options = {
+      headers: this.setHeaders(),
+      body: body,
+    };
+    return this.httpClient.delete<Response>(url, options);
+  }
+
 
   /*--------------GENERIC API FOR PUT METHOD-------------*/
   invokePutAPI(url: string, params?: any) {

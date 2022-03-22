@@ -4,13 +4,13 @@ import { DataManagedService } from '../../services/data-managed.service';
 import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from '../../models/data-summary.model'
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -148,7 +148,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   // API Request match with response
   httpQueryParams: DataSummary;
   httpDataGridParams: DataGrid;
-  colorSchemeAll:Color = colorSets.find(s => s.name === 'all');
+  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -162,13 +162,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
 
-  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+  constructor(
+    private unsubscriber: AutoUnsubscriberService,
+    private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router) {
-      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
-      const currentDate = new Date();
-      currentDate.setMonth(currentDate.getMonth());
-      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
   }
 
   ngOnInit(): void {
@@ -246,7 +248,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
         FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
     };
-    if(this.dailyMonthlyStatus) {
+    if (this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
@@ -257,14 +259,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.getReviewFileTableData();
   }
 
-  onRowClicked (event: RowClickedEvent){
-    if(event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
-      this._router.navigate(['/data-managed-services/files/exceptions', event.data.name,event.data.auditFileGuidName,event.data.fileNameAlias]);
+  onRowClicked(event: RowClickedEvent) {
+    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
+      this._router.navigate(['/data-managed-services/files/exceptions', event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
     } else {
-      console.log("Data name is not getting");  
+      console.log("Data name is not getting");
       // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
     }
- }
+  }
 
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
@@ -273,9 +275,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");
+    let pastedText = (clipboardData.getData('text')).split("");    
     pastedText.forEach((ele, index) => {
-      if (/[A-Za-z0-9\-\_:/ ]+/.test(ele)) {
+      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
         if ((pastedText.length - 1) === index) {
           return true;
         }
@@ -288,7 +290,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   searchFilingValidation(event) {
     var inp = String.fromCharCode(event.keyCode);
-    if (/[A-Za-z0-9\-\_:/ ]+/.test(inp)) {
+    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
       return true;
     } else {
       event.preventDefault();
@@ -297,16 +299,16 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   stringTrim(params, paramSize) {
-    const newstr=params.replace(/\s+/g, ' ').trim();
+    const newstr = params.replace(/\s+/g, ' ').trim();
     if (newstr?.length > paramSize) {
-      return (newstr).substr(0, paramSize)+ '';
+      return (newstr).substr(0, paramSize) + '';
     } else {
       return newstr;
     }
   }
 
   getReviewFileTableData() {
-    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
+    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
       this.columnGl = [
@@ -375,10 +377,32 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           wrapText: true,
           autoHeight: true,
           cellStyle: function (params) {
-            if ((params.data.dataDomain).length < 10) {
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               return { color: 'red' }
             } else {
               return true;
+            }
+          },
+          valueGetter: function (params) {
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+              const date1 = new Date(params.data.dueDate);
+              const date2 = new Date();
+
+              // One day in milliseconds
+              const oneDay = 1000 * 60 * 60 * 24;
+
+              // Calculating the time difference between two dates
+              const diffInTime = date2.getTime() - date1.getTime();
+
+              // Calculating the no. of days between two dates
+              const diffInDays = Math.round(diffInTime / oneDay);
+
+              return "-"+diffInDays+" Days";
+            } else if(params.data.dueDate) {
+              return params.data.dueDate;
+            }
+            else {
+              return '--'
             }
           }
         },
@@ -410,7 +434,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           sortable: true,
           filter: true,
           minWidth: 200,
-          sort:'asc',
+          sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
@@ -455,10 +479,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
-      
+
       this.dailyMonthlyStatus ? this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
-      : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
-        
+        : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
+
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
@@ -467,7 +491,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
 
-        this.dailyMonthlyStatus ?
+      this.dailyMonthlyStatus ?
         this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY
     }
@@ -490,7 +514,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
-    if(!sessionStorage.getItem("selectedDate")){
+    if (!sessionStorage.getItem("selectedDate")) {
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
       this.patchDatePicker(this.presentDate);
@@ -516,7 +540,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
 
-    if(!sessionStorage.getItem("selectedDate")){
+    if (!sessionStorage.getItem("selectedDate")) {
       this.patchDatePicker(this.lastMonthDate);
       this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
@@ -530,7 +554,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.dataList = [];
-    this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
+    this.dataManagedService.getFileSummaryList(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((dataProvider: any) => {
       this.dataList = dataProvider.data[0]['totalSeriesItem'];
       this.totalFileCount = dataProvider.data[0]['totalCount'];
       this.manipulateStatusWithResponse(this.dataList);
@@ -592,63 +616,63 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   filterByIssues(issues: string, variants: string) {
-    if(this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
+    if (this.httpQueryParams.filterTypes.length >= 5 && this.allIssueVariant === this.darkVariant) {
       this.httpQueryParams.filterTypes = [];
     }
     switch (issues) {
       case FILTER_TYPE.NO_ISSUES:
-        if (variants === this.lightVariant) { 
+        if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
           this.noIssueVariant = this.darkVariant;
-          this.filterTypes('push',[FILTER_TYPE.NO_ISSUES]);
+          this.filterTypes('push', [FILTER_TYPE.NO_ISSUES]);
         } else {
           this.allIssueVariant = this.lightVariant;
           this.noIssueVariant = this.lightVariant;
-          this.filterTypes('pop',[FILTER_TYPE.NO_ISSUES]);
+          this.filterTypes('pop', [FILTER_TYPE.NO_ISSUES]);
         }
         break;
       case FILTER_TYPE.MEDIUM_LOW:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
           this.mediumLowIssueVariant = this.darkVariant;
-          this.filterTypes('push',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+          this.filterTypes('push', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
         } else {
           this.allIssueVariant = this.lightVariant;
           this.mediumLowIssueVariant = this.lightVariant;
-          this.filterTypes('pop',[FILTER_TYPE.MEDIUM,FILTER_TYPE.LOW]);
+          this.filterTypes('pop', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
         }
         break;
       case FILTER_TYPE.HIGH:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
           this.highIssueVariant = this.darkVariant;
-          this.filterTypes('push',[FILTER_TYPE.HIGH]);
+          this.filterTypes('push', [FILTER_TYPE.HIGH]);
         } else {
           this.allIssueVariant = this.lightVariant;
           this.highIssueVariant = this.lightVariant;
-          this.filterTypes('pop',[FILTER_TYPE.HIGH]);
+          this.filterTypes('pop', [FILTER_TYPE.HIGH]);
         }
         break;
       case FILTER_TYPE.MISSING_FILES:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
           this.missingFileVariant = this.darkVariant;
-          this.filterTypes('push',[FILTER_TYPE.MISSING_FILES]);
-         } else {
+          this.filterTypes('push', [FILTER_TYPE.MISSING_FILES]);
+        } else {
           this.allIssueVariant = this.lightVariant;
           this.missingFileVariant = this.lightVariant;
-          this.filterTypes('pop',[FILTER_TYPE.MISSING_FILES]);
-         }
+          this.filterTypes('pop', [FILTER_TYPE.MISSING_FILES]);
+        }
         break;
       case FILTER_TYPE.FILE_NOT_RECIEVED:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
           this.fileNotReceivedVariant = this.darkVariant;
-          this.filterTypes('push',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+          this.filterTypes('push', [FILTER_TYPE.FILE_NOT_RECIEVED]);
         } else {
           this.allIssueVariant = this.lightVariant;
           this.fileNotReceivedVariant = this.lightVariant;
-          this.filterTypes('pop',[FILTER_TYPE.FILE_NOT_RECIEVED]);
+          this.filterTypes('pop', [FILTER_TYPE.FILE_NOT_RECIEVED]);
         }
         break;
       case 'all':
@@ -664,10 +688,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
             FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED];
         }
         break;
-        default:
-          break;
+      default:
+        break;
     }
-    if(this.httpQueryParams.filterTypes.length <= 0) {
+    if (this.httpQueryParams.filterTypes.length <= 0) {
       this.allIssueVariant = this.darkVariant;
       this.noIssueVariant = this.lightVariant;
       this.mediumLowIssueVariant = this.lightVariant;
@@ -689,15 +713,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       case 'push':
         types.map((type) => {
           const index = this.httpQueryParams.filterTypes.indexOf(type);
-          (index < 0) 
-          ? this.httpQueryParams.filterTypes.push(type) 
-          : null ;
+          (index < 0)
+            ? this.httpQueryParams.filterTypes.push(type)
+            : null;
         });
         break;
       case 'pop':
         types.map((type) => {
           const index = this.httpQueryParams.filterTypes.indexOf(type);
-          (index !== -1) ? this.httpQueryParams.filterTypes.splice(index, 1) : null ;
+          (index !== -1) ? this.httpQueryParams.filterTypes.splice(index, 1) : null;
         });
         break;
       default:

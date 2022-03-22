@@ -11,7 +11,10 @@ export class ViewFilingEntityExceptionService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getAnswerExceptionReports(entityName, filingName, period) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}${entityName}/exception-details?filingName=${filingName}&period=${period}`);
+  getAnswerExceptionReports(entityName, filingName, period, exceptionCnt, componentStage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityName=${encodeURIComponent(entityName)}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}`);
+  }
+  exportData(entityName, filingName, period, exceptionCnt, exportsHeader, componentStage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityName=${encodeURIComponent(entityName)}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}&headers=${exportsHeader}&export=true&reportType=csv`);
   }
 }

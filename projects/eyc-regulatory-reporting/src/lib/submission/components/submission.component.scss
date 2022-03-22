@@ -30,99 +30,132 @@
             box-shadow: none !important;
         }
     }
+    .exportWrapper{
+        display: flex;
+        top: 13px;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        // z-index: 999999;
+        right: 6px;
+        cursor: pointer;
+            ::ng-deep svg {
+                    width: 18px;
+                    height: 18px;
+                    fill: #155CB4;
+            }
+            span {
+                font-family: EYInterstate;
+                font-size: 14px;
+                line-height: 22px;
+                color: #155CB4;
+                top: -2px;
+                position: relative;
+                left: 2px;
+                font-weight: bold;
+            }
+        }
 }
 
+.download_button {
+    width: 12.8571428571rem;
+    height: 3.1428571429rem;
+    position: absolute;
+    z-index: 2;
+    top: -22px;
+    left: 13px;
+}
 #xml-files-list {
     bottom: 50px;
     position: relative;
     margin-top: 70px;
 
-    ::ng-deep {
+    // ::ng-deep {
 
-        .motif-table .ag-pinned-left-cols-container, .motif-table .ag-pinned-left-header {
-            box-shadow: none !important;
-        }
+    //     .motif-table .ag-pinned-left-cols-container, .motif-table .ag-pinned-left-header {
+    //         box-shadow: none !important;
+    //     }
         
-       .ag-theme-material .ag-pinned-left-header {
-            border-right: none;
-        }
+    //    .ag-theme-material .ag-pinned-left-header {
+    //         border-right: none;
+    //     }
         
-        *:focus {
-            box-shadow: none !important;
-        }
+    //     *:focus {
+    //         box-shadow: none !important;
+    //     }
         
-        .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-            box-shadow: none !important;
-            border: none !important;
-        }
-        .motif-table .ag-header-cell {
-            height: 44px !important;
-        }
+    //     .ag-theme-material .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+    //         box-shadow: none !important;
+    //         border: none !important;
+    //     }
+    //     .motif-table .ag-header-cell {
+    //         height: 44px !important;
+    //     }
         
-        .motif-table .ag-header {
-            height: 49px !important;
-            min-height: 49px !important;
-        }
+    //     .motif-table .ag-header {
+    //         height: 49px !important;
+    //         min-height: 49px !important;
+    //     }
         
-       .motif-header-name {
-            font-family: EYInterstate;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 14px !important;
-            line-height: 20px;
-            color: #2E2E3C;
-        }
-        .motif-table .ag-cell-value {
-            font-family: EYInterstate !important;
-            font-style: normal  !important;
-            font-weight: 300 !important;
-            font-size: 12px  !important;
-            line-height: 20px  !important;
-            color: #2E2E38  !important;
-        }
-        .custom-report-name .ag-cell-wrapper .ag-cell-value {
-            font-family: EYInterstate !important;
-            font-style: normal !important;
-            font-weight: 300 !important;
-            font-size: 12px !important;
-            line-height: 20px !important;
-            // color: #155CB4 !important;
-            color: #2E2E3C !important;
-            margin-left: 1px !important;
-        }
-        .motif-table .ag-root-wrapper {
-            min-height: 320px;
-            background: #f6f6fa;
-        }
-       .ag-theme-material .ag-radio-button-input-wrappe::after {
-            color: #23232F;
+    //    .motif-header-name {
+    //         font-family: EYInterstate;
+    //         font-style: normal;
+    //         font-weight: bold;
+    //         font-size: 14px !important;
+    //         line-height: 20px;
+    //         color: #2E2E3C;
+    //     }
+    //     .motif-table .ag-cell-value {
+    //         font-family: EYInterstate !important;
+    //         font-style: normal  !important;
+    //         font-weight: 300 !important;
+    //         font-size: 12px  !important;
+    //         line-height: 20px  !important;
+    //         color: #2E2E38  !important;
+    //     }
+    //     .custom-report-name .ag-cell-wrapper .ag-cell-value {
+    //         font-family: EYInterstate !important;
+    //         font-style: normal !important;
+    //         font-weight: 300 !important;
+    //         font-size: 12px !important;
+    //         line-height: 20px !important;
+    //         // color: #155CB4 !important;
+    //         color: #2E2E3C !important;
+    //         margin-left: 1px !important;
+    //     }
+    //     .motif-table .ag-root-wrapper {
+    //         min-height: 320px;
+    //         background: #f6f6fa;
+    //     }
+    //    .ag-theme-material .ag-radio-button-input-wrappe::after {
+    //         color: #23232F;
           
-        }
-        .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
-            color: #23232F;
-        }
-        .motif-table-title-bar {
-            background: #FFFFFF !important;
-            font-family: EYInterstate;
-            font-size: 18px;
-            line-height: 20px;
-            color: #1A1A24 !important;
-            border: 1px solid #E1E1E6;
-        }
-        .ag-theme-material .ag-checkbox .ag-input-wrapper {
-            left: 15px !important;
-            position: relative !important;
-            cursor: none !important;
-        }
+    //     }
+    //     .ag-theme-material .ag-radio-button-input-wrapper.ag-checked::after {
+    //         color: #23232F;
+    //     }
+    //     .motif-table-title-bar {
+    //         background: #FFFFFF !important;
+    //         font-family: EYInterstate;
+    //         font-size: 18px;
+    //         line-height: 20px;
+    //         color: #1A1A24 !important;
+    //         border: 1px solid #E1E1E6;
+    //     }
+    //     .ag-theme-material .ag-checkbox .ag-input-wrapper {
+    //         left: 15px !important;
+    //         position: relative !important;
+    //         cursor: none !important;
+    //     }
 
-        .cursor-default :hover{
-            cursor: default;
-        }
+    //     .cursor-default :hover{
+    //         cursor: default;
+    //     }
 
-        ::ng-deep .motif-table .date-submitted-class {
-            margin-left: 3px;
-        }
-    }
+    //     ::ng-deep .motif-table .date-submitted-class {
+    //         margin-left: 3px;
+    //     }
+    // }
 
 }
 
@@ -132,14 +165,14 @@
     right: 40px;
 }
 
- ::ng-deep .ag-body-viewport.ag-layout-normal.ag-row-no-animation {
-    border-left: 1px solid #e1e1e6 !important;
-    border-bottom: 1px solid #e1e1e6  !important;
-    min-height: 150px !important;
- }
- ::ng-deep .ag-body-viewport {
-    min-height: inherit !important;
-  }
+//  ::ng-deep .ag-body-viewport.ag-layout-normal.ag-row-no-animation {
+//     border-left: 1px solid #e1e1e6 !important;
+//     border-bottom: 1px solid #e1e1e6  !important;
+//     min-height: 150px !important;
+//  }
+//  ::ng-deep .ag-body-viewport {
+//     min-height: inherit !important;
+//   }
 
   ::ng-deep.motif-toast {
     position: fixed;
@@ -157,22 +190,38 @@
         display: none !important;
     }
 }
-.status_icon {
+.status_icon_submitted {
     ::ng-deep svg {
         fill: #57e188 !important;
         height: 0.91429rem !important;
+        width: 0.91429rem !important;
     }
     ::ng-deep .motif-icon-content {
-        padding-top: 3px;
+        padding-top: 0.24rem;
+        padding-right: 5px;
+    }
+}
+.status_icon_draft {
+    ::ng-deep svg {
+        fill: #FF9831 !important;
+        height: 0.91429rem !important;
+        width: 0.91429rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        padding-top: 0.24rem;
+        padding-right: 5px;
     }
 }
 .edit_icon {
     ::ng-deep .motif-icon-content {
-        margin-left: 7px;
+        margin-left: 4px;
         cursor: pointer;
     }
     ::ng-deep svg {
-        height: 20px !important;
+        height: 1.2rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        padding-top: 0.14rem;
     }
 }
 ::ng-deep .motif-modal-content {
@@ -203,4 +252,26 @@
   }
   ::ng-deep .no_data:hover {
     box-shadow: none !important;
+  }
+  .last_updated_by {
+    color: #155CB4;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+  .last_updated_by_icon {
+    ::ng-deep svg {
+        fill: #155CB4 !important;
+        height: 1.111rem !important;
+        width: 1.111rem !important;
+    }
+    ::ng-deep .motif-icon-content {
+        cursor: pointer;
+        padding-top: 0.24rem;
+        padding-right: 5px;
+    }
   }
