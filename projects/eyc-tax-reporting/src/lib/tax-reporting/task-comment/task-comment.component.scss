@@ -1,14 +1,8 @@
 .comment-wrapper-new{
     height: 100%;
 
-   
-
     .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
         padding: 0 !important;
-    }
-
-    .custom-ml{
-        margin-left: inherit;
     }
 
     .disabled-color{
@@ -61,6 +55,44 @@
 
         }
     }
+
+    .task-comment-tex-area{
+        color: #2E2E38;
+        font-family: EYInterstate;
+        .author{
+            font-size: 16px;
+            line-height: 25px;
+        }
+        .creation-date{
+            font-size: 12px;
+            line-height: 25px;
+        }
+        .description{
+            color: #2E2E38;
+            font-family: 'EYInterstateLight';
+            font-size: 14px;        
+            line-height: 22px;
+            margin-top: 13px;
+            inline-size: auto;
+            overflow-wrap: break-word;
+        }
+
+        .attach_file{
+                width: 22.56px;
+                height: 21.56px;
+        }
+
+        .attachments{
+            font-family: EYInterstate;
+            font-size: 12px;
+            line-height: 14px;
+            letter-spacing: 0px;
+            text-align: right;
+            color: #155CB4;
+            cursor: pointer;
+
+        }
+    }
     
     svg {
         fill:none;
@@ -69,7 +101,7 @@
         width: 2.71429rem; 
     }
     .motif-card {
-        height: 91% !important;
+        height: 94% !important;
         width: 100%;
         font-family: EYInterstate;
         border: 1px solid #c4c4cd !important;
@@ -437,7 +469,7 @@
        }
     
        .margin-from-card{
-           margin-right: 2rem;
+            margin-right: 2rem;
        }
     
        .margin-left-btns{
@@ -568,7 +600,7 @@
     
        .reply-comment{
             margin-top:10px;
-            margin-left:20px;
+            margin-left:0px;
        }
     
        .reply-comment-text{
@@ -604,8 +636,9 @@
        }
     
        .ey-icon{
-        height: 32px !important;
-        width: 32px !important;
+        height: 38px !important;
+        width: 38px !important;
+        /* margin-left: -5px; */
        }
     
        .comments-reply-actions{
@@ -725,9 +758,37 @@
         }
         
     }
-
-    
+   
     //action menu to add tags
+    .from-typog{
+        font-family: EYInterstate;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 25px;
+        letter-spacing: 0px;
+        text-align: left;
+    }
+
+    .margin-left-card{
+        margin-left: 1px;
+    }
+
+    .width-chip{
+        width: fit-content;
+    }
+
+    .width-column-1{
+        width: 70px;
+    }
+
+    .width-column-1-v2{
+        width: 60px;
+    }
+
+    .width-card-max-content{
+        width: max-content
+    }
 }
 
 ::ng-deep .toast-replays{

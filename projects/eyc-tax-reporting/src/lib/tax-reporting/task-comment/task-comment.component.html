@@ -1,8 +1,8 @@
 <div class="comment-wrapper-new">
     <motif-card>
 
-        <div class="row mt-2 mb-4">
-            <mat-chip-list [selectable]="false" style="width: fit-content;">
+        <div class="row mt-2 mb-2 margin-left-card">
+            <mat-chip-list class="width-chip" [selectable]="false">
                 <span class="margin-from-card">From {{company}}</span>
                 <mat-chip class='mat-chip-p'
                     [ngClass]="{'open-background': status == 'open', 'accepted-background' : status == 'accepted', 'declined-background': status == 'declined'}">
@@ -200,7 +200,7 @@
         </div>
         <motif-card-body>
             <div class="row">
-                <div class="col-md-1 col-sm-1 card-column">
+                <div class="col-md-1 col-sm-1 card-column width-column-1">
                     <svg class='office-icon' width="32" height="32" viewBox="0 0 32 32" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd"
@@ -241,12 +241,12 @@
 
             <div class="row">
 
-                <div class="col-md-1 col-sm-1 card-column"> </div>
+                <div class="col-md-1 col-sm-1 card-column width-column-1-v2"> </div>
 
                 <div class="col-sm-5 col-md-5 card-column">
                     <div class="row">
                         <div *ngIf="showReplyCommentButton && permissions.validatePermission('Production Cycles', 'Add comments')"
-                            class="col-md-3 col-sm-3 ng-star-inserted card-column custom-ml">
+                            class="col-md-3 col-sm-3 ng-star-inserted card-column width-card-max-content">
                             <a (click)="showReplyNewComment()">
                                 <svg class="icon-replay" width="62" height="19" viewBox="0 0 62 19" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -261,7 +261,7 @@
                         </div>
 
                         <div *ngIf="showReplyCommentButton && !permissions.validatePermission('Production Cycles', 'Add comments')"
-                            class="col-md-3 col-sm-3 ng-star-inserted card-column custom-ml">
+                            class="col-md-3 col-sm-3 ng-star-inserted card-column width-card-max-content">
                             <a>
                                 <svg class="icon-replay" width="62" height="19" viewBox="0 0 62 19" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +275,7 @@
                             </a>
                         </div>
 
-                        <div *ngIf='showReplyCommentButton' class="col-md-2 col-sm-2 card-row"
+                        <div *ngIf='showReplyCommentButton' class="col-md-2 col-sm-2 card-row width-card-max-content"
                             (click)="getListComments()">
                             <a>
                                 <svg class="icon-replay-expand" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -293,109 +293,112 @@
                 <div class="col-md-6 col-sm-6 card-column"> </div>
             </div>
 
-            <div class="row" *ngIf="showReplies">
-                <div class="col-md-1 col-sm-1 card-column custom-ml"> </div>
-                <div class="col-md-11 col-sm-11 card-column custom-ml">
+            <div class="row mt-2" *ngIf="showReplies">
+               <div class="col-md-1 col-sm-1 card-column width-column-1-v2"> </div> 
+                 <div class="col-md-11 col-sm-11 card-column custom-ml"> 
                     <div class="each-element" *ngFor="let replyComment of replyData">
                         <lib-reply-comment [ReplyCommentData]='replyComment'></lib-reply-comment>
                     </div>
                 </div>
             </div>
 
-            <form [formGroup]="ReplayForm">
-                <div *ngIf='showReplyComment' class="row reply-comment">
-
-                    <div class="col-md-1 col-sm-1 card-column">
-                        <svg class='ey-icon' width="32" height="32" viewBox="0 0 32 32" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
-                                fill="#2E2E3C" />
-                            <path
-                                d="M8.86137 21.9218H12.4705V19.8419H8.86137V18.2515H12.8376L11.5224 15.9881H5.89453V25.7756H13.8469V23.5123H8.86137V21.9218Z"
-                                fill="#F6F6FA" />
-                            <path
-                                d="M20.1174 15.9881L18.3128 19.169L16.4777 15.9881H12.9297L16.6918 21.9218V25.7756H19.8727V21.9218L23.6348 15.9881H20.1174Z"
-                                fill="#F6F6FA" />
-                            <path d="M5.89453 12.6236L25.7754 9.38152V5.89471L5.89453 12.6236Z" fill="#FFE600" />
-                        </svg>
-                    </div>
-
-                    <div class="col-md-9 col-sm-9 card-column task-comment">
-                        <motif-form-field>
-                            <textarea motifInput class="motif-textarea" rows="3" formControlName="comment"></textarea>
-                        </motif-form-field>
-
-                        <motif-error *ngIf="
-                        ReplayForm.get('comment').hasError('required') &&
-                        ReplayForm.get('comment').touched">Comment is required
-                        </motif-error>
-                        <motif-error *ngIf="ReplayForm.get('comment').hasError('maxlength')">
-                            Comment can be max 250 characters long
-                        </motif-error>
-                        <motif-error *ngIf="ReplayForm.get('comment').hasError('pattern')">Special characters cannot be
-                            used
-                        </motif-error>
-                        <motif-error *ngIf="ReplayForm.get('comment').hasError('whitespace') &&
-                    ReplayForm.get('comment').touched">Please enter valid data</motif-error>
-
-                        <span class="comment-status-text">COMMENT STATUS
-                            <svg class='info_icon' width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M7.99967 1.33334C4.31967 1.33334 1.33301 4.32001 1.33301 8.00001C1.33301 11.68 4.31967 14.6667 7.99967 14.6667C11.6797 14.6667 14.6663 11.68 14.6663 8.00001C14.6663 4.32001 11.6797 1.33334 7.99967 1.33334ZM7.99967 11.3333C7.63301 11.3333 7.33301 11.0333 7.33301 10.6667V8.00001C7.33301 7.63334 7.63301 7.33334 7.99967 7.33334C8.36634 7.33334 8.66634 7.63334 8.66634 8.00001V10.6667C8.66634 11.0333 8.36634 11.3333 7.99967 11.3333ZM8.66634 6.00001H7.33301V4.66668H8.66634V6.00001Z"
-                                    fill="#2E2E38" />
-                            </svg>
-                        </span>
-                        <motif-form-field>
-                            <div *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')">
-                                <div class="radio-item mb-2">
-                                    <input type="radio" id="open{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="open">
-                                    <label for="open{{idTask}}">Open</label>
-                                </div>
-                                <div class="radio-item mb-2">
-                                    <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="accepted">
-                                    <label for="accepted{{idTask}}">Accepted</label>
-                                </div>
-                                <div class="radio-item mb-2">
-                                    <input type="radio" id="declined{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="declined">
-                                    <label for="declined{{idTask}}">Declined</label>
-                                </div>
-                                <div class="radio-item mb-2"></div>
-                            </div>
-                            <div *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status')">
-                                <div class="radio-item-v2 mb-2">
-                                    <input type="radio" id="open{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="disabled" disabled>
-                                    <label class="disabled-color" for="open{{idTask}}">Open</label>
-                                </div>
-                                <div class="radio-item-v2 mb-2">
-                                    <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="disabled" disabled>
-                                    <label class="disabled-color" for="accepted{{idTask}}">Accepted</label>
-                                </div>
-                                <div class="radio-item-v2 mb-2">
-                                    <input type="radio" id="declined{{idTask}}" formControlName="statusReplay"
-                                        name="statusReplay" value="disabled" disabled>
-                                    <label class="disabled-color" for="declined{{idTask}}">Declined</label>
-                                </div>
-                                <div class="radio-item-v2 mb-2"></div>
-                            </div>
-                        </motif-form-field>
-
-                        <div class='comments-reply-actions'>
-                            <button [disabled]="ReplayForm.invalid" motifButton (click)="ReplyComment()"
-                                color="primary-alt">Post</button>
-                            <button class="cancel-btn" motifButton (click)="cancelReplyComment()"
-                                color="primary-alt">Cancel</button>
+            <div class="row">
+                <form [formGroup]="ReplayForm">
+                    <div *ngIf='showReplyComment' class="row reply-comment">
+                        <div class="col-md-1 col-sm-1 card-column width-column-1-v2">
                         </div>
+                        <div class="col-md-1 col-sm-1 card-column width-card-max-content">
+                            <svg class='ey-icon' width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
+                                    fill="#2E2E3C" />
+                                <path
+                                    d="M8.86137 21.9218H12.4705V19.8419H8.86137V18.2515H12.8376L11.5224 15.9881H5.89453V25.7756H13.8469V23.5123H8.86137V21.9218Z"
+                                    fill="#F6F6FA" />
+                                <path
+                                    d="M20.1174 15.9881L18.3128 19.169L16.4777 15.9881H12.9297L16.6918 21.9218V25.7756H19.8727V21.9218L23.6348 15.9881H20.1174Z"
+                                    fill="#F6F6FA" />
+                                <path d="M5.89453 12.6236L25.7754 9.38152V5.89471L5.89453 12.6236Z" fill="#FFE600" />
+                            </svg>
+                        </div>
+    
+                        <div class="col-md-9 col-sm-9 card-column task-comment-tex-area">
+                            <motif-form-field>
+                                <textarea motifInput class="motif-textarea" rows="3" formControlName="comment"></textarea>
+                            </motif-form-field>
+    
+                            <motif-error *ngIf="
+                            ReplayForm.get('comment').hasError('required') &&
+                            ReplayForm.get('comment').touched">Comment is required
+                            </motif-error>
+                            <motif-error *ngIf="ReplayForm.get('comment').hasError('maxlength')">
+                                Comment can be max 250 characters long
+                            </motif-error>
+                            <motif-error *ngIf="ReplayForm.get('comment').hasError('pattern')">Special characters cannot be
+                                used
+                            </motif-error>
+                            <motif-error *ngIf="ReplayForm.get('comment').hasError('whitespace') && ReplayForm.get('comment').touched">Please enter valid data</motif-error>
+    
+                            <span class="comment-status-text">COMMENT STATUS
+                                <svg class='info_icon' width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7.99967 1.33334C4.31967 1.33334 1.33301 4.32001 1.33301 8.00001C1.33301 11.68 4.31967 14.6667 7.99967 14.6667C11.6797 14.6667 14.6663 11.68 14.6663 8.00001C14.6663 4.32001 11.6797 1.33334 7.99967 1.33334ZM7.99967 11.3333C7.63301 11.3333 7.33301 11.0333 7.33301 10.6667V8.00001C7.33301 7.63334 7.63301 7.33334 7.99967 7.33334C8.36634 7.33334 8.66634 7.63334 8.66634 8.00001V10.6667C8.66634 11.0333 8.36634 11.3333 7.99967 11.3333ZM8.66634 6.00001H7.33301V4.66668H8.66634V6.00001Z"
+                                        fill="#2E2E38" />
+                                </svg>
+                            </span>
+                            <motif-form-field>
+                                <div *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')">
+                                    <div class="radio-item mb-2">
+                                        <input type="radio" id="open{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="open">
+                                        <label for="open{{idTask}}">Open</label>
+                                    </div>
+                                    <div class="radio-item mb-2">
+                                        <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="accepted">
+                                        <label for="accepted{{idTask}}">Accepted</label>
+                                    </div>
+                                    <div class="radio-item mb-2">
+                                        <input type="radio" id="declined{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="declined">
+                                        <label for="declined{{idTask}}">Declined</label>
+                                    </div>
+                                    <div class="radio-item mb-2"></div>
+                                </div>
+                                <div *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status')">
+                                    <div class="radio-item-v2 mb-2">
+                                        <input type="radio" id="open{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="disabled" disabled>
+                                        <label class="disabled-color" for="open{{idTask}}">Open</label>
+                                    </div>
+                                    <div class="radio-item-v2 mb-2">
+                                        <input type="radio" id="accepted{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="disabled" disabled>
+                                        <label class="disabled-color" for="accepted{{idTask}}">Accepted</label>
+                                    </div>
+                                    <div class="radio-item-v2 mb-2">
+                                        <input type="radio" id="declined{{idTask}}" formControlName="statusReplay"
+                                            name="statusReplay" value="disabled" disabled>
+                                        <label class="disabled-color" for="declined{{idTask}}">Declined</label>
+                                    </div>
+                                    <div class="radio-item-v2 mb-2"></div>
+                                </div>
+                            </motif-form-field>
+    
+                            <div class='comments-reply-actions'>
+                                <button [disabled]="ReplayForm.invalid" motifButton (click)="ReplyComment()"
+                                    color="primary-alt">Post</button>
+                                <button class="cancel-btn" motifButton (click)="cancelReplyComment()"
+                                    color="primary-alt">Cancel</button>
+                            </div>
+                        </div>
+    
                     </div>
+                </form>
+            </div>
 
-                </div>
-            </form>
         </motif-card-body>
     </motif-card>
 </div>
