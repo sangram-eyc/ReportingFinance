@@ -1,7 +1,6 @@
 .reply-comment-wrapper{
     height: 100%;
     margin-left: 19px;
-    // margin-bottom: 25px;
     .motif-card-body:last-child, .motif-card-body:last-child {
         padding: 0 !important;   
         margin-bottom: 25px !important;    
@@ -29,7 +28,6 @@
             font-family: 'EYInterstateLight';
             font-size: 14px;        
             line-height: 22px;
-            //margin-top: 13px;
         }
     }
     
@@ -44,14 +42,8 @@
         width: 100%;
         font-family: EYInterstate;
         border: 1px solid white !important;
-        // padding: 10px;
-        // margin-right: 22px;
-  
+ 
         .motif-card-body {
-            // display: flex;
-            // justify-content: space-between;
-            // padding-top: 0;
-            // padding-left: 23px;
              padding-bottom: 25px;
              padding: 0px 22px 24px 22px;
              ::ng-deep {
@@ -89,9 +81,7 @@
             }
         }
     }
-    
-    
-    
+       
     .progress-indicator-container {
         position: relative;
         max-width: 10rem;
@@ -155,11 +145,6 @@
     
     ::ng-deep {
         .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
-            // width: 66% !important;
-            // height: 66% !important;
-            // left: 16% !important;
-            // top: 17% !important;
-            // visibility: visible !important;
             width: 0.63rem !important;
             height: 0.63rem !important;
             left: auto !important;
@@ -172,9 +157,6 @@
             border: 1px solid #000000 !important;
             background: #FFFFFF !important;
         }
-       /*  .motif-tooltip {
-            width: 100% !important;
-        } */
         .motif-icon.motif-tooltip-close {
             display: none !important;
         }
@@ -252,9 +234,7 @@
             font-size: 10px;
         }
        }
-    
-    
-     
+        
        .mat-chip-p{
         background: white !important;
         border: 1px solid;
@@ -272,11 +252,7 @@
             margin-left:8px;
         }
        }
-    
-    /*    .mat-chip-p:hover{
-        background: white !important;
-    } */
-    
+      
     .icon-cross{
         width: 1.9rem !important;
         cursor: pointer;
@@ -525,5 +501,9 @@
         cursor: pointer;
       }
 
+      .reply-column-1{
+        display: block; 
+        width: max-content;
+      }
     
 }
