@@ -31,4 +31,6 @@ export const PBI_CONFIG = {
 export const pbiReportingConfig = {
    pbi_auth_token:  'gatewayService/api/v2/regreporting/getPBIAuthToken',
    pbi_embeded_token:'gatewayService/api/v2/regreporting/getPBIEmbedToken/',
+   pbi_auth_token_dms:'https://10.48.234.20/qa33/dmsdataintakeservice/api/v2/dms/getPBIAuthToken',
+   pbi_embeded_token_dms:'https://10.48.234.20/qa33/dmsdataintakeservice/api/v2/dms/getPBIEmbedToken/',
 }

@@ -15,6 +15,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
   @Input() selectedReportId: any;
   @Input() selectedFilling: any;
   @Input() selectedPeriod: any;
+  @Input() pod:any;
   private report: powerbi.Report;
   embedConfig; 
   filters = [];
@@ -35,13 +36,13 @@ export class EycPowerbiEmbedComponent implements OnInit {
   }
 
   getAuthToken() {
-    return this.powerbiMappingService.authToken();
+    return this.pod=="DMS"? this.powerbiMappingService.authTokenDms() : this.powerbiMappingService.authToken();
   }
 
   getEmbedToken(authToken: string) {
     const req: any = {};
     req.reportId = this.selectedReportId;
-    return this.powerbiMappingService.embedToken(this.selectedReportId);
+    return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(this.selectedReportId):this.powerbiMappingService.embedToken(this.selectedReportId);
   }
 
   buildConfig(embedUrl: string, reportId: string, workspaceId: string, embedToken: string) {
@@ -69,7 +70,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
 
   showVisualizationForPowerBi() {
      this.getAuthToken().subscribe(authTokenData => {
-        const authToken = authTokenData['accessToken'];
+        const authToken = authTokenData['data']['accessToken'];
         sessionStorage.setItem(SESSION_PBI_TOKEN,authToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
         this.getEmbedToken(authToken).subscribe(embedTokenData => {
