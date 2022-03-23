@@ -89,7 +89,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   trimXAxisTicks: boolean = true;
   trimYAxisTicks: boolean = true;
   rotateXAxisTicks: boolean = true;
-  maxXAxisTickLength: number = 16;
+  maxXAxisTickLength: number = 13;
   maxYAxisTickLength: number = 16;
   colorScheme: Color;
   colorScheme2: Color;
