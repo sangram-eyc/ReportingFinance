@@ -1,0 +1,30 @@
+<div id="expense-reporting">
+    <div class="page-header">
+        <h1 class="motif-h1">Expensive Reporting</h1>
+    </div>
+
+    <div class="page-subheader">
+        Expensive Reporting
+    </div>
+
+    <div class="eyc-expensive-tabs">
+        <motif-tab-bar>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(1)" class="motif-text-link"
+                (click)="reportTabChange(1)" [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Reports
+            </button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(1)" class="motif-text-link"
+                (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Tasks
+            </button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(1)" class="motif-text-link"
+                (click)="reportTabChange(3)" [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Task Assignment
+            </button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(1)" class="motif-text-link"
+                (click)="reportTabChange(4)" [ngClass]="tabIn == 4 ? 'motif-active' : '' ">Task Visibility
+            </button>
+        </motif-tab-bar>
+    </div>
+
+    <section>
+        {{tabIn}}
+    </section>
+</div>
