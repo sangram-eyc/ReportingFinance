@@ -338,10 +338,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       const objectContent = JSON.parse(objectFromWs.request.content);
       const url = objectContent.extraParameters.downloadUrl;
 
-      sessionStorage.setItem('notifications', JSON.stringify(notifications));
-      this.isNotificationRead = false;
-      sessionStorage.setItem('isNotificationRead', 'false');
-
       const fails = Number(objectContent.extraParameters.fails);
       if (fails > 0){
          const fundsNames = objectContent.extraParameters.failsName;
@@ -351,8 +347,23 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       if (sessionStorage.getItem('pendingDownloadsBulk') != null){
         const id = objectContent.extraParameters.downloadId;
         this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
+        const startDownloading = this.pendingDownloads.find(element => element == id);
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
         sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
+        console.log('startDownloading->', startDownloading);
+        if(startDownloading != undefined){
+            if (url != ''){
+                window.open(url);
+            }
+        }else{
+          sessionStorage.setItem('notifications', JSON.stringify(notifications));
+          this.isNotificationRead = false;
+          sessionStorage.setItem('isNotificationRead', 'false');
+        }
+      }else{
+        sessionStorage.setItem('notifications', JSON.stringify(notifications));
+        this.isNotificationRead = false;
+        sessionStorage.setItem('isNotificationRead', 'false');
       }
     }catch (err){
       console.log('bulkDownloadWarnings Error ->', err);
