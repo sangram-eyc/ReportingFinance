@@ -80,15 +80,24 @@
     </div>
   </div>
 
-  <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
     [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
     [detailCellRendererParams]="exceptionDetailCellRendererParams"
     (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
     [permissionToPrimaryButton]="true" [permissionToSecondaryButton]="true" [isToggleLeft]="true"
     (toggleLeftEventToParent)="showMyAssignedFunds()" [toggleLeftTitle]="toggleLeftTitle"
     [toggleLeftDisabled]="disabledLeftToggle" [displaySecondButton]="true" [secondbuttonText]="downloadBtn"
-    (selectedRowEmitterProcess)="checkDataProcess($event)">
+    (selectedRowEmitterProcess)="checkDataProcess($event)" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)" >
   </lib-shared-grid>
+
+  <div *ngIf="searchNoDataAvilable">
+    <motif-card class="no_data">
+      <motif-card-body>
+          <h5>Your search has returned no results. Please adjust and try again.</h5>
+      </motif-card-body>
+  </motif-card>
+  </div>
+
 
   <ng-template #datasetsDropdownTemplate let-row>
 
