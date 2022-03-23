@@ -50,8 +50,16 @@
       buttonPosition="left" [displayCheckBox]="true" [permissionToPrimaryButton]="false"
       [permissionToSecondaryButton]="false" [isToggleLeft]="true"  [hideLabels] = "true"
       [toggleLeftTitle]="toggleLeftTitle" [toggleLeftDisabled]="disabledLeftToggle"
-      buttonPosition="left" [displaySecondButton]="true" (toggleLeftEventToParent)="showMyAssignedFunds()">
+      buttonPosition="left" [displaySecondButton]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
       </lib-shared-grid>
+
+      <div *ngIf="searchNoDataAvilable">
+        <motif-card class="no_data">
+          <motif-card-body>
+              <h5>Your search has returned no results. Please adjust and try again.</h5>
+          </motif-card-body>
+      </motif-card>
+      </div>
 
       <ng-template #submitedTemplate let-row>
        <div class="cursor-row" *ngIf="row.target === 'EY'" (click)="openDialog(row.id)">
