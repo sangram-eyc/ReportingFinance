@@ -3,10 +3,24 @@
     .ag-row-hover{
            position: absolute !important;
            z-index: 1 !important;
-       }
+       }  
+
+       .no_data {
+        width: 100%;
+        height: auto;
+        padding-top: 14px;
+        h5 {
+          font-size: 16px;
+          line-height: 20px;
+          font-family: EYInterstate !important;
+        }
+      }
+      .no_data:hover {
+        box-shadow: none !important;
+      }
    }
 
-.page-header {
+   .page-header {
     margin-top: 25px;
 }
 
@@ -224,18 +238,7 @@
             height: 69px !important;
         }
     }
-}
 
-.no_data {
-    width: 100%;
-    height: auto;
-    padding-top: 14px;
-    h5 {
-        font-size: 16px;
-        line-height: 20px;
-        font-family: EYInterstate !important;
-        font-weight: bold;
-    }
 }
 
 ::ng-deep .custom_comments {
@@ -323,5 +326,7 @@
 .link-status-tracker:hover {
     cursor: pointer;
 }
+
+
 
 
