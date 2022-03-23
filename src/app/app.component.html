@@ -88,7 +88,10 @@
               #taxReporting="routerLinkActive">
               <span>Tax Reporting</span>
             </li>
-
+            <li [hidden]="true" class="sidenav-item" [routerLink]="['/app-expense-reporting']" routerLinkActive="active-submenu"
+            #taxReporting="routerLinkActive">
+            <span>Expense Reporting</span>
+            </li>
             <li *ngIf="permission.isDMS" class="sidenav-item" [routerLink]="['/data-managed-services']" routerLinkActive="active-submenu"
               #taxReporting="routerLinkActive">
               <span>Data Managed Services</span>
