@@ -372,40 +372,41 @@
       </div>
    </div>
 
-   <motif-card class="data_explorer-card">
-      <div class="container">
-         <div class="row pt-3">
-            <h3>Please select from the options below to explore data.</h3>
-         </div>
-         <div class="row">
-            <motif-form-field>
-               <label motifLabel>Data Domain (required)</label>
-               <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
-                  <motif-option [value]="1">General Ledger Trial Balance</motif-option>
-                  <motif-option [value]="2">General Ledger Trial Balance Class</motif-option>
-                  <motif-option [value]="3">Positions Portfolio Level</motif-option>
-                  <motif-option [value]="4">Positions Lot Level</motif-option>
-                  <motif-option [value]="5">Transactions Disposal Lot</motif-option>
-                  <motif-option [value]="6">Transactions Activity Details</motif-option>
-                  <motif-option [value]="reportID">Monthly Book Report Package</motif-option>
-                  <motif-option [value]="7">Account</motif-option>
-                  <motif-option [value]="8">Product - Issuers</motif-option>
-                  <motif-option [value]="9">Product - Securities</motif-option>
-                  <motif-option [value]="10">Product - Corporate Actions</motif-option>
-               </motif-select>
-            </motif-form-field>
-         </div>
-         
-            <button motifButton color="primary-alt" size="fluid" (click)="visualizePowerBiReport()">Results</button>
-  
-         <div class="margintop">
-            <ng-container>
-               <lib-eyc-powerbi-embed [selectedReportId]="powerBiReportId" [pod]="pod">
-               </lib-eyc-powerbi-embed>
-            </ng-container>
-            
-         </div>
-      </div>
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mb-3">
+         <motif-card>
+            <div class="m-4">
+               <div class="row">
+                  <h5>Please select from the options below to explore data.</h5>
+               </div>
+               <div class="row">
+                  <motif-form-field>
+                     <label motifLabel>Data Domain (required)</label>
+                     <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
+                        <motif-option [value]="1">General Ledger Trial Balance</motif-option>
+                        <motif-option [value]="2">General Ledger Trial Balance Class</motif-option>
+                        <motif-option [value]="3">Positions Portfolio Level</motif-option>
+                        <motif-option [value]="4">Positions Lot Level</motif-option>
+                        <motif-option [value]="5">Transactions Disposal Lot</motif-option>
+                        <motif-option [value]="6">Transactions Activity Details</motif-option>
+                        <motif-option [value]="reportID">Monthly Book Report Package</motif-option>
+                        <motif-option [value]="7">Account</motif-option>
+                        <motif-option [value]="8">Product - Issuers</motif-option>
+                        <motif-option [value]="9">Product - Securities</motif-option>
+                        <motif-option [value]="10">Product - Corporate Actions</motif-option>
+                     </motif-select>
+                  </motif-form-field>
+               </div>
 
-   </motif-card>
+               <div class="row pt-3">
+                  <ng-container>
+                     <lib-eyc-powerbi-embed [selectedReportId]="powerBiReportId" [pod]="pod">
+                     </lib-eyc-powerbi-embed>
+                  </ng-container>
+               </div>
+            </div>
+      
+         </motif-card>
+      </div>
+   </div>
 </section>
