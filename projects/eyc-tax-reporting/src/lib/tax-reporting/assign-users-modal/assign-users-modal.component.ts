@@ -17,6 +17,7 @@ export class AssignUsersModalComponent implements OnInit {
   toastSuccessMessage = "Users added successfully";
   showModal = true;
   showToastAfterSubmit = false;
+  searchNoDataAvilable = false;
 
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
@@ -31,7 +32,6 @@ export class AssignUsersModalComponent implements OnInit {
   completedData: any[] = [];
   datasetsSelectedRows;
   exceptionDetailCellRendererParams;
-  searchNoDataAvilable;
   chk = false;
   initialUsers:any = [];
   selectedUsers:any = [];
@@ -166,6 +166,15 @@ export class AssignUsersModalComponent implements OnInit {
 closeToast(){
   this.showToastAfterSubmit = !this.showToastAfterSubmit;
   this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
+}
+
+handleGridReady(params) {
+  this.gridApi = params.api;
+}
+
+searchGrid(input){
+  this.gridApi.setQuickFilter(input);
+  this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
 }
 
 }

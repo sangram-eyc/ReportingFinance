@@ -11,8 +11,16 @@
     [detailCellRendererParams]="exceptionDetailCellRendererParams"
     [displaySecondButton]="false"
     [permissionToPrimaryButton]="false"
-    [permissionToSecondaryButton]="false">
-  </lib-shared-grid>
+    [permissionToSecondaryButton]="false" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
+    </lib-shared-grid>
+
+    <div *ngIf="searchNoDataAvilable">
+      <motif-card class="no_data">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+    </div>
 
   <ng-template #datasetsDropdownTemplate let-row>    
     <label class="container-checkbox" *ngIf="row.check" (click)="changeCheck(row.id)" >
