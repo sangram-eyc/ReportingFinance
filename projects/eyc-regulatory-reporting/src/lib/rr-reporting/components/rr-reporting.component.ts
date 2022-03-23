@@ -313,7 +313,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           cellRendererParams: {
             ngTemplate: this.lastUpdatedByTemplate,
           },
-          headerName: 'Last updated by',
+          headerName: 'Last Updated By',
           field: 'updatedBy',
           wrapText: true,
           autoHeight: true,
@@ -437,7 +437,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           cellRendererParams: {
             ngTemplate: this.lastUpdatedByTemplate,
           },
-          headerName: 'Last updated by',
+          headerName: 'Last Updated By',
           field: 'updatedBy',
           wrapText: true,
           autoHeight: true,
