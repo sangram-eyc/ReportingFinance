@@ -940,6 +940,11 @@ export class CycleDetailComponent implements OnInit {
         optionSelected.classList.add('checked');
       }
   }
+
+  searchGrid(input){
+    this.gridApi.setQuickFilter(input);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+  }
 }
 
 
