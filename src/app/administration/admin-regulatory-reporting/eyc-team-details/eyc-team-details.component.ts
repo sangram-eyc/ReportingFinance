@@ -131,18 +131,18 @@ export class EycTeamDetailsComponent implements OnInit {
 
   updatePageSize(event) {
     this.pageSize = event;
-    this.getUsersList();
+    this.getTeamDetailsData();
   }
 
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getUsersList();
+    this.getTeamDetailsData();
   }
 
   sortChanged(event) {
     this.sort = event;
-    this.getUsersList();
+    this.getTeamDetailsData();
   }
 
   enableEditForm() {
@@ -200,7 +200,7 @@ export class EycTeamDetailsComponent implements OnInit {
         headerName: 'Name',
         field: 'memberName',
         sortable: true,
-        filter: false,
+        filter: true,
         wrapText: true,
         autoHeight: true,
         width: 370,
@@ -212,7 +212,7 @@ export class EycTeamDetailsComponent implements OnInit {
         headerName: 'Email',
         field: 'userEmail',
         sortable: true,
-        filter: false,
+        filter: true,
         wrapText: true,
         autoHeight: true,
         width: 370,
