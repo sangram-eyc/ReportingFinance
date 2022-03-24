@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'lib-audit-log',
@@ -17,7 +17,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   step: number = 6;
 
   @Input() auditLogs = [];
-  constructor(public datepipe: DatePipe) {
+  constructor(public datepipe: DatePipe, private eRef: ElementRef) {
     // this.appContainer = document.getElementById('main-container');
    }
 
@@ -100,6 +100,17 @@ if (this.show) {
           }
         }
       }
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      //Clicked inside
+    } else {
+      //Clicked ouside
+      this.show = false;
+      this.showChange.emit(this.show);
     }
   }
 }

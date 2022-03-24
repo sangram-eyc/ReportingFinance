@@ -448,13 +448,14 @@ export class SubmissionComponent implements OnInit {
 
   onClickLastUpdatedBy(row) {
     console.log(row);
-    this.showAuditLog = true;
+    
     this.fileDetail = row;
     let auditObjectId = row.fileId;
     let auditObjectType = 'Submission File';
     let auditList = []
     this.service.getAuditlog(auditObjectId,auditObjectType).subscribe(res => {
       console.log(res);
+      this.showAuditLog = true;
       let data = res['data'];
       data.forEach((element, index) => {
         let item = this.copy(element)
