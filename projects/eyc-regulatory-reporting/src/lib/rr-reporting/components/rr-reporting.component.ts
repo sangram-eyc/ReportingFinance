@@ -984,6 +984,7 @@ actionMenuEnableforException(row) {
       data.forEach((element, index) => {
         let item = this.copy(element)
         let item1 = this.copy(element)
+        let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
           if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
@@ -992,14 +993,22 @@ actionMenuEnableforException(row) {
           }
           item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
           auditList.push(item)
-
+          if((index+1) ==data.length){
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+            auditList.push(item3);
+          }
         } else if (element.auditActionType == 'Unapprove') {
           if(index==0) {
             item1['auditActionType'] = 'Started'
               auditList.push(item1)
           }
           auditList.push(item)
-
+          if((index+1) ==data.length){
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+            auditList.push(item3);
+          }
         } else if (element.auditActionType == 'New') {
           if (element.auditDetails.auditObjectPrevValue == 'NA') {
             if (data.length == 1) {
@@ -1036,6 +1045,7 @@ actionMenuEnableforException(row) {
       data.forEach((element, index) => {
         let item = this.copy(element)
         let item1 = this.copy(element)
+        let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
           if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
@@ -1045,6 +1055,11 @@ actionMenuEnableforException(row) {
           item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
           auditList.push(item)
 
+          if((index+1) ==data.length){
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+            auditList.push(item3);
+          }
         } else if (element.auditActionType == 'Unapprove') {
           if(index==0) {
             item1['auditActionType'] = 'Started'
@@ -1052,6 +1067,12 @@ actionMenuEnableforException(row) {
           }
           auditList.push(item)
 
+          if((index+1) ==data.length){
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+            auditList.push(item3);
+          }
+          
         } else if (element.auditActionType == 'New') {
           if (element.auditDetails.auditObjectPrevValue == 'NA') {
             if (data.length == 1) {
