@@ -132,9 +132,13 @@
   <div *ngIf="tabIn == 1">
 
     <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')" [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
-    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"  [paginationApi]="true"
+    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"></lib-shared-grid>
+    
+    <!-- <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')" [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
+    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"
+    [paginationApi]="true" (searchInput)="searchGrid($event)"
     [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
