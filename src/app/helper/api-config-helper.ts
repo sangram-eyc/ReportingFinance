@@ -12,7 +12,7 @@ export const userAdminstration = {
         add_team: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/team' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/team',
         delete_team: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/team/' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/team/',
         teams_list: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teams' : environment.apiEndpoint + 'assets/mock/teams.json',
-        teams_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamDetails?teamId=' : environment.apiEndpoint + 'assets/mock/teams.json',
+        teams_Details: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamDetails' : environment.apiEndpoint + 'assets/mock/teams.json',
         teamUpdate: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamUpdate' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamUpdate',
         deleteTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/removeteamMember',
         addTeamMemeber: environment.production ?  environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/teamMember',
