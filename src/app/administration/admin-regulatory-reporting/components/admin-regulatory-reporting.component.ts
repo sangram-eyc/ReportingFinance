@@ -165,6 +165,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
       this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.teamsData = resp.data;
+        this.totalRecords = 10;
         this.totalRecords=resp.totalRecords;
         if (resetData) {
           this.createTeamsRowData();
