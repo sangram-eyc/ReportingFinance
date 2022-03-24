@@ -10,6 +10,9 @@ export class UsersService {
   getUsersList(page,size,sort,filter) {
     return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User}?page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
   }
+  getAllUsersList() {
+    return this.apiService.invokeGetAPI(`${userAdminstration.regulatory_Reporting.view_User}`);
+  }
   addUser(data) {
     return this.apiService.invokePostAPI(`${userAdminstration.regulatory_Reporting.add_User}`, data);
   }

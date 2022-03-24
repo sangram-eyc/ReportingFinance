@@ -152,7 +152,7 @@ export class EycTeamDetailsComponent implements OnInit {
 
   getUsersList() {
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
-      this.userService.getUsersList(this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
+      this.userService.getAllUsersList().subscribe(resp => {
         this.allUsers = resp.data
         this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
       });
