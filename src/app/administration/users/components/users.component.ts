@@ -102,6 +102,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.usersListArr.push(eachitem);
         });
         this.rowData = this.usersListArr;
+        this.resetRowData = this.rowData;
         this.pageInfo.totalRecords=resp['totalRecords'];
         if (resetData) {
           this.resetData();

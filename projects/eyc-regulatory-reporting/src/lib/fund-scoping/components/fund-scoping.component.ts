@@ -124,6 +124,7 @@ export class FundScopingComponent implements OnInit {
     this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
+      this.scopingRowData = resp['data'];
       if (resetData) {
         this.resetData();
       } else {

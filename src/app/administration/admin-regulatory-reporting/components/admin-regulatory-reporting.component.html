@@ -20,8 +20,8 @@
     [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
     [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')" (gridReady)="handleGridReady($event)"
     [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="resetRowData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"
-    [export] = "true" (exportFlagToParent)="exportTeamsData()" [paginationApi]="true" (searchInput)="searchGrid($event)"
-    [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)" [pageChangeFunc]="pageChangeFunc"
+    [export] = "true" (exportFlagToParent)="exportTeamsData()" [paginationApi]="resetRowData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
+    [pagination]="resetRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)" [pageChangeFunc]="pageChangeFunc"
     (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
     <ng-template #actionSection let-row>

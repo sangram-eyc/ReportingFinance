@@ -19,7 +19,7 @@
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)"
             [hideHeaderCheckbox]="checkFilingCompletedStatus()"  [export] = "true"
-            (exportFlagToParent)="exportData('exceptions')" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
+            (exportFlagToParent)="exportData('exceptions')" [pagination]="exceptionRowData?.length>0 ? true : false" [paginationApi]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
 
         <ng-template #commentExceptionTemplate let-row>
@@ -110,7 +110,7 @@
             [isToggle]="false" [modalConfig]="filingModalConfig" (gridReady)="handleGridReady($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
-            [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
+            [pagination]="filingEntityRowData?.length>0 ? true : false" [paginationApi]="filingEntityRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>
