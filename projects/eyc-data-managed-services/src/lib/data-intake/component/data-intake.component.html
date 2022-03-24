@@ -388,25 +388,15 @@
                   <motif-form-field>
                      <label motifLabel>Data Domain (required)</label>
                      <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
-                        <motif-option [value]="1">General Ledger Trial Balance</motif-option>
-                        <motif-option [value]="2">General Ledger Trial Balance Class</motif-option>
-                        <motif-option [value]="3">Positions Portfolio Level</motif-option>
-                        <motif-option [value]="4">Positions Lot Level</motif-option>
-                        <motif-option [value]="5">Transactions Disposal Lot</motif-option>
-                        <motif-option [value]="6">Transactions Activity Details</motif-option>
-                        <motif-option [value]="reportID">Monthly Book Report Package</motif-option>
-                        <motif-option [value]="7">Account</motif-option>
-                        <motif-option [value]="8">Product - Issuers</motif-option>
-                        <motif-option [value]="9">Product - Securities</motif-option>
-                        <motif-option [value]="10">Product - Corporate Actions</motif-option>
+                        <motif-option *ngFor="let report of reports" [value]="report.reportId">{{report.reportDisplayName}}</motif-option> 
                      </motif-select>
                   </motif-form-field>
                </div>
 
                <div class="row pt-3">
                   <ng-container>
-                     <lib-eyc-powerbi-embed [selectedReportId]="powerBiReportId" [pod]="pod">
-                     </lib-eyc-powerbi-embed>
+                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pod">
+                     </lib-power-bi-paginated-report-embed>
                   </ng-container>
                </div>
             </div>
