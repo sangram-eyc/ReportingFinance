@@ -183,6 +183,17 @@
       cursor: help !important;
     }
   }
+
+  .actions-in-funds{
+    position: relative; 
+    z-index: 1; 
+  }
+  
+  .gray-check{
+    height: 18px;
+    width: 18px;
+    margin-right: 10px;
+  }
 }
 
 .back-wrapper {
