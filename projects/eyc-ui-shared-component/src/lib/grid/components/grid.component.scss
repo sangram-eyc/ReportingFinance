@@ -331,4 +331,9 @@ cursor: pointer;
         }
     }
   }
+
+  ::ng-deep .countFont span{
+    font-weight: var(--weight-regular) !important;
+  }
+
   
