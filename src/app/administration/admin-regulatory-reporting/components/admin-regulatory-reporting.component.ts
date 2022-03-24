@@ -159,7 +159,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.filter = '';
   }
 
-  getTeamList(resetData = false) {
+  getTeamList(resetData = true) {
     this.sort = resetData ? 'teamName:true' : this.sort;
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
