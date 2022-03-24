@@ -150,7 +150,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
         this.createEntitiesRowData();
       } else { 
-        this.exceptionData = res['data']; 
+        this.exceptionData = res['data'];
+        this.rowData = this.exceptionData
         this.pageInfoException.totalRecords = res['totalRecords'];
         if (resetData) {
           this.createEntitiesRowData();
@@ -189,6 +190,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       } else {  
         this.datasets = res['data']; 
         this.pageInfoData.totalRecords = res['totalRecords'];
+        this.datasetData = this.datasets
         if (resetData) {
           this.createEntitiesRowData();
         } else {
