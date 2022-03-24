@@ -71,7 +71,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   disabledLeftToggle: boolean = true;
   showOnlyMyAssignedFunds: boolean = false;
   getCommentsDetails:Subscription;
-
+  lightVariant: string = "monochrome-light";
+  tagCritical: string = 'Critical';
+  gridApi;
+  searchNoDataAvilable = false;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -351,6 +354,28 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           animation: { to: 'left' }
         });
     })
+  }
+
+  splitTags(arrayTags: any, flagCritical:boolean) {
+    var result: string[] = [];
+    if (arrayTags) {
+      arrayTags.forEach(tag => {
+        result.push(tag.name);
+      });
+    }
+    if(flagCritical){
+      result.push(this.tagCritical);
+    }
+    return result.join(",");
+  }
+
+  handleGridReady(params) {
+    this.gridApi = params.api;
+  }
+
+  searchGrid(input){
+    this.gridApi.setQuickFilter(input);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }
 
 }
