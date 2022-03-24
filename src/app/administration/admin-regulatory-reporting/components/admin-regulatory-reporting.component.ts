@@ -273,6 +273,7 @@ deleteTeams(row){
       teamsList.forEach(ele => {
         this.teamsData.push(ele);
       });
+      this.gridApi.setRowData(this.teamsData);
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
         this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;

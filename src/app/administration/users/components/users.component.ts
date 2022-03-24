@@ -296,6 +296,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.usersListArr.push(ele);
         this.rowData = this.usersListArr;
       });
+
+      this.gridApi.setRowData(this.rowData);
+      
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {
         this.showToastAfterDeleteUser = false;
