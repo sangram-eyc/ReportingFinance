@@ -994,7 +994,7 @@ actionMenuEnableforException(row) {
           item.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectPrevValue
           auditList.push(item)
           if((index+1) ==data.length){
-            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
           }
@@ -1005,7 +1005,7 @@ actionMenuEnableforException(row) {
           }
           auditList.push(item)
           if((index+1) ==data.length){
-            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
           }
@@ -1016,7 +1016,7 @@ actionMenuEnableforException(row) {
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
               auditList.push(item1)
             }
-            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item['auditActionType'] = 'Approve'
             item.auditDetails['auditObjectCurValue'] = 'Filing entity ready for reporting'
             auditList.push(item)
@@ -1056,7 +1056,7 @@ actionMenuEnableforException(row) {
           auditList.push(item)
 
           if((index+1) ==data.length){
-            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
           }
@@ -1068,7 +1068,7 @@ actionMenuEnableforException(row) {
           auditList.push(item)
 
           if((index+1) ==data.length){
-            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
           }
@@ -1080,7 +1080,7 @@ actionMenuEnableforException(row) {
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
               auditList.push(item1)
             }
-            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item['auditActionType'] = 'Approve'
             item.auditDetails['auditObjectCurValue'] = 'Exception ready for reporting'
             auditList.push(item)
