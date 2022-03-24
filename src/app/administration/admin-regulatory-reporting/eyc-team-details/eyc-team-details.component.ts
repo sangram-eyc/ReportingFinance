@@ -77,9 +77,11 @@ export class EycTeamDetailsComponent implements OnInit {
   pageSize = 10;
   filter = '';
   sort = '';
-
+  pageChangeFunc;
+  
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
+      this.pageChangeFunc = this.onPageChange.bind(this);
       const teamInfoObj = this.teamService.getTeamDetailsData;
       this.teamInfo = {
         "teamName": teamInfoObj.teamName,
@@ -125,6 +127,10 @@ export class EycTeamDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  onPageChange() {
+    this.getTeamDetailsData();
+  }
+
   currentPageChange(event) {
     this.currentPage = event - 1;
   }
@@ -160,7 +166,7 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   getTeamDetailsData() {
-    this.teamService.getTeamsDetails(this.curentTeamId).subscribe(resp => {
+    this.teamService.getTeamsDetails(this.curentTeamId,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
       this.editTeamForm.patchValue({
         teamName: this.teamInfo.teamName.trim(),
         role: this.teamInfo.role.trim(),
@@ -180,6 +186,7 @@ export class EycTeamDetailsComponent implements OnInit {
           userEmail: element.userEmail,
           memberName: element.userFirstName + ' ' + element.userLastName
         })
+      this.totalRecords=resp['totalRecords'];
       });
 
       this.createTeamsRowData();
