@@ -23,8 +23,8 @@
     [disableAddMemberButton]="false"
     (newEventToParent)="addUser($event)"
     (gridReady)="handleGridReady($event)"
-    [export] = "true" (exportFlagToParent)="exportUsersData()" [paginationApi]="true"
-    [pagination]="true" paginationSize="10" [totalRecords]="pageInfo.totalRecords" [pageChangeFunc]="pageChangeFunc"
+    [export] = "true" (exportFlagToParent)="exportUsersData()" [paginationApi]="resetRowData.length > 0 ? true : false"
+    [pagination]="resetRowData.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfo.totalRecords" [pageChangeFunc]="pageChangeFunc"
     (customSortChange)="sortChanged($event)" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
     (updatePageSize)="updatePageSize($event)">
     </lib-shared-grid>

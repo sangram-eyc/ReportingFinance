@@ -21,8 +21,8 @@
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [hideHeaderCheckbox]="checkFilingCompletedStatus()"
-            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="true"
-            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="exceptionRowData?.length>0 ? true : false"
+            (gridReady)="handleGridReady($event)" [pagination]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
 
@@ -115,8 +115,8 @@
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
-            [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="true"
-            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+            [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="filingEntityRowData?.length>0 ? true : false"
+            (gridReady)="handleGridReady($event)" [pagination]="filingEntityRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
         <ng-template #headerTemplate>
