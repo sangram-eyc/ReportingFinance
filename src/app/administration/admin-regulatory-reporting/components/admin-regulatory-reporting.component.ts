@@ -159,13 +159,12 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.filter = '';
   }
 
-  getTeamList(resetData = false) {
+  getTeamList(resetData = true) {
     this.sort = resetData ? 'teamName:true' : this.sort;
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.teamsData = resp.data;
-        this.totalRecords = 10;
         this.totalRecords=resp.totalRecords;
         if (resetData) {
           this.createTeamsRowData();
