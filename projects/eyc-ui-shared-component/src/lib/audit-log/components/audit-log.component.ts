@@ -91,12 +91,12 @@ if (this.show) {
         return item.subTitle
       } else {
         if (status == 'error') {
-          return modifieruserName + ' ' + "unapproved on" + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+          return modifieruserName + ' ' + "unapproved on" + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
         } else {
           if (this.stage == 'Submission') {
-            return modifieruserName + ' ' + 'on' + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            return modifieruserName + ' ' + 'on' + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
           } else {
-            return modifieruserName + ' ' + this.updatedText + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            return modifieruserName + ' ' + this.updatedText + ' ' + this.datepipe.transform(modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
           }
         }
       }

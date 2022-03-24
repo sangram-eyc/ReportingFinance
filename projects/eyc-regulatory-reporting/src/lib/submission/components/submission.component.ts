@@ -463,7 +463,7 @@ export class SubmissionComponent implements OnInit {
           if (element.auditDetails.auditObjectPrevValue == 'NA') {
             item['auditActionType'] = 'completed'
             item.auditDetails['auditObjectCurValue'] = 'Draft available for submission';
-            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             auditList.push(item)
           } else {
             item['auditActionType'] = 'completed';
