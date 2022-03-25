@@ -783,8 +783,9 @@ button.close {
 }
 
 .donut-chart-card-tax ::ng-deep .donut-chart{
-  width: max-content;
-  margin-top: -17px;
+  width: max-content !important;
+  margin-top: -17px !important;
+  height: 131px !important;
 }
 
 .donut-chart-card-tax ::ng-deep .donut-chart > svg {
@@ -841,7 +842,8 @@ button.close {
 }
 
 .donut-chart-card-tax ::ng-deep .donut-summary{
-  width: 12.5em;
+  width: 12.5em !important;
+  padding-left: 0px !important;
 } 
 
 .more-details-comments{
