@@ -44,7 +44,7 @@ export class TableHeaderRendererComponent implements IHeaderAngularComp {
     this.filterNumber = 0;
     for (const filter of this.filterManager.activeAdvancedFilters) {
       if (columnName === filter.textFilterParams.colDef.field) {
-        if ( 'condition2' in this.filterManager.activeAdvancedFilters[i].appliedModel) {
+        if ( this.filterManager.activeAdvancedFilters[i].appliedModel && 'condition2' in this.filterManager.activeAdvancedFilters[i].appliedModel) {
           this.filterNumber = 2;
         } else {
           this.filterNumber = 1;
