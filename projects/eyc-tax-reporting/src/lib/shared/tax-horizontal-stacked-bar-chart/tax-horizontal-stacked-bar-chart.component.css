@@ -9,6 +9,7 @@
     height: 9.9px;
     border-radius: 50%;
     display: inline-block;
+    margin-right: 5px;
   }
   
   .tax-legend-text {
