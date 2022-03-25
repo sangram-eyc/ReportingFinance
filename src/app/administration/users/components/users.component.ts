@@ -202,6 +202,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.addUserForm = this._createAddUser();
       this.getUsersData();
       if (resp) {
+      this.updatePageSize(this.pageInfo.pageSize);
         this.showToastAfterAddUser = !this.showToastAfterAddUser;
         setTimeout(() => {
           this.showToastAfterAddUser = !this.showToastAfterAddUser;
@@ -298,7 +299,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       });
 
       this.gridApi.setRowData(this.rowData);
-      
+      this.updatePageSize(this.pageInfo.pageSize);
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {
         this.showToastAfterDeleteUser = false;

@@ -273,6 +273,7 @@ deleteTeams(row){
       teamsList.forEach(ele => {
         this.teamsData.push(ele);
       });
+      this.updatePageSize(this.pageSize)
       this.gridApi.setRowData(this.teamsData);
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
@@ -323,6 +324,7 @@ editTeams(row) {
       });
 
       this.addTeamForm.reset();
+      this.updatePageSize(this.pageSize)
     this.showToastAfterAddTeam = !this.showToastAfterAddTeam;
     setTimeout(() => {
       this.showToastAfterAddTeam = !this.showToastAfterAddTeam;

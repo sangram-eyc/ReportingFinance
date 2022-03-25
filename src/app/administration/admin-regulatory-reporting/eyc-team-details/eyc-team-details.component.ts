@@ -405,7 +405,7 @@ export class EycTeamDetailsComponent implements OnInit {
             this.teamsMemberData.push(ele);
           });
           this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
-
+          this.updatePageSize(this.pageSize);
           this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
           setTimeout(() => {
             this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
@@ -439,6 +439,7 @@ export class EycTeamDetailsComponent implements OnInit {
       });
       this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
       this.addTeamMemberForm.reset();
+      this.updatePageSize(this.pageSize);
       console.log('AFTER FORM RESET', this.addTeamMemberForm);
       this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
       setTimeout(() => {
