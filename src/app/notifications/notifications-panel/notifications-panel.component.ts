@@ -1,6 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {PouchdbService} from '@default/services/pouchdb.service';
 import {NotificationService} from '@default/services/notification.service';
 import {Subscription} from 'rxjs';
 
@@ -14,24 +12,16 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   public data: any;
   public showPanel: boolean;
   public showFilters: boolean;
-  public archivedItems: number;
-  public currentPage = 0;
   private notifiSub$: Subscription;
 
   constructor(
-    private notificationService: NotificationService,
-    private router: Router,
-    private pouchDbService: PouchdbService) {
+    private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
-    this.getArchivedNotifications();
-    this.notifications = [];
-    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
-      this.notifications = res.content;
-    });
-    this.notifiSub$ = this.notificationService.notificationObs$.subscribe( res => {
-      res.forEach( item => {
+    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
+    this.notifiSub$ = this.notificationService.notificationObs$.subscribe(res => {
+      res.forEach(item => {
         const index = this.notifications.findIndex(noti => noti.engineId == item.engineId);
         if (index < 0) {
           this.notifications.unshift(item);
@@ -49,10 +39,23 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   }
 
   archive(i): void {
-    this.delete(i);
-    setTimeout(() => {
-      this.getArchivedNotifications();
-    }, 1000);
+    const notificationContent = JSON.parse(this.notifications[i].request.content);
+    notificationContent.extraParameters.isArchived = true;
+    this.notifications[i].request.content = JSON.stringify(notificationContent);
+    this.notifications = Object.assign([], this.notifications);
+    event.stopPropagation();
+    event.preventDefault();
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
+  }
+
+  flag(i): void {
+    const notificationContent = JSON.parse(this.notifications[i].request.content);
+    notificationContent.extraParameters.flagged = !notificationContent.extraParameters.flagged;
+    this.notifications[i].request.content = JSON.stringify(notificationContent);
+    this.notifications = Object.assign([], this.notifications);
+    event.stopPropagation();
+    event.preventDefault();
+    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   expand(id): void {
@@ -66,25 +69,6 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
 
     event.stopPropagation();
     event.preventDefault();
-  }
-
-  onScroll() {
-    this.currentPage += 1;
-    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
-      res.content.forEach( item => {
-        this.notifications.push(item);
-      });
-    });
-  }
-
-  getArchivedNotifications() {
-    this.notificationService.getArchivedNotifications('', 0).subscribe(res => {
-      this.archivedItems = res.totalElements;
-    });
-  }
-
-  goToArchived(): void {
-    this.router.navigate(['archived-notifications']);
   }
 
   onClickFilters($event) {

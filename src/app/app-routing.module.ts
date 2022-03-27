@@ -63,8 +63,6 @@ const routes: Routes = [
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
   {path: 'view-filing-entity-exception', component: ViewFilingEntityExceptionComponent, canActivate : [AuthGuardService]},
-  {path: 'archived-notifications', component: ArchivedNotificationsComponent, canActivate : [AuthGuardService]},
-  { path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate : [AuthGuardService] },
   {path: 'data-managed-services', component: EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files-review', component: FileReviewComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },
