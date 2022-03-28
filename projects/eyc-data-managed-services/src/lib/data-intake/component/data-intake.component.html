@@ -395,7 +395,7 @@
 
                <div class="row pt-3">
                   <ng-container>
-                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pod">
+                     <lib-power-bi-paginated-report-embed [selectedReportId]="pbiConfig.PBI_REPORT_ID" [pod]="pbiConfig.PBI_POD" [selectedDate]="dueDate" [embedURL]="pbiConfig.PBI_EMBED_URL" [accessToken]="pbiConfig.PBI_ACCESS_TOKEN">
                      </lib-power-bi-paginated-report-embed>
                   </ng-container>
                </div>

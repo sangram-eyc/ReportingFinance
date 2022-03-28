@@ -9,7 +9,7 @@ import { formatDate } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,
-  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList,PBI_CONFIG
 }
   from '../../config/dms-config-helper'
 import { DataSummary } from '../models/data-summary.model'
@@ -38,6 +38,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
   noHighPriorityIssues = NO_HIGH_PRIORITY_ISSUES;
   noMediumLowPriority = NO_MEDUIM_LOW_PRIORITY;
+  pbiConfig=PBI_CONFIG
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
@@ -49,11 +50,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   presentDate: Date;
   totalFileCount = 0;
   calSelectedDate: string;
-
   powerBiReportId:string;
-  pod:string="DMS";
   reports:any;
-
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
@@ -107,7 +105,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
-
+  dueDate:any;
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -122,14 +120,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      this.dueDate = sessionStorage.getItem("selectedDate");
     } else if (this.dailyMonthlyStatus) {
-      dueDate = this.lastMonthDueDateFormat;
+      this.dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
     } else {
-      dueDate = this.presentDateFormat;
+      this.dueDate = this.presentDateFormat;
     }
 
     this.httpQueryParams =
@@ -138,7 +135,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: dueDate,
+      dueDate: this.dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -164,6 +161,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if (this.calSelectedDate) {
       this.httpQueryParams.dueDate = this.calSelectedDate;
       this.fileSummaryList();
+      this.dueDate=this.calSelectedDate;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
