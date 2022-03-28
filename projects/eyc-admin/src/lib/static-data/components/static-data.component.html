@@ -74,7 +74,7 @@
             </div>
             <div class="motif-col-xs-2">
                 <motif-form-field>
-                    <label motifLabel>Filer type</label>
+                    <label motifLabel>Filer type (Values must be separated by commas)</label>
                     <input libRemoveSpaces motifInput type="text" aria-label="Filer type Form Field" [formControl]="addFilingForm.controls['filerType']" ngDefaultControl/>
                     <motif-error *ngIf="addFilingForm.get('filerType').hasError('required') &&
                                 addFilingForm.get('filerType').touched">Please provide a Filer type!</motif-error>
