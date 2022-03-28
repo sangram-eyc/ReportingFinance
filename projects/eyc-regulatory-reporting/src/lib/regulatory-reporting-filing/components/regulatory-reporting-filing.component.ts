@@ -21,6 +21,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   tabIn;
   exportHeaders: string;
   exportURL;
+  loaded :boolean=false;
   constructor(
     private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
@@ -156,8 +157,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   }
 
   getCompletedFilingsData() {
-    this.completedFilings = [];
-    this.filingService.getFilingsHistory(this.currentPage, this.noOfCompletdFilingRecords,this.sort,this.filter).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.filingService.getFilingsHistory(this.currentPage, this.pageSize,this.sort,this.filter).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       // resp['data'].forEach((item) => {
       //   const eachitem: any = {
@@ -174,8 +174,12 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       // });
       this.completedFilings = resp['data'];
       this.totalRecords = resp['totalRecords'];
-      this.rowData = this.completedFilings
-      this.createHistoryRowData();
+      this.rowData = this.completedFilings;
+      this.updateData();
+      if(!this.loaded){
+        this.createHistoryRowData();
+        this.loaded=true;
+      }
     })
   }
 
@@ -195,6 +199,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   }
 
   updatePageSize(event) {
+    console.log('CURRENT PAGE SIZE', event);
     this.pageSize = event;
     this.getCompletedFilingsData();
   }
@@ -202,28 +207,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   createHistoryRowData() {
 
     this.rowData = [];
-    let data = []
     this.columnDefs = [];
-    this.completedFilings.forEach(filing => {
-      data.push({
-        name: filing.filingName + ' // ' + filing.period,
-        filingId: filing.filingId,
-        filingName: filing.filingName,
-        period: filing.period,
-        comments: [],
-        dueDate: filing.dueDate,
-        startDate: filing.startDate,
-        status: filing.filingStatus,
-        totalFunds: filing.totalFunds,
-        subDate: '-',
-        exceptions: 0,
-        resolved: 0,
-        completedDate: filing.completedDate,
-        completedBy: filing.completedBy
-      })
-    });
     setTimeout(() => {
-      this.rowData = data;
       this.columnDefs = [
         {
           headerName: '',
@@ -347,6 +332,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         //   minWidth: 140
         // },
       ];
+      this.updateData();
+      this.completedFilings = this.rowData;
     }, 1);
   }
 
@@ -540,6 +527,33 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
     onPageChange() {
       this.getCompletedFilingsData();
+    }
+
+    handleGridReady(params) {
+      this.gridApi = params.api;
+    }
+
+    updateData(){
+      let data=[];
+      this.completedFilings.forEach(filing => {
+        data.push({
+          name: filing.filingName + ' // ' + filing.period,
+          filingId: filing.filingId,
+          filingName: filing.filingName,
+          period: filing.period,
+          comments: [],
+          dueDate: filing.dueDate,
+          startDate: filing.startDate,
+          status: filing.filingStatus,
+          totalFunds: filing.totalFunds,
+          subDate: '-',
+          exceptions: 0,
+          resolved: 0,
+          completedDate: filing.completedDate,
+          completedBy: filing.completedBy
+        })
+      });
+      this.rowData = data;
     }
 
 }

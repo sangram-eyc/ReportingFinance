@@ -85,18 +85,19 @@
 </section>
 
 <section id='reports-history' [hidden]="!(tabIn == 2)">
-  
+ 
     <lib-shared-grid
         gridStyle="second"
         [displayCheckBox]="true"
         [columnDefs]="columnDefs"
         [defaultColDef]="{}"
+        (gridReady)="handleGridReady($event)"
         [rowData]="rowData"
         rowSelection="multiple"
         buttonPosition="left"
         [button]="false"
         [export] = "true" (exportFlagToParent)="exportReportHistoryData()"
-        [paginationApi]="rowData?.length>0 ? true : false" [pageChangeFunc]="pageChangeFunc"
+        [paginationApi]="rowData?.length>0 ? true : false" [pageChangeFunc]="pageChangeFunc" 
         [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
         (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
