@@ -66,6 +66,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   dueDateTemplate: TemplateRef<any>;
   @ViewChild('completedDateTemplate')
   completedDateTemplate: TemplateRef<any>;
+  pageChangeFunc;
 
   dataset = [{
     disable: false,
@@ -101,7 +102,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
     this.getActiveFilingsData();
-
+    this.pageChangeFunc = this.onPageChange.bind(this);
     this.route.queryParams.subscribe(res => {
       if (res && res.open_comments_panel) {
         this.router.navigate(['/regulatory-reporting']);
@@ -173,6 +174,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       // });
       this.completedFilings = resp['data'];
       this.totalRecords = resp['totalRecords'];
+      this.rowData = this.completedFilings
       this.createHistoryRowData();
     })
   }
@@ -535,5 +537,9 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       console.log(resp);
     })
   }
+
+    onPageChange() {
+      this.getCompletedFilingsData();
+    }
 
 }
