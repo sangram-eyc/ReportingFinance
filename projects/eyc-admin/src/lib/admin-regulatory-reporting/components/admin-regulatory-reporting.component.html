@@ -1,0 +1,120 @@
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team has been deleted successfully</motif-toast>
+
+<div class="page-header">
+  <h1 class="motif-h1">{{moduleName}}</h1>
+</div>
+
+<motif-tab-bar>
+    <button motifButton  (click)="adminTabChange(1)" class="motif-text-link" [ngClass]="tabIn == 1 ? 'motif-active' : ''">Teams</button>
+    <button motifButton (click)="adminTabChange(2)" class="motif-text-link" [ngClass]="tabIn == 2 ? 'motif-active' : ''">Users</button>
+    <!-- <button motifButton (click)="adminTabChange(3)" class="motif-text-link" [ngClass]="tabIn == 3 ? 'motif-active' : ''">Filings</button> -->
+    <button motifButton *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'All')" (click)="adminTabChange(4)" class="motif-text-link" [ngClass]="tabIn == 4 ? 'motif-active' : ''">Admin</button>
+    <button motifButton *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'View Static Data') && moduleId == 2" (click)="adminTabChange(5)" class="motif-text-link" [ngClass]="tabIn == 5 ? 'motif-active' : '' ">Static Data</button>
+</motif-tab-bar>
+
+<app-users *ngIf="tabIn == 2"></app-users>
+
+<div *ngIf="tabIn == 1">
+
+    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
+    [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
+    [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')" (gridReady)="handleGridReady($event)"
+    [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="resetRowData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"
+    [export] = "true" (exportFlagToParent)="exportTeamsData()" [paginationApi]="resetRowData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
+    [pagination]="resetRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)" [pageChangeFunc]="pageChangeFunc"
+    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+
+    <ng-template #actionSection let-row>
+        <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
+        </motif-icon>
+        <div class="delete-icon" (click)="deleteTeams(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Delete Teams')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
+              fill="#155CB4" />
+          </svg>
+        </div>
+      </ng-template>
+
+      <motif-modal class="new_team_modal" [show]="addTeamModal" (close)="closeTeamModal()">
+        <motif-modal-header>
+          Add new team
+        </motif-modal-header>
+        <motif-modal-body>
+      
+          <form [formGroup]="addTeamForm">
+            <span class="description"> Please give your new team a name, assign the team role, and choose at least one
+              assignment. Once your team has been created go to team members tab to add users.
+            </span>
+            <div class="motif-row">
+              <div class="motif-col-xs-4 motif-col-lg-12">
+                <motif-form-field>
+                  <label motifLabel>Team name (Required)</label>
+                  <input libRemoveSpaces motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" ngDefaultControl/>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('teamName').hasError('required') &&
+                                    addTeamForm.get('teamName').touched">Please provide a team name!</motif-error>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters
+                    long
+                  </motif-error>
+                  <motif-error *ngIf="
+                  addTeamForm.get('teamName').hasError('pattern')">Team name must contain only alphanumeric!
+                  </motif-error>
+                  <motif-error *ngIf="addTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
+                  </motif-error>
+                  <motif-error *ngIf="addTeamForm.get('teamName').hasError('whitespace') &&
+                  addTeamForm.get('teamName').touched">Please enter valid data</motif-error>
+                </motif-form-field>
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-6">
+                <motif-form-field>
+                  <label motifLabel class="select-label">Role (required)</label>
+                  <motif-select aria-label="Please select an option"  formControlName="role" ngDefaultControl>
+                    <motif-option [value]="r" *ngFor="let r of roles">{{r}}</motif-option>
+                  </motif-select>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('role').hasError('required') &&
+                                    addTeamForm.get('role').touched">Please provide a role!</motif-error>
+                </motif-form-field>
+      
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-6" *ngIf="(moduleName == 'Regulatory Reporting')">
+                <motif-form-field>
+                  <label motifLabel class="select-label">Filing type (required)</label>
+                  <motif-select aria-label="Please select an option" [multiple]="true" formControlName="filingType" ngDefaultControl>
+                    <motif-option [value]="fType.formId" *ngFor="let fType of filingType">{{fType.filingName}}</motif-option>
+                  </motif-select>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('filingType').hasError('required') &&
+                                    addTeamForm.get('filingType').touched">Please provide a Filing type!</motif-error>
+                </motif-form-field>
+              </div>
+              <div class="motif-col-xs-4 motif-col-lg-12">
+                <motif-form-field>
+                  <label motifLabel>Description (Optional)</label>
+                  <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="description"></textarea>
+                  <motif-error *ngIf="
+                                    addTeamForm.get('description').hasError('maxlength')">Description can be max 250
+                    characters long
+                  </motif-error>
+                </motif-form-field>
+              </div>
+            </div>
+          </form>
+        </motif-modal-body>
+        <motif-modal-footer>
+          <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeam()"
+            [disabled]="addTeamForm.invalid">Save</button>
+          <button motifButton class="approve-no" color="secondary" (click)="closeTeamModal()">Cancel</button>
+        </motif-modal-footer>
+      </motif-modal>
+
+      <motif-toast [type]="'success'" [show]="showToastAfterAddTeam">New team added successfully</motif-toast>
+</div>
+<div *ngIf="tabIn == 3"><br>Filings</div>
+<div *ngIf="tabIn == 4"><br><app-user-roles></app-user-roles></div>
+
+<section id='static-data' [hidden]="!(tabIn == 5)">
+  <lib-static-data [tabHighlighted]="tabIn"></lib-static-data>
+</section>
