@@ -7,12 +7,10 @@
         <div class="motif-header-name">{{ params.displayName }}</div>
         <div [hidden]="!params.enableMenu" class="header-menu-button" (click)="onMenuClick($event)" (keydown.enter)="onMenuClick($event)">
             <div class="motif-table-header-no-sort">
-                <div
-                    class="sort-svg"
-                    [inlineSVG]="
-                        '/assets/icons/navigation/ic_menu_24px.svg'
-                    "
-                ></div>
+                <motif-icon class="sort-svg" [src]="'./assets/icons/navigation/ic_menu_24px.svg'">
+                    <motif-badge *ngIf="filterNumber > 0" class="filter-badge" type="outline" [number]="filterNumber" overlap="true"></motif-badge>
+
+                </motif-icon>
             </div>
         </div>
         <div class="motif-table-header-icons" *ngIf="params.enableSorting">

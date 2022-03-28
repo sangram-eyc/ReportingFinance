@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
         this.settingsService.setModulePermissionData = res['data'];
+        sessionStorage.setItem('modules', JSON.stringify(res['data']))
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
