@@ -47,7 +47,7 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit {
     if (!!this.selectedReportId) {
       this.showVisualizationForPowerBi();
     }
-    else if(this.selectedReportId==null){
+    else if(this.selectedReportId=='xyz'){
       this.pbi.reset(this.el.nativeElement);
     }
     console.log("selected report ID > ", this.selectedReportId);

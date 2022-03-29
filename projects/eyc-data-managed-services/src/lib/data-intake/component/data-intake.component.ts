@@ -236,7 +236,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyData(status: boolean) {
-    this.powerBiReportId=null;
+    this.powerBiReportId='xyz';
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
 
@@ -264,7 +264,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   monthlyData(status: boolean) {
-    this.powerBiReportId=null;
+    this.powerBiReportId='xyz';
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
