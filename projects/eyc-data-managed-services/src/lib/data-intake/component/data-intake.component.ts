@@ -177,8 +177,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
-    this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
+    // this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
+    // this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
@@ -201,7 +201,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
-
+  OnDropdownChange(){
+    debugger;
+    this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
+    this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
+  }
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
   }

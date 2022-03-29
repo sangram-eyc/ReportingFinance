@@ -388,7 +388,7 @@
                <div class="row">
                   <motif-form-field>
                      <label motifLabel>Data Domain (required)</label>
-                     <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
+                     <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)" (ngModelChange)="OnDropdownChange()">
                         <motif-option *ngFor="let report of reports" [value]="report.reportId">{{report.reportDisplayName}}</motif-option> 
                      </motif-select>
                   </motif-form-field>

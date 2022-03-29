@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, ElementRef, OnChanges } from '@angular/core';
 import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import { EycPbiSharedService } from '../eyc-powerbi-embed/services/eyc-pbi-shared.service'
@@ -11,7 +11,7 @@ import { IReportEmbedConfiguration } from 'powerbi-client';
   styleUrls: ['./power-bi-paginated-report-embed.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PowerBiPaginatedReportEmbedComponent implements OnInit {
+export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
   @ViewChild('reportstatic') el: ElementRef;
   @Input() selectedReportId: any;
   @Input() selectedFilling: any;
@@ -44,6 +44,8 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit {
   }
 
   ngOnChanges(changes: any) {
+    console.log('baseEmbedTokenUrl',this.baseEmbedTokenUrl);
+    console.log('baseEmbedUrl', this.baseEmbedUrl);
     if (!!this.selectedReportId) {
       this.showVisualizationForPowerBi();
     }
