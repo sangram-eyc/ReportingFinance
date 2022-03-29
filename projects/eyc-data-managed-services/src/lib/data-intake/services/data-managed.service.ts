@@ -125,8 +125,13 @@ export class DataManagedService {
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
-  }
-
+  } 
+  getEmbedURL() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL}`);
+  }  
+  getEmbedTokenURL() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL}`);
+  }                                                 
   getDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
   }

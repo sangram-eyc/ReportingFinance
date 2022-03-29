@@ -203,8 +203,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
   OnDropdownChange(){
     debugger;
-    this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
-    this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
+    this.dataManagedService.getEmbedTokenURL().subscribe(url=>{
+      this.PBI_BASE_EMBED_TOKEN_URL=url;
+    }) ;
+    this.dataManagedService.getEmbedURL().subscribe(url=>{
+      this.PBI_BASE_EMBED_URL=url;
+    });
   }
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
