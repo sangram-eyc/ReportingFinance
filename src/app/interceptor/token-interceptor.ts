@@ -21,10 +21,11 @@ export class TokenInterceptor implements HttpInterceptor {
         const abcd = request.url.indexOf(token_interceptor.auth_Header);
         console.log(request.url.indexOf('getPowerBIEmbedToken'));
         console.log(request.url);
+        debugger;
         if (request.url.indexOf(token_interceptor.auth_Header) !== -1) {
             console.log('policy');
             console.log( request.url.indexOf(token_interceptor.auth_Header));
-           
+           debugger;
                  const urlString = request.url;
                     console.log('url : ' + urlString);
                     request = request.clone({
@@ -48,40 +49,43 @@ export class TokenInterceptor implements HttpInterceptor {
       
         else
         {
+            debugger;
             console.log("This is power bi API",request.url.indexOf('getPowerBIEmbedToken'))
-            if (request.url.indexOf('getPBIEmbedToken') !== -1)
-            {
-             console.log("This is power bi API inside API block")
-            // const currentUserToken = this.settingService.getToken();
-            const currentUserToken = sessionStorage.getItem(SESSION_ACCESS_TOKEN);
-             const urlString = request.url;
-             const powerbiAuthToken = sessionStorage.getItem(SESSION_PBI_TOKEN);
-             // const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-              console.log("powerbiAuthToken",powerbiAuthToken);
-              request = request.clone({
-                headers: new HttpHeaders({
-                       'X-Correlation-ID': uuid(),
-                        Authorization: `Bearer ${currentUserToken}`
+            // if (request.url.indexOf('getPBIEmbedToken') !== -1)
+            // {
+            //  console.log("This is power bi API inside API block")
+            // // const currentUserToken = this.settingService.getToken();
+            // const currentUserToken = sessionStorage.getItem(SESSION_ACCESS_TOKEN);
+            //  const urlString = request.url;
+            //  const powerbiAuthToken = sessionStorage.getItem(SESSION_PBI_TOKEN);
+            //  // const powerbiAuthToken =  this.settingService.decryptToken(SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
+            //   console.log("powerbiAuthToken",powerbiAuthToken);
+            //   debugger;
+            //   request = request.clone({
+            //     headers: new HttpHeaders({
+            //            'X-Correlation-ID': uuid(),
+            //             Authorization: `Bearer ${currentUserToken}`
                     
-                }),
-                url: urlString
-            });
-                request = request.clone({
-                    headers: request.headers.set('accessToken',powerbiAuthToken)
-                });
+            //     }),
+            //     url: urlString
+            // });
+            //     request = request.clone({
+            //         headers: request.headers.set('accessToken',powerbiAuthToken)
+            //     });
                
-                console.log(request);
-                console.log("Accesstoken works");
-                return next.handle(request)
-                            .pipe(
-                                catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
-                            );
+            //     console.log(request);
+            //     console.log("Accesstoken works");
+            //     debugger;
+            //     return next.handle(request)
+            //                 .pipe(
+            //                     catchError((error: HttpErrorResponse) => this.handleAngularJsonBug(error))
+            //                 );
                 
-            }
-            else
-            {
+            // }
+            // else
+            // {
                 if (environment.SECURITY_ENABLED) {
-               
+               debugger;
                     console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
                     if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN) || UUID ) {
                       //  const currentUserToken = this.settingService.getToken();
@@ -114,8 +118,8 @@ export class TokenInterceptor implements HttpInterceptor {
                             );
                     }
                 }
-            }
-           
+            // }
+          
         }
       
       

@@ -160,13 +160,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
 
   ngAfterViewChecked() {
-    
-    if (environment.apiEndpoint === ' ') {
-      sessionStorage.setItem('pbiEndPoint', datamanagedenvironment.apiEndpoint);
-    }
-    else {
-      sessionStorage.setItem('pbiEndPoint', environment.apiEndpoint);
-    }
+    debugger;
+    sessionStorage.setItem('pbiEndPoint', window.location.origin+'/');
     debugger;
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
