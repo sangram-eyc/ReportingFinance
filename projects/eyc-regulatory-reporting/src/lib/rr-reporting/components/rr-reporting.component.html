@@ -110,7 +110,7 @@
             [isToggle]="false" [modalConfig]="filingModalConfig" (gridReady)="handleGridReady($event)"
             [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
-            [pagination]="filingEntityRowData?.length>0 ? true : false" [paginationApi]="filingEntityRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
+            [pagination]="rowData?.length>0 ? true : false" [paginationApi]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <ng-template #headerTemplate>
             <div>
