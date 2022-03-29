@@ -16,6 +16,7 @@ import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-repor
 import {PreferencesService} from "@default/services/preferences.service";
 import {NotificationService} from "@default/services/notification.service";
 import {environment} from '../environments/environment';
+import {datamanagedenvironment} from '../environments/eyc-data-managed-services/data-managed-environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -115,7 +116,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.router.navigate(['home']);
     }
-sessionStorage.setItem('pbiEndPoint',environment.apiEndpoint)
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
         const uname = res;
@@ -160,6 +160,14 @@ sessionStorage.setItem('pbiEndPoint',environment.apiEndpoint)
 
 
   ngAfterViewChecked() {
+    
+    if (environment.apiEndpoint === ' ') {
+      sessionStorage.setItem('pbiEndPoint', datamanagedenvironment.apiEndpoint);
+    }
+    else {
+      sessionStorage.setItem('pbiEndPoint', environment.apiEndpoint);
+    }
+    debugger;
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
