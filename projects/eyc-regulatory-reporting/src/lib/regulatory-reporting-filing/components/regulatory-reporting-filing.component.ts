@@ -230,7 +230,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
             ngTemplate: this.filingNameTemplate,
           },
           headerName: 'Filing Report Name',
-          field: 'name',
+          field: 'filingName',
           sortable: true,
           filter: true,
           resizeable: true,
