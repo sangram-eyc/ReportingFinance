@@ -16,10 +16,10 @@ export class EycPbiSharedService {
     return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_auth_token}`);
   }
 
-  embedTokenDms = (data) => {
-    return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_embeded_token_dms}${data}`);
+  embedUrlDms = (data) => {
+    return this.apiService.invokeGetAPINoHeader(`${pbiReportingConfig.pbi_embeded_url_dms}?reportId=${data}`);
   }
-  authTokenDms = () => {
-    return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_auth_token_dms}`);
+  embedTokenDms = (reportId) => {
+    return this.apiService.invokePostAPINoHeader(`${pbiReportingConfig.pbi_embeded_token_dms}/${reportId}`);
   }
 }

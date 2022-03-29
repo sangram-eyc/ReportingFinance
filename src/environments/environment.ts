@@ -4,13 +4,12 @@
 
 export const environment = {
   apiEndpoint :'http://localhost:4200/',
-  production: true,
+  production: false,
   SECURITY_ENABLED:true,
   SERVICE_URL:"https://10.48.234.20/qa32/",
   /*temp variable needs to be removed after API integration */
   //AUTH_PROD:true
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

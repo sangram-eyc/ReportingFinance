@@ -145,11 +145,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-      this.reports=PowerBiReportMonthlyList;
+      this.reports = PowerBiReportMonthlyList;
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-      this.reports=PowerBiReportDailyList;
+      this.reports = PowerBiReportDailyList;
     }
 
     this.fileSummaryList();
@@ -236,7 +236,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', '');
 
-    this.reports=PowerBiReportDailyList;
+    this.reports = PowerBiReportDailyList;
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
@@ -263,7 +263,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
 
-    this.reports=PowerBiReportMonthlyList;
+    this.reports = PowerBiReportMonthlyList;
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;

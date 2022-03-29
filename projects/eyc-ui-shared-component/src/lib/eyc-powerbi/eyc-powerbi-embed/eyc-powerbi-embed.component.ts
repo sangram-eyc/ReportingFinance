@@ -36,7 +36,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
   }
 
   getAuthToken() {
-    return this.pod=="DMS"? this.powerbiMappingService.authTokenDms() : this.powerbiMappingService.authToken();
+    return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(this.selectedReportId) : this.powerbiMappingService.authToken();
   }
 
   getEmbedToken(authToken: string) {
