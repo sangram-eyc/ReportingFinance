@@ -121,8 +121,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
     this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-     this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
-     this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
   }
 
   ngAfterViewInit(): void {
@@ -179,6 +177,8 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
+    this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
