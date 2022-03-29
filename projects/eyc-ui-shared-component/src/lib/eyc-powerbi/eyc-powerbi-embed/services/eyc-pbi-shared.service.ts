@@ -20,12 +20,12 @@ export class EycPbiSharedService {
   }
 
   embedUrlDms = (data) => {
-    console.log('pbiApiEndPoint Pbi-shared-service',this.pbiApiEndPoint);
-    return this.apiService.invokeGetAPINoHeader(`${this.pbiApiEndPoint+PBI_EMBED_URL}?reportId=${data}`);
+    console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
+    return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_EMBED_URL}?reportId=${data}`);
   }
   embedTokenDms = (reportId) => {
     debugger;
-    console.log('pbiApiEndPoint Pbi-shared-service',this.pbiApiEndPoint);
-    return this.apiService.invokeGetAPINoHeader(`${this.pbiApiEndPoint+PBI_AUTH_TOKEN_URL}/${reportId}`);
+    console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
+    return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_AUTH_TOKEN_URL}/${reportId}`);
   }
 }
