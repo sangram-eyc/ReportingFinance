@@ -6,13 +6,16 @@ import { Inject, Injectable } from '@angular/core';
 export class DataManagedSettingsService {
   constructor(
     @Inject('dataManagedProduction') private dataManagedProduction,
-    @Inject('dataManagedEndPoint') private dataManagedEndPoint) { }
+    @Inject('dataManagedEndPoint') private dataManagedEndPoint,
+    @Inject('pbiApiEndPoint') private pbiApiEndPoint) { }
   public API_ENDPOINT = this.dataManagedEndPoint.slice(-1) === "." ?
     this.dataManagedEndPoint.substr(0, this.dataManagedEndPoint.length - 1) :
     this.dataManagedEndPoint;
   public production = this.dataManagedProduction;
-
+  
   get dataManagedServices(): any {
+    console.log('API_ENDPOINT',this.API_ENDPOINT);
+console.log('pbiApiEndPoint-data-managed-setting',this.pbiApiEndPoint);
     const data_Managed_Services = {
       file_summary_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       file_summary_list_daily: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list-daily.json',
@@ -32,6 +35,7 @@ export class DataManagedSettingsService {
       PBI_AUTH_TOKEN_URL:this.production ? this.API_ENDPOINT +"dmsdataintakeservice/api/v2/dms/getPBIEmbedToken":this.API_ENDPOINT +"dmsdataintakeservice/api/v2/dms/getPBIEmbedToken",
       PBI_EMBED_URL:this.production ? this.API_ENDPOINT +"dmsdataintakeservice/api/v2/dms/getPBIEmbedUrl":this.API_ENDPOINT +"dmsdataintakeservice/api/v2/dms/getPBIEmbedUrl"
     }
+    console.log('data_Managed_Services',data_Managed_Services);
     return data_Managed_Services;
   }
 

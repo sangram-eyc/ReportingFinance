@@ -8,7 +8,9 @@ import { InlineSVGModuleForRoot } from '@ey-xd/ng-motif';
 })
 export class EycPbiSharedService {
 
-  constructor(private apiService: ApiSharedService, @Inject('pbiApiEndPoint') private pbiApiEndPoint) { }
+  constructor(private apiService: ApiSharedService, @Inject('pbiApiEndPoint') private pbiApiEndPoint) {
+    console.log('pbiApiEndPoint constructor',this.pbiApiEndPoint )
+   }
 
   embedToken = (data) => {
     return this.apiService.invokePostAPI(`${pbiReportingConfig.pbi_embeded_token}${data}`);
@@ -18,9 +20,12 @@ export class EycPbiSharedService {
   }
 
   embedUrlDms = (data) => {
+    console.log('pbiApiEndPoint Pbi-shared-service',this.pbiApiEndPoint);
     return this.apiService.invokeGetAPINoHeader(`${this.pbiApiEndPoint+PBI_EMBED_URL}?reportId=${data}`);
   }
   embedTokenDms = (reportId) => {
+    debugger;
+    console.log('pbiApiEndPoint Pbi-shared-service',this.pbiApiEndPoint);
     return this.apiService.invokeGetAPINoHeader(`${this.pbiApiEndPoint+PBI_AUTH_TOKEN_URL}/${reportId}`);
   }
 }
