@@ -1,4 +1,4 @@
-import { DonutLegend } from '../data-intake/models/donut-legend.model'
+import { DonutLegend } from '../data-intake/models/donut-legend.model';
 
 export const NO_FILE_MISSING_PAST_DUE = "No files missing at the moment";
 export const NO_HIGH_PRIORITY_ISSUES = "No files with high priority issues at the moment";
@@ -72,7 +72,7 @@ export const customComparator = (valueA, valueB) => {
 
 export const PowerBiReportDailyList=[
     {reportName:'DMS_TRP_general_ledger_trialbalance_class_Daily',
-    reportId:'79443ab1-c277-4bb0-8c3a-36ce93283c7e',reportDisplayName:'General Ledger Trial Balance Class'},
+    reportId:'cda96482-c872-465a-a108-bd5b8fcbabbd',reportDisplayName:'General Ledger Trial Balance Class'},
     {reportName:'DMS_TRP_transaction_activity_details_Daily',
     reportId:'441905c3-42e1-49bc-8981-81670fe7064c',reportDisplayName:'Transaction Activity Details'},
     {reportName:'DMS_TRP_General_Ledger_Trialbalance_Daily',
@@ -117,10 +117,7 @@ export const PowerBiReportMonthlyList=[
 
 export const PBI_CONFIG = {
     PBI_WORK_SPACE_ID: '4c4f5af3-ab5a-44c0-8fe9-533e75e8a324',
-    PBI_EMBED_URL:"https://app.powerbi.com/rdlEmbed?filter:Asofdate eq 2/28/2022&reportId=cda96482-c872-465a-a108-bd5b8fcbabbd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtRi1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJtb2Rlcm5FbWJlZCI6dHJ1ZSwiYW5ndWxhck9ubHlSZXBvcnRFbWJlZCI6dHJ1ZSwiY2VydGlmaWVkVGVsZW1ldHJ5RW1iZWQiOnRydWUsInVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlLCJza2lwWm9uZVBhdGNoIjp0cnVlfX0%3d",
-    PBI_POD:"DMS",
-    PBI_ACCESS_TOKEN:"H4sIAAAAAAAEAC2Ut67DVgBD_-WtCqBeHCCDer3qVtvULMlX_ak6yL_HCLJzIA8J_v3j5nc_5dXPnz9cnAtX72Ucx3Aya9-m0kIA9R7CvskpgigydcxavKeYXH3H0Ry7E0bFb4hUrCqxpChyJOM_1f0iQ43ENs4WdEsq9uJhpPHHAxUdoQUpxXJqJWhhGrkbsQglz37sv2ZuDlh-WDmmV-kzIEmf67DB8NrOlYJ0podbrCWdCZsjBuOd5ZFtpcvxuRupP4DXlZcaBtBPjQGTkuK33FFDOFjFJfUg7pqy0MNoLsWF-ExoV54TQyygxxYKxzh9zPLGijqNzaHoEtukCjg2hum-kWoxuWw3N4_NNU0SSq5c2T2LRrSLfKwiKqk7XCtAftYzojBFpwcZLbgw6t2XViN7zrDPYgR6nNoYGfohk7_MVtFoUsRZwA91EorHCDXYsgeyMDeGZaazSzB1ZPdt3tCxgqT44PNzPk7qJapTwJPmjlfCfqPnaxW8JPavYig-InI6zp1bSp28UdfJn0ukWc1nsx4s457siT932TGqy0TGeq1jNM9ewubBafKBiPf-lO3956gtA6z6FLj-Cp-ibmUNm_bJWE8EDcwFepvmunVke9umofUtkezgV8M2EAQ-J_TnQZ8GkjWOtN2E23lWMBG4-m5sP9MaHS3enymjmmAzHh2OZfW6f41X4qt6FumUbLZOcqJyLEPqq1fwwNhC8FGN76olFTrdJ_hjRSB5YwePxuC4M7h6iyKnErMOWoK4bmeiekQ7QHZTGh61WDBijq8lj8p-HCXGyv_1188fP-J6z9tk1vd35gPJO-uhVTaNJ0RHq0ZwKe-5ByHzXijUeqTVGetyGBHKiN9o-y0Yy2texedvNOWjjQcUnGQYhhifHwcBCfYDBH8ZCOjVAA8VC0PIpngFPjabRPgRO-8c2H4xk8RT5Qv57TFvuZ0IRdue6yEm01c2ejrzyH4BCDHrjtVC8FhKshzRaS_rfbpAfgI5fgHDHoBljPGt0Buqi4pbzDkZFwnXeVOgo--9jCRRQuSaWR5HJhpsmkqtgWmsvtA6ANotN7ERIxt_N5cFLafTJymq2Y747eUV5stThstRUv0F6aa5QA1_KZoTihAOGmN_GLy_TwwPZYQiFpWbxFbmaNOw7bb-he3_mO-5rVc9-lJ-FkTcLMklAlu-FBtzOOupNP-pgq4Z821f668sFV7M7pXKjZpadw3Pem8HVHumBeJb_kP1x6A1SX9GNzYHYHvZiBsD9khSpl1wq5uxtRoex1aWGAyr0b_OVrd22GJe26cTi_smV46o7fiwrg5qiMIn0ztrw0QPDrwoiSjDV5m_ENixhKoZLj_xuCetkcgYA01Fr3fLlB3fUdk6tjLbs7tE798PE4-GUuu4APHjZuOKKzq3D5_76cqt31Lv-FCxKf3mrwsRL_khs2ZkKUCwefp5ctzgwechKqFSWuulYTQLfD4XziMeV_oXnJPkaJxLWdQkUqrpiob9257WGlTUxXCxBRgpcfgEsrzzOE__Crl1OLDTdAVXiO_WZHN75L0v5n_-BW92qqbaBQAA.eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtRi1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJtb2Rlcm5FbWJlZCI6ZmFsc2V9fQ==",
-    PBI_REPORT_ID:"79443ab1-c277-4bb0-8c3a-36ce93283c7e"
+    PBI_POD:"DMS"
 };
 
 

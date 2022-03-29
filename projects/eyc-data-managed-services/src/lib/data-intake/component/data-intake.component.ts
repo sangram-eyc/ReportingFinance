@@ -17,6 +17,7 @@ import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
+import { DataManagedSettingsService } from '../services/data-managed-settings.service';
 
 @Component({
   selector: 'lib-data-intake',
@@ -106,17 +107,22 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
   dueDate:any;
+  PBI_BASE_EMBED_URL:string;
+  PBI_BASE_EMBED_TOKEN_URL:string;
+
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
-    private unsubscriber: AutoUnsubscriberService) {
+    private unsubscriber: AutoUnsubscriberService, private dataManagedSettingsService:DataManagedSettingsService) {
     this.setColorScheme();
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
     this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+     this.PBI_BASE_EMBED_TOKEN_URL=this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL;
+     this.PBI_BASE_EMBED_URL=this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL;
   }
 
   ngAfterViewInit(): void {
@@ -230,6 +236,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyData(status: boolean) {
+    this.powerBiReportId=null;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
 
@@ -257,6 +264,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   monthlyData(status: boolean) {
+    this.powerBiReportId=null;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
