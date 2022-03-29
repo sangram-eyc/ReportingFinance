@@ -18,8 +18,6 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
   @Input() selectedPeriod: any;
   @Input() selectedDate: any;
   @Input() pod: any;
-  @Input() baseEmbedTokenUrl:string;
-  @Input() baseEmbedUrl:string;
   private report: powerbi.Report;
   embedConfig;
   filters = [];
@@ -44,8 +42,6 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: any) {
-    console.log('baseEmbedTokenUrl',this.baseEmbedTokenUrl);
-    console.log('baseEmbedUrl', this.baseEmbedUrl);
     if (!!this.selectedReportId) {
       this.showVisualizationForPowerBi();
     }
@@ -55,15 +51,15 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
     console.log("selected report ID > ", this.selectedReportId);
   }
 
-  getEmbedToken(baseURL) {
-    return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(baseURL,this.selectedReportId) : this.powerbiMappingService.authToken();
+  getEmbedToken() {
+    return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(this.selectedReportId) : this.powerbiMappingService.authToken();
 
   }
 
-  getEmbedUrl(baseURL) {
+  getEmbedUrl() {
     const req: any = {};
     req.reportId = this.selectedReportId;
-    return this.pod=="DMS"? this.powerbiMappingService.embedUrlDms(baseURL,this.selectedReportId):this.powerbiMappingService.embedToken(this.selectedReportId);
+    return this.pod=="DMS"? this.powerbiMappingService.embedUrlDms(this.selectedReportId):this.powerbiMappingService.embedToken(this.selectedReportId);
   }
 
   buildConfig(embedUrl: string, reportId: string, workspaceId: string, embedToken: string) {
@@ -87,12 +83,12 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
   }
 
   showVisualizationForPowerBi() {
-    this.getEmbedToken(this.baseEmbedTokenUrl).subscribe(embedTokenRes => {
+    this.getEmbedToken().subscribe(embedTokenRes => {
       console.log('DMS PowerBI embedToken works');
       const embedToken = embedTokenRes['data']['token'];
       sessionStorage.setItem(SESSION_PBI_TOKEN, embedToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-      this.getEmbedUrl(this.baseEmbedUrl).subscribe(embedTokenData => {
+      this.getEmbedUrl().subscribe(embedTokenData => {
         console.log('DMS PowerBI embedUrl works');
         const embedUrl = embedTokenData['data']['embedUrl'];
         //  const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);

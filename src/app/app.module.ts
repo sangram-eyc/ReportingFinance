@@ -79,6 +79,7 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
+  { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
