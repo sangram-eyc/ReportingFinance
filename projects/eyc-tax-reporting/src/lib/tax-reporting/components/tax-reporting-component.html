@@ -13,8 +13,18 @@
                 [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
             <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
                 [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+                [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Archived Reports</button>
         </motif-tab-bar>
     </div>
+
+    <section id='active-reports' [hidden]="!(tabIn == 3)">
+        <div id="reports-history-heading">
+            <div>
+                <h2 class='card-title'>Archived Reports</h2>
+            </div>
+        </div>
+    </section>
 
     <section id='active-reports' [hidden]="!(tabIn == 2)">
         <div id="reports-history-heading">
