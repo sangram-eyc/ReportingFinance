@@ -71,7 +71,6 @@ export class TokenInterceptor implements HttpInterceptor {
                 });
                
                 console.log(request);
-                debugger;
                 console.log("Accesstoken works");
                 return next.handle(request)
                             .pipe(
