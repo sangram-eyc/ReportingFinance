@@ -13,8 +13,6 @@ import {
   BulkDownloadModalComponent
 } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
-import {PreferencesService} from "@default/services/preferences.service";
-import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -59,9 +57,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private settingsService: SettingsService,
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
-    private preferencesService: PreferencesService,
     private wsBulkService: WebSocketBulkService,
-    private notificationService: NotificationService
   ) {
     // To hide header and footer from login page
 
@@ -120,22 +116,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-
-        setTimeout(() => {
-          this.preferencesService.emailToRecipient().subscribe(recipient => {
-          }, error => {
-            this.preferencesService.createRecipient().subscribe(err => {
-            });
-          });
-
-          this.notificationService.getNotArchivedNotifications(0).subscribe((notifications: any) => {
-            notifications.content.forEach(item => {
-              if (!item.isRead) {
-                this.isNotificationRead = false;
-              }
-            });
-          });
-        }, 1000);
 
         if (uname) {
           this.userGivenName = uname.firstName;
