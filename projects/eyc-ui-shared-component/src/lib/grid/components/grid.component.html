@@ -99,6 +99,10 @@
 
         <div class="pagination" *ngIf="paginationApi" [hidden]="searchNoDataAvilable">
 
+            <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
+                (paginationSelectChange)="updatePaginationSizeApi($event.value)">
+            </motif-pagination-select>
+
             <motif-pagination>
                 <button motifIconButton size="small" aria-label="Go to first page"
                 (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
@@ -122,10 +126,7 @@
                     <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
                 </button>
             </motif-pagination>
-    
-            <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
-                (paginationSelectChange)="updatePaginationSizeApi($event.value)">
-            </motif-pagination-select>
+            
         </div>
     </div>
     </section>

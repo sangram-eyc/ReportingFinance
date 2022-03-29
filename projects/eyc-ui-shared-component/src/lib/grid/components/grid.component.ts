@@ -110,27 +110,27 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   prevPageSize;
   dataset1 = [{
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   },
   {
     disable: false,
-    value: 10,
-    name: '10',
+    value: 200,
+    name: '200',
     id: 1
   },
   {
     disable: false,
-    value: 15,
-    name: '15',
+    value: 300,
+    name: '300',
     id: 2
   }];
 
   currentlySelectedPageSize1 = {
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   };
 
@@ -234,6 +234,7 @@ pageSize;
 
   updatePaginationSize(newPageSize: number) {
     this.gridApi.paginationSetPageSize(newPageSize);
+    console.log('UPDATE PAGINATION SIZE', newPageSize);
   }
 
   updatePaginationSizeApi(newPageSize: number) {
