@@ -105,24 +105,24 @@
 
             <motif-pagination>
                 <button motifIconButton size="small" aria-label="Go to first page"
-                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
+                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1" [ngClass]="{disabledIcon: currentPage === 1}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
                 </button>
               
                 <button motifIconButton size="small" aria-label="Go to previous page"
-                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1" [ngClass]="{disabledIcon: currentPage === 1}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
                 </button>
               
                 <motif-count [currentPage]="currentPage" [numberOfPages]="maxPages" class="countFont" aria-label="Current Page"></motif-count>
               
                 <button motifIconButton size="small" aria-label="Go to next page"
-                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
+                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages" [ngClass]="{disabledIcon: currentPage === maxPages}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
                 </button>
               
                 <button motifIconButton size="small" aria-label="Go to last page"
-                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
+                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages" [ngClass]="{disabledIcon: currentPage === maxPages}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
                 </button>
             </motif-pagination>
