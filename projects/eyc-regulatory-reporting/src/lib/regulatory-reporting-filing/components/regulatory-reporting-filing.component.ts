@@ -170,13 +170,19 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
       resp['data'].forEach((item) => {
         const eachitem: any = {
           name: item.filingName + ' // ' + item.period,
-          period: item.period,
           filingId: item.filingId,
           filingName: item.filingName,
+          period: item.period,
+          comments: [],
           dueDate: item.dueDate,
           startDate: item.startDate,
-          comments: [],
-          status: item.filingStatus
+          status: item.filingStatus,
+          totalFunds: item.totalFunds,
+          subDate: '-',
+          exceptions: 0,
+          resolved: 0,
+          completedDate: item.completedDate,
+          completedBy: item.completedBy
         };
         data.push(eachitem);
       });
