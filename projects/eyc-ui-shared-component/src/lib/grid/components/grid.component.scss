@@ -336,4 +336,9 @@ cursor: pointer;
     font-weight: var(--weight-regular) !important;
   }
 
-  
+  ::ng-deep .disabledIcon
+  {
+    .motif-icon:hover {
+      background-color:transparent !important;
+    }
+  }
