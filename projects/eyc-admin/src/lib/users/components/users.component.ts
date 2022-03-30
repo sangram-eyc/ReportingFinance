@@ -79,7 +79,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.setUserRows();
     this.pageInfo.currentPage = 0;
     this.pageInfo.pageSize = 10;
-    this.pageInfo.filter = '';
   }
 
 
@@ -101,7 +100,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.usersListArr.push(eachitem);
         });
         this.rowData = this.usersListArr;
-        this.resetRowData = this.rowData;
+        // this.resetRowData = this.rowData;
         this.pageInfo.totalRecords=resp['totalRecords'];
         if (resetData) {
           this.resetData();
@@ -250,7 +249,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   searchGrid(input) {
     this.pageInfo.filter = input;
     this.pageInfo.currentPage = 0;
-    this.getUsersData();
+    this.getUsersData(true);
   }
 
   currentPageChange(event) {

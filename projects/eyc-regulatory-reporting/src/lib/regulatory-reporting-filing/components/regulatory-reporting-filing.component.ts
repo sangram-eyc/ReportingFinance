@@ -48,7 +48,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   TableHeaderRendererComponent = TableHeaderRendererComponent;
   gridApi;
-  rowData;
+  rowData = [];
   rowClass = 'row-style';
   columnDefs;
   rowStyle = {
@@ -114,7 +114,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
     if (this.tabIn == 2) {
-      this.getCompletedFilingsData();
+      this.getCompletedFilingsData(true);
     }
   }
 
@@ -156,30 +156,45 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCompletedFilingsData() {
+  resetData() {
+    this.createHistoryRowData();
+    this.currentPage = 0;
+    this.pageSize = 10;
+  }
+
+  getCompletedFilingsData(resetData = false) {
+    this.sort = resetData ? 'filingName:true' : this.sort;
     this.filingService.getFilingsHistory(this.currentPage, this.pageSize,this.sort,this.filter).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+      const data = [];
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      // resp['data'].forEach((item) => {
-      //   const eachitem: any = {
-      //     name: item.filingName + ' // ' + item.period,
-      //     period: item.period,
-      //     filingId: item.filingId,
-      //     filingName: item.filingName,
-      //     dueDate: item.dueDate,
-      //     startDate: item.startDate,
-      //     comments: [],
-      //     status: item.filingStatus
-      //   };
-      //   this.completedFilings.push(eachitem);
-      // });
-      this.completedFilings = resp['data'];
+      resp['data'].forEach((item) => {
+        const eachitem: any = {
+          name: item.filingName + ' // ' + item.period,
+          period: item.period,
+          filingId: item.filingId,
+          filingName: item.filingName,
+          dueDate: item.dueDate,
+          startDate: item.startDate,
+          comments: [],
+          status: item.filingStatus
+        };
+        data.push(eachitem);
+      });
+      this.rowData = data;
+      console.log('REPORT HISTORY ROW DATA', this.rowData);
+      // this.completedFilings = resp['data'];
       this.totalRecords = resp['totalRecords'];
-      this.rowData = this.completedFilings;
-      this.updateData();
-      if(!this.loaded){
-        this.createHistoryRowData();
-        this.loaded=true;
+      // this.rowData = this.completedFilings;
+      if (resetData) {
+        this.resetData();
+      } else {
+        this.gridApi.setRowData(this.rowData);
       }
+      // this.updateData();
+      // if(!this.loaded){
+      //   this.createHistoryRowData();
+      //   this.loaded=true;
+      // }
     })
   }
 
@@ -191,7 +206,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getCompletedFilingsData();
+    this.getCompletedFilingsData(true);
   }
 
   currentPageChange(event) {
@@ -204,10 +219,14 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     this.getCompletedFilingsData();
   }
 
+  disableComparator(data1, data2) {
+    return 0; 
+  }
+
   createHistoryRowData() {
 
-    this.rowData = [];
     this.columnDefs = [];
+    this.completedFilings = [];
     setTimeout(() => {
       this.columnDefs = [
         {
@@ -238,7 +257,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           sort: 'asc',
           wrapText: true,
           autoHeight: true,
-          comparator: customComparator
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -248,7 +267,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           filter: true,
           resizeable: true,
           minWidth: 200,
-          comparator: customComparator
+          comparator: this.disableComparator
         },
 
         // Change for User story 288907 and keep this commented code for future US requirement -->
@@ -271,7 +290,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           field: 'totalFunds',
           sortable: true,
           filter: true,
-          minWidth: 180
+          minWidth: 180,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -284,6 +304,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           sortable: true,
           filter: true,
           minWidth: 180,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -291,7 +312,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           field: 'subDate',
           sortable: true,
           filter: true,
-          minWidth: 180
+          minWidth: 180,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -303,7 +325,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           field: 'completedDate',
           sortable: true,
           filter: true,
-          minWidth: 300
+          minWidth: 300,
+          comparator: this.disableComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -311,7 +334,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           field: 'completedBy',
           sortable: true,
           filter: true,
-          minWidth: 300
+          minWidth: 300,
+          comparator: this.disableComparator
         }
 
         // Change for User story 288907 and keep this commented code for future US requirement -->
@@ -332,7 +356,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
         //   minWidth: 140
         // },
       ];
-      this.updateData();
+      // this.updateData();
       this.completedFilings = this.rowData;
     }, 1);
   }

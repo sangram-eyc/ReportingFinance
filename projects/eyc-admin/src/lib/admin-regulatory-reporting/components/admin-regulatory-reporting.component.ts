@@ -108,7 +108,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.tabIn = selectedTab;
     if(this.tabIn === 1) {
       this.displayCheckBox = true;
-      this.getTeamList();
+      this.getTeamList(true);
     } else {
       this.displayCheckBox = false;
     }
@@ -136,7 +136,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getTeamList();
+    this.getTeamList(true);
   }
 
   sortChanged(event) {
@@ -152,17 +152,16 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.createTeamsRowData();
     this.currentPage = 0;
     this.pageSize = 10;
-    this.filter = '';
   }
 
-  getTeamList(resetData = true) {
+  getTeamList(resetData = false) {
     this.sort = resetData ? 'teamName:true' : this.sort;
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
         this.teamsData = resp.data;
         this.totalRecords=resp.totalRecords;
-        this.resetRowData=this.teamsData;
+        // this.resetRowData=this.teamsData;
         if (resetData) {
           this.createTeamsRowData();
         } else {
