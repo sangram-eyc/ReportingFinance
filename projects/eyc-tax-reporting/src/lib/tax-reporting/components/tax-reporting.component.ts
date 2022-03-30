@@ -339,4 +339,13 @@ export class TaxReportingComponent implements OnInit {
         window.close()
     });
   }
+
+  handleGridReady(params) {
+    this.gridApi = params.api;
+  }
+
+  searchGrid(input){
+    this.gridApi.setQuickFilter(input);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+  }
 }
