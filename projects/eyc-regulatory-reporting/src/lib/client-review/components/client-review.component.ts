@@ -986,6 +986,7 @@ actionMenuEnableforException(row) {
           auditList.push(item)
 
           if((index+1) ==data.length){
+            item3['auditActionType'] = 'Approve';
             item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
@@ -1051,6 +1052,7 @@ actionMenuEnableforException(row) {
           auditList.push(item)
 
           if((index+1) ==data.length){
+            item3['auditActionType'] = 'Approve';
             item3['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             item3.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
             auditList.push(item3);
