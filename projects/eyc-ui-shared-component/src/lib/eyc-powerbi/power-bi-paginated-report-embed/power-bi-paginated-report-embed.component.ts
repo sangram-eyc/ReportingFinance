@@ -53,7 +53,6 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
 
   getEmbedToken() {
     return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(this.selectedReportId) : this.powerbiMappingService.authToken();
-
   }
 
   getEmbedUrl() {

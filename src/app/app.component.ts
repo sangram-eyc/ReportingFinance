@@ -160,10 +160,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
 
   ngAfterViewChecked() {
-    debugger;
     const url =  window.location.href.split('#');
     sessionStorage.setItem('pbiEndPoint',url[0]);
-    debugger;
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;

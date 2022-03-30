@@ -24,7 +24,6 @@ export class EycPbiSharedService {
     return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_EMBED_URL}?reportId=${data}`);
   }
   embedTokenDms = (reportId) => {
-    debugger;
     console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
     return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_AUTH_TOKEN_URL}/${reportId}`);
   }

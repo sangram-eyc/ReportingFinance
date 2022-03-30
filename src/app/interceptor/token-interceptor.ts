@@ -21,11 +21,9 @@ export class TokenInterceptor implements HttpInterceptor {
         const abcd = request.url.indexOf(token_interceptor.auth_Header);
         console.log(request.url.indexOf('getPowerBIEmbedToken'));
         console.log(request.url);
-        debugger;
         if (request.url.indexOf(token_interceptor.auth_Header) !== -1) {
             console.log('policy');
             console.log( request.url.indexOf(token_interceptor.auth_Header));
-           debugger;
                  const urlString = request.url;
                     console.log('url : ' + urlString);
                     request = request.clone({
@@ -49,7 +47,6 @@ export class TokenInterceptor implements HttpInterceptor {
       
         else
         {
-            debugger;
             console.log("This is power bi API",request.url.indexOf('getPowerBIEmbedToken'))
             // if (request.url.indexOf('getPBIEmbedToken') !== -1)
             // {
@@ -85,7 +82,6 @@ export class TokenInterceptor implements HttpInterceptor {
             // else
             // {
                 if (environment.SECURITY_ENABLED) {
-               debugger;
                     console.log(sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN));
                     if (!!sessionStorage.getItem(userAuthHelpers.SESSION_ACCESS_TOKEN) || UUID ) {
                       //  const currentUserToken = this.settingService.getToken();
