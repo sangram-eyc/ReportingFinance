@@ -33,5 +33,5 @@ export const pbiReportingConfig = {
   pbi_embeded_token:'gatewayService/api/v2/regreporting/getPBIEmbedToken/'
 }
 
-export const PBI_AUTH_TOKEN_URL= "dmsdataintakeservice/api/v2/dms/getPBIEmbedToken";
-export const  PBI_EMBED_URL= "dmsdataintakeservice/api/v2/dms/getPBIEmbedUrl";
+export const PBI_AUTH_TOKEN_URL= 'gatewayService/api/v2/dms/getPBIEmbedToken';
+export const  PBI_EMBED_URL= 'gatewayService/api/v2/dms/getPBIEmbedUrl';
