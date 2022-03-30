@@ -50,7 +50,7 @@ export class FundScopingComponent implements OnInit {
   filter = '';
   sort = '';
   pageChangeFunc;
-  scopingRowData;
+  scopingRowData = [];
   rowClass = 'row-style';
   domLayout = 'autoHeight';
   fundScopingModalConfig = {
@@ -103,7 +103,7 @@ export class FundScopingComponent implements OnInit {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getFundsData();
+    this.getFundsData(true);
   }
 
   sortChanged(event) {
@@ -115,7 +115,6 @@ export class FundScopingComponent implements OnInit {
     this.createFundRowData();
     this.currentPage = 0;
     this.pageSize = 10;
-    this.filter = '';
   }
 
   getFundsData(resetData = false) {
@@ -124,7 +123,6 @@ export class FundScopingComponent implements OnInit {
     this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
-      this.scopingRowData = resp['data'];
       if (resetData) {
         this.resetData();
       } else {
@@ -171,7 +169,8 @@ export class FundScopingComponent implements OnInit {
     });
   } 
   createFundRowData() {
-
+    this.columnDefs = [];
+    this.scopingRowData = [];
     this.columnDefs = [
       {
         headerName: 'Action',
@@ -222,7 +221,6 @@ export class FundScopingComponent implements OnInit {
         field: 'adviser',
         sortable: true,
         filter: true,
-        sort:'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
@@ -233,7 +231,6 @@ export class FundScopingComponent implements OnInit {
         field: 'businessUnit',
         sortable: true,
         filter: true,
-        sort:'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true
@@ -244,7 +241,6 @@ export class FundScopingComponent implements OnInit {
         field: 'filerType',
         sortable: true,
         filter: true,
-        sort:'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true
