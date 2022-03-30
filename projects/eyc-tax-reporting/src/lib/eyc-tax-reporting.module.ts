@@ -27,6 +27,7 @@ import { CommentsDetailsComponent } from './tax-reporting/comments-details/comme
 import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/warning-modal.component';
 import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/approve-fund-modal.component';
+import { ArchivedReportsComponent } from './tax-reporting/archived-reports/archived-reports.component';
 
 
 
@@ -75,7 +76,8 @@ import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/ap
     CommentsDetailsComponent,
     WarningModalComponent,
     ApproveFundModalComponent,
-    BulkDownloadModalComponent
+    BulkDownloadModalComponent,
+    ArchivedReportsComponent
   ],
   exports: [TaxReportingComponent]
 })

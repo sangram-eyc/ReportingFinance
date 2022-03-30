@@ -18,11 +18,9 @@
         </motif-tab-bar>
     </div>
 
-    <section id='active-reports' [hidden]="!(tabIn == 3)">
-        <div id="reports-history-heading">
-            <div>
-                <h2 class='card-title'>Archived Reports</h2>
-            </div>
+    <section [hidden]="!(tabIn == 3)">
+        <div >
+            <lib-archived-reports></lib-archived-reports>
         </div>
     </section>
 
@@ -54,16 +52,17 @@
 
         <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData"
             [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" buttonPosition="left"
-            [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
+            [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)"
+            (searchInput)="searchGrid($event)">
         </lib-shared-grid>
 
         <div *ngIf="searchNoDataAvilable">
             <motif-card class="no_data">
-              <motif-card-body>
-                  <h5>Your search has returned no results. Please adjust and try again.</h5>
-              </motif-card-body>
-          </motif-card>
-          </div>
+                <motif-card-body>
+                    <h5>Your search has returned no results. Please adjust and try again.</h5>
+                </motif-card-body>
+            </motif-card>
+        </div>
 
         <ng-template #productTemplate let-row>
             <button class="btn custom-link" (click)="getProdCycleDetail(row)">{{row.name}}</button>
