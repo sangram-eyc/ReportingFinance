@@ -43,12 +43,15 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes: any) {
     if (!!this.selectedReportId) {
-      this.showVisualizationForPowerBi();
-    }
-    else if(this.selectedReportId=='xyz'){
-      this.pbi.reset(this.el.nativeElement);
-    }
-    console.log("selected report ID > ", this.selectedReportId);
+      if(this.selectedReportId=='xyz'){
+        console.log("selected report ID into condition XYZ > ", this.selectedReportId);
+        this.pbi.reset(this.el.nativeElement);
+      }
+      else{
+        console.log("selected report ID > ", this.selectedReportId);
+        this.showVisualizationForPowerBi();
+      }
+    } 
   }
 
   getEmbedToken() {

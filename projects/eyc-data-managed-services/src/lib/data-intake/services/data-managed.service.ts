@@ -178,4 +178,7 @@ export class DataManagedService {
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
   }
+  getApiBaseUrl(){
+    return this.dataManagedSettingsService.dataManagedServices.base_Url;
+  }
 }

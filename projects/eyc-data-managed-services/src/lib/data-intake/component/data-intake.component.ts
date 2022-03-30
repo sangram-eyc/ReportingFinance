@@ -9,7 +9,7 @@ import { formatDate } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,
-  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList,PBI_CONFIG
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG
 }
   from '../../config/dms-config-helper'
 import { DataSummary } from '../models/data-summary.model'
@@ -109,12 +109,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   dueDate:any;
   PBI_BASE_EMBED_URL:string;
   PBI_BASE_EMBED_TOKEN_URL:string;
-
+  baseURL:string;
+  prodUrl='/trp/';
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
-    private unsubscriber: AutoUnsubscriberService, private dataManagedSettingsService:DataManagedSettingsService) {
+    private unsubscriber: AutoUnsubscriberService) {
     this.setColorScheme();
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
     const currentDate = new Date();
@@ -124,6 +125,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.baseURL=this.dataManagedService.getApiBaseUrl();
     if (sessionStorage.getItem("selectedDate")) {
       this.dueDate = sessionStorage.getItem("selectedDate");
     } else if (this.dailyMonthlyStatus) {
@@ -149,11 +151,23 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-      this.reports = PowerBiReportMonthlyList;
+
+      if(this.baseURL.includes(this.prodUrl)){
+        this.reports = PowerBiReportMonthlyListProd;
+      }
+      else{
+        this.reports = PowerBiReportMonthlyList;
+      }
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-      this.reports = PowerBiReportDailyList;
+      
+      if(this.baseURL.includes(this.prodUrl)){
+        this.reports = PowerBiReportDailyListProd;
+      }
+      else{
+        this.reports = PowerBiReportDailyList;
+      }
     }
 
     this.fileSummaryList();
@@ -241,7 +255,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', '');
 
-    this.reports = PowerBiReportDailyList;
+    if(this.baseURL.includes(this.prodUrl)){
+      this.reports = PowerBiReportDailyListProd;
+    }
+    else{
+      this.reports = PowerBiReportDailyList;
+    }
+    
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
@@ -269,7 +289,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
 
-    this.reports = PowerBiReportMonthlyList;
+    if(this.baseURL.includes(this.prodUrl)){
+      this.reports = PowerBiReportMonthlyListProd;
+    }
+    else{
+      this.reports = PowerBiReportMonthlyList;
+    }
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
