@@ -97,8 +97,8 @@
         buttonPosition="left"
         [button]="false"
         [export] = "true" (exportFlagToParent)="exportReportHistoryData()"
-        [paginationApi]="completedFilings?.length>0 ? true : false" [pageChangeFunc]="pageChangeFunc" 
-        [pagination]="completedFilings?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+        [paginationApi]="rowData?.length>0 ? true : false" [pageChangeFunc]="pageChangeFunc" 
+        [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
         (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
 
     <ng-template #filingNameTemplate let-row>
