@@ -16,6 +16,7 @@ export class EycTaxSettingsService {
     const tax_Reporting = {
       management_report: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/managementReports' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/management_report.json',
       production_cycles: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductionCyclesList.json',
+      archived_reports: this.production ?  this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/archived-reports-list.json' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/archived-reports-list.json',
       production_cycles_details: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductionCyclesDetails.json',
       production_cycles_statusTracker: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/StatusTrackerLinks.json',
       production_cycles_downloadFile: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles/funds' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/ProductCycleDownloadFile.json',

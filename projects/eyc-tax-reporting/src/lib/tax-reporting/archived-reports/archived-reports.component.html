@@ -1,0 +1,26 @@
+<section>
+    <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
+        [pagination]="true" buttonPosition="left" [displayCheckBox]="true" [button]="false"
+        (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
+    </lib-shared-grid>
+
+    <div *ngIf="searchNoDataAvilable">
+        <motif-card class="no_data">
+            <motif-card-body>
+                <h5>Your search has returned no results. Please adjust and try again.</h5>
+            </motif-card-body>
+        </motif-card>
+    </div>
+
+    <ng-template #taxReportNameTemplate let-row>
+        <button class="btn custom-link">{{row.name}}</button>
+    </ng-template>
+
+    <ng-template #totalFundsTemplate let-row>
+        <button class="btn custom-link">{{row.fundCount}}</button>
+    </ng-template>
+
+    <ng-template #totalCommentsTemplate let-row>
+        <button class="btn custom-link">{{row.CommentsCount}}</button>
+    </ng-template>
+</section>
