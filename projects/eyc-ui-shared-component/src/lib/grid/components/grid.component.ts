@@ -196,20 +196,24 @@ pageSize;
       }
       console.log(this.maxPages);
     } 
-    if (typeof (this.columnDefs) !== 'undefined') {
+    if (typeof (this.columnDefs) !== 'undefined' ) {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
-      let object = { 
-        width: 30,
-        valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: true,
-        pinned: 'left',
-        cellClass: this.srnoCls
+      if (this.columnDefs[1]?.cellClass !== 'srno-class') {
+        let object = { 
+          width: 30,
+          valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: false,
+          pinned: 'left',
+          cellClass: this.srnoCls
+        }
+        if (this.displayCheckBox) {
+          this.columnDefsData.splice(0, 0, object);
+        } else {
+          this.columnDefsData.splice(1, 0, object);
+        }
       }
-      if (this.displayCheckBox) {
-        this.columnDefsData.splice(0, 0, object);
-      } else {
-        this.columnDefsData.splice(1, 0, object);
-      }
+      // this.columnDefsData = [...this.columnDefsData];
+      console.log('SERIAL NUMBERS', this.columnDefsData)
     }
   }
 

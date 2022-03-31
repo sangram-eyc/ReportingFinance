@@ -239,7 +239,8 @@ cursor: pointer;
   }
 
   ::ng-deep .srno-class {
-      left: 32px !important;
+      // left: 32px !important;
+      justify-content: center;
   }
 
   ::ng-deep .ag-cell-value, .ag-cell {

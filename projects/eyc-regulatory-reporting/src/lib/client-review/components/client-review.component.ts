@@ -163,7 +163,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        this.gridApi.setRowData(this.exceptionData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.exceptionDefs = [];
+        this.exceptionDefs = newColDefs;
+        console.log('EXCEPTION DATA COL', this.exceptionData);
+        this.exceptionRowData = [...this.exceptionData];
       }
       
     },error=>{
@@ -181,7 +185,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        this.gridApi.setRowData(this.rowData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.columnDefs = [];
+        this.columnDefs = newColDefs;
+        this.filingEntityRowData = [...this.rowData];
       }
     },error=>{
       this.rowData =[];
@@ -272,7 +279,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           wrapText: true,
           autoHeight: true,
           width: 300,
-          sort:'asc',
           comparator: this.disableComparator
         },
         {
@@ -377,7 +383,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           field: 'exceptionReportType',
           sortable: true,
           filter: true,
-          sort:'asc',
           comparator: this.disableComparator,
           autoHeight: true,
          wrapText: true,

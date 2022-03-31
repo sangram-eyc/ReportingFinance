@@ -170,7 +170,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        this.gridApi.setRowData(this.exceptionData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.exceptionDefs = [];
+        this.exceptionDefs = newColDefs;
+        console.log('EXCEPTION DATA COL', this.exceptionData);
+        this.exceptionRowData = [...this.exceptionData];
       }
     },error=>{
       this.exceptionData =[];
@@ -187,7 +191,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        // this.gridApi.setRowData(this.rowData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.columnDefs = [];
+        this.columnDefs = newColDefs;
         this.filingEntityRowData = [...this.rowData];
       }
       console.log('FILING ENTITIES',res['data']);
@@ -458,7 +464,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         }
       ];
 
-      this.filingEntityRowData = [...this.rowData];
+      this.filingEntityRowData = this.rowData;
       this.exceptionRowData = this.exceptionData;
     }, 1);
   }
