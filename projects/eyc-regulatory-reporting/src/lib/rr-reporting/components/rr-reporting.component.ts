@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { MotifTableCellRendererComponent} from '@ey-xd/ng-motif';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
@@ -147,6 +147,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
    console.log(this.filingDetails);
    sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
   //  this.getExceptionReports();
+    
   }
 
   ngOnDestroy() {
@@ -169,7 +170,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        this.gridApi.setRowData(this.exceptionData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.exceptionDefs = [];
+        this.exceptionDefs = newColDefs;
+        console.log('EXCEPTION DATA COL', this.exceptionData);
+        this.exceptionRowData = [...this.exceptionData];
       }
     },error=>{
       this.exceptionData =[];
@@ -186,7 +191,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        this.gridApi.setRowData(this.rowData);
+        const newColDefs = this.gridApi.getColumnDefs();
+        this.columnDefs = [];
+        this.columnDefs = newColDefs;
+        this.filingEntityRowData = [...this.rowData];
       }
       console.log('FILING ENTITIES',res['data']);
     }, error => {
@@ -259,7 +267,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Entity Name',
           field: 'entityName',
           sortable: true,
-          sort:'asc',
           filter: true,
           wrapText: true,
           autoHeight: true,
