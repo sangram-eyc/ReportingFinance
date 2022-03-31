@@ -125,7 +125,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.baseURL=this.dataManagedService.getApiBaseUrl();
+    // this.baseURL=this.dataManagedService.getApiBaseUrl();
+    this.baseURL=sessionStorage.getItem('pbiEndPoint');
+    console.log('dms data intake-ngAfterViewInit base url',this.baseURL);
     if (sessionStorage.getItem("selectedDate")) {
       this.dueDate = sessionStorage.getItem("selectedDate");
     } else if (this.dailyMonthlyStatus) {
