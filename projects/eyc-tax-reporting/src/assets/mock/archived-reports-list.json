@@ -7,31 +7,46 @@
             "name": "2021.10.31 Estimates",
             "id": "01KV7KIYEG5XYXPXQ7X5EZHUFTQAJCV5H3",
             "fundCount": 12,
-            "CommentsCount":24
+            "totalComments":24,
+            "dueDate":"12/23/2020",
+            "dateSubmitted":"12/23/2020",
+            "submittedBy":"Savannah Nguyen"
         },
         {
             "name": "JUN Estimate",
             "id": "01KV7KIYEG5XYXPXQ7X5EZHUFTQAJCV5H3",
             "fundCount": 33,
-            "CommentsCount":23
+            "totalComments":23,
+            "dueDate":"12/23/2020",
+            "dateSubmitted":"12/23/2020",
+            "submittedBy":"Savannah Nguyen"
         },
         {
             "name": "2019.10.31 Estimates",
             "id": "01KV7KIYEG5XYXPXQ7X5EZHUFTQAJCV5H3",
             "fundCount": 44,
-            "CommentsCount":23
+            "totalComments":23,
+            "dueDate":"12/23/2020",
+            "dateSubmitted":"12/23/2020",
+            "submittedBy":"Savannah Nguyen"
         },
         {
             "name": "2021.10.22 Estimates",
             "id": "01KV7KIYEG5XYXPXQ7X5EZHUFTQAJCV5H3",
             "fundCount": 14,
-            "CommentsCount":342
+            "totalComments":342,
+            "dueDate":"12/23/2020",
+            "dateSubmitted":"12/23/2020",
+            "submittedBy":"Savannah Nguyen"
         },
         {
             "name": "2021.10.31 Estimates",
             "id": "01KV7KIYEG5XYXPXQ7X5EZHUFTQAJCV5H3",
             "fundCount": 75,
-            "CommentsCount":33
+            "totalComments":33,
+            "dueDate":"12/23/2020",
+            "dateSubmitted":"12/23/2020",
+            "submittedBy":"Savannah Nguyen"
         }
     ],
     "error": null

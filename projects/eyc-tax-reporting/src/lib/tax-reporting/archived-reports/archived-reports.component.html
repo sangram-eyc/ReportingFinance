@@ -6,10 +6,10 @@
     </motif-button-group>
 </div>
 <section>
-    <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
-        [pagination]="true" buttonPosition="left" [displayCheckBox]="true" [button]="false"
+     <lib-shared-grid id='archived-reports-grid' [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
+        [pagination]="true" buttonPosition="left" buttonText="Cycle Insights" [displaySecondButton]="false"  [displayCheckBox]="true"
         (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
-    </lib-shared-grid>
+     </lib-shared-grid>
 
     <div *ngIf="searchNoDataAvilable">
         <motif-card class="no_data">
@@ -28,6 +28,24 @@
     </ng-template>
 
     <ng-template #totalCommentsTemplate let-row>
-        <button class="btn custom-link">{{row.CommentsCount}}</button>
+        <button class="btn custom-link">{{row.totalComments}}</button>
+    </ng-template>
+
+    <ng-template #dueDateTemplate let-row>
+        <button class="btn custom-link">{{row.dueDate}}</button>
+    </ng-template>
+
+    <ng-template #dateSubmittedTemplate let-row>
+        <button class="btn custom-link">{{row.dateSubmitted}}</button>
+    </ng-template>
+
+    <ng-template #submittedbyTemplate let-row>
+        <button class="btn custom-link">{{row.submittedBy}}</button>
+    </ng-template>
+
+    <ng-template #ActionsTemplate let-row>
+        <button class="btn custom-link">
+            <button class="custom-button">View</button>
+        </button>
     </ng-template>
 </section>
