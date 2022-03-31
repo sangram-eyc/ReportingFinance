@@ -32,6 +32,7 @@ export class SubmissionComponent implements OnInit {
   isUpdateStatusError = false;
   updateStatusErrorMsg = '';
   showAuditLog = false;
+  isAuditlogs = false;
   fileDetail;
   
   auditLogs = [];
@@ -452,11 +453,13 @@ export class SubmissionComponent implements OnInit {
     this.fileDetail = row;
     let auditObjectId = row.fileId;
     let auditObjectType = 'Submission File';
-    let auditList = []
+    let auditList = [];
+    this.isAuditlogs = false;
     this.service.getAuditlog(auditObjectId,auditObjectType).subscribe(res => {
       console.log(res);
       this.showAuditLog = true;
       let data = res['data'];
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
       data.forEach((element, index) => {
         let item = this.copy(element)
         if (element.auditActionType == 'New') {

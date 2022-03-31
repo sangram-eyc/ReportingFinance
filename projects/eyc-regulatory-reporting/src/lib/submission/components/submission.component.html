@@ -64,11 +64,30 @@
     </ng-template>
 
     <ng-template #lastUpdatedByTemplate let-row>
-        <span class="last_updated_by_icon" *ngIf="row.updatedBy">
-            <motif-icon [src]="'/assets/icons/action/ic_history_24px.svg'" (click)="onClickLastUpdatedBy(row)"></motif-icon>
-        </span>
-        <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+        <div *ngIf="isAuditlogs && row.fileName == fileDetail?.fileName">
+            <motif-tooltip placement="top">
+                <div motifTooltipTrigger motifButton aria-label="tooltip">
+                    <span class="last_updated_by_icon" *ngIf="row.updatedBy">
+                        <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                            (click)="onClickLastUpdatedBy(row)"></motif-icon>
+                    </span>
+                    <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+                </div>
+                <span *ngIf="isAuditlogs">
+                    No records found
+                </span>
+            </motif-tooltip>
+        </div>
+    
+        <div class="last_updated_by_content" *ngIf="!isAuditlogs || !(row.fileName == fileDetail?.fileName)">
+            <span class="last_updated_by_icon" *ngIf="row.updatedBy">
+                <motif-icon color="primary" [src]="'/assets/icons/action/ic_history_24px.svg'"
+                    (click)="onClickLastUpdatedBy(row)"></motif-icon>
+            </span>
+            <div class="last_updated_by" (click)="onClickLastUpdatedBy(row)">{{row.updatedBy}}</div>
+        </div>
     </ng-template>
+
 </div>
 <motif-modal [show]="updateStatusModal" (close)="updateStatusModal = false">
     <motif-modal-header>
