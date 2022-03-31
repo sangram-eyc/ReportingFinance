@@ -1,3 +1,10 @@
+<div id="archived-report" class="mt-4 mb-4">
+    <motif-button-group>
+        <button id="option1" class="active" motifButton color="secondary" (click)="getReportYear('option1')" size="small">{{pastYear}}</button>
+        <button id="option2" motifButton color="secondary" (click)="getReportYear('option2')" size="small">{{past2Year}}</button>
+        <button id="option3" motifButton color="secondary" (click)="getReportYear('option3')" size="small">{{past3Year}}</button>
+    </motif-button-group>
+</div>
 <section>
     <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
         [pagination]="true" buttonPosition="left" [displayCheckBox]="true" [button]="false"

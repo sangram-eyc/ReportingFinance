@@ -71,6 +71,10 @@ export class ArchivedReportsComponent implements OnInit {
     id: 0
   };
 
+  pastYear:any= (new Date()).getFullYear() - 1;
+  past2Year:any= (new Date()).getFullYear() - 2;
+  past3Year:any= (new Date()).getFullYear() - 3;
+
 
   ngOnInit(): void {
     this.getArchivedReportData();
@@ -205,4 +209,13 @@ export class ArchivedReportsComponent implements OnInit {
     this.gridApi.setQuickFilter(input);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }
+
+  getReportYear(_id){
+    //Clean the class element
+    document.querySelectorAll('#archived-report .active').forEach((item) => {
+       item.classList.remove('active');
+    });
+    document.getElementById(_id).classList.add("active");
+     
+   }
 }
