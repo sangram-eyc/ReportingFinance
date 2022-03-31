@@ -117,47 +117,47 @@ export const PowerBiReportMonthlyList=[
 
 export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_general_ledger_trialbalance_class_Daily',
-    reportId:'8e88c772-15de-4a6b-8caa-774f22b3b5ae',reportDisplayName:'General Ledger Trial Balance Class'},
+    reportId:'c9c5d00d-c61b-4738-85c0-7976f84e0385',reportDisplayName:'General Ledger Trial Balance Class'},
     {reportName:'DMS_TRP_transaction_activity_details_Daily',
-    reportId:'c7ec2f60-8d98-4704-8085-e99a10df853f',reportDisplayName:'Transaction Activity Details'},
+    reportId:'31b09f2f-d710-4c31-a952-fd66065aa6bf',reportDisplayName:'Transaction Activity Details'},
     {reportName:'DMS_TRP_General_Ledger_Trialbalance_Daily',
-    reportId:'7dfdd064-1d03-4401-b5be-9106e8b83215',reportDisplayName:'General Ledger Trial Balance'},
+    reportId:'6aa99a17-6531-422a-80ed-5861920a7a59',reportDisplayName:'General Ledger Trial Balance'},
     {reportName:'DMS_TRP_Positions Portfolio Level_Daily',
-    reportId:'b281b4eb-f8b9-4eac-8bdc-bfeea6e80b9a',reportDisplayName:'Positions Portfolio Level'},
+    reportId:'76c5f517-0a49-4ad6-8ffc-b360cc8fce0d',reportDisplayName:'Positions Portfolio Level'},
     {reportName:'DMS_TRP_Transaction disposal lot_Daily',
-    reportId:'f06102d5-9509-480a-ae94-5f44ef3b1173',reportDisplayName:'Transaction Disposal Lot'},
+    reportId:'765ec6bd-def5-426f-9218-a71b576050a9',reportDisplayName:'Transaction Disposal Lot'},
     {reportName:'DMS_TRP_Positions Lotlevel Daily',
-    reportId:'5058ea25-7a8c-4ea8-a5bb-1b24c6ffd189',reportDisplayName:'Positions Lot Level'},
+    reportId:'732ba059-9feb-4d90-b145-1eeb237f28f2',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
-    {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
-    {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
-    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_transaction_realized_gain_and_loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'b6a471fd-0393-41c2-a11d-5c60507ec739',reportDisplayName:'Account'},
+    {reportName:'DMS_TRP_Product Securities',reportId:'fa33f847-986e-4b4d-aee9-460a01bdda78',reportDisplayName:'Product Securities'},
+    {reportName:'DMS_TRP_Product Issuers',reportId:'7343f696-1517-4390-8359-9251df1e8a47',reportDisplayName:'Product Issuers'},
+    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'a1ca42ec-6ec1-48cb-b78e-338681caf39f',reportDisplayName:'Product Corporate Actions'},
+    {reportName:'DMS_TRP_transaction_realized_gain_and_loss',reportId:'52eb74c6-0c5a-4978-a7f6-17b4c41b1a03',reportDisplayName:'Transaction Realized Gain and Loss'},
 
 ];
 
 export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_general_ledger_trialbalance_class_monthly',
-    reportId:'953c7bbc-59bc-4b23-9354-3853c7d239d0',reportDisplayName:'General Ledger Trial Balance Class'},
+    reportId:'09a68d8f-67ef-4f39-8057-5d155a35edfc',reportDisplayName:'General Ledger Trial Balance Class'},
     {reportName:'DMS_TRP_transaction_activity_details_monthly',
-    reportId:'7c61b3f0-54f6-4e49-bc09-afb21401a43e',reportDisplayName:'Transaction Activity Details'},
+    reportId:'e55ea078-7c4e-4abe-a1e9-3475af7a20f0',reportDisplayName:'Transaction Activity Details'},
     {reportName:'DMS_TRP_General_Ledger_Trialbalance_Monthly',
-    reportId:'00c8665c-3505-4651-a900-edcba67e6fd7',reportDisplayName:'General Ledger Trial Balance'},
+    reportId:'9058426e-263c-475b-b7e4-334f2242f38f',reportDisplayName:'General Ledger Trial Balance'},
     {reportName:'DMS_TRP_Positions Portfolio Level_Monthly',
-    reportId:'565d5a15-31e5-4368-99d9-d30a1f71ef33',reportDisplayName:'Positions Portfolio Level'},
+    reportId:'e048f7ad-88eb-489a-afe3-3e2b398a6fa1',reportDisplayName:'Positions Portfolio Level'},
     {reportName:'DMS_TRP_Transaction disposal lot_Monthly',
-    reportId:'bc3690ad-155f-4d11-922d-35744a622ef6',reportDisplayName:'Transaction Disposal Lot'},
+    reportId:'4e492f61-ad2e-4120-8f3d-71aabf6b9b1e',reportDisplayName:'Transaction Disposal Lot'},
     {reportName:'DMS_TRP_Positions Lotlevel Monthly',
-    reportId:'4a2cc2ca-7471-4bad-814e-aab8e8278b53',reportDisplayName:'Positions Lot Level'},
-    {reportName:'', reportId:'d1504a66-72de-4830-9a9d-e66b831f1ca1', reportDisplayName:'Monthly Book Report Package'}
+    reportId:'e7230389-ed80-424d-b85c-776a43acb92d',reportDisplayName:'Positions Lot Level'},
+    {reportName:'Monthly Book Report Package', reportId:'ab807791-0dae-495b-a88e-77a570a0e97d', reportDisplayName:'Monthly Book Report Package'}
 ,
 
-{reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
-{reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
-{reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
-{reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
-{reportName:'DMS_TRP_transaction_realized_gain_and_loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'},
+{reportName:'DMS_TRP_CDM Account',reportId:'b6a471fd-0393-41c2-a11d-5c60507ec739',reportDisplayName:'Account'},
+{reportName:'DMS_TRP_Product Securities',reportId:'fa33f847-986e-4b4d-aee9-460a01bdda78',reportDisplayName:'Product Securities'},
+{reportName:'DMS_TRP_Product Issuers',reportId:'7343f696-1517-4390-8359-9251df1e8a47',reportDisplayName:'Product Issuers'},
+{reportName:'DMS_TRP_Product Corporate Actions',reportId:'a1ca42ec-6ec1-48cb-b78e-338681caf39f',reportDisplayName:'Product Corporate Actions'},
+{reportName:'DMS_TRP_transaction_realized_gain_and_loss',reportId:'52eb74c6-0c5a-4978-a7f6-17b4c41b1a03',reportDisplayName:'Transaction Realized Gain and Loss'},
 ];
 
 export const PBI_CONFIG = {
