@@ -343,3 +343,7 @@ cursor: pointer;
       background-color:transparent !important;
     }
   }
+
+  ::ng-deep .ag-theme-material .ag-paging-button.ag-disabled{
+    background-color: transparent !important;
+    }
