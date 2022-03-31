@@ -45,6 +45,14 @@ export class ArchivedReportsComponent implements OnInit {
   totalFunds: TemplateRef<any>;
   @ViewChild('totalCommentsTemplate')
   totalComments: TemplateRef<any>;
+  @ViewChild('dueDateTemplate')
+  dueDate: TemplateRef<any>;
+  @ViewChild('dateSubmittedTemplate')
+  dateSubmitted: TemplateRef<any>;
+  @ViewChild('submittedbyTemplate')
+  submittedBy: TemplateRef<any>;
+  @ViewChild('ActionsTemplate')
+  Actions: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -88,7 +96,11 @@ export class ArchivedReportsComponent implements OnInit {
           name: item.name,
           id: item.id,
           fundCount: item.fundCount != null ? item.fundCount : 0,
-          CommentsCount: item.commentsCount != null ? item.commentsCount : 0,
+          totalComments: item.totalComments != null ? item.totalComments : 0,
+          dueDate:item.dueDate,
+          dateSubmitted:item.dateSubmitted,
+          submittedBy:item.submittedBy
+
         };
         this.completedReports.push(eachitem);
       });
@@ -103,7 +115,10 @@ export class ArchivedReportsComponent implements OnInit {
         name: reportRow.name,
         id: reportRow.id,
         fundCount: reportRow.fundCount,
-        CommentsCount: reportRow.CommentsCount,
+        totalComments: reportRow.totalComments,
+        dueDate:reportRow.dueDate,
+        dateSubmitted:reportRow.dateSubmitted,
+        submittedBy:reportRow.submittedBy
       })
     });
     this.columnDefs = [
@@ -142,13 +157,69 @@ export class ArchivedReportsComponent implements OnInit {
           ngTemplate: this.totalComments,
         },
         headerName: 'Comments',
-        field: 'CommentsCount',
+        field: 'totalComments',
         sortable: true,
         filter: true,
         resizeable: true,
         width: 250,
         sort: 'asc'
       },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dueDate,
+        },
+        headerName: 'Due date',
+        field: 'dueDate',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        width: 250,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.dateSubmitted,
+        },
+        headerName: 'Date submitted',
+        field: 'dateSubmitted',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        width: 250,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.submittedBy,
+        },
+        headerName: 'Submitted by',
+        field: 'submittedBy',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        width: 250,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.Actions,
+        },
+        headerName: '',
+        field: 'totalComments',
+        sortable: false,
+        filter: false,
+        resizeable: true,
+        width: 250,
+        sort: 'asc'
+      }
     ]
   }
 

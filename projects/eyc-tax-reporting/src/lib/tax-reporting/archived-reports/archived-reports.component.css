@@ -1,0 +1,11 @@
+#archived-reports-grid::ng-deep .left-button {
+    flex-direction: row-reverse !important;
+}
+
+.custom-button{
+    background: black;
+    color: white;
+    box-shadow: none;
+    border-style: none;
+}
+
