@@ -491,7 +491,7 @@ export class ViewExceptionReportsComponent implements OnInit {
     if(this.permissions.validatePermission(this.componentStage, 'View Comments') && this.stage == 'Regulatory Reporting') { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
-    if(this.stage == 'Regulatory Reporting') {
+    if(this.componentStage != null && this.componentStage != undefined) {
       const requestobj = {
         "exceptionId": this.filingService.getExceptionData.exceptionId,
         "export": true,
