@@ -9,3 +9,14 @@
     border-style: none;
 }
 
+.total-comments-div{
+    display: contents;
+}
+
+.total-comments-svg{
+    height: 15px; 
+    width: 15px; 
+    margin-right: 7px; 
+    margin-top: 5px;
+}
+

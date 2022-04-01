@@ -28,7 +28,12 @@
     </ng-template>
 
     <ng-template #totalCommentsTemplate let-row>
-        <button class="btn custom-link">{{row.totalComments}}</button>
+        <div class="total-comments-div">
+            <svg class="total-comments-svg" width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 2C15 1.175 14.325 0.5 13.5 0.5H1.5C0.675 0.5 0 1.175 0 2V11C0 11.825 0.675 12.5 1.5 12.5H12L15 15.5V2Z" fill="#2E2E3C"/>
+            </svg> 
+            {{row.totalComments}}           
+        </div>
     </ng-template>
 
     <ng-template #dueDateTemplate let-row>
