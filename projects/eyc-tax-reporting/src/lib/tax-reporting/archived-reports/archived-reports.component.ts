@@ -17,6 +17,7 @@ export class ArchivedReportsComponent implements OnInit {
   activeReport: any[] = [];
   activeReports: any[] = []
   completedReports: any[] = [];
+  filteredReports: any[] = [];
   reportResp: any[] = [];
 
   noOfCompletdFilingRecords = 10;
@@ -74,8 +75,8 @@ export class ArchivedReportsComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 20,
-    name: '20',
+    value: 10,
+    name: '10',
     id: 0
   };
 
@@ -85,10 +86,10 @@ export class ArchivedReportsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getArchivedReportData();
+    this.getArchivedReportData(this.pastYear);
   }
 
-  getArchivedReportData() {
+  getArchivedReportData(_filterYear) {
     this.archivedReportsService.getArchivedReportsData().subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
@@ -99,18 +100,21 @@ export class ArchivedReportsComponent implements OnInit {
           totalComments: item.totalComments != null ? item.totalComments : 0,
           dueDate:item.dueDate,
           dateSubmitted:item.dateSubmitted,
-          submittedBy:item.submittedBy
+          submittedBy:item.submittedBy,
+          year: item.year
 
         };
         this.completedReports.push(eachitem);
       });
-      this.createHistoryRowData();
+      this.filteredReports = this.completedReports;
+      this.createHistoryRowData(_filterYear);
     });
   }
 
-  createHistoryRowData() {
+  createHistoryRowData(_filterYear) {
     this.rowData = [];
-    this.completedReports.forEach(reportRow => {
+    this.filteredReports = _filterYear ? this.completedReports.filter(item => item.year == _filterYear): this.filteredReports;
+    this.filteredReports.forEach(reportRow => {
       this.rowData.push({
         name: reportRow.name,
         id: reportRow.id,
@@ -281,12 +285,11 @@ export class ArchivedReportsComponent implements OnInit {
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }
 
-  getReportYear(_id){
-    //Clean the class element
+  getReportYear(_id, _filterYear){
     document.querySelectorAll('#archived-report .active').forEach((item) => {
        item.classList.remove('active');
     });
     document.getElementById(_id).classList.add("active");
-     
+    this.createHistoryRowData(_filterYear);
    }
 }
