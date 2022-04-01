@@ -457,11 +457,11 @@ export class SubmissionComponent implements OnInit {
     this.isAuditlogs = false;
     this.service.getAuditlog(auditObjectId,auditObjectType).subscribe(res => {
       console.log(res);
-      this.showAuditLog = true;
       let data = res['data'];
       res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
       data.forEach((element, index) => {
-        let item = this.copy(element)
+        let item = this.copy(element);
+        let item2 = this.copy(element);
         if (element.auditActionType == 'New') {
           if (element.auditDetails.auditObjectPrevValue == 'NA') {
             item['auditActionType'] = 'completed'
@@ -471,6 +471,12 @@ export class SubmissionComponent implements OnInit {
           } else {
             item['auditActionType'] = 'completed';
             auditList.push(item);
+            if((index+1) ==data.length){
+              item2['auditActionType'] = 'Approve';
+              item2['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
+              item2.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+              auditList.push(item2);
+            }
           }
         }
       });
