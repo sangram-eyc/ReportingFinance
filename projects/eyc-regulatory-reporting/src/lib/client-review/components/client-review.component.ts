@@ -928,16 +928,16 @@ actionMenuEnableforException(row) {
   exportData(type) {
     if(type == 'entities') {
       if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
-        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,commentsCount:Comments';
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,commentsCount:Comments,updatedBy:Last Updated By';
       } else {
-        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level';
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,updatedBy:Last Updated By';
       }
       this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
       if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
-        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments';
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments,updateBy:Last Updated By';
       } else {
-        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception';
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,updateBy:Last Updated By';
       }
       this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
