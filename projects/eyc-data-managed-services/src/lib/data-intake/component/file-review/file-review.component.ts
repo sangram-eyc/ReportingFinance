@@ -176,7 +176,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -214,7 +214,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString();
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -607,8 +607,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
-      this.httpDataGridParams.dueDate = this.calSelectedDate;
+      this.httpQueryParams.dueDate = new Date(this.calSelectedDate).toLocaleDateString();
+      this.httpDataGridParams.dueDate = new Date(this.calSelectedDate).toLocaleDateString();
       this.fileSummaryList();
       this.getReviewFileTableData();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);

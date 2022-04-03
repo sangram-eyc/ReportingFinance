@@ -129,7 +129,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.baseURL=sessionStorage.getItem('pbiEndPoint');
     console.log('dms data intake-ngAfterViewInit base url',this.baseURL);
     if (sessionStorage.getItem("selectedDate")) {
-      this.dueDate = sessionStorage.getItem("selectedDate");
+      this.dueDate = new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString();
     } else if (this.dailyMonthlyStatus) {
       this.dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -179,9 +179,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpQueryParams.dueDate =  new Date(this.calSelectedDate).toLocaleDateString();
       this.fileSummaryList();
-      this.dueDate=this.calSelectedDate;
+      this.dueDate= new Date(this.calSelectedDate).toLocaleDateString();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
@@ -195,7 +195,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }

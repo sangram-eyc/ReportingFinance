@@ -91,7 +91,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString();
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -145,7 +145,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -168,7 +168,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpQueryParams.dueDate = new Date(this.calSelectedDate).toLocaleDateString();
       this.getDataIntakeType();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
