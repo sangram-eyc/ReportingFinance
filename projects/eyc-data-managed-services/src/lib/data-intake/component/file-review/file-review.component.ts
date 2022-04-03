@@ -605,7 +605,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
       this.httpQueryParams.dueDate = this.calSelectedDate;
       this.httpDataGridParams.dueDate = this.calSelectedDate;

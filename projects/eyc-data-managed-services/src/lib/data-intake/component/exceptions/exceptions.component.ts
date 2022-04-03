@@ -284,7 +284,7 @@ export class ExceptionsComponent implements OnInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
       this.httpDataGridParams.dueDate = this.calSelectedDate;
       this.getExceptionTableData();
