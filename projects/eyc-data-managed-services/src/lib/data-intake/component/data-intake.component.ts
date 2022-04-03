@@ -5,7 +5,7 @@ import {
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
-import { formatDate } from '@angular/common';
+import { formatDate,DatePipe } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,
@@ -129,7 +129,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.baseURL=sessionStorage.getItem('pbiEndPoint');
     console.log('dms data intake-ngAfterViewInit base url',this.baseURL);
     if (sessionStorage.getItem("selectedDate")) {
-      this.dueDate = new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString();
+      this.dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       this.dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -179,9 +179,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate =  new Date(this.calSelectedDate).toLocaleDateString();
+      this.httpQueryParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       this.fileSummaryList();
-      this.dueDate= new Date(this.calSelectedDate).toLocaleDateString();
+      this.dueDate= `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
@@ -193,6 +193,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    debugger;
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());

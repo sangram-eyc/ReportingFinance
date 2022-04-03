@@ -135,7 +135,7 @@ export class ExceptionsComponent implements OnInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString();
+      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -286,7 +286,7 @@ export class ExceptionsComponent implements OnInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpDataGridParams.dueDate = new Date(this.calSelectedDate).toLocaleDateString();
+      this.httpDataGridParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
