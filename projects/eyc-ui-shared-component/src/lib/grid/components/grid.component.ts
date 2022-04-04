@@ -98,6 +98,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() totalRecords = null;
   @Output() rowSelected = new EventEmitter<any>();
   @Input() omitModal = false;
+  @Input() uiPagination = false;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -353,9 +354,14 @@ pageSize;
   }
 
   searchGridPagination(input) {
-    this.searchInput.emit(input.el.nativeElement.value);
-    this.currentPage = 1;
-    console.log('SEARCH GRID PAGINATION EMIT');
+    if(this.uiPagination) {
+      this.searchGrid(input)
+    } else {
+      this.searchInput.emit(input.el.nativeElement.value);
+      this.currentPage = 1;
+      console.log('SEARCH GRID PAGINATION EMIT');
+    }
+    
   }
 
   searchFilingValidation(event) {
