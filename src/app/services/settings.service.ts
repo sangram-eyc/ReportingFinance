@@ -113,7 +113,7 @@ setToken = (value) => {
       "userEmail": sessionStorage.getItem('userEmail')
      }
     this.logoutService.logoffNotification(body).subscribe();
-		// this.oauthService.logOut();
+		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
     sessionStorage.removeItem('permissionList');
