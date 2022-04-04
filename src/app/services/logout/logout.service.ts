@@ -12,7 +12,7 @@ export class LogoutService {
     private apiService: ApiService,
   ) { }
 
-  logoffNotification(email) {
-    return this.apiService.invokePutAPI(`${app_logout.notification_logout}/${email}`);
+  logoffNotification(body) {
+    return this.apiService.invokePutAPI(`${app_logout.notification_logout}`,body);
   }
 }
