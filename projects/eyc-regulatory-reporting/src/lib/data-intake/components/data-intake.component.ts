@@ -156,8 +156,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         if (resetData) {
           this.createEntitiesRowData();
         } else {
-          this.exceptionGridApi.setRowData(this.exceptionData);
-          console.log('SET ROW DATA');
+          this.rowData = [...this.exceptionData];
         }
       }
       console.log(this.exceptionData);
@@ -189,12 +188,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         this.createEntitiesRowData();
       } else {  
         this.datasets = res['data']; 
+        // this.datasetData = this.datasets;
         this.pageInfoData.totalRecords = res['totalRecords'];
-        this.datasetData = this.datasets
         if (resetData) {
           this.createEntitiesRowData();
         } else {
-          this.gridApi.setRowData(this.datasets);
+          this.datasetData = [...this.datasets];
         }
       }
       console.log('DATASETS:', this.datasets);
@@ -352,7 +351,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'file',
         sortable: true,
         filter: true,
-        sort: 'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
@@ -378,7 +376,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         wrapText: true,
         autoHeight: true,
         width: 250,
-        sort: 'asc',
         comparator: this.disableComparator,
       },
       {
@@ -465,7 +462,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'file',
         sortable: true,
         filter: true,
-        sort: 'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
