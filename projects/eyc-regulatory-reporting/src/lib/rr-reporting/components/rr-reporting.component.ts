@@ -543,6 +543,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       res['data'].forEach(ele => {
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].approved = true;
         this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].updatedBy = ele.updatedBy;
+        this.rowData[this.rowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
       });
       this.createEntitiesRowData();
       this.selectedRows = [];
