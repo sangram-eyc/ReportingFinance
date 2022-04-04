@@ -8,6 +8,7 @@ import {authConfig} from '../login/helpers'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {authorization} from '../helper/api-config-helper';
 import { v4 as uuid } from 'uuid';
+import { LogoutService } from './logout/logout.service'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import { v4 as uuid } from 'uuid';
 export class SettingsService {
   authdetails;
   moduleLevelPermission;
-  constructor(private oauthService: OAuthService,private http: HttpClient) { }
+  constructor(private oauthService: OAuthService,private http: HttpClient,private logoutService:LogoutService) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
 // AUTHTOKEN FUNCTIONS
@@ -108,6 +109,7 @@ setToken = (value) => {
 
   public logoff() {
 		console.log('inside logout');
+    this.logoutService.logoffNotification(sessionStorage.getItem('userEmail'))
 		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');

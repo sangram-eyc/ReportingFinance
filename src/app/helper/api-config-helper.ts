@@ -59,3 +59,6 @@ export const token_interceptor = {
 
 export const notifier_ws = environment.production ? 'wss://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication': 'https://127.0.0.1:8081/notifierAgentService/ws-notifier-agent-communication';
 
+export const app_logout = {
+    notification_logout: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/logout' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/logout',
+};
