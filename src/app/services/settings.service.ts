@@ -109,7 +109,7 @@ setToken = (value) => {
 
   public logoff() {
 		console.log('inside logout');
-    this.logoutService.logoffNotification(sessionStorage.getItem('userEmail'))
+    this.logoutService.logoffNotification(sessionStorage.getItem('userEmail')).subscribe();
 		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
