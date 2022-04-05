@@ -113,6 +113,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    this.filter = '';
     if (this.tabIn == 2) {
       this.getCompletedFilingsData(true);
     }
