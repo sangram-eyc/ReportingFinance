@@ -99,6 +99,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() rowSelected = new EventEmitter<any>();
   @Input() omitModal = false;
   @Input() uiPagination = false;
+  @Input() title = '';
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;

@@ -33,7 +33,7 @@
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div>  -->
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
+        <lib-shared-grid gridStyle="first" title="Answer Files" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
             rowSelection="multiple" [submitFunction]="downloadSubmit" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" buttonText="Download selected"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" (updatePageSize)="updatePageSize($event)" (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
             [permissionToPrimaryButton]="permissions.validatePermission('Submission', 'Download Files')" [export] = "true" [defaultColDef]="defaultColDef" (rowSelected)="onRowSelected($event)"
