@@ -10,7 +10,7 @@
     </motif-icon>
     <div class="notification-date">{{calculateNotificationTime(notification?.createDate)}}</div>
     <div class="notification-icons" *ngIf="notification?.expanded">
-      <!-- <motif-icon (click)="archive()" class="icon" [src]="'/assets/icons/archived.svg'"></motif-icon> -->
+      <motif-icon (click)="archive()" class="icon" [src]="'/assets/icons/archived.svg'"></motif-icon>
       <motif-icon (click)="flag()" class="icon" [src]="content?.flagged ? '/assets/icons/is-flagged.svg' : '/assets/icons/flag.svg'"></motif-icon>
       <motif-icon (click)="delete()" class="icon no-margin" [src]="'/assets/icons/trash.svg'"></motif-icon>
     </div>
