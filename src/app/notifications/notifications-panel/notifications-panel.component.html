@@ -5,11 +5,11 @@
       <div class="card-block banner-header">
         Notifications
       </div>
-      <!-- <div class="notifications-filter dark"
+      <div class="notifications-filter dark"
            (click)="showPanel = !showPanel; showFilters = false; $event.preventDefault(); $event.stopPropagation();">
         All ({{totalElements}})
         <motif-icon class="expand" [src]="'/assets/icons/expand_more_white.svg'"></motif-icon>
-      </div> -->
+      </div>
       <div class="expanded-panel" *ngIf="showPanel">
         <div class="expanded-panel-info">
           <p>Assigned to me (0)</p>
@@ -39,12 +39,12 @@
           <a href="#" motifTextLink color="primary" (click)="onCancelApplyFilters($event)">Cancel</a>
         </div>
       </div>
-      <!-- <div class="card-block banner-header-right">
+      <div class="card-block banner-header-right">
         <div class="right-icons">
           <motif-icon routerLink="/notifications-preferences" [src]="'/assets/icons/preferences.svg'"></motif-icon>
           <motif-icon (click)="onClickFilters($event);" [src]="'/assets/icons/shape.svg'"></motif-icon>
         </div>
-      </div> -->
+      </div>
     </div>
   </motif-card-header>
   <div class="notifications-list mt-3"
@@ -62,12 +62,12 @@
   <div class="notifications-buttons">
     <div class="not-error-block p-3" *ngIf="!notifications?.length">There are no notifications to display.</div>
     <!-- Archived button needs to be enabled once the page functionality is completed -->
-    <!-- <div class="card-button" [class.mt-3]="notifications?.length" *ngIf="archivedItems > 0">
+    <div class="card-button" [class.mt-3]="notifications?.length" *ngIf="archivedItems > 0">
       <button motifButton color="primary-alt" class="notification-button" (click)="goToArchived()">
         <motif-icon [src]="'/assets/icons/archived.svg'" class="notification-icon"></motif-icon>
         Archived ({{archivedItems < 1000 ? archivedItems : '999+'}})
       </button>
-    </div> -->
+    </div>
     <!-- Archived button needs to be enabled once the page functionality is completed -->
   </div>
 </motif-card>
