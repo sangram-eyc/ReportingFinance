@@ -83,7 +83,7 @@
 
             <ng-template #paginationSelectTemplate>
                 <div *ngIf="pagination && !paginationApi">
-                    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize1" [options]="dataset1" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
+                    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
                 </div>
             </ng-template>
 

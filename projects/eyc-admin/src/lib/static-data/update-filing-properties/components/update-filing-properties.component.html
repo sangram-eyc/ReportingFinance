@@ -145,8 +145,8 @@
     </div>
     <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
-      [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
-      displayCheckBox="{{displayCheckBox}}" gridStyle="third"
+      [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
+      displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
       [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
       [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>

@@ -499,6 +499,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   receiveMessage($event) {
     this.tabs = $event;
+    this.filter = '';
     console.log(this.filingDetails);
     if (this.tabs == 2) {
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
