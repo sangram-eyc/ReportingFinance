@@ -21,7 +21,7 @@ import { NotificationService } from "@default/services/notification.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, OnDestroy {
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit{
   title = 'eyc-ServiceEngine-UI';
   timeoutId;
   count = 0;
@@ -379,8 +379,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }, 100);
   }
 
-   ngOnDestroy(): void { 
-    this.settingsService.logoff();
-   }
+ @HostListener('window:beforeunload', ['$event'])
+     beforeUnloadHandler(event: any) {
+     event.preventDefault();
+     this.settingsService.logoff();
+ }
 
 }
