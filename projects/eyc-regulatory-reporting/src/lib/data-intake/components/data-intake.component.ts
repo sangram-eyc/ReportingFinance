@@ -385,7 +385,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.commentExceptionTemplate,
         },
         headerName: 'Comments',
-        field: 'comments',
+        field: 'commentsCount',
         sortable: true,
         filter: true,
         width: 150,
