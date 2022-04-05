@@ -65,6 +65,14 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   ) {
     // To hide header and footer from login page
 
+    window.addEventListener("beforeunload", (event) => {
+      if (this.settingsService.isUserLoggedin()){
+        this.settingsService.logoff();
+        event.preventDefault();
+        return event;
+      }
+    });
+
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -378,11 +386,5 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
     }, 100);
   }
-
- @HostListener('window:beforeunload', ['$event'])
-     beforeUnloadHandler(event: any) {
-     event.preventDefault();
-     this.settingsService.logoff();
- }
 
 }
