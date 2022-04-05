@@ -347,3 +347,11 @@ cursor: pointer;
   ::ng-deep .ag-theme-material .ag-paging-button.ag-disabled{
     background-color: transparent !important;
     }
+    ::ng-deep .motif-table-title-bar {
+        background: #FFFFFF !important;
+        font-family: EYInterstate;
+        font-size: 18px;
+        line-height: 20px;
+        color: #1A1A24 !important;
+        border: 1px solid #E1E1E6;
+      }
