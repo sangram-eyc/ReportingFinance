@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
+import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -169,6 +169,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
     { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
   ];
+
+  lastMonthDate: Date;
+  lastMonthDueDateFormat: string;
+  presentDateFormat: string;
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {

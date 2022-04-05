@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef,
 import { RoutingStateService } from '../../services/routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST } from '../../../config/dms-config-helper';
+import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
 

@@ -43,7 +43,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
-  dataList: Observable<any[]>;
+  dataList: any;
   dataListClone: [];
   totalDataIntakeTypeCount: number;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
