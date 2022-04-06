@@ -86,10 +86,10 @@ export class ArchivedReportsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getArchivedReportData(this.pastYear);
+    this.getArchivedReportData();
   }
 
-  getArchivedReportData(_filterYear) {
+  getArchivedReportData(_filterYear?) {
     this.archivedReportsService.getArchivedReportsData().subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       resp['data'].forEach((item) => {
@@ -106,14 +106,13 @@ export class ArchivedReportsComponent implements OnInit {
         };
         this.completedReports.push(eachitem);
       });
-      this.filteredReports = this.completedReports;
       this.createHistoryRowData(_filterYear);
     });
   }
 
   createHistoryRowData(_filterYear) {
     this.rowData = [];
-    this.filteredReports = _filterYear ? this.completedReports.filter(item => item.year == _filterYear): this.filteredReports;
+    this.filteredReports = _filterYear ? this.completedReports.filter(item => item.year == _filterYear): this.completedReports;
     this.filteredReports.forEach(reportRow => {
       this.rowData.push({
         name: reportRow.name,
