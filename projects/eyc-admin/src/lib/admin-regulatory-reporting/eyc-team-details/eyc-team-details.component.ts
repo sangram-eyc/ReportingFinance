@@ -95,7 +95,7 @@ export class EycTeamDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
       this.getFilingAssignments();
-      this.getTeamDetailsData();
+      this.getTeamDetailsData(true);
     });
     this.tabIn = 1;
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
@@ -141,12 +141,25 @@ export class EycTeamDetailsComponent implements OnInit {
   searchGrid(input) {
     this.filter = input;
     this.currentPage = 0;
-    this.getTeamDetailsData();
+    this.getTeamDetailsData(true);
   }
 
   sortChanged(event) {
-    this.sort = event;
+    switch(true) {
+      case event === 'memberName:true':
+        this.sort = 'userFirstName:true';
+        break;
+      case event === 'memberName:false':
+        this.sort = 'userFirstName:false';
+        break;
+      default:
+        this.sort =event;
+    }
     this.getTeamDetailsData();
+  }
+
+  handleGridReady(params) {
+    this.gridApi = params.api;
   }
 
   enableEditForm() {
@@ -163,7 +176,8 @@ export class EycTeamDetailsComponent implements OnInit {
     }
   }
 
-  getTeamDetailsData() {
+  getTeamDetailsData(resetData = false) {
+    this.sort = resetData ? 'userFirstName:true' : this.sort;
     this.teamService.getTeamsDetails(this.curentTeamId,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
       this.editTeamForm.patchValue({
         teamName: this.teamInfo.teamName.trim(),
@@ -176,7 +190,6 @@ export class EycTeamDetailsComponent implements OnInit {
         this.teamInfo["assignmentsArray"] = resp['data'].assignments;
         this.selectedFilings = resp['data'].assignments.map(item => item.entityId)
       }
-      this.getUsersList();
       this.teamsMemberData = [];
       resp['data'].teamMembers.forEach((element, i) => {
         this.teamsMemberData.push({
@@ -186,8 +199,11 @@ export class EycTeamDetailsComponent implements OnInit {
         })
       this.totalRecords=resp['totalRecords'];
       });
-
-      this.createTeamsRowData();
+      if (resetData) {
+        this.createTeamsRowData();
+      } else {
+        this.gridApi.setRowData(this.teamsMemberData);
+      }
     });
   }
 
@@ -209,7 +225,6 @@ export class EycTeamDetailsComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 370,
-        sort: 'asc',
         comparator: customComparator
       },
       {
@@ -221,7 +236,6 @@ export class EycTeamDetailsComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 370,
-        sort: 'asc',
         comparator: customComparator
       },
       {
@@ -416,6 +430,7 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   addTeamMembers(event) {
+    this.getUsersList();
     this.addTeamMemberModal = true;
   }
 

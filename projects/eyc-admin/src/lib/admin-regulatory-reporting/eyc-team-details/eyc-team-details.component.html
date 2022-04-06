@@ -135,7 +135,7 @@
     displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"
     [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
     [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
-    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
+    (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)" (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)" (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
