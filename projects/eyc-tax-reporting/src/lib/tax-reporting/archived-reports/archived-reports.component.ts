@@ -166,7 +166,7 @@ export class ArchivedReportsComponent implements OnInit {
         resizeable: true,
         width: 250,
         sort: 'asc'
-      },
+      },/*
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -208,7 +208,7 @@ export class ArchivedReportsComponent implements OnInit {
         resizeable: true,
         width: 250,
         sort: 'asc'
-      },
+      }, */
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
