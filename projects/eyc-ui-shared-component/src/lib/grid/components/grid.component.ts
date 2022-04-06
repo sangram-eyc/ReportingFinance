@@ -98,6 +98,8 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() totalRecords = null;
   @Output() rowSelected = new EventEmitter<any>();
   @Input() omitModal = false;
+  @Input() uiPagination = false;
+  @Input() title = '';
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -110,27 +112,27 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   prevPageSize;
   dataset1 = [{
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   },
   {
     disable: false,
-    value: 10,
-    name: '10',
+    value: 200,
+    name: '200',
     id: 1
   },
   {
     disable: false,
-    value: 15,
-    name: '15',
+    value: 300,
+    name: '300',
     id: 2
   }];
 
   currentlySelectedPageSize1 = {
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   };
 
@@ -196,20 +198,24 @@ pageSize;
       }
       console.log(this.maxPages);
     } 
-    if (typeof (this.columnDefs) !== 'undefined') {
+    if (typeof (this.columnDefs) !== 'undefined' ) {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
-      let object = { 
-        width: 30,
-        valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: true,
-        pinned: 'left',
-        cellClass: this.srnoCls
+      if (this.columnDefs[1]?.cellClass !== 'srno-class') {
+        let object = { 
+          width: 30,
+          valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: false,
+          pinned: 'left',
+          cellClass: this.srnoCls
+        }
+        if (this.displayCheckBox) {
+          this.columnDefsData.splice(0, 0, object);
+        } else {
+          this.columnDefsData.splice(1, 0, object);
+        }
       }
-      if (this.displayCheckBox) {
-        this.columnDefsData.splice(0, 0, object);
-      } else {
-        this.columnDefsData.splice(1, 0, object);
-      }
+      // this.columnDefsData = [...this.columnDefsData];
+      console.log('SERIAL NUMBERS', this.columnDefsData)
     }
   }
 
@@ -228,12 +234,14 @@ pageSize;
   async handlePageChange(val: number) {
     this.currentPage = val;
     this.currentPageChange.emit(val);
+    this.gridApi.setFilterModel(null);
     console.log('HANDLE PAGE CHANGE', val);
     await this.pageChangeFunc();
   }
 
   updatePaginationSize(newPageSize: number) {
     this.gridApi.paginationSetPageSize(newPageSize);
+    console.log('UPDATE PAGINATION SIZE', newPageSize);
   }
 
   updatePaginationSizeApi(newPageSize: number) {
@@ -302,7 +310,7 @@ pageSize;
       const order = sortModel['sort'] === 'asc' ? 'true' : 'false';
       console.log('GRID COMPONENT SORT', colId + ':' + order);
       this.customSortChange.emit(colId + ':' + order);
-      this.gridApi.refreshCells();
+      // this.gridApi.refreshCells();
     } else {
       this.customSortChange.emit('');
       this.gridApi.refreshCells();
@@ -348,9 +356,14 @@ pageSize;
   }
 
   searchGridPagination(input) {
-    this.searchInput.emit(input.el.nativeElement.value);
-    this.currentPage = 1;
-    console.log('SEARCH GRID PAGINATION EMIT');
+    if(this.uiPagination) {
+      this.searchGrid(input)
+    } else {
+      this.searchInput.emit(input.el.nativeElement.value);
+      this.currentPage = 1;
+      console.log('SEARCH GRID PAGINATION EMIT');
+    }
+    
   }
 
   searchFilingValidation(event) {

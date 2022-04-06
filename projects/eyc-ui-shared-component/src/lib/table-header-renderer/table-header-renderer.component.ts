@@ -14,6 +14,8 @@ import { Column } from 'ag-grid-community';
 export class TableHeaderRendererComponent implements IHeaderAngularComp {
   public params: any = null;
   public sorted: string;
+  public filterNumber = 0;
+  private filterManager;
   private readonly elementRef: ElementRef;
 
   constructor(elementRef: ElementRef) {
@@ -28,7 +30,29 @@ export class TableHeaderRendererComponent implements IHeaderAngularComp {
   agInit(params): void {
     this.params = params;
     this.params.column.addEventListener('sortChanged', this.onSortChanged.bind(this));
+    this.params.column.addEventListener('filterChanged', this.filterActive.bind(this));
+    this.filterManager = this.params.api.filterManager;
     this.onSortChanged();
+  }
+
+  filterActive() {
+    console.log('filter of column is ' + this.params.column.isFilterActive());
+    console.log(this.params);
+    let columnName = this.params.column.colId;
+    this.filterNumber = 0;
+    let i = 0;
+    this.filterNumber = 0;
+    for (const filter of this.filterManager.activeAdvancedFilters) {
+      if (columnName === filter.textFilterParams.colDef.field) {
+        if ( this.filterManager.activeAdvancedFilters[i].appliedModel && 'condition2' in this.filterManager.activeAdvancedFilters[i].appliedModel) {
+          this.filterNumber = 2;
+        } else {
+          this.filterNumber = 1;
+        }
+        break;
+      }
+      i++;
+    }
   }
 
   onSortRequested(currentSort, $event) {

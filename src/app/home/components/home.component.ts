@@ -39,11 +39,14 @@ export class HomeComponent implements OnInit {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
         this.settingsService.setModulePermissionData = res['data'];
+        sessionStorage.setItem('modules', JSON.stringify(res['data']))
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
         } else if (res['data'].userModules.hasOwnProperty('Tax Reporting')) {
           this.permissionList('Tax Reporting');
+        } else if (res['data'].userModules.hasOwnProperty('Data Managed Services')) {
+          this.permissionList('Data Managed Services');  // DMS Permission
         } else {
           this.navigation();
         }
@@ -74,6 +77,9 @@ export class HomeComponent implements OnInit {
 
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Data Intake')) {
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/data-intake-landing']);
+
+      } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Data Managed Services')) {  // DMS Navigation
+        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/data-managed-services']);
 
       } else {
         this.router.navigate(['/home']);

@@ -76,4 +76,10 @@ task buildGS(type: NpmTask) {
   
 }
 
+task buildAdmin(type: NpmTask) {
+  println "Building eyc-admin UI"
+  args = ['run', 'eyc-ui-admin']
+  
+}
+
 build.dependsOn(npm_install)

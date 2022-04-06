@@ -487,24 +487,28 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.exportsHeader = hedars;
       }
     }
+
     if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
-    const requestobj = {
-      "exceptionId": this.filingService.getExceptionData.exceptionId,
-      "export": true,
-      "reportType": "CSV",
-      "filingName": this.filingName,
-      "period": this.period,
-      "stage": this.componentStage,
-      "totalExceptions": this.exceptionCnt,
-      "titles": this.exportsHeader
+    if(this.componentStage != null && this.componentStage != undefined) {
+      const requestobj = {
+        "exceptionId": this.filingService.getExceptionData.exceptionId,
+        "export": true,
+        "reportType": "CSV",
+        "filingName": this.filingName,
+        "period": this.period,
+        "stage": this.componentStage,
+        "totalExceptions": this.exceptionCnt,
+        "titles": this.exportsHeader
+      }
+      this.viewService.exportData(requestobj).subscribe(res => {
+      });
+    } else {
+      let exportURLHeaders = "exceptionRuleId="+  this.dataIntakeData.ruleExceptionId+ "&filingName=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportsHeader + "&reportType=csv";
+      this.viewService.exportForDataIntake(exportURLHeaders).subscribe(res => {
+      });
     }
-
-    this.viewService.exportData(requestobj).subscribe(res => {
-     
-    });
-    
   }
 
 }
