@@ -150,13 +150,13 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
         this.createEntitiesRowData();
       } else { 
-        this.exceptionData = res['data']; 
+        this.exceptionData = res['data'];
+        this.rowData = this.exceptionData
         this.pageInfoException.totalRecords = res['totalRecords'];
         if (resetData) {
           this.createEntitiesRowData();
         } else {
-          this.exceptionGridApi.setRowData(this.exceptionData);
-          console.log('SET ROW DATA');
+          this.rowData = [...this.exceptionData];
         }
       }
       console.log(this.exceptionData);
@@ -188,11 +188,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         this.createEntitiesRowData();
       } else {  
         this.datasets = res['data']; 
+        // this.datasetData = this.datasets;
         this.pageInfoData.totalRecords = res['totalRecords'];
         if (resetData) {
           this.createEntitiesRowData();
         } else {
-          this.gridApi.setRowData(this.datasets);
+          this.datasetData = [...this.datasets];
         }
       }
       console.log('DATASETS:', this.datasets);
@@ -222,10 +223,17 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   receiveMessage($event) {
     this.tabs = $event;
+    
     if (this.tabs == 2) {
       this.getDatasets(true);
+      this.pageInfoException.filter = '';
+      this.pageInfoException.currentPage = 0;
+      this.pageInfoException.pageSize = 10;
     } else if (this.tabs == 1) {
       this.getExceptionReports(true);
+      this.pageInfoData.filter = '';
+      this.pageInfoData.currentPage = 0;
+      this.pageInfoData.pageSize = 10;
     }
     console.log('TAB EVENT', $event);
     /* else if (this.tabs == 3) {
@@ -350,7 +358,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'file',
         sortable: true,
         filter: true,
-        sort: 'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,
@@ -376,7 +383,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         wrapText: true,
         autoHeight: true,
         width: 250,
-        sort: 'asc',
         comparator: this.disableComparator,
       },
       {
@@ -386,7 +392,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.commentExceptionTemplate,
         },
         headerName: 'Comments',
-        field: 'comments',
+        field: 'commentCount',
         sortable: true,
         filter: true,
         width: 150,
@@ -463,7 +469,6 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'file',
         sortable: true,
         filter: true,
-        sort: 'asc',
         comparator: this.disableComparator,
         autoHeight: true,
         wrapText: true,

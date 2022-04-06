@@ -1,0 +1,193 @@
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team member has been deleted successfully</motif-toast>
+<div class="user-details-wrapper">
+  <div class="back-wrapper">
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp;  Back</span>
+  </div>
+  <div class="user-info-header">
+    <h3>Team Details</h3>
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+      *ngIf="!enableEditor && teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')" (click)="enableEditForm()">
+      <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
+    </motif-icon>
+    <div class="edit-form" *ngIf="enableEditor">
+      <button class="save-submit" motifButton color="primary" size="small" [disabled]="editTeamForm.invalid"
+        [ngClass]="editTeamForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
+      <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="team-detailscontent-container" *ngIf="!enableEditor && teamInfo">
+   
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Team Name
+          </div>
+          <div class="col-md-6  lablel-heading">
+            <span *ngIf="module == 'Regulatory Reporting'">
+            Filing Type/Reports
+            </span>
+          </div>
+          <div class="col-md-6 label-value">
+            {{teamInfo?.teamName}} 
+          </div>
+          <div class="col-md-6  label-value">
+            <span *ngIf="module == 'Regulatory Reporting'">
+              {{teamInfo?.assignments}}
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Role
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Description
+          </div>
+          <div class="col-md-6 label-value">
+            {{teamInfo?.role}}
+          </div>
+          <div class="col-md-6  label-value">
+            {{teamInfo?.teamDescription}}
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+  <div class="team-detailscontent-container" *ngIf="enableEditor && teamInfo">
+  
+    <div class="container-fluid">
+      <form [formGroup]="editTeamForm" *ngIf="editTeamForm">
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Team Name
+          </div>
+          <div class="col-md-6 lablel-heading">
+            <span *ngIf="module == 'Regulatory Reporting'">
+              Filing Type/Reports
+            </span>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('pattern')">Team name must be alpha numeric!
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters long</motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field *ngIf="module == 'Regulatory Reporting'">
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings" (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)" [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">{{assignment.filingName}}</motif-option>
+              </motif-select>
+              <motif-error *ngIf="!selectedFilings.length">Please provide a assignment!</motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Role
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Description
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select formControlName="role" aria-label="Aria Label" >
+                <motif-option *ngFor="let item of roleList;index as i;" [value]="item">
+                  {{item}}</motif-option>
+              </motif-select>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
+              </motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!</motif-toast>
+  <motif-tab-bar>
+    <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
+      [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
+    <!-- <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
+      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
+    <button motifButton (click)="adminTabChange(3)" class="motif-text-link"
+      [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
+  </motif-tab-bar>
+  <div *ngIf="tabIn == 1">
+    
+    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')" [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
+    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"
+    [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
+    [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
+    (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)" (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)" (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
+
+    <ng-template #actionSection let-row>
+      <div class="delete-icon" (click)="deleteTeamMember(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
+            fill="#155CB4" />
+        </svg>
+      </div>
+    </ng-template>
+
+    <motif-modal class="new-team-member-modal" [show]="addTeamMemberModal" (close)="closeTeamMemberModal()">
+      <motif-modal-header>
+        Add member to team
+      </motif-modal-header>
+      <motif-modal-body>
+    
+        <form [formGroup]="addTeamMemberForm">
+          <span class="description"> Select members to add to this team below
+          </span>
+          <div class="motif-row">
+            <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-form-field>
+                <label motifLabel class="select-label">Select</label>
+                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
+                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
+                  <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
+                </motif-select>
+                <motif-error *ngIf="
+                                  addTeamMemberForm.get('members').hasError('required') &&
+                                  addTeamMemberForm.get('members').touched">Please provide a team member!</motif-error>
+              </motif-form-field>
+            </div>
+            <!-- <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-chip-group>
+                <motif-chip *ngFor="let member of this.addTeamMemberForm.controls.members.value" [removeable]="true" (remove)="removeChipMember($event)">{{member.userFirstName}} {{member.userLastName}}</motif-chip>
+              </motif-chip-group>
+            </div> -->
+            <div class="motif-col-xs-4 motif-col-lg-12 add-member-note">
+              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span>
+            </div>
+          </div>
+        </form>
+        <!-- <span class="add-member-note"><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span> -->
+      </motif-modal-body>
+      <motif-modal-footer>
+        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeamMembers()"
+          [disabled]="addTeamMemberForm.invalid">Save</button>
+        <button motifButton class="approve-no" color="secondary" (click)="closeTeamMemberModal()">Cancel</button>
+      </motif-modal-footer>
+    </motif-modal>
+
+    <motif-toast [type]="'success'" [show]="showToastAfterAddTeamMember">Team members added successfully</motif-toast>
+  </div>
+</div>

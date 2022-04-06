@@ -52,7 +52,7 @@ export class RegulatoryReportingFilingService {
       // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}`);
       // After API integration will remove above line and uncomment below line
       // return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}`);
-      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&noOfRecords=${noOfRecords}&sortBy=${sort}&filterKey=${filter}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.filing_history}&currentPage=${currentPage}&numRecords=${noOfRecords}&sortBy=${sort}&filterKey=${filter}`);
     }
   
     getFilingSearch(noOfRecords) {

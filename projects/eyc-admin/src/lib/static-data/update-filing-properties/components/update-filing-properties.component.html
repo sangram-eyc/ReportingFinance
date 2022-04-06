@@ -1,0 +1,257 @@
+<motif-toast [type]="'success'" [show]="showToaster">{{ toasterMessage }}</motif-toast>
+<div class="details-wrapper">
+  <div class="back-wrapper">
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoLandingPage()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp; Back</span>
+  </div>
+  <div class="info-header">
+    <div class="title-wrapper"><h3>{{filingData?.filingName}}</h3></div>
+    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable || enableEditReportID" class="user-edit"
+      *ngIf="!enableEditor && permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+      (click)="enableEditForm()">
+      <span *ngIf="!enableEditor && filingInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
+    </motif-icon>
+    <div class="edit-form" *ngIf="enableEditor">
+      <button class="save-submit" motifButton color="primary" size="small" [disabled]="editForm.invalid"
+        [ngClass]="editForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditForm()">Save</button>
+      <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="detailscontent-container" *ngIf="!enableEditor && filingInfo">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Filer Types
+        </div>
+        <div class="col-md-6  lablel-heading">
+          Filing Stages
+        </div>
+        <div class="col-md-6 label-value">
+          {{filingInfo?.filerType}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{filingInfo?.filingStage}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Scoping Stages
+        </div>
+        <div class="col-md-6 lablel-heading">
+          Filing Entities Stages
+        </div>
+        <div class="col-md-6 label-value">
+          {{filingInfo?.scopingStages}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{filingInfo?.entityStages}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detailscontent-container" *ngIf="enableEditor && filingInfo">
+
+    <div class="container-fluid">
+      <form [formGroup]="editForm" *ngIf="editForm">
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Filer Types (Values must be separated by commas)
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Filing Stages
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <input libRemoveSpaces motifInput type="text" formControlName="filerType" />
+              <motif-error *ngIf="editForm.get('filerType').hasError('required')">Please provide filer type
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters
+                long</motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="filingStages"
+                (ngModelChange)="onChangeMultiSelect($event, 'multi', 'filingStage')"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="item.stageCode" *ngFor="let item of filingStagesList">{{item.stageName}}
+                </motif-option>
+              </motif-select>
+              <motif-error *ngIf="editForm.get('filingStage').hasError('required')">Filing stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Scoping Stages
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Filing Entities Stages
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select aria-label="Aria Label" [multiple]="true" [(ngModel)]="scopingStages"
+                (ngModelChange)="onChangeMultiSelect($event, 'multi', 'scopingStages')"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option *ngFor="let item of scopingStagesList;index as i;" [value]="item.stageCode">
+                  {{item.stageName}}</motif-option>
+              </motif-select>
+              <motif-error *ngIf="editForm.get('scopingStages').hasError('required')">Scoping stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select aria-label="Aria Label" [multiple]="true" [(ngModel)]="entityStages"
+                (ngModelChange)="onChangeMultiSelect($event, 'multi', 'entityStages')"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option *ngFor="let item of entityStagesList;index as i;" [value]="item.stageCode">
+                  {{item.stageName}}</motif-option>
+              </motif-select>
+              <motif-error *ngIf="editForm.get('entityStages').hasError('required')">Filing entity stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <motif-tab-bar>
+    <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
+      [ngClass]="tabIn == 1 ? 'motif-active' : ''">PBI mapping</button>
+  </motif-tab-bar>
+
+  <div *ngIf="tabIn == 1">
+    <div *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
+      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length" motifButton color="primary" size="large"
+        (click)="onSaveReportID()">Save</button>
+        <button class="cancel_edit_reportid_button" *ngIf="enableEditReportID" motifButton color="secondary" size="large"
+        (click)="onCancelReportID()">Cancel</button>
+      <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary" size="large" [disabled]="disableAddMemberButton"
+        (click)="enableEditReportId()">Edit</button>
+    </div>
+    <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
+      [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
+      [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
+      displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
+      [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+      [export]="true" (exportFlagToParent)="exportData()">
+    </lib-shared-grid>
+
+    <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
+      <div class="delete-icon" (click)="deletePBIMapping(row)" *ngIf="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
+            fill="#155CB4" />
+        </svg>
+      </div>
+    </ng-template>
+    <!-- <ng-template #questionSection let-row>
+      <div class="displayReportID" *ngIf="!enableEditReportID">
+        <span class="reportid">
+          {{ row.name }}
+        </span>
+      </div>
+      <div class="editReportID" *ngIf="enableEditReportID">
+        <motif-form-field>
+          <motif-select aria-label="Please select an option" [(ngModel)]="row.name" ngDefaultControl
+            (change)="logEvent($event, 'multi', addPBIReportForm.controls.question.value)">
+            <motif-option [value]="item.name" *ngFor="let item of questionsList">{{item.name}}
+            </motif-option>
+          </motif-select>
+        </motif-form-field>
+      </div>
+    </ng-template> -->
+    <ng-template #reportIDSection let-row>
+      <div class="displayReportID" *ngIf="!enableEditReportID">
+        <span class="reportid">
+          {{ row.pbiReportId }}
+        </span>
+      </div>
+      <div class="editReportID" *ngIf="enableEditReportID">
+        <motif-form-field>
+          <input motifInput type="text" [(ngModel)]="row.pbiReportId" (ngModelChange)="onChangeEditReportID(row.name, row.pbiReportId?.length > 150)"/>
+          <motif-error *ngIf="row.pbiReportId?.length > 150">Report id can be max 150 characters
+            long</motif-error>
+        </motif-form-field>
+      </div>
+    </ng-template>
+
+    <motif-modal class="new-team-member-modal" [show]="showAddPBIReportModal" (close)="closeAddQuestionModal()">
+      <motif-modal-header>
+        Add PBI Report
+      </motif-modal-header>
+      <motif-modal-body>
+        <motif-toggle-switch [prelabel]="'Question List'" [postlabel]="'Switch to Edit mode'"
+          [(ngModel)]="questionSwitch" (ngModelChange)="onChangeQuestionSwitch($event)" ngDefaultControl></motif-toggle-switch>
+        <form [formGroup]="addPBIReportForm">
+          <span class="description" *ngIf="!questionSwitch"> Select PBI Questions to the filing</span>
+          <span class="description" *ngIf="questionSwitch"> Enter PBI Questions to the filing</span>
+          <div class="motif-row">
+            <div class="motif-col-xs-4 motif-col-lg-12">
+
+              <motif-form-field *ngIf="!questionSwitch">
+                <label motifLabel class="select-label">Select Question</label>
+                <motif-select aria-label="Please select an option" [formControl]="addPBIReportForm.controls['question']"
+                  ngDefaultControl (change)="logEvent($event, 'multi', addPBIReportForm.controls.question.value)">
+                  <motif-option [value]="item.name" *ngFor="let item of questionsList">{{item.name}}
+                  </motif-option>
+                </motif-select>
+                <motif-error *ngIf="
+                addPBIReportForm.get('question').hasError('required') &&
+                addPBIReportForm.get('question').touched">Please provide a question!
+                </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('question').hasError('maxlength')">Question can be max 100 characters
+                  long</motif-error>
+              </motif-form-field>
+
+              <motif-form-field *ngIf="questionSwitch">
+                <label motifLabel class="select-label">Enter Question</label>
+                <input libRemoveSpaces motifInput type="text" [formControl]="addPBIReportForm.controls['question']" />
+                <motif-error *ngIf="
+                addPBIReportForm.get('question').hasError('required') &&
+                addPBIReportForm.get('question').touched">Please provide a question
+                </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('question').hasError('maxlength')">Question can be max 100 characters
+                  long</motif-error>
+              </motif-form-field>
+            </div>
+            <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-form-field>
+                <label motifLabel class="select-label">Enter Report ID</label>
+                <input motifInput type="text" [formControl]="addPBIReportForm.controls['reportID']" />
+                <motif-error *ngIf="
+                addPBIReportForm.get('reportID').hasError('required') &&
+                addPBIReportForm.get('reportID').touched">Please provide a report id
+                </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('reportID').hasError('maxlength')">Report id can be max 150 characters
+                  long</motif-error>
+              </motif-form-field>
+            </div>
+
+          </div>
+        </form>
+      </motif-modal-body>
+      <motif-modal-footer>
+        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewQuestion()"
+          [disabled]="addPBIReportForm.invalid">Save</button>
+        <button motifButton class="approve-no" color="secondary" (click)="closeAddQuestionModal()">Cancel</button>
+      </motif-modal-footer>
+    </motif-modal>
+    <motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">PBI Mapping Deleted successfully</motif-toast>
+  </div>
+</div>

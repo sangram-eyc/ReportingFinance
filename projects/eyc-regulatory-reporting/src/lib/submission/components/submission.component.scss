@@ -273,5 +273,15 @@
         cursor: pointer;
         padding-top: 0.24rem;
         padding-right: 5px;
+        ::ng-deep path {
+            fill: #155CB4 !important;
+        }
     }
+  }
+ 
+  .last_updated_by_content {
+      display: contents;
+  }
+  ::ng-deep.motif-tooltip-trigger {
+        display: contents !important;
   }

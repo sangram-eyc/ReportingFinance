@@ -54,6 +54,11 @@
       "eyc-expense-reporting": [
         "dist/eyc-expense-reporting/eyc-expense-reporting",
         "dist/eyc-expense-reporting"
+      ],
+      "eyc-admin": [
+        "dist/eyc-admin/eyc-admin",
+        "dist/eyc-admin",
+        "projects/eyc-admin/src/lib*"
       ]
     },
     "resolveJsonModule": true,

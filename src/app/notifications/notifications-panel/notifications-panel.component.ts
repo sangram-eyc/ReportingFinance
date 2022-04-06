@@ -38,7 +38,7 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
         }
       });
 
-      //this.notificationService.setMultipleAsRead(ids).subscribe();
+      this.notificationService.setMultipleAsRead(ids).subscribe();
     });
     this.notifiSub$ = this.notificationService.notificationObs$.subscribe( res => {
       res.forEach( item => {

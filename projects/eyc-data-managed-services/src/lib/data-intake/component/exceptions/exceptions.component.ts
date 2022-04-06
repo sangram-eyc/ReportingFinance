@@ -339,7 +339,11 @@ export class ExceptionsComponent implements OnInit {
   }
   
   onRowClicked(event: RowClickedEvent) {
-    if (event && event.data && event.data.exceptionReportDetails) {
+    const exceptionReportDetail = event.data.exceptionReportDetails;
+    // FDF is not sending empty array. It is sending three type of values. 
+    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+      return false;
+    } else if (event && event.data && exceptionReportDetail) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this.dataManagedService.setExceptionFileName=event.data.name;
       this._router.navigate(['/data-managed-services/files/exception-details']);

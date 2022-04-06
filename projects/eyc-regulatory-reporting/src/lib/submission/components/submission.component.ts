@@ -32,6 +32,7 @@ export class SubmissionComponent implements OnInit {
   isUpdateStatusError = false;
   updateStatusErrorMsg = '';
   showAuditLog = false;
+  isAuditlogs = false;
   fileDetail;
   
   auditLogs = [];
@@ -448,25 +449,34 @@ export class SubmissionComponent implements OnInit {
 
   onClickLastUpdatedBy(row) {
     console.log(row);
-    this.showAuditLog = true;
+    
     this.fileDetail = row;
     let auditObjectId = row.fileId;
     let auditObjectType = 'Submission File';
-    let auditList = []
+    let auditList = [];
+    this.isAuditlogs = false;
     this.service.getAuditlog(auditObjectId,auditObjectType).subscribe(res => {
       console.log(res);
       let data = res['data'];
+      res['data'].length ? this.showAuditLog = true : this.isAuditlogs = true;
       data.forEach((element, index) => {
-        let item = this.copy(element)
+        let item = this.copy(element);
+        let item2 = this.copy(element);
         if (element.auditActionType == 'New') {
           if (element.auditDetails.auditObjectPrevValue == 'NA') {
             item['auditActionType'] = 'completed'
             item.auditDetails['auditObjectCurValue'] = 'Draft available for submission';
-            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a') + ' GMT';
+            item['subTitle'] ='System modified on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
             auditList.push(item)
           } else {
             item['auditActionType'] = 'completed';
             auditList.push(item);
+            if((index+1) ==data.length){
+              item2['auditActionType'] = 'Approve';
+              item2['subTitle'] ='Activity prior to this date is not shown in audit history.     System generated note on' + ' ' + this.datepipe.transform(element.modifiedDateTime, 'MMM dd y hh:mm a', '+0000') + ' GMT';
+              item2.auditDetails['auditObjectCurValue'] = 'Recording of events began on this date.';
+              auditList.push(item2);
+            }
           }
         }
       });

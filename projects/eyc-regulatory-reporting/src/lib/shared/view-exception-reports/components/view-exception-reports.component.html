@@ -51,7 +51,8 @@
       [noData]="'No exceptions found'"
       [displayCheckBox]="true"
       [pagination]="true"
-      [export]="true" (exportFlagToParent)="exportData()">
+      [export]="true" (exportFlagToParent)="exportData()"
+      [uiPagination]="true">
     </lib-shared-grid>
 
   <lib-shared-grid *ngIf="answerExceptionTable"
@@ -70,7 +71,8 @@
     (unresolveEventToParent)="actionUnResolvedClick($event)"
     [disableResolveButton]="!enableResolveButton"
     [disableUnresolveButton]="!enableUnresolveButton"
-    [hideHeaderCheckbox]="false"  [export]="true" (exportFlagToParent)="exportData()">
+    [hideHeaderCheckbox]="false"  [export]="true" (exportFlagToParent)="exportData()"
+    [uiPagination]="true">
   </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
       <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
