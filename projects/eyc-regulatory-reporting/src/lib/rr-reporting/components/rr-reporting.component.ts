@@ -432,7 +432,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             ngTemplate: this.commentExceptionTemplate,
           },
           headerName: 'Comments',
-          field: 'commentsCount',
+          field: 'comments',
           sortable: true,
           filter: true,
           width: 155,
