@@ -4,7 +4,7 @@
   background: #F6F6FA;
   opacity: 0.8;
   padding: 15px;
-  white-space: break-spaces;
+  // white-space: break-spaces;
   border: 0.999px solid #EAEAF2;
 
   .notification-texts {
@@ -42,7 +42,7 @@
       line-height: 16px;
       color: #23232F;
       font-weight: bold;
-
+      white-space: break-spaces;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
