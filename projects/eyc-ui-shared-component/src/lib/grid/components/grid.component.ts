@@ -234,6 +234,7 @@ pageSize;
   async handlePageChange(val: number) {
     this.currentPage = val;
     this.currentPageChange.emit(val);
+    this.gridApi.setFilterModel(null);
     console.log('HANDLE PAGE CHANGE', val);
     await this.pageChangeFunc();
   }
