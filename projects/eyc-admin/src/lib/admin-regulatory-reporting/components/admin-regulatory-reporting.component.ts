@@ -106,6 +106,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   adminTabChange(selectedTab){
     this.tabIn = selectedTab;
+    this.filter = '';
     if(this.tabIn === 1) {
       this.displayCheckBox = true;
       this.getTeamList(true);

@@ -529,6 +529,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
  */
   receiveMessage($event) {
     this.tabs = $event;
+    this.filter = '';
     if(this.tabs == 2){
       this.modalMessage = ' Are you sure you want to approve the selected entities? This will approve them for submission.';
       this.getFilingEntities(true);

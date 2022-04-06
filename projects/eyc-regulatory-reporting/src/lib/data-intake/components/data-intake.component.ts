@@ -225,8 +225,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     if (this.tabs == 2) {
       this.getDatasets(true);
+      this.pageInfoException.filter = '';
     } else if (this.tabs == 1) {
       this.getExceptionReports(true);
+      this.pageInfoData.filter = '';
     }
     console.log('TAB EVENT', $event);
     /* else if (this.tabs == 3) {
