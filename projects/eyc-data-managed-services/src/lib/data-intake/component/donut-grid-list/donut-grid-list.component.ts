@@ -38,12 +38,13 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   darkVariant: string = "monochrome-dark";
   allIssueVariant: string = this.darkVariant;
   noIssueVariant: string = this.lightVariant;
-  mediumLowIssueVariant: string = this.lightVariant;
+  lowIssueVariant: string = this.lightVariant;
+  mediumIssueVariant: string = this.lightVariant;
   highIssueVariant: string = this.lightVariant;
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
-  dataList: any;
+  dataList: Observable<any[]>;
   dataListClone: [];
   totalDataIntakeTypeCount: number;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
@@ -53,10 +54,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
-    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
-    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
-    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
-    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+    { name: FILTER_TYPE_TITLE.low, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.medium, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[4] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[5] },
   ];
 
 
@@ -231,26 +233,29 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     switch (status) {
       case FILTER_TYPE.NO_ISSUES:
         return this.colorSchemeAll.domain[0];
-      case FILTER_TYPE.MEDIUM_LOW:
+      case FILTER_TYPE.LOW:
         return this.colorSchemeAll.domain[1];
-      case FILTER_TYPE.HIGH:
+      case FILTER_TYPE.MEDIUM:
         return this.colorSchemeAll.domain[2];
-      case FILTER_TYPE.MISSING_FILES:
+      case FILTER_TYPE.HIGH:
         return this.colorSchemeAll.domain[3];
-      case FILTER_TYPE.FILE_NOT_RECIEVED:
+      case FILTER_TYPE.MISSING_FILES:
         return this.colorSchemeAll.domain[4];
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        return this.colorSchemeAll.domain[5];
       default:
         break;
-
     }
   }
 
   setLegendTitle(status){
-    switch (status){
+    switch (status) {
       case FILTER_TYPE.NO_ISSUES:
         return this.FILTER_TYPE_TITLE.noIssues;
-      case FILTER_TYPE.MEDIUM_LOW:
-        return this.FILTER_TYPE_TITLE.mediumLow;
+      case FILTER_TYPE.LOW:
+        return this.FILTER_TYPE_TITLE.low;
+      case FILTER_TYPE.MEDIUM:
+        return this.FILTER_TYPE_TITLE.medium;
       case FILTER_TYPE.HIGH:
         return this.FILTER_TYPE_TITLE.high;
       case FILTER_TYPE.MISSING_FILES:
@@ -259,7 +264,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
         return this.FILTER_TYPE_TITLE.fileNotReceived;
       default:
         break;
-    
     }
   }
 
@@ -272,7 +276,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.darkVariant;
           this.noIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
+          this.lowIssueVariant = this.lightVariant;
+          this.mediumIssueVariant = this.lightVariant;
           this.highIssueVariant = this.lightVariant;
           this.missingFileVariant = this.lightVariant;
           this.fileNotReceivedVariant = this.lightVariant;
@@ -293,15 +298,26 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
           this.filterTypes('pop', [FILTER_TYPE.NO_ISSUES]);
         }
         break;
-      case FILTER_TYPE.MEDIUM_LOW:
+        case FILTER_TYPE.LOW:
+          if (variants === this.lightVariant) {
+            this.allIssueVariant = this.lightVariant;
+            this.lowIssueVariant = this.darkVariant;
+            this.filterTypes('push', [FILTER_TYPE.LOW]);
+          } else {
+            this.allIssueVariant = this.lightVariant;
+            this.lowIssueVariant = this.lightVariant;
+            this.filterTypes('pop', [FILTER_TYPE.LOW]);
+          }
+          break;
+      case FILTER_TYPE.MEDIUM:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.darkVariant;
-          this.filterTypes('push', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.mediumIssueVariant = this.darkVariant;
+          this.filterTypes('push', [FILTER_TYPE.MEDIUM]);
         } else {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
-          this.filterTypes('pop', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.mediumIssueVariant = this.lightVariant;
+          this.filterTypes('pop', [FILTER_TYPE.MEDIUM]);
         }
         break;
       case FILTER_TYPE.HIGH:
@@ -343,7 +359,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     if (this.httpQueryParams.filterTypes.length <= 0) {
       this.allIssueVariant = this.darkVariant;
       this.noIssueVariant = this.lightVariant;
-      this.mediumLowIssueVariant = this.lightVariant;
+      this.lowIssueVariant = this.lightVariant;
+      this.mediumIssueVariant = this.lightVariant;
       this.highIssueVariant = this.lightVariant;
       this.missingFileVariant = this.lightVariant;
       this.fileNotReceivedVariant = this.lightVariant;
@@ -384,8 +401,9 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   getDataIntakeType() {
     this.dataListClone = [];
     this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((data: any) => {
-      this.dataList = data.data;
-      this.totalDataIntakeTypeCount = this.dataList.length;
+      this.dataList = of(data.data);
+      this.dataListClone = data.data;
+      this.totalDataIntakeTypeCount = this.dataListClone.length;
       this.cdr.detectChanges();
     });
   }

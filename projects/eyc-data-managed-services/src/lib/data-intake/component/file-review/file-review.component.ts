@@ -116,7 +116,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   darkVariant: string = "monochrome-dark";
   allIssueVariant: string = this.darkVariant;
   noIssueVariant: string = this.lightVariant;
-  mediumLowIssueVariant: string = this.lightVariant;
+  lowIssueVariant: string = this.lightVariant;
+  mediumIssueVariant: string = this.lightVariant;
   highIssueVariant: string = this.lightVariant;
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
@@ -164,10 +165,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
-    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
-    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
-    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
-    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+    { name: FILTER_TYPE_TITLE.low, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.medium, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[4] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[5] },
   ];
 
   lastMonthDate: Date;
@@ -216,7 +218,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     });
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
-     this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+    this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
   }
 
   patchDatePicker(patchDatePickerValue: Date) {
@@ -351,7 +353,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
-    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
       this.columnGl = [
@@ -709,15 +711,26 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.filterTypes('pop', [FILTER_TYPE.NO_ISSUES]);
         }
         break;
-      case FILTER_TYPE.MEDIUM_LOW:
+      case FILTER_TYPE.LOW:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.darkVariant;
-          this.filterTypes('push', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.lowIssueVariant = this.darkVariant;
+          this.filterTypes('push', [FILTER_TYPE.LOW]);
         } else {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
-          this.filterTypes('pop', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.lowIssueVariant = this.lightVariant;
+          this.filterTypes('pop', [FILTER_TYPE.LOW]);
+        }
+        break;
+      case FILTER_TYPE.MEDIUM:
+        if (variants === this.lightVariant) {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumIssueVariant = this.darkVariant;
+          this.filterTypes('push', [FILTER_TYPE.MEDIUM]);
+        } else {
+          this.allIssueVariant = this.lightVariant;
+          this.mediumIssueVariant = this.lightVariant;
+          this.filterTypes('pop', [FILTER_TYPE.MEDIUM]);
         }
         break;
       case FILTER_TYPE.HIGH:
@@ -757,7 +770,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.darkVariant;
           this.noIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
+          this.lowIssueVariant = this.lightVariant;
+          this.mediumIssueVariant = this.lightVariant;
           this.highIssueVariant = this.lightVariant;
           this.missingFileVariant = this.lightVariant;
           this.fileNotReceivedVariant = this.lightVariant;
@@ -772,7 +786,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     if (this.httpQueryParams.filterTypes.length <= 0) {
       this.allIssueVariant = this.darkVariant;
       this.noIssueVariant = this.lightVariant;
-      this.mediumLowIssueVariant = this.lightVariant;
+      this.lowIssueVariant = this.lightVariant;
+      this.mediumIssueVariant = this.lightVariant;
       this.highIssueVariant = this.lightVariant;
       this.missingFileVariant = this.lightVariant;
       this.fileNotReceivedVariant = this.lightVariant;

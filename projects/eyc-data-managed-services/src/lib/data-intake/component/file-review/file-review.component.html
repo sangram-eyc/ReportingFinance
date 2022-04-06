@@ -55,14 +55,15 @@
          </motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
             [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
-         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
-            [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.LOW, lowIssueVariant)"
+            [variant]="lowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.LOW]}}</motif-chip>
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM, mediumIssueVariant)"
+            [variant]="mediumIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM]}}</motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.HIGH, highIssueVariant)"
             [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
          <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
             [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
-         <motif-chip [removeable]="false"
-            (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+         <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
             [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
       </motif-chip-group>
    </div>
@@ -205,29 +206,24 @@
                <div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div>
                <div>{{FILTER_TYPE_TITLE.noIssues}}</div>
             </div>
-            <div *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM_LOW" class="space-between">
-               <div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div>
-               <div>{{FILTER_TYPE_TITLE.mediumLow}}</div>
-            </div>
-            <div *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" class="space-between">
-               <div class="legend" [style.background]="colorSchemeAll.domain[5]"> </div>
-               <div>{{FILTER_TYPE_TITLE.medium}}</div>
-            </div>
             <div *ngIf="row.maxPriority==FILTER_TYPE.LOW" class="space-between">
-               <div class="legend" [style.background]="colorSchemeAll.domain[6]"> </div>
+               <div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div>
                <div>{{FILTER_TYPE_TITLE.low}}</div>
             </div>
+            <div *ngIf="row.maxPriority==FILTER_TYPE.MEDIUM" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div>
+               <div>{{FILTER_TYPE_TITLE.medium}}</div>
+            </div>
             <div *ngIf="row.maxPriority==FILTER_TYPE.HIGH" class="space-between">
-               <div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div> 
+               <div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div> 
                <div>{{FILTER_TYPE_TITLE.high}}</div> 
             </div>
             <div *ngIf="row.maxPriority==FILTER_TYPE.MISSING_FILES" class="space-between">
-               <div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div>
-               <div>{{FILTER_TYPE_TITLE.missingFiles}}</div>
-            </div>
-            
-            <div *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" class="space-between">
                <div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div>
+               <div>{{FILTER_TYPE_TITLE.missingFiles}}</div>
+            </div>            
+            <div *ngIf="row.maxPriority==FILTER_TYPE.FILE_NOT_RECIEVED" class="space-between">
+               <div class="legend" [style.background]="colorSchemeAll.domain[5]"> </div>
                <div>{{FILTER_TYPE_TITLE.fileNotReceived}}</div>
             </div>
          </div>

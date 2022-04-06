@@ -195,35 +195,66 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues" class="last-div">
+                     <div id="medium-priority-issues" class="last-div">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low
-                              priority
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
+                                 [disabled]="(mediumPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient"
-                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
-                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">{{noMediumLowPriority}}
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="low-priority-issues" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(lowPriorityCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
                               </div>
                            </div>
                         </div>
@@ -296,35 +327,66 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues-domain" class="last-div">
+                     <div id="medium-priority-issues-domain" class="last-div">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low
-                              priority
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
                            <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
+                                 [disabled]="(mediumPriorityCount==0)">Review</button>
                            </div>
                         </div>
                         <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient"
-                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
-                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
-                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">{{noMediumLowPriority}}
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>  
+                     <div id="low-priority-issues-domain" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(lowPriorityCount==0)">Review</button>
+                           </div>
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
                               </div>
                            </div>
                         </div>

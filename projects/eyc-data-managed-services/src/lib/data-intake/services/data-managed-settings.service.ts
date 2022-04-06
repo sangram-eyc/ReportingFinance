@@ -14,7 +14,7 @@ export class DataManagedSettingsService {
 
   get dataManagedServices(): any {
     const data_Managed_Services = {
-      file_summary_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
+      file_summary_list: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/data-summary' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       file_summary_list_daily: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list-daily.json',
       file_summary_list_monthly: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       file_data_provider: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/data-intake-charts-data.json',
@@ -26,9 +26,9 @@ export class DataManagedSettingsService {
       file_general_ledger: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/general-ledger-data.json',
       exception_reports_table: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/exception-reports-table-data.json',
       file_review_data: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/data-intake-chart-multi-data.json',
-      file_review_table_data: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
-      exception_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report/exception' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
-      review_by_group_provider_domain:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/review-by-group' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json'
+      file_review_table_data: this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/totals-report' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
+      exception_table_data:this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/totals-report/exception' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
+      review_by_group_provider_domain:this.production ? this.API_ENDPOINT + 'dmsdataintakeservice/api/v2/dms/review-by-group' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json'
     }
     return data_Managed_Services;
   }

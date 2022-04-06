@@ -44,19 +44,19 @@
         <div class="chip-container">
             <div class="left-div">FAST FILTERS: </div>
             <motif-chip-group>
-                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)"
-                    [variant]="allIssueVariant">All
+                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
                 </motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
                     [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
-                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
-                    [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.LOW, lowIssueVariant)"
+                    [variant]="lowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.LOW]}}</motif-chip>
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM, mediumIssueVariant)"
+                    [variant]="mediumIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.HIGH, highIssueVariant)"
                     [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
                     [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
-                <motif-chip [removeable]="false"
-                    (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
                     [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
             </motif-chip-group>
         </div>
