@@ -11,6 +11,7 @@ import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RoutingStateService } from '../../services/routing-state.service';
+import { colorSets, Color } from 'eyc-charts-shared-library';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ExceptionsComponent implements OnInit {
   dataIntakeTypeDisplayText = DATA_INTAKE_TYPE_DISPLAY_TEXT;
   dataIntakeTypeUrl: string = '';
   routeUrlConst=ROUTE_URL_CONST;
+  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 

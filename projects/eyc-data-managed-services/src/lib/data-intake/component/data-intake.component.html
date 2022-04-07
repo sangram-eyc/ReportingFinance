@@ -195,7 +195,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="medium-priority-issues" class="last-div">
+                     <div id="medium-priority-issues">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
@@ -203,7 +203,7 @@
                                  [disabled]="(mediumPriorityCount==0)">Review</button>
                            </div>
                         </div>
-                        <div class="bar-chart-body border border-0">
+                        <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
                                  [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
@@ -327,7 +327,7 @@
                            </div>
                         </div>
                      </div>
-                     <div id="medium-priority-issues-domain" class="last-div">
+                     <div id="medium-priority-issues-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
@@ -335,7 +335,7 @@
                                  [disabled]="(mediumPriorityCount==0)">Review</button>
                            </div>
                         </div>
-                        <div class="bar-chart-body border border-0">
+                        <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
                                  [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
