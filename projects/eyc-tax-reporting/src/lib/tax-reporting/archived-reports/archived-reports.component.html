@@ -1,56 +1,78 @@
-<div id="archived-report" class="mt-4 mb-4">
-    <motif-button-group>
-        <button id="option1" motifButton color="secondary" (click)="getReportYear('option1', pastYear)" size="small">{{pastYear}}</button>
-        <button id="option2" motifButton color="secondary" (click)="getReportYear('option2', past2Year)" size="small">{{past2Year}}</button>
-        <button id="option3" motifButton color="secondary" (click)="getReportYear('option3', past3Year)" size="small">{{past3Year}}</button>
-    </motif-button-group>
-</div>
-<section>
-     <lib-shared-grid id='archived-reports-grid' [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
-        [pagination]="true" buttonPosition="left" buttonText="Cycle Insights" [displaySecondButton]="false"  [displayCheckBox]="true"
-        (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
-     </lib-shared-grid>
-
-    <div *ngIf="searchNoDataAvilable">
-        <motif-card class="no_data">
-            <motif-card-body>
-                <h5>Your search has returned no results. Please adjust and try again.</h5>
-            </motif-card-body>
-        </motif-card>
+    <div id="archived-report" class="mt-4 mb-4">
+        <motif-button-group>
+            <button id="option1" motifButton color="secondary" (click)="getReportYear('option1', pastYear)"
+                size="small">{{pastYear}}</button>
+            <button id="option2" motifButton color="secondary" (click)="getReportYear('option2', past2Year)"
+                size="small">{{past2Year}}</button>
+            <button id="option3" motifButton color="secondary" (click)="getReportYear('option3', past3Year)"
+                size="small">{{past3Year}}</button>
+        </motif-button-group>
     </div>
+    <section>
 
-    <ng-template #taxReportNameTemplate let-row>
-        <button class="btn custom-link">{{row.name}}</button>
-    </ng-template>
+        <lib-shared-grid id='archived-reports-grid' [columnDefs]="columnDefs" [rowData]="rowData"
+            [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" buttonPosition="left"
+            buttonText="Cycle Insights" [displaySecondButton]="false" [displayCheckBox]="true"
+            (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
+        </lib-shared-grid>
 
-    <ng-template #totalFundsTemplate let-row>
-        <button class="btn custom-link">{{row.fundCount}}</button>
-    </ng-template>
-
-    <ng-template #totalCommentsTemplate let-row>
-        <div class="total-comments-div">
-            <svg class="total-comments-svg" width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 2C15 1.175 14.325 0.5 13.5 0.5H1.5C0.675 0.5 0 1.175 0 2V11C0 11.825 0.675 12.5 1.5 12.5H12L15 15.5V2Z" fill="#2E2E3C"/>
-            </svg> 
-            {{row.totalComments}}           
+        <div *ngIf="searchNoDataAvilable">
+            <motif-card class="no_data">
+                <motif-card-body>
+                    <h5>Your search has returned no results. Please adjust and try again.</h5>
+                </motif-card-body>
+            </motif-card>
         </div>
-    </ng-template>
 
-    <ng-template #dueDateTemplate let-row>
-        <button class="btn custom-link">{{row.dueDate}}</button>
-    </ng-template>
+        <ng-template #datasetsDropdownTemplate let-row>
+            <div id="menu_column">
+                <motif-tooltip placement="bottom">
+                    <div motifTooltipTrigger aria-label="tooltip" class="dropdownTemplate">
+                        <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                            tabindex="0" class='motif_tooltip'>
+                        </motif-icon>
+                    </div>
 
-    <ng-template #dateSubmittedTemplate let-row>
-        <button class="btn custom-link">{{row.dateSubmitted}}</button>
-    </ng-template>
+                    <div>option 1</div>
+                </motif-tooltip>
+            </div>
+        </ng-template>
 
-    <ng-template #submittedbyTemplate let-row>
-        <button class="btn custom-link">{{row.submittedBy}}</button>
-    </ng-template> 
+        <ng-template #taxReportNameTemplate let-row>
+            <span class="custom-row">{{row.name}}</span>
+        </ng-template>
 
-    <ng-template #ActionsTemplate let-row>
-        <button class="btn custom-link">
-            <button class="custom-button">View</button>
-        </button>
-    </ng-template>
-</section>
+        <ng-template #totalFundsTemplate let-row>
+            <span>{{row.fundCount}}</span>
+        </ng-template>
+
+        <ng-template #totalCommentsTemplate let-row>
+            <div class="total-comments-div">
+                <svg class="total-comments-svg" width="15" height="16" viewBox="0 0 15 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15 2C15 1.175 14.325 0.5 13.5 0.5H1.5C0.675 0.5 0 1.175 0 2V11C0 11.825 0.675 12.5 1.5 12.5H12L15 15.5V2Z"
+                        fill="#2E2E3C" />
+                </svg>
+                {{row.totalComments}}
+            </div>
+        </ng-template>
+
+        <ng-template #dueDateTemplate let-row>
+            <button class="btn custom-link">{{row.dueDate}}</button>
+        </ng-template>
+
+        <ng-template #dateSubmittedTemplate let-row>
+            <button class="btn custom-link">{{row.dateSubmitted}}</button>
+        </ng-template>
+
+        <ng-template #submittedbyTemplate let-row>
+            <button class="btn custom-link">{{row.submittedBy}}</button>
+        </ng-template>
+
+        <ng-template #ActionsTemplate let-row>
+            <button class="btn custom-link">
+                <button class="custom-button">View</button>
+            </button>
+        </ng-template>
+    </section>
