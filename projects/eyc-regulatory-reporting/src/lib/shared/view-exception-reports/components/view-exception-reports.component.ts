@@ -98,13 +98,14 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
-      this.stage = 'reporting'
+      
       sessionStorage.setItem("reportingTab", '1');
     }
     if (this.dataIntakeData) {
       this.getExceptionResults();
       this.dataIntakeExceptionsTable = true;
     } else {
+      this.stage = 'reporting'
       this.getAnswerExceptionReports();
       this.answerExceptionTable = true;
     }
