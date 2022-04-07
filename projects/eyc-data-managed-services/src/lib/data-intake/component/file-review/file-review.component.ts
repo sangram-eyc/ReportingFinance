@@ -179,6 +179,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this._activatedroute.paramMap.subscribe(params => {
       if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
         this.clientName = params.get('paramDataIntakeName');
