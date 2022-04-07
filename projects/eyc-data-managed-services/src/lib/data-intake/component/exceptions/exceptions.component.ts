@@ -113,7 +113,7 @@ export class ExceptionsComponent implements OnInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -135,7 +135,7 @@ export class ExceptionsComponent implements OnInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -217,7 +217,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'name',
           sortable: true,
           filter: false,
-          minWidth: 100,
+          minWidth: 400,
           wrapText: true,
           autoHeight: true,
           cellRendererParams: {
@@ -284,9 +284,10 @@ export class ExceptionsComponent implements OnInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpDataGridParams.dueDate = this.calSelectedDate;
+      this.httpDataGridParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
   }

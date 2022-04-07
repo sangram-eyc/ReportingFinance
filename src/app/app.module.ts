@@ -78,6 +78,7 @@ import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
+  { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
