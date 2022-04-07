@@ -193,7 +193,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    debugger;
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
