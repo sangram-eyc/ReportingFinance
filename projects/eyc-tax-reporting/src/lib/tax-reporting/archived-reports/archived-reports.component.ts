@@ -54,6 +54,8 @@ export class ArchivedReportsComponent implements OnInit {
   submittedBy: TemplateRef<any>;
   @ViewChild('ActionsTemplate')
   Actions: TemplateRef<any>;
+  @ViewChild('datasetsDropdownTemplate')
+  datasetsDropdownTemplate: TemplateRef<any>;
 
   dataset = [{
     disable: false,
@@ -125,6 +127,18 @@ export class ArchivedReportsComponent implements OnInit {
       })
     });
     this.columnDefs = [
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.datasetsDropdownTemplate,
+        },
+        headerName: '',
+        field: 'template',
+        width: 5,
+        sortable: false,
+        pinned: 'left'
+      },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,

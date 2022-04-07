@@ -1,5 +1,19 @@
+
 #archived-reports-grid::ng-deep .left-button {
     flex-direction: row-reverse !important;
+}
+
+#archived-reports-grid ::ng-deep.left-button::ng-deep.search::before{
+    display: inline-flex;
+    content: '';
+    background-image: url(../../../assets/mock/icons/search_icon.svg);
+    background-size: 27px 36px;
+    background-position-y: 4px;
+    background-position-x: 7px;
+    background-repeat: no-repeat;
+    height: 44px;
+    width: 44px;
+    border: 1px solid grey;
 }
 
 .custom-button{
@@ -7,6 +21,15 @@
     color: white;
     box-shadow: none;
     border-style: none;
+}
+
+.custom-row{
+    font-family: EYInterstate;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
 }
 
 .total-comments-div{
@@ -20,3 +43,14 @@
     margin-top: 5px;
 }
 
+.motif_tooltip{
+    vertical-align: middle;
+}
+
+#menu_column ::ng-deep.motif-tooltip .motif-tooltip-inner{
+    display: none !important;
+}
+
+#menu_column ::ng-deep.motif-tooltip #arrow{
+    display: none !important;
+}
