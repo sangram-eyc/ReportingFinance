@@ -54,3 +54,8 @@
 #menu_column ::ng-deep.motif-tooltip #arrow{
     display: none !important;
 }
+
+#archived-reports-grid ::ng-deep .approve-button .motif-icon-content {
+    content: url('../../../assets/mock/icons/insights-icon.svg');
+    padding: 7px;
+  }
