@@ -43,6 +43,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       this.filingId = this.filingService.getFilingData.filingId;
       this.filingDetails.emit(this.filingService.getFilingData);
       this.getFilingStatus();
+      this.getActiveFilings()
       this.filingService.dotcardStatusDetails.pipe(takeUntil(this.ngUnsubscribe)).subscribe(res => {
         this.getFilingStatus();
       });
@@ -51,6 +52,25 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
   }
+
+  getActiveFilings(){
+    let activeFilings = [];
+    this.filingService.getFilings().pipe().subscribe(resp => {
+      resp['data'].length>0 ? activeFilings=[...resp['data']] : activeFilings = []
+      this.checkFilingTest(activeFilings) ? '' : this.navigateToLandigPage()
+  });
+}
+
+checkFilingTest(activeFilings:any){
+  let res = activeFilings.some((el)=>{
+    return el.filingName == this.filingName
+  });
+  return res;
+}
+
+navigateToLandigPage(){
+  this.router.navigate(['/app-regulatory-filing'])
+}
 
   formatDate() {
     let due = new Date(this.dueDate);
