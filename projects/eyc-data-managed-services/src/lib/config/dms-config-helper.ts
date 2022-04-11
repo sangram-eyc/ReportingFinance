@@ -2,7 +2,10 @@ import { DonutLegend } from '../data-intake/models/donut-legend.model'
 
 export const NO_FILE_MISSING_PAST_DUE = "No files missing at the moment";
 export const NO_HIGH_PRIORITY_ISSUES = "No files with high priority issues at the moment";
-export const NO_MEDUIM_LOW_PRIORITY = "No files with medium / low priority issues at the moment";
+// export const NO_MEDUIM_LOW_PRIORITY = "No files with medium / low priority issues at the moment";
+export const NO_LOW_PRIORITY_ISSUES = "No files with low priority issues at the moment";
+export const NO_MEDUIM_PRIORITY_ISSUES = "No files with medium priority issues at the moment";
+
 
 export const DATA_FREQUENCY = {
     ALL: 'All',
@@ -13,6 +16,14 @@ export const DATA_FREQUENCY = {
 export const DATA_INTAKE_TYPE = {
     DATA_PROVIDER: 'dataProvider',
     DATA_DOMAIN: 'dataDomain'
+}
+
+export const ROUTE_URL_CONST = {
+    DMS_LANDING_URL:'/data-managed-services',
+    DATA_INTAKE_TYPE_URL: '/data-managed-services/data-intake',
+    FILE_REVIEW_URL: '/data-managed-services/files-review',
+    FILE_EXCEPTION:'/data-managed-services/files/exceptions',
+    FILE_EXCEPTION_DETAILS:'/data-managed-services/files/exception-details'
 }
 
 export const DATA_INTAKE_TYPE_DISPLAY_TEXT = {
@@ -33,13 +44,11 @@ export const FILTER_TYPE = {
     LOW: 'low',
     MEDIUM: 'medium',
     MISSING_FILES: 'missingFiles',
-    FILE_NOT_RECIEVED: 'fileNotReceived',
-    MEDIUM_LOW: 'mediumLow'
+    FILE_NOT_RECIEVED: 'fileNotReceived'
 }
 
 export abstract class FileFilterStatus {
     public static noIssue: DonutLegend = { apiKey: "noIssues", legendTitle: "No issues" };
-    public static mediumLowPriority: DonutLegend = { apiKey: "mediumLow", legendTitle: "Medium / low priority issues" };
     public static mediumPriority: DonutLegend = { apiKey: "medium", legendTitle: "Medium priority issues" };
     public static lowPriority: DonutLegend = { apiKey: "low", legendTitle: "Low priority issues" };
     public static highPriorityIssues: DonutLegend = { apiKey: "high", legendTitle: "High priority issues" };
@@ -49,7 +58,6 @@ export abstract class FileFilterStatus {
 
 export const FILTER_TYPE_TITLE = {
     [`${FILTER_TYPE.NO_ISSUES}`]: FileFilterStatus.noIssue.legendTitle,
-    [`${FILTER_TYPE.MEDIUM_LOW}`]: FileFilterStatus.mediumLowPriority.legendTitle,
     [`${FILTER_TYPE.MEDIUM}`]: FileFilterStatus.mediumPriority.legendTitle,
     [`${FILTER_TYPE.LOW}`]: FileFilterStatus.lowPriority.legendTitle,
     [`${FILTER_TYPE.HIGH}`]: FileFilterStatus.highPriorityIssues.legendTitle,

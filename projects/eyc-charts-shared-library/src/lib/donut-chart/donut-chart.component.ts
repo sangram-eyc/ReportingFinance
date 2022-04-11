@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import * as d3 from 'd3';
+import { colorSets } from '../utils/color-sets';
 
 @Component({
   selector: 'lib-donut-chart',
@@ -32,7 +33,7 @@ export class DonutChartComponent {
   // Mock API data stored in _data
   _data: number[];
   // Color code for donut chart
-  _colors: string[] = ["#57E188", "#42C9C2", "#FF9831", "#FF736A", "#E7E7EA"];
+  _colors: string[] = colorSets.find(s => s.name === 'all').domain;
   // fileSummaries used for legends iteration
   fileSummaries: string[] = [];
 

@@ -55,8 +55,8 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*"
-  ],
+    "src/**/*", 
+    "projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service.ts" ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
