@@ -33,6 +33,8 @@ import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-mana
 import {NotificationsModule} from "@default/notifications/notifications.module";
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
+import {EycEuropeanFundReportingModule} from 'projects/eyc-european-fund-reporting/src/lib/eyc-european-fund-reporting.module'
+import {europeanfrenvironment} from '../environments/eyc-european-fund-reporting/europena-fr-environment'
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
     EycDataIntakeModule,
     EycDataManagementServicesModule,
     NotificationsModule,
-    EycAdminModule
+    EycAdminModule,
+    EycEuropeanFundReportingModule
 
   ],
 
@@ -79,6 +82,8 @@ import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
   { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
+  { provide:"europeanFRapiEndpoint",  useValue: europeanfrenvironment.apiEndpoint},
+  { provide:"europeanFRProduction",  useValue: europeanfrenvironment.production},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

@@ -82,4 +82,10 @@ task buildAdmin(type: NpmTask) {
   
 }
 
+task buildEuropeanFR(type: NpmTask){
+  println "Building eyc-european-fund-reporting UI"
+  args = ['run', 'eyc-european-fund-reporting']
+
+}
+
 build.dependsOn(npm_install)
