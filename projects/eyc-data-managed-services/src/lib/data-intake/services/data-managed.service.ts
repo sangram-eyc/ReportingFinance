@@ -117,7 +117,8 @@ export class DataManagedService {
     .append('fileName',dataGrid.fileName)
     .append('clientName',dataGrid.clientName)
     .append('reportId',dataGrid.reportId)
-    .append('reportName',dataGrid.reportName);
+    .append('reportName',dataGrid.reportName)
+    .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
 

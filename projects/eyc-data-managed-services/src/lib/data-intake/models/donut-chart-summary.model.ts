@@ -7,8 +7,13 @@ export const donutSummariesObject = [
     "value": 0
   },
   {
-    "apiKey": FileFilterStatus.mediumLowPriority.apiKey,
-    "label": FileFilterStatus.mediumLowPriority.legendTitle,
+    "apiKey": FileFilterStatus.lowPriority.apiKey,
+    "label": FileFilterStatus.lowPriority.legendTitle,
+    "value": 0
+  },
+  {
+    "apiKey": FileFilterStatus.mediumPriority.apiKey,
+    "label": FileFilterStatus.mediumPriority.legendTitle,
     "value": 0
   },
   {
