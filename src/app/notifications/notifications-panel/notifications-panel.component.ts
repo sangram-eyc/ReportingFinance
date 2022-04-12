@@ -1,4 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {PouchdbService} from '@default/services/pouchdb.service';
 import {NotificationService} from '@default/services/notification.service';
 import {Subscription} from 'rxjs';
 
@@ -18,7 +20,9 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   private notifiSub$: Subscription;
 
   constructor(
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService,
+    private router: Router,
+    private pouchDbService: PouchdbService) {
   }
 
   ngOnInit(): void {
@@ -55,23 +59,10 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   }
 
   archive(i): void {
-    const notificationContent = JSON.parse(this.notifications[i].request.content);
-    notificationContent.extraParameters.isArchived = true;
-    this.notifications[i].request.content = JSON.stringify(notificationContent);
-    this.notifications = Object.assign([], this.notifications);
-    event.stopPropagation();
-    event.preventDefault();
-    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
-  }
-
-  flag(i): void {
-    const notificationContent = JSON.parse(this.notifications[i].request.content);
-    notificationContent.extraParameters.flagged = !notificationContent.extraParameters.flagged;
-    this.notifications[i].request.content = JSON.stringify(notificationContent);
-    this.notifications = Object.assign([], this.notifications);
-    event.stopPropagation();
-    event.preventDefault();
-    sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
+    this.delete(i);
+    setTimeout(() => {
+      this.getArchivedNotifications();
+    }, 1000);
   }
 
   expand(id): void {
@@ -85,6 +76,25 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
 
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  onScroll() {
+    this.currentPage += 1;
+    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
+      res.content.forEach( item => {
+        this.notifications.push(item);
+      });
+    });
+  }
+
+  getArchivedNotifications() {
+    this.notificationService.getArchivedNotifications('', 0).subscribe(res => {
+      this.archivedItems = res.totalElements;
+    });
+  }
+
+  goToArchived(): void {
+    this.router.navigate(['archived-notifications']);
   }
 
   onClickFilters($event) {
