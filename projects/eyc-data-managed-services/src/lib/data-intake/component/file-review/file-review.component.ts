@@ -268,7 +268,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       dataIntakeType: this.dataIntakeType,
       dueDate: this.httpQueryParams.dueDate,
       periodType: '',
-      clientName: '',
+      clientName: this.clientName,
       reportType: '',
       summaryType: '',
       queryPhrase: '',
@@ -555,8 +555,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
-      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
-      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpQueryParams.dataIntakeType = this.dataIntakeType;;
+      this.httpDataGridParams.dataIntakeType = this.dataIntakeType;
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
@@ -580,8 +580,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
-      this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
-      this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
+      this.httpQueryParams.dataIntakeType = this.dataIntakeType;;
+      this.httpDataGridParams.dataIntakeType = this.dataIntakeType;;
     } else {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
@@ -599,7 +599,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
 
   fileSummaryList() {
-    // Mock API integration for bar chart (Data Providers/ Data Domains)
+    // Mock API integration for bar chart (Data Providers/ Data Domains)-
+    this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
+    this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
     this.dataList = [];
     if (this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
