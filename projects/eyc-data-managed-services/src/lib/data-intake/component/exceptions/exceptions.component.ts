@@ -124,7 +124,7 @@ export class ExceptionsComponent implements OnInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -183,7 +183,7 @@ export class ExceptionsComponent implements OnInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -265,7 +265,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'name',
           sortable: true,
           filter: false,
-          minWidth: 100,
+          minWidth: 400,
           wrapText: true,
           autoHeight: true,
           cellRendererParams: {
@@ -332,9 +332,10 @@ export class ExceptionsComponent implements OnInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpDataGridParams.dueDate = this.calSelectedDate;
+      this.httpDataGridParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
   }
@@ -385,7 +386,11 @@ export class ExceptionsComponent implements OnInit {
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
   onRowClicked(event: RowClickedEvent) {
-    if (event && event.data && event.data.exceptionReportDetails) {
+    const exceptionReportDetail = event.data.exceptionReportDetails;
+    // FDF is not sending empty array. It is sending three type of values. 
+    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+      return false;
+    } else if (event && event.data && exceptionReportDetail) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this.dataManagedService.setExceptionFileName = event.data.name;
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);

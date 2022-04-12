@@ -8,13 +8,13 @@
             "auditSourceType": "REST",
             "operationStatus": "success",
             "auditObjectId": "1234",
-            "auditObjectType": "Filing Type",
-            "auditActionType": "Newly created",
+            "auditObjectType": "Filing Entity",
+            "auditActionType": "Approval",
             "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
             "auditDetails": {
-                "auditObjectAttribute": "Review Level",
-                "auditObjectPrevValue": "Reporting",
-                "auditObjectCurValue": "Client review"
+                "auditObjectAttribute": "Stage",
+                "auditObjectPrevValue": "Client Review",
+                "auditObjectCurValue": "NA"
             },
             "modifierDetails": {
                 "modifierByEmail": "nandha.gopal@gds.ey.com",
@@ -33,37 +33,87 @@
             "auditSourceType": "REST",
             "operationStatus": "success",
             "auditObjectId": "1234",
-            "auditObjectType": "Filing Type",
-            "auditActionType": "Started",
-            "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
-            "auditDetails": {
-                "auditObjectAttribute": "Review Level",
-                "auditObjectPrevValue": "Reporting",
-                "auditObjectCurValue": "Reporting"
-            },
-            "modifierDetails": {
-                "modifierByEmail": "nandha.gopal@gds.ey.com",
-                "modifierId": "111",
-                "modifieruserName": "Nandha Gopal"
-            },
-            "additionalDetails": {
-                "moduleName": "Reg reporting",
-                "functionName": "approve filing entity",
-                "serviceName": "rr-core",
-                "customDetails": "approve, 123"
-            }
-        },
-        {
-            "auditId": "6215e5df049f4b192114738a",
-            "auditSourceType": "REST",
-            "operationStatus": "success",
-            "auditObjectId": "1234",
-            "auditObjectType": "Filing Type",
+            "auditObjectType": "Filing Entity",
             "auditActionType": "Unapproval",
             "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
             "auditDetails": {
-                "auditObjectAttribute": "Review Level",
+                "auditObjectAttribute": "Stage",
+                "auditObjectPrevValue": "Client Review",
+                "auditObjectCurValue": "Client Review"
+            },
+            "modifierDetails": {
+                "modifierByEmail": "nandha.gopal@gds.ey.com",
+                "modifierId": "111",
+                "modifieruserName": "Nandha Gopal"
+            },
+            "additionalDetails": {
+                "moduleName": "Reg reporting",
+                "functionName": "approve filing entity",
+                "serviceName": "rr-core",
+                "customDetails": "approve, 123"
+            }
+        },
+        {
+            "auditId": "6215e5df049f4b192114738a",
+            "auditSourceType": "REST",
+            "operationStatus": "success",
+            "auditObjectId": "1234",
+            "auditObjectType": "Filing Entity",
+            "auditActionType": "Approval",
+            "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
+            "auditDetails": {
+                "auditObjectAttribute": "Stage",
+                "auditObjectPrevValue": "Client Review",
+                "auditObjectCurValue": "NA"
+            },
+            "modifierDetails": {
+                "modifierByEmail": "nandha.gopal@gds.ey.com",
+                "modifierId": "111",
+                "modifieruserName": "Nandha Gopal"
+            },
+            "additionalDetails": {
+                "moduleName": "Reg reporting",
+                "functionName": "approve filing entity",
+                "serviceName": "rr-core",
+                "customDetails": "approve, 123"
+            }
+        },
+        {
+            "auditId": "6215e5df049f4b192114738a",
+            "auditSourceType": "REST",
+            "operationStatus": "success",
+            "auditObjectId": "1234",
+            "auditObjectType": "Filing Entity",
+            "auditActionType": "Approval",
+            "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
+            "auditDetails": {
+                "auditObjectAttribute": "Stage",
                 "auditObjectPrevValue": "Reporting",
+                "auditObjectCurValue": "Client Review"
+            },
+            "modifierDetails": {
+                "modifierByEmail": "nandha.gopal@gds.ey.com",
+                "modifierId": "111",
+                "modifieruserName": "Nandha Gopal"
+            },
+            "additionalDetails": {
+                "moduleName": "Reg reporting",
+                "functionName": "approve filing entity",
+                "serviceName": "rr-core",
+                "customDetails": "approve, 123"
+            }
+        },
+        {
+            "auditId": "6215e5df049f4b192114738a",
+            "auditSourceType": "REST",
+            "operationStatus": "success",
+            "auditObjectId": "1234",
+            "auditObjectType": "Filing Entity",
+            "auditActionType": "Unapproval",
+            "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
+            "auditDetails": {
+                "auditObjectAttribute": "Stage",
+                "auditObjectPrevValue": "Client Review",
                 "auditObjectCurValue": "Reporting"
             },
             "modifierDetails": {
@@ -83,13 +133,13 @@
             "auditSourceType": "REST",
             "operationStatus": "success",
             "auditObjectId": "1234",
-            "auditObjectType": "Filing Type",
+            "auditObjectType": "Filing Entity",
             "auditActionType": "Approval",
             "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
             "auditDetails": {
-                "auditObjectAttribute": "Review Level",
+                "auditObjectAttribute": "Stage",
                 "auditObjectPrevValue": "Reporting",
-                "auditObjectCurValue": "Reporting"
+                "auditObjectCurValue": "Client Review"
             },
             "modifierDetails": {
                 "modifierByEmail": "nandha.gopal@gds.ey.com",
@@ -104,16 +154,16 @@
             }
         },
         {
-            "auditId": "6215e61d049f4b192114738b",
+            "auditId": "6215e5df049f4b192114738a",
             "auditSourceType": "REST",
-            "operationStatus": "failure",
+            "operationStatus": "success",
             "auditObjectId": "1234",
-            "auditObjectType": "Filing Type",
-            "auditActionType": "Approval",
-            "modifiedDateTime": "2022-01-02T16:07:04.203+0000",
+            "auditObjectType": "Filing Entity",
+            "auditActionType": "New",
+            "modifiedDateTime": "2022-02-22T16:07:04.203+0000",
             "auditDetails": {
-                "auditObjectAttribute": "Review Level",
-                "auditObjectPrevValue": "",
+                "auditObjectAttribute": "Stage",
+                "auditObjectPrevValue": "NA",
                 "auditObjectCurValue": "Reporting"
             },
             "modifierDetails": {

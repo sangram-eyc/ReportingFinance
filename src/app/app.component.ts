@@ -112,7 +112,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.router.navigate(['home']);
     }
-
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
         const uname = res;
@@ -141,6 +140,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
 
   ngAfterViewChecked() {
+    const url =  window.location.href.split('#');
+    sessionStorage.setItem('pbiEndPoint',url[0]);
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;

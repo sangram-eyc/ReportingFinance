@@ -39,7 +39,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
     return this.pod=="DMS"? this.powerbiMappingService.authTokenDms() : this.powerbiMappingService.authToken();
   }
 
-  getEmbedToken(authToken: string) {
+  getEmbedToken() {
     const req: any = {};
     req.reportId = this.selectedReportId;
     return this.pod=="DMS"? this.powerbiMappingService.embedTokenDms(this.selectedReportId):this.powerbiMappingService.embedToken(this.selectedReportId);
@@ -73,7 +73,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
         const authToken = authTokenData['data']['accessToken'];
         sessionStorage.setItem(SESSION_PBI_TOKEN,authToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-        this.getEmbedToken(authToken).subscribe(embedTokenData => {
+        this.getEmbedToken().subscribe(embedTokenData => {
           console.log('PowerBI Acceestokn works');
           const embedToken = embedTokenData['data']['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);

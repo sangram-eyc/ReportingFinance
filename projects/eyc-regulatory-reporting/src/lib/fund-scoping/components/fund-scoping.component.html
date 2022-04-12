@@ -75,12 +75,12 @@
         [permissionToPrimaryButton]="permissions.validatePermission('Fund Scoping', 'Approve Fund Scoping')"
         [buttonText]="'Approve'"
         [displayPlusIcon]='false'
-        [disableAddMemberButton]="fundScopingStatus === null || fundScopingStatus[0].progress === 'Completed'"
+        [disableAddMemberButton]="fundScopingStatus === null || fundScopingStatus.length == 0 || fundScopingStatus[0]?.progress === 'Completed'"
         [submitFunction]="onSubmitApproveFund" 
         [displayCheckBox] = "true"
         [export] = "true"
         (exportFlagToParent)="exportScopeData()"
-        (gridReady)="handleGridReady($event)" [pagination]="true" [paginationApi]="true" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
+        (gridReady)="handleGridReady($event)" [pagination]="scopingRowData?.length > 0 ? true : false" [paginationApi]="scopingRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
         (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"
         ></lib-shared-grid>
     </section>

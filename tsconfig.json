@@ -48,7 +48,14 @@
         "dist/eyc-charts-shared-library",
         "project/eyc-charts/src/public-api"
       ],
-      "eyc-charts-shared-library/*": ["projects/eyc-charts-shared-library/src/lib/*"]
+      "eyc-charts-shared-library/*": [
+        "projects/eyc-charts-shared-library/src/lib/*"
+      ],
+      "eyc-admin": [
+        "dist/eyc-admin/eyc-admin",
+        "dist/eyc-admin",
+        "projects/eyc-admin/src/lib*"
+      ]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,

@@ -81,6 +81,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hideHeaderCheckbox = false;
   @Input() disableResolveButton = false;
   @Input() disableUnresolveButton = false;
+  @Input() customRowSelected = false;
   @Output() customSortChange = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Output() unresolveEventToParent = new EventEmitter<string>();
@@ -95,6 +96,10 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Output() searchInput = new EventEmitter<string>();
   @Input() export = false;
   @Input() totalRecords = null;
+  @Output() rowSelected = new EventEmitter<any>();
+  @Input() omitModal = false;
+  @Input() uiPagination = false;
+  @Input() title = '';
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -107,27 +112,27 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   prevPageSize;
   dataset1 = [{
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   },
   {
     disable: false,
-    value: 10,
-    name: '10',
+    value: 200,
+    name: '200',
     id: 1
   },
   {
     disable: false,
-    value: 15,
-    name: '15',
+    value: 300,
+    name: '300',
     id: 2
   }];
 
   currentlySelectedPageSize1 = {
     disable: false,
-    value: 5,
-    name: '5',
+    value: 100,
+    name: '100',
     id: 0
   };
 
@@ -185,23 +190,6 @@ pageSize;
   ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if (typeof (this.columnDefs) !== 'undefined') {
-      this.columnDefsData = []
-      this.columnDefsData = this.columnDefs.slice(0);
-      //sr no column data
-      let object = {
-        width: 30,
-        valueGetter: (args) => this._getIndexValue(args), rowDrag: true,
-        pinned: 'left',
-        cellClass: this.srnoCls
-      }
-      if (this.displayCheckBox) {
-        this.columnDefsData.splice(0, 0, object);
-      } else {
-
-        this.columnDefsData.splice(1, 0, object);
-      }
-    }
     if (this.paginationApi) {
       if (this.totalRecords >= 0) {
         this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
@@ -209,6 +197,25 @@ pageSize;
         this.maxPages = 1;
       }
       console.log(this.maxPages);
+    } 
+    if (typeof (this.columnDefs) !== 'undefined' ) {
+      this.columnDefsData = []
+      this.columnDefsData = this.columnDefs.slice(0);
+      if (this.columnDefs[1]?.cellClass !== 'srno-class') {
+        let object = { 
+          width: 30,
+          valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: false,
+          pinned: 'left',
+          cellClass: this.srnoCls
+        }
+        if (this.displayCheckBox) {
+          this.columnDefsData.splice(0, 0, object);
+        } else {
+          this.columnDefsData.splice(1, 0, object);
+        }
+      }
+      // this.columnDefsData = [...this.columnDefsData];
+      console.log('SERIAL NUMBERS', this.columnDefsData)
     }
   }
 
@@ -227,12 +234,14 @@ pageSize;
   async handlePageChange(val: number) {
     this.currentPage = val;
     this.currentPageChange.emit(val);
+    this.gridApi.setFilterModel(null);
     console.log('HANDLE PAGE CHANGE', val);
     await this.pageChangeFunc();
   }
 
   updatePaginationSize(newPageSize: number) {
     this.gridApi.paginationSetPageSize(newPageSize);
+    console.log('UPDATE PAGINATION SIZE', newPageSize);
   }
 
   updatePaginationSizeApi(newPageSize: number) {
@@ -254,6 +263,15 @@ pageSize;
   openResolveUnresolveDialog(type:string){
     type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
+
+  primaryButtonAction() {
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialog();
+    }
+  }
+
   openDialog() {
     if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
@@ -277,6 +295,10 @@ pageSize;
     return args.node.rowIndex+1;
   }  
 
+  filterChanged(event) {
+    this.gridApi.refreshCells();
+  }
+
   sortChanged(params) {
     let sortModel = this.gridApi.getSortModel();
     if (sortModel.length > 0) {
@@ -295,20 +317,24 @@ pageSize;
     }
   }
 
-  onRowSelected(): void {
-    this.selectedRowEmitterProcess.emit('processing');
-    this.selectedRows = [];
-    this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
-    this.selectedRowEmitter.emit(this.selectedRows);
-    this.selectedRowEmitterProcess.emit('finished');
-    if (this.selectedRows.length === 0) this.gridApi.deselectAll();
-    if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
-      this.gridApi.selectAll();
-      this.isAllRecordSelected = true;
+  onRowSelected(event): void {
+    if (this.customRowSelected) {
+      this.rowSelected.emit(event);
+      this.selectedRows = this.gridApi.getSelectedRows();
     } else {
-      this.isAllRecordSelected = false;
+      this.selectedRowEmitterProcess.emit('processing');
+      this.selectedRows = [];
+      this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
+      this.selectedRowEmitter.emit(this.selectedRows);
+      this.selectedRowEmitterProcess.emit('finished');
+      if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+      if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+        this.gridApi.selectAll();
+        this.isAllRecordSelected = true;
+      } else {
+        this.isAllRecordSelected = false;
+      }
     }
-
   }
 
   isFirstColumn = (params) => {
@@ -330,8 +356,14 @@ pageSize;
   }
 
   searchGridPagination(input) {
-    this.searchInput.emit(input.el.nativeElement.value);
-    console.log('SEARCH GRID PAGINATION EMIT');
+    if(this.uiPagination) {
+      this.searchGrid(input)
+    } else {
+      this.searchInput.emit(input.el.nativeElement.value);
+      this.currentPage = 1;
+      console.log('SEARCH GRID PAGINATION EMIT');
+    }
+    
   }
 
   searchFilingValidation(event) {

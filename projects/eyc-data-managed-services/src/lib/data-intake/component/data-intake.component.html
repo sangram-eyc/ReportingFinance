@@ -5,6 +5,11 @@
    <motif-tab-bar>
       <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
          [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
+      <!-- Hide other tabs for release-1st -->
+      <!-- <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button>
+      <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+         [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button> -->
       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
          [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Data Explorer</button>
    </motif-tab-bar>
@@ -134,9 +139,9 @@
                      <div id="past-due">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
@@ -167,9 +172,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(highPriorityIssuesCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
@@ -199,9 +204,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(mediumPriorityCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
@@ -214,8 +219,8 @@
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
@@ -231,9 +236,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(lowPriorityCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body border border-0">
                            <div class="chart-container" [hidden]="(lowPriorityCount==0)">
@@ -246,8 +251,8 @@
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
-                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
                            <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
@@ -266,9 +271,9 @@
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
@@ -299,9 +304,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(highPriorityIssuesCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
@@ -331,9 +336,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(mediumPriorityCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
@@ -363,9 +368,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(lowPriorityCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body border border-0">
                            <div class="chart-container" [hidden]="(lowPriorityCount==0)">
@@ -407,7 +412,8 @@
             <div class="box-center"></div>
             <div class="dateWrapper">
                <div class="px-3 date-ui">
-                  <form [formGroup]="form" novalidate>
+                  <!-- Calender will be enabled when pagination report hide the as-of-date parameter -->
+                  <!-- <form [formGroup]="form" novalidate>
                      <motif-form-field>
                         <label motifLabel for="datepicker">Date (required)</label>
                         <input motifDatepicker class="motif-input" name="mydate" id="datepicker" #dp="motifDatepicker"
@@ -415,7 +421,7 @@
                            autocomplete="off" [required]="true" formControlName="datepicker" [readonly]="true"
                            [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
                      </motif-form-field>
-                  </form>
+                  </form> -->
                </div>
                <div class="box-center">
                   <button #dailyfilter2 [disabled]="disabledDailyMonthlyButton" motifButton color="primary-alt"
@@ -446,7 +452,7 @@
 
                <div class="row pt-3">
                   <ng-container>
-                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pod">
+                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pbiConfig.PBI_POD" [selectedDate]="dueDate">
                      </lib-power-bi-paginated-report-embed>
                   </ng-container>
                </div>

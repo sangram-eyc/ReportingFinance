@@ -7,7 +7,6 @@ import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MotifModule, MotifAvatarModule,MotifFormsModule,MotifProgressBarModule } from '@ey-xd/ng-motif';
-import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import {NotificationModule} from './notification/notification.module';
@@ -35,6 +34,7 @@ import {NotificationsModule} from "@default/notifications/notifications.module";
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
 
+import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,6 @@ import { RoutingStateService } from '../../projects/eyc-data-managed-services/sr
     MotifModule,
     MotifFormsModule,
     MotifAvatarModule,
-    AdministrationModule,
     HomeModule,
     LoginModule,
     MotifCardModule,
@@ -67,7 +66,8 @@ import { RoutingStateService } from '../../projects/eyc-data-managed-services/sr
     EycUiSharedComponentModule,
     EycDataIntakeModule,
     EycDataManagementServicesModule,
-    NotificationsModule
+    NotificationsModule,
+    EycAdminModule
 
   ],
 
@@ -81,6 +81,7 @@ import { RoutingStateService } from '../../projects/eyc-data-managed-services/sr
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
+  { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

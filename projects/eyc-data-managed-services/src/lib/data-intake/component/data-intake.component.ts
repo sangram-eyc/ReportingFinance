@@ -5,12 +5,12 @@ import {
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../services/data-managed.service';
-import { formatDate } from '@angular/common';
+import { formatDate,DatePipe } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,ROUTE_URL_CONST,
   NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_LOW_PRIORITY_ISSUES, NO_MEDUIM_PRIORITY_ISSUES,
-  PowerBiReportDailyList, PowerBiReportMonthlyList
+  PowerBiReportDailyList, PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG
 } from '../../config/dms-config-helper';
 import { DataSummary } from '../models/data-summary.model';
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
@@ -43,6 +43,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   noMediumPriorityIssues = NO_MEDUIM_PRIORITY_ISSUES;
   routeUrlConst=ROUTE_URL_CONST;
   dataIntakeType=DATA_INTAKE_TYPE;
+  pbiConfig=PBI_CONFIG
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
@@ -58,7 +59,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   powerBiReportId:string;
   pod:string="DMS";
   reports:any;
-
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
@@ -101,7 +101,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   trimXAxisTicks: boolean = true;
   trimYAxisTicks: boolean = true;
   rotateXAxisTicks: boolean = true;
-  maxXAxisTickLength: number = 16;
+  maxXAxisTickLength: number = 13;
   maxYAxisTickLength: number = 16;
   colorScheme: Color;
   colorScheme2: Color;
@@ -113,7 +113,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
-
+  dueDate:any;
+  PBI_BASE_EMBED_URL:string;
+  PBI_BASE_EMBED_TOKEN_URL:string;
+  baseURL:string;
+  prodUrl='/trp/';
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -128,14 +132,16 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let dueDate;
+    // this.baseURL=this.dataManagedService.getApiBaseUrl();
+    this.baseURL=sessionStorage.getItem('pbiEndPoint');
+    console.log('dms data intake-ngAfterViewInit base url',this.baseURL);
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      this.dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
-      dueDate = this.lastMonthDueDateFormat;
+      this.dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
     } else {
-      dueDate = this.presentDateFormat;
+      this.dueDate = this.presentDateFormat;
     }
 
     this.httpQueryParams =
@@ -144,7 +150,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: dueDate,
+      dueDate: this.dueDate,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
@@ -154,11 +160,23 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if(this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-      this.reports=PowerBiReportMonthlyList;
+
+      if(this.baseURL.includes(this.prodUrl)){
+        this.reports = PowerBiReportMonthlyListProd;
+      }
+      else{
+        this.reports = PowerBiReportMonthlyList;
+      }
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-      this.reports=PowerBiReportDailyList;
+      
+      if(this.baseURL.includes(this.prodUrl)){
+        this.reports = PowerBiReportDailyListProd;
+      }
+      else{
+        this.reports = PowerBiReportDailyList;
+      }
     }
 
     this.fileSummaryList();
@@ -166,10 +184,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpQueryParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       this.fileSummaryList();
+      this.dueDate= `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
@@ -184,7 +203,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -204,7 +223,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       }, [Validators.required])
     });
   }
-
+ 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
   }
@@ -239,13 +258,20 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   dailyData(status: boolean) {
+    this.powerBiReportId='xyz';
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
 
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', '');
 
-    this.reports=PowerBiReportDailyList;
+    if(this.baseURL.includes(this.prodUrl)){
+      this.reports = PowerBiReportDailyListProd;
+    }
+    else{
+      this.reports = PowerBiReportDailyList;
+    }
+    
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
@@ -266,13 +292,19 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   monthlyData(status: boolean) {
+    this.powerBiReportId='xyz';
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
 
-    this.reports=PowerBiReportMonthlyList;
+    if(this.baseURL.includes(this.prodUrl)){
+      this.reports = PowerBiReportMonthlyListProd;
+    }
+    else{
+      this.reports = PowerBiReportMonthlyList;
+    }
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;

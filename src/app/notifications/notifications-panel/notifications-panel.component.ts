@@ -12,6 +12,9 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   public data: any;
   public showPanel: boolean;
   public showFilters: boolean;
+  public archivedItems: number;
+  public totalElements: number;
+  public currentPage = 0;
   private notifiSub$: Subscription;
 
   constructor(
@@ -19,9 +22,22 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.notifications = JSON.parse(sessionStorage.getItem('notifications'));
-    this.notifiSub$ = this.notificationService.notificationObs$.subscribe(res => {
-      res.forEach(item => {
+    this.getArchivedNotifications();
+    this.notifications = [];
+    const ids = [];
+    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
+      this.notifications = res.content;
+      this.totalElements = res.totalElements;
+      this.notifications.forEach(item => {
+        if (!item.isRead) {
+          ids.push(item.engineId);
+        }
+      });
+
+      this.notificationService.setMultipleAsRead(ids).subscribe();
+    });
+    this.notifiSub$ = this.notificationService.notificationObs$.subscribe( res => {
+      res.forEach( item => {
         const index = this.notifications.findIndex(noti => noti.engineId == item.engineId);
         if (index < 0) {
           this.notifications.unshift(item);

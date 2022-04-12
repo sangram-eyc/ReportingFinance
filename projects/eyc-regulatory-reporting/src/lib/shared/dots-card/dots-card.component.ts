@@ -43,6 +43,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       this.filingId = this.filingService.getFilingData.filingId;
       this.filingDetails.emit(this.filingService.getFilingData);
       this.getFilingStatus();
+      this.getActiveFilings()
       this.filingService.dotcardStatusDetails.pipe(takeUntil(this.ngUnsubscribe)).subscribe(res => {
         this.getFilingStatus();
       });
@@ -51,6 +52,25 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
   }
+
+  getActiveFilings(){
+    let activeFilings = [];
+    this.filingService.getFilings().pipe().subscribe(resp => {
+      resp['data'].length>0 ? activeFilings=[...resp['data']] : activeFilings = []
+      this.checkFilingTest(activeFilings) ? '' : this.navigateToLandigPage()
+  });
+}
+
+checkFilingTest(activeFilings:any){
+  let res = activeFilings.some((el)=>{
+    return el.filingName == this.filingName
+  });
+  return res;
+}
+
+navigateToLandigPage(){
+  this.router.navigate(['/app-regulatory-filing'])
+}
 
   formatDate() {
     let due = new Date(this.dueDate);
@@ -87,26 +107,43 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   getFilingStatus() {
     this.filingService.getFilingStatus(this.filingId).subscribe(res => {
       this.states = res['data'];
+      let itemLen = this.states.length
       this.filingStatusRes.emit(res['data']);
       this.states.forEach(item => {
         switch (item['stageCode']) {
           case "FUND_SCOPING":
-            item.customCls = 'cust-fund';
+            if(itemLen === this.states.findIndex(x => x.stageCode ==="FUND_SCOPING")+1){
+              item.customCls = 'last-item-class last-item-class-cust-fund';
+            }else{
+              item.customCls = 'cust-fund';
+            }
             item.url = '/fund-scoping';
             item.disabled = true;
             break;
           case "DATA_INTAKE":
-            item.customCls = 'cust-intake';
+            if(itemLen === this.states.findIndex(x => x.stageCode ==="DATA_INTAKE")+1){
+              item.customCls = 'last-item-class last-item-class-cust-intake';
+            }else{
+              item.customCls = 'cust-intake';
+            }
             item.url = '/data-intake';
             item.disabled = true;
             break;
           case "REPORTING":
-            item.customCls = 'cust-report';
+            if(itemLen === this.states.findIndex(x => x.stageCode ==="REPORTING")+1){
+              item.customCls = 'last-item-class last-item-class-cust-report';
+            }else{
+              item.customCls = 'cust-report';
+            }
             item.url = '/regulatory-reporting';
             item.disabled = true;
             break;
           case "CLIENT_REVIEW":
-            item.customCls = 'cust-review';
+            if(itemLen === this.states.findIndex(x => x.stageCode ==="CLIENT_REVIEW")+1){
+              item.customCls = 'last-item-class last-item-class-cust-review';
+            }else{
+              item.customCls = 'cust-review';
+            }
             item.url = '/client-review';
             item.disabled = true;
             break;
@@ -217,6 +254,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   getStatus(index: number): string | null {
     return this.states[index].progress;
   }
+
 
   disState(index: number): boolean | null {
     if (index == 0) {
