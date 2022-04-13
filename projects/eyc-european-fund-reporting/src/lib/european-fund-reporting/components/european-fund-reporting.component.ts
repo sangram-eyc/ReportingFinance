@@ -16,7 +16,7 @@ export class EuropeanFundReportingComponent implements OnInit {
   ngOnInit(): void {}
 
   redirectURL() {
-    let res = this.current_path.indexOf('TRP');
+    let res = this.current_path.indexOf('gs');
     (res !== -1) ? this.isProduction = true : this.isProduction = false;
    
     if (this.isProduction) {
