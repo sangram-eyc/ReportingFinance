@@ -22,6 +22,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   filingEntitiyStages = [];
   showToastAfterFilingAdded = false;
   activeStaticData: any[] = []
+  filterName: string;
 
   constructor(
     private service: StaticDataService,
@@ -43,6 +44,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       this.getFilingStages();
       this.getScopingStages();
       this.getEntityStages();
+      this.filterName='';
     }
   }
 

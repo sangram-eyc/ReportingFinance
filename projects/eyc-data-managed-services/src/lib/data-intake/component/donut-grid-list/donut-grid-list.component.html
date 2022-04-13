@@ -2,10 +2,10 @@
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
         <div class="mt-3">
             <motif-breadcrumb maxItems=2>
-                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
+                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink="{{routeUrlConst.DMS_LANDING_URL}}">
                 </motif-breadcrumb-item>
                 <motif-breadcrumb-item breadcrumbValue="{{ (totalDataIntakeTypeCount==1) ? dataIntakeTypeDisplay['Singular'] : dataIntakeTypeDisplay['Plural'] | titlecase}}"
-                    breadcrumbLink="/data-managed-services/data-intake/{{dataIntakeType}}" active="active">
+                    breadcrumbLink="{{routeUrlConst.DATA_INTAKE_TYPE_URL}}/{{dataIntakeType}}" active="active">
                 </motif-breadcrumb-item>
             </motif-breadcrumb>
         </div>
@@ -44,19 +44,19 @@
         <div class="chip-container">
             <div class="left-div">FAST FILTERS: </div>
             <motif-chip-group>
-                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)"
-                    [variant]="allIssueVariant">All
+                <motif-chip [removeable]="false" (click)="filterByIssues('all', allIssueVariant)" [variant]="allIssueVariant">All
                 </motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.NO_ISSUES, noIssueVariant)"
                     [variant]="noIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.NO_ISSUES]}}</motif-chip>
-                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM_LOW, mediumLowIssueVariant)"
-                    [variant]="mediumLowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM_LOW]}}</motif-chip>
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.LOW, lowIssueVariant)"
+                    [variant]="lowIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.LOW]}}</motif-chip>
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MEDIUM, mediumIssueVariant)"
+                    [variant]="mediumIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MEDIUM]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.HIGH, highIssueVariant)"
                     [variant]="highIssueVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.HIGH]}}</motif-chip>
                 <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.MISSING_FILES, missingFileVariant)"
                     [variant]="missingFileVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.MISSING_FILES]}}</motif-chip>
-                <motif-chip [removeable]="false"
-                    (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
+                <motif-chip [removeable]="false" (click)="filterByIssues(FILTER_TYPE.FILE_NOT_RECIEVED, fileNotReceivedVariant)"
                     [variant]="fileNotReceivedVariant">{{FILTER_TYPE_TITLE[FILTER_TYPE.FILE_NOT_RECIEVED]}}</motif-chip>
             </motif-chip-group>
         </div>
@@ -81,8 +81,7 @@
                         </div>
                         <div class="box-center">
                             <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0)">info</i>
-                            <!-- Hide other tabs for release-1st -->
-                            <!-- <button motifButton color="secondary" size="fluid" class="btn-secondary">View</button> -->
+                            <button motifButton color="secondary" size="fluid" class="btn-secondary" (click)="viewCardDetail(item)" >View</button>
                         </div>
                     </div>
                     <div class="chart-body">
