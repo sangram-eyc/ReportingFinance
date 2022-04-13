@@ -8,6 +8,7 @@ export interface Color {
   domain: string[];
 }
 
+
 export let colorSets: Color[] = [
   {
     name: 'red',
@@ -34,12 +35,20 @@ export let colorSets: Color[] = [
     ]
   },
   {
+    name: 'blue',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: [
+      ColorCode.Blue
+    ]
+  },
+  {
     name: 'all',
     selectable: true,
     group: ScaleType.Ordinal,
     domain: [
-      ColorCode.Green, ColorCode.Teal, ColorCode.Orange, 
-      ColorCode.Red, ColorCode.Grey, ColorCode.Teal, ColorCode.Blue
+      ColorCode.Green, ColorCode.Blue, ColorCode.Teal, ColorCode.Orange, 
+      ColorCode.Red, ColorCode.Grey, 
     ]
   }
 ];

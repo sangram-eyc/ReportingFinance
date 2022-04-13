@@ -506,8 +506,16 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.viewService.exportData(requestobj).subscribe(res => {
       });
     } else {
-      let exportURLHeaders = "exceptionRuleId="+  this.dataIntakeData.ruleExceptionId+ "&filingName=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportsHeader + "&reportType=csv";
-      this.viewService.exportForDataIntake(exportURLHeaders).subscribe(res => {
+      const exportDataObj = {
+        "exceptionRuleId": this.dataIntakeData.ruleExceptionId,
+        "filingName": this.filingName,
+        "period": this.period,
+        "export": true,
+        "headers": this.exportsHeader,
+        "reportType":"csv"
+      }
+
+      this.viewService.exportForDataIntake(exportDataObj).subscribe(res => {
       });
     }
   }
