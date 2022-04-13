@@ -99,6 +99,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   pageSize = 10;
   filter = '';
   sort = '';
+  filterName='';
 
   ngOnInit(): void {
     sessionStorage.getItem("regReportingLandingpageTab") ? this.tabIn = sessionStorage.getItem("regReportingLandingpageTab") : this.tabIn = 1;
@@ -113,9 +114,13 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
-    this.filter = '';
     if (this.tabIn == 2) {
+      this.filter = '';
       this.getCompletedFilingsData(true);
+    }
+    else{
+      this.filterName='';
+      this.getActiveFilingsData();
     }
   }
 

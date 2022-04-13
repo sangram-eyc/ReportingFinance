@@ -1,7 +1,7 @@
 <div class="row" id="static-card-wrapper">
   <div class="search">
     <motif-form-field>
-        <input #activeStaticData motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+        <input #activeStaticData motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"  [(ngModel)]="filterName"
             (keyup)="searchStaticData(activeStaticData)" (paste)="onPasteSearchStaticData($event)" placeholder="Search" aria-label="Search">
     </motif-form-field>
   </div>
