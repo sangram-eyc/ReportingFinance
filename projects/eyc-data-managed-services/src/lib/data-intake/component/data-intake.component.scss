@@ -202,8 +202,8 @@
 }
 
 ::ng-deep .donut-summary {
-  width: 17em !important;
-  padding-left: 18px;
+  // width: 17em !important;
+  padding-left: 21px;
 }
 
 .donut-chart-card {
@@ -320,6 +320,16 @@
   }
 }
 
+.form_text{
+  font-family: EYInterstate !important;
+  text-align: center;
+  padding-left: 6px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
 .date-ui{
 
   ::ng-deep .motif-form-field {
@@ -345,8 +355,6 @@
     background-color: #ffffff !important;
     border-bottom: 1px solid #2E2E38 !important;
   }
-
-  
 }
 
 

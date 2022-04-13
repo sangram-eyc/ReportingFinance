@@ -23,8 +23,8 @@ export class ViewExceptionReportsService {
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.view_exception_reports}`,exportData);
   }
 
-  exportForDataIntake(exportURLHeaders) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_report_results}${exportURLHeaders}`);
+  exportForDataIntake(exportData) {
+    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.export_data_for_data_intake}`,exportData);
   }
 
   getExceptionResults(exceptionRuleId) {

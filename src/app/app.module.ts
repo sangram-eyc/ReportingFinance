@@ -33,6 +33,8 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
 import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
 import {NotificationsModule} from "@default/notifications/notifications.module";
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+
 import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
 
 @NgModule({
@@ -73,6 +75,7 @@ import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
 
   providers: [
     LoaderService,
+    RoutingStateService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
   { provide:"mockDataEnable",  useValue: environment.mockDataEnable},
@@ -80,6 +83,7 @@ import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
+  { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

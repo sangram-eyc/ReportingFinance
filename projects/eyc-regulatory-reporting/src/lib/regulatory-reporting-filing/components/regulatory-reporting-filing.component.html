@@ -20,7 +20,7 @@
     <div id="reports-history-heading">
         <div class="search">
             <motif-form-field>
-                <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)"
+                <input #activeReports motifInput motifSearch type="text" (keypress)="searchFilingValidation($event)" [(ngModel)]="filterName"
                     (keyup)="searchActiveReports(activeReports)" (paste)="onPasteSearchActiveReports($event)" placeholder="Search" aria-label="Search">
             </motif-form-field>
         </div>
@@ -84,7 +84,7 @@
 
 </section>
 
-<section id='reports-history' [hidden]="!(tabIn == 2)">
+<section id='reports-history' *ngIf="(tabIn == 2)">
  
     <lib-shared-grid
         gridStyle="second"

@@ -75,7 +75,7 @@
         [permissionToPrimaryButton]="permissions.validatePermission('Fund Scoping', 'Approve Fund Scoping')"
         [buttonText]="'Approve'"
         [displayPlusIcon]='false'
-        [disableAddMemberButton]="fundScopingStatus === null || fundScopingStatus[0]?.progress === 'Completed'"
+        [disableAddMemberButton]="fundScopingStatus === null || fundScopingStatus.length == 0 || fundScopingStatus[0]?.progress === 'Completed'"
         [submitFunction]="onSubmitApproveFund" 
         [displayCheckBox] = "true"
         [export] = "true"

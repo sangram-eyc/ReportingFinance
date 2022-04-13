@@ -310,7 +310,7 @@ pageSize;
       const order = sortModel['sort'] === 'asc' ? 'true' : 'false';
       console.log('GRID COMPONENT SORT', colId + ':' + order);
       this.customSortChange.emit(colId + ':' + order);
-      // this.gridApi.refreshCells();
+      this.gridApi.refreshCells();
     } else {
       this.customSortChange.emit('');
       this.gridApi.refreshCells();

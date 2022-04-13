@@ -15,6 +15,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
   @Input() selectedReportId: any;
   @Input() selectedFilling: any;
   @Input() selectedPeriod: any;
+  @Input() pod:any;
   private report: powerbi.Report;
   embedConfig; 
   filters = [];
@@ -38,7 +39,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
     return this.powerbiMappingService.authToken();
   }
 
-  getEmbedToken(authToken: string) {
+  getEmbedToken() {
     const req: any = {};
     req.reportId = this.selectedReportId;
     return this.powerbiMappingService.embedToken(this.selectedReportId);
@@ -69,12 +70,12 @@ export class EycPowerbiEmbedComponent implements OnInit {
 
   showVisualizationForPowerBi() {
      this.getAuthToken().subscribe(authTokenData => {
-        const authToken = authTokenData['accessToken'];
+        const authToken = authTokenData['data']['accessToken'];
         sessionStorage.setItem(SESSION_PBI_TOKEN,authToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-        this.getEmbedToken(authToken).subscribe(embedTokenData => {
+        this.getEmbedToken().subscribe(embedTokenData => {
           console.log('PowerBI Acceestokn works');
-          const embedToken = embedTokenData['token'];
+          const embedToken = embedTokenData['data']['token'];
           const embedConfig = this.buildConfig(PBI_CONFIG.PBI_EMBED_URL, this.selectedReportId, PBI_CONFIG.PBI_WORK_SPACE_ID, embedToken);
           const pbi = new powerbi.service.Service(powerbi.factories.hpmFactory, powerbi.factories.wpmpFactory,
                   powerbi.factories.routerFactory);
