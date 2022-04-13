@@ -46,7 +46,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     isTaxReporting: false,
     isAdmin: false,
     isRegReporting: false,
-    isDMS: false
+    isDMS: false,
+    isEFR: false
   };
   pendingDownloads: any;
   pendingDownloadsNew: any;
@@ -146,6 +147,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
         this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         this.permission.isDMS = this.moduleLevelPermission.checkPermission('Data Managed Services');
+        this.permission.isEFR = this.moduleLevelPermission.checkPermission('European Fund Reporting');
 
       }, 100);
 
