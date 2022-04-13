@@ -4,7 +4,7 @@
 
 export const environment = {
   apiEndpoint :'http://localhost:4200/',
-  production: false,
+  production: true,
   SECURITY_ENABLED:true,
   SERVICE_URL:"https://10.48.234.20/qa36/",
   /*temp variable needs to be removed after API integration */
