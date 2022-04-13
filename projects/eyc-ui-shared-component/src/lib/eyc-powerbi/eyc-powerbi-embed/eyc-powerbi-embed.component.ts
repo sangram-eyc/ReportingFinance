@@ -15,6 +15,7 @@ export class EycPowerbiEmbedComponent implements OnInit {
   @Input() selectedReportId: any;
   @Input() selectedFilling: any;
   @Input() selectedPeriod: any;
+  @Input() pod:any;
   private report: powerbi.Report;
   embedConfig; 
   filters = [];

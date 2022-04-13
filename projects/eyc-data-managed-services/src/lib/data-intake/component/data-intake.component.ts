@@ -8,16 +8,15 @@ import { DataManagedService } from '../services/data-managed.service';
 import { formatDate,DatePipe } from '@angular/common';
 import {
   FileFilterStatus, FILTER_TYPE,
-  DATA_INTAKE_TYPE, DATA_FREQUENCY,
-  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_MEDUIM_LOW_PRIORITY,PowerBiReportDailyList,PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG
-}
-  from '../../config/dms-config-helper'
-import { DataSummary } from '../models/data-summary.model'
+  DATA_INTAKE_TYPE, DATA_FREQUENCY,ROUTE_URL_CONST,
+  NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_LOW_PRIORITY_ISSUES, NO_MEDUIM_PRIORITY_ISSUES,
+  PowerBiReportDailyList, PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG
+} from '../../config/dms-config-helper';
+import { DataSummary } from '../models/data-summary.model';
 import { BarChartSeriesItemDTO } from '../models/bar-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DataManagedSettingsService } from '../services/data-managed-settings.service';
 
 @Component({
   selector: 'lib-data-intake',
@@ -29,8 +28,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   fileMissingPastDueCount: number = 0;
   highPriorityIssuesData: BarChartSeriesItemDTO[];
   highPriorityIssuesCount: number = 0;
-  mediumLowPriorityData: BarChartSeriesItemDTO[];
-  mediumLowPriorityCount: number = 0;
+  mediumPriorityData: BarChartSeriesItemDTO[];
+  mediumPriorityCount: number = 0;
+  lowPriorityData: BarChartSeriesItemDTO[];
+  lowPriorityCount: number = 0;
   dataList: [];
   dailyMonthlyStatus: boolean = false;
   disabledDailyMonthlyButton: boolean = false;
@@ -38,7 +39,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   reviewByGroupProviders: number = 0;
   noFileMissingPastDue = NO_FILE_MISSING_PAST_DUE;
   noHighPriorityIssues = NO_HIGH_PRIORITY_ISSUES;
-  noMediumLowPriority = NO_MEDUIM_LOW_PRIORITY;
+  noLowPriorityIssues = NO_LOW_PRIORITY_ISSUES;
+  noMediumPriorityIssues = NO_MEDUIM_PRIORITY_ISSUES;
+  routeUrlConst=ROUTE_URL_CONST;
+  dataIntakeType=DATA_INTAKE_TYPE;
   pbiConfig=PBI_CONFIG
 
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
@@ -51,7 +55,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   presentDate: Date;
   totalFileCount = 0;
   calSelectedDate: string;
+
   powerBiReportId:string;
+  pod:string="DMS";
   reports:any;
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -100,6 +106,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   colorScheme: Color;
   colorScheme2: Color;
   colorScheme3: Color;
+  colorScheme4: Color;
   //end option
   form: FormGroup;
   businessDays: boolean = false;
@@ -190,6 +197,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.colorScheme = colorSets.find(s => s.name === 'red');
     this.colorScheme2 = colorSets.find(s => s.name === 'orange');
     this.colorScheme3 = colorSets.find(s => s.name === 'teal');
+    this.colorScheme4 = colorSets.find(s => s.name === 'blue');  // Blue
   }
 
   ngOnInit(): void {
@@ -333,8 +341,10 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.fileMissingPastDueData = [];
     this.highPriorityIssuesCount = 0;
     this.highPriorityIssuesData = [];
-    this.mediumLowPriorityCount = 0;
-    this.mediumLowPriorityData = [];
+    this.mediumPriorityCount = 0;
+    this.mediumPriorityData = [];
+    this.lowPriorityCount = 0;
+    this.lowPriorityData = [];
     this.fileSummaries = cloneFileSummury;
     fetchData.find((fData) => {
       this.fileSummariesObject.map((summaryObject) => {
@@ -351,9 +361,13 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
           this.highPriorityIssuesCount = fData.value;
           this.highPriorityIssuesData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
-        case FileFilterStatus.mediumLowPriority.apiKey:
-          this.mediumLowPriorityCount = fData.value;
-          this.mediumLowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
+        case FileFilterStatus.mediumPriority.apiKey:
+          this.mediumPriorityCount = fData.value;
+          this.mediumPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
+          break;
+        case FileFilterStatus.lowPriority.apiKey:
+          this.lowPriorityCount = fData.value;
+          this.lowPriorityData = this.mapBarChartDataWithKey(fData.seriesItemDTO);
           break;
         default:
       }
