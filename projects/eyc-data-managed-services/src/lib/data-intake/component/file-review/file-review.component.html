@@ -101,6 +101,7 @@
             </div>
          </motif-card-header>
          <motif-card-body>
+            <div class="mt-5" *ngIf="isViewClicked"></div>
             <section id='data-provider' [hidden]="!(innerTabIn == 1)">
                <div class="bar-chart-panel">
                   <div id="StackBarChart-provider">

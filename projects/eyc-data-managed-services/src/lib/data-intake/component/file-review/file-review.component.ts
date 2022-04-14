@@ -193,6 +193,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         }
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+          this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
         }
       }
     });
