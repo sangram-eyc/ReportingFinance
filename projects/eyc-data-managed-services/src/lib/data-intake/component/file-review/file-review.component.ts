@@ -159,6 +159,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   httpDataGridParams: DataGrid;
   httpReviewByGroupParams: GroupByDataProviderCardGrid;
   clientName = '';
+  fileName='Files';
   isViewClicked = false;
   dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
@@ -188,6 +189,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         this.clientName = params.get('paramDataIntakeName');
         this.isViewClicked = true;
         this.dataIntakeType = params.get('paramDataIntakeType');
+        this.fileName=this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -195,6 +197,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
           this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
         }
+      }
+      else{
+        this.fileName='Files'
       }
     });
   }
