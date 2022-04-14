@@ -103,7 +103,7 @@
   <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [filingStatus]="checkFilingCompletedStatus()" 
     [permissionToAddComment]="permissions.validatePermission(componentStage, 'Add Comments')"
-    (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+    (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
   
   

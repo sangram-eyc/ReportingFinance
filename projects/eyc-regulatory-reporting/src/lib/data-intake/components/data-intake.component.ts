@@ -8,6 +8,7 @@ import { PermissionService } from 'eyc-ui-shared-component';
 import { Router, NavigationExtras } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { rr_module_name } from '../../config/rr-config-helper';
 
 
 @Component({
@@ -92,7 +93,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     sort: '',
   }
   pageChangeFunc;
-
+  moduleOriginated = rr_module_name;
+  
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -559,6 +561,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.id,
         entityType: "DATA_EXCEPTION_REPORT",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -615,6 +618,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
         entityType: "DATASET",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {

@@ -8,6 +8,7 @@ import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
+import { rr_module_name } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-client-review',
@@ -22,6 +23,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   commentEntityType
   showComments = false;
   currentEntityReviewLevel;
+  moduleOriginated = rr_module_name;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -636,6 +638,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.entityId,
         entityType: "FILING_ENTITY",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -692,6 +695,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
         entityType: "ANSWER_EXCEPTION_REPORT",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {

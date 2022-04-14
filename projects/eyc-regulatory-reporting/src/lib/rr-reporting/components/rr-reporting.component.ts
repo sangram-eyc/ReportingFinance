@@ -6,7 +6,7 @@ import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'eyc-ui-shared-component';
 //import { GridComponent } from 'eyc-ui-shared-component';
-import {customComparator} from '../../config/rr-config-helper';
+import {customComparator, rr_module_name} from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
@@ -30,6 +30,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe
   ) { }
 
+  moduleOriginated = rr_module_name;
   tabs;
   exportURL;
   exportHeaders;
@@ -657,6 +658,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.entityId,
         entityType: "FILING_ENTITY",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -713,6 +715,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
         entityType: "ANSWER_EXCEPTION_REPORT",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {
