@@ -92,7 +92,7 @@ export const PowerBiReportDailyList=[
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'706df839-8446-4728-8405-9a6949cbcd30',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account'},
+    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
@@ -115,7 +115,7 @@ export const PowerBiReportMonthlyList=[
     {reportName:'DMS_TRP_Positions Lot level_Monthly',
     reportId:'c8b4b4e1-56f9-4d31-9acd-89acb2197114',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account'},
+    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
@@ -135,7 +135,7 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'5058ea25-7a8c-4ea8-a5bb-1b24c6ffd189',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
@@ -158,7 +158,7 @@ export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_Positions Lot level_Monthly',
     reportId:'4a2cc2ca-7471-4bad-814e-aab8e8278b53',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
