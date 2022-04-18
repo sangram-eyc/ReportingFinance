@@ -204,7 +204,7 @@
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Reporting', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
-    (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+    (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
     
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Reporting'"></lib-audit-log>

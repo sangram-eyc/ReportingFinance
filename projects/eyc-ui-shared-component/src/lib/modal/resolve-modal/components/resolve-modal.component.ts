@@ -70,7 +70,7 @@ export class ResolveModalComponent implements OnInit {
           ...this.modalDetails.entityId
         ],
         "entityType": this.modalDetails.entityType,
-        "moduleOriginated":'',
+        "moduleOriginated":this.modalDetails.moduleOriginated,
         "parentCommentId":0
       };
       

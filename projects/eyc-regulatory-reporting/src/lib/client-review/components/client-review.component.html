@@ -212,7 +212,7 @@
     [filingName]="commentsName"
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
-    (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
+    (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
     
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>

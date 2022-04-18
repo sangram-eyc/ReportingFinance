@@ -113,7 +113,7 @@
 </div>
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')"
-    (commentAddedEmitter)="commentAdded()" [filingStatus]="checkFilingCompletedStatus()"></lib-comment-side-menu>
+    (commentAddedEmitter)="commentAdded()" [filingStatus]="checkFilingCompletedStatus()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
