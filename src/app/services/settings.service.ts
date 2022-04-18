@@ -8,7 +8,7 @@ import {authConfig} from '../login/helpers'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {authorization} from '../helper/api-config-helper';
 import { v4 as uuid } from 'uuid';
-import { LogoutService } from './logout/logout.service'
+import { ConcurrentSessionsService } from './concurrent-sessions/concurrent-sessions.service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ import { LogoutService } from './logout/logout.service'
 export class SettingsService {
   authdetails;
   moduleLevelPermission;
-  constructor(private oauthService: OAuthService,private http: HttpClient,private logoutService:LogoutService) { }
+  constructor(private oauthService: OAuthService,private http: HttpClient,private concurrentSessionService:ConcurrentSessionsService) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
 // AUTHTOKEN FUNCTIONS
@@ -112,7 +112,7 @@ setToken = (value) => {
     const body = {
       "userEmail": sessionStorage.getItem('userEmail')
      }
-    this.logoutService.logoffNotification(body).subscribe();
+    this.concurrentSessionService.deleteSessionId(body).subscribe();
 		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
@@ -124,7 +124,7 @@ setToken = (value) => {
     sessionStorage.removeItem('dailyMonthlyStatus');
     sessionStorage.removeItem('selectedDate');
   }
-  
+
   public get name() {
 		const claims = this.oauthService.getIdentityClaims();
 		if (!claims) {
