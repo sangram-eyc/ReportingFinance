@@ -586,7 +586,7 @@ export class CycleDetailComponent implements OnInit {
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    console.log('datasetsSelectedRows->', this.datasetsSelectedRows);
+    //console.log('datasetsSelectedRows->', this.datasetsSelectedRows);
     if (this.datasetsSelectedRows.length > 0) {
       this.approveBtn.disabled = false;
       this.cancelbtn.disabled = false;
@@ -625,6 +625,7 @@ export class CycleDetailComponent implements OnInit {
 
   handleGridReady(params) {
     this.gridApi = params.api;
+    this.gridApi.addEventListener('paginationChanged', this.resetPaginationSelection.bind(this));        
   }
 
   addUsersToFund(_id: any) {
@@ -947,6 +948,26 @@ export class CycleDetailComponent implements OnInit {
     this.gridApi.setQuickFilter(input);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }
+
+  resetPaginationSelection(){   
+      //Initialize pagination data
+      let paginationSize = this.gridApi.paginationGetPageSize();
+      let currentPageNum = this.gridApi.paginationGetCurrentPage();
+      let totalRowsCount = this.gridApi.getDisplayedRowCount();
+
+      //Calculate current page row indexes
+      let currentPageRowStartIndex = (currentPageNum * paginationSize);
+      let currentPageRowLastIndex = (currentPageRowStartIndex + paginationSize);
+      if(currentPageRowLastIndex > totalRowsCount) currentPageRowLastIndex = (totalRowsCount);
+
+      for(let i = 0; i < totalRowsCount; i++)
+      {
+          //Set isRowSelectable=true attribute for current page rows, and false for other page rows
+          let isWithinCurrentPage = (i >= currentPageRowStartIndex && i < currentPageRowLastIndex);        
+          this.gridApi.getDisplayedRowAtIndex(i).setRowSelectable(isWithinCurrentPage);        
+      }   
+  }
+
 }
 
 
