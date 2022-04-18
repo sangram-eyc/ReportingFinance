@@ -135,6 +135,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   expandEntityTemplate: TemplateRef<any>;
   @ViewChild('lastUpdatedByTemplate')
   lastUpdatedByTemplate: TemplateRef<any>;
+  @ViewChild('unresolveFilingTemplate')
+  unresolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('unresolveExceptionTemplate')
+  unresolveExceptionTemplate: TemplateRef<any>;
+  @ViewChild('resolveFilingTemplate')
+  resolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('resolveExceptionTemplate')
+  resolveExceptionTemplate: TemplateRef<any>;
   
 
   ngOnInit(): void {
@@ -285,8 +293,20 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Resolved/Exception',
-          field: 'resolveException',
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          sortable: true,
+          filter: true,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.unresolveFilingTemplate,
+          },
+          headerName: 'Unresolved',
+          field: 'unResolvedException',
           sortable: true,
           filter: true,
           width: 210,
@@ -294,10 +314,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Review Level',
-          field: 'reviewLevel',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.resolveFilingTemplate,
+          },
+          headerName: 'Resolved',
+          field: 'resolvedException',
           sortable: true,
           filter: true,
+          width: 210,
           comparator: this.disableComparator
         },
          /*,
@@ -407,8 +432,25 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Resolved/Exception',
-          field: 'resolveOrException',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.unresolveExceptionTemplate,
+          },
+          headerName: 'Unresolved',
+          field: 'unResolvedException',
+          sortable: true,
+          filter: true,
+          width: 210,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.resolveExceptionTemplate,
+          },
+          headerName: 'Resolved',
+          field: 'resolvedException',
           sortable: true,
           filter: true,
           width: 210,
