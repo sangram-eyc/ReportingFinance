@@ -603,7 +603,7 @@ export class SubmissionComponent implements OnInit {
   }
 
   commentAdded() {
-    this.getSubmissionRowData();
+    this.getXmlFilesList();
   }
 
 }
