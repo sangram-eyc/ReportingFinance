@@ -92,16 +92,16 @@ export const PowerBiReportDailyList=[
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'706df839-8446-4728-8405-9a6949cbcd30',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account'},
+    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
-    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'},
+    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'}
 
 ]
 
-    // {reportName:'Monthly Book Report Package', reportId:'2186d45e-b7f3-40a0-85ce-0af0f040cd96', reportDisplayName:'Monthly Book Report Package'}
 export const PowerBiReportMonthlyList=[
+     {reportName:'Monthly Book Report Package', reportId:'2186d45e-b7f3-40a0-85ce-0af0f040cd96', reportDisplayName:'Monthly Book Report Package'}
+,
     {reportName:'DMS_TRP_General Ledger Trialbalance Class_Monthly',
     reportId:'8f6a1341-1494-4f20-b3c4-c8734640558f',reportDisplayName:'General Ledger Trial Balance Class'},
     {reportName:'DMS_TRP_Transaction Activity Details_Monthly',
@@ -115,10 +115,11 @@ export const PowerBiReportMonthlyList=[
     {reportName:'DMS_TRP_Positions Lot level_Monthly',
     reportId:'c8b4b4e1-56f9-4d31-9acd-89acb2197114',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account'},
+    {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'}
 ];
 
 export const PowerBiReportDailyListProd=[
@@ -135,16 +136,16 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'5058ea25-7a8c-4ea8-a5bb-1b24c6ffd189',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
-    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'},
+    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'}
 
 ];
 
-    // {reportName:'Monthly Book Report Package', reportId:'d1504a66-72de-4830-9a9d-e66b831f1ca1', reportDisplayName:'Monthly Book Report Package'}
 export const PowerBiReportMonthlyListProd=[
+    {reportName:'Monthly Book Report Package', reportId:'1426dc8b-4553-45ad-a5aa-a8b70f75f6d7', reportDisplayName:'Monthly Book Report Package'}
+,
     {reportName:'DMS_TRP_General Ledger Trialbalance Class_Monthly',
     reportId:'953c7bbc-59bc-4b23-9354-3853c7d239d0',reportDisplayName:'General Ledger Trial Balance Class'},
     {reportName:'DMS_TRP_Transaction Activity Details_Monthly',
@@ -158,10 +159,11 @@ export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_Positions Lot level_Monthly',
     reportId:'4a2cc2ca-7471-4bad-814e-aab8e8278b53',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'}
 ];
 
 export const PBI_CONFIG = {

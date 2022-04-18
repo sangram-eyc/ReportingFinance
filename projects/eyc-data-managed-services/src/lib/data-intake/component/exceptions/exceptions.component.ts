@@ -307,7 +307,7 @@ export class ExceptionsComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
-          sortable: false,
+          sortable: true,
           filter: false,
           minWidth: 200,
           wrapText: false,
