@@ -188,3 +188,7 @@ height: 45px;
     justify-items: center;
   }
 }
+
+::ng-deep .motif-table .ag-cell-value {
+  word-break: break-word;
+}
