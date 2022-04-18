@@ -308,7 +308,7 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exceptions',
           field: 'exceptionCount',
           sortable: false,
-          filter: false,
+          filter: true,
           minWidth: 200,
           wrapText: false,
           autoHeight: true,
