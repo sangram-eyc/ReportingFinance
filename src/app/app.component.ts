@@ -161,7 +161,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.settingsService.logoff()
       }
       else {
-        sessionStorage.setItem('session_id', JSON.stringify(res['data'].id))
+        sessionStorage.setItem('session_id', res['data'].id)
       }
     })
   }
