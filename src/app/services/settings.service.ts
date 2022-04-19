@@ -110,7 +110,7 @@ setToken = (value) => {
   public logoff() {
 		console.log('inside logout');
     const body = {
-      "userEmail": sessionStorage.getItem('userEmail')
+      "id": sessionStorage.getItem('session_id')
      }
     this.concurrentSessionService.deleteSessionId(body).subscribe();
 		this.oauthService.logOut();
