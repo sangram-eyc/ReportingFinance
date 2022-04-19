@@ -23,5 +23,5 @@ export const notifier_ws = environment.production ? 'wss://10.48.234.20/qa35/not
 
 export const app_concurrent_sessions = {
     delete_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/logout' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/logout',
-    add_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api​/v2​/authentication​/currentUser​/login' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/login',
+    add_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/login' : environment.apiEndpoint + 'gatewayService/api/v2/authorization/currentUser/login',
   };
