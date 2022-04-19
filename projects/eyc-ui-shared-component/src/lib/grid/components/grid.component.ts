@@ -317,7 +317,7 @@ pageSize;
     }
   }
 
-  onRowSelected(event): void {
+  onChange(event): void {
     if (this.customRowSelected) {
       this.rowSelected.emit(event);
       this.selectedRows = this.gridApi.getSelectedRows();
