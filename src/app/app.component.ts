@@ -85,6 +85,13 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     this.inActivityTime = sessionStorage.getItem('inActivityTime');
     this.timeoutId = setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
+         const idSession = sessionStorage.getItem('session_id');
+         if(idSession != null){
+            const body = {
+              "id": idSession
+            }
+            this.concurrentSessionsService.exitSessionInactivity(body).subscribe();
+         }
         this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
       }
     }, this.inActivityTime);
