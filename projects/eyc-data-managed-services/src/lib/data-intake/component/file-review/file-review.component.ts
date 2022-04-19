@@ -315,7 +315,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   onRowClicked(event: RowClickedEvent) {
-    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
+    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias && event.data.exceptions) {
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION, event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
     } else {
       console.log("Data name is not getting");
