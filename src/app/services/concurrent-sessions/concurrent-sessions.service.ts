@@ -20,4 +20,7 @@ export class ConcurrentSessionsService {
     return this.apiService.invokePutAPI(`${app_concurrent_sessions.add_session_id}`,body);
   }
   
+  exitSessionInactivity(body){
+    return this.apiService.invokePutAPI(`${app_concurrent_sessions.exit_ui_inactivity}`,body);
+  }
 }
