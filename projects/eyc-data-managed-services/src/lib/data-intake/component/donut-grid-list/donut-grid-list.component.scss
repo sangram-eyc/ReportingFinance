@@ -187,6 +187,7 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+    min-height: 100px;
 
     .file-count {
       font-size: 14px;
