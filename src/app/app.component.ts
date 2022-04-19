@@ -12,13 +12,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+import { ConcurrentSessionsService } from './services/concurrent-sessions/concurrent-sessions.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit{
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit {
   title = 'eyc-ServiceEngine-UI';
   timeoutId;
   count = 0;
@@ -57,7 +58,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
-    private routingState:RoutingStateService
+    private routingState: RoutingStateService,
+    private concurrentSessionsService:ConcurrentSessionsService
   ) {
     // To hide header and footer from login page
 
@@ -134,11 +136,27 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
         this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         this.permission.isDMS = this.moduleLevelPermission.checkPermission('Data Managed Services');
-
+        this.setSessionId();
       }, 100);
 
     });
 
+  }
+
+  setSessionId(): void {
+    //set session id to avoid concurrent sessions
+    const body = {
+      "userEmail": sessionStorage.getItem('userEmail')
+    }
+    this.concurrentSessionsService.addSessionId(body).subscribe((res) => {
+      console.log('add_session_id_res',res)
+      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
+        this.settingsService.logoff()
+      }
+      else {
+        sessionStorage.setItem('session_id', JSON.stringify(res['data'].id))
+      }
+    })
   }
 
   ngAfterContentChecked(): void {
