@@ -123,6 +123,7 @@ setToken = (value) => {
     sessionStorage.removeItem('pendingDownloadsBulk');
     sessionStorage.removeItem('dailyMonthlyStatus');
     sessionStorage.removeItem('selectedDate');
+    sessionStorage.removeItem('session_id');
   }
 
   public get name() {
