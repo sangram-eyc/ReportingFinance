@@ -8,7 +8,7 @@ import { EuropeanFundReportingSettingsService } from '../../services/european-fu
 })
 export class EuropeanFundReportingComponent implements OnInit {
   urlWamreg_nonprod: string = 'https://fmsp-stg.ey.com/frc/workflow';
-  urlWamreg_prod: string = 'https://fmsp-stg.ey.com/frc/workflow';
+  urlWamreg_prod: string = 'https://fmsp.ey.com/frc/workflow';
   current_path: string = window.location.href
   isProduction: boolean;
   constructor() { }
@@ -20,7 +20,6 @@ export class EuropeanFundReportingComponent implements OnInit {
     (res !== -1) ? this.isProduction = true : this.isProduction = false;
    
     if (this.isProduction) {
-      console.log('production')
       window.open(this.urlWamreg_prod);
     }
     else {
