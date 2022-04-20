@@ -5,6 +5,11 @@
    <motif-tab-bar>
       <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
          [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
+      <!-- Hide other tabs for release-1st -->
+      <!-- <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button>
+      <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+         [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button> -->
       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
          [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Data Explorer</button>
    </motif-tab-bar>
@@ -54,10 +59,8 @@
                margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
                totalExpected="EXPECTED">
             </lib-donut-chart>
-
-            <a [isDisabled]="reviewAllDisabled"
-               [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/files-review']"
-               motifTextLink color="primary-alt" class="review-all">
+         
+            <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.FILE_REVIEW_URL]" motifTextLink color="primary-alt" class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>
@@ -74,9 +77,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a [isDisabled]="reviewAllDisabled"
-                           [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-intake','dataProvider']"
-                           motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_PROVIDER]"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -92,9 +93,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
-                        <a [isDisabled]="reviewAllDisabled"
-                           [routerLink]="reviewAllDisabled ? ['/data-managed-services'] : ['/data-managed-services/data-intake','dataDomain']"
-                           motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_DOMAIN]"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -147,9 +146,9 @@
                      <div id="past-due">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
@@ -180,9 +179,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(highPriorityIssuesCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
@@ -208,23 +207,22 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues" class="last-div">
+                     <div id="medium-priority-issues">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low
-                              priority
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
-                           </div>
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(mediumPriorityCount==0)">Review</button>
+                           </div> -->
                         </div>
-                        <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient"
-                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                  [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
                                  [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
                                  [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
@@ -232,11 +230,43 @@
                                  [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">{{noMediumLowPriority}}
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="low-priority-issues" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(lowPriorityCount==0)">Review</button>
+                           </div> -->
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
                               </div>
                            </div>
                         </div>
@@ -248,9 +278,9 @@
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(fileMissingPastDueCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
@@ -281,9 +311,9 @@
                         <div class="bar-chart-header">
                            <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
                                  [disabled]="(highPriorityIssuesCount==0)">Review</button>
-                           </div>
+                           </div> -->
                         </div>
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
@@ -309,35 +339,66 @@
                            </div>
                         </div>
                      </div>
-                     <div id="low-priority-issues-domain" class="last-div">
+                     <div id="medium-priority-issues-domain">
                         <div class="bar-chart-header">
-                           <div><span class="file-count">{{mediumLowPriorityCount}}</span>Files with medium / low
-                              priority
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
                               issues</div>
-                           <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
-                                 [disabled]="(mediumLowPriorityCount==0)">Review</button>
-                           </div>
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(mediumPriorityCount==0)">Review</button>
+                           </div> -->
                         </div>
-                        <div class="bar-chart-body border border-0">
-                           <div class="chart-container" [hidden]="(mediumLowPriorityCount==0)">
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
                               <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
-                                 [results]="mediumLowPriorityData" [animations]="animations" [gradient]="gradient"
-                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
-                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
-                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
-                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
-                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
-                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
-                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
                               </eyc-charts-bar-vertical>
                            </div>
-                           <div class="toast-card" [hidden]="!(mediumLowPriorityCount==0)">
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
                               <div class="toast-icon">
                                  <i class="material-icons md-light">check_circle</i>
                               </div>
-                              <div class="toast-card-body">{{noMediumLowPriority}}
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>  
+                     <div id="low-priority-issues-domain" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                           <!-- <div><button motifButton color="secondary" size="fluid" class="btn-secondary"
+                                 [disabled]="(lowPriorityCount==0)">Review</button>
+                           </div> -->
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
                               </div>
                            </div>
                         </div>
@@ -358,7 +419,8 @@
             <div class="box-center"></div>
             <div class="dateWrapper">
                <div class="px-3 date-ui">
-                  <form [formGroup]="form" novalidate>
+                  <!-- Calender will be enabled when pagination report hide the as-of-date parameter -->
+                  <!-- <form [formGroup]="form" novalidate>
                      <motif-form-field>
                         <label motifLabel for="datepicker">Date (required)</label>
                         <input motifDatepicker class="motif-input" name="mydate" id="datepicker" #dp="motifDatepicker"
@@ -366,7 +428,7 @@
                            autocomplete="off" [required]="true" formControlName="datepicker" [readonly]="true"
                            [options]="{dateRange: false, dateFormat: 'yyyy-mm-dd'}" />
                      </motif-form-field>
-                  </form>
+                  </form> -->
                </div>
                <div class="box-center">
                   <button #dailyfilter2 [disabled]="disabledDailyMonthlyButton" motifButton color="primary-alt"
@@ -379,40 +441,31 @@
       </div>
    </div>
 
-   <motif-card class="data_explorer-card">
-      <div class="container">
-         <div class="row pt-3">
-            <h3>Please select from the options below to explore data.</h3>
-         </div>
-         <div class="row">
-            <motif-form-field>
-               <label motifLabel>Data Domain (required)</label>
-               <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
-                  <motif-option [value]="1">General Ledger Trial Balance</motif-option>
-                  <motif-option [value]="2">General Ledger Trial Balance Class</motif-option>
-                  <motif-option [value]="3">Positions Portfolio Level</motif-option>
-                  <motif-option [value]="4">Positions Lot Level</motif-option>
-                  <motif-option [value]="5">Transactions Disposal Lot</motif-option>
-                  <motif-option [value]="6">Transactions Activity Details</motif-option>
-                  <motif-option [value]="reportID">Monthly Book Report Package</motif-option>
-                  <motif-option [value]="7">Account</motif-option>
-                  <motif-option [value]="8">Product - Issuers</motif-option>
-                  <motif-option [value]="9">Product - Securities</motif-option>
-                  <motif-option [value]="10">Product - Corporate Actions</motif-option>
-               </motif-select>
-            </motif-form-field>
-         </div>
-         
-            <button motifButton color="primary-alt" size="fluid" (click)="visualizePowerBiReport()">Results</button>
-  
-         <div class="margintop">
-            <ng-container>
-               <lib-eyc-powerbi-embed [selectedReportId]="powerBiReportId" [pod]="pod">
-               </lib-eyc-powerbi-embed>
-            </ng-container>
-            
-         </div>
-      </div>
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mb-3">
+         <motif-card>
+            <div class="m-4">
+               <div class="row">
+                  <h5>Please select from the options below to explore data.</h5>
+               </div>
+               <div class="row">
+                  <motif-form-field>
+                     <label motifLabel>Data Domain (required)</label>
+                     <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
+                        <motif-option *ngFor="let report of reports" [value]="report.reportId">{{report.reportDisplayName}}</motif-option> 
+                     </motif-select>
+                  </motif-form-field>
+               </div>
 
-   </motif-card>
+               <div class="row pt-3">
+                  <ng-container>
+                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pbiConfig.PBI_POD" [selectedDate]="dueDate">
+                     </lib-power-bi-paginated-report-embed>
+                  </ng-container>
+               </div>
+            </div>
+      
+         </motif-card>
+      </div>
+   </div>
 </section>

@@ -4,7 +4,7 @@
   background: #F6F6FA;
   opacity: 0.8;
   padding: 15px;
-  white-space: break-spaces;
+  // white-space: break-spaces;
   border: 0.999px solid #EAEAF2;
 
   .notification-texts {
@@ -13,13 +13,25 @@
       line-height: 20px;
       font-weight: 600;
       color: #23232F;
+      display: flex;
+
+      ::ng-deep {
+        .motif-icon-content {
+          width: 16px;
+          height: 16px;
+          display: flex;
+          margin-left: auto;
+          margin-right: 5px;
+        }
+      }
     }
 
     .notification-desc {
       font-size: 12px;
       line-height: 16px;
       color: #747480;
-
+      text-align: justify;
+      white-space: break-spaces;
       p {
         margin: 0 !important;
       }
@@ -29,7 +41,8 @@
       font-size: 12px;
       line-height: 16px;
       color: #23232F;
-
+      font-weight: bold;
+      white-space: break-spaces;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;

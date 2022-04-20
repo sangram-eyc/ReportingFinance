@@ -85,26 +85,27 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.stage = 'intake';
     }
-    else if (this.filingService.getFilingData) {
+    if (this.filingService.getFilingData) {
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      if (this.filingService.getExceptionData.resolveOrException && this.filingService.getExceptionData.resolveOrException.indexOf("/") !== -1) {
+      if (this.filingService.getExceptionData?.resolveOrException && this.filingService.getExceptionData?.resolveOrException.indexOf("/") !== -1) {
         let exceptionVal = this.filingService.getExceptionData.resolveOrException.split("/");
         this.exceptionCnt = exceptionVal[1];
       }
-      this.exceptionReportName = this.filingService.getExceptionData.exceptionReportName;
+      this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
-      this.stage = 'reporting'
+      
       sessionStorage.setItem("reportingTab", '1');
     }
     if (this.dataIntakeData) {
       this.getExceptionResults();
       this.dataIntakeExceptionsTable = true;
     } else {
+      this.stage = 'reporting'
       this.getAnswerExceptionReports();
       this.answerExceptionTable = true;
     }
@@ -487,24 +488,36 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.exportsHeader = hedars;
       }
     }
+
     if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
-    const requestobj = {
-      "exceptionId": this.filingService.getExceptionData.exceptionId,
-      "export": true,
-      "reportType": "CSV",
-      "filingName": this.filingName,
-      "period": this.period,
-      "stage": this.componentStage,
-      "totalExceptions": this.exceptionCnt,
-      "titles": this.exportsHeader
-    }
+    if(this.componentStage != null && this.componentStage != undefined) {
+      const requestobj = {
+        "exceptionId": this.filingService.getExceptionData.exceptionId,
+        "export": true,
+        "reportType": "CSV",
+        "filingName": this.filingName,
+        "period": this.period,
+        "stage": this.componentStage,
+        "totalExceptions": this.exceptionCnt,
+        "titles": this.exportsHeader
+      }
+      this.viewService.exportData(requestobj).subscribe(res => {
+      });
+    } else {
+      const exportDataObj = {
+        "exceptionRuleId": this.dataIntakeData.ruleExceptionId,
+        "filingName": this.filingName,
+        "period": this.period,
+        "export": true,
+        "headers": this.exportsHeader,
+        "reportType":"csv"
+      }
 
-    this.viewService.exportData(requestobj).subscribe(res => {
-     
-    });
-    
+      this.viewService.exportForDataIntake(exportDataObj).subscribe(res => {
+      });
+    }
   }
 
 }

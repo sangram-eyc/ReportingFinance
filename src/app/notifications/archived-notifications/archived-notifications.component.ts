@@ -1,10 +1,12 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   TableHeaderRendererComponent
 } from '../../../../projects/eyc-regulatory-reporting/src/lib/shared/table-header-renderer/table-header-renderer.component';
 import {NotificationService} from '@default/services/notification.service';
 import {MotifTableCellRendererComponent} from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-archived-notifications',
@@ -24,8 +26,11 @@ export class ArchivedNotificationsComponent implements OnInit {
   public selectedItems = [];
   public currentPage = 0;
 
+  private subject: Subject<string> = new Subject();
+
   constructor(
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -101,6 +106,10 @@ export class ArchivedNotificationsComponent implements OnInit {
         },
       ];
     });
+
+    this.subject.pipe(debounceTime(500)).subscribe(searchTextValue => {
+      this.search(searchTextValue);
+    });
   }
 
   changeCheck(row) {
@@ -113,9 +122,9 @@ export class ArchivedNotificationsComponent implements OnInit {
     }
   }
 
-  onKey(event): void {
-    this.searchText = event.target.value;
-    this.notificationService.getArchivedNotifications(this.searchText, 0).subscribe((res: any) => {
+
+  search(text) {
+    this.notificationService.getArchivedNotifications(text, 0).subscribe((res: any) => {
       this.notificationsData = res.content;
       this.notificationsData.forEach(item => {
         item.selected = false;
@@ -124,6 +133,10 @@ export class ArchivedNotificationsComponent implements OnInit {
         item.sendDate = `${item.sendDate[0]}/${item.sendDate[1]}/${item.sendDate[2]}`;
       });
     });
+  }
+
+  onKey(event): void {
+    this.subject.next(event.target.value);
   }
 
   exportCsv() {
@@ -142,8 +155,9 @@ export class ArchivedNotificationsComponent implements OnInit {
 
   delete(notification?): void {
     const index = this.notificationsData.findIndex(item => item.engineId == notification.engineId);
-    this.notificationsData.splice(index, 1);
     this.notificationService.deleteNotification(notification.engineId).subscribe(res => {
+      this.notificationsData.splice(index, 1);
+      this.cdr.detectChanges();
     });
   }
 

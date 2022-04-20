@@ -169,20 +169,16 @@
 }
 
 .warning-border{
-  box-sizing: border-box;
-	//Use pseudo-element to create inset border
-	&:before {
-		position: absolute;
-		content: ' ';
-		display: flex;
-		left: 12px;
-		right: 12px;
-		top: 2px;
-		bottom: 0;
+   box-sizing: border-box;
 		border-bottom: 3px solid #FF9831;
 		// Important: We must deduct border size from width and height 
-		height: calc(100% - 3px);
-	} 
+		
+	// } 
+}
+
+.white-border{
+  box-sizing: border-box;
+  border-bottom: 3px solid #ffffff;
 }
 
 .warning-info{

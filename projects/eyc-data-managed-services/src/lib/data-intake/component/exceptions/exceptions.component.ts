@@ -6,10 +6,12 @@ import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHead
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, FILTER_TYPE, FILTER_TYPE_TITLE, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RoutingStateService } from '../../services/routing-state.service';
+import { colorSets, Color } from 'eyc-charts-shared-library';
 
 
 @Component({
@@ -18,6 +20,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./exceptions.component.scss']
 })
 export class ExceptionsComponent implements OnInit {
+  previousRoute: string;
+  routeHistory: any;
+  fileName:string;
+  filereviewUrl: string;
+  isDataIntaketype: boolean = false;
+  dataIntakeTypeDisplay: object;
+  dataIntakeTypeDisplayText = DATA_INTAKE_TYPE_DISPLAY_TEXT;
+  dataIntakeTypeUrl: string = '';
+  routeUrlConst=ROUTE_URL_CONST;
+  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
 
@@ -28,10 +40,11 @@ export class ExceptionsComponent implements OnInit {
   chipTemplate: TemplateRef<any>;
   @ViewChild('commentTemplate')
   commentTemplate: TemplateRef<any>;
-  
+
   @ViewChild('nextButtonTemplate')
   nextButtonTemplate: TemplateRef<any>;
-  
+
+  curDate: string;
   presentDate: Date;
   isDisplay:boolean=false;
   curDate;
@@ -40,16 +53,14 @@ export class ExceptionsComponent implements OnInit {
   calSelectedDate: string;
   disabledDailyMonthlyButton: boolean = false;
   dailyMonthlyStatus: boolean = false;
-    
   ExceptionFileName: string;
-  ExceptionAuditGuidName:string;
-  ExceptionFileNameAlias:string;
+  ExceptionAuditGuidName: string;
+  ExceptionFileNameAlias: string;
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
   noExceptionDataAvilable: boolean;
-  searchNoDataAvilable: boolean=false;
+  searchNoDataAvilable: boolean = false;
   dataExplorer = false;
-  
   httpDataGridParams: ExceptionDataGrid;
   columnGl = [];
   glRowdata = [];
@@ -100,7 +111,7 @@ export class ExceptionsComponent implements OnInit {
     private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
-    private _activatedroute: ActivatedRoute,private _router: Router) {
+    private _activatedroute: ActivatedRoute,private _router: Router,private routingState: RoutingStateService) {
       this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
       const currentDate = new Date();
       currentDate.setMonth(currentDate.getMonth());
@@ -111,13 +122,14 @@ export class ExceptionsComponent implements OnInit {
         this.ExceptionAuditGuidName = params.get('paramguidName');
         this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
       });
+  
   }
 
   ngOnInit(): void {
     this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -134,12 +146,55 @@ export class ExceptionsComponent implements OnInit {
         }
       }, [Validators.required])
     });
+    this.previousRoute = this.routingState.getPreviousUrl();
+    this.routeHistory = this.routingState.getHistory();
+
+    const routeArray = this.previousRoute.split("/");
+    const routePart = routeArray[routeArray.length - 2]
+
+    if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
+      this.isDataIntaketype = true;
+      this.fileName= routeArray[routeArray.length - 1];
+      if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+      }
+      else {
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+      }
+      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+    }
+    else if (routePart == "files" || routeArray[2]=="files") {
+      const urlPartArray=this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
+      const urlPart=urlPartArray[urlPartArray.length - 2];
+      if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
+        this.isDataIntaketype = true;
+        this.fileName=urlPartArray[urlPartArray.length - 1];
+        if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+          this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+        }
+        else {
+          this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+        }
+        this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+      }
+      else {
+        this.fileName="Files";
+        this.isDataIntaketype = false;
+      }
+    }else if((routeArray[routeArray.length - 1])=="files-review"){
+      this.isDataIntaketype = false;
+      this.fileName="Files";
+    }
+    else {
+      this.isDataIntaketype = false;
+    }
+      this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
   }
 
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -154,11 +209,11 @@ export class ExceptionsComponent implements OnInit {
       dueDate: dueDate,
       periodType: '',
       clientName: '',
-      auditFileGuidName:this.ExceptionAuditGuidName,
-      fileId:'',
-      fileName:this.ExceptionFileNameAlias
+      auditFileGuidName: this.ExceptionAuditGuidName,
+      fileId: '',
+      fileName: this.ExceptionFileNameAlias
     };
-    if(this.dailyMonthlyStatus) {
+    if (this.dailyMonthlyStatus) {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     } else {
@@ -221,14 +276,14 @@ export class ExceptionsComponent implements OnInit {
           field: 'name',
           sortable: true,
           filter: false,
-          minWidth: 100,
+          minWidth: 400,
           wrapText: true,
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.reportNameTemplate
           }
         },
-         {
+        {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
@@ -256,7 +311,7 @@ export class ExceptionsComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
-          sortable: false,
+          sortable: true,
           filter: false,
           minWidth: 200,
           wrapText: false,
@@ -288,9 +343,10 @@ export class ExceptionsComponent implements OnInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpDataGridParams.dueDate = this.calSelectedDate;
+      this.httpDataGridParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
   }
@@ -374,7 +430,6 @@ export class ExceptionsComponent implements OnInit {
 
   monthlyData(status: boolean) {
     // Monthly data fetch as per click
-    
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
@@ -395,12 +450,15 @@ export class ExceptionsComponent implements OnInit {
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
-  
   onRowClicked(event: RowClickedEvent) {
-    if (event && event.data && event.data.exceptionReportDetails) {
+    const exceptionReportDetail = event.data.exceptionReportDetails;
+    // FDF is not sending empty array. It is sending three type of values. 
+    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+      return false;
+    } else if (event && event.data && exceptionReportDetail) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
-      this.dataManagedService.setExceptionFileName=event.data.name;
-      this._router.navigate(['/data-managed-services/files/exception-details']);
+      this.dataManagedService.setExceptionFileName = event.data.name;
+      this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
       // This console is use for QA live env (RouterLink is working in local system but not in QA Env)
@@ -422,7 +480,7 @@ export class ExceptionsComponent implements OnInit {
 
   openComments(row) {
     console.log(row);
-     this.showComments = true;  
+    this.showComments = true;
   }
   addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -439,7 +497,7 @@ export class ExceptionsComponent implements OnInit {
             label: "Assign to (Optional)",
             formControl: 'assignTo',
             type: "select",
-            data:[
+            data: [
               { name: "Test1", id: 1 },
               { name: "Test2", id: 2 },
               { name: "Test3", id: 3 },
@@ -447,8 +505,8 @@ export class ExceptionsComponent implements OnInit {
             ]
           },
           isTextarea: true,
-          textareaDetails:{
-            label:"Comment (required)",
+          textareaDetails: {
+            label: "Comment (required)",
             formControl: 'comment',
             type: "textarea",
             validation: true,
@@ -464,7 +522,7 @@ export class ExceptionsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.button === "Submit") {
+      if (result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
@@ -477,6 +535,5 @@ export class ExceptionsComponent implements OnInit {
     });
   }
   commentAdded() {
-    
   }
 }

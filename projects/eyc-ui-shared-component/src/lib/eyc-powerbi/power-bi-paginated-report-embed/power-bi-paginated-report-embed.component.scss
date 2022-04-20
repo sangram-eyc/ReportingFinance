@@ -1,0 +1,32 @@
+.no-data-container {
+    // margin-left: 31%;
+    margin-top: 5%;
+    text-align: center;
+  }
+  
+  .svg-container {
+  
+    margin: auto;
+    width: 5%;
+  }
+  
+  ::ng-deep.no-data-container.svg-container svg {
+    height: 52px !important;
+    width: 52px !important;
+  }
+  
+  .no-data-container {
+    ::ng-deep svg {
+      height: 52px !important;
+      width: 52px !important;
+    }
+  }
+  
+  .no-data-text {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 15px;
+  }

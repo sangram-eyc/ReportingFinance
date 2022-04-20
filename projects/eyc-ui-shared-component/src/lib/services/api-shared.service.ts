@@ -55,4 +55,15 @@ export class ApiSharedService {
     return this.httpClient.put(url, params, { headers });
   }
 
+  /*--------------GENERIC API FOR GET METHOD (No Header)-------------*/
+  invokeGetAPINoHeader(url: string): Observable<any> {
+    return this.httpClient.get<any>(url);
+  }
+
+  /*--------------GENERIC API FOR POST METHOD (No Header)-------------*/
+  invokePostAPINoHeader(url: string, params?: any) {
+  const headers = new HttpHeaders();
+  headers.set('Content-Type', 'application/json; text/plain; */*');
+    return this.httpClient.post(url, params, { headers } );
+  }
 }

@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener } from '@angular/core';
-import {NotificationService} from '@default/services/notification.service';
 
 @Component({
   selector: 'app-notification-item',
@@ -16,7 +15,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
   public content: any;
 
-  constructor(private notificationService: NotificationService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -29,30 +28,24 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   expand(id): void {
-    this.notificationService.setNotificationRead(id).subscribe();
     this.expandNotification.emit(id);
   }
 
   delete(): void {
-    this.notificationService.deleteNotification(this.notification.engineId).subscribe(res => {
-
-    });
     this.deleteNotification.emit();
   }
 
   archive(): void {
-    this.notificationService.setAsArchived(this.notification.engineId).subscribe();
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.notificationService.setNotificationFlagged(this.notification.engineId, !this.content.flagged).subscribe(res => {
-      this.content.flagged = !this.content.flagged;
-    });
+    this.flagNotification.emit();
+    this.content.flagged = !this.content.flagged;
   }
 
   calculateNotificationTime(date) {
-
+    let seconds = 0;
     if (Array.isArray(date)) {
       // tslint:disable-next-line:radix
       const initialDate = new Date(date[0], parseInt(date[1]) - 1, date[2], date[3], date[4], date[5]);
@@ -61,58 +54,37 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
       // tslint:disable-next-line:radix
       // @ts-ignore
-
-      const seconds = Math.floor((new Date() - transformedDate) / 1000);
-
-      let interval = seconds / 31536000;
-
-      if (interval > 1) {
-        return Math.floor(interval) + ' y';
-      }
-      interval = seconds / 2592000;
-      if (interval > 1) {
-        return Math.floor(interval) + ' m';
-      }
-      interval = seconds / 86400;
-      if (interval > 1) {
-        return Math.floor(interval) + ' d';
-      }
-      interval = seconds / 3600;
-      if (interval > 1) {
-        return Math.floor(interval) + ' h';
-      }
-      interval = seconds / 60;
-      if (interval > 1) {
-        return Math.floor(interval) + ' min';
-      }
-      return Math.floor(seconds) + ' sec';
+      seconds = Math.floor((new Date() - transformedDate) / 1000);
     } else {
       // @ts-ignore
-      const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-
-      let interval = seconds / 31536000;
-
-      if (interval > 1) {
-        return Math.floor(interval) + ' y';
-      }
-      interval = seconds / 2592000;
-      if (interval > 1) {
-        return Math.floor(interval) + ' m';
-      }
-      interval = seconds / 86400;
-      if (interval > 1) {
-        return Math.floor(interval) + ' d';
-      }
-      interval = seconds / 3600;
-      if (interval > 1) {
-        return Math.floor(interval) + ' h';
-      }
-      interval = seconds / 60;
-      if (interval > 1) {
-        return Math.floor(interval) + ' min';
-      }
-      return Math.floor(seconds) + ' sec';
+      seconds = Math.floor((new Date() - new Date(date)) / 1000);
     }
+    return this.getFormattedInterval(seconds);
+  }
+
+  private getFormattedInterval(seconds: number): string {
+    let interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + ' y';
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + ' m';
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + ' d';
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + ' h';
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + ' min';
+    }
+    return 'Just Now!';
   }
 
   getContentHtml(content): any {
@@ -127,18 +99,18 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     return false;
   }
 
-  @HostListener("click", ['$event'])
+  @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     // If we don't have an anchor tag, we don't need to do anything.
-    if (event.target instanceof HTMLAnchorElement === false) { 
+    if (!(event.target instanceof HTMLAnchorElement)) {
       return;
     }
     // Prevent page from reloading
     event.preventDefault();
-    let target = <HTMLAnchorElement>event.target;
-    console.log("target > ", target);
+    const target = event.target as HTMLAnchorElement;
+    console.log('target > ', target);
     // Navigate to the path in the link
-    window.open(target.href, "_self");
+    window.open(target.href, '_self');
   }
 
 }

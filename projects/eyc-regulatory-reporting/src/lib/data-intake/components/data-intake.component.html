@@ -18,8 +18,8 @@
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
-            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="true"
-            (gridReady)="handleExceptionGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="pageInfoException.totalRecords" (customSortChange)="sortChanged($event)"
+            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="rowData?.length > 0 ? true : false"
+            (gridReady)="handleExceptionGridReady($event)" [pagination]="rowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoException.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
         </lib-shared-grid>
 
@@ -83,8 +83,8 @@
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
             [permissionToPrimaryButton]="false" [permissionToSecondaryButton]="false" 
-            [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="true"
-            (gridReady)="handleGridReady($event)" [pagination]="true" paginationSize="10" [totalRecords]="pageInfoData.totalRecords" (customSortChange)="sortChanged($event)"
+            [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="datasetData?.length > 0 ? true : false"
+            (gridReady)="handleGridReady($event)" [pagination]="datasetData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoData.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
         </lib-shared-grid>
 

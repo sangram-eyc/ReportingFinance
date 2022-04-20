@@ -19,7 +19,6 @@ import {
 import {
   EycUiSharedComponentModule
 } from '../../../projects/eyc-ui-shared-component/src/lib/eyc-ui-shared-component.module';
-import {UserRolesModule} from '@default/administration/user-roles/user-roles.module';
 import { NotificationsPreferencesComponent } from './notifications-preferences/notifications-preferences.component';
 import {RouterModule} from '@angular/router';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
@@ -46,7 +45,6 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
         MotifIconModule,
         EycRegulatoryReportingModule,
         EycUiSharedComponentModule,
-        UserRolesModule,
         RouterModule,
         InfiniteScrollModule
     ],

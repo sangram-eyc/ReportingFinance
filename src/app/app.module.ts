@@ -7,7 +7,6 @@ import {MatButtonModule,} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MotifModule, MotifAvatarModule,MotifFormsModule,MotifProgressBarModule } from '@ey-xd/ng-motif';
-import { AdministrationModule } from './administration/administration.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import {NotificationModule} from './notification/notification.module';
@@ -33,7 +32,9 @@ import {taxenvironment} from '../environments/eyc-tax-reporting/tax-environment'
 import { datamanagedenvironment } from '@env/eyc-data-managed-services/data-managed-environment';
 import {NotificationsModule} from "@default/notifications/notifications.module";
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
 
+import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,6 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
     MotifModule,
     MotifFormsModule,
     MotifAvatarModule,
-    AdministrationModule,
     HomeModule,
     LoginModule,
     MotifCardModule,
@@ -66,12 +66,14 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
     EycUiSharedComponentModule,
     EycDataIntakeModule,
     EycDataManagementServicesModule,
-    NotificationsModule
+    NotificationsModule,
+    EycAdminModule
 
   ],
 
   providers: [
     LoaderService,
+    RoutingStateService,
   { provide:"apiEndpoint",  useValue: environment.apiEndpoint},
   { provide:"rrproduction",  useValue: environment.production},
   { provide:"mockDataEnable",  useValue: environment.mockDataEnable},
@@ -79,6 +81,7 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
   { provide:"taxProduction",  useValue: taxenvironment.production},
   { provide:"dataManagedProduction",  useValue: datamanagedenvironment.production},
   { provide:"dataManagedEndPoint",  useValue: datamanagedenvironment.apiEndpoint},
+  { provide:"pbiApiEndPoint",  useValue: environment.apiEndpoint},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

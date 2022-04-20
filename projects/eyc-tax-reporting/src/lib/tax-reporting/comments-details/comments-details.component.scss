@@ -166,7 +166,7 @@
 }
 
 .donut-chart-card-tax ::ng-deep .donut-chart, .donut-chart-card-tax-2 ::ng-deep .donut-chart{
-  width: max-content;
+  width: max-content !important;
   margin-top: -17px;
 }
 
@@ -204,7 +204,8 @@
 }
 
 .donut-chart-card-tax ::ng-deep .donut-summary, .donut-chart-card-tax-2 ::ng-deep .donut-summary{
-  width: 12.5em;
+  width: 12.5em !important;
+  padding-left: 0px !important;
 } 
 
 //Donut style only for opened comments
@@ -265,6 +266,20 @@
     left: 0px !important;
     top: 49px !important;
   }
+}
+
+.no_data {
+  width: 100%;
+  height: auto;
+  padding-top: 14px;
+  h5 {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: EYInterstate !important;
+  }
+}
+::ng-deep .no_data:hover {
+  box-shadow: none !important;
 }
 
 }

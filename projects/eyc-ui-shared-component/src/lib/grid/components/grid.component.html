@@ -4,7 +4,7 @@
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
                 <div *ngIf="button" class="buttons">
                     <div class="approve-button" *ngIf="permissionToPrimaryButton">
-                        <button motifButton color="primary" size="large" (click)="openDialog()"
+                        <button motifButton color="primary" size="large" (click)="primaryButtonAction()"
                         [disabled]="selectedRows.length==0">
                         <span *ngIf="displayPlusIcon">
                             <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></span>{{buttonText}}</button>
@@ -58,34 +58,38 @@
         <div [hidden]="!permissionToShowDataTable">
         
         <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
+            [title] = 'title'
             [rowData]="rowData"
             [defaultColDef]="{}"
             [rowSelection]="rowSelection"
             (gridReady)="handleGridReady($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
+            [title]="title"
             [rowData]="rowData" 
             [defaultColDef]="defaultColDef" 
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
             (sortChanged)="sortChanged($event)"
+            (filterChanged)="filterChanged($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected()" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
 
             <ng-template #paginationSelectTemplate>
                 <div *ngIf="pagination && !paginationApi">
-                    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize1" [options]="dataset1" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
+                    <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset" (paginationSelectChange)="updatePaginationSize($event.value)"></motif-pagination-select>
                 </div>
             </ng-template>
 
         <motif-card class="no_data" *ngIf="searchNoDataAvilable">
             <motif-card-body>
-                <h5>Your search has returned no results. Please adjust and try again.</h5>
+                <h5>No result found.</h5>
             </motif-card-body>
         </motif-card>
 
@@ -97,33 +101,34 @@
 
         <div class="pagination" *ngIf="paginationApi" [hidden]="searchNoDataAvilable">
 
+            <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
+                (paginationSelectChange)="updatePaginationSizeApi($event.value)">
+            </motif-pagination-select>
+
             <motif-pagination>
                 <button motifIconButton size="small" aria-label="Go to first page"
-                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1">
+                (click)="handlePageChange((currentPage = 1))" [disabled]="currentPage === 1" [ngClass]="{disabledIcon: currentPage === 1}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
                 </button>
               
                 <button motifIconButton size="small" aria-label="Go to previous page"
-                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1" [ngClass]="{disabledIcon: currentPage === 1}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
                 </button>
               
-                <motif-count [currentPage]="currentPage" [numberOfPages]="maxPages" aria-label="Current Page"></motif-count>
+                <motif-count [currentPage]="currentPage" [numberOfPages]="maxPages" class="countFont" aria-label="Current Page"></motif-count>
               
                 <button motifIconButton size="small" aria-label="Go to next page"
-                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages">
+                (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === maxPages" [ngClass]="{disabledIcon: currentPage === maxPages}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
                 </button>
               
                 <button motifIconButton size="small" aria-label="Go to last page"
-                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages">
+                (click)="handlePageChange((currentPage = maxPages))" [disabled]="currentPage === maxPages" [ngClass]="{disabledIcon: currentPage === maxPages}">
                     <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
                 </button>
             </motif-pagination>
-    
-            <motif-pagination-select label="Show" [selected]="currentlySelectedPageSize" [options]="dataset"
-                (paginationSelectChange)="updatePaginationSizeApi($event.value)">
-            </motif-pagination-select>
+            
         </div>
     </div>
     </section>
