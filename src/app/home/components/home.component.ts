@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 import { Router } from '@angular/router';
+import { ConcurrentSessionsService } from '@default/services/concurrent-sessions/concurrent-sessions.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private moduleLevelPermission: ModuleLevelPermissionService,
-    private router: Router
+    private router: Router,
+    private concurrentSessionsService:ConcurrentSessionsService
   ) { }
 
   ngOnInit(): void {
@@ -38,8 +40,10 @@ export class HomeComponent implements OnInit {
       else if (res['data']['userModules'] && Object.keys(res['data']['userModules']).length === 0 && res['data']['userModules'].constructor === Object) {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
+        debugger
         this.settingsService.setModulePermissionData = res['data'];
-        sessionStorage.setItem('modules', JSON.stringify(res['data']))
+        sessionStorage.setItem('modules', JSON.stringify(res['data']));
+        this.setSessionId(res['data'].userEmail);
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
@@ -60,6 +64,26 @@ export class HomeComponent implements OnInit {
       sessionStorage.setItem("permissionList", JSON.stringify(resp.data));
     });
   }
+
+  setSessionId(email:any): void {
+    console.log('email',email)
+    //set session id to avoid concurrent sessions
+    const body = {
+      "userEmail": email
+    }
+    this.concurrentSessionsService.addSessionId(body).subscribe((res) => {
+      console.log('respuesta de la llamada addSessiondid',res)
+      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
+        console.log('desloguear')
+        this.settingsService.logoff()
+      }
+      else {
+        console.log('setear session id')
+        sessionStorage.setItem('session_id', res['data'].id)
+      }
+    })
+  }
+
 
   navigation() {
     if (IS_SURE_FOOT) {

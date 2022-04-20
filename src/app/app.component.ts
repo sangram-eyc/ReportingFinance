@@ -143,27 +143,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.permission.isRegReporting = this.moduleLevelPermission.checkPermission('Regulatory Reporting');
         this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         this.permission.isDMS = this.moduleLevelPermission.checkPermission('Data Managed Services');
-        this.setSessionId();
       }, 100);
 
     });
 
-  }
-
-  setSessionId(): void {
-    //set session id to avoid concurrent sessions
-    const body = {
-      "userEmail": sessionStorage.getItem('userEmail')
-    }
-    this.concurrentSessionsService.addSessionId(body).subscribe((res) => {
-      console.log('add_session_id_res',res)
-      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-        this.settingsService.logoff()
-      }
-      else {
-        sessionStorage.setItem('session_id', res['data'].id)
-      }
-    })
   }
 
   ngAfterContentChecked(): void {
