@@ -4,7 +4,7 @@ import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent , PermissionService } from 'eyc-ui-shared-component';
+import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
@@ -76,7 +76,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   
@@ -152,7 +152,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   resetData() {
     this.createEntitiesRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getExceptionReports(resetData = false) {
@@ -533,7 +533,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     this.filter = '';
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
     if(this.tabs == 2){
       this.modalMessage = ' Are you sure you want to approve the selected entities? This will approve them for submission.';
       this.getFilingEntities(true);

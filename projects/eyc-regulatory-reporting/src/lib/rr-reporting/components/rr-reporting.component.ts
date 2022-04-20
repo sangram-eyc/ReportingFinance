@@ -4,7 +4,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 //import { GridComponent } from 'eyc-ui-shared-component';
 import {customComparator, rr_module_name} from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
@@ -81,7 +81,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   pageChangeFunc;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   exceptionModalConfig = {
     width: '550px',
@@ -158,7 +158,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   resetData() {
     this.createEntitiesRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getExceptionReports(resetData = false) {
@@ -502,7 +502,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.tabs = $event;
     this.filter = '';
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
     console.log(this.filingDetails);
     if (this.tabs == 2) {
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';

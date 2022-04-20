@@ -4,7 +4,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
-import { PermissionService } from 'eyc-ui-shared-component';
+import { PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { Router, NavigationExtras } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
@@ -81,14 +81,14 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   pageInfoException = {
     currentPage: 0,
     totalRecords: 5,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
     filter: '',
     sort: '',
   }
   pageInfoData = {
     currentPage: 0,
     totalRecords: 5,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
     filter: '',
     sort: '',
   }
@@ -230,12 +230,12 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.getDatasets(true);
       this.pageInfoException.filter = '';
       this.pageInfoException.currentPage = 0;
-      this.pageInfoException.pageSize = 10;
+      this.pageInfoException.pageSize = DEFAULT_PAGE_SIZE;
     } else if (this.tabs == 1) {
       this.getExceptionReports(true);
       this.pageInfoData.filter = '';
       this.pageInfoData.currentPage = 0;
-      this.pageInfoData.pageSize = 10;
+      this.pageInfoData.pageSize = DEFAULT_PAGE_SIZE;
     }
     console.log('TAB EVENT', $event);
     /* else if (this.tabs == 3) {
