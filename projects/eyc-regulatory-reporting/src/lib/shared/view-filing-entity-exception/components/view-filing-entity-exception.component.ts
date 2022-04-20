@@ -25,12 +25,17 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   rowData;
   exceptionCnt = '';
   componentStage;
+  entityId;
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
   exportsHeader: string;
+  @ViewChild('unresolveFilingTemplate')
+  unresolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('resolveFilingTemplate')
+  resolveFilingTemplate: TemplateRef<any>;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -57,6 +62,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         this.exceptionCnt = exceptionVal[1];
       }
       this.entityName = this.filingService.getFilingEntityData.entityName;
+      this.entityId =  this.filingService.getFilingEntityData.fundId;
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '2'); 
       this.getAnswerExceptionReports();
@@ -64,7 +70,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['entityExceptionMap'];
       this.createEntitiesRowData();
     });
@@ -108,12 +114,38 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Resolved/Exception',
-        field: 'resolveOrException',
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.unresolveFilingTemplate,
+        },
+        headerName: 'Unresolved',
+        field: 'unResolvedException',
         sortable: true,
         filter: true,
         width: 210,
+        comparator: this.disableComparator
       },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.resolveFilingTemplate,
+        },
+        headerName: 'Resolved',
+        field: 'resolvedException',
+        sortable: true,
+        filter: true,
+        width: 210,
+        comparator: this.disableComparator
+      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Resolved/Exception',
+      //   field: 'resolveOrException',
+      //   sortable: true,
+      //   filter: true,
+      //   width: 210,
+      // },
       // {
       //   headerComponentFramework: TableHeaderRendererComponent,
       //   cellRendererFramework: MotifTableCellRendererComponent,
@@ -144,5 +176,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
      
     });
     
+  }
+
+  disableComparator(data1, data2) {
+    return 0; 
   }
 }

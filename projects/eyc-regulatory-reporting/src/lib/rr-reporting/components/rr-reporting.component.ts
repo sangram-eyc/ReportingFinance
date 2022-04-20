@@ -171,7 +171,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
-    this.sort = resetData ? 'exceptionReportName:true' : this.sort;
+    this.sort = resetData ? 'unResolved:false' : this.sort;
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
@@ -433,7 +433,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             ngTemplate: this.unresolveExceptionTemplate,
           },
           headerName: 'Unresolved',
-          field: 'unResolvedException',
+          field: 'unResolved',
           sortable: true,
           filter: true,
           width: 210,
@@ -446,7 +446,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             ngTemplate: this.resolveExceptionTemplate,
           },
           headerName: 'Resolved',
-          field: 'resolvedException',
+          field: 'resolved',
           sortable: true,
           filter: true,
           width: 210,
