@@ -4,7 +4,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
 import {customComparator, rr_module_name} from '../../config/rr-config-helper';
-import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
@@ -84,7 +84,7 @@ export class SubmissionComponent implements OnInit {
   pageChangeFunc;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   defaultColDef;
@@ -215,7 +215,7 @@ export class SubmissionComponent implements OnInit {
   resetData() {
     this.getSubmissionRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getXmlFilesList(resetData = false) {

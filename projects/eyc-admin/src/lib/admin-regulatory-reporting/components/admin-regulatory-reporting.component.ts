@@ -6,7 +6,7 @@ import { TeamsService } from './../services/teams.service';
 import {Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { customComparator } from 'eyc-ui-shared-component';
-import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 
@@ -37,7 +37,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   exportUrl: string;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   pageChangeFunc;
@@ -152,7 +152,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   resetData() {
     this.createTeamsRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getTeamList(resetData = false) {

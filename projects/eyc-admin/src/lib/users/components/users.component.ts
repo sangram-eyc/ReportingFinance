@@ -6,7 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import {INPUT_VALIDATION,} from '../../config/setting-helper';
 import { customComparator, PermissionService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
-import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   pageInfo = {
     currentPage: 0,
     totalRecords: 5,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
     filter: '',
     sort: '',
   }
@@ -78,7 +78,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   resetData() {
     this.setUserRows();
     this.pageInfo.currentPage = 0;
-    this.pageInfo.pageSize = 10;
+    this.pageInfo.pageSize = DEFAULT_PAGE_SIZE;
   }
 
 
