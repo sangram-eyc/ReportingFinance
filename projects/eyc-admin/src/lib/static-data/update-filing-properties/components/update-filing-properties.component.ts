@@ -7,6 +7,7 @@ import { customComparator, TableHeaderRendererComponent } from 'eyc-ui-shared-co
 import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../../services/setting.service';
+import * as commonConstants from '../../../shared/common-contstants'
 
 @Component({
   selector: 'lib-update-filing-properties',
@@ -214,7 +215,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
 
   private _updateForm() {
     return this.formBuilder.group({
-      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'),this.checkDuplicate.bind(this)]],
+      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['EDIT_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]],
       filingStage: ['', [Validators.required]],
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]]

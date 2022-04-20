@@ -10,6 +10,7 @@ import { UsersService } from '../../users/services/users.service';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
+import * as commonConstants from '../../shared/common-contstants'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -259,14 +260,14 @@ export class EycTeamDetailsComponent implements OnInit {
   private _updateTeam() {
     if (this.module == 'Regulatory Reporting') { 
       return this.formBuilder.group({
-        teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         teamDescription: ['', Validators.maxLength(250)],
         assignments: [[], [Validators.required]]
       });
     } else {
       return this.formBuilder.group({
-        teamName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 \-\]+$'), Validators.maxLength(50), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         teamDescription: ['', Validators.maxLength(250)],
       });

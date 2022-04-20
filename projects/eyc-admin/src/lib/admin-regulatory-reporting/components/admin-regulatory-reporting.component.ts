@@ -9,6 +9,7 @@ import { customComparator } from 'eyc-ui-shared-component';
 import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
+import * as commonConstants from '../../shared/common-contstants'
 
 @Component({
   selector: 'app-admin-regulatory-reporting',
@@ -90,14 +91,14 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   private _createTeam () {
     if(this.moduleName == 'Regulatory Reporting') {
       return this.fb.group({
-        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         filingType: ['', [Validators.required]],
         description: ['', [Validators.maxLength(250)]]
       });
     } else {
       return this.fb.group({
-        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9 \-\]+$'), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         description: ['', [Validators.maxLength(250)]]
       });
