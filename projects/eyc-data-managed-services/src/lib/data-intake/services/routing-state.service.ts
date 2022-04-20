@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { DATA_INTAKE_TYPE, ROUTE_URL_CONST } from '../../config/dms-config-helper';
+import { HttpUrlEncodingCodec } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class RoutingStateService {
-
+  codec = new HttpUrlEncodingCodec;
   private history = [];
   DMS_Landing_Url = "/data-managed-services";
 
@@ -45,12 +46,11 @@ export class RoutingStateService {
     return match && str === match[0];
   }
   public isNotExistInArray(array, string) {
-    debugger;
     const routeArray = string.split("/");
     if (routeArray.length == 5) {
       const routePart = routeArray[routeArray.length - 2]
       if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
-        const stringUrl=ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL+'/'+routePart+'/';
+        const stringUrl=ROUTE_URL_CONST.FILE_REVIEW_URL+'/'+routePart+'/';
         const existingurl=array.find(url => url.includes(stringUrl));
         if(existingurl){
           const urlindex=array.indexOf(existingurl);
@@ -60,6 +60,35 @@ export class RoutingStateService {
       }
     }
     let index = array.indexOf(string);
+    if(index > 0) {
+      array.splice(index,1);
+      array.push(string);
+    }
     return (index > -1) ? false : true;
+  }
+
+
+  ngEncode(param: string){
+    return this.codec.encodeValue(param);
+  }
+
+  jsEncodeComponent(param: string){
+    return encodeURIComponent(param);
+  }
+
+  jsEncodeURI(param: string){
+    return encodeURI(param);
+  }
+
+  ngDecode(param: string){
+    return this.codec.decodeValue(param);
+  }
+
+  jsDecodeComponent(param: string){
+    return decodeURIComponent(param);
+  }
+
+  jsDecodeURI(param: string){
+    return decodeURI(param);
   }
 }

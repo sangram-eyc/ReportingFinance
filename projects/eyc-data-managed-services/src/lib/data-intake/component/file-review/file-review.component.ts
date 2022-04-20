@@ -186,10 +186,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this._activatedroute.paramMap.subscribe(params => {
       if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
-        this.clientName = params.get('paramDataIntakeName');
+        this.clientName = this.routingState.ngDecode(params.get('paramDataIntakeName').trim());
         this.isViewClicked = true;
         this.dataIntakeType = params.get('paramDataIntakeType');
-        this.fileName=this.clientName;
+        this.fileName= this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -226,7 +226,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         }
       }, [Validators.required])
     });
-    debugger;
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
     this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
