@@ -72,15 +72,17 @@ export class HomeComponent implements OnInit {
       "userEmail": email
     }
     this.concurrentSessionsService.addSessionId(body).subscribe((res) => {
-      console.log('respuesta de la llamada addSessiondid',res)
-      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-        console.log('desloguear')
-        this.settingsService.logoff()
-      }
-      else {
-        console.log('setear session id')
-        sessionStorage.setItem('session_id', res['data'].id)
-      }
+      setTimeout(() => {
+       console.log('respuesta de la llamada addSessiondid',res)
+       if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
+         console.log('desloguear')
+         this.settingsService.logoff()
+       }
+       else {
+         console.log('setear session id')
+         sessionStorage.setItem('session_id', res['data'].id)
+       }
+      },2000);
     })
   }
 
