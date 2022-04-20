@@ -18,7 +18,7 @@
                 <h1>{{totalDataIntakeTypeCount}} {{ (totalDataIntakeTypeCount==1) ? dataIntakeTypeDisplay['Singular'] : dataIntakeTypeDisplay['Plural'] }}</h1>
             </div>
             <div class="dateWrapper">
-                <div class="px-3 date-ui">
+                <div [hidden]="isDisplay" aria-disabled="false" class="px-3 date-ui" >
                     <form [formGroup]="form" novalidate>
                         <motif-form-field>
                             <label motifLabel for="datepicker">Date (required)</label>
@@ -29,6 +29,13 @@
                         </motif-form-field>
                     </form>
                 </div>
+                <div [hidden]="!isDisplay" aria-disabled="true" class="bx" >
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
+                </motif-icon>
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
+                </motif-icon>
+                {{ curDate }}
+             </div>
                 <div class="box-center">
                     <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
                     <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>

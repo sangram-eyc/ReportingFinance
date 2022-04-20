@@ -33,6 +33,9 @@ export class ExceptionsComponent implements OnInit {
   nextButtonTemplate: TemplateRef<any>;
   
   presentDate: Date;
+  isDisplay:boolean=false;
+  curDate;
+  calSelectedMonth: string;
   form: FormGroup;
   calSelectedDate: string;
   disabledDailyMonthlyButton: boolean = false;
@@ -111,6 +114,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
@@ -291,6 +295,48 @@ export class ExceptionsComponent implements OnInit {
     }
   }
 
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+    if (this.calSelectedMonth) {
+      this.httpDataGridParams.dueDate = this.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.getExceptionTableData();
+    }   
+  }
+
+  getLastDayOfMonthFormatted(selectedDate: string): string {
+    const date = new Date(selectedDate);
+    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
+    return formattedDate;
+  }
+
+  dateSub(presentDate) {
+    let curDateVal = presentDate;
+    if(this.calSelectedMonth) {
+      let calDate = new Date(this.calSelectedMonth);
+      curDateVal.setMonth(calDate.getMonth() - 1);
+    } else {
+      curDateVal.setMonth(curDateVal.getMonth() - 2);
+    }
+    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.toggleMonthlyCalendar(dateVal);
+  }
+
+  dateAdd(presentDate) {
+    let curDateVal = presentDate; 
+    if(this.calSelectedMonth) {
+      let calDate = new Date(this.calSelectedMonth);
+      curDateVal.setMonth(calDate.getMonth() + 1);
+    }else {
+      curDateVal.setMonth(curDateVal.getMonth() + 0);
+    }
+    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.toggleMonthlyCalendar(dateVal);
+  }
+
   patchDatePicker(patchDatePickerValue: Date) {
     const updateDatePicker = {
       isRange: false,
@@ -310,6 +356,12 @@ export class ExceptionsComponent implements OnInit {
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if(!sessionStorage.getItem("selectedDate")){
@@ -325,6 +377,12 @@ export class ExceptionsComponent implements OnInit {
     
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');

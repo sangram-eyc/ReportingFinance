@@ -49,6 +49,9 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
+  calSelectedMonth: string;
+  curDate;
+  isDisplay:boolean=false;
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -143,6 +146,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(selectedDate);
@@ -174,12 +178,62 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+    if (this.calSelectedMonth) {
+      this.httpQueryParams.dueDate = this.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.getDataIntakeType();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }   
+  }
+
+  getLastDayOfMonthFormatted(selectedDate: string): string {
+    const date = new Date(selectedDate);
+    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
+    return formattedDate;
+  }
+
+  dateSub(presentDate) {
+    let curDateVal = presentDate;
+    if(this.calSelectedMonth) {
+      let calDate = new Date(this.calSelectedMonth);
+      curDateVal.setMonth(calDate.getMonth() - 1);
+    } else {
+      curDateVal.setMonth(curDateVal.getMonth() - 2);
+    }
+    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.toggleMonthlyCalendar(dateVal);
+  }
+
+  dateAdd(presentDate) {
+    let curDateVal = presentDate; 
+    if(this.calSelectedMonth) {
+      let calDate = new Date(this.calSelectedMonth);
+      curDateVal.setMonth(calDate.getMonth() + 1);
+    }else {
+      curDateVal.setMonth(curDateVal.getMonth() + 0);
+    }
+    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    this.toggleMonthlyCalendar(dateVal);
+  }
+
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
     } else {
@@ -200,6 +254,13 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
+
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
     } else {
