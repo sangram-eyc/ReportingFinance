@@ -143,6 +143,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         this.exceptionTableFillData.push({ [`${columnName}`]: value });
       })
     }
+    debugger;
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
     const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");

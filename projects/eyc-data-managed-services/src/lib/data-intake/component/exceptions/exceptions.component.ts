@@ -142,6 +142,7 @@ export class ExceptionsComponent implements OnInit {
         }
       }, [Validators.required])
     });
+    debugger;
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
 
