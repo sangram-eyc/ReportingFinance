@@ -512,7 +512,7 @@ export class SubmissionComponent implements OnInit {
   exportSubmissionData(){
     console.log('GRID API', this.gridApi);
     this.exportHeaders = '';
-    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy: Last updated by';
+    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy:Last updated by,commentsCount:Comments';
     this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     this.service.exportSubmissionData(this.exportURL).subscribe(resp => {
       console.log(resp);
