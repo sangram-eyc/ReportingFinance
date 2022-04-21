@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
       this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
     }
 
-    this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {
+    this.moduleLevelPermission.getModuleLevelPermission().subscribe(async res => {
       this.moduleLevelPermissionData = res['data'];
       if (!res['data']) {
         this.openErrorModal("Access Denied", "User is not a valid user. Please contact an administrator.");
@@ -40,10 +40,11 @@ export class HomeComponent implements OnInit {
       else if (res['data']['userModules'] && Object.keys(res['data']['userModules']).length === 0 && res['data']['userModules'].constructor === Object) {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
-        debugger
         this.settingsService.setModulePermissionData = res['data'];
         sessionStorage.setItem('modules', JSON.stringify(res['data']));
         this.setSessionId(res['data'].userEmail);
+        const response = await this.setSessionId(res['data'].userEmail);
+        console.log(response)
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
@@ -65,25 +66,30 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  setSessionId(email:any): void {
-    console.log('email',email)
+ 
+ async setSessionId(email: any) {
+    console.log('email', email)
     //set session id to avoid concurrent sessions
     const body = {
       "userEmail": email
     }
-    this.concurrentSessionsService.addSessionId(body).subscribe((res) => {
-      setTimeout(() => {
-       console.log('respuesta de la llamada addSessiondid',res)
-       if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-         console.log('desloguear')
-         this.settingsService.logoff()
-       }
-       else {
-         console.log('setear session id')
-         sessionStorage.setItem('session_id', res['data'].id)
-       }
-      },2000);
-    })
+
+    try {
+      const res = await this.concurrentSessionsService.addSessionId(body)
+      // wait for asynchronous request
+      console.log('respuesta de la llamada addSessiondid', res)
+      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
+        console.log('desloguear')
+        this.settingsService.logoff()
+      }
+      else {
+        console.log('setear session id')
+        sessionStorage.setItem('session_id', res['data'].id)
+      }
+    } catch (err) {
+      // request failed
+      console.error(err);
+    }
   }
 
 
