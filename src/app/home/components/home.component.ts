@@ -42,9 +42,7 @@ export class HomeComponent implements OnInit {
       } else {
         this.settingsService.setModulePermissionData = res['data'];
         sessionStorage.setItem('modules', JSON.stringify(res['data']));
-        this.setSessionId(res['data'].userEmail);
-        const response = await this.setSessionId(res['data'].userEmail);
-        console.log(response)
+        await this.setSessionId(res['data'].userEmail);
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
@@ -76,14 +74,10 @@ export class HomeComponent implements OnInit {
 
     try {
       const res = await this.concurrentSessionsService.addSessionId(body)
-      // wait for asynchronous request
-      console.log('respuesta de la llamada addSessiondid', res)
       if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-        console.log('desloguear')
         this.settingsService.logoff()
       }
       else {
-        console.log('setear session id')
         sessionStorage.setItem('session_id', res['data'].id)
       }
     } catch (err) {
