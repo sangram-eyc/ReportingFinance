@@ -232,7 +232,7 @@
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
       {{stringTrim(row.name, 20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.name?.length > 20">
+      <motif-tooltip placement="right" color="alternate" *ngIf="row.name?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -251,7 +251,7 @@
 
    <ng-template #threeDotFunctionTooltip let-row>
       {{stringTrim(row.functions,20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.functions?.length > 20">
+      <motif-tooltip placement="left" color="alternate" *ngIf="row.functions?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -261,7 +261,7 @@
 
    <ng-template #threeDotExceptionsTooltip let-row>
       {{stringTrim(row.exceptions,20)}}
-      <motif-tooltip placement="auto" color="alternate" *ngIf="row.exceptions?.length > 20">
+      <motif-tooltip placement="left" color="alternate" *ngIf="row.exceptions?.length > 20">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
