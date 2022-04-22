@@ -3,12 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const datamanagedenvironment = {
-  apiEndpoint: 'http://localhost:4200/',
-  production: false,
-  SECURITY_ENABLED: true,
-  SERVICE_URL: 'https://10.48.234.20/qa34/',
+  apiEndpoint: 'https://10.48.234.20/qa36/',
+  production: true,
+  SECURITY_ENABLED: false,
+  SERVICE_URL: 'https://10.48.234.20/qa36/',
+  AUTH_PROD:true
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

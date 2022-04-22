@@ -55,11 +55,12 @@ export class EycRrSettingsService {
       rr_comments: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/commentary/' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/comments.json',
       view_exception_reports: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerExceptionResults?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
       view_exception_report_results: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/data-exceptions/ruleId?' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
+      export_data_for_data_intake:this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/data-exceptions/ruleId' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/viewExceptionReports.json',
       approve_intake_exception_report: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve': this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-exceptions/approve',
       complete_filing: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/filings/',
       updateSubmissionStatus: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/submission-file/update' : this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/submission-file/update',
       viewFilingEntityException: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity/exception-details' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filingEntityException.json',
-      audit_log: !this.rrproduction ? this.API_ENDPOINT + "gatewayService/api/v2/audit/audit-log" : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/audit_log.json',
+      audit_log: this.rrproduction ? this.API_ENDPOINT + "gatewayService/api/v2/audit/ext/audit-log" : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/audit_log.json',
       
     }
 

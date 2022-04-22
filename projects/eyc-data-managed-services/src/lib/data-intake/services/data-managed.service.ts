@@ -151,7 +151,8 @@ export class DataManagedService {
     .append('fileName',dataGrid.fileName)
     .append('clientName',dataGrid.clientName)
     .append('reportId',dataGrid.reportId)
-    .append('reportName',dataGrid.reportName);
+    .append('reportName',dataGrid.reportName)
+    .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
 
@@ -159,8 +160,13 @@ export class DataManagedService {
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
-  }
-
+  } 
+  getEmbedURL() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL}`);
+  }  
+  getEmbedTokenURL() {
+    return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_AUTH_TOKEN_URL}`);
+  }                                                 
   getDataProviderList() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.file_data_provider}`);
   }
@@ -206,5 +212,8 @@ export class DataManagedService {
 
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
+  }
+  getApiBaseUrl(){
+    return this.dataManagedSettingsService.dataManagedServices.base_Url;
   }
 }

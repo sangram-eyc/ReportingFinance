@@ -47,7 +47,7 @@
     [noData]="'No exceptions found'"
     [displayCheckBox]="true"
     [pagination]="true"
-    [export]="true" (exportFlagToParent)="exportData()">
+    [export]="true" (exportFlagToParent)="exportData()" [uiPagination]="true">
   </lib-shared-grid>
 
     <ng-template #expandExceptionTemplate let-row>

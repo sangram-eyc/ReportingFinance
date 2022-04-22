@@ -5,7 +5,7 @@ import { formatDate } from '@angular/common';
 import { PieChartSeriesItemDTO } from '../../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE, FILTER_TYPE_TITLE,DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST,INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -38,7 +38,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   darkVariant: string = "monochrome-dark";
   allIssueVariant: string = this.darkVariant;
   noIssueVariant: string = this.lightVariant;
-  mediumLowIssueVariant: string = this.lightVariant;
+  lowIssueVariant: string = this.lightVariant;
+  mediumIssueVariant: string = this.lightVariant;
   highIssueVariant: string = this.lightVariant;
   missingFileVariant: string = this.lightVariant;
   fileNotReceivedVariant: string = this.lightVariant;
@@ -52,13 +53,16 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   calSelectedMonth: string;
   curDate:string;
   isDisplay:boolean=false;
+  routeUrlConst=ROUTE_URL_CONST;
+
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
-    { name: FILTER_TYPE_TITLE.mediumLow, value: this.colorSchemeAll.domain[1] },
-    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[2] },
-    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[3] },
-    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[4] }
+    { name: FILTER_TYPE_TITLE.low, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.medium, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[4] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[5] },
   ];
 
 
@@ -94,7 +98,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
-      dueDate = sessionStorage.getItem("selectedDate");
+      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
     } else if (this.dailyMonthlyStatus) {
       dueDate = this.lastMonthDueDateFormat;
       this.patchDatePicker(this.lastMonthDate);
@@ -117,7 +121,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
       reportName: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED],
+      isViewClicked: false
     };
 
     if (this.dailyMonthlyStatus) {
@@ -149,7 +154,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
-      this.presentDate = new Date(selectedDate);
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
@@ -170,9 +175,9 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedDate = event.singleDate.formatted;
+    this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = this.calSelectedDate;
+      this.httpQueryParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       this.getDataIntakeType();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
@@ -269,26 +274,29 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     switch (status) {
       case FILTER_TYPE.NO_ISSUES:
         return this.colorSchemeAll.domain[0];
-      case FILTER_TYPE.MEDIUM_LOW:
+      case FILTER_TYPE.LOW:
         return this.colorSchemeAll.domain[1];
-      case FILTER_TYPE.HIGH:
+      case FILTER_TYPE.MEDIUM:
         return this.colorSchemeAll.domain[2];
-      case FILTER_TYPE.MISSING_FILES:
+      case FILTER_TYPE.HIGH:
         return this.colorSchemeAll.domain[3];
-      case FILTER_TYPE.FILE_NOT_RECIEVED:
+      case FILTER_TYPE.MISSING_FILES:
         return this.colorSchemeAll.domain[4];
+      case FILTER_TYPE.FILE_NOT_RECIEVED:
+        return this.colorSchemeAll.domain[5];
       default:
         break;
-
     }
   }
 
   setLegendTitle(status){
-    switch (status){
+    switch (status) {
       case FILTER_TYPE.NO_ISSUES:
         return this.FILTER_TYPE_TITLE.noIssues;
-      case FILTER_TYPE.MEDIUM_LOW:
-        return this.FILTER_TYPE_TITLE.mediumLow;
+      case FILTER_TYPE.LOW:
+        return this.FILTER_TYPE_TITLE.low;
+      case FILTER_TYPE.MEDIUM:
+        return this.FILTER_TYPE_TITLE.medium;
       case FILTER_TYPE.HIGH:
         return this.FILTER_TYPE_TITLE.high;
       case FILTER_TYPE.MISSING_FILES:
@@ -297,7 +305,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
         return this.FILTER_TYPE_TITLE.fileNotReceived;
       default:
         break;
-    
     }
   }
 
@@ -310,7 +317,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.darkVariant;
           this.noIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
+          this.lowIssueVariant = this.lightVariant;
+          this.mediumIssueVariant = this.lightVariant;
           this.highIssueVariant = this.lightVariant;
           this.missingFileVariant = this.lightVariant;
           this.fileNotReceivedVariant = this.lightVariant;
@@ -331,15 +339,26 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
           this.filterTypes('pop', [FILTER_TYPE.NO_ISSUES]);
         }
         break;
-      case FILTER_TYPE.MEDIUM_LOW:
+        case FILTER_TYPE.LOW:
+          if (variants === this.lightVariant) {
+            this.allIssueVariant = this.lightVariant;
+            this.lowIssueVariant = this.darkVariant;
+            this.filterTypes('push', [FILTER_TYPE.LOW]);
+          } else {
+            this.allIssueVariant = this.lightVariant;
+            this.lowIssueVariant = this.lightVariant;
+            this.filterTypes('pop', [FILTER_TYPE.LOW]);
+          }
+          break;
+      case FILTER_TYPE.MEDIUM:
         if (variants === this.lightVariant) {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.darkVariant;
-          this.filterTypes('push', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.mediumIssueVariant = this.darkVariant;
+          this.filterTypes('push', [FILTER_TYPE.MEDIUM]);
         } else {
           this.allIssueVariant = this.lightVariant;
-          this.mediumLowIssueVariant = this.lightVariant;
-          this.filterTypes('pop', [FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW]);
+          this.mediumIssueVariant = this.lightVariant;
+          this.filterTypes('pop', [FILTER_TYPE.MEDIUM]);
         }
         break;
       case FILTER_TYPE.HIGH:
@@ -381,7 +400,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     if (this.httpQueryParams.filterTypes.length <= 0) {
       this.allIssueVariant = this.darkVariant;
       this.noIssueVariant = this.lightVariant;
-      this.mediumLowIssueVariant = this.lightVariant;
+      this.lowIssueVariant = this.lightVariant;
+      this.mediumIssueVariant = this.lightVariant;
       this.highIssueVariant = this.lightVariant;
       this.missingFileVariant = this.lightVariant;
       this.fileNotReceivedVariant = this.lightVariant;
@@ -410,6 +430,12 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
         break;
       default:
         break;
+    }
+  }
+
+  viewCardDetail(item) {
+    if (item && item.dataIntakeName) {
+      this._router.navigate([ROUTE_URL_CONST.FILE_REVIEW_URL, this.dataIntakeType, item.dataIntakeName]);
     }
   }
 

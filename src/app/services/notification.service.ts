@@ -29,6 +29,10 @@ export class NotificationService {
     return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/set-flagged?flagged=${flag}`, {});
   }
 
+  setMultipleAsRead(ids): Observable<any> {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/mark-as-read?ids=${ids}`, {});
+  }
+
   setNotificationRead(id): Observable<any> {
     return this.http.post(`${environment.apiEndpoint}gatewayService/api/notification/${id}/mark-as-read`, {});
   }

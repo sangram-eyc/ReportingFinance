@@ -27,5 +27,6 @@ export interface GroupByDataProviderCardGrid extends DataSummary{
     fileId:StringOrNull;
     fileName:StringOrNull;
     reportId:StringOrNull;
-    reportName:StringOrNull;    
+    reportName:StringOrNull;
+    isViewClicked: Boolean;    
 }

@@ -2,11 +2,14 @@
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
         <div class="mt-3">
             <motif-breadcrumb maxItems=4>
-                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink='/data-managed-services'>
+                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink="{{routeUrlConst.DMS_LANDING_URL}}">
                 </motif-breadcrumb-item>
-                <motif-breadcrumb-item breadcrumbValue='Files' breadcrumbLink='/data-managed-services/files-review'>
+                <motif-breadcrumb-item *ngIf="isDataIntaketype" [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]'
+                    [breadcrumbLink]='dataIntakeTypeUrl'>
                 </motif-breadcrumb-item>
-                <motif-breadcrumb-item [breadcrumbValue]='ExceptionFileName' breadcrumbLink='/data-managed-services/files/exceptions' active="active">
+                <motif-breadcrumb-item [breadcrumbValue]='fileName' [breadcrumbLink]='filereviewUrl'>
+                </motif-breadcrumb-item>
+                <motif-breadcrumb-item [breadcrumbValue]='ExceptionFileName'>
                 </motif-breadcrumb-item>
             </motif-breadcrumb>
         </div>
@@ -51,12 +54,13 @@
     <div class="motif-row">
         <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between my-3">
             <div class="exception-heading box-center">
-                List of exception reports (#)
+                <!-- List of exception reports (#) -->
             </div>
             <div class="data-exporer">
                 <motif-form-field class="search">
                     <input #activeReports motifInput motifSearch type="text" placeholder="Search..."
-                        aria-label="Search..." (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(activeReports)" (paste)="onPasteSearchActiveReports($event)">
+                        aria-label="Search..." (keypress)="searchFilingValidation($event)"
+                        (keyup)="searchCompleted(activeReports)" (paste)="onPasteSearchActiveReports($event)">
                 </motif-form-field>
                 <div class="data-exporer buttonstyle" *ngIf="dataExplorer">
                     <button motifButton color="secondary" size="fluid">Data Explorer</button>
@@ -68,8 +72,8 @@
     <div id="grid-wrapper">
         <motif-card>
             <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [suppressRowClickSelection]="false"
-                [suppressCellSelection]="true" [domLayout]="domLayout">
+                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
+                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
             </motif-table>
         </motif-card>
     </div>
@@ -81,17 +85,35 @@
     </motif-card>
 
     <ng-template #reportNameTemplate let-row>
-       {{row.name}}
+        {{row.name}}
     </ng-template>
 
     <ng-template #chipTemplate let-row>
-        <div class="grid-status">
-            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.HIGH" variant="error">
-                {{FILTER_TYPE.HIGH | titlecase}}</motif-chip>
-            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.LOW" variant="success">
-                {{FILTER_TYPE.LOW | titlecase}}</motif-chip>
-            <motif-chip [removeable]="false" *ngIf="row.priority==FILTER_TYPE.MEDIUM" variant="warning">
-                {{FILTER_TYPE.MEDIUM | titlecase}}</motif-chip>
+        <div class="pie-legend">
+            <div *ngIf="row.priority==FILTER_TYPE.NO_ISSUES" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[0]"> </div>
+                <div>{{FILTER_TYPE_TITLE.noIssues}}</div>
+            </div>
+            <div *ngIf="row.priority==FILTER_TYPE.LOW" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[1]"> </div>
+                <div>{{FILTER_TYPE_TITLE.low}}</div>
+            </div>
+            <div *ngIf="row.priority==FILTER_TYPE.MEDIUM" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[2]"> </div>
+                <div>{{FILTER_TYPE_TITLE.medium}}</div>
+            </div>
+            <div *ngIf="row.priority==FILTER_TYPE.HIGH" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[3]"> </div>
+                <div>{{FILTER_TYPE_TITLE.high}}</div>
+            </div>
+            <div *ngIf="row.priority==FILTER_TYPE.MISSING_FILES" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[4]"> </div>
+                <div>{{FILTER_TYPE_TITLE.missingFiles}}</div>
+            </div>
+            <div *ngIf="row.priority==FILTER_TYPE.FILE_NOT_RECIEVED" class="space-between">
+                <div class="legend" [style.background]="colorSchemeAll.domain[5]"> </div>
+                <div>{{FILTER_TYPE_TITLE.fileNotReceived}}</div>
+            </div>
         </div>
     </ng-template>
     <ng-template #commentTemplate let-row>

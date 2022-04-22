@@ -1,20 +1,17 @@
-import {AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {Component, HostListener} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {OAuthService} from 'angular-oauth2-oidc';
-import {Subject} from 'rxjs';
-import {LoaderService} from './services/loader.service';
-import {ModuleLevelPermissionService} from './services/module-level-permission.service';
-import {SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE} from './services/settings-helpers';
-import {SettingsService} from './services/settings.service';
-import {ErrorModalComponent} from 'eyc-ui-shared-component';
-import {MatDialog} from '@angular/material/dialog';
-import {
-  BulkDownloadModalComponent
-} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
-import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
-import {PreferencesService} from "@default/services/preferences.service";
-import {NotificationService} from "@default/services/notification.service";
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Subject } from 'rxjs';
+import { LoaderService } from './services/loader.service';
+import { ModuleLevelPermissionService } from './services/module-level-permission.service';
+import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
+import { SettingsService } from './services/settings.service';
+import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
+import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
+import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
 
 @Component({
   selector: 'app-root',
@@ -59,9 +56,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private settingsService: SettingsService,
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
-    private preferencesService: PreferencesService,
     private wsBulkService: WebSocketBulkService,
-    private notificationService: NotificationService
+    private routingState:RoutingStateService
   ) {
     // To hide header and footer from login page
 
@@ -72,6 +68,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
+      this.routingState.loadRouting();
   }
 
   checkTimeOut() {
@@ -115,27 +112,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     if (sessionStorage.getItem(SESSION_ID_TOKEN)) {
       this.router.navigate(['home']);
     }
-
     this.moduleLevelPermission.moduleLevelPermisssionDetails.subscribe(res => {
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-
-        setTimeout(() => {
-          this.preferencesService.emailToRecipient().subscribe(recipient => {
-          }, error => {
-            this.preferencesService.createRecipient().subscribe(err => {
-            });
-          });
-
-          this.notificationService.getNotArchivedNotifications(0).subscribe((notifications: any) => {
-            notifications.content.forEach(item => {
-              if (!item.isRead) {
-                this.isNotificationRead = false;
-              }
-            });
-          });
-        }, 1000);
 
         if (uname) {
           this.userGivenName = uname.firstName;
@@ -160,6 +140,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
 
   ngAfterViewChecked() {
+    const url =  window.location.href.split('#');
+    sessionStorage.setItem('pbiEndPoint',url[0]);
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;

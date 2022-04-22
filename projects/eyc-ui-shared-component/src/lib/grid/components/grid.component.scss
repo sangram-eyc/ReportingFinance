@@ -144,7 +144,7 @@
     }
     .exportWrapper{
     display: flex;
-    margin-top: 20px;
+    align-items: center;
     margin-left: 15px;
 cursor: pointer;
         ::ng-deep svg {
@@ -239,7 +239,8 @@ cursor: pointer;
   }
 
   ::ng-deep .srno-class {
-      left: 32px !important;
+      // left: 32px !important;
+      justify-content: center;
   }
 
   ::ng-deep .ag-cell-value, .ag-cell {
@@ -274,7 +275,7 @@ cursor: pointer;
   }
 
   ::ng-deep .motif-table .motif-pagination-select-wrapper {
-      display: none;
+      // display: none;
   }
 
   .pagination {
@@ -319,5 +320,39 @@ cursor: pointer;
       }
   }
 
-  
-  
+  ::ng-deep .motif-button[color='primary'] {
+    &:disabled {
+      path {
+        fill: var(--btn-primary-disabled-color);
+          }
+        &:hover {
+            path {
+              fill: var(--btn-primary-disabled-color);
+          }
+        }
+    }
+  }
+
+  ::ng-deep .countFont span{
+    font-weight: var(--weight-regular) !important;
+  }
+
+  ::ng-deep .disabledIcon
+  {
+    .motif-icon:hover {
+      background-color:transparent !important;
+    }
+  }
+
+  ::ng-deep .ag-theme-material .ag-paging-button.ag-disabled{
+    background-color: transparent !important;
+    }
+    ::ng-deep .motif-table-title-bar {
+        background: #FFFFFF !important;
+        font-family: EYInterstate;
+        font-size: 18px;
+        line-height: 20px;
+        color: #1A1A24 !important;
+        border: 1px solid #E1E1E6;
+        padding-left: 0.6rem !important;
+      }
