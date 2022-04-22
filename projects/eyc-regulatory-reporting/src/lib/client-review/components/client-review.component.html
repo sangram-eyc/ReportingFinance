@@ -106,24 +106,24 @@
         </ng-template>
 
         <ng-template #unresolveExceptionTemplate let-row>
-            <div class="resolve-Exception" *ngIf="row.unResolvedException">
+            <div class="resolve-Exception pe-2">
                 <div class="result_warning">
                     <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
                 </div>
             </div>
             <div>
-                {{row.unResolvedException}}
+                {{row.unResolved}}
             </div>
         </ng-template> 
     
                 <ng-template #resolveExceptionTemplate let-row>
-            <div class="resolve-Exception" *ngIf="row.resolvedException">
+            <div class="resolve-Exception pe-2">
                 <div class="complete">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
                 </div>
             </div>
             <div>
-                {{row.resolvedException}}
+                {{row.resolved}}
             </div>
         </ng-template>
 
@@ -225,24 +225,24 @@
         </ng-template>
 
         <ng-template #unresolveFilingTemplate let-row>
-            <div class="resolve-Exception">
+            <div class="resolve-Exception pe-2">
                 <div class="result_warning">
                     <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
                 </div>
             </div>
             <div>
-                12
+                {{row.unResolvedException}}
             </div>
         </ng-template>
         
         <ng-template #resolveFilingTemplate let-row>
-            <div class="resolve-Exception">
+            <div class="resolve-Exception pe-2">
                 <div class="complete">
                     <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
                 </div>
             </div>
             <div>
-                12
+                {{row.resolvedException}}
             </div>
         </ng-template>
         
