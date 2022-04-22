@@ -23,7 +23,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionAnswersDefs;
   exceptionAnswersData;
   rowData;
-  exceptionCnt = '';
+  exceptionCnt;
   componentStage;
   entityId;
 
@@ -57,10 +57,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
       console.log("resolveException > ", this.filingService.filingEntityData.resolveException);
-      if( this.filingService.filingEntityData.resolveException && this.filingService.filingEntityData.resolveException.indexOf("/") !== -1){ 
-        let exceptionVal =  this.filingService.filingEntityData.resolveException.split("/");
-        this.exceptionCnt = exceptionVal[1];
-      }
+      this.exceptionCnt = parseInt(this.filingService.getFilingEntityData.unResolvedException) + parseInt(this.filingService.getFilingEntityData.resolvedException);
       this.entityName = this.filingService.getFilingEntityData.entityName;
       this.entityId =  this.filingService.getFilingEntityData.fundId;
       this.stage = 'reporting'
@@ -80,7 +77,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
     this.exceptionAnswersData.forEach(element => {
       this.rowData.push({
         exceptionReportName: element.Audit,
-        resolveOrException: element.Resolved + '/' + element.Exceptions
+        Unresolved: element.Unresolved,
+        Resolved: element.Resolved
       });
     });
     this.exceptionAnswersDefs = [
@@ -119,7 +117,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
           ngTemplate: this.unresolveFilingTemplate,
         },
         headerName: 'Unresolved',
-        field: 'unResolvedException',
+        field: 'Unresolved',
         sortable: true,
         filter: true,
         width: 210,
@@ -132,7 +130,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
           ngTemplate: this.resolveFilingTemplate,
         },
         headerName: 'Resolved',
-        field: 'resolvedException',
+        field: 'Resolved',
         sortable: true,
         filter: true,
         width: 210,

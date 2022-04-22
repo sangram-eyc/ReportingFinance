@@ -437,7 +437,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
             ngTemplate: this.unresolveExceptionTemplate,
           },
           headerName: 'Unresolved',
-          field: 'unResolved',
+          field: 'unresolved',
           sortable: true,
           filter: true,
           width: 210,
