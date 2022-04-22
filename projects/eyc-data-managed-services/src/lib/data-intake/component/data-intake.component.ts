@@ -55,7 +55,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   powerBiReportId:any;
   pod:string="DMS";
   reportID:string="304fc8b5-4ba4-4760-b0c3-a85af3b1c17b";
-  curDate;
+  curDate:string;
 
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
@@ -174,43 +174,22 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedMonth = event;
     if (this.calSelectedMonth) {
-      this.httpQueryParams.dueDate = this.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
       this.fileSummaryList();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }   
   }
 
-  getLastDayOfMonthFormatted(selectedDate: string): string {
-    const date = new Date(selectedDate);
-    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
-    return formattedDate;
-  }
-
   dateSub(presentDate) {
-    let curDateVal = presentDate;
-    if(this.calSelectedMonth) {
-      let calDate = new Date(this.calSelectedMonth);
-      curDateVal.setMonth(calDate.getMonth() - 1);
-    } else {
-      curDateVal.setMonth(curDateVal.getMonth() - 2);
-    }
-    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
     this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   dateAdd(presentDate) {
-    let curDateVal = presentDate; 
-    if(this.calSelectedMonth) {
-      let calDate = new Date(this.calSelectedMonth);
-      curDateVal.setMonth(calDate.getMonth() + 1);
-    }else {
-      curDateVal.setMonth(curDateVal.getMonth() + 0);
-    }
-    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
     this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   setColorScheme() {

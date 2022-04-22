@@ -50,7 +50,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   FILTER_TYPE = FILTER_TYPE;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
   calSelectedMonth: string;
-  curDate;
+  curDate:string;
   isDisplay:boolean=false;
 
   customColors: any = [
@@ -182,43 +182,22 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedMonth = event;
     if (this.calSelectedMonth) {
-      this.httpQueryParams.dueDate = this.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
       this.getDataIntakeType();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }   
   }
 
-  getLastDayOfMonthFormatted(selectedDate: string): string {
-    const date = new Date(selectedDate);
-    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
-    return formattedDate;
-  }
-
   dateSub(presentDate) {
-    let curDateVal = presentDate;
-    if(this.calSelectedMonth) {
-      let calDate = new Date(this.calSelectedMonth);
-      curDateVal.setMonth(calDate.getMonth() - 1);
-    } else {
-      curDateVal.setMonth(curDateVal.getMonth() - 2);
-    }
-    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
     this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   dateAdd(presentDate) {
-    let curDateVal = presentDate; 
-    if(this.calSelectedMonth) {
-      let calDate = new Date(this.calSelectedMonth);
-      curDateVal.setMonth(calDate.getMonth() + 1);
-    }else {
-      curDateVal.setMonth(curDateVal.getMonth() + 0);
-    }
-    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-    this.curDate = formatDate(curDateVal, 'MMMM  yyyy', 'en');
-    this.toggleMonthlyCalendar(dateVal);
+  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
+  this.toggleMonthlyCalendar(dateVal);
+  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   dailyData(status: boolean) {
