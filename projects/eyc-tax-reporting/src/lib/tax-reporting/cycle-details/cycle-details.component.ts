@@ -301,7 +301,6 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY);
         this.completedFunds.push(eachitem);
       });
-      console.log('total open comments', this.openCommentsClientByProductCycle)
       this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
@@ -597,29 +596,32 @@ export class CycleDetailComponent implements OnInit {
   }
 
   onSubmitApproveDatasets() {
-    debugger
+    this.iDs = "";
     this.datasetsSelectedRows.forEach(ele => {
-      if (this.iDs == "") {
-        this.iDs = ele.id
-      } else {
-        this.iDs = this.iDs + "," + ele.id
-      }
+      this.iDs = this.iDs === "" ? ele.id : this.iDs + "," + ele.id;
     });
     const body = {
       "status": "approved",
       "fundIds": this.iDs.split(',')
     }
-    // console.log("body: ", body.fundIds);
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
+      //Update frontend after approve funds
+      const fundsApproved = this.iDs.split(',');
+      fundsApproved.forEach( item => {
+          this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
+          this.completedFunds.find(fund => fund.id === item).approvedBack = true;
+      });   
+      this.getStatusCount();
+      this.createFundRowData(this.completedFunds);
+      //End update frontend
       this.toastSuccessMessage = "Fund approved successfully";
       this.showToastAfterSubmit = true;
       setTimeout(() => {
         this.showToastAfterSubmit = false;
-        console.log(resp);
       }, 5000);
     });
-    console.log('row data submit-->', this.rowData)
-    this.getCompletedProductCyclesData(this.productCycleId);
+    this.cancelbtn.disabled = true;
+    //this.getCompletedProductCyclesData(this.productCycleId);
   }
 
 
@@ -645,14 +647,18 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('add-user-modal was closed', result);
       if (result.button === "Save") {
+        //Update frontend after add Users ToFund
+        console.log('Usuarios adignados ->', result.usersAdded);
+        this.completedFunds.find(fund => fund.id === _id).assignedTo = result.usersAdded;
+        this.createFundRowData(this.completedFunds);
+        //End update frontend
         this.toastSuccessMessage = "Users added successfully";
         this.showToastAfterSubmit = true;
         setTimeout(() => {
           this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId);
+        }, 5000);
+        //this.getCompletedProductCyclesData(this.productCycleId);
       } else {
         console.log('result afterClosed', result);
       }
@@ -674,7 +680,6 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('add-user-modal was closed', result);
       if (result.button === "Continue") {
         let funds = [];
         funds.push(_id);
@@ -682,18 +687,22 @@ export class CycleDetailComponent implements OnInit {
           "status": "approved",
           "fundIds": funds
         }
-        console.log("body: ", body.fundIds);
         this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-          console.log(resp);
+          //Update frontend after approve funds
+          funds.forEach(item => {
+              this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
+              this.completedFunds.find(fund => fund.id === item).approvedBack = true;
+          });   
+          this.getStatusCount();
+          this.createFundRowData(this.completedFunds);
+          //End update frontend
           this.toastSuccessMessage = "Fund approved successfully";
           this.showToastAfterSubmit = true;
           setTimeout(() => {
             this.showToastAfterSubmit = false;
-            console.log(resp);
           }, 5000);
         });
-        console.log('row data submit-->', this.rowData)
-        this.getCompletedProductCyclesData(this.productCycleId);
+        //this.getCompletedProductCyclesData(this.productCycleId);
       }
     });
   }
@@ -735,15 +744,29 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if (result.button === "Post") {
+         //Update frontend after approve funds
+          const openCommentsCount = this.completedFunds.find(fund => fund.id === _id).totalComments;
+          this.completedFunds.find(fund => fund.id === _id).totalComments = openCommentsCount + 1;
+
+          const openCommentsEY = this.completedFunds.find(fund => fund.id === _id).openCommentsEY;
+          this.completedFunds.find(fund => fund.id === _id).openCommentsEY = result.commentSent.target === 'ey' ? (openCommentsEY + 1) : openCommentsEY;
+          this.openCommentsEYByProductCycle = result.commentSent.target === 'ey' ? (this.openCommentsEYByProductCycle + 1) : this.openCommentsEYByProductCycle;;
+
+          const openCommentsClient = this.completedFunds.find(fund => fund.id === _id).openCommentsClient;
+          this.completedFunds.find(fund => fund.id === _id).openCommentsClient = result.commentSent.target === 'client' ? (openCommentsClient + 1) : openCommentsClient;
+          this.openCommentsClientByProductCycle = result.commentSent.target === 'client' ? (this.openCommentsClientByProductCycle + 1) : this.openCommentsClientByProductCycle;
+          this.getFileSummuries();   
+          this.createFundRowData(this.completedFunds);
+         //End update frontend
+
         //Refresh comments Submit
         this.toastSuccessMessage = "Comment added successfully";
         this.showToastAfterSubmit = true;
         setTimeout(() => {
           this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId)
+        }, 5000);
+        //this.getCompletedProductCyclesData(this.productCycleId)
       } else {
         console.log('result afterClosed', result);
       }
@@ -838,20 +861,25 @@ export class CycleDetailComponent implements OnInit {
   unApproveFund(row: any) {
     let funds = [];
     funds.push(row.id);
-    console.log('This row to unapprove-->', funds);
-    //uncomment when de endpoint is ready
     const body = {
       "status": "open",
       "fundIds": funds
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-      console.log('Response unapprove', resp);
+      //Update frontend after approve funds
+      funds.forEach(item => {
+          this.completedFunds.find(fund => fund.id === item).status = 'In client review';
+          this.completedFunds.find(fund => fund.id === item).approvedBack = false;
+      });   
+      this.getStatusCount();
+      this.createFundRowData(this.completedFunds);
+      //End update frontend
       this.toastSuccessMessage = "Fund unapproved successfully";
       this.showToastAfterSubmit = true;
       setTimeout(() => {
         this.showToastAfterSubmit = false;
-      }, 4000);
-      this.getCompletedProductCyclesData(this.productCycleId);
+      }, 5000);
+      //this.getCompletedProductCyclesData(this.productCycleId);
     });
   }
 
@@ -897,8 +925,7 @@ export class CycleDetailComponent implements OnInit {
           }
         });
 
-        dialogRef.componentInstance.bulkprocesed.subscribe(result => {
-          //console.log('Finalizo el bulk download:', result);   
+        dialogRef.componentInstance.bulkprocesed.subscribe(result => { 
           this.toastSuccessMessage = "Download in progress. This may take a few minutes.";
           this.showToastAfterSubmitBulk = true;
           setTimeout(() => {

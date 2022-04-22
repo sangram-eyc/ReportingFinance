@@ -35,6 +35,7 @@ export class AssignUsersModalComponent implements OnInit {
   chk = false;
   initialUsers:any = [];
   selectedUsers:any = [];
+  selectedUsersObjects: any = [];
 
   @ViewChild('datasetsDropdownTemplate')
   datasetsDropdownTemplate: TemplateRef<any>;
@@ -63,10 +64,21 @@ export class AssignUsersModalComponent implements OnInit {
    const usersToAdd = {
     "userIds": this.selectedUsers
     };
-
-  this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
+     //To refresh the frontend
+     this.selectedUsers.forEach(id => {
+         const user = this.completedData.find(item => item.id === id);
+         const userObject:any = {
+          userId: user.id,
+          userEmail: user.userEmail,
+          userFirstName: user.userFirstName,
+          userLastName: user.userLastName,
+         }
+         this.selectedUsersObjects.push(userObject);
+     });
+     //End refresh frontend
+    this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
       console.log('response addUsersToFund', resp);
-      this.dialogRef.close({ button: this.modalDetails.footer.YesButton }); 
+      this.dialogRef.close({ button: this.modalDetails.footer.YesButton, usersAdded : this.selectedUsersObjects }); 
   }, error => {
     console.log('response addUsersToFund', error);
   });
@@ -74,7 +86,6 @@ export class AssignUsersModalComponent implements OnInit {
 
   getListUsers(){
     this.assignmentsService.listUserToAdd().subscribe(resp =>{
-      console.log('response->', resp);
       resp['data'].forEach((item) => {
         const eachitem: any = {
           id: item.userId,
