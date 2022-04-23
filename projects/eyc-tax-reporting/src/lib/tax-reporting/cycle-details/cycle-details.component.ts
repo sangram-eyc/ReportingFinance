@@ -619,6 +619,7 @@ export class CycleDetailComponent implements OnInit {
       setTimeout(() => {
         this.showToastAfterSubmit = false;
       }, 5000);
+      document.getElementsByClassName("revised-loading")[0].remove();
     });
     this.cancelbtn.disabled = true;
     //this.getCompletedProductCyclesData(this.productCycleId);
@@ -658,6 +659,7 @@ export class CycleDetailComponent implements OnInit {
         setTimeout(() => {
           this.showToastAfterSubmit = false;
         }, 5000);
+        document.getElementsByClassName("revised-loading")[0].remove();
         //this.getCompletedProductCyclesData(this.productCycleId);
       } else {
         console.log('result afterClosed', result);
@@ -702,6 +704,7 @@ export class CycleDetailComponent implements OnInit {
             this.showToastAfterSubmit = false;
           }, 5000);
         });
+        document.getElementsByClassName("revised-loading")[0].remove();
         //this.getCompletedProductCyclesData(this.productCycleId);
       }
     });
@@ -766,6 +769,7 @@ export class CycleDetailComponent implements OnInit {
         setTimeout(() => {
           this.showToastAfterSubmit = false;
         }, 5000);
+        document.getElementsByClassName("revised-loading")[0].remove();
         //this.getCompletedProductCyclesData(this.productCycleId)
       } else {
         console.log('result afterClosed', result);
@@ -879,6 +883,7 @@ export class CycleDetailComponent implements OnInit {
       setTimeout(() => {
         this.showToastAfterSubmit = false;
       }, 5000);
+      document.getElementsByClassName("revised-loading")[0].remove();
       //this.getCompletedProductCyclesData(this.productCycleId);
     });
   }
