@@ -156,8 +156,8 @@ export class CycleDetailComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 20,
-    name: '20',
+    value: 10,
+    name: '10',
     id: 0
   };
 
@@ -606,23 +606,23 @@ export class CycleDetailComponent implements OnInit {
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
       //Update frontend after approve funds
-      const fundsApproved = this.iDs.split(',');
+/*       const fundsApproved = this.iDs.split(',');
       fundsApproved.forEach( item => {
           this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
           this.completedFunds.find(fund => fund.id === item).approvedBack = true;
       });   
       this.getStatusCount();
-      this.createFundRowData(this.completedFunds);
+      this.createFundRowData(this.completedFunds); */
       //End update frontend
       this.toastSuccessMessage = "Fund approved successfully";
       this.showToastAfterSubmit = true;
       setTimeout(() => {
         this.showToastAfterSubmit = false;
-      }, 5000);
-      document.getElementsByClassName("revised-loading")[0].remove();
+      }, 4000);
+      this.getCompletedProductCyclesData(this.productCycleId);
+      //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
     });
     this.cancelbtn.disabled = true;
-    //this.getCompletedProductCyclesData(this.productCycleId);
   }
 
 
@@ -650,17 +650,17 @@ export class CycleDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Save") {
         //Update frontend after add Users ToFund
-        console.log('Usuarios adignados ->', result.usersAdded);
+/*         console.log('Usuarios adignados ->', result.usersAdded);
         this.completedFunds.find(fund => fund.id === _id).assignedTo = result.usersAdded;
-        this.createFundRowData(this.completedFunds);
+        this.createFundRowData(this.completedFunds); */
         //End update frontend
         this.toastSuccessMessage = "Users added successfully";
         this.showToastAfterSubmit = true;
         setTimeout(() => {
           this.showToastAfterSubmit = false;
-        }, 5000);
-        document.getElementsByClassName("revised-loading")[0].remove();
-        //this.getCompletedProductCyclesData(this.productCycleId);
+        }, 4000);
+        this.getCompletedProductCyclesData(this.productCycleId);
+        //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
       } else {
         console.log('result afterClosed', result);
       }
@@ -691,21 +691,21 @@ export class CycleDetailComponent implements OnInit {
         }
         this.productcyclesService.putApproveEntities(body).subscribe(resp => {
           //Update frontend after approve funds
-          funds.forEach(item => {
+/*           funds.forEach(item => {
               this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
               this.completedFunds.find(fund => fund.id === item).approvedBack = true;
           });   
           this.getStatusCount();
-          this.createFundRowData(this.completedFunds);
+          this.createFundRowData(this.completedFunds); */
           //End update frontend
           this.toastSuccessMessage = "Fund approved successfully";
           this.showToastAfterSubmit = true;
           setTimeout(() => {
             this.showToastAfterSubmit = false;
-          }, 5000);
+          }, 4000);
+          this.getCompletedProductCyclesData(this.productCycleId);
+          //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
         });
-        document.getElementsByClassName("revised-loading")[0].remove();
-        //this.getCompletedProductCyclesData(this.productCycleId);
       }
     });
   }
@@ -749,7 +749,7 @@ export class CycleDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Post") {
          //Update frontend after approve funds
-          const openCommentsCount = this.completedFunds.find(fund => fund.id === _id).totalComments;
+/*           const openCommentsCount = this.completedFunds.find(fund => fund.id === _id).totalComments;
           this.completedFunds.find(fund => fund.id === _id).totalComments = openCommentsCount + 1;
 
           const openCommentsEY = this.completedFunds.find(fund => fund.id === _id).openCommentsEY;
@@ -760,7 +760,7 @@ export class CycleDetailComponent implements OnInit {
           this.completedFunds.find(fund => fund.id === _id).openCommentsClient = result.commentSent.target === 'client' ? (openCommentsClient + 1) : openCommentsClient;
           this.openCommentsClientByProductCycle = result.commentSent.target === 'client' ? (this.openCommentsClientByProductCycle + 1) : this.openCommentsClientByProductCycle;
           this.getFileSummuries();   
-          this.createFundRowData(this.completedFunds);
+          this.createFundRowData(this.completedFunds); */
          //End update frontend
 
         //Refresh comments Submit
@@ -768,9 +768,9 @@ export class CycleDetailComponent implements OnInit {
         this.showToastAfterSubmit = true;
         setTimeout(() => {
           this.showToastAfterSubmit = false;
-        }, 5000);
-        document.getElementsByClassName("revised-loading")[0].remove();
-        //this.getCompletedProductCyclesData(this.productCycleId)
+        }, 4000);
+        this.getCompletedProductCyclesData(this.productCycleId);
+        //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
       } else {
         console.log('result afterClosed', result);
       }
@@ -871,20 +871,20 @@ export class CycleDetailComponent implements OnInit {
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
       //Update frontend after approve funds
-      funds.forEach(item => {
+/*       funds.forEach(item => {
           this.completedFunds.find(fund => fund.id === item).status = 'In client review';
           this.completedFunds.find(fund => fund.id === item).approvedBack = false;
       });   
       this.getStatusCount();
-      this.createFundRowData(this.completedFunds);
+      this.createFundRowData(this.completedFunds); */
       //End update frontend
       this.toastSuccessMessage = "Fund unapproved successfully";
       this.showToastAfterSubmit = true;
       setTimeout(() => {
         this.showToastAfterSubmit = false;
-      }, 5000);
-      document.getElementsByClassName("revised-loading")[0].remove();
-      //this.getCompletedProductCyclesData(this.productCycleId);
+      }, 4000);
+      this.getCompletedProductCyclesData(this.productCycleId);
+      //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
     });
   }
 
