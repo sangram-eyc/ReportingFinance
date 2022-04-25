@@ -44,7 +44,7 @@ export class ExceptionsComponent implements OnInit {
   @ViewChild('nextButtonTemplate')
   nextButtonTemplate: TemplateRef<any>;
 
-  curDate: string;
+
   presentDate: Date;
   isDisplay:boolean=false;
   curDate:string;

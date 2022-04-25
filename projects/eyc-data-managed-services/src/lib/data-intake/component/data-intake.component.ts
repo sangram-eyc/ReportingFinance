@@ -58,14 +58,12 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   totalFileCount = 0;
   calSelectedDate: string;
   calSelectedMonth: string;
-  powerBiReportId:any;
+  powerBiReportId:string;
   pod:string="DMS";
   reportID:string="304fc8b5-4ba4-4760-b0c3-a85af3b1c17b";
   curDate:string;
 
 
-  powerBiReportId:string;
-  pod:string="DMS";
   reports:any;
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
