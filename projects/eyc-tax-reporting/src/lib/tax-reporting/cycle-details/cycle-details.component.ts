@@ -15,7 +15,7 @@ import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { Subject } from 'rxjs';
 import { WarningModalComponent } from '../../shared/warning-modal/warning-modal.component';
-import { TaxLoaderService } from '../services/tax-loader.service'
+import { TaxLoaderService } from '../services/tax-loader.service';
 
 
 @Component({
@@ -277,7 +277,7 @@ export class CycleDetailComponent implements OnInit {
     this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
   }
 
-  getCompletedProductCyclesData(id: any) {
+  getCompletedProductCyclesData(id: any, toast?: boolean, msgToast? : any) {
     this.completedFunds = [];
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
@@ -305,6 +305,13 @@ export class CycleDetailComponent implements OnInit {
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
+      if(toast){
+        this.toastSuccessMessage = msgToast;
+        this.showToastAfterSubmit = true;
+        setTimeout(() => {
+          this.showToastAfterSubmit = false;
+        }, 5000);
+      }
     });
   }
 
@@ -585,7 +592,6 @@ export class CycleDetailComponent implements OnInit {
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    //console.log('datasetsSelectedRows->', this.datasetsSelectedRows);
     if (this.datasetsSelectedRows.length > 0) {
       this.approveBtn.disabled = false;
       this.cancelbtn.disabled = false;
@@ -605,22 +611,7 @@ export class CycleDetailComponent implements OnInit {
       "fundIds": this.iDs.split(',')
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-      //Update frontend after approve funds
-/*       const fundsApproved = this.iDs.split(',');
-      fundsApproved.forEach( item => {
-          this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
-          this.completedFunds.find(fund => fund.id === item).approvedBack = true;
-      });   
-      this.getStatusCount();
-      this.createFundRowData(this.completedFunds); */
-      //End update frontend
-      this.toastSuccessMessage = "Fund approved successfully";
-      this.showToastAfterSubmit = true;
-      setTimeout(() => {
-        this.showToastAfterSubmit = false;
-      }, 4000);
-      this.getCompletedProductCyclesData(this.productCycleId);
-      //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
+      this.getCompletedProductCyclesData(this.productCycleId, true, "Fund approved successfully");
     });
     this.cancelbtn.disabled = true;
   }
@@ -649,18 +640,7 @@ export class CycleDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Save") {
-        //Update frontend after add Users ToFund
-/*         console.log('Usuarios adignados ->', result.usersAdded);
-        this.completedFunds.find(fund => fund.id === _id).assignedTo = result.usersAdded;
-        this.createFundRowData(this.completedFunds); */
-        //End update frontend
-        this.toastSuccessMessage = "Users added successfully";
-        this.showToastAfterSubmit = true;
-        setTimeout(() => {
-          this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId);
-        //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
+        this.getCompletedProductCyclesData(this.productCycleId, true, "Users added successfully");
       } else {
         console.log('result afterClosed', result);
       }
@@ -690,21 +670,7 @@ export class CycleDetailComponent implements OnInit {
           "fundIds": funds
         }
         this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-          //Update frontend after approve funds
-/*           funds.forEach(item => {
-              this.completedFunds.find(fund => fund.id === item).status = 'Approved by client';
-              this.completedFunds.find(fund => fund.id === item).approvedBack = true;
-          });   
-          this.getStatusCount();
-          this.createFundRowData(this.completedFunds); */
-          //End update frontend
-          this.toastSuccessMessage = "Fund approved successfully";
-          this.showToastAfterSubmit = true;
-          setTimeout(() => {
-            this.showToastAfterSubmit = false;
-          }, 4000);
-          this.getCompletedProductCyclesData(this.productCycleId);
-          //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
+          this.getCompletedProductCyclesData(this.productCycleId, true, "Fund approved successfully");
         });
       }
     });
@@ -748,29 +714,7 @@ export class CycleDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Post") {
-         //Update frontend after approve funds
-/*           const openCommentsCount = this.completedFunds.find(fund => fund.id === _id).totalComments;
-          this.completedFunds.find(fund => fund.id === _id).totalComments = openCommentsCount + 1;
-
-          const openCommentsEY = this.completedFunds.find(fund => fund.id === _id).openCommentsEY;
-          this.completedFunds.find(fund => fund.id === _id).openCommentsEY = result.commentSent.target === 'ey' ? (openCommentsEY + 1) : openCommentsEY;
-          this.openCommentsEYByProductCycle = result.commentSent.target === 'ey' ? (this.openCommentsEYByProductCycle + 1) : this.openCommentsEYByProductCycle;;
-
-          const openCommentsClient = this.completedFunds.find(fund => fund.id === _id).openCommentsClient;
-          this.completedFunds.find(fund => fund.id === _id).openCommentsClient = result.commentSent.target === 'client' ? (openCommentsClient + 1) : openCommentsClient;
-          this.openCommentsClientByProductCycle = result.commentSent.target === 'client' ? (this.openCommentsClientByProductCycle + 1) : this.openCommentsClientByProductCycle;
-          this.getFileSummuries();   
-          this.createFundRowData(this.completedFunds); */
-         //End update frontend
-
-        //Refresh comments Submit
-        this.toastSuccessMessage = "Comment added successfully";
-        this.showToastAfterSubmit = true;
-        setTimeout(() => {
-          this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId);
-        //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
+        this.getCompletedProductCyclesData(this.productCycleId, true, "Comment added successfully");
       } else {
         console.log('result afterClosed', result);
       }
@@ -870,21 +814,7 @@ export class CycleDetailComponent implements OnInit {
       "fundIds": funds
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-      //Update frontend after approve funds
-/*       funds.forEach(item => {
-          this.completedFunds.find(fund => fund.id === item).status = 'In client review';
-          this.completedFunds.find(fund => fund.id === item).approvedBack = false;
-      });   
-      this.getStatusCount();
-      this.createFundRowData(this.completedFunds); */
-      //End update frontend
-      this.toastSuccessMessage = "Fund unapproved successfully";
-      this.showToastAfterSubmit = true;
-      setTimeout(() => {
-        this.showToastAfterSubmit = false;
-      }, 4000);
-      this.getCompletedProductCyclesData(this.productCycleId);
-      //setTimeout(() => { document.getElementsByClassName("revised-loading")[0].remove(); }, 2000);  
+      this.getCompletedProductCyclesData(this.productCycleId, true, "Fund unapproved successfully");
     });
   }
 

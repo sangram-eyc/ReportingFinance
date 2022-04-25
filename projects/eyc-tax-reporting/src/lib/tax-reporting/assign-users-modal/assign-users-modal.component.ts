@@ -35,7 +35,6 @@ export class AssignUsersModalComponent implements OnInit {
   chk = false;
   initialUsers:any = [];
   selectedUsers:any = [];
-  selectedUsersObjects: any = [];
 
   @ViewChild('datasetsDropdownTemplate')
   datasetsDropdownTemplate: TemplateRef<any>;
@@ -64,21 +63,9 @@ export class AssignUsersModalComponent implements OnInit {
    const usersToAdd = {
     "userIds": this.selectedUsers
     };
-     //To refresh the frontend
-     this.selectedUsers.forEach(id => {
-         const user = this.completedData.find(item => item.id === id);
-         const userObject:any = {
-          userId: user.id,
-          userEmail: user.userEmail,
-          userFirstName: user.userFirstName,
-          userLastName: user.userLastName,
-         }
-         this.selectedUsersObjects.push(userObject);
-     });
-     //End refresh frontend
     this.assignmentsService.addUsersToFund(this.modalDetails.idFund, usersToAdd).subscribe(resp =>{
       console.log('response addUsersToFund', resp);
-      this.dialogRef.close({ button: this.modalDetails.footer.YesButton, usersAdded : this.selectedUsersObjects }); 
+      this.dialogRef.close({ button: this.modalDetails.footer.YesButton }); 
   }, error => {
     console.log('response addUsersToFund', error);
   });
