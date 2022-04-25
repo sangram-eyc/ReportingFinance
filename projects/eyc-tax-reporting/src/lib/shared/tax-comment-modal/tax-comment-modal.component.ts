@@ -84,14 +84,14 @@ export class TaxCommentModalComponent implements OnInit {
             formData.append('files', element.file.rawFile);
           });
             this.commentService.uploadFile(formData).subscribe(uploadRes => {
-            this.dialogRef.close({ button: this.modalDetails.footer.YesButton, commentSent : commentObj });
+            this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
           }, uploadError => {
             console.log(uploadError);
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
           });
         } else {
           console.log("There are no files to attach in the comment.");
-          this.dialogRef.close({ button: this.modalDetails.footer.YesButton, commentSent : commentObj });       
+          this.dialogRef.close({ button: this.modalDetails.footer.YesButton });       
         }
       }, error => {
         console.log(error);
