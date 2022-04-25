@@ -249,19 +249,19 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
-  public logoff() {
+  public async logoff() {
     if (sessionStorage.getItem('pendingDownloadsBulk') != null) {
       this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
       if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
         this.warningMessage();
       } else {
         this.wsBulkService.closeConection();
-        this.settingsService.logoff();
+        await this.settingsService.logoff();
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     } else {
       this.wsBulkService.closeConection();
-      this.settingsService.logoff();
+      await this.settingsService.logoff();
       this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     }
   }

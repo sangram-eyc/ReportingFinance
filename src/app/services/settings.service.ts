@@ -112,7 +112,11 @@ export class SettingsService {
     const body = {
       "id": sessionStorage.getItem('session_id')
     }
-    await this.concurrentSessionService.deleteSessionId(body);
+    if ((sessionStorage.getItem("session_id")) != null) {
+      await this.concurrentSessionService.deleteSessionId(body);
+      sessionStorage.removeItem('session_id');
+    }
+    
     this.oauthService.logOut();
     sessionStorage.removeItem("currentUserSession");
     sessionStorage.removeItem('session');
@@ -123,7 +127,7 @@ export class SettingsService {
     sessionStorage.removeItem('pendingDownloadsBulk');
     sessionStorage.removeItem('dailyMonthlyStatus');
     sessionStorage.removeItem('selectedDate');
-    sessionStorage.removeItem('session_id');
+    
   }
 
   public get name() {
