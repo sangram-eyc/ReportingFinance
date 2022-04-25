@@ -11,6 +11,7 @@ import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
 })
 export class GridComponent implements OnInit, OnChanges, OnDestroy {
   mytasks = false;
+  initialGridLoaded = false;
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
@@ -192,7 +193,13 @@ pageSize;
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (this.paginationApi) {
       if (this.totalRecords >= 0) {
+        if(this.prevPageSize && !this.initialGridLoaded){
+          this.prevPageSize=(parseInt(this.prevPageSize) * 2)
+        }
         this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
+        if(this.prevPageSize){
+          this.initialGridLoaded = true;
+        }
       } else {
         this.maxPages = 1;
       }
