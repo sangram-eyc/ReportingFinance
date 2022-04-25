@@ -68,6 +68,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
+  isDisplay:boolean=false;
+  calSelectedMonth: string;
+  curDate:string;
   xScaleMin: number;
   xScaleMax: number;
   yScaleMin: number;
@@ -205,6 +208,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
@@ -558,6 +562,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
@@ -583,6 +593,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
@@ -705,6 +720,30 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.getReviewFileTableData();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
+  }
+
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+      if (this.calSelectedMonth) {
+      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.httpDataGridParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+    this.fileSummaryList();
+    this.getReviewFileTableData();
+    sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }   
+  }
+
+  dateSub(presentDate) {
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
+    this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
+  dateAdd(presentDate) {
+  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
+  this.toggleMonthlyCalendar(dateVal);
+  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   filterByIssues(issues: string, variants: string) {

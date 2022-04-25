@@ -41,6 +41,19 @@
   .boder-b {
     border-bottom: 1px solid #e7e7ea;
   }
+
+  .monthly-date-ui {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #2e2e38;
+    padding-right: 26px;
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+  }
   
   .exception-heading {
     font-family: EYInterstate;

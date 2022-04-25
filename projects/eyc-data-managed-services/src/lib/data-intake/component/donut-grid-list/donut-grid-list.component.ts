@@ -50,7 +50,11 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   FILTER_TYPE_TITLE = FILTER_TYPE_TITLE;
   FILTER_TYPE = FILTER_TYPE;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
+  calSelectedMonth: string;
+  curDate:string;
+  isDisplay:boolean=false;
   routeUrlConst=ROUTE_URL_CONST;
+
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
@@ -147,6 +151,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
@@ -178,12 +183,41 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+    if (this.calSelectedMonth) {
+      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.getDataIntakeType();
+      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }   
+  }
+
+  dateSub(presentDate) {
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
+    this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
+  dateAdd(presentDate) {
+  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
+  this.toggleMonthlyCalendar(dateVal);
+  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
   dailyData(status: boolean) {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
     } else {
@@ -204,6 +238,13 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
+
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
     } else {
