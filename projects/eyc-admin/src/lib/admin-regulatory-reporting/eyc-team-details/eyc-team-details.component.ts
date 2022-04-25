@@ -260,14 +260,14 @@ export class EycTeamDetailsComponent implements OnInit {
   private _updateTeam() {
     if (this.module == 'Regulatory Reporting') { 
       return this.formBuilder.group({
-        teamName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         teamDescription: ['', Validators.maxLength(250)],
         assignments: [[], [Validators.required]]
       });
     } else {
       return this.formBuilder.group({
-        teamName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
+        teamName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
         teamDescription: ['', Validators.maxLength(250)],
       });

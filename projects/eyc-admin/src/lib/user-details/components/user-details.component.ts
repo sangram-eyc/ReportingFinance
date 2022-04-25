@@ -64,9 +64,9 @@ export class UserDetailsComponent implements OnInit {
 
   private _updateUser() {
     return this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_USER_REGEX'].FIRST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
-      lastName: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_USER_REGEX'].LAST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
-      email: ['', [Validators.required, Validators.pattern(commonConstants['EDIT_USER_REGEX'].EMAIL), Validators.maxLength(250)]]
+      firstName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].FIRST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
+      lastName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].LAST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
+      email: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].EMAIL), Validators.maxLength(250)]]
     });
   }
 
