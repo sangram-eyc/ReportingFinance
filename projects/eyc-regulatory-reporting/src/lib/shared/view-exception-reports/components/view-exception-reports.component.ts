@@ -37,7 +37,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   commentsName;
   commentEntityType;
   entityId;
-  exceptionCnt = '';
+  exceptionCnt;
   enableResolveButton: boolean;
   enableUnresolveButton: boolean;
   exceptionResolveRows = []
@@ -94,10 +94,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      if (this.filingService.getExceptionData?.resolveOrException && this.filingService.getExceptionData?.resolveOrException.indexOf("/") !== -1) {
-        let exceptionVal = this.filingService.getExceptionData.resolveOrException.split("/");
-        this.exceptionCnt = exceptionVal[1];
-      }
+      this.exceptionCnt = parseInt(this.filingService.getExceptionData?.unresolved) + parseInt(this.filingService.getExceptionData?.resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       

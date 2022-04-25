@@ -135,6 +135,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   expandEntityTemplate: TemplateRef<any>;
   @ViewChild('lastUpdatedByTemplate')
   lastUpdatedByTemplate: TemplateRef<any>;
+  @ViewChild('unresolveFilingTemplate')
+  unresolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('unresolveExceptionTemplate')
+  unresolveExceptionTemplate: TemplateRef<any>;
+  @ViewChild('resolveFilingTemplate')
+  resolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('resolveExceptionTemplate')
+  resolveExceptionTemplate: TemplateRef<any>;
   
 
   ngOnInit(): void {
@@ -285,8 +293,20 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Resolved/Exception',
-          field: 'resolveException',
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          sortable: true,
+          filter: true,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.unresolveFilingTemplate,
+          },
+          headerName: 'Unresolved',
+          field: 'unResolvedException',
           sortable: true,
           filter: true,
           width: 210,
@@ -294,10 +314,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Review Level',
-          field: 'reviewLevel',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.resolveFilingTemplate,
+          },
+          headerName: 'Resolved',
+          field: 'resolvedException',
           sortable: true,
           filter: true,
+          width: 210,
           comparator: this.disableComparator
         },
          /*,
@@ -407,8 +432,25 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Resolved/Exception',
-          field: 'resolveOrException',
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.unresolveExceptionTemplate,
+          },
+          headerName: 'Unresolved',
+          field: 'unresolved',
+          sortable: true,
+          filter: true,
+          width: 210,
+          comparator: this.disableComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.resolveExceptionTemplate,
+          },
+          headerName: 'Resolved',
+          field: 'resolved',
           sortable: true,
           filter: true,
           width: 210,
@@ -936,16 +978,16 @@ actionMenuEnableforException(row) {
   exportData(type) {
     if(type == 'entities') {
       if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
-        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,commentsCount:Comments,updatedBy:Last Updated By';
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,unResolvedException:Unresolved,resolvedException:Resolved,reviewLevel:Review Level,commentsCount:Comments,updatedBy:Last Updated By';
       } else {
-        this.exportHeaders = 'fundId:ID,entityName:Entity Name,resolveException:Resolved/Exception,reviewLevel:Review Level,updatedBy:Last Updated By';
+        this.exportHeaders = 'fundId:ID,entityName:Entity Name,unResolvedException:Unresolved,resolvedException:Resolved,reviewLevel:Review Level,updatedBy:Last Updated By';
       }
       this.exportURL =  this.settingsService.regReportingFiling.client_review_filing_entities + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else {
       if(this.permissions.validatePermission('Client Review', 'View Comments')) { 
-        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,comments:Comments,updateBy:Last Updated By';
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,unresolved:Unresolved,resolved:Resolved,comments:Comments,updateBy:Last Updated By';
       } else {
-        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolveOrException:Resolved/Exception,updateBy:Last Updated By';
+        this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,unresolved:Unresolved,resolved:Resolved,updateBy:Last Updated By';
       }
       this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
