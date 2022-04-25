@@ -24,7 +24,7 @@
     "eyc-ui-tax-repoting:package": "npm run eyc-charts-shared && npm run eyc-ui-shared &&  npm run eyc-tax-reporting",
     "eyc-ui-shared:package": "npm run eyc-charts-shared && npm run eyc-ui-shared",
     "eyc-ui-surefoot:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref && npm run eyc-data-managed-services &&  npm run eyc-tax-reporting && npm run eyc-ui-admin",
-    "eyc-ui-gs:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref && npm run buildLibrary && npm run eyc-ui-admin",
+    "eyc-ui-gs:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref && npm run buildLibrary && npm run eyc-ui-admin && npm run eyc-european-fund-reporting",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
