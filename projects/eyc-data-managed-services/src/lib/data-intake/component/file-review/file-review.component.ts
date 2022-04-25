@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { customComparator,sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -474,6 +474,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotExceptionsTooltip
           },
+          comparator: sortCaseInsentitve,
           valueGetter: function (params) {
             if (params.data.exceptions) {
               return params.data.exceptions

@@ -78,6 +78,10 @@ export const customComparator = (valueA, valueB) => {
 	}
 };
 
+export const sortCaseInsentitve = (valueA, valueB) => {
+    return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+  };
+
 export const PowerBiReportDailyList=[
     {reportName:'DMS_TRP_General Ledger Trialbalance Class_Daily',
     reportId:'5e6bddb4-3b59-4bfd-8d10-4394a6111e21',reportDisplayName:'General Ledger Trial Balance Class'},
