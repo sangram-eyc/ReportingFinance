@@ -7,11 +7,12 @@ import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
 import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
 import { SettingsService } from './services/settings.service';
-import { ErrorModalComponent } from 'eyc-ui-shared-component';
+import { ErrorModalComponent, SessionExtendModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+import { OauthService } from './login/services/oauth.service';
 
 @Component({
   selector: 'app-root',
@@ -57,7 +58,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
-    private routingState:RoutingStateService
+    private routingState:RoutingStateService,
+    private oauthSvc: OauthService
+    
   ) {
     // To hide header and footer from login page
 
@@ -90,9 +93,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   openErrorModal(header, description) {
-    const dialogRef = this.dialog.open(ErrorModalComponent, {
+    const dialogRef = this.dialog.open(SessionExtendModalComponent, {
       disableClose: true,
-      width: '400px',
+      width: '500px',
       data: {
         header,
         description,
@@ -103,8 +106,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+      this.oauthSvc.extentToken();
+      // this.settingsService.logoff();
+      // this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
     });
   }
 

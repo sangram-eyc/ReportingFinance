@@ -17,8 +17,11 @@ export class OauthService {
 
   constructor(private oauthService: OAuthService, private storageService: SettingsService,
     private httpClient: HttpClient,private router: Router,private apiService: ApiService) {
+		console.log('authConfig', authConfig);
+		
 	this.oauthService.configure(authConfig);
-    this.oauthService.setupAutomaticSilentRefresh();
+	// this.refreshToken()
+    // this.oauthService.setupAutomaticSilentRefresh();
 	this.oauthService.tryLogin({});
 	
     if (this.oauthService.getAccessToken()) {
@@ -70,7 +73,7 @@ export class OauthService {
 	public refreshToken() {
 		this.oauthService.silentRefresh()
 			.then(info => {
-				// console.log('refresh ok', info);
+				console.log('refresh ok', info);
 				if (this.oauthService.getAccessToken()) {
 					// console.log(this.oauthService.getAccessToken());
 					this.getAccessToken();
@@ -79,7 +82,23 @@ export class OauthService {
 			.catch(err => console.log('refresh error', err));
 	}
 
-	
+	public extentToken() {
+		this.oauthService.silentRefresh()
+			.then(info => {
+				console.log('refresh ok', info);
+				if (this.oauthService.getAccessToken()) {
+					this.getAccessToken();
+				}
+			})
+			.catch(err => console.log('refresh error', err));
+	}
+
+	public getExtendedAccessToken() {
+		console.log('inside getAccessToken');
+		console.log(this.oauthService.getAccessToken());
+		this.storageService.setToken(this.oauthService.getAccessToken());
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+	}
 }
 
 
