@@ -151,7 +151,7 @@ setToken = (value) => {
         this.authdetails = res;
         console.log(res);
         
-        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '300000');
+        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '1200000');
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
         authConfig.redirectUri = environment.production ?  this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;
