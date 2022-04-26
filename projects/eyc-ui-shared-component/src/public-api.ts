@@ -25,6 +25,7 @@ export * from './lib/panel-right-comment-details/components/panel-right-comment-
 export * from './lib/comment-details-pr/comment-details-pr.module'
 export * from './lib/comment-details-pr/components/comment-details-pr.component';
 export * from './lib/modal/resolve-modal/components/resolve-modal.component';
+export * from './lib/modal/session-extend-modal/session-extend-modal.component';
 export * from './lib/audit-log/audit-log.module';
 export * from './lib/audit-log/components/audit-log.component';
 export const DEFAULT_PAGE_SIZE = 20;
