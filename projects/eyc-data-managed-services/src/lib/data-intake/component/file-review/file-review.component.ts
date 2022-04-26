@@ -418,13 +418,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotFunctionTooltip
           },
-          valueGetter: function (params) {
-            if ((params.data.functions).length > 4) {
-              return (params.data.functions).substr(0, 4) + ' ...'
-            } else {
-              return params.data.functions
-            }
-          }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
