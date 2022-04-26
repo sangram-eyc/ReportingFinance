@@ -3,7 +3,7 @@ import { RegulatoryReportingFilingService } from '../services/regulatory-reporti
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { customComparator } from '../../config/rr-config-helper';
-import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService } from 'eyc-ui-shared-component';
+import { CustomGlobalService, ErrorModalComponent, PermissionService, AutoUnsubscriberService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -96,7 +96,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   filterName='';
@@ -165,7 +165,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   resetData() {
     this.createHistoryRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getCompletedFilingsData(resetData = false) {
