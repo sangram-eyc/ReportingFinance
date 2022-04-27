@@ -164,7 +164,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
-    this.sort = resetData ? 'unResolved:false' : this.sort;
+    this.sort = resetData ? 'unresolved:false' : this.sort;
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
