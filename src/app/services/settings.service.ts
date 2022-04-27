@@ -151,7 +151,7 @@ setToken = (value) => {
         this.authdetails = res;
         console.log(res);
         
-        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '1800000');
+        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '50000');
         this.authdetails.data.sessionTimeout ? sessionStorage.setItem("sessionTimeOut", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("sessionTimeOut", '1800000');
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
@@ -177,6 +177,30 @@ setToken = (value) => {
 
   get getModulePermissiongData() {
     return this.moduleLevelPermission;
+  }
+
+  public extentToken() {
+		this.oauthService.silentRefresh()
+			.then(info => {
+				console.log('refresh ok', info);
+				if (this.oauthService.getAccessToken()) {
+					this.getExtendedAccessToken();
+				}
+			})
+			.catch(err => console.log('refresh error', err));
+	}
+
+	public getExtendedAccessToken() {
+		console.log('inside getAccessToken');
+		console.log(this.oauthService.getAccessToken());
+		this.setToken(this.oauthService.getAccessToken());
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+	}
+
+  public login() {
+		// console.log('inside login');
+			this.oauthService.initImplicitFlow();
+		
   }
 }
 

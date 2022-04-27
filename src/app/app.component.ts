@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
-import { OauthService } from './login/services/oauth.service';
 
 @Component({
   selector: 'app-root',
@@ -64,8 +63,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
     private routingState:RoutingStateService,
-    private oauthSvc: OauthService
-    
   ) {
     // To hide header and footer from login page
     console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
@@ -117,12 +114,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     dialogRef.afterClosed().subscribe(result => {
       sessionStorage.setItem("sessionTimeOut", sessionStorage.getItem("inActivityTime"));
       if(result.button == 'Extend session') {
-        this.oauthSvc.extentToken();
+        this.settingsService.extentToken();
       } if(result.button == 'Log out') {
         this.settingsService.logoff();
         this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
       } if(result.button == 'Log in') {
-        this.oauthSvc.login();
+        this.settingsService.login();
       }
       
     });
