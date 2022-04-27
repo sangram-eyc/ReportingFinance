@@ -10,7 +10,7 @@ import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component'
 import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
-
+import * as commonConstants from '../../shared/common-contstants'
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -186,9 +186,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   private _createAddUser() {
     return this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\]+$'), Validators.maxLength(250), this.noWhitespaceValidator]],
-      email: ['', [Validators.required, Validators.pattern('^(?!.*?[.]{2})[a-zA-Z0-9]+[a-zA-Z0-9.]+[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z.]+\\.[a-zA-Z]{2,6}'), Validators.maxLength(250)]]
+      firstName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].FIRST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
+      lastName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].LAST_NAME), Validators.maxLength(250), this.noWhitespaceValidator]],
+      email: ['', [Validators.required, Validators.pattern(commonConstants['ADD_USER_REGEX'].EMAIL), Validators.maxLength(250)]]
     });
   }
   onSubmitAddUserForm(form: FormGroup) {

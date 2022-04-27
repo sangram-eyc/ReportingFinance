@@ -11,10 +11,11 @@ export class ViewFilingEntityExceptionService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getAnswerExceptionReports(entityName, filingName, period, exceptionCnt, componentStage) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityName=${encodeURIComponent(entityName)}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}`);
+  getAnswerExceptionReports(entityId, filingName, period, exceptionCnt, componentStage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityId=${entityId}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}`);
   }
-  exportData(entityName, filingName, period, exceptionCnt, exportsHeader, componentStage) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityName=${encodeURIComponent(entityName)}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}&headers=${exportsHeader}&export=true&reportType=csv`);
+
+  exportData(entityId, filingName, period, exceptionCnt, exportsHeader, componentStage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.viewFilingEntityException}?entityId=${entityId}&filingName=${filingName}&period=${period}&totalExceptions=${exceptionCnt}&stage=${componentStage}&headers=${exportsHeader}&export=true&reportType=csv`);
   }
 }

@@ -105,6 +105,28 @@
             </div>
         </ng-template>
 
+        <ng-template #unresolveExceptionTemplate let-row>
+            <div class="resolve-Exception pe-2">
+                <div class="result_warning">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                </div>
+            </div>
+            <div>
+                {{row.unresolved}}
+            </div>
+        </ng-template> 
+    
+                <ng-template #resolveExceptionTemplate let-row>
+            <div class="resolve-Exception pe-2">
+                <div class="complete">
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                </div>
+            </div>
+            <div>
+                {{row.resolved}}
+            </div>
+        </ng-template>
+
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
@@ -199,6 +221,28 @@
             <div class="view-det-arrow">
                 <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
                     (click)="routeToFilingEntityExceptionPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #unresolveFilingTemplate let-row>
+            <div class="resolve-Exception pe-2">
+                <div class="result_warning">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                </div>
+            </div>
+            <div>
+                {{row.unResolvedException}}
+            </div>
+        </ng-template>
+        
+        <ng-template #resolveFilingTemplate let-row>
+            <div class="resolve-Exception pe-2">
+                <div class="complete">
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                </div>
+            </div>
+            <div>
+                {{row.resolvedException}}
             </div>
         </ng-template>
         

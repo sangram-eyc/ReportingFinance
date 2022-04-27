@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h3 class="modal-title"><motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon> Session Inactivity</h3>
+    <button type="button" class="close" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="isSessionExtent">
+        <div class="timer">
+            <motif-icon [src]="'/assets/icons/image/ic_timer_24px.svg'"></motif-icon> {{counter | formatTime}}
+
+        </div>
+        <div class="description-text">
+            For your security, this session will time out due to inactivity. If you want to continue working, please
+            select ‘Extend session’ button. </div>
+    </ng-container>
+    <ng-container *ngIf="!isSessionExtent">
+
+        <div class="description-text">
+            For your security, this session has timed out due to inactivity. If you want to continue working, please
+            select the ‘Log in’ button. </div>
+    </ng-container>
+</div>
+
+<div class="modal-footer start">
+    <button *ngIf="isSessionExtent" motifButton class="approve-yes" color="primary" (click)="sessionExtent()">Extend
+        session</button>
+
+    <button *ngIf="isSessionExtent" motifButton class="approve-no" color="secondary" (click)="logout()">Log out</button>
+    <button *ngIf="!isSessionExtent" motifButton class="approve-no" color="secondary" (click)="logIn()">Log in</button>
+</div>

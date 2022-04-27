@@ -55,6 +55,10 @@
         "dist/eyc-admin/eyc-admin",
         "dist/eyc-admin",
         "projects/eyc-admin/src/lib*"
+      ],
+      "eyc-european-fund-reporting": [
+        "dist/eyc-european-fund-reporting/eyc-european-fund-reporting",
+        "dist/eyc-european-fund-reporting"
       ]
     },
     "resolveJsonModule": true,
