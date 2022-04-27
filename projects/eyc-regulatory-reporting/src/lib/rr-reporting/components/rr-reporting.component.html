@@ -12,7 +12,7 @@
         successful!
     </motif-toast>
 
-    <section id="exceptionReports" *ngIf="tabs==1 && isExceptionDataReady">
+    <section id="exceptionReports" *ngIf="tabs==1">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc"
             rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig" (updatePageSize)="updatePageSize($event)"

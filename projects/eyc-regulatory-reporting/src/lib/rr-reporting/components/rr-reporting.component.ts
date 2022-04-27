@@ -75,7 +75,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   rowData = [];
   filingEntityRowData = [];
   exceptionRowData = [];
-  isExceptionDataReady: boolean = false;
   submitFunction;
   submitException;
   submitTest;
@@ -173,10 +172,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   getExceptionReports(resetData = false) {
     this.sort = resetData ? 'unResolved:false' : this.sort;
-    this.isExceptionDataReady = false;
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
-      this.isExceptionDataReady = true;
       this.exceptionDataForFilter = this.exceptionData;
       this.totalRecords = res['totalRecords'];
       console.log(this.exceptionData);
@@ -384,7 +381,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           pinned: 'left',
           filter: false,
           cellStyle: params => 
-          (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
+          (this.checkFilingCompletedStatus()) ?  
               {'pointer-events': 'none'}
               : ''        
         },
