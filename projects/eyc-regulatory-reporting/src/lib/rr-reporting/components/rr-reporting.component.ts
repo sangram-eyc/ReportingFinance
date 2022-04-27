@@ -674,6 +674,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.exceptionReportRows = [];
       this.filingService.invokeFilingDetails();
       this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      this.getExceptionReports();
       setTimeout(() => {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       }, 5000);
@@ -965,6 +966,7 @@ actionMenuEnableforException(row) {
           this.exceptionReportRows = [];
           this.filingService.invokeFilingDetails();
           this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          this.getExceptionReports();
           setTimeout(() => {
             this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           }, 5000);

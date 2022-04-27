@@ -164,7 +164,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
-    this.sort = resetData ? 'exceptionReportName:true' : this.sort;
+    this.sort = resetData ? 'unResolved:false' : this.sort;
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
@@ -650,6 +650,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       this.exceptionReportRows = [];
       this.filingService.invokeFilingDetails();
       this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
+      this.getExceptionReports();
       setTimeout(() => {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       }, 5000);
@@ -937,6 +938,7 @@ actionMenuEnableforException(row) {
           this.exceptionReportRows = [];
           this.filingService.invokeFilingDetails();
           this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+          this.getExceptionReports();
           setTimeout(() => {
             this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
           }, 5000);
