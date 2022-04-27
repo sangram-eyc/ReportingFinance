@@ -178,5 +178,29 @@ setToken = (value) => {
   get getModulePermissiongData() {
     return this.moduleLevelPermission;
   }
+
+  public extentToken() {
+		this.oauthService.silentRefresh()
+			.then(info => {
+				console.log('refresh ok', info);
+				if (this.oauthService.getAccessToken()) {
+					this.getExtendedAccessToken();
+				}
+			})
+			.catch(err => console.log('refresh error', err));
+	}
+
+	public getExtendedAccessToken() {
+		console.log('inside getAccessToken');
+		console.log(this.oauthService.getAccessToken());
+		this.setToken(this.oauthService.getAccessToken());
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+	}
+
+  public login() {
+		// console.log('inside login');
+			this.oauthService.initImplicitFlow();
+		
+  }
 }
 
