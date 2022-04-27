@@ -21,7 +21,7 @@ export class OauthService {
 		
 	this.oauthService.configure(authConfig);
 	// this.refreshToken()
-    // this.oauthService.setupAutomaticSilentRefresh();
+    this.oauthService.setupAutomaticSilentRefresh();
 	this.oauthService.tryLogin({});
 	
     if (this.oauthService.getAccessToken()) {
@@ -87,7 +87,7 @@ export class OauthService {
 			.then(info => {
 				console.log('refresh ok', info);
 				if (this.oauthService.getAccessToken()) {
-					this.getAccessToken();
+					this.getExtendedAccessToken();
 				}
 			})
 			.catch(err => console.log('refresh error', err));

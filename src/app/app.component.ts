@@ -1,8 +1,8 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Subject } from 'rxjs';
+import { Subject, Subscription, timer } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { ModuleLevelPermissionService } from './services/module-level-permission.service';
 import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
@@ -19,7 +19,7 @@ import { OauthService } from './login/services/oauth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit {
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, OnDestroy {
   title = 'eyc-ServiceEngine-UI';
   timeoutId;
   count = 0;
@@ -50,6 +50,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   pendingDownloadsNew: any;
   timeoutWarnDownloads;
 
+  countDown: Subscription;
+  counter = 18000;
+  tick = 1000;
+  
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -64,7 +68,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     
   ) {
     // To hide header and footer from login page
-
+    console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
+    if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
+      this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
+    }
+    this.sessionTimeOut()
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -107,9 +115,16 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.oauthSvc.extentToken();
-      // this.settingsService.logoff();
-      // this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+      sessionStorage.setItem("sessionTimeOut", sessionStorage.getItem("inActivityTime"));
+      if(result.button == 'Extend session') {
+        this.oauthSvc.extentToken();
+      } if(result.button == 'Log out') {
+        this.settingsService.logoff();
+        this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+      } if(result.button == 'Log in') {
+        this.oauthSvc.login();
+      }
+      
     });
   }
 
@@ -303,6 +318,22 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }
   }
 
+  sessionTimeOut() {
+    if (this.settingsService.isUserLoggedin()) {
+      this.countDown = timer(0, this.tick).subscribe(() => {
+        if (this.counter == 0) {
+          this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
+          return;
+        } else {
+          --this.counter
+          let sessionCounter = this.counter*1000;
+          sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
+        }
+
+      });
+    }
+  }
+
   openPendingDownloadsTaxModal(header, description) {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
       width: '400px',
@@ -354,5 +385,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.wsBulkService.openConection(sessionStorage.getItem('userEmail'));
       }
     }, 100);
+  }
+
+  ngOnDestroy() {
+    this.countDown = null;
+    let sessionCounter = this.counter*1000;
+    sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
   }
 }
