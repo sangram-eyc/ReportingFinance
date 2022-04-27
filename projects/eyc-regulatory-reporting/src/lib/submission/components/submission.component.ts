@@ -356,7 +356,8 @@ export class SubmissionComponent implements OnInit {
       if (result.button == 'Yes') {
         this.service.completeFiling(this.filingDetails.filingId).subscribe(resp => {
           this.filingService.invokeFilingDetails();
-          this.filingDetails.status[4].progress = 'COMPLETED';
+          let subStageIndex = this.filingDetails.status.findIndex(x => x.stageCode === "SUBMISSION");
+          this.filingDetails.status[subStageIndex].progress = 'COMPLETED';
           this.filingStatusChangeMsg = 'Filing has been completed';
           this.enableComplete = true;
           this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
