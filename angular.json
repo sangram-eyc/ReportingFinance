@@ -501,6 +501,46 @@
         }
       }
     },
+    "eyc-european-fund-reporting": {
+      "projectType": "library",
+      "root": "projects/eyc-european-fund-reporting",
+      "sourceRoot": "projects/eyc-european-fund-reporting/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/eyc-european-fund-reporting/tsconfig.lib.json",
+            "project": "projects/eyc-european-fund-reporting/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/eyc-european-fund-reporting/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/eyc-european-fund-reporting/src/test.ts",
+            "tsConfig": "projects/eyc-european-fund-reporting/tsconfig.spec.json",
+            "karmaConfig": "projects/eyc-european-fund-reporting/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/eyc-european-fund-reporting/tsconfig.lib.json",
+              "projects/eyc-european-fund-reporting/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "eyc-expense-reporting": {
       "projectType": "library",
       "root": "projects/eyc-expense-reporting",

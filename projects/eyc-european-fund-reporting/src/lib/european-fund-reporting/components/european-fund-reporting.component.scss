@@ -1,0 +1,53 @@
+.page-wrapper {
+    margin-top: 30px;
+
+
+    .heading_4 {
+        font-family: EYInterstate;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 32px;
+        letter-spacing: 0px;
+        text-align: left;
+    }
+
+    .description {
+        font-family: EYInterstate;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 24px;
+        letter-spacing: 0px;
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .link {
+        font-family: EYInterstate;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+        margin-top: 24px;
+    }
+
+    .btn_default {
+        display: flex;
+        flex-direction: row;
+        padding: 11px 32px;
+        background: #2E2E38;
+        margin: 39px 0px;
+        color: white;
+        border:none
+    }
+
+    .custom_svg {
+        height: 264px;
+        width: 394px;
+        left: 1013px;
+        top: 94px;
+        border-radius: 0px;
+        margin-top: 8px;
+        margin-left: -20px;
+    }
+}

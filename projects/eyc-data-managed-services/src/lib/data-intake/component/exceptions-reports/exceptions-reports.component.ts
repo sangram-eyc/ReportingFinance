@@ -74,6 +74,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionReportDetails = "";
   exceptionFileName: string = "";
   isLoading = true;
+  fileName="Files";
 
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService, private routingState: RoutingStateService) {
@@ -150,6 +151,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
 
 if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA_DOMAIN){
   this.isDataIntaketype=true;
+  this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
   if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
     this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
   }
@@ -159,6 +161,7 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
       this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
   }
   else{
+    this.fileName="Files";
     this.isDataIntaketype=false;
   }
     this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));

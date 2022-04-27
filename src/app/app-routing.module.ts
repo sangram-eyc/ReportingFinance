@@ -43,6 +43,7 @@ import { AdminRegulatoryReportingComponent } from 'projects/eyc-admin/src/lib/ad
 import { EycTeamDetailsComponent } from 'projects/eyc-admin/src/lib/admin-regulatory-reporting/eyc-team-details/eyc-team-details.component';
 import { UserDetailsComponent } from 'projects/eyc-admin/src/lib/user-details/components/user-details.component';
 import { UpdateFilingPropertiesComponent } from 'projects/eyc-admin/src/lib/static-data/update-filing-properties/components/update-filing-properties.component';
+import { EuropeanFundReportingComponent } from '../../projects/eyc-european-fund-reporting/src/lib/european-fund-reporting/components/european-fund-reporting.component'
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -83,6 +84,7 @@ const routes: Routes = [
   {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },
   {path: 'data-managed-services/files/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
   {path: 'data-managed-services/data-intake/:dataIntakeType', component: DonutGridListComponent, canActivate : [AuthGuardService] },
+  {path: 'european-fund-reporting', component: EuropeanFundReportingComponent, canActivate : [AuthGuardService]},
   {path: '**', component: LoginComponent},
 ];
 

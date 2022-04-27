@@ -22,6 +22,7 @@ import { colorSets, Color } from 'eyc-charts-shared-library';
 export class ExceptionsComponent implements OnInit {
   previousRoute: string;
   routeHistory: any;
+  fileName:string;
   filereviewUrl: string;
   isDataIntaketype: boolean = false;
   dataIntakeTypeDisplay: object;
@@ -149,6 +150,7 @@ export class ExceptionsComponent implements OnInit {
 
     if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
       this.isDataIntaketype = true;
+      this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
       if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
       }
@@ -157,11 +159,12 @@ export class ExceptionsComponent implements OnInit {
       }
       this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
     }
-    else if (routePart == "files") {
+    else if (routePart == "files" || routeArray[2]=="files") {
       const urlPartArray=this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
-      const urlPart=urlPartArray[urlPartArray.length - 2]
+      const urlPart=urlPartArray[urlPartArray.length - 2];
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
+        this.fileName=decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
         if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -171,13 +174,17 @@ export class ExceptionsComponent implements OnInit {
         this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
       }
       else {
+        this.fileName="Files";
         this.isDataIntaketype = false;
       }
+    }else if((routeArray[routeArray.length - 1])=="files-review"){
+      this.isDataIntaketype = false;
+      this.fileName="Files";
     }
     else {
       this.isDataIntaketype = false;
     }
-      this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
   }
 
   ngAfterViewInit(): void {
@@ -300,7 +307,7 @@ export class ExceptionsComponent implements OnInit {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
-          sortable: false,
+          sortable: true,
           filter: false,
           minWidth: 200,
           wrapText: false,
