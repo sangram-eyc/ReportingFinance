@@ -70,17 +70,16 @@
 <div class="motif-row">
     <div *ngFor="let item of dataList | async; index as i"
         class="motif-col-xs-4 motif-col-sm-4 motif-col-md-4 motif-col-lg-4 motif-col-xl-4 mb-3">
-        <motif-card class="chart-card no_data" [ngClass]="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0) ? 'warning-border':''">
-            <motif-card-body>
+        <motif-card class="chart-card no_data">
+            <motif-card-body [ngClass]="(item.fastFilters[3].lable=='high') && (item.fastFilters[3].value > 0) ? 'warning-border':'white-border'">
                 <div class="chart-panel">
                     <div class="chart-header">
-                        <div>
-                            {{item.dataIntakeName}}
+                        <div  class="w-50">{{item.dataIntakeName}}
                             <span class="file-count"> {{item.dataIntakeCount}} {{ (item.dataIntakeCount==1) ? 'File' : 'Files' }}
                             </span>
                         </div>
                         <div class="box-center">
-                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[2].lable=='high') && (item.fastFilters[2].value > 0)">info</i>
+                            <i class="material-icons iWarning mr-2 warning-info" *ngIf="(item.fastFilters[3].lable=='high') && (item.fastFilters[3].value > 0)">info</i>
                             <button motifButton color="secondary" size="fluid" class="btn-secondary" (click)="viewCardDetail(item)" >View</button>
                         </div>
                     </div>

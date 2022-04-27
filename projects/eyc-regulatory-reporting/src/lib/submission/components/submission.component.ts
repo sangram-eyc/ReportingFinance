@@ -1,10 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SubmissionService } from '../../submission/services/submission.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import * as FileSaver from 'file-saver';
-import {customComparator} from '../../config/rr-config-helper';
-import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
+import {customComparator, rr_module_name} from '../../config/rr-config-helper';
+import { ModalComponent, PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { DotsCardComponent } from './../../shared/dots-card/dots-card.component'
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
@@ -25,6 +25,8 @@ export class SubmissionComponent implements OnInit {
   statusTemplate: TemplateRef<any>;
   @ViewChild('lastUpdatedByTemplate')
   lastUpdatedByTemplate: TemplateRef<any>;
+  @ViewChild('commentTemplate')
+  commentTemplate: TemplateRef<any>
   updateStatusModal= false;
   updateStatusForm: FormGroup;
   updateSubmissionStatusList = [];
@@ -34,8 +36,14 @@ export class SubmissionComponent implements OnInit {
   showAuditLog = false;
   isAuditlogs = false;
   fileDetail;
+  showComments = false;
+  commentsName;
+  commentEntityType;
+  entityId;
   
   auditLogs = [];
+
+  moduleOriginated = rr_module_name;
 
   exportHeaders: string;
   exportURL;
@@ -76,7 +84,7 @@ export class SubmissionComponent implements OnInit {
   pageChangeFunc;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   defaultColDef;
@@ -207,7 +215,7 @@ export class SubmissionComponent implements OnInit {
   resetData() {
     this.getSubmissionRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getXmlFilesList(resetData = false) {
@@ -303,7 +311,20 @@ export class SubmissionComponent implements OnInit {
           filter:true,
           width: 350,
           comparator: this.disableComparator
-        }
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentTemplate,
+          },
+          headerName: 'Comments',
+          field: 'commentsCount',
+          sortable: true,
+          filter: true,
+          width: 155,
+          comparator: this.disableComparator
+        },
       ];
       this.subRowData = this.rowData;
     }, 1);
@@ -335,7 +356,8 @@ export class SubmissionComponent implements OnInit {
       if (result.button == 'Yes') {
         this.service.completeFiling(this.filingDetails.filingId).subscribe(resp => {
           this.filingService.invokeFilingDetails();
-          this.filingDetails.status[4].progress = 'COMPLETED';
+          let subStageIndex = this.filingDetails.status.findIndex(x => x.stageCode === "SUBMISSION");
+          this.filingDetails.status[subStageIndex].progress = 'COMPLETED';
           this.filingStatusChangeMsg = 'Filing has been completed';
           this.enableComplete = true;
           this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
@@ -491,7 +513,11 @@ export class SubmissionComponent implements OnInit {
   exportSubmissionData(){
     console.log('GRID API', this.gridApi);
     this.exportHeaders = '';
-    this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy: Last updated by';
+    if(this.permissions.validatePermission('Submission', 'View Comments')) {
+      this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy:Last updated by,commentsCount:Comments';
+    } else {
+      this.exportHeaders = 'fileName:File Name,status:Status,dateSubmitted:Status Changed,updatedBy:Last updated by';
+    }
     this.exportURL = this.settingsService.regReportingFiling.submission_xml_files + "?filing=" + this.filingName + "&period=" + this.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     this.service.exportSubmissionData(this.exportURL).subscribe(resp => {
       console.log(resp);
@@ -516,6 +542,73 @@ export class SubmissionComponent implements OnInit {
     });
     console.log(results);
     return results
+  }
+
+  addComment(row) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
+        entityId: row.fileId,
+        entityType: "SUBMISSION_FILE",
+        moduleOriginated: rr_module_name,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data:[
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails:{
+            label:"Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        console.log(obj);
+        this.rowData[this.rowData.findIndex(item => item.fileId === row.fileId)].commentsCount = 1;
+        this.getSubmissionRowData();
+      } else {
+        console.log(result);
+      }
+    });
+  }
+
+  openComments(row) {
+     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
+      this.commentEntityType = 'SUBMISSION_FILE';
+      this.entityId = row.fileId;
+     this.showComments = true;
+  }
+
+  commentAdded() {
+    this.getXmlFilesList();
   }
 
 }

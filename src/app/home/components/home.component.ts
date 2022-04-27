@@ -50,6 +50,8 @@ export class HomeComponent implements OnInit {
           this.permissionList('Tax Reporting');
         } else if (res['data'].userModules.hasOwnProperty('Data Managed Services')) {
           this.permissionList('Data Managed Services');  // DMS Permission
+        }else if (res['data'].userModules.hasOwnProperty('European Fund Reporting')) {
+          this.permissionList('European Fund Reporting'); 
         } else {
           this.navigation();
         }
@@ -107,6 +109,9 @@ export class HomeComponent implements OnInit {
 
       } else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('Data Managed Services')) {  // DMS Navigation
         HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/data-managed-services']);
+
+      }else if (this.moduleLevelPermissionData.userModules.hasOwnProperty('European Fund Reporting')) {
+        HIDE_HOME_PAGE ? this.router.navigate(['/home']) : this.router.navigate(['/european-fund-reporting']);
 
       } else {
         this.router.navigate(['/home']);

@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiDonutSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { SmallDonutChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
 import { Observable, of } from 'rxjs';
+import { RoutingStateService } from '../../services/routing-state.service';
 
 @Component({
   selector: 'lib-donut-grid-list',
@@ -74,7 +75,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService,
-    private _activatedroute: ActivatedRoute, private _router: Router) {
+    private _activatedroute: ActivatedRoute, private _router: Router,
+    private routingState: RoutingStateService) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
@@ -394,7 +396,7 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   viewCardDetail(item) {
     if (item && item.dataIntakeName) {
-      this._router.navigate([ROUTE_URL_CONST.FILE_REVIEW_URL, this.dataIntakeType, item.dataIntakeName]);
+      this._router.navigate([ROUTE_URL_CONST.FILE_REVIEW_URL, this.dataIntakeType, this.routingState.jsEncodeURI(item.dataIntakeName.trim())]);
     }
   }
 

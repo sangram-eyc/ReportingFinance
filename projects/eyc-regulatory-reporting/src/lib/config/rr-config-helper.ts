@@ -55,3 +55,6 @@ export const customCompareStrIntMix = (valueA, valueB) => {
 
 /*Export Button Constatnt */
 export const IS_ALL_EXCEPTION = false;
+
+
+export const rr_module_name = 'Regulatory Reporting';

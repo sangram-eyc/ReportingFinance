@@ -5,7 +5,7 @@ import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { customComparator, customCompareStrIntMix } from '../../config/rr-config-helper';
-import { PermissionService } from 'eyc-ui-shared-component';
+import { PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { letProto } from 'rxjs-compat/operator/let';
@@ -46,7 +46,7 @@ export class FundScopingComponent implements OnInit {
   onSubmitApproveFund;
   currentPage = 0;
   totalRecords = 5;
-  pageSize = 10;
+  pageSize = DEFAULT_PAGE_SIZE;
   filter = '';
   sort = '';
   pageChangeFunc;
@@ -114,7 +114,7 @@ export class FundScopingComponent implements OnInit {
   resetData() {
     this.createFundRowData();
     this.currentPage = 0;
-    this.pageSize = 10;
+    this.pageSize = DEFAULT_PAGE_SIZE;
   }
 
   getFundsData(resetData = false) {
