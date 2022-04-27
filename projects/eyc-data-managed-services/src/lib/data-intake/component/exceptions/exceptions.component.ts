@@ -293,6 +293,24 @@ export class ExceptionsComponent implements OnInit {
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
+          },
+          valueGetter: function (params) {
+            switch (params.data.priority) {
+              case FILTER_TYPE.NO_ISSUES:
+                return FILTER_TYPE_TITLE.noIssues;
+              case FILTER_TYPE.LOW:
+                return FILTER_TYPE_TITLE.low;
+              case FILTER_TYPE.MEDIUM:
+                return FILTER_TYPE_TITLE.medium;
+              case FILTER_TYPE.HIGH:
+                return FILTER_TYPE_TITLE.high;
+              case FILTER_TYPE.MISSING_FILES:
+                return FILTER_TYPE_TITLE.missingFiles;
+              case FILTER_TYPE.FILE_NOT_RECIEVED:
+                return FILTER_TYPE_TITLE.fileNotReceived;
+              default:
+                break;
+            }
           }
         },
         // {
