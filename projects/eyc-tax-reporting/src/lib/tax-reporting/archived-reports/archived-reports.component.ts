@@ -82,9 +82,9 @@ export class ArchivedReportsComponent implements OnInit {
     id: 0
   };
 
-  pastYear:any= (new Date()).getFullYear() - 1;
-  past2Year:any= (new Date()).getFullYear() - 2;
-  past3Year:any= (new Date()).getFullYear() - 3;
+  pastYear:any= (new Date()).getFullYear();
+  past2Year:any= (new Date()).getFullYear() - 1;
+  past3Year:any= (new Date()).getFullYear() - 2;
 
 
   ngOnInit(): void {
