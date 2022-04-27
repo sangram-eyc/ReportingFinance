@@ -1,5 +1,5 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
-    (filingStatusRes)="getFilingStatusDetails($event)"></lib-dots-card>
+    (filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
 
@@ -118,3 +118,16 @@
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
 </motif-toast>
+
+<motif-modal [show]="showIntakeModal" (close)="showIntakeModal = false" size="small">
+    <motif-modal-header>
+      Mark intake complete
+    </motif-modal-header>
+    <motif-modal-body>
+      <p>Are you sure you want to mark filing complete?</p>
+    </motif-modal-body>
+    <motif-modal-footer>
+  <button motifButton color="primary-alt" class="mark-as-complete-btn" (click)="markAsCompleteClick()">Mark as complete</button>
+  <button motifButton color="secondary" (click)="showIntakeModal = false">Cancel</button>
+    </motif-modal-footer>
+  </motif-modal>

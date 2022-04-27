@@ -61,7 +61,7 @@ export class EycRrSettingsService {
       updateSubmissionStatus: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/submission-file/update' : this.API_ENDPOINT + 'regReportingCoreService/api/v2/regreporting/submission-file/update',
       viewFilingEntityException: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity/exception-details' : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/filingEntityException.json',
       audit_log: this.rrproduction ? this.API_ENDPOINT + "gatewayService/api/v2/audit/ext/audit-log" : this.API_ENDPOINT + 'assets/eyc-regulatory-reporting/mock/audit_log.json',
-      
+      mark_intake_complete: this.rrproduction ? this.API_ENDPOINT + "gatewayService/api/v2/regreporting/filing/stage/" : this.API_ENDPOINT + "gatewayService/api/v2/regreporting/filing/stage/"
     }
 
     return regulatory_Reporting;

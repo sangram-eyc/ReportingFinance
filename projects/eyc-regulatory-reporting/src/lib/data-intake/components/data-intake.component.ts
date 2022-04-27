@@ -94,7 +94,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
   pageChangeFunc;
   moduleOriginated = rr_module_name;
-  
+  showIntakeModal = false;
+  intakeStageCompleted = false;
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -675,6 +676,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getFilingStatusDetails(event: any) {
     let stage = event.find(item => item.stageCode == "DATA_INTAKE")
+    this.intakeStageCompleted = stage.progress == "COMPLETED" ? true : false;
     this.filingStatusStageId = stage.stageId
   }
 
@@ -778,5 +780,15 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     })
 
   }
+
+  markAsCompleteClick(){
+    let filingName  =this.filingDetails.filingName;
+    let period = this.filingDetails.period;
+    let stage = 'DATA_INTAKE';
+   this.service.markDatantakeComplete(filingName,period,stage).subscribe((resp)=>{
+    this.filingService.invokeFilingDetails();
+    this.showIntakeModal = false;
+   });
+  }  
 
 }

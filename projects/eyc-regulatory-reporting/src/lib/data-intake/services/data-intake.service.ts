@@ -58,4 +58,8 @@ export class DataIntakeService {
   exportIntakeData(exportURL) {
     return this.apiService.invokeGetAPI(`${exportURL}`);
   }
+
+  markDatantakeComplete(filingName, period, stage){    
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.mark_intake_complete}COMPLETE?filingName=${filingName}&period=${period}&stage=${stage}`)
+  }
 }
