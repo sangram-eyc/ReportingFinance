@@ -46,12 +46,12 @@ export class ArchivedReportsComponent implements OnInit {
   totalFunds: TemplateRef<any>;
   @ViewChild('totalCommentsTemplate')
   totalComments: TemplateRef<any>;
-  @ViewChild('dueDateTemplate')
+ /*  @ViewChild('dueDateTemplate')
   dueDate: TemplateRef<any>;
   @ViewChild('dateSubmittedTemplate')
   dateSubmitted: TemplateRef<any>;
   @ViewChild('submittedbyTemplate')
-  submittedBy: TemplateRef<any>;
+  submittedBy: TemplateRef<any>; */
   @ViewChild('ActionsTemplate')
   Actions: TemplateRef<any>;
   @ViewChild('datasetsDropdownTemplate')
@@ -100,9 +100,9 @@ export class ArchivedReportsComponent implements OnInit {
           id: item.id,
           fundCount: item.fundCount != null ? item.fundCount : 0,
           totalComments: item.totalComments != null ? item.totalComments : 0,
-          dueDate:item.dueDate,
+    /*       dueDate:item.dueDate,
           dateSubmitted:item.dateSubmitted,
-          submittedBy:item.submittedBy,
+          submittedBy:item.submittedBy, */
           year: item.year
 
         };
@@ -121,9 +121,9 @@ export class ArchivedReportsComponent implements OnInit {
         id: reportRow.id,
         fundCount: reportRow.fundCount,
         totalComments: reportRow.totalComments,
-        dueDate:reportRow.dueDate,
+    /*     dueDate:reportRow.dueDate,
         dateSubmitted:reportRow.dateSubmitted,
-        submittedBy:reportRow.submittedBy
+        submittedBy:reportRow.submittedBy */
       })
     });
     this.columnDefs = [
