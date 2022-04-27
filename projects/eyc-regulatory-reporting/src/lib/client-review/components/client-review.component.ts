@@ -386,7 +386,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           pinned: 'left',
           filter: false,
           cellStyle: params => 
-          (this.filingDetails.status[4].progress === null || this.filingDetails.status[4].progress === 'COMPLETED' || this.filingDetails.status[4].progress === 'Completed') ?  
+          (this.checkFilingCompletedStatus()) ?  
               {'pointer-events': 'none'}
               : ''
         },
