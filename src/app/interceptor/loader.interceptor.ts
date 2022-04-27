@@ -19,9 +19,9 @@ export class LoaderInterceptor implements HttpInterceptor {
             finalize(() => {
                 this.count--;
                 if (this.count === 0) {
-                    setTimeout(() => {
+                    // setTimeout(() => {
                         this.loaderService.hide();                        
-                    }, 2000);
+                    // }, 2000);
                 }
             })
 

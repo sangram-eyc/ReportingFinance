@@ -10,6 +10,7 @@ export class LoaderService {
         this.isLoading.next(true);
     }
     hide() {
+        console.log("File Review Loader End", new Date().toISOString());
         this.isLoading.next(false);
     }
 }

@@ -182,6 +182,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
+    console.log("File Review Page constructor", new Date().toISOString());
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
@@ -208,6 +209,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log("File Review Page Init", new Date().toISOString());
     this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
@@ -250,6 +252,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    console.log("File Review ngAfterViewInit", new Date().toISOString());
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
       dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
@@ -367,9 +370,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
+    console.log("File Review Grid API Call Started", new Date().toISOString());
     this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
+      console.log("File Review Grid API Call End", new Date().toISOString());
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -419,11 +424,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
             ngTemplate: this.threeDotFunctionTooltip
           },
           valueGetter: function (params) {
-            if ((params.data.functions).length > 4) {
-              return (params.data.functions).substr(0, 4) + ' ...'
-            } else {
-              return params.data.functions
-            }
+            return params.data.functions;
           }
         },
         {
@@ -436,6 +437,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           wrapText: true,
           autoHeight: true,
           cellStyle: function (params) {
+            console.log("File Review cellStyle Started", new Date().toISOString());
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               return { color: 'red' }
             } else {
@@ -443,6 +445,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
             }
           },
           valueGetter: function (params) {
+            console.log("File Review valueGetter Started", new Date().toISOString());
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               const date1 = new Date(params.data.dueDate);
               const date2 = new Date();
@@ -455,12 +458,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
               // Calculating the no. of days between two dates
               const diffInDays = Math.round(diffInTime / oneDay);
-
+              console.log("File Review valueGetter Ended", new Date().toISOString());
               return "-"+diffInDays+" Days";
+              
             } else if(params.data.dueDate) {
+              console.log("File Review valueGetter Ended", new Date().toISOString());
               return params.data.dueDate;
             }
             else {
+              console.log("File Review valueGetter Ended", new Date().toISOString());
               return '--'
             }
           }
@@ -518,6 +524,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
+    console.log("File Review Grid Ready", new Date().toISOString());
   };
 
   updatePaginationSize(newPageSize: number) {
@@ -621,23 +628,27 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)-
+    console.log("File Review Summary API Call Started", new Date().toISOString());
     this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
     this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
     this.dataList = [];
     if (this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
         this.manipulateStatusWithReviewByGroup(reviewData.data);
+        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     } else {
       this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
         this.dataList = dataProvider.data[0]['totalSeriesItem'];
         this.totalFileCount = dataProvider.data[0]['totalCount'];
         this.manipulateStatusWithResponse(this.dataList);
+        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     }
   }
 
   manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
+    console.log("File Review manipulateStatusWithResponse Start", new Date().toISOString());
     // Manipulate fetch-data as per status
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     const stackBarChart = [];
@@ -677,9 +688,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       })
     }
     this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
+    console.log("File Review manipulateStatusWithResponse End", new Date().toISOString());
   }
 
   manipulateStatusWithReviewByGroup(fetchData: ApiReviewByGroupSeriesItemDTO[]) {
+    console.log("File Review manipulateStatusWithReviewByGroup Start", new Date().toISOString());
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     let stackBarChartDataReviewByGroup = fetchData.map((fData) => {
       fData.fastFilters.map((fDataSeries) => {
@@ -698,6 +711,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.fileSummariesObject = cloneFileSummury;
     this.stackBarChartData = stackBarChartDataReviewByGroup as StackChartSeriesItemDTO[];
     this.totalFileCount = this.stackBarChartData.length;
+    console.log("File Review manipulateStatusWithReviewByGroup End", new Date().toISOString());
   }
 
   mapBarChartDataWithKey(fData: any): BarChartSeriesItemDTO[] {
