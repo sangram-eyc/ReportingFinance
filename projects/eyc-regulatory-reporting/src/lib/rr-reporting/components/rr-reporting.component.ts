@@ -171,7 +171,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
-    this.sort = resetData ? 'unResolved:false' : this.sort;
+    this.sort = resetData ? 'unresolved:false' : this.sort;
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
