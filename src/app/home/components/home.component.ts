@@ -75,10 +75,11 @@ export class HomeComponent implements OnInit {
     try {
       const res = await this.concurrentSessionsService.addSessionId(body)
       if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-        this.settingsService.logoff()
+        //this.settingsService.logoff()
+        console.log('session id -->',res['data'].id);
       }
       else {
-        sessionStorage.setItem('session_id', res['data'].id)
+        sessionStorage.setItem('session_id', res['data'].id);
       }
     } catch (err) {
       // request failed
