@@ -145,7 +145,7 @@ export class ArchivedReportsComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.taxReportName,
         },
-        headerName: 'Tax Report Name',
+        headerName: 'Tax report name',
         field: 'name',
         sortable: true,
         filter: true,
@@ -159,7 +159,7 @@ export class ArchivedReportsComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.totalFunds,
         },
-        headerName: 'Total Funds',
+        headerName: 'Total funds',
         field: 'fundCount',
         sortable: true,
         filter: true,
