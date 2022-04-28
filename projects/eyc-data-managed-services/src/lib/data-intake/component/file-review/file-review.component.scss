@@ -8,6 +8,15 @@
   }
 }
 
+.ag-cell-wrapper {
+  overflow: hidden;
+}
+// fixing the header ellipsis & icon collapsing
+.motif-table-header-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .monthly-date-ui {
   min-height: 30px;
   display: flex;

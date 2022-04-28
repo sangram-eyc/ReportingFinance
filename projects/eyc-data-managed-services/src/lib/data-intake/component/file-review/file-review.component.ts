@@ -422,9 +422,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.threeDotFunctionTooltip
-          },
-          valueGetter: function (params) {
-            return params.data.functions;
           }
         },
         {
@@ -436,38 +433,37 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           minWidth: 100,
           wrapText: true,
           autoHeight: true,
+          cellRenderer: (params) =>{
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+                  const date1 = new Date(params.data.dueDate);
+                  const date2 = new Date();
+    
+                  // One day in milliseconds
+                  const oneDay = 1000 * 60 * 60 * 24;
+    
+                  // Calculating the time difference between two dates
+                  const diffInTime = date2.getTime() - date1.getTime();
+    
+                  // Calculating the no. of days between two dates
+                  const diffInDays = Math.round(diffInTime / oneDay);
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return "-"+diffInDays+" Days";
+                  
+                } else if(params.data.dueDate) {
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return params.data.dueDate;
+                }
+                else {
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return '--'
+                }
+              },
           cellStyle: function (params) {
             console.log("File Review cellStyle Started", new Date().toISOString());
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               return { color: 'red' }
             } else {
               return true;
-            }
-          },
-          valueGetter: function (params) {
-            console.log("File Review valueGetter Started", new Date().toISOString());
-            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
-              const date1 = new Date(params.data.dueDate);
-              const date2 = new Date();
-
-              // One day in milliseconds
-              const oneDay = 1000 * 60 * 60 * 24;
-
-              // Calculating the time difference between two dates
-              const diffInTime = date2.getTime() - date1.getTime();
-
-              // Calculating the no. of days between two dates
-              const diffInDays = Math.round(diffInTime / oneDay);
-              console.log("File Review valueGetter Ended", new Date().toISOString());
-              return "-"+diffInDays+" Days";
-              
-            } else if(params.data.dueDate) {
-              console.log("File Review valueGetter Ended", new Date().toISOString());
-              return params.data.dueDate;
-            }
-            else {
-              console.log("File Review valueGetter Ended", new Date().toISOString());
-              return '--'
             }
           }
         },
@@ -485,9 +481,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
             ngTemplate: this.threeDotExceptionsTooltip
           },
           valueGetter: function (params) {
+            debugger;
             if (params.data.exceptions) {
+              debugger;
               return params.data.exceptions
             } else {
+              debugger;
               return '--'
             }
           }
