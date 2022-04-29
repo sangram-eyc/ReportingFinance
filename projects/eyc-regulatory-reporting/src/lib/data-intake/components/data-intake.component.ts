@@ -784,7 +784,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   markAsCompleteClick(){
     let filingName  =this.filingDetails.filingName;
     let period = this.filingDetails.period;
-    let stage = 'DATA_INTAKE';
+    let stage = 'Intake';
    this.service.markDatantakeComplete(filingName,period,stage).subscribe((resp)=>{
     this.filingService.invokeFilingDetails();
     this.showIntakeModal = false;

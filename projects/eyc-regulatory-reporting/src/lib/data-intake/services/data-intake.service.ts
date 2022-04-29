@@ -60,6 +60,6 @@ export class DataIntakeService {
   }
 
   markDatantakeComplete(filingName, period, stage){    
-    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.mark_intake_complete}COMPLETE?filingName=${filingName}&period=${period}&stage=${stage}`)
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.mark_intake_complete}complete?filingName=${filingName}&period=${period}&stage=${stage}`)
   }
 }
