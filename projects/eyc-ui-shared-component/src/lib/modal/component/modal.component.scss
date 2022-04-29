@@ -116,3 +116,12 @@
       display: none !important;
   }
 }
+
+::ng-deep {
+  .modal-title svg {
+     display: inline-block !important;
+     position: relative !important;
+     top: -3px !important;
+    }
+} 
+

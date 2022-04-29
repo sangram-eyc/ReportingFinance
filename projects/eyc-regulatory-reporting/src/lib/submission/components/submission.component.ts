@@ -611,4 +611,41 @@ export class SubmissionComponent implements OnInit {
     this.getXmlFilesList();
   }
 
+  reopenFilling(){
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        type: "Confirmation",
+        header: `<svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 19H22L11 0L0 19ZM12 16H10V14H12V16ZM12 12H10V8H12V12Z" fill="#23232F"/>
+        </svg>
+         &nbsp; Reopen Filing`,
+        description: "Are you sure you want to reopen this filing? <br> *This action will allow you to make updates to submissin files",
+        footer: {
+          style: "start",
+          YesButton: "Yes",
+          NoButton: "Cancel"
+        }
+      }
+    });
+  
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result.button == 'Yes') {
+        this.service.reopenFiling(this.filingDetails.filingId).subscribe(resp => {
+          this.filingService.invokeFilingDetails();
+          let subStageIndex = this.filingDetails.status.findIndex(x => x.stageCode === "SUBMISSION");
+          this.filingDetails.status[subStageIndex].progress = 'In Progress';
+          /* this.enableComplete = true;
+          this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+          setTimeout(() => {
+            this.showToastAfterStatusChange = !this.showToastAfterStatusChange;
+          }, 5000); */
+        });
+      }
+    });
+
+  }
+
 }
