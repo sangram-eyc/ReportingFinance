@@ -1,0 +1,113 @@
+*:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .modal-title {
+       color: black;
+       margin: 0;
+      //  padding: 0 1.07143rem 0 0.82857rem;
+       font-size: 1.42857rem;
+       display: flex;
+       height: 24px;
+      line-height: 24px;
+       ::ng-deep .motif-icon {
+         margin-right: 8px;
+       }
+    }
+
+    .timer {
+      display: flex;
+      height: 20px;
+      margin-bottom: 10px;
+      ::ng-deep .motif-icon {
+        margin-right: 8px;
+      }
+    }
+    
+    .modal-header {
+      height: 51px;
+      background: none;
+      justify-content: space-between;
+      display: flex;
+      position: relative;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  
+    .close {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+      filter: alpha(opacity=50);
+      // right: -1rem;
+      position: relative;
+      height: 50px;
+      width: 50px;
+      font-size: 25px;
+    }
+  
+    button.close:hover {
+      background-color: var(--modal-header-border-color) !important;
+    }
+    
+    button.close {
+      -webkit-appearance: none;
+      padding: 0;
+      cursor: pointer;
+      background: 0 0;
+      border: 0;
+      left:14px;
+    }
+  
+    .modal-footer {
+      display: flex;
+      font-size: 16px;
+    }
+  
+    .start {
+      justify-content: flex-start;
+    }
+  
+    .end {
+      justify-content: flex-end;
+    }
+   
+    .motif-icon-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding: 0.2142857143rem;
+      transition: box-shadow var(--ease-in-out-fast);
+      color: var(--btn-icon-color);
+    }
+  
+    .modal-body{
+      padding: 2.14286rem 1.42857rem;
+      display: block;
+      overflow: auto;
+      .description-text {
+        margin-bottom: 16px;
+      }
+    }
+    b{
+      font-weight: 800;
+    }
+  
+    .approve-no  {
+      height: 32px;
+      font-family: EYInterstate !important;
+      font-style: normal !important;
+    }
+  
+    .approve-yes {
+      height: 32px;
+      font-family: EYInterstate !important;
+      font-style: normal !important;
+      width: 9.58571429rem !important;
+    }
+  
+    ::ng-deep  *:focus {
+      box-shadow: none !important;
+  }
+  

@@ -23,8 +23,8 @@ export class EycRrCommentApiService {
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.download}`, data);
   }
   
-  listComments(entityId, entityType) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityType+'/'+entityId+'/comments');
+  listComments(entityId, entityType, moduleOriginated) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.list_comments}`+entityType+'/'+entityId+'/comments?module='+moduleOriginated);
   }
 
   updateStatus(exceptionId,data,statusTo) {

@@ -5,6 +5,8 @@ import { CustomGlobalService } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { UpdateFilingService } from '../update-filing-properties/services/update-filing.service';
 import { PermissionService } from 'eyc-ui-shared-component';
+import * as commonConstants from '../../shared/common-contstants'
+
 @Component({
   selector: 'lib-static-data',
   templateUrl: './static-data.component.html',
@@ -90,11 +92,11 @@ export class StaticDataComponent implements OnInit, OnChanges {
 
   private _createAddFiling() {
     return this.formBuilder.group({
-      displayName: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\(\\)]*$'), Validators.maxLength(150), this.noWhitespaceValidator]],
+      displayName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].DISPLAY_NAME), Validators.maxLength(150), this.noWhitespaceValidator]],
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.maxLength(500), Validators.pattern('^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'),this.checkDuplicate.bind(this)]]
+      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]]
     });
   }
 
