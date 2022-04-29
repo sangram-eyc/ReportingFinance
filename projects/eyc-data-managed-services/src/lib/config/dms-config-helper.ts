@@ -140,7 +140,7 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'5058ea25-7a8c-4ea8-a5bb-1b24c6ffd189',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'3c01710b-ca8f-493b-98e6-fdf3ebc0f204',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'}
@@ -163,7 +163,7 @@ export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_Positions Lot level_Monthly',
     reportId:'4a2cc2ca-7471-4bad-814e-aab8e8278b53',reportDisplayName:'Positions Lot Level'},
 
-    {reportName:'DMS_TRP_CDM Account',reportId:'88d7ea4a-de3a-4ef0-be7a-07461464d6d1',reportDisplayName:'Account and Fund Hierarchy'},
+    {reportName:'DMS_TRP_CDM Account',reportId:'3c01710b-ca8f-493b-98e6-fdf3ebc0f204',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
