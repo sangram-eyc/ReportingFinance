@@ -362,7 +362,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   stringTrim(params, paramSize) {
     const newstr = params.replace(/\s+/g, ' ').trim();
-    if (newstr?.length > paramSize) {
+    if(!newstr){
+      return "--"
+    }
+    else if (newstr?.length > paramSize) {
       return (newstr).substr(0, paramSize) + '';
     } else {
       return newstr;
@@ -479,16 +482,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.threeDotExceptionsTooltip
-          },
-          valueGetter: function (params) {
-            debugger;
-            if (params.data.exceptions) {
-              debugger;
-              return params.data.exceptions
-            } else {
-              debugger;
-              return '--'
-            }
           }
         }, {
           headerComponentFramework: TableHeaderRendererComponent,
