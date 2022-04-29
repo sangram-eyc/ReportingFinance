@@ -405,7 +405,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Data Domain',
+          headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
           filter: true,
@@ -429,7 +429,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Due Date',
+          headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
           filter: true,
