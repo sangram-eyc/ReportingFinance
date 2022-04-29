@@ -788,7 +788,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
    this.service.markDatantakeComplete(filingName,period,stage).subscribe((resp)=>{
     this.filingService.invokeFilingDetails();
     this.showIntakeModal = false;
-   });
+   }, error => {
+    this.showIntakeModal = false;
+    console.log("mark Intake sign off error");
+  });
   }  
 
 }
