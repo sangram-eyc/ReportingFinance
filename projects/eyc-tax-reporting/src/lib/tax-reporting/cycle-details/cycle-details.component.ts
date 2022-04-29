@@ -541,13 +541,14 @@ export class CycleDetailComponent implements OnInit {
     });
   }
   openApprovalDialog(){
+    const fundsSelected = this.datasetsSelectedRows.length;
     const approvalDialog = this.dialog.open(ApproveFundModalComponent, {
       width: '550px',
       disableClose: true,
       hasBackdrop: true,
       data: {
         type: "Confirmation",
-        header: "Approve Selected",
+        header: "Approve (" + fundsSelected + " selected)",
         description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
         footer: {
           style: "start",
