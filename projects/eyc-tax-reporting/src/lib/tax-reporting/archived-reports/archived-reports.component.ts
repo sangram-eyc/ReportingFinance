@@ -299,10 +299,16 @@ export class ArchivedReportsComponent implements OnInit {
   }
 
   getReportYear(_id, _filterYear){
-    document.querySelectorAll('#archived-report .active').forEach((item) => {
-       item.classList.remove('active');
-    });
-    document.getElementById(_id).classList.add("active");
-    this.createHistoryRowData(_filterYear);
+    if(document.getElementById(_id).classList.contains('active')){
+      document.getElementById(_id).classList.remove('active');
+      this.createHistoryRowData(null);
+      
+    }else{
+      document.querySelectorAll('#archived-report .active').forEach((item) => {
+        item.classList.remove('active');
+     });
+      document.getElementById(_id).classList.add("active");
+      this.createHistoryRowData(_filterYear); 
+    }
    }
 }
