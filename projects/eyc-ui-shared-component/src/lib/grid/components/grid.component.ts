@@ -15,7 +15,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
-    SEARCH_INPUT_VALIDATION:/[A-Za-z0-9\-\.\<\$\%\*\>\(\)\_/ ]+/,
+    SEARCH_INPUT_VALIDATION:/^[a-zA-Z0-9!@#$&%*<>_()\\-`.+-?,/\"]*$/,
    }
   gridApi;
   params;
