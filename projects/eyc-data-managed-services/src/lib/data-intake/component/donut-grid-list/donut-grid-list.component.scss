@@ -232,18 +232,21 @@
     font-family: EYInterstate;
     font-size: 12px;
     margin-top: 16px;
+    width: 100%;
 
     .chart-container {
       padding: 0;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      width: 100%;
 
       .pie-chart {
         padding: 0;
-        min-width: 90px;
-        min-height: 90px;
-        margin-bottom: 22px;
+        max-width: 30%;
+        min-width:  6.588579795021962vw;//90px;
+        min-height: 14.4vh; //90px;
+        margin-bottom: 3.52vh; //22px;
         ::ng-deep .eyc-charts {
           text {
             fill: #747480 !important;
@@ -254,6 +257,7 @@
       .pie-legend {
         padding: 0;
         color: #2e2e38;
+        width: 65%;
 
         ul,li{
           padding: 0;
@@ -265,13 +269,21 @@
           flex-wrap: wrap;
           margin-bottom: 5px;
         }
+        .lable{
+          flex: none;
+        }
         .legend {
+          flex: none;
           width: 10px;
           height: 10px;
           margin-top: 4px;
           margin-right: 8px;
           border-radius: 50%;
-          justify-items: center;
+        }
+        .count{
+          flex: 1;
+          text-align: end;
+          padding-right: 8%;
         }
       }
       
