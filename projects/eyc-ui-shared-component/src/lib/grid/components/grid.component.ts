@@ -158,31 +158,62 @@ pageSize;
       this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
-    this.dataset = [{
-      disable: false,
-      value: this.paginationSize*2,
-      name: (this.paginationSize*2).toString(),
-      id: 0
-    },
-    {
-      disable: false,
-      value: this.paginationSize * 5,
-      name: (this.paginationSize * 5).toString(),
-      id: 1
-    },
-    {
-      disable: false,
-      value: this.paginationSize * 10,
-      name: (this.paginationSize * 10).toString(),
-      id: 2
-    }];
-  
-    this.currentlySelectedPageSize = {
-      disable: false,
-      value: this.paginationSize * 2,
-      name: (this.paginationSize * 2).toString(),
-      id: 0
-    };
+    if(this.pagination && !this.paginationApi){
+      this.dataset = [{
+        disable: false,
+        value: this.paginationSize,
+        name: (this.paginationSize).toString(),
+        id: 0
+      },
+      {
+        disable: false,
+        value: this.paginationSize*2,
+        name: (this.paginationSize*2).toString(),
+        id: 1
+      },
+      {
+        disable: false,
+        value: this.paginationSize*3,
+        name: (this.paginationSize*3).toString(),
+        id: 2
+      }];
+
+      this.currentlySelectedPageSize = {
+        disable: false,
+        value: this.paginationSize,
+        name: (this.paginationSize).toString(),
+        id: 0
+      };
+    }
+    else{
+      this.dataset = [{
+        disable: false,
+        value: this.paginationSize*2,
+        name: (this.paginationSize*2).toString(),
+        id: 0
+      },
+      {
+        disable: false,
+        value: this.paginationSize * 5,
+        name: (this.paginationSize * 5).toString(),
+        id: 1
+      },
+      {
+        disable: false,
+        value: this.paginationSize * 10,
+        name: (this.paginationSize * 10).toString(),
+        id: 2
+      }];
+
+      this.currentlySelectedPageSize = {
+        disable: false,
+        value: this.paginationSize * 2,
+        name: (this.paginationSize * 2).toString(),
+        id: 0
+      };
+    }
+
+
     this.prevPageSize = this.paginationSize;
     console.log('PAGINATION PAGE SIZE',this.currentlySelectedPageSize);
   }
