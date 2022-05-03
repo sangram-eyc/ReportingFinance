@@ -29,8 +29,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   exceptionDetailCellRendererParams;
   currentlySelectedPageSize = {
     disable: false,
-    value: 5,
-    name: '5',
+    value: 10,
+    name: '10',
     id: 0
   };
   @ViewChild('statusComment')
