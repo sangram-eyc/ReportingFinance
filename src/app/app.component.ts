@@ -136,12 +136,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     dialogRef.afterClosed().subscribe(result => {
       sessionStorage.setItem("sessionTimeOut", sessionStorage.getItem("inActivityTime"));
       if(result.button == 'Extend session') {
-        this.oauthSvc.extentToken();
+        this.settingsService.extentToken();
       } if(result.button == 'Log out') {
         this.settingsService.logoff();
         this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
       } if(result.button == 'Log in') {
-        this.oauthSvc.login();
+        this.settingsService.login();
       }
       
     });

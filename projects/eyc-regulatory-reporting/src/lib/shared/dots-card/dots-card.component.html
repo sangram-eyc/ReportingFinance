@@ -12,10 +12,15 @@
 </div>
 <div class="card-header-wrapper">
 
+  <div class="sub-header-wrapper">
     <div class="dots-header-container">
       <h2 class="motif-h2">{{filingName}} // {{period}}</h2>
       <span class="date-info"><motif-icon class="cust-date-motif-icon" [src]="'/assets/icons/action/ic_date_range_24px.svg'"></motif-icon>Due Date: {{dueDate  | date: 'M/d/yyyy' }}</span>
     </div>
+    <div *ngIf="permissionToPrimaryButton">
+      <button motifButton color="primary-alt" (click)="emitEventOnPrimaryButtonClick()" [disabled]="disablePrimaryButton" size="large">{{primaryButtonText}}</button>
+    </div>
+  </div>
 
  
     <div class="dots-container">
@@ -34,7 +39,6 @@
 
     
 </div>
-
 
 
 

@@ -30,6 +30,11 @@ export class SubmissionService {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.complete_filing}${filingId}/complete`)
   }
 
+  reopenFiling(filingId) {
+    return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.reopen_filing}${filingId}/reopen`)
+  }
+
+
   updateStatus(data) {
     return this.apiService.invokePutAPI(`${this.settingsService.regReportingFiling.updateSubmissionStatus}`, data);
   }

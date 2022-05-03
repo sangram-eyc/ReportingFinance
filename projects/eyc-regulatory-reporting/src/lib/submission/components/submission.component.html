@@ -1,7 +1,8 @@
 <lib-dots-card (filingDetails)="receiveFilingDetails($event)" (fileStatus)="getFileStatus($event)"></lib-dots-card>
 
 <div class="mark-button-comp">
-    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing')" motifButton color="primary" size="large" (click)="statusUpdateToComplete()" [disabled]= "enableComplete">Mark filing complete</button>
+    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing') && !enableComplete" motifButton color="primary" size="large" (click)="statusUpdateToComplete()">Mark filing complete</button>
+    <button *ngIf="checkFilingCompletedStatus() && permissions.validatePermission('Submission', 'Reopen Filing')" motifButton color="primary-alt" size="large" (click)="reopenFilling()">Reopen filing</button>
 </div>
 
 <motif-toast [type]="'success'" [show]="toastAfterExportInSubmission"

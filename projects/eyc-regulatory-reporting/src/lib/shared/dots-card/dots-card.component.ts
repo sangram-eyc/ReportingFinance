@@ -17,17 +17,20 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
     stage: 'Submission',
     progress: 'in-progress'
   };
-
+  @Input() permissionToPrimaryButton = false;
+  @Input() disablePrimaryButton = true;
+  @Input() primaryButtonText = "Mark complete"
   @Output() filingDetails = new EventEmitter<any>();
   @Output() fileStatus = new EventEmitter<any>();
   @Output() filingStatusRes = new EventEmitter<any>();
+  @Output() invokePrimaryButton = new EventEmitter<any>();
   ngUnsubscribe = new Subject()
   dueDate: string;
   filingName: string;
   period: string;
   filingId: number;
   states = [];
-
+  show = false;
   constructor(
     public router: Router,
     private filingService: RegulatoryReportingFilingService,
@@ -43,7 +46,6 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       this.filingId = this.filingService.getFilingData.filingId;
       this.filingDetails.emit(this.filingService.getFilingData);
       this.getFilingStatus();
-      this.getActiveFilings()
       this.filingService.dotcardStatusDetails.pipe(takeUntil(this.ngUnsubscribe)).subscribe(res => {
         this.getFilingStatus();
       });
@@ -52,25 +54,6 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
   }
-
-  getActiveFilings(){
-    let activeFilings = [];
-    this.filingService.getFilings().pipe().subscribe(resp => {
-      resp['data'].length>0 ? activeFilings=[...resp['data']] : activeFilings = []
-      this.checkFilingTest(activeFilings) ? '' : this.navigateToLandigPage()
-  });
-}
-
-checkFilingTest(activeFilings:any){
-  let res = activeFilings.some((el)=>{
-    return el.filingName == this.filingName
-  });
-  return res;
-}
-
-navigateToLandigPage(){
-  this.router.navigate(['/app-regulatory-filing'])
-}
 
   formatDate() {
     let due = new Date(this.dueDate);
@@ -284,6 +267,11 @@ navigateToLandigPage(){
 
   handleStepClick(pageUrl, enableRoute) { // For clickable steps
     if (!enableRoute) { this.router.navigate([pageUrl]); }
+  }
+
+
+  emitEventOnPrimaryButtonClick(){
+    this.invokePrimaryButton.emit();
   }
 
 }
