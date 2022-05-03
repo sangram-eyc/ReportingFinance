@@ -156,8 +156,8 @@ export class CycleDetailComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 5,
-    name: '5',
+    value: 10,
+    name: '10',
     id: 0
   };
 

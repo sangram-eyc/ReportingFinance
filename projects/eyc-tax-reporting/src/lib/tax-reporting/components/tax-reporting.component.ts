@@ -84,8 +84,8 @@ export class TaxReportingComponent implements OnInit {
   }];
   currentlySelectedPageSize = {
     disable: false,
-    value: 10,
-    name: '10',
+    value: 20,
+    name: '20',
     id: 0
   };
 
