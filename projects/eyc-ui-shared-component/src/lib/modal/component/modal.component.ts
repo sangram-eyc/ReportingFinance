@@ -66,6 +66,7 @@ export class ModalComponent implements OnInit {
         "comment": escape(this.modalForm.get('comment').value.trim()),
         "entityId": this.modalDetails.entityId,
         "entityType": this.modalDetails.entityType,
+        "moduleOriginated": this.modalDetails.moduleOriginated
       };
 
       this.commentService.addComment(commentObj).subscribe(res => {

@@ -8,6 +8,7 @@ import {authConfig} from '../login/helpers'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {authorization} from '../helper/api-config-helper';
 import { v4 as uuid } from 'uuid';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import { v4 as uuid } from 'uuid';
 export class SettingsService {
   authdetails;
   moduleLevelPermission;
-  constructor(private oauthService: OAuthService,private http: HttpClient) { }
+  constructor(private oauthService: OAuthService,private http: HttpClient, private dialogRef: MatDialog) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
 // AUTHTOKEN FUNCTIONS
@@ -108,6 +109,7 @@ setToken = (value) => {
 
   public logoff() {
 		console.log('inside logout');
+    this.dialogRef.closeAll();
 		this.oauthService.logOut();
 		sessionStorage.removeItem("currentUserSession");
 		sessionStorage.removeItem('session');
@@ -149,7 +151,9 @@ setToken = (value) => {
       this.http.get(`${authorization.auth_Details}`, {headers: headers}).subscribe(res => {
         //set the authdetails to authconfig to initialize the implict login
         this.authdetails = res;
-        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '600000');
+        
+        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '1800000');
+        this.authdetails.data.sessionTimeout ? sessionStorage.setItem("sessionTimeOut", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("sessionTimeOut", '1800000');
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
         authConfig.redirectUri = environment.production ?  this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;
@@ -174,6 +178,30 @@ setToken = (value) => {
 
   get getModulePermissiongData() {
     return this.moduleLevelPermission;
+  }
+
+  public extentToken() {
+		this.oauthService.silentRefresh()
+			.then(info => {
+				console.log('refresh ok', info);
+				if (this.oauthService.getAccessToken()) {
+					this.getExtendedAccessToken();
+				}
+			})
+			.catch(err => console.log('refresh error', err));
+	}
+
+	public getExtendedAccessToken() {
+		console.log('inside getAccessToken');
+		console.log(this.oauthService.getAccessToken());
+		this.setToken(this.oauthService.getAccessToken());
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+	}
+
+  public login() {
+		// console.log('inside login');
+			this.oauthService.initImplicitFlow();
+		
   }
 }
 

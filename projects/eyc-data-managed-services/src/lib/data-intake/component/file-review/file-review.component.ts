@@ -10,7 +10,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { customComparator,sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -190,10 +190,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this._activatedroute.paramMap.subscribe(params => {
       if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
-        this.clientName = params.get('paramDataIntakeName');
+        this.clientName = this.routingState.ngDecode(params.get('paramDataIntakeName').trim());
         this.isViewClicked = true;
         this.dataIntakeType = params.get('paramDataIntakeType');
-        this.fileName=this.clientName;
+        this.fileName= this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -322,7 +322,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   onRowClicked(event: RowClickedEvent) {
-    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias) {
+    if (event.data && event.data.name && event.data.auditFileGuidName && event.data.fileNameAlias && event.data.exceptions) {
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION, event.data.name, event.data.auditFileGuidName, event.data.fileNameAlias]);
     } else {
       console.log("Data name is not getting");
@@ -362,7 +362,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   stringTrim(params, paramSize) {
     const newstr = params.replace(/\s+/g, ' ').trim();
-    if (newstr?.length > paramSize) {
+    if(!newstr){
+      return "--"
+    }
+    else if (newstr?.length > paramSize) {
       return (newstr).substr(0, paramSize) + '';
     } else {
       return newstr;
@@ -402,7 +405,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Data Domain',
+          headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
           filter: true,
@@ -426,7 +429,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Due Date',
+          headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
           filter: true,
@@ -480,16 +483,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotExceptionsTooltip
           },
-          valueGetter: function (params) {
-            debugger;
-            if (params.data.exceptions) {
-              debugger;
-              return params.data.exceptions
-            } else {
-              debugger;
-              return '--'
-            }
-          }
+          comparator: sortCaseInsentitve
         }, {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,

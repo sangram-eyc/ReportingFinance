@@ -143,6 +143,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         this.exceptionTableFillData.push({ [`${columnName}`]: value });
       })
     }
+
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
     const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
@@ -150,7 +151,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
 
 if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA_DOMAIN){
   this.isDataIntaketype=true;
-  this.fileName=routeArray[routeArray.length - 1];
+  this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
   if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
     this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
   }

@@ -43,7 +43,6 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       this.filingId = this.filingService.getFilingData.filingId;
       this.filingDetails.emit(this.filingService.getFilingData);
       this.getFilingStatus();
-      this.getActiveFilings()
       this.filingService.dotcardStatusDetails.pipe(takeUntil(this.ngUnsubscribe)).subscribe(res => {
         this.getFilingStatus();
       });
@@ -52,25 +51,6 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
   }
-
-  getActiveFilings(){
-    let activeFilings = [];
-    this.filingService.getFilings().pipe().subscribe(resp => {
-      resp['data'].length>0 ? activeFilings=[...resp['data']] : activeFilings = []
-      this.checkFilingTest(activeFilings) ? '' : this.navigateToLandigPage()
-  });
-}
-
-checkFilingTest(activeFilings:any){
-  let res = activeFilings.some((el)=>{
-    return el.filingName == this.filingName
-  });
-  return res;
-}
-
-navigateToLandigPage(){
-  this.router.navigate(['/app-regulatory-filing'])
-}
 
   formatDate() {
     let due = new Date(this.dueDate);
@@ -106,13 +86,13 @@ navigateToLandigPage(){
 
   getFilingStatus() {
     this.filingService.getFilingStatus(this.filingId).subscribe(res => {
-      this.states = res['data'];
-      let itemLen = this.states.length
+      this.states = res['data']?.sort((a,b) => a.displayOrder - b.displayOrder);
+      let itemLen = this.states?.length;
       this.filingStatusRes.emit(res['data']);
       this.states.forEach(item => {
         switch (item['stageCode']) {
           case "FUND_SCOPING":
-            if(itemLen === this.states.findIndex(x => x.stageCode ==="FUND_SCOPING")+1){
+            if(itemLen === this.states?.findIndex(x => x.stageCode ==="FUND_SCOPING")+1){
               item.customCls = 'last-item-class last-item-class-cust-fund';
             }else{
               item.customCls = 'cust-fund';
@@ -121,7 +101,7 @@ navigateToLandigPage(){
             item.disabled = true;
             break;
           case "DATA_INTAKE":
-            if(itemLen === this.states.findIndex(x => x.stageCode ==="DATA_INTAKE")+1){
+            if(itemLen === this.states?.findIndex(x => x.stageCode ==="DATA_INTAKE")+1){
               item.customCls = 'last-item-class last-item-class-cust-intake';
             }else{
               item.customCls = 'cust-intake';
@@ -130,7 +110,7 @@ navigateToLandigPage(){
             item.disabled = true;
             break;
           case "REPORTING":
-            if(itemLen === this.states.findIndex(x => x.stageCode ==="REPORTING")+1){
+            if(itemLen === this.states?.findIndex(x => x.stageCode ==="REPORTING")+1){
               item.customCls = 'last-item-class last-item-class-cust-report';
             }else{
               item.customCls = 'cust-report';
@@ -139,7 +119,7 @@ navigateToLandigPage(){
             item.disabled = true;
             break;
           case "CLIENT_REVIEW":
-            if(itemLen === this.states.findIndex(x => x.stageCode ==="CLIENT_REVIEW")+1){
+            if(itemLen === this.states?.findIndex(x => x.stageCode ==="CLIENT_REVIEW")+1){
               item.customCls = 'last-item-class last-item-class-cust-review';
             }else{
               item.customCls = 'cust-review';
