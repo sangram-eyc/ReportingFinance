@@ -3,6 +3,7 @@ import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
+import { formatDate } from '@angular/common';
 import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models
 export class DataManagedService {
   public exceptionDetails: any;
   public exceptionFileName:string;
+  public calSelectedMonth: string;
+  public presentDate:Date;
   constructor(
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
@@ -36,6 +39,37 @@ export class DataManagedService {
       default: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
     }
     return businessWeekDay;
+  }
+
+  getLastDayOfMonthFormatted(selectedDate: string): string {
+    const date = new Date(selectedDate);
+    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
+    return formattedDate;
+  }
+
+  montlyDateSub(presentDate,calSelectedMonth): string {
+  let curDateVal = presentDate;
+  if(calSelectedMonth) {
+    let calDate = new Date(calSelectedMonth);
+    curDateVal.setMonth(calDate.getMonth() - 1);
+  } else {
+    curDateVal.setMonth(curDateVal.getMonth() - 2);
+  }
+  let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+  return dateVal;
+  }
+
+  montlyDateAdd(presentDate,calSelectedMonth): string {
+  let curDateVal = presentDate; 
+    if(calSelectedMonth) {
+      let calDate = new Date(calSelectedMonth);
+      curDateVal.setMonth(calDate.getMonth() + 1);
+    }else {
+      curDateVal.setMonth(curDateVal.getMonth() + 0);
+    }
+    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
+    return dateVal;
   }
   
   httpQueryParams(DataSummary: DataSummary): HttpParams {

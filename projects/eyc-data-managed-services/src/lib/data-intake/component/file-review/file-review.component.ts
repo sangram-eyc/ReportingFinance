@@ -68,6 +68,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
+  isDisplay:boolean=false;
+  calSelectedMonth: string;
+  curDate:string;
   xScaleMin: number;
   xScaleMax: number;
   yScaleMin: number;
@@ -179,6 +182,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
+    console.log("File Review Page constructor", new Date().toISOString());
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
@@ -205,6 +209,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log("File Review Page Init", new Date().toISOString());
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
@@ -246,6 +252,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    console.log("File Review ngAfterViewInit", new Date().toISOString());
     let dueDate;
     if (sessionStorage.getItem("selectedDate")) {
       dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
@@ -355,7 +362,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   stringTrim(params, paramSize) {
     const newstr = params.replace(/\s+/g, ' ').trim();
-    if (newstr?.length > paramSize) {
+    if(!newstr){
+      return "--"
+    }
+    else if (newstr?.length > paramSize) {
       return (newstr).substr(0, paramSize) + '';
     } else {
       return newstr;
@@ -363,9 +373,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
+    console.log("File Review Grid API Call Started", new Date().toISOString());
     this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
+      console.log("File Review Grid API Call End", new Date().toISOString());
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -393,7 +405,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Data Domain',
+          headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
           filter: true,
@@ -413,51 +425,48 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.threeDotFunctionTooltip
-          },
-          valueGetter: function (params) {
-            if ((params.data.functions).length > 4) {
-              return (params.data.functions).substr(0, 4) + ' ...'
-            } else {
-              return params.data.functions
-            }
           }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Due Date',
+          headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
           filter: true,
           minWidth: 100,
           wrapText: true,
           autoHeight: true,
+          cellRenderer: (params) =>{
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+                  const date1 = new Date(params.data.dueDate);
+                  const date2 = new Date();
+    
+                  // One day in milliseconds
+                  const oneDay = 1000 * 60 * 60 * 24;
+    
+                  // Calculating the time difference between two dates
+                  const diffInTime = date2.getTime() - date1.getTime();
+    
+                  // Calculating the no. of days between two dates
+                  const diffInDays = Math.round(diffInTime / oneDay);
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return "-"+diffInDays+" Days";
+                  
+                } else if(params.data.dueDate) {
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return params.data.dueDate;
+                }
+                else {
+                  console.log("File Review valueGetter Ended", new Date().toISOString());
+                  return '--'
+                }
+              },
           cellStyle: function (params) {
+            console.log("File Review cellStyle Started", new Date().toISOString());
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               return { color: 'red' }
             } else {
               return true;
-            }
-          },
-          valueGetter: function (params) {
-            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
-              const date1 = new Date(params.data.dueDate);
-              const date2 = new Date();
-
-              // One day in milliseconds
-              const oneDay = 1000 * 60 * 60 * 24;
-
-              // Calculating the time difference between two dates
-              const diffInTime = date2.getTime() - date1.getTime();
-
-              // Calculating the no. of days between two dates
-              const diffInDays = Math.round(diffInTime / oneDay);
-
-              return "-"+diffInDays+" Days";
-            } else if(params.data.dueDate) {
-              return params.data.dueDate;
-            }
-            else {
-              return '--'
             }
           }
         },
@@ -474,14 +483,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotExceptionsTooltip
           },
-          comparator: sortCaseInsentitve,
-          valueGetter: function (params) {
-            if (params.data.exceptions) {
-              return params.data.exceptions
-            } else {
-              return '--'
-            }
-          }
+          comparator: sortCaseInsentitve
         }, {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -515,6 +517,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
+    console.log("File Review Grid Ready", new Date().toISOString());
   };
 
   updatePaginationSize(newPageSize: number) {
@@ -559,6 +562,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
@@ -584,6 +593,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
     if (this.innerTabIn == 1) {
@@ -607,23 +621,27 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)-
+    console.log("File Review Summary API Call Started", new Date().toISOString());
     this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
     this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
     this.dataList = [];
     if (this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
         this.manipulateStatusWithReviewByGroup(reviewData.data);
+        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     } else {
       this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
         this.dataList = dataProvider.data[0]['totalSeriesItem'];
         this.totalFileCount = dataProvider.data[0]['totalCount'];
         this.manipulateStatusWithResponse(this.dataList);
+        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     }
   }
 
   manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
+    console.log("File Review manipulateStatusWithResponse Start", new Date().toISOString());
     // Manipulate fetch-data as per status
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     const stackBarChart = [];
@@ -663,9 +681,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       })
     }
     this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
+    console.log("File Review manipulateStatusWithResponse End", new Date().toISOString());
   }
 
   manipulateStatusWithReviewByGroup(fetchData: ApiReviewByGroupSeriesItemDTO[]) {
+    console.log("File Review manipulateStatusWithReviewByGroup Start", new Date().toISOString());
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     let stackBarChartDataReviewByGroup = fetchData.map((fData) => {
       fData.fastFilters.map((fDataSeries) => {
@@ -684,6 +704,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.fileSummariesObject = cloneFileSummury;
     this.stackBarChartData = stackBarChartDataReviewByGroup as StackChartSeriesItemDTO[];
     this.totalFileCount = this.stackBarChartData.length;
+    console.log("File Review manipulateStatusWithReviewByGroup End", new Date().toISOString());
   }
 
   mapBarChartDataWithKey(fData: any): BarChartSeriesItemDTO[] {
@@ -706,6 +727,30 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.getReviewFileTableData();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
+  }
+
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+      if (this.calSelectedMonth) {
+      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.httpDataGridParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+    this.fileSummaryList();
+    this.getReviewFileTableData();
+    sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
+    }   
+  }
+
+  dateSub(presentDate) {
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
+    this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
+  dateAdd(presentDate) {
+  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
+  this.toggleMonthlyCalendar(dateVal);
+  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   filterByIssues(issues: string, variants: string) {

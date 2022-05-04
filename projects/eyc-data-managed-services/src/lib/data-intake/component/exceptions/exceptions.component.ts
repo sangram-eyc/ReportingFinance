@@ -44,8 +44,11 @@ export class ExceptionsComponent implements OnInit {
   @ViewChild('nextButtonTemplate')
   nextButtonTemplate: TemplateRef<any>;
 
-  curDate: string;
+
   presentDate: Date;
+  isDisplay:boolean=false;
+  curDate:string;
+  calSelectedMonth: string;
   form: FormGroup;
   calSelectedDate: string;
   disabledDailyMonthlyButton: boolean = false;
@@ -123,6 +126,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
@@ -289,6 +293,24 @@ export class ExceptionsComponent implements OnInit {
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
+          },
+          valueGetter: function (params) {
+            switch (params.data.priority) {
+              case FILTER_TYPE.NO_ISSUES:
+                return FILTER_TYPE_TITLE.noIssues;
+              case FILTER_TYPE.LOW:
+                return FILTER_TYPE_TITLE.low;
+              case FILTER_TYPE.MEDIUM:
+                return FILTER_TYPE_TITLE.medium;
+              case FILTER_TYPE.HIGH:
+                return FILTER_TYPE_TITLE.high;
+              case FILTER_TYPE.MISSING_FILES:
+                return FILTER_TYPE_TITLE.missingFiles;
+              case FILTER_TYPE.FILE_NOT_RECIEVED:
+                return FILTER_TYPE_TITLE.fileNotReceived;
+              default:
+                break;
+            }
           }
         },
         // {
@@ -347,6 +369,27 @@ export class ExceptionsComponent implements OnInit {
     }
   }
 
+  toggleMonthlyCalendar(event): void {
+    this.disabledDailyMonthlyButton = false;
+    this.calSelectedMonth = event;
+    if (this.calSelectedMonth) {
+      this.httpDataGridParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+      this.getExceptionTableData();
+    }   
+  }
+
+  dateSub(presentDate) {
+    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
+    this.toggleMonthlyCalendar(dateVal);
+    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
+  dateAdd(presentDate) {
+  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
+  this.toggleMonthlyCalendar(dateVal);
+  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  }
+
   patchDatePicker(patchDatePickerValue: Date) {
     const updateDatePicker = {
       isRange: false,
@@ -366,6 +409,12 @@ export class ExceptionsComponent implements OnInit {
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
+    if (this.isDisplay){
+      this.isDisplay=!this.isDisplay;
+    } else {
+      this.isDisplay=this.isDisplay;
+    }
+
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if(!sessionStorage.getItem("selectedDate")){
@@ -380,6 +429,12 @@ export class ExceptionsComponent implements OnInit {
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
+
+    if (this.isDisplay){
+      this.isDisplay=this.isDisplay;
+    } else {
+      this.isDisplay=!this.isDisplay;
+    }
 
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
