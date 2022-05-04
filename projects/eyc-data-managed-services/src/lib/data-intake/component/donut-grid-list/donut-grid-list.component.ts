@@ -73,6 +73,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
+  presentMonthDate: Date;
+  presentMonthFormat: string;
 
   constructor(
     private dataManagedService: DataManagedService,
@@ -85,7 +87,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
+    this.presentMonthDate = this.lastMonthDate;
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+
     this._activatedroute.paramMap.subscribe(params => {
       this.dataIntakeType = params.get('dataIntakeType');
       if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
@@ -99,14 +104,13 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let dueDate;
-    if (sessionStorage.getItem("selectedDate")) {
-      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-    } else if (this.dailyMonthlyStatus) {
-      dueDate = this.lastMonthDueDateFormat;
-      this.patchDatePicker(this.lastMonthDate);
-    } else {
-      dueDate = this.presentDateFormat;
+    dueDate = this.presentDateFormat;
+    if (this.dailyMonthlyStatus) {
+      this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
+      this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+      dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
+
     this.httpQueryParams =
     {
       startDate: '',
@@ -153,14 +157,15 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
+    this.curDate = this.dataManagedService.monthlyFormat(this.lastMonthDate);
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
+    
     this.form = new FormGroup({
       datepicker: new FormControl({
         isRange: false,
@@ -179,32 +184,29 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      this.httpQueryParams.dueDate = this.dataManagedService.ymdToApiDateFormat(this.calSelectedDate);
       this.getDataIntakeType();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 
-  toggleMonthlyCalendar(event): void {
+  toggleMonthlyCalendar(): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedMonth = event;
-    if (this.calSelectedMonth) {
-      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
-      this.getDataIntakeType();
-      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
-    }   
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
+    this.getDataIntakeType();
+    sessionStorage.setItem("selectedDate", `${this.presentMonthDate}`);
   }
 
-  dateSub(presentDate) {
-    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
-    this.toggleMonthlyCalendar(dateVal);
-    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateSub() {
+    this.presentMonthDate = this.dataManagedService.montlyDateSub(this.presentMonthDate);
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
-  dateAdd(presentDate) {
-  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
-  this.toggleMonthlyCalendar(dateVal);
-  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateAdd() {
+    this.presentMonthDate = this.dataManagedService.montlyDateAdd(this.presentMonthDate);
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
   dailyData(status: boolean) {
@@ -213,12 +215,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-    
-    if (this.isDisplay){
-      this.isDisplay=!this.isDisplay;
-    } else {
-      this.isDisplay=this.isDisplay;
-    }
 
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
@@ -228,6 +224,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     if(!sessionStorage.getItem("selectedDate")){
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
+    } else {
+      const sesstionDate =  this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
+      this.httpQueryParams.dueDate = sesstionDate;
+      this.patchDatePicker(new Date(sesstionDate));
     }
 
     this.getDataIntakeType();
@@ -241,12 +241,17 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
-    if (this.isDisplay){
-      this.isDisplay=this.isDisplay;
-    } else {
-      this.isDisplay=!this.isDisplay;
-    }
 
+    const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
+    if (monthlySelectedDate) {
+      this.presentMonthDate = new Date(monthlySelectedDate);
+    } else {
+      this.presentMonthDate = new Date();   
+    }
+    this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentMonthDate);  
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
+   
     if (this.dataIntakeType) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;
     } else {
