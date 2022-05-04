@@ -22,7 +22,7 @@
                <h6 class="heading-6">Summary Dashboard</h6>
             </div>
             <div  class="dateWrapper">
-               <div [hidden]="isDisplay" aria-disabled="false" class="px-3 date-ui">   
+               <div [hidden]="dailyMonthlyStatus" aria-disabled="false" class="px-3 date-ui">   
                   <form [formGroup]="form" novalidate>
                      <motif-form-field>
                         <label motifLabel for="datepicker">Date (required)</label>
@@ -33,12 +33,12 @@
                      </motif-form-field>
                   </form>
                </div>
-                  <div [hidden]="!isDisplay" aria-disabled="true" class="monthly-date-ui" >
-                  <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
+                  <div [hidden]="!dailyMonthlyStatus" aria-disabled="true" class="monthly-date-ui" >
+                  <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub()">
                   </motif-icon>
-                  <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
+                  <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd()">
                   </motif-icon>
-                  {{ curDate }}
+                  {{ presentMonthFormat }}
                </div> 
                <div class="box-center">
                   <button #dailyfilter [disabled]="disabledDailyMonthlyButton" motifButton color="primary-alt"

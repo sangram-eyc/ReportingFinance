@@ -33,7 +33,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   lowPriorityData: BarChartSeriesItemDTO[];
   lowPriorityCount: number = 0;
   dataList: [];
-  isDisplay:boolean=false;
   dailyMonthlyStatus: boolean = false;
   disabledDailyMonthlyButton: boolean = false;
   reviewByGroupDomains: number = 0;
@@ -125,6 +124,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   PBI_BASE_EMBED_TOKEN_URL:string;
   baseURL:string;
   prodUrl='/trp/';
+  presentMonthDate: Date;
+  presentMonthFormat: string;
+
   constructor(
     private dataManagedService: DataManagedService,
     private cdr: ChangeDetectorRef,
@@ -135,20 +137,56 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    // this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
+    this.presentMonthDate =  this.lastMonthDate;
+    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+  }
+
+  ngOnInit(): void {
+    // this.curDate = formatDate(this.lastMonthDate, 'MMMM yyyy', 'en');
+    this.curDate = this.dataManagedService.monthlyFormat(this.lastMonthDate);
+    const selectedDate = sessionStorage.getItem("selectedDate");
+    if (selectedDate) {
+      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
+    } else {
+      this.presentDate = this.dataManagedService.businessDate(new Date());   
+    }
+    // this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
+    
+    this.tabIn = 1;
+    this.form = new FormGroup({
+      datepicker: new FormControl({
+        isRange: false, 
+        singleDate: {
+          date: {
+            year: this.presentDate.getFullYear(),
+            month: this.presentDate.getMonth() + 1,
+            day: this.presentDate.getDate()
+          }
+        }
+      }, [Validators.required])
+    });
   }
 
   ngAfterViewInit(): void {
-    // this.baseURL=this.dataManagedService.getApiBaseUrl();
-    this.baseURL=sessionStorage.getItem('pbiEndPoint');
+    this.baseURL = sessionStorage.getItem('pbiEndPoint');
     console.log('dms data intake-ngAfterViewInit base url',this.baseURL);
-    if (sessionStorage.getItem("selectedDate")) {
-      this.dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-    } else if (this.dailyMonthlyStatus) {
-      this.dueDate = this.lastMonthDueDateFormat;
-      this.patchDatePicker(this.lastMonthDate);
-    } else {
-      this.dueDate = this.presentDateFormat;
+    // if (sessionStorage.getItem("selectedDate")) {
+    //   // this.dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+    //   this.dueDate = this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
+    // } else {
+    //   this.dueDate = this.presentDateFormat;
+    // }
+    this.dueDate = this.presentDateFormat;
+    if (this.dailyMonthlyStatus) {
+      this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
+      // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+      this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+      // this.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`; 
+      this.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
 
     this.httpQueryParams =
@@ -193,33 +231,34 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      // this.httpQueryParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      this.httpQueryParams.dueDate = this.dataManagedService.ymdToApiDateFormat(this.calSelectedDate);
       this.fileSummaryList();
-      this.dueDate= `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      this.dueDate= this.httpQueryParams.dueDate;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 
-  toggleMonthlyCalendar(event): void {
+  toggleMonthlyCalendar(): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedMonth = event;
-    if (this.calSelectedMonth) {
-      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
-      this.fileSummaryList();
-      sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
-    }   
+    // this.httpQueryParams.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`;
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
+    this.fileSummaryList();
+    sessionStorage.setItem("selectedDate", `${this.presentMonthDate}`);
   }
 
-  dateSub(presentDate) {
-    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
-    this.toggleMonthlyCalendar(dateVal);
-    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateSub() {
+    this.presentMonthDate = this.dataManagedService.montlyDateSub(this.presentMonthDate);
+    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
-  dateAdd(presentDate) {
-    let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
-    this.toggleMonthlyCalendar(dateVal);
-    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateAdd() {
+    this.presentMonthDate = this.dataManagedService.montlyDateAdd(this.presentMonthDate);
+    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
   setColorScheme() {
@@ -229,31 +268,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.colorScheme4 = colorSets.find(s => s.name === 'blue');  // Blue
   }
 
-  ngOnInit(): void {
-    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
-    const selectedDate = sessionStorage.getItem("selectedDate");
-    if (selectedDate) {
-      this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
-    } else {
-      this.presentDate = this.dataManagedService.businessDate(new Date());   
-    }
-    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
-    
-    this.tabIn = 1;
-    this.form = new FormGroup({
-      datepicker: new FormControl({
-        isRange: false, 
-        singleDate: {
-          date: {
-            year: this.presentDate.getFullYear(),
-            month: this.presentDate.getMonth() + 1,
-            day: this.presentDate.getDate()
-          }
-        }
-      }, [Validators.required])
-    });
-  }
- 
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
   }
@@ -305,11 +319,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
-    if (this.isDisplay){
-      this.isDisplay=!this.isDisplay;
-    } else {
-      this.isDisplay=this.isDisplay;
-    }
     
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
@@ -320,6 +329,11 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     if(!sessionStorage.getItem("selectedDate")){
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
+    } else {
+      const sesstionDate =  this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
+      this.httpQueryParams.dueDate = sesstionDate;
+      // this.presentDateFormat;
+      this.patchDatePicker(new Date(sesstionDate));
     }
 
     this.fileSummaryList();
@@ -334,20 +348,25 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
 
-    if(this.baseURL.includes(this.prodUrl)){
+    if (this.baseURL.includes(this.prodUrl)) {
       this.reports = PowerBiReportMonthlyListProd;
     }
-    else{
+    else {
       this.reports = PowerBiReportMonthlyList;
     }
+
+    const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
+    if (monthlySelectedDate) {
+      this.presentMonthDate = new Date(monthlySelectedDate);
+    } else {
+      this.presentMonthDate = new Date();   
+    }
+    this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentMonthDate);  
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     // Monthly data fetch as per click
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
-    if (this.isDisplay){
-      this.isDisplay=this.isDisplay;
-    } else {
-      this.isDisplay=!this.isDisplay;
-    }
   
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
@@ -417,6 +436,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
   }
 
   fileSummaryList() {
+    // console.log("dueDate", this.httpQueryParams.dueDate);
     // Mock API integration for bar chart (Data Providers/ Data Domains)
     this.reviewByGroupDomains = 0;
     this.reviewByGroupProviders = 0;
@@ -428,10 +448,6 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.reviewByGroupProviders = dataSummuries.data[0]['dataProvideCount'];
       this.reviewAllDisabled = (this.dataList.length > 0) ? false : true;
     });
-  }
-
-  visualizePowerBiReport(){
-    
   }
 
 }

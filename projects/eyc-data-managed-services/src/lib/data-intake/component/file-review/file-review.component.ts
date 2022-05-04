@@ -70,7 +70,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   animations: boolean = true;
   isDisplay:boolean=false;
   calSelectedMonth: string;
-  curDate:string;
   xScaleMin: number;
   xScaleMax: number;
   yScaleMin: number;
@@ -179,6 +178,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
+  presentMonthDate: Date;
+  presentMonthFormat: string;
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
@@ -187,7 +188,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    // this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    // this.presentMonthDate =  this.lastMonthDate;
+    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM  yyyy', 'en');
+    //
+    this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
+    this.presentMonthDate =  this.lastMonthDate;
+    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+  
     this._activatedroute.paramMap.subscribe(params => {
       if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
         this.clientName = params.get('paramDataIntakeName');
@@ -210,14 +219,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     console.log("File Review Page Init", new Date().toISOString());
-    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    // this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
+    this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
 
     this.tabIn = 1;
     this.form = new FormGroup({
@@ -254,14 +263,23 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     console.log("File Review ngAfterViewInit", new Date().toISOString());
     let dueDate;
-    if (sessionStorage.getItem("selectedDate")) {
-      dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-    } else if (this.dailyMonthlyStatus) {
-      dueDate = this.lastMonthDueDateFormat;
-      this.patchDatePicker(this.lastMonthDate);
-    } else {
-      dueDate = this.presentDateFormat;
+    // if (sessionStorage.getItem("selectedDate")) {
+    //   dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+    // } else if (this.dailyMonthlyStatus) {
+    //   dueDate = this.lastMonthDueDateFormat;
+    //   this.patchDatePicker(this.lastMonthDate);
+    // } else {
+    //   dueDate = this.presentDateFormat;
+    // }
+    dueDate = this.presentDateFormat;
+    if (this.dailyMonthlyStatus) {
+      this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
+      // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
+      this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+      // this.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`; 
+      dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
+
     this.httpQueryParams =
     {
       startDate: '',
@@ -561,11 +579,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
-    if (this.isDisplay){
-      this.isDisplay=!this.isDisplay;
-    } else {
-      this.isDisplay=this.isDisplay;
-    }
+    // if (this.isDisplay){
+    //   this.isDisplay=!this.isDisplay;
+    // } else {
+    //   this.isDisplay=this.isDisplay;
+    // }
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
@@ -576,10 +594,20 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
-    if (!sessionStorage.getItem("selectedDate")) {
+    // if (!sessionStorage.getItem("selectedDate")) {
+    //   this.httpQueryParams.dueDate = this.presentDateFormat;
+    //   this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
+    //   this.patchDatePicker(this.presentDate);
+    // }
+    if(!sessionStorage.getItem("selectedDate")){
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
       this.patchDatePicker(this.presentDate);
+    } else {
+      const sesstionDate =  this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
+      this.httpQueryParams.dueDate = sesstionDate;
+      this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
+      this.patchDatePicker(new Date(sesstionDate));
     }
     this.fileSummaryList();
     this.getReviewFileTableData();
@@ -592,13 +620,26 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
-    if (this.isDisplay){
-      this.isDisplay=this.isDisplay;
-    } else {
-      this.isDisplay=!this.isDisplay;
-    }
+    // if (this.isDisplay) {
+    //   this.isDisplay = this.isDisplay;
+    // } else {
+    //   this.isDisplay = !this.isDisplay;
+    // }
+
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+
+    const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
+    if (monthlySelectedDate) {
+      this.presentMonthDate = new Date(monthlySelectedDate);
+    } else {
+      this.presentMonthDate = new Date();   
+    }
+    this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentMonthDate);  
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
+    this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
+    
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;;
       this.httpDataGridParams.dataIntakeType = this.dataIntakeType;;
@@ -612,6 +653,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dueDate = this.lastMonthDueDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
     }
+
     this.fileSummaryList();
     this.getReviewFileTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
@@ -720,36 +762,33 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpQueryParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-      this.httpDataGridParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      this.httpQueryParams.dueDate = this.dataManagedService.ymdToApiDateFormat(this.calSelectedDate);
+      this.httpDataGridParams.dueDate = this.dataManagedService.ymdToApiDateFormat(this.calSelectedDate);
       this.fileSummaryList();
       this.getReviewFileTableData();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
     }
   }
 
-  toggleMonthlyCalendar(event): void {
+  toggleMonthlyCalendar(): void {
     this.disabledDailyMonthlyButton = false;
-    this.calSelectedMonth = event;
-      if (this.calSelectedMonth) {
-      this.httpQueryParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
-      this.httpDataGridParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
+    this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
+    this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
     this.fileSummaryList();
     this.getReviewFileTableData();
-    sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
-    }   
+    sessionStorage.setItem("selectedDate", `${this.presentMonthDate}`);
   }
 
-  dateSub(presentDate) {
-    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
-    this.toggleMonthlyCalendar(dateVal);
-    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateSub() {
+    this.presentMonthDate = this.dataManagedService.montlyDateSub(this.presentMonthDate);
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
-  dateAdd(presentDate) {
-  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
-  this.toggleMonthlyCalendar(dateVal);
-  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
+  dateAdd() {
+    this.presentMonthDate = this.dataManagedService.montlyDateAdd(this.presentMonthDate);
+    this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
+    this.toggleMonthlyCalendar();
   }
 
   filterByIssues(issues: string, variants: string) {
