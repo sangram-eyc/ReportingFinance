@@ -87,11 +87,8 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    // this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-    // this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
     this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
     this.presentMonthDate = this.lastMonthDate;
-    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
 
     this._activatedroute.paramMap.subscribe(params => {
@@ -107,20 +104,10 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let dueDate;
-    // if (sessionStorage.getItem("selectedDate")) {
-    //   dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-    // } else if (this.dailyMonthlyStatus) {
-    //   dueDate = this.lastMonthDueDateFormat;
-    //   this.patchDatePicker(this.lastMonthDate);
-    // } else {
-    //   dueDate = this.presentDateFormat;
-    // }
     dueDate = this.presentDateFormat;
     if (this.dailyMonthlyStatus) {
       this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
-      // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
       this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
-      // this.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`; 
       dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
 
@@ -170,7 +157,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     this.curDate = this.dataManagedService.monthlyFormat(this.lastMonthDate);
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
@@ -178,7 +164,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    // this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
     this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
     
     this.form = new FormGroup({
@@ -199,7 +184,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      // this.httpQueryParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       this.httpQueryParams.dueDate = this.dataManagedService.ymdToApiDateFormat(this.calSelectedDate);
       this.getDataIntakeType();
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
@@ -208,7 +192,6 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   toggleMonthlyCalendar(): void {
     this.disabledDailyMonthlyButton = false;
-    // this.httpQueryParams.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`;
     this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     this.getDataIntakeType();
     sessionStorage.setItem("selectedDate", `${this.presentMonthDate}`);
@@ -216,14 +199,12 @@ export class DonutGridListComponent implements OnInit, AfterViewInit {
 
   dateSub() {
     this.presentMonthDate = this.dataManagedService.montlyDateSub(this.presentMonthDate);
-    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
     this.toggleMonthlyCalendar();
   }
 
   dateAdd() {
     this.presentMonthDate = this.dataManagedService.montlyDateAdd(this.presentMonthDate);
-    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
     this.toggleMonthlyCalendar();
   }

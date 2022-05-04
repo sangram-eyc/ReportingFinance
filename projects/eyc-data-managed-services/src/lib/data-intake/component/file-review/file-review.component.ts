@@ -188,13 +188,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-    // this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-    // this.presentMonthDate =  this.lastMonthDate;
-    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM  yyyy', 'en');
-    //
     this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
     this.presentMonthDate =  this.lastMonthDate;
-    // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
   
     this._activatedroute.paramMap.subscribe(params => {
@@ -225,7 +220,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
     }
-    // this.presentDateFormat = `${formatDate(this.presentDate, 'yyyy-MM-dd', 'en')}`;
     this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
 
     this.tabIn = 1;
@@ -263,20 +257,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     console.log("File Review ngAfterViewInit", new Date().toISOString());
     let dueDate;
-    // if (sessionStorage.getItem("selectedDate")) {
-    //   dueDate = `${formatDate(new Date(sessionStorage.getItem("selectedDate")).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
-    // } else if (this.dailyMonthlyStatus) {
-    //   dueDate = this.lastMonthDueDateFormat;
-    //   this.patchDatePicker(this.lastMonthDate);
-    // } else {
-    //   dueDate = this.presentDateFormat;
-    // }
     dueDate = this.presentDateFormat;
     if (this.dailyMonthlyStatus) {
       this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
-      // this.presentMonthFormat = formatDate(this.presentMonthDate, 'MMMM yyyy', 'en');
       this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
-      // this.dueDate = `${formatDate(this.presentMonthDate, 'yyyy-MM-dd', 'en')}`; 
       dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
 
@@ -580,12 +564,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
-    // if (this.isDisplay){
-    //   this.isDisplay=!this.isDisplay;
-    // } else {
-    //   this.isDisplay=this.isDisplay;
-    // }
-
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if (this.innerTabIn == 1) {
@@ -595,11 +573,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
-    // if (!sessionStorage.getItem("selectedDate")) {
-    //   this.httpQueryParams.dueDate = this.presentDateFormat;
-    //   this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
-    //   this.patchDatePicker(this.presentDate);
-    // }
+
     if(!sessionStorage.getItem("selectedDate")){
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
@@ -620,13 +594,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.dailyMonthlyStatus = status;
     this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
-
-    // if (this.isDisplay) {
-    //   this.isDisplay = this.isDisplay;
-    // } else {
-    //   this.isDisplay = !this.isDisplay;
-    // }
-
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
