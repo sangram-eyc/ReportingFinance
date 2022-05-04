@@ -11,6 +11,7 @@ import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
 })
 export class GridComponent implements OnInit, OnChanges, OnDestroy {
   mytasks = false;
+  initialGridLoaded = false;
   constructor(public dialog: MatDialog) { }
   
   INPUT_VALIDATON_CONFIG = {
@@ -159,27 +160,27 @@ pageSize;
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
     this.dataset = [{
       disable: false,
-      value: this.paginationSize,
-      name: this.paginationSize.toString(),
+      value: this.paginationSize*2,
+      name: (this.paginationSize*2).toString(),
       id: 0
     },
     {
       disable: false,
-      value: this.paginationSize * 2,
-      name: (this.paginationSize * 2).toString(),
+      value: this.paginationSize * 5,
+      name: (this.paginationSize * 5).toString(),
       id: 1
     },
     {
       disable: false,
-      value: this.paginationSize * 3,
-      name: (this.paginationSize * 3).toString(),
+      value: this.paginationSize * 10,
+      name: (this.paginationSize * 10).toString(),
       id: 2
     }];
   
     this.currentlySelectedPageSize = {
       disable: false,
-      value: this.paginationSize,
-      name: this.paginationSize.toString(),
+      value: this.paginationSize * 2,
+      name: (this.paginationSize * 2).toString(),
       id: 0
     };
     this.prevPageSize = this.paginationSize;
@@ -192,7 +193,13 @@ pageSize;
     this.disableAddMemberButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if (this.paginationApi) {
       if (this.totalRecords >= 0) {
+        if(this.prevPageSize && !this.initialGridLoaded){
+          this.prevPageSize=(parseInt(this.prevPageSize) * 2)
+        }
         this.maxPages = Math.ceil(this.totalRecords / this.prevPageSize);
+        if(this.prevPageSize){
+          this.initialGridLoaded = true;
+        }
       } else {
         this.maxPages = 1;
       }
@@ -317,7 +324,7 @@ pageSize;
     }
   }
 
-  onRowSelected(event): void {
+  onChange(event): void {
     if (this.customRowSelected) {
       this.rowSelected.emit(event);
       this.selectedRows = this.gridApi.getSelectedRows();

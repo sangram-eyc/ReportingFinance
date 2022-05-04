@@ -1,7 +1,8 @@
 <lib-dots-card (filingDetails)="receiveFilingDetails($event)" (fileStatus)="getFileStatus($event)"></lib-dots-card>
 
 <div class="mark-button-comp">
-    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing')" motifButton color="primary" size="large" (click)="statusUpdateToComplete()" [disabled]= "enableComplete">Mark filing complete</button>
+    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing') && !enableComplete" motifButton color="primary" size="large" (click)="statusUpdateToComplete()">Mark filing complete</button>
+    <button *ngIf="checkFilingCompletedStatus() && permissions.validatePermission('Submission', 'Reopen Filing')" motifButton color="primary-alt" size="large" (click)="reopenFilling()">Reopen filing</button>
 </div>
 
 <motif-toast [type]="'success'" [show]="toastAfterExportInSubmission"
@@ -88,6 +89,19 @@
         </div>
     </ng-template>
 
+    <ng-template #commentTemplate let-row>
+            <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Submission', 'View Comments')"
+                class="comments-background" (click)="openComments(row)">
+                {{row.commentsCount}}
+            </div>
+            <div class="commentTemplate"  *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Submission', 'Add Comments') && !checkFilingCompletedStatus()">
+                <div class="add_icon">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
+                        (click)="addComment(row)"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+
 </div>
 <motif-modal [show]="updateStatusModal" (close)="updateStatusModal = false">
     <motif-modal-header>
@@ -114,5 +128,10 @@
         <button motifButton color="secondary" (click)="onCancelChangeStatus()">Cancel</button>
     </motif-modal-footer>
 </motif-modal>
+
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
+    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Submission', 'Add Comments')"
+    [filingStatus]="checkFilingCompletedStatus()"
+    (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Submission'"></lib-audit-log>

@@ -11,6 +11,8 @@ import { EycPowerbiModule } from '../eyc-powerbi/eyc-powerbi.module';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { RemoveSpacesDirective } from './dir/remove-spaces.directive';
 import { ResolveModalComponent } from './resolve-modal/components/resolve-modal.component';
+import { SessionExtendModalComponent } from './session-extend-modal/session-extend-modal.component';
+import { FormatTimePipe } from '../pipes/format-time.pipe';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ResolveModalComponent } from './resolve-modal/components/resolve-modal.
     VisualisationModalComponent,
     ErrorModalComponent,
     RemoveSpacesDirective,
-    ResolveModalComponent
+    ResolveModalComponent,
+    SessionExtendModalComponent,
+    FormatTimePipe
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,9 @@ import { ResolveModalComponent } from './resolve-modal/components/resolve-modal.
     ModalComponent,
     ErrorModalComponent,
     RemoveSpacesDirective,
-    ResolveModalComponent
+    ResolveModalComponent,
+    SessionExtendModalComponent,
+    FormatTimePipe
   ]
 })
 export class ModalModule { }

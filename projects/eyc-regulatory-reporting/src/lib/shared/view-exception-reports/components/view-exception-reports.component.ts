@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ModalComponent, PermissionService, ResolveModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
+import { rr_module_name } from '../../../config/rr-config-helper';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   commentsName;
   commentEntityType;
   entityId;
-  exceptionCnt = '';
+  exceptionCnt;
   enableResolveButton: boolean;
   enableUnresolveButton: boolean;
   exceptionResolveRows = []
@@ -44,7 +45,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   count = 0;
   dataIntakeExceptionsTable: boolean;
   answerExceptionTable: boolean
-
+  moduleOriginated = rr_module_name;
+  
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentExceptionTemplate')
@@ -92,10 +94,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      if (this.filingService.getExceptionData?.resolveOrException && this.filingService.getExceptionData?.resolveOrException.indexOf("/") !== -1) {
-        let exceptionVal = this.filingService.getExceptionData.resolveOrException.split("/");
-        this.exceptionCnt = exceptionVal[1];
-      }
+      this.exceptionCnt = parseInt(this.filingService.getExceptionData?.unresolved) + parseInt(this.filingService.getExceptionData?.resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
       this.parentModule = 'Regulatory Reporting';
       
@@ -241,6 +240,7 @@ export class ViewExceptionReportsComponent implements OnInit {
         description: `Please add your comment below.`,
         entityId: row.AuditResultObjectID,
         entityType: "ANSWER_EXCEPTION",
+        moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -356,6 +356,7 @@ export class ViewExceptionReportsComponent implements OnInit {
         header: "Resolve selected",
         description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg> When clicked you can view resolution comments.</p>`,
         entityType: "ANSWER_EXCEPTION",
+        moduleOriginated: rr_module_name,
         entityId: this.getEnitityIds('Unresolved'),
         filingName: this.filingName,
         period: this.period,
@@ -421,6 +422,7 @@ export class ViewExceptionReportsComponent implements OnInit {
         header: "Unresolve selected",
         description: `<p>Are you sure you want to unresolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b>  Unresolved exceptions will be changed back to this icon <svg style="display: inline;" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1667 17.4167L10.0833 0L0 17.4167H20.1667ZM9.16667 14.6667V12.8333H11V14.6667H9.16667ZM9.16667 11H11V7.33333H9.16667V11Z" fill="#FF9831"/></svg>.</p>`,
         entityType: "ANSWER_EXCEPTION",
+        moduleOriginated: rr_module_name,
         entityId: this.getEnitityIds('Resolved'),
         filingName: this.filingName,
         period: this.period,

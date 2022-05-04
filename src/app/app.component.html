@@ -93,6 +93,10 @@
               #taxReporting="routerLinkActive">
               <span>Data Managed Services</span>
             </li>
+            <li [hidden]="!permission.isEFR" class="sidenav-item" [routerLink]="['/european-fund-reporting']" routerLinkActive="active-submenu"
+            #efrReporting="routerLinkActive">
+            <span>European Fund Reporting</span>
+          </li>
           </ul>
         </li>
 

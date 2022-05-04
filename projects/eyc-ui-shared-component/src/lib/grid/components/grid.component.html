@@ -62,12 +62,12 @@
             [rowData]="rowData"
             [defaultColDef]="{}"
             [rowSelection]="rowSelection"
-            (gridReady)="handleGridReady($event)"
+            (gridReady)="handleGridReady($event)" (change)="onChange($event)"
             [firstColumnBorderRight]="firstColumnBorderRight"
             (sortChanged)="sortChanged($event)"
             (filterChanged)="filterChanged($event)"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
         <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [title]="title"
@@ -76,10 +76,10 @@
             [masterDetail]="masterDetail"
             [detailCellRendererParams]="detailCellRendererParams"
             (sortChanged)="sortChanged($event)"
-            (filterChanged)="filterChanged($event)"
+            (filterChanged)="filterChanged($event)" (change)="onChange($event)"
             [rowSelection]="rowSelection" (gridReady)="handleGridReady($event)" [firstColumnBorderRight]="firstColumnBorderRight"
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
-            [paginationPageSize]="currentlySelectedPageSize.value" (rowSelected)="onRowSelected($event)" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
+            [paginationPageSize]="currentlySelectedPageSize.value"  [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
 
             <ng-template #paginationSelectTemplate>
                 <div *ngIf="pagination && !paginationApi">

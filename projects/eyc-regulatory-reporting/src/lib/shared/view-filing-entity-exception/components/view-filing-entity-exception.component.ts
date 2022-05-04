@@ -23,14 +23,19 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionAnswersDefs;
   exceptionAnswersData;
   rowData;
-  exceptionCnt = '';
+  exceptionCnt;
   componentStage;
+  entityId;
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
   @ViewChild('viewDetTemplate')
   viewDetTemplate: TemplateRef<any>;
   exportsHeader: string;
+  @ViewChild('unresolveFilingTemplate')
+  unresolveFilingTemplate: TemplateRef<any>;
+  @ViewChild('resolveFilingTemplate')
+  resolveFilingTemplate: TemplateRef<any>;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -52,11 +57,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
       console.log("resolveException > ", this.filingService.filingEntityData.resolveException);
-      if( this.filingService.filingEntityData.resolveException && this.filingService.filingEntityData.resolveException.indexOf("/") !== -1){ 
-        let exceptionVal =  this.filingService.filingEntityData.resolveException.split("/");
-        this.exceptionCnt = exceptionVal[1];
-      }
+      this.exceptionCnt = parseInt(this.filingService.getFilingEntityData.unResolvedException) + parseInt(this.filingService.getFilingEntityData.resolvedException);
       this.entityName = this.filingService.getFilingEntityData.entityName;
+      this.entityId =  this.filingService.getFilingEntityData.fundId;
       this.stage = 'reporting'
       sessionStorage.setItem("reportingTab", '2'); 
       this.getAnswerExceptionReports();
@@ -64,7 +67,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.entityName, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
+    this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['entityExceptionMap'];
       this.createEntitiesRowData();
     });
@@ -74,7 +77,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
     this.exceptionAnswersData.forEach(element => {
       this.rowData.push({
         exceptionReportName: element.Audit,
-        resolveOrException: element.Resolved + '/' + element.Exceptions
+        Unresolved: element.Unresolved,
+        Resolved: element.Resolved
       });
     });
     this.exceptionAnswersDefs = [
@@ -108,12 +112,38 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Resolved/Exception',
-        field: 'resolveOrException',
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.unresolveFilingTemplate,
+        },
+        headerName: 'Unresolved',
+        field: 'Unresolved',
         sortable: true,
         filter: true,
         width: 210,
+        comparator: this.disableComparator
       },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.resolveFilingTemplate,
+        },
+        headerName: 'Resolved',
+        field: 'Resolved',
+        sortable: true,
+        filter: true,
+        width: 210,
+        comparator: this.disableComparator
+      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   headerName: 'Resolved/Exception',
+      //   field: 'resolveOrException',
+      //   sortable: true,
+      //   filter: true,
+      //   width: 210,
+      // },
       // {
       //   headerComponentFramework: TableHeaderRendererComponent,
       //   cellRendererFramework: MotifTableCellRendererComponent,
@@ -139,10 +169,14 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'Audit:Exception Report Name,Resolved:Resolved,Exceptions:Exception';
-    this.viewService.exportData(this.entityName, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
-     
+    this.exportsHeader = 'Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved';
+    this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
+    
     });
     
+  }
+
+  disableComparator(data1, data2) {
+    return 0; 
   }
 }

@@ -21,7 +21,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   @Input() entityType;
   @Input() permissionToAddComment = true;
   @Input() filingStatus = true;
-
+  @Input() moduleOriginated
 
   @Output() showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() commentAddedEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -51,7 +51,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
     console.log(changes);
     console.log(this.entityId);
     if(this.entityId) {
-      this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
+      this.commentService.listComments(this.entityId, this.entityType, this.moduleOriginated).subscribe(resp => {
         this.commentsData = resp['data'];
         this.commentsData.sort((a, b) => b.timeStamp - a.timeStamp);
         this.formattedTimes = [];
@@ -102,6 +102,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         description: `Please add your comment below.`,
         entityId: this.entityId,
         entityType: this.entityType,
+        moduleOriginated: this.moduleOriginated,
         forms: {
           isSelect: false,
           selectDetails: {
@@ -143,7 +144,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
         console.log('DIALOG CLOSE RESULT', result);
         console.log(obj);
         this.commentAddedEmitter.emit(true);
-        this.commentService.listComments(this.entityId, this.entityType).subscribe(resp => {
+        this.commentService.listComments(this.entityId, this.entityType, this.moduleOriginated).subscribe(resp => {
           this.commentsData = resp['data'];
           this.commentsData.sort((a, b) => b.timeStamp - a.timeStamp);
           this.formattedTimes = [];

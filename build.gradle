@@ -70,6 +70,13 @@ task buildTRP(type: NpmTask) {
   args = ['run', 'eyc-ui-surefoot:package']
   
 }
+
+task buildTRMS(type: NpmTask) {
+  println "Building eyc-tax-reporting UI"
+  args = ['run', 'eyc-ui-surefoot:package']
+  
+}
+
 task buildGS(type: NpmTask) {
   println "Building eyc-tax-reporting UI"
   args = ['run', 'eyc-ui-gs:package']
@@ -80,6 +87,12 @@ task buildAdmin(type: NpmTask) {
   println "Building eyc-admin UI"
   args = ['run', 'eyc-ui-admin']
   
+}
+
+task buildEuropeanFR(type: NpmTask){
+  println "Building eyc-european-fund-reporting UI"
+  args = ['run', 'eyc-european-fund-reporting']
+
 }
 
 build.dependsOn(npm_install)

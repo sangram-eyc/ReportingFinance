@@ -153,7 +153,7 @@ export class ExceptionsComponent implements OnInit {
 
     if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
       this.isDataIntaketype = true;
-      this.fileName= routeArray[routeArray.length - 1];
+      this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
       if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
       }
@@ -167,7 +167,7 @@ export class ExceptionsComponent implements OnInit {
       const urlPart=urlPartArray[urlPartArray.length - 2];
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
-        this.fileName=urlPartArray[urlPartArray.length - 1];
+        this.fileName=decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
         if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -187,7 +187,7 @@ export class ExceptionsComponent implements OnInit {
     else {
       this.isDataIntaketype = false;
     }
-      this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
   }
 
   ngAfterViewInit(): void {
