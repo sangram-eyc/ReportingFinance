@@ -57,21 +57,12 @@ export class DataManagedService {
     return formatDate(dateParam, 'MMMM yyyy', 'en');
   }
 
-  // getLastDayOfMonthFormatted(selectedDate: string): string {
-  //   const date = new Date(selectedDate);
-  //   const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  //   const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
-  //   return formattedDate;
-  // }
-
   montlyDateSub(presentDate: Date): Date {
-    // presentDate.setMonth(presentDate.getMonth() - 1); 
     const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth(), 0);
     return updatedDate;
   }
 
   montlyDateAdd(presentDate: Date): Date  {
-    // presentDate.setMonth(presentDate.getMonth() + 1);
     const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth() + 2, 0);
     return updatedDate;;
   }
@@ -159,8 +150,6 @@ export class DataManagedService {
     .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
-
-// fileName:Daily Working Trial Balance TF2021-03-31
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
