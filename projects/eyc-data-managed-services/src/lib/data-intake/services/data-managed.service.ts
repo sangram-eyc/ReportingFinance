@@ -41,35 +41,30 @@ export class DataManagedService {
     return businessWeekDay;
   }
 
-  getLastDayOfMonthFormatted(selectedDate: string): string {
-    const date = new Date(selectedDate);
-    const dueDate: Date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const formattedDate = `${formatDate(dueDate, 'yyyy-MM-dd', 'en')}`;
-    return formattedDate;
+  monthLastDate(lastDate: Date): Date {
+    return new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 0);
   }
 
-  montlyDateSub(presentDate,calSelectedMonth): string {
-  let curDateVal = presentDate;
-  if(calSelectedMonth) {
-    let calDate = new Date(calSelectedMonth);
-    curDateVal.setMonth(calDate.getMonth() - 1);
-  } else {
-    curDateVal.setMonth(curDateVal.getMonth() - 2);
-  }
-  let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-  return dateVal;
+  apiDateFormat(dateParam: Date): string {
+    return `${formatDate(dateParam, 'yyyy-MM-dd', 'en')}`;
   }
 
-  montlyDateAdd(presentDate,calSelectedMonth): string {
-  let curDateVal = presentDate; 
-    if(calSelectedMonth) {
-      let calDate = new Date(calSelectedMonth);
-      curDateVal.setMonth(calDate.getMonth() + 1);
-    }else {
-      curDateVal.setMonth(curDateVal.getMonth() + 0);
-    }
-    let dateVal = formatDate(curDateVal, 'yyyy-MM-dd', 'en');
-    return dateVal;
+  ymdToApiDateFormat(dateParam: string): string {
+    return `${formatDate(new Date(dateParam).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+  }
+
+  monthlyFormat(dateParam: Date): string {
+    return formatDate(dateParam, 'MMMM yyyy', 'en');
+  }
+
+  montlyDateSub(presentDate: Date): Date {
+    const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth(), 0);
+    return updatedDate;
+  }
+
+  montlyDateAdd(presentDate: Date): Date  {
+    const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth() + 2, 0);
+    return updatedDate;;
   }
   
   httpQueryParams(DataSummary: DataSummary): HttpParams {
@@ -155,8 +150,6 @@ export class DataManagedService {
     .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
-
-// fileName:Daily Working Trial Balance TF2021-03-31
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));

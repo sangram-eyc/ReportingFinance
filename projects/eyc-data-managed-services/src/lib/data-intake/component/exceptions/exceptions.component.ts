@@ -46,7 +46,6 @@ export class ExceptionsComponent implements OnInit {
 
 
   presentDate: Date;
-  isDisplay:boolean=false;
   curDate:string;
   calSelectedMonth: string;
   form: FormGroup;
@@ -358,7 +357,6 @@ export class ExceptionsComponent implements OnInit {
     });
   }
 
-
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
@@ -367,27 +365,6 @@ export class ExceptionsComponent implements OnInit {
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
-  }
-
-  toggleMonthlyCalendar(event): void {
-    this.disabledDailyMonthlyButton = false;
-    this.calSelectedMonth = event;
-    if (this.calSelectedMonth) {
-      this.httpDataGridParams.dueDate = this.dataManagedService.getLastDayOfMonthFormatted(this.calSelectedMonth);
-      this.getExceptionTableData();
-    }   
-  }
-
-  dateSub(presentDate) {
-    let dateVal = this.dataManagedService.montlyDateSub(presentDate,this.calSelectedMonth);
-    this.toggleMonthlyCalendar(dateVal);
-    this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
-  }
-
-  dateAdd(presentDate) {
-  let dateVal = this.dataManagedService.montlyDateAdd(presentDate,this.calSelectedMonth);
-  this.toggleMonthlyCalendar(dateVal);
-  this.curDate = formatDate(dateVal, 'MMMM  yyyy', 'en');
   }
 
   patchDatePicker(patchDatePickerValue: Date) {
@@ -409,12 +386,6 @@ export class ExceptionsComponent implements OnInit {
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.DAILY;
 
-    if (this.isDisplay){
-      this.isDisplay=!this.isDisplay;
-    } else {
-      this.isDisplay=this.isDisplay;
-    }
-
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
     if(!sessionStorage.getItem("selectedDate")){
@@ -430,12 +401,6 @@ export class ExceptionsComponent implements OnInit {
     this.dailyMonthlyStatus = status;
     this.httpDataGridParams.dataFrequency = DATA_FREQUENCY.MONTHLY;
 
-    if (this.isDisplay){
-      this.isDisplay=this.isDisplay;
-    } else {
-      this.isDisplay=!this.isDisplay;
-    }
-
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
@@ -447,6 +412,7 @@ export class ExceptionsComponent implements OnInit {
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
+  
   onRowClicked(event: RowClickedEvent) {
     const exceptionReportDetail = event.data.exceptionReportDetails;
     // FDF is not sending empty array. It is sending three type of values. 
