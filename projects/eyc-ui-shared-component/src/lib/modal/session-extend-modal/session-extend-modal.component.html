@@ -5,7 +5,7 @@
 <div class="modal-body">
     <ng-container *ngIf="isSessionExtent">
         <div class="timer">
-            <motif-icon [src]="'/assets/icons/image/ic_timer_24px.svg'"></motif-icon> {{counter | formatTime}}
+            <motif-icon [src]="'/assets/icons/image/ic_timer_24px.svg'"></motif-icon><countdown [config]="{leftTime: 120, format: 'mm:ss'}" (event)="onTimerFinished($event)"></countdown>
 
         </div>
         <div class="description-text">

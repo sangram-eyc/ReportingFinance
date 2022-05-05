@@ -37,6 +37,8 @@ import { RoutingStateService } from '../../projects/eyc-data-managed-services/sr
 import { EycAdminModule } from 'projects/eyc-admin/src/lib/eyc-admin.module';
 import {EycEuropeanFundReportingModule} from 'projects/eyc-european-fund-reporting/src/lib/eyc-european-fund-reporting.module'
 import {europeanfrenvironment} from '../environments/eyc-european-fund-reporting/europena-fr-environment'
+import { CountdownModule } from 'ngx-countdown';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import {europeanfrenvironment} from '../environments/eyc-european-fund-reporting
     EycDataManagementServicesModule,
     NotificationsModule,
     EycAdminModule,
-    EycEuropeanFundReportingModule
+    EycEuropeanFundReportingModule,
+    CountdownModule,
+    CommonModule
 
   ],
 

@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription, timer } from 'rxjs';
+import {CountdownEvent} from 'ngx-countdown';
 
 @Component({
   selector: 'lib-session-extend-modal',
@@ -9,9 +9,6 @@ import { Subscription, timer } from 'rxjs';
 })
 export class SessionExtendModalComponent implements OnInit, OnDestroy {
   modalDetails;
-  countDown: Subscription;
-  counter = 120;
-  tick = 1000;
   isSessionExtent = true;
   constructor(
     public dialogRef: MatDialogRef<SessionExtendModalComponent>,
@@ -22,15 +19,13 @@ export class SessionExtendModalComponent implements OnInit, OnDestroy {
 
   }
 
+  onTimerFinished(e: CountdownEvent) {
+    if (e.action == 'done') {
+      this.isSessionExtent = false;
+    }
+  }
+
   ngOnInit(): void {
-    this.countDown = timer(0, this.tick).subscribe(() => {
-      if (this.counter == 0) {
-        this.isSessionExtent = false;
-        return;
-      } else {
-        --this.counter
-      }
-    });
   }
 
 
@@ -55,6 +50,6 @@ export class SessionExtendModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close({ button: "Log in" });
   }
   ngOnDestroy() {
-    this.countDown = null;
+   
   }
 }
