@@ -212,13 +212,13 @@ export class ExceptionsComponent implements OnInit {
       fileId: '',
       fileName: this.ExceptionFileNameAlias
     };
-    if (this.dailyMonthlyStatus) {
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-    } else {
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-    }
+    // if (this.dailyMonthlyStatus) {
+    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+    // } else {
+    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    // }
     this.getExceptionTableData();
   }
 
@@ -341,18 +341,18 @@ export class ExceptionsComponent implements OnInit {
             }
           }
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: '',
-          field: 'next',
-          sortable: false,
-          filter: false,
-          minWidth: 100,
-          cellRendererParams: {
-            ngTemplate: this.nextButtonTemplate,
-          }
-        },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   headerName: '',
+        //   field: 'next',
+        //   sortable: false,
+        //   filter: false,
+        //   minWidth: 100,
+        //   cellRendererParams: {
+        //     ngTemplate: this.nextButtonTemplate,
+        //   }
+        // },
       ];
     });
   }
@@ -412,7 +412,7 @@ export class ExceptionsComponent implements OnInit {
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
-  
+
   onRowClicked(event: RowClickedEvent) {
     const exceptionReportDetail = event.data.exceptionReportDetails;
     // FDF is not sending empty array. It is sending three type of values. 
