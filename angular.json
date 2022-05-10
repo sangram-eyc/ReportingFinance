@@ -28,7 +28,7 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ey-xd/ng-motif/assets/fonts",
-                "output": "/fonts/"
+                "output": "/assets/fonts/"
               },
               {
                 "glob": "**/*",
