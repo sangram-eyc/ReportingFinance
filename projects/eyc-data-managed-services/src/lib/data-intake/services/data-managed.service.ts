@@ -45,6 +45,10 @@ export class DataManagedService {
     return new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 0);
   }
 
+  prevMonthLastDate(lastDate: Date): Date {
+    return new Date(lastDate.getFullYear(), lastDate.getMonth(), 0);
+  }
+
   apiDateFormat(dateParam: Date): string {
     return `${formatDate(dateParam, 'yyyy-MM-dd', 'en')}`;
   }
