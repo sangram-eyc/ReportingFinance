@@ -95,7 +95,7 @@ export class ApiCatalogComponent implements OnInit {
     // );
   }
 
-   handlePageChange(val: number): void {
+  handlePageChange(val: number): void {
     this.currentPage = val;
     if (val === 1) {
       this.startFrom = 0;
@@ -184,11 +184,11 @@ export class ApiCatalogComponent implements OnInit {
         obj.key = key;
         obj.value = object.responses[key];
         obj.description = object.responses[key].description;
-        obj.response_dto = key.toString() === '200' ? 
+        obj.response_dto = key.toString() === '200' ?
           (object.responses[key].content !== undefined ?
-             Object.values(Object.values(Object.values(object.responses[key].content)[0]))[0].properties : 
-             (Object.values(object.responses[key])[1] !== undefined ? Object.values(Object.values(object.responses[key])[1])[1] : 
-             null)) : 
+            Object.values(Object.values(Object.values(object.responses[key].content)[0]))[0].properties :
+            (Object.values(object.responses[key])[1] !== undefined ? Object.values(Object.values(object.responses[key])[1])[1] :
+              null)) :
           null;
         api.responses.push(obj);
       }
@@ -312,12 +312,12 @@ export class ApiCatalogComponent implements OnInit {
           //           Object.values(this.jsn.servers[0])[Object.keys(this.jsn.servers[0]).indexOf('url')];
 
           //         this.fetch_api_content(api_s);
-                  
+
           //         this.api_data.push(api_s);
           //       }
 
           //       if (api_list.length === index + 1) resolve(this.api_data);
-              
+
           //     });
           //   },
           //   (err) => {
@@ -325,45 +325,45 @@ export class ApiCatalogComponent implements OnInit {
           //   }
           // );
         } else {
-        //   this.postDataService
-        //     .getIntrospectionOperation(url.DOMAIN_URL)
-        //     .subscribe(
-        //       (data) => {
-        //         if (
-        //           !this.api_data.some(
-        //             (api) =>
-        //               api.domain.replace('_', ' ').toLowerCase() ===
-        //                 domain.toLowerCase() && api.API_TYP === 'graphQL'
-        //           )
-        //         ) {
-        //           let api_s = {
-        //             url: 'https://fdfd.api.ey.com',
-        //             api: [],
-        //             domain: data.data.domain,
-        //             post: false,
-        //             get: false,
-        //             put: false,
-        //             delete: false,
-        //             type: type,
-        //           };
-        //           this.fetch_intro_content(api_s, data).then((data) =>
-        //             this.api_data.push(api_s)
-        //           );
-        //         } else
-        //           this.fetch_intro_content(
-        //             this.api_data.find(
-        //               (api) =>
-        //                 api.domain.replace('_', ' ').toLowerCase() ===
-        //                 domain.toLowerCase()
-        //             ),
-        //             data
-        //           );
-        //       },
-        //       (err) => {
-        //         this.toastArray.push(this.toasterService.showWarning(this.warningMessage));
-        //       }
-        //     );
-         }
+          //   this.postDataService
+          //     .getIntrospectionOperation(url.DOMAIN_URL)
+          //     .subscribe(
+          //       (data) => {
+          //         if (
+          //           !this.api_data.some(
+          //             (api) =>
+          //               api.domain.replace('_', ' ').toLowerCase() ===
+          //                 domain.toLowerCase() && api.API_TYP === 'graphQL'
+          //           )
+          //         ) {
+          //           let api_s = {
+          //             url: 'https://fdfd.api.ey.com',
+          //             api: [],
+          //             domain: data.data.domain,
+          //             post: false,
+          //             get: false,
+          //             put: false,
+          //             delete: false,
+          //             type: type,
+          //           };
+          //           this.fetch_intro_content(api_s, data).then((data) =>
+          //             this.api_data.push(api_s)
+          //           );
+          //         } else
+          //           this.fetch_intro_content(
+          //             this.api_data.find(
+          //               (api) =>
+          //                 api.domain.replace('_', ' ').toLowerCase() ===
+          //                 domain.toLowerCase()
+          //             ),
+          //             data
+          //           );
+          //       },
+          //       (err) => {
+          //         this.toastArray.push(this.toasterService.showWarning(this.warningMessage));
+          //       }
+          //     );
+        }
       });
       if (!api_list.length) resolve([]);
     });
@@ -382,26 +382,26 @@ export class ApiCatalogComponent implements OnInit {
   get_filter = (event): number => event === '' ? 0 : this.temp_domains.length
 
   get_current_page() {
-     this.currentPage = 1;
-     return 1
+    this.currentPage = 1;
+    return 1
   }
 
   expand_all(data) {
     this.expand_api = !this.expand_api;
     // console.log('Expand all APIs', this.expand_api,data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
-    console.log('Expand all APIs', this.expand_api,data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
+    console.log('Expand all APIs', this.expand_api, data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
   }
 
   fetch_domain_details(domain, type, data) {
-    if  (data == null || data.target.offsetParent.classList.contains('motif-expanded') == false) {     
+    if (data == null || data.target.offsetParent.classList.contains('motif-expanded') == false) {
       this.get_specific_domain(domain).loading = true;
 
       if (!this.api_data.some((api) => api.domain.replace('_', ' ').toLowerCase() === domain.toLowerCase() && api.type === type)) {
         this.fetch_api(domain, type).then((data) => {
           this.get_specific(domain);
         }).catch(e => {
-          console.log("Error ========>",e);
-      });
+          console.log("Error ========>", e);
+        });
       }
 
       setTimeout(() => {
