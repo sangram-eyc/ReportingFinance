@@ -7,11 +7,11 @@
          [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Data Intake</button>
       <!-- Hide other tabs for release-1st -->
       <!-- <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
-         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button>
-      <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
-         [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button> -->
+         [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Trends & Insights</button> -->
       <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
          [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Data Explorer</button>
+      <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+         [ngClass]="tabIn == 3 ? 'motif-active' : '' ">API Catalog</button>
    </motif-tab-bar>
 </div>
 <section id='data-intake' [hidden]="!(tabIn == 1)">
@@ -468,4 +468,8 @@
          </motif-card>
       </div>
    </div>
+</section>
+
+<section id='api-catalog' [hidden]="!(tabIn == 3)">
+   <lib-api-catalog></lib-api-catalog>
 </section>
