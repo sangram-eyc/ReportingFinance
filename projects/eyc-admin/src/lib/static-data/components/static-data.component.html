@@ -119,7 +119,31 @@
                     </motif-select>
                   </motif-form-field>
             </div>
+            <div class="motif-col-xs-2">
+              <motif-form-field>
+                <label motifLabel class="select-label">Fund Frequency (required)</label>
+                <motif-select aria-label="Please select an option" [multiple]="true" [formControl]="addFilingForm.controls['fundFrequency']" ngDefaultControl>
+                  <motif-option [value]="fundFrequencyStage?.stageCode" *ngFor="let fundFrequencyStage of fundFrequency">{{fundFrequencyStage?.stageName}}</motif-option>
+                </motif-select>
+              </motif-form-field>
         </div>
+        </div>
+        <div class="motif-row">
+          <div class="motif-col-xs-2">
+              <motif-form-field>
+                  <label motifLabel>Regulation Form Applicable (required)</label>
+                  <input libRemoveSpaces motifInput type="text" aria-label="Regulation Form Applicable Field" [formControl]="addFilingForm.controls['regulationForm']" ngDefaultControl required/>
+                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('required') &&
+                              addFilingForm.get('regulationForm').touched">Please provide a Regulation Form name!</motif-error>
+                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('pattern')">Please enter valid data
+                  </motif-error>
+                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('maxlength')">Regulation Form Applicable can be max 150 characters long
+                  </motif-error>
+                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('whitespace') &&
+                              addFilingForm.get('regulationForm').touched">Please enter valid data</motif-error>
+                </motif-form-field>
+          </div>
+          </div>
       </form>
   
     </motif-modal-body>

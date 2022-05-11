@@ -49,6 +49,20 @@
           {{filingInfo?.entityStages}}
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Fund Frequency
+        </div>
+        <div class="col-md-6 lablel-heading">
+          Regulation Form Applicable
+        </div>
+        <div class="col-md-6 label-value">
+          {{filingInfo?.scopingStages}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{filingInfo?.entityStages}}
+        </div>
+      </div>
     </div>
 
   </div>
@@ -120,6 +134,41 @@
                   {{item.stageName}}</motif-option>
               </motif-select>
               <motif-error *ngIf="editForm.get('entityStages').hasError('required')">Filing entity stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Fund Frequency
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Regulation Form Applicable
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="filingStages"
+                (ngModelChange)="onChangeMultiSelect($event, 'multi', 'filingStage')"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="item.stageCode" *ngFor="let item of filingStagesList">{{item.stageName}}
+                </motif-option>
+              </motif-select>
+              <motif-error *ngIf="editForm.get('filingStage').hasError('required')">Filing stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <input libRemoveSpaces motifInput type="text" formControlName="filerType" />
+              <motif-error *ngIf="editForm.get('filerType').hasError('required')">Please provide filer type
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('pattern')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('maxlength')">Filer type can be max 500 characters
+                long</motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('whitespace')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('filerType').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
               </motif-error>
             </motif-form-field>
           </div>

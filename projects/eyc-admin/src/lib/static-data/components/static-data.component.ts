@@ -25,6 +25,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   showToastAfterFilingAdded = false;
   activeStaticData: any[] = []
   filterName: string;
+  fundFrequency=[];
 
   constructor(
     private service: StaticDataService,
@@ -42,12 +43,17 @@ export class StaticDataComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.tabHighlighted == 5) {
       this.activeFilings = [];
-      this.getStaticData();
-      this.getFilingStages();
-      this.getScopingStages();
-      this.getEntityStages();
+      this.getData();
       this.filterName='';
     }
+  }
+
+  getData(){
+    this.getStaticData();
+    this.getFilingStages();
+    this.getScopingStages();
+    this.getEntityStages();
+    this.getFundFrequency();
   }
 
   getFilingStages() {
@@ -64,6 +70,22 @@ export class StaticDataComponent implements OnInit, OnChanges {
     this.service.getStages("Filing Entity").subscribe(resp => {
       this.filingEntitiyStages = resp['data'];
     });
+  }
+  getFundFrequency(){
+    this.fundFrequency=[
+      {
+        "stageId": 0,
+        "stageCode": "REPORTING",
+        "stageName": "Reporting",
+        "displayOrder": 1
+      },
+      {
+        "stageId": 0,
+        "stageCode": "CLIENT_REVIEW",
+        "stageName": "Client Review",
+        "displayOrder": 2
+      }
+    ];
   }
 
   getStaticData() {
@@ -96,7 +118,9 @@ export class StaticDataComponent implements OnInit, OnChanges {
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]]
+      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]],
+      regulationForm: ['', [Validators.required, Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].REGULATION_FORM), Validators.maxLength(150), this.noWhitespaceValidator]],
+      fundFrequency:['', [Validators.required]]
     });
   }
 
@@ -146,11 +170,13 @@ export class StaticDataComponent implements OnInit, OnChanges {
     let SELECTED_FILING_STAGES = this.getSelectedStages(obj.filingStages, this.filingStages, "Filing");
     let SELECTED_SCOPING_STAGES = this.getSelectedStages(obj.scopeStages, this.scopeStages, "Fund Scoping");
     let SELECTED_ENTITY_STAGES = this.getSelectedStages(obj.filingEntitiyStages, this.filingEntitiyStages, "Filing Entity");
+    let SELECTED_FUND_FREQUENCY = this.getSelectedStages(obj.fundFrequency, this.fundFrequency, "Fund Scoping")
     this.showAddFilingForm = false;
     const staticData = {
       "filingDisplayName": obj.displayName,
       "filerTypes": this.getFilerTypes(obj.filerType),
-      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES]
+      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES, ...SELECTED_FUND_FREQUENCY],
+      "regulationForm":obj.regulationForm,
     }
     this.service.addStaticData(staticData).subscribe((res) => {
       let staticDataObj = {
@@ -164,6 +190,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
       setTimeout(() => {
         this.showToastAfterFilingAdded = !this.showToastAfterFilingAdded;
       }, 5000);
+    }, error => {
+      console.log("add static data error");
     });
   }
 
