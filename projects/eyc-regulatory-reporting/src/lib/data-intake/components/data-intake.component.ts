@@ -325,7 +325,11 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: '',
         width: 20,
         sortable: false,
-        pinned: 'left'
+        pinned: 'left',
+        cellStyle: params => 
+        (this.checkFilingCompletedStatus()) ?  
+            {'pointer-events': 'none'}
+            : ''
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,

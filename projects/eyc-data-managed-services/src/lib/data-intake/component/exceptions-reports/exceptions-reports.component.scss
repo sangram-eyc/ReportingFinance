@@ -131,3 +131,6 @@
   background-color: #FF9831 !important;
   border-color: #FF9831 !important;
 }
+::ng-deep .ag-row:hover,.ag-column-hover {
+  font-weight: normal !important;
+}

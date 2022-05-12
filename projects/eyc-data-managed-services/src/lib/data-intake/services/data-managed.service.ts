@@ -3,6 +3,7 @@ import { DataManagedSettingsService } from './data-managed-settings.service';
 import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
+import { formatDate } from '@angular/common';
 import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models
 export class DataManagedService {
   public exceptionDetails: any;
   public exceptionFileName:string;
+  public calSelectedMonth: string;
+  public presentDate:Date;
   constructor(
     private dataManagedSettingsService: DataManagedSettingsService,
     private eycDataApiService: EycDataApiService
@@ -36,6 +39,36 @@ export class DataManagedService {
       default: businessWeekDay.setDate(businessWeekDay.getDate() - 1); break;
     }
     return businessWeekDay;
+  }
+
+  monthLastDate(lastDate: Date): Date {
+    return new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 0);
+  }
+
+  prevMonthLastDate(lastDate: Date): Date {
+    return new Date(lastDate.getFullYear(), lastDate.getMonth(), 0);
+  }
+
+  apiDateFormat(dateParam: Date): string {
+    return `${formatDate(dateParam, 'yyyy-MM-dd', 'en')}`;
+  }
+
+  ymdToApiDateFormat(dateParam: string): string {
+    return `${formatDate(new Date(dateParam).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+  }
+
+  monthlyFormat(dateParam: Date): string {
+    return formatDate(dateParam, 'MMMM yyyy', 'en');
+  }
+
+  montlyDateSub(presentDate: Date): Date {
+    const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth(), 0);
+    return updatedDate;
+  }
+
+  montlyDateAdd(presentDate: Date): Date  {
+    const updatedDate = new Date(presentDate.getFullYear(), presentDate.getMonth() + 2, 0);
+    return updatedDate;;
   }
   
   httpQueryParams(DataSummary: DataSummary): HttpParams {
@@ -121,8 +154,6 @@ export class DataManagedService {
     .append('isViewClicked', dataGrid.isViewClicked ? 'true' : 'false');
     return params;
   }
-
-// fileName:Daily Working Trial Balance TF2021-03-31
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));

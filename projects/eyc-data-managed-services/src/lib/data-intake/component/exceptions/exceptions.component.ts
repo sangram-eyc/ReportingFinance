@@ -44,8 +44,10 @@ export class ExceptionsComponent implements OnInit {
   @ViewChild('nextButtonTemplate')
   nextButtonTemplate: TemplateRef<any>;
 
-  curDate: string;
+
   presentDate: Date;
+  curDate:string;
+  calSelectedMonth: string;
   form: FormGroup;
   calSelectedDate: string;
   disabledDailyMonthlyButton: boolean = false;
@@ -123,6 +125,7 @@ export class ExceptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
@@ -209,13 +212,13 @@ export class ExceptionsComponent implements OnInit {
       fileId: '',
       fileName: this.ExceptionFileNameAlias
     };
-    if (this.dailyMonthlyStatus) {
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-    } else {
-      this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-      this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-    }
+    // if (this.dailyMonthlyStatus) {
+    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
+    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
+    // } else {
+    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
+    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
+    // }
     this.getExceptionTableData();
   }
 
@@ -289,6 +292,24 @@ export class ExceptionsComponent implements OnInit {
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
+          },
+          valueGetter: function (params) {
+            switch (params.data.priority) {
+              case FILTER_TYPE.NO_ISSUES:
+                return FILTER_TYPE_TITLE.noIssues;
+              case FILTER_TYPE.LOW:
+                return FILTER_TYPE_TITLE.low;
+              case FILTER_TYPE.MEDIUM:
+                return FILTER_TYPE_TITLE.medium;
+              case FILTER_TYPE.HIGH:
+                return FILTER_TYPE_TITLE.high;
+              case FILTER_TYPE.MISSING_FILES:
+                return FILTER_TYPE_TITLE.missingFiles;
+              case FILTER_TYPE.FILE_NOT_RECIEVED:
+                return FILTER_TYPE_TITLE.fileNotReceived;
+              default:
+                break;
+            }
           }
         },
         // {
@@ -320,22 +341,21 @@ export class ExceptionsComponent implements OnInit {
             }
           }
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: '',
-          field: 'next',
-          sortable: false,
-          filter: false,
-          minWidth: 100,
-          cellRendererParams: {
-            ngTemplate: this.nextButtonTemplate,
-          }
-        },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   headerName: '',
+        //   field: 'next',
+        //   sortable: false,
+        //   filter: false,
+        //   minWidth: 100,
+        //   cellRendererParams: {
+        //     ngTemplate: this.nextButtonTemplate,
+        //   }
+        // },
       ];
     });
   }
-
 
   toggleCalendar(event): void {
     this.disabledDailyMonthlyButton = false;
@@ -392,6 +412,7 @@ export class ExceptionsComponent implements OnInit {
     this.getExceptionTableData();
     sessionStorage.setItem("dailyMonthlyStatus", `${this.dailyMonthlyStatus}`);
   }
+
   onRowClicked(event: RowClickedEvent) {
     const exceptionReportDetail = event.data.exceptionReportDetails;
     // FDF is not sending empty array. It is sending three type of values. 

@@ -13,7 +13,7 @@ import { RemoveSpacesDirective } from './dir/remove-spaces.directive';
 import { ResolveModalComponent } from './resolve-modal/components/resolve-modal.component';
 import { SessionExtendModalComponent } from './session-extend-modal/session-extend-modal.component';
 import { FormatTimePipe } from '../pipes/format-time.pipe';
-
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { FormatTimePipe } from '../pipes/format-time.pipe';
     MotifIconModule ,
     UploadModule,
     EycPowerbiModule,
-    MotifToastModule
+    MotifToastModule,
+    CountdownModule
   ],
   exports: [
     ModalComponent,

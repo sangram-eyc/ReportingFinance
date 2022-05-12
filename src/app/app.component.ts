@@ -155,7 +155,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-
+        console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
+        if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
+          this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
+        }
+        this.sessionTimeOut();
         if (uname) {
           this.userGivenName = uname.firstName;
           this.loginName = uname.firstName + ' ' + uname.lastName;
@@ -339,13 +343,16 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   sessionTimeOut() {
     if (this.settingsService.isUserLoggedin()) {
       this.countDown = timer(0, this.tick).subscribe(() => {
-        if (this.counter == 0) {
-          this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
-          return;
-        } else {
-          --this.counter
-          let sessionCounter = this.counter*1000;
-          sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
+        if (this.settingsService.isUserLoggedin()) {
+          if (this.counter == 0) {
+            this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
+            this.countDown.unsubscribe();
+            return;
+          } else {
+            --this.counter
+            let sessionCounter = this.counter * 1000;
+            sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
+          }
         }
 
       });
