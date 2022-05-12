@@ -21,8 +21,8 @@
             <div class="mt-3 mb-3 box-center">
                 <h3><b>{{ExceptionFileName}}</b></h3>
             </div>
-            <div class="dateWrapper">
-                <div class="px-3 date-ui">
+            <!-- <div class="dateWrapper">
+                <div [hidden]="isDisplay" aria-disabled="false" class="px-3 date-ui">
                     <form [formGroup]="form" novalidate>
                         <motif-form-field>
                             <label motifLabel for="datepicker">Date (required)</label>
@@ -33,12 +33,19 @@
                         </motif-form-field>
                     </form>
                 </div>
+                <div [hidden]="!isDisplay" aria-disabled="true" class="monthly-date-ui" >
+                    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_left_24px.svg'" (click)="dateSub(presentDate)">
+                    </motif-icon>
+                    <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'" (click)="dateAdd(presentDate)">
+                    </motif-icon>
+                    {{ curDate }}
+                 </div> 
                 <div class="box-center">
                     <button #dailyfilter motifButton color="primary-alt" (click)="dailyData(false)">Daily</button>
                     <button #monthlyfilter motifButton color="secondary" (click)="monthlyData(true)">Monthly</button>
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -47,7 +54,7 @@
     <div class="motif-row">
         <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between my-3">
             <div class="exception-heading box-center">
-                <!-- List of exception reports (#) -->
+                List of exception reports ({{glRowdata.length}})
             </div>
             <div class="data-exporer">
                 <motif-form-field class="search">
