@@ -74,3 +74,10 @@
   cursor: pointer;
 }
 
+button.motif-button.mark-as-complete-btn {
+  width: auto !important;
+}
+
+::ng-deep .markAsComplete-modal-class .motif-modal-content{
+  width: 500px !important;  
+}

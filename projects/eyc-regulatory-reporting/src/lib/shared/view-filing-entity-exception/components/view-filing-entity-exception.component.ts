@@ -107,7 +107,6 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 300,
-        sort:'asc',
         comparator: customComparator
       },
       {

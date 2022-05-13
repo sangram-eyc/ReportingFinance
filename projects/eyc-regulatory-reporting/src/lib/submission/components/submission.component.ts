@@ -620,7 +620,7 @@ export class SubmissionComponent implements OnInit {
         <path d="M0 19H22L11 0L0 19ZM12 16H10V14H12V16ZM12 12H10V8H12V12Z" fill="#23232F"/>
         </svg>
          &nbsp; Reopen Filing`,
-        description: "Are you sure you want to reopen this filing? <br> *This action will allow you to make updates to submissin files",
+        description: "Are you sure you want to reopen this filing? <br> <b> Note:</b> This action will only allow you to make updates to submission files.",
         footer: {
           style: "start",
           YesButton: "Yes",

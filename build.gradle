@@ -95,4 +95,9 @@ task buildEuropeanFR(type: NpmTask){
 
 }
 
+task buildDemo(type: NpmTask){
+  println "Building eyc UI for demo purposes"
+  args = ['run', 'eyc-ui-demo:package']
+}
+
 build.dependsOn(npm_install)

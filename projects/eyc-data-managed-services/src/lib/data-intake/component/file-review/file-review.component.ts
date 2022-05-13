@@ -217,8 +217,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
+      this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
     } else {
       this.presentDate = this.dataManagedService.businessDate(new Date());
+      this.presentMonthDate = this.dataManagedService.prevMonthLastDate(new Date());
     }
     this.presentDateFormat = this.dataManagedService.apiDateFormat(this.presentDate);
 
@@ -259,7 +261,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     let dueDate;
     dueDate = this.presentDateFormat;
     if (this.dailyMonthlyStatus) {
-      this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentDate);
       this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
       dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     }
@@ -451,20 +452,16 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     
                   // Calculating the no. of days between two dates
                   const diffInDays = Math.round(diffInTime / oneDay);
-                  console.log("File Review valueGetter Ended", new Date().toISOString());
                   return "-"+diffInDays+" Days";
                   
                 } else if(params.data.dueDate) {
-                  console.log("File Review valueGetter Ended", new Date().toISOString());
-                  return params.data.dueDate;
+                    return params.data.dueDate;
                 }
                 else {
-                  console.log("File Review valueGetter Ended", new Date().toISOString());
-                  return '--'
+                   return '--'
                 }
               },
           cellStyle: function (params) {
-            console.log("File Review cellStyle Started", new Date().toISOString());
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               return { color: 'red' }
             } else {
@@ -599,11 +596,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
     const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
     if (monthlySelectedDate) {
-      this.presentMonthDate = new Date(monthlySelectedDate);
+      this.presentMonthDate = this.dataManagedService.monthLastDate(new Date(monthlySelectedDate));
     } else {
-      this.presentMonthDate = new Date();   
+      this.presentMonthDate = this.dataManagedService.prevMonthLastDate(new Date());
     }
-    this.presentMonthDate = this.dataManagedService.monthLastDate(this.presentMonthDate);  
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
     this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;

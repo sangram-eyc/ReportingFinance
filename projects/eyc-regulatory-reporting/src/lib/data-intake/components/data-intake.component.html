@@ -1,5 +1,5 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
-    (filingStatusRes)="getFilingStatusDetails($event)"></lib-dots-card>
+    (filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
 
@@ -18,7 +18,7 @@
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
             [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
-            [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="rowData?.length > 0 ? true : false"
+            [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="rowData?.length > 0 ? true : false"
             (gridReady)="handleExceptionGridReady($event)" [pagination]="rowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoException.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
         </lib-shared-grid>
@@ -83,7 +83,7 @@
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
             [permissionToPrimaryButton]="false" [permissionToSecondaryButton]="false" 
-            [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="datasetData?.length > 0 ? true : false"
+            [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="datasetData?.length > 0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="datasetData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoData.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
         </lib-shared-grid>
@@ -118,3 +118,16 @@
 <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
     (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
 </motif-toast>
+
+<motif-modal class="markAsComplete-modal-class" [show]="showIntakeModal" (close)="showIntakeModal = false">
+    <motif-modal-header>
+      Mark intake complete
+    </motif-modal-header>
+    <motif-modal-body>
+      <p>Are you sure you want to mark filing complete?</p>
+    </motif-modal-body>
+    <motif-modal-footer>
+  <button motifButton color="primary-alt" class="mark-as-complete-btn" (click)="markAsCompleteClick()">Mark as complete</button>
+  <button motifButton color="secondary" (click)="showIntakeModal = false">Cancel</button>
+    </motif-modal-footer>
+  </motif-modal>
