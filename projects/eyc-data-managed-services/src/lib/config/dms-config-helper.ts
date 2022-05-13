@@ -99,7 +99,15 @@ export const PowerBiReportDailyList=[
     {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
-    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'}
+    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
+    
+    {reportName:'DMS_TRP_General Ledger Ledger Entries',reportId:'dd3cfb5e-8de2-416a-a401-9d33e96c8d31',reportDisplayName:'General Ledger Ledger Entries'},
+    {reportName:'DMS_TRP_Transactions Cash Activity',reportId:'3cf2d2b4-cb59-442c-81d4-3ea4be4668ec',reportDisplayName:'Transactions Cash Activity'},
+    {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'e9ba6d4c-8cb5-4f80-87e4-bdfb3b19b552',reportDisplayName:'Transactions RealizedUnrealizedTransaction'},
+    {reportName:'DMS_TRP_Account Capital Stock',reportId:'2cb452aa-65d3-472d-b2ee-1dd65a48134a',reportDisplayName:'Account Capital Stock'},
+    {reportName:'DMS_TRP_Account Share Class',reportId:'ee174c24-efb9-48b0-90a0-f8806416efba',reportDisplayName:'Account Share Class'},
+    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'60f42ae2-e507-41fc-b985-f67df78c3443',reportDisplayName:'PerformanceNetAssetValue Daily'}
+    
 
 ]
 
@@ -123,7 +131,13 @@ export const PowerBiReportMonthlyList=[
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'}
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'},
+
+    {reportName:'DMS_TRP_General Ledger Ledger Entries',reportId:'dd3cfb5e-8de2-416a-a401-9d33e96c8d31',reportDisplayName:'General Ledger Ledger Entries'},
+    {reportName:'DMS_TRP_Transactions Cash Activity',reportId:'3cf2d2b4-cb59-442c-81d4-3ea4be4668ec',reportDisplayName:'Transactions Cash Activity'},
+    {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'e9ba6d4c-8cb5-4f80-87e4-bdfb3b19b552',reportDisplayName:'Transactions RealizedUnrealizedTransaction'},
+    {reportName:'DMS_TRP_Account Capital Stock',reportId:'2cb452aa-65d3-472d-b2ee-1dd65a48134a',reportDisplayName:'Account Capital Stock'},
+    {reportName:'DMS_TRP_Account Share Class',reportId:'ee174c24-efb9-48b0-90a0-f8806416efba',reportDisplayName:'Account Share Class'},
 ];
 
 export const PowerBiReportDailyListProd=[
@@ -143,7 +157,15 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_CDM Account',reportId:'3c01710b-ca8f-493b-98e6-fdf3ebc0f204',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
-    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'}
+    {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
+
+    {reportName:'DMS_TRP_General Ledger Ledger Entries',reportId:'7cb9b499-4a71-417e-8ff0-50fba597e2e',reportDisplayName:'General Ledger Ledger Entries'},
+    {reportName:'DMS_TRP_Transactions Cash Activity',reportId:'3cbfd379-ab3f-4d8c-832a-4372e7b4a7a0',reportDisplayName:'Transactions Cash Activity'},
+    {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'3531243f-9105-4cf8-8ae3-6c6806919c14',reportDisplayName:'Transactions RealizedUnrealizedTransaction'},
+    {reportName:'DMS_TRP_Account Capital Stock',reportId:'4e262c1a-5b19-4bf8-b2d6-6a43dd9eef71',reportDisplayName:'Account Capital Stock'},
+    {reportName:'DMS_TRP_Account Share Class',reportId:'5bfcd5d4-a0c9-4abe-8a4f-7a942c94112f',reportDisplayName:'Account Share Class'},
+    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'f64231ec-faf9-4b88-b0a5-cc686a9eb4d4',reportDisplayName:'PerformanceNetAssetValue Daily'}
+    
 
 ];
 
@@ -167,7 +189,14 @@ export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'}
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'},
+    
+    {reportName:'DMS_TRP_General Ledger Ledger Entries',reportId:'7cb9b499-4a71-417e-8ff0-50fba597e2e',reportDisplayName:'General Ledger Ledger Entries'},
+    {reportName:'DMS_TRP_Transactions Cash Activity',reportId:'3cbfd379-ab3f-4d8c-832a-4372e7b4a7a0',reportDisplayName:'Transactions Cash Activity'},
+    {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'3531243f-9105-4cf8-8ae3-6c6806919c14',reportDisplayName:'Transactions RealizedUnrealizedTransaction'},
+    {reportName:'DMS_TRP_Account Capital Stock',reportId:'4e262c1a-5b19-4bf8-b2d6-6a43dd9eef71',reportDisplayName:'Account Capital Stock'},
+    {reportName:'DMS_TRP_Account Share Class',reportId:'5bfcd5d4-a0c9-4abe-8a4f-7a942c94112f',reportDisplayName:'Account Share Class'},
+
 ];
 
 export const PBI_CONFIG = {
