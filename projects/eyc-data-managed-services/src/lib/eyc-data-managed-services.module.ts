@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MotifTooltipModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifDropdownModule } from '@ey-xd/ng-motif';
+import { MotifTooltipModule, MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifDropdownModule, MotifAccordionModule, MotifModule, MotifProgressBarModule } from '@ey-xd/ng-motif';
 import { EycDataManagementServicesComponent } from './eyc-data-managed-services.component';
 import { DataIntakeComponent } from './data-intake/component/data-intake.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
@@ -18,6 +18,12 @@ import { ExceptionsReportsComponent } from './data-intake/component/exceptions-r
 import { FileReviewComponent } from './data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from './data-intake/component/donut-grid-list/donut-grid-list.component';
 import { ExceptionsComponent } from './data-intake/component/exceptions/exceptions.component';
+import { ApiCatalogComponent } from './data-intake/component/api-catalog/api-catalog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { PrettyJsonModule } from 'angular2-prettyjson';
+
 
 
 @NgModule({
@@ -27,7 +33,8 @@ import { ExceptionsComponent } from './data-intake/component/exceptions/exceptio
     ExceptionsReportsComponent,
     FileReviewComponent,
     ExceptionsComponent,
-    DonutGridListComponent],
+    DonutGridListComponent,
+    ApiCatalogComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -52,14 +59,22 @@ import { ExceptionsComponent } from './data-intake/component/exceptions/exceptio
     HttpClientModule,
     FormsModule,
     MotifTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MotifAccordionModule,
+    MotifModule, 
+    MotifProgressBarModule,
+    MatIconModule,
+    MatTableModule,
+    MatTooltipModule,
+    PrettyJsonModule
   ],
   providers: [
     DataManagedService,
     EycDataApiService,
-    DataManagedSettingsService
+    DataManagedSettingsService,
+    MotifModalModule
   ],
-  exports: [EycDataManagementServicesComponent, ExceptionsReportsComponent, FileReviewComponent, DonutGridListComponent]
+  exports: [EycDataManagementServicesComponent, ExceptionsReportsComponent, FileReviewComponent, DonutGridListComponent, ApiCatalogComponent]
 })
 export class EycDataManagementServicesModule {
   public static forRoot(environment: any): ModuleWithProviders {
