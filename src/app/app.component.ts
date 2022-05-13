@@ -185,7 +185,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   ngAfterViewChecked() {
     const url =  window.location.href.split('#');
     sessionStorage.setItem('pbiEndPoint',url[0]);
-    setTimeout(() => {
+  /*   setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
         if (this.count == 1) {
@@ -207,7 +207,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
             () => console.log('ws bulk complete'));
         }
       }
-    }, 0);
+    }, 0); */
   }
 
 
