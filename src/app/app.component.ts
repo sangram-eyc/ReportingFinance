@@ -305,7 +305,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   public checkUserActivity(event) {
     clearTimeout(this.timeoutId);
     clearTimeout(this.timeoutWarnDownloads);
-    this.checkTimeOut();
+    //this.checkTimeOut();
   }
 
 
