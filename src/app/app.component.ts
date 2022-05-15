@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -20,7 +20,7 @@ import { OauthService } from './login/services/oauth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, OnDestroy {
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, AfterViewInit, OnDestroy {
   title = 'eyc-ServiceEngine-UI';
   timeoutId;
   count = 0;
@@ -68,8 +68,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     private concurrentSessionsService:ConcurrentSessionsService,
     private oauthSvc: OauthService
   ) {
-    // To hide header and footer from login page
-
     window.addEventListener("beforeunload", async(event) => {
       if (this.settingsService.isUserLoggedin()){
        await this.settingsService.logoff();
@@ -174,6 +172,31 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.settingsService.isUserLoggedin()) {
+        this.count++;
+        if (this.count == 1) {
+          console.log('Run ngAfterViewInit', this.count);
+          this.checkTimeOut();
+          // for the warnings and notifications bulk download process of tax-reporting
+          this.wsBulkService.connect().subscribe(resp => {
+            if (resp.trim() === 'Connection Established') {
+              // to open the websocket conection
+              this.openConectionBulkWs();
+            } else {
+              this.bulkDownloadWarnings(resp);
+            }
+          },
+          err => {
+            console.log('ws bulk error', err);
+          },
+          () => console.log('ws bulk complete'));
+        }
+      }
+    }, 10); 
   }
 
   ngAfterContentChecked(): void {
@@ -305,7 +328,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   public checkUserActivity(event) {
     clearTimeout(this.timeoutId);
     clearTimeout(this.timeoutWarnDownloads);
-    //this.checkTimeOut();
+    this.checkTimeOut();
   }
 
 
