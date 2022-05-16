@@ -82,7 +82,7 @@
   </div>
 
     <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
-    [paginationSize]="currentlySelectedPageSize.value" [pagination]="false"
+    [paginationSize]="currentlySelectedPageSize.value" [pagination]="true"
     [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
     [detailCellRendererParams]="exceptionDetailCellRendererParams"
     (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
