@@ -77,11 +77,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
    }); 
 
    // To hide header and footer from login page
-   console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
+/*    console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
    if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
      this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
    }
-   this.sessionTimeOut()
+   this.sessionTimeOut() */
 
     this.router.events.subscribe(
       (event: any) => {
