@@ -11,7 +11,7 @@
     .save-submit {
         margin-right: 20px;
         margin-left: 20px;
-        width: 80px !important;
+        width: 85px !important;
         font-family: EYInterstate;
         font-style: normal;
         font-weight: normal;
@@ -60,21 +60,24 @@
 }
 .back-button {
     ::ng-deep svg {
-        background-color: #e1e1e6;
+        background-color: transparent;
         cursor: pointer;
         fill: #747480 !important;
+        width: 16px;
     }
 }
 
 .back-button:hover {
     ::ng-deep svg {
-        background-color: #2e2e3c;
+        background-color: #e1e1e6;
         cursor: pointer;
         fill: #ffffff !important;
+
     }
 }
 
 .back-opt {
+border-left: 1px solid;
 font-family: EYInterstate;
 font-style: normal;
 font-weight: 300;
@@ -84,8 +87,18 @@ color: #2E2E3C;
 top: 4px;
 position: relative;
 left: 3px;
+height: 17px;
 // cursor: pointer;
 }
+
+.custom-ml{
+    margin-left: 12px;
+}
+
+.custom-mr{
+    margin-right: 6px;
+}
+
 h3 {
 font-family: EYInterstate;
 font-style: normal;
@@ -99,6 +112,10 @@ margin-right: 40px;
     display: flex;
     margin-top: 15px;
     margin-bottom: 20px;
+    h3{
+        font-weight: 400;
+        font-size:20px;
+    }
 }
 
 motif-icon.motif-icon.user-edit {

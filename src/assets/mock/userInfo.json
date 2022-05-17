@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": null,
+    "data": {
+        "userId": 2,
+        "userEmail": "gaston.raul.silva@ey.com",
+        "userFirstName": "Gaston",
+        "userLastName": "Silva"
+    },
+    "error": null
+}
