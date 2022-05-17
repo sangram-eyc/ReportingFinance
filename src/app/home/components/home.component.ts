@@ -68,21 +68,15 @@ export class HomeComponent implements OnInit {
 
  
  async setSessionId(email: any) {
-    console.log('email', email)
+    console.log('setSessionId email->', email)
     //set session id to avoid concurrent sessions
     const body = {
       "userEmail": email
     }
 
     try {
-      const res = await this.concurrentSessionsService.addSessionId(body)
-      if (res['data'].id == '00-00-00-00-00-00-00-00-00-00-00-00') {
-        //this.settingsService.logoff()
-        console.log('session id -->',res['data'].id);
-      }
-      else {
-        sessionStorage.setItem('session_id', res['data'].id);
-      }
+      const res = await this.concurrentSessionsService.addSessionId(body);
+      sessionStorage.setItem('session_id', res['data'].id);
     } catch (err) {
       // request failed
       console.error(err);

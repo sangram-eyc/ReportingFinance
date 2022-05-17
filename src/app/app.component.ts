@@ -12,8 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
-import { ConcurrentSessionsService } from './services/concurrent-sessions/concurrent-sessions.service';
-import { OauthService } from './login/services/oauth.service';
 
 @Component({
   selector: 'app-root',
@@ -65,23 +63,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
     private routingState: RoutingStateService,
-    private concurrentSessionsService:ConcurrentSessionsService,
-    private oauthSvc: OauthService
   ) {
-    window.addEventListener("beforeunload", async(event) => {
-      if (this.settingsService.isUserLoggedin()){
-       await this.settingsService.logoff();
-       event.preventDefault();
-       event.returnValue = 'Dialog text here.';       
-      }
-   }); 
-
    // To hide header and footer from login page
-/*    console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
-   if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
-     this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
-   }
-   this.sessionTimeOut() */
 
     this.router.events.subscribe(
       (event: any) => {
@@ -97,13 +80,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     this.inActivityTime = sessionStorage.getItem('inActivityTime');
     this.timeoutId = setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
-         const idSession = sessionStorage.getItem('session_id');
-         if(idSession != null){
-            const body = {
-              "id": idSession
-            }
-            this.concurrentSessionsService.exitSessionInactivity(body).subscribe();
-         }
         this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
       }
     }, this.inActivityTime);
@@ -184,10 +160,16 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           // for the warnings and notifications bulk download process of tax-reporting
           this.wsBulkService.connect().subscribe(resp => {
             if (resp.trim() === 'Connection Established') {
-              // to open the websocket conection
               this.openConectionBulkWs();
             } else {
-              this.bulkDownloadWarnings(resp);
+              const objectFromWs = JSON.parse(resp);
+              const objectContent = JSON.parse(objectFromWs.request.content);
+              const notificationEventType = objectContent.extraParameters.notificationEventType;
+              if(notificationEventType === "ConcurrentSession"){
+                    this.closeConcurrentSession(resp);
+              }else{
+                    this.bulkDownloadWarnings(resp);
+              }             
             }
           },
           err => {
@@ -299,19 +281,19 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
-  public async logoff() {
+  public logoff() {
     if (sessionStorage.getItem('pendingDownloadsBulk') != null) {
       this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
       if (this.settingsService.isUserLoggedin() && this.pendingDownloads.length > 0) {
         this.warningMessage();
       } else {
         this.wsBulkService.closeConection();
-        await this.settingsService.logoff();
+        this.settingsService.logoff();
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     } else {
       this.wsBulkService.closeConection();
-      await this.settingsService.logoff();
+      this.settingsService.logoff();
       this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     }
   }
@@ -444,6 +426,17 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.wsBulkService.openConection(sessionStorage.getItem('userEmail'));
       }
     }, 100);
+  }
+
+  closeConcurrentSession(respFromWs:any){
+    const objectFromWs = JSON.parse(respFromWs);
+    const objectContent = JSON.parse(objectFromWs.request.content);
+    const session_id_ws = objectContent.extraParameters.notificationType;
+    const current_session_id = sessionStorage.getItem('session_id');
+    if(session_id_ws === current_session_id){
+      this.settingsService.logoff();
+      this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+    }
   }
 
   ngOnDestroy() {
