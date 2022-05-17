@@ -109,15 +109,8 @@ export class SettingsService {
     }
   }
 
-  public async logoff() {
+  public logoff() {
     console.log('inside logout');
-    const body = {
-      "id": sessionStorage.getItem('session_id')
-    }
-    if ((sessionStorage.getItem("session_id")) != null) {
-      await this.concurrentSessionService.deleteSessionId(body);
-      sessionStorage.removeItem('session_id');
-    }
     this.dialogRef.closeAll();
     this.oauthService.logOut();
     sessionStorage.removeItem("currentUserSession");
