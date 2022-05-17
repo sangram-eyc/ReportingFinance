@@ -175,6 +175,7 @@ export class FilingCardComponent implements OnInit {
   routeToDetailsView() {
     // this.router.navigate(['/regulatory-filing-list/'+1]);
     this.filingService.setfilingData = this._filingData;
+    
     switch (this.status.stageCode) {
       case "FUND_SCOPING":
         if(this.permissions.validatePermission('Fund Scoping', 'View Fund Scoping')) {
@@ -187,7 +188,7 @@ export class FilingCardComponent implements OnInit {
                 return;
               }
               if ((i+1) ===this._filingData.status.length) {
-                 this.errorModalPopup();
+                this.checkAllStatus();
                }
             }
         }
@@ -203,7 +204,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
@@ -221,7 +222,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                }
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               }  
             }
         }
@@ -239,7 +240,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
@@ -254,12 +255,25 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
     }
 
+  }
+
+  checkAllStatus() {
+    for(let j=0; j < this._filingData.status.length; j++) {
+      
+       if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[j].stageCode), this.preapreViewFeature(this._filingData.status[j].stageCode))) {
+        this.preapreRouting(this._filingData.status[j].stageCode);
+        return;
+       } 
+       if ((j+1) ===this._filingData.status.length) {
+        this.errorModalPopup();
+      } 
+    }
   }
 
   sortStates(a, b) {
