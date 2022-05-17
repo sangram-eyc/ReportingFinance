@@ -133,16 +133,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.headerColumnName = []
     this.columnDefs = [];
     this.columnDefsFill = [];
-    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
-      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
-      const prop = str.split(',');
-      prop.forEach((props) => {
-        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
-        const value = props.split(':')[1].trim().replace(/"/g, '');
-        this.headerColumnName.push(columnName);
-        this.exceptionTableFillData.push({ [`${columnName}`]: value });
-      })
-    }
 
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
@@ -168,6 +158,17 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
     this.exceptionUrl=this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+    
+    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
+      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
+      const prop = str.split(',');
+      prop.forEach((props) => {
+        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
+        const value = props.split(':')[1].trim().replace(/"/g, '');
+        this.headerColumnName.push(columnName);
+        this.exceptionTableFillData.push({ [`${columnName}`]: value });
+      })
+    }
   }
 
   // Table methods
