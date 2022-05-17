@@ -123,7 +123,7 @@
               <motif-form-field>
                 <label motifLabel class="select-label">Fund Frequency (required)</label>
                 <motif-select aria-label="Please select an option" [multiple]="true" [formControl]="addFilingForm.controls['fundFrequency']" ngDefaultControl>
-                  <motif-option [value]="fundFrequencyStage?.stageCode" *ngFor="let fundFrequencyStage of fundFrequency">{{fundFrequencyStage?.stageName}}</motif-option>
+                  <motif-option [value]="fundFrequencyStage" *ngFor="let fundFrequencyStage of fundFrequency">{{fundFrequencyStage}}</motif-option>
                 </motif-select>
               </motif-form-field>
         </div>

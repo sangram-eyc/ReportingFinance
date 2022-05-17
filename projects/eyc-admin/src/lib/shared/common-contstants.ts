@@ -5,7 +5,7 @@ export const ADD_TEAM_REGEX_PATTERN = {
 export const ADD_STATIC_DATA_REGEX_PATTERN = {
     DISPLAY_NAME :'^[A-Za-z0-9 \\-\\_\\:\\/\\(\\)]*$',
     FILER_TYPE :'^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$',
-    REGULATION_FORM :'^[A-Za-z0-9 \\-\\_\\:\\/\\,\\.]*$'
+    REGULATION_FORM :'^[A-Za-z0-9 \\-\\_\\(\\)]*$'
 }
 
 export const ADD_USER_REGEX = {

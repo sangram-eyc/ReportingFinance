@@ -72,19 +72,13 @@ export class StaticDataComponent implements OnInit, OnChanges {
     });
   }
   getFundFrequency(){
-    this.fundFrequency=[
-      {
-        "stageId": 0,
-        "stageCode": "REPORTING",
-        "stageName": "Reporting",
-        "displayOrder": 1
-      },
-      {
-        "stageId": 0,
-        "stageCode": "CLIENT_REVIEW",
-        "stageName": "Client Review",
-        "displayOrder": 2
-      }
+    this.fundFrequency=["Daily",
+      "Monthly",
+      "Quarterly",
+      "Semi-Annual",
+      "Annual",
+      "Ad-hoc",
+      "Not Applicable"
     ];
   }
 
@@ -119,7 +113,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
       filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]],
-      regulationForm: ['', [Validators.required, Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].REGULATION_FORM), Validators.maxLength(150), this.noWhitespaceValidator]],
+      regulationForm: ['', [Validators.required, Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].REGULATION_FORM), Validators.maxLength(50), this.noWhitespaceValidator]],
       fundFrequency:['', [Validators.required]]
     });
   }
@@ -170,13 +164,14 @@ export class StaticDataComponent implements OnInit, OnChanges {
     let SELECTED_FILING_STAGES = this.getSelectedStages(obj.filingStages, this.filingStages, "Filing");
     let SELECTED_SCOPING_STAGES = this.getSelectedStages(obj.scopeStages, this.scopeStages, "Fund Scoping");
     let SELECTED_ENTITY_STAGES = this.getSelectedStages(obj.filingEntitiyStages, this.filingEntitiyStages, "Filing Entity");
-    let SELECTED_FUND_FREQUENCY = this.getSelectedStages(obj.fundFrequency, this.fundFrequency, "Fund Scoping")
+    let SELECTED_FUND_FREQUENCY = obj.fundFrequency;
     this.showAddFilingForm = false;
     const staticData = {
       "filingDisplayName": obj.displayName,
       "filerTypes": this.getFilerTypes(obj.filerType),
       "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES, ...SELECTED_FUND_FREQUENCY],
-      "regulationForm":obj.regulationForm,
+      "regulationFormApplicable":obj.regulationForm,
+      "frequency":[...SELECTED_FUND_FREQUENCY]
     }
     this.service.addStaticData(staticData).subscribe((res) => {
       let staticDataObj = {
