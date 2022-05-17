@@ -1,7 +1,7 @@
 <div class="user-details-wrapper">
   <div class="back-wrapper">
-    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
-      (click)="backtoUserAdmin()"></motif-icon>&nbsp;<span class="back-opt">Back</span>
+    <motif-icon class="back-button custom-mr" [src]="'/assets/icons/arrow-back.svg'" (click)="backtoUserAdmin()"></motif-icon>
+    &nbsp;<span class="back-opt"><span class='custom-ml'>Back</span></span>
   </div>
   <div class="user-info-header">
     <h3>User info</h3>
@@ -11,7 +11,7 @@
       <span *ngIf="!enableEditor && userInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
     <div class="edit-form" *ngIf="enableEditor">
-      <button class="save-submit" motifButton color="primary" size="small" [disabled]="editUserForm.invalid"
+      <button class="save-submit" motifButton color="primary-alt" size="small" [disabled]="editUserForm.invalid"
         [ngClass]="editUserForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditUserForm(editUserForm)">Save</button>
       <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
     </div>
@@ -58,7 +58,8 @@
           </div>
           <div class="col-md-6 cust-col-colour cust-row-st">
             <motif-form-field>
-              <input libRemoveSpaces motifInput type="text" aria-label="Username Form Field" formControlName="firstName" />
+              <input libRemoveSpaces motifInput type="text" aria-label="Username Form Field"
+                formControlName="firstName" />
               <motif-error *ngIf="editUserForm.get('firstName').hasError('required')">Please provide a first name!
               </motif-error>
               <motif-error *ngIf="editUserForm.get('firstName').hasError('pattern')">First name must contain only
