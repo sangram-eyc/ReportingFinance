@@ -1,21 +1,19 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { RegulatoryReportingFilingService } from '../services/regulatory-reporting-filing.service';
-
 import { TaxReportingComponent } from './tax-reporting.component';
 import { of } from 'rxjs';
-import { MotifButtonModule, MotifCardModule, MotifFormsModule, MotifIconModule, MotifPaginationModule, MotifProrgressIndicatorsModule, MotifTableModule } from '@ey-xd/ng-motif';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../../src/environments/environment';
-import { EycRrSettingsService } from '../../services/eyc-tax-settings.service';
+import { ProductionCycleService } from '../services/production-cycle.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AgGridModule } from 'ag-grid-angular';
+import { ManagementReportsService } from '../services/management-reports.service';
+import { taxenvironment } from '../../../../../../src/environments/eyc-tax-reporting/tax-environment';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 describe('TaxReportingComponent', () => {
   let component: TaxReportingComponent;
   let fixture: ComponentFixture<TaxReportingComponent>;
-  let filingService: RegulatoryReportingFilingService;
   let mockFilings = {
     "success": true,
     "message": "",
@@ -67,42 +65,45 @@ describe('TaxReportingComponent', () => {
       }
     ]
   };
-
+  let productionCycleService : ProductionCycleService;
+  let managementReportsService: ManagementReportsService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TaxReportingComponent ],
       imports: [
         AgGridModule.withComponents([]),
         CommonModule,
-        MotifCardModule,
-        MotifButtonModule,
-        MotifFormsModule,
-        MotifIconModule,
-        MotifProrgressIndicatorsModule,
-        MotifTableModule,
-        SlickCarouselModule,
         HttpClientModule,
-        MotifPaginationModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatDialogModule
       ],
-      providers: [RegulatoryReportingFilingService,
-        EycRrSettingsService,
+      providers: [
+        ManagementReportsService,
+        ProductionCycleService,
         {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
-        {provide:"rrproduction",  useValue: environment.production}]
+        {provide:"rrproduction",  useValue: environment.production},
+        {provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
+        {provide:"taxProduction",  useValue: taxenvironment.production},
+        {provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },]
     })
     .compileComponents();
-    fixture = TestBed.createComponent(TaxReportingComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    filingService = TestBed.get(RegulatoryReportingFilingService);
+    
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TaxReportingComponent);
+    component = fixture.componentInstance;
+    productionCycleService = TestBed.get(ProductionCycleService);
+    managementReportsService = TestBed.get(ManagementReportsService);
+    fixture.detectChanges();
+  });
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getFilingsData and return list of flilingsData', async(()=> {
+  /* it('should call getFilingsData and return list of flilingsData', async(()=> {
     let activeFilings = []
     // spyOn(filingService, 'getFilings').and.returnValue(of(response))
     fixture.detectChanges();
@@ -201,7 +202,7 @@ describe('TaxReportingComponent', () => {
     expect(component.searchFilingValidation(test1)).toEqual(true);
     expect(component.searchFilingValidation(test2)).toEqual(true);
     expect(component.searchFilingValidation(test3)).toEqual(false);
-  });
+  }); */
 
   // it('grid API is available after `detectChanges`', () => {
   //   fixture.detectChanges();
