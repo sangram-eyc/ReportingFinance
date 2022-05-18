@@ -34,7 +34,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: block;
-                width: 140px;
+                max-width: 280px;
                 margin: 0 0 -5px;
             }
             .filing-period {
@@ -280,19 +280,9 @@
     
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 769px) and (max-width: 1248px) {
     span.filing-name.ellipsis {
-       width: 200px !important;
-   }
-}
-  @media screen and (min-width: 1950px) {
-    span.filing-name.ellipsis {
-        width: 241px !important;
-    }
-}
-@media screen and (min-width: 850px) and (max-width: 1000px) {
-    span.filing-name.ellipsis {
-        width: 230px !important;
+        max-width: 320px !important;
     }
 }  
 

@@ -84,16 +84,16 @@ export class FilingCardComponent implements OnInit {
     console.log(window.innerWidth);
     this.innerWidth = window.innerWidth;
     if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.filingWidth = 25;
+      this.filingWidth = 32;
       this.periodWidth = 20
     } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.filingWidth = 25;
+      this.filingWidth = 32;
       this.periodWidth = 16
     } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      this.filingWidth = 30;
+      this.filingWidth = 32;
       this.periodWidth = 20
     }else {
-      this.filingWidth = 15;
+      this.filingWidth = 32;
       this.periodWidth = 10
     }
   }
