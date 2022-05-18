@@ -49,6 +49,20 @@
           {{filingInfo?.entityStages}}
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Fund Frequency
+        </div>
+        <div class="col-md-6 lablel-heading">
+          Regulation Form Applicable
+        </div>
+        <div class="col-md-6 label-value">
+          {{filingInfo?.fundFrequency}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{filingInfo?.regulationForm}}
+        </div>
+      </div>
     </div>
 
   </div>
@@ -120,6 +134,39 @@
                   {{item.stageName}}</motif-option>
               </motif-select>
               <motif-error *ngIf="editForm.get('entityStages').hasError('required')">Filing entity stage is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 lablel-heading">
+            Fund Frequency
+          </div>
+          <div class="col-md-6 lablel-heading">
+            Regulation Form Applicable
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="fundFrequency"
+                (ngModelChange)="onChangeMultiSelect($event, 'multi', 'fundFrequency')"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="item" *ngFor="let item of fundFrequencyList">{{item}}
+                </motif-option>
+              </motif-select>
+              <motif-error *ngIf="editForm.get('fundFrequency').hasError('required')">Fund frequency is required
+              </motif-error>
+            </motif-form-field>
+          </div>
+          <div class="col-md-6">
+            <motif-form-field>
+              <input libRemoveSpaces motifInput type="text" formControlName="regulationForm" />
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('required')">Please provide regulation form applicable
+              </motif-error>
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('pattern')">Please enter valid data
+              </motif-error>
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('maxlength')">Regulation form applicable can be max 50 characters
+                long</motif-error>
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('whitespace')">Please enter valid data
               </motif-error>
             </motif-form-field>
           </div>
