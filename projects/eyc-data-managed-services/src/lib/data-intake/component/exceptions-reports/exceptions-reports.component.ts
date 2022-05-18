@@ -123,7 +123,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
       this.exceptionTableData = multiColumnData;
-      this.columnDefsFill.splice(0, 0, {headerName: '#', valueGetter: 'node.rowIndex+1'});
+      this.columnDefsFill.splice(0, 0, {headerName: '#',width:'70', valueGetter: 'node.rowIndex+1'});
       this.columnDefs = this.columnDefsFill;
     }
   }
@@ -172,7 +172,6 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
   }
 
   onSortChanged(params) {
-    debugger;
     this.gridApi.refreshCells();
   }
 
@@ -180,6 +179,7 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+    this.gridApi.refreshCells();
   }
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
@@ -195,6 +195,7 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
         return false;
       }
     });
+    this.gridApi.refreshCells();
   }
 
   searchFilingValidation(event) {
