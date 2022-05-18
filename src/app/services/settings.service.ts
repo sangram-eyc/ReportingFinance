@@ -181,6 +181,7 @@ setToken = (value) => {
   }
 
   public extentToken() {
+    this.oauthService.oidc = true;
 		this.oauthService.silentRefresh()
 			.then(info => {
 				console.log('refresh ok', info);
@@ -198,10 +199,13 @@ setToken = (value) => {
 		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
 	}
 
-  public login() {
-		// console.log('inside login');
+  async login() {
+		console.log('inside login');
+    console.log(document.hasFocus());
+    this.oauthService.configure(authConfig);
+    await this.oauthService.loadDiscoveryDocument();
 			this.oauthService.initImplicitFlow();
-		
+	 
   }
 }
 
