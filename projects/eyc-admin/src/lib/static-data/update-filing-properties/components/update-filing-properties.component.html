@@ -150,25 +150,23 @@
               <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="fundFrequency"
                 (ngModelChange)="onChangeMultiSelect($event, 'multi', 'fundFrequency')"
                 [ngModelOptions]="{standalone: true}" required>
-                <motif-option [value]="item" *ngFor="let item of fundFrequency">{{item}}
+                <motif-option [value]="item" *ngFor="let item of fundFrequencyList">{{item}}
                 </motif-option>
               </motif-select>
-              <motif-error *ngIf="editForm.get('fundFrequency').hasError('required')">Filing stage is required
+              <motif-error *ngIf="editForm.get('fundFrequency').hasError('required')">Fund frequency is required
               </motif-error>
             </motif-form-field>
           </div>
           <div class="col-md-6">
             <motif-form-field>
               <input libRemoveSpaces motifInput type="text" formControlName="regulationForm" />
-              <motif-error *ngIf="editForm.get('regulationForm').hasError('required')">Please provide filer type
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('required')">Please provide regulation form applicable
               </motif-error>
               <motif-error *ngIf="editForm.get('regulationForm').hasError('pattern')">Please enter valid data
               </motif-error>
-              <motif-error *ngIf="editForm.get('regulationForm').hasError('maxlength')">Filer type can be max 500 characters
+              <motif-error *ngIf="editForm.get('regulationForm').hasError('maxlength')">Regulation form applicable can be max 50 characters
                 long</motif-error>
               <motif-error *ngIf="editForm.get('regulationForm').hasError('whitespace')">Please enter valid data
-              </motif-error>
-              <motif-error *ngIf="editForm.get('regulationForm').hasError('duplicateName')">Duplicate entries !! Please enter valid filer type
               </motif-error>
             </motif-form-field>
           </div>

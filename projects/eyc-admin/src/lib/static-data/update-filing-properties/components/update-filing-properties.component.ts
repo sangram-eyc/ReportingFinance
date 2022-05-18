@@ -109,17 +109,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     });
   }
   getFundFrequency() {
-    // this.service.getStages("Filing Entity").subscribe(resp => {
-    //   this.fundFrequencyList = resp['data'];
-    // });
-    this.fundFrequency=["Daily",
-    "Monthly",
-    "Quarterly",
-    "Semi-Annual",
-    "Annual",
-    "Ad-hoc",
-    "Not Applicable"
-  ];
+    this.service.getFrequency().subscribe(resp => {
+      this.fundFrequencyList = resp['data'][0]?.split(',');
+    });
   }
 
   enableEditForm() {
@@ -135,13 +127,13 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       filingStage: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
       scopingStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
       entityStages: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode'),
-      fundFrequency: this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode'),
-      regulationForm:this.backendFilingInfo.filerTypes.join(','),
+      fundFrequency: this.backendFilingInfo.frequency,
+      regulationForm:this.backendFilingInfo.regulationFormApplicable,
     });
     this.filingStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing', 'stageCode');
     this.scopingStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode');
     this.entityStages = this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode');
-    this.fundFrequency = this.mapStageData(this.backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode');
+    this.fundFrequency = this.backendFilingInfo.frequency;
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
   }
@@ -153,15 +145,8 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       "filingStage": this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageName'),
       "scopingStages": this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageName'),
       "entityStages": this.mapStageData(backendFilingInfo.stagesByType, 'Filing Entity', 'stageName'),
-      "fundFrequency": ["Daily",
-      "Monthly",
-      "Quarterly",
-      "Semi-Annual",
-      "Annual",
-      "Ad-hoc",
-      "Not Applicable"
-    ],
-      "regulationForm" : "Test Data",
+      "fundFrequency": backendFilingInfo.frequency,
+      "regulationForm" : backendFilingInfo.regulationFormApplicable,
     }
 
     this.editForm.patchValue({
@@ -169,27 +154,13 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       filingStage: this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageCode'),
       scopingStages: this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode'),
       entityStages: this.mapStageData(backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode'),
-      fundFrequency: ["Daily",
-      "Monthly",
-      "Quarterly",
-      "Semi-Annual",
-      "Annual",
-      "Ad-hoc",
-      "Not Applicable"
-    ],
-      regulationForm: "Test Data",
+      fundFrequency: backendFilingInfo.frequency,
+      regulationForm: backendFilingInfo.regulationFormApplicable,
     });
     this.filingStages = this.mapStageData(backendFilingInfo.stagesByType, 'Filing', 'stageCode');
     this.scopingStages = this.mapStageData(backendFilingInfo.stagesByType, 'Fund Scoping', 'stageCode');
     this.entityStages = this.mapStageData(backendFilingInfo.stagesByType, 'Filing Entity', 'stageCode');
-    this.fundFrequency =  ["Daily",
-    "Monthly",
-    "Quarterly",
-    "Semi-Annual",
-    "Annual",
-    "Ad-hoc",
-    "Not Applicable"
-  ]
+    this.fundFrequency = backendFilingInfo.frequency;
   }
 
   mapStageData(stagesByType, type, mappingkey) {
@@ -236,18 +207,19 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     const staticData = {
       "filingDisplayName": this.filingData.filingName,
       "filerTypes": this.getFilerTypes(obj.filerType),
-      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES, ...SELECTED_FUND_FREQUENCY],
-      "regulationForm": obj.regulationForm,
+      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES],
+      "regulationFormApplicable":obj.regulationForm,
+      "frequency":[...SELECTED_FUND_FREQUENCY]
     }
     this.enableEditor = !this.enableEditor;
     this.disableAddMemberButton = !this.disableAddMemberButton;
     this.service.updateStaticData(staticData).subscribe(res => {
-
       this.backendFilingInfo.filerTypes = staticData.filerTypes;
       this.backendFilingInfo.stagesByType['Filing'] = SELECTED_FILING_STAGES;
       this.backendFilingInfo.stagesByType['Fund Scoping'] = SELECTED_SCOPING_STAGES;
       this.backendFilingInfo.stagesByType['Filing Entity'] = SELECTED_ENTITY_STAGES;
-      this.backendFilingInfo.fundFrequency = SELECTED_FUND_FREQUENCY;
+      this.backendFilingInfo.frequency = SELECTED_FUND_FREQUENCY;
+      this.backendFilingInfo.regulationFormApplicable = staticData.regulationFormApplicable;
       this.updateDataToDisplayandForm(this.backendFilingInfo);
 
       this.toasterMessage = "Filing has been updated successfully!";
@@ -272,7 +244,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       scopingStages: ['', Validators.required],
       entityStages: ['', [Validators.required]],
       fundFrequency: ['', [Validators.required]],
-      regulationForm:['', [Validators.maxLength(50), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]],
+      regulationForm:['', [Validators.required,Validators.maxLength(50), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].REGULATION_FORM)]],
     });
   }
 

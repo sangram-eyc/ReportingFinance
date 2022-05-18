@@ -25,7 +25,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   showToastAfterFilingAdded = false;
   activeStaticData: any[] = []
   filterName: string;
-  fundFrequency=[];
+  fundFrequency;
 
   constructor(
     private service: StaticDataService,
@@ -72,14 +72,9 @@ export class StaticDataComponent implements OnInit, OnChanges {
     });
   }
   getFundFrequency(){
-    this.fundFrequency=["Daily",
-      "Monthly",
-      "Quarterly",
-      "Semi-Annual",
-      "Annual",
-      "Ad-hoc",
-      "Not Applicable"
-    ];
+    this.service.getFrequency().subscribe(resp => {
+      this.fundFrequency = resp['data'][0]?.split(',');
+    });
   }
 
   getStaticData() {
@@ -169,7 +164,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
     const staticData = {
       "filingDisplayName": obj.displayName,
       "filerTypes": this.getFilerTypes(obj.filerType),
-      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES, ...SELECTED_FUND_FREQUENCY],
+      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES],
       "regulationFormApplicable":obj.regulationForm,
       "frequency":[...SELECTED_FUND_FREQUENCY]
     }
