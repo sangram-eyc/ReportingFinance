@@ -120,6 +120,7 @@ setToken = (value) => {
     sessionStorage.removeItem('pendingDownloadsBulk');
     sessionStorage.removeItem('dailyMonthlyStatus');
     sessionStorage.removeItem('selectedDate');
+    sessionStorage.removeItem('access_token');
   }
   
   public get name() {
@@ -153,7 +154,9 @@ setToken = (value) => {
         this.authdetails = res;
         
         this.authdetails.data.sessionTimeout ? sessionStorage.setItem("inActivityTime", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("inActivityTime", '1800000');
+        if(!this.isUserLoggedin()) {
         this.authdetails.data.sessionTimeout ? sessionStorage.setItem("sessionTimeOut", this.authdetails.data.sessionTimeout) : sessionStorage.setItem("sessionTimeOut", '1800000');
+        }
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
         authConfig.redirectUri = environment.production ?  this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;
