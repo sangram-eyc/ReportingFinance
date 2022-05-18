@@ -123,6 +123,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
       this.exceptionTableData = multiColumnData;
+      this.columnDefsFill.splice(0, 0, {headerName: '#', valueGetter: 'node.rowIndex+1'});
       this.columnDefs = this.columnDefsFill;
     }
   }
@@ -168,6 +169,11 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
     this.exceptionUrl=this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+  }
+
+  onSortChanged(params) {
+    debugger;
+    this.gridApi.refreshCells();
   }
 
   // Table methods
