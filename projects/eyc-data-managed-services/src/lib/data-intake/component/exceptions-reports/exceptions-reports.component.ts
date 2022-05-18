@@ -171,19 +171,9 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
     this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
   }
 
-  addIndex(data) {
-    debugger;
-    return data.map((row, index) => {
-      row.index = index + 1;
-      return row;
-    });
-  }
-
   onSortChanged(params) {
     debugger;
     this.gridApi.refreshCells();
-    // let tempData = this.addIndex(this.exceptionTableData);
-    // this.exceptionTableData = tempData;
   }
 
   // Table methods
