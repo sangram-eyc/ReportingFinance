@@ -5,6 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
 import { formatDate } from '@angular/common';
 import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -157,6 +158,10 @@ export class DataManagedService {
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
+  } 
+
+  getReviewAllList(params: DataSummary) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_review_all}`, this.httpQueryParams(params));
   } 
   getEmbedURL() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL}`);
