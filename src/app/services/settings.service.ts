@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {authorization} from '../helper/api-config-helper';
 import { v4 as uuid } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class SettingsService {
   authdetails;
   moduleLevelPermission;
-  constructor(private oauthService: OAuthService,private http: HttpClient, private dialogRef: MatDialog) { }
+  constructor(private oauthService: OAuthService,private http: HttpClient, 
+    private dialogRef: MatDialog, private router: Router) { }
   public API_ENDPOINT = environment.apiEndpoint;
   private pendingHTTPRequests$ = new Subject<void>();
 // AUTHTOKEN FUNCTIONS
@@ -165,6 +167,8 @@ setToken = (value) => {
         authConfig.resource = this.authdetails.data.resource;
         authConfig.timeoutFactor = environment.production ? this.authdetails.data.timeoutFactor : 0.25;
         authConfig.silentRefreshTimeout=  environment.production ? this.authdetails.data.timeoutFactor : 5000;
+        this.oauthService.configure(authConfig);
+        this.oauthService.loadDiscoveryDocument()
         resolve(true);
         
       })
@@ -202,13 +206,29 @@ setToken = (value) => {
 		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
 	}
 
-  async login() {
-		console.log('inside login');
-    console.log(document.hasFocus());
-    this.oauthService.configure(authConfig);
-    await this.oauthService.loadDiscoveryDocument();
-			this.oauthService.initImplicitFlow();
-	 
+   login() {
+		// console.log('inside login');
+    // console.log(document.hasFocus());
+    // this.oauthService.configure(authConfig);
+    // await this.oauthService.loadDiscoveryDocument();
+		// 	this.oauthService.initImplicitFlow();
+    this.oauthService.oidc = true;
+		this.oauthService.silentRefresh()
+			.then(info => {
+				console.log('refresh ok', info);
+				if (this.oauthService.getAccessToken()) {
+					this.getExtendedAccessTokenAfterLogin();
+				}
+			})
+			.catch(err => console.log('refresh error', err));
   }
+
+  public getExtendedAccessTokenAfterLogin() {
+		console.log('inside getAccessToken');
+		console.log(this.oauthService.getAccessToken());
+		this.setToken(this.oauthService.getAccessToken());
+    this.router.navigate(['/home']);
+		// IS_SURE_FOOT ? this.router.navigate(['/app-tax-reporting']) : this.router.navigate(['/home']);
+	}
 }
 
