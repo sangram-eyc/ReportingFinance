@@ -433,7 +433,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     const objectContent = JSON.parse(objectFromWs.request.content);
     const session_id_ws = objectContent.extraParameters.notificationType;
     const current_session_id = sessionStorage.getItem('session_id');
-    if(session_id_ws === current_session_id){
+    if(session_id_ws !== current_session_id){
       this.settingsService.logoff();
       this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
     }
