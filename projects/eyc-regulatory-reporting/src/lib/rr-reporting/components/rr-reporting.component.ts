@@ -1049,7 +1049,7 @@ actionMenuEnableforException(row) {
         let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
-          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+          if((index==0 && element.auditDetails.auditObjectCurValue !='NA') && (index==0 && element.auditDetails.auditObjectCurValue !='Not Applicable')) {
             item1['auditActionType'] = 'Started'
               auditList.push(item1)
           }
@@ -1073,7 +1073,7 @@ actionMenuEnableforException(row) {
             auditList.push(item3);
           }
         } else if (element.auditActionType == 'New') {
-          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA' || 'Not Applicable') {
             if (data.length == 1) {
               item1['auditActionType'] = 'Started'
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
@@ -1111,7 +1111,7 @@ actionMenuEnableforException(row) {
         let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
-          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+          if((index==0 && element.auditDetails.auditObjectCurValue !='NA') && (index==0 && element.auditDetails.auditObjectCurValue !='Not Applicable')) {
             item1['auditActionType'] = 'Started'
               auditList.push(item1)
           }
@@ -1138,7 +1138,7 @@ actionMenuEnableforException(row) {
           }
           
         } else if (element.auditActionType == 'New') {
-          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA' || 'Not Applicable') {
             if (data.length == 1) {
               item1['auditActionType'] = 'Started'
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
