@@ -26,6 +26,23 @@ export class StaticDataComponent implements OnInit, OnChanges {
   activeStaticData: any[] = []
   filterName: string;
   fundFrequency;
+  selectList= [{
+    "field": "filingStages",
+    "value": false,
+  },
+  {
+    "field": "scopeStages",
+    "value": false,
+  },
+  {
+    "field": "filingEntitiyStages",
+    "value": false,
+  }, 
+  {
+    "field": "fundFrequency",
+    "value": false,
+  }]
+
 
   constructor(
     private service: StaticDataService,
@@ -45,6 +62,18 @@ export class StaticDataComponent implements OnInit, OnChanges {
       this.activeFilings = [];
       this.getData();
       this.filterName='';
+      this.selectList.forEach((item) => {
+        this.addFilingForm.get(item.field).valueChanges.subscribe(res => {
+          if(res.length) {
+             if(this.selectList?.includes(item)){
+              item.value = false
+            }
+          }
+           else if(this.selectList?.includes(item)){
+            item.value = true
+          }
+          })
+      })
     }
   }
 
@@ -93,12 +122,16 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   addnewFiling() {
+    this.selectList?.forEach((item) => {
+    item.value=false;
+    });
+    console.log("addnewFiling",this.selectList)
     this.showAddFilingForm = true;
   }
 
   closeAddFilingModal() {
     this.showAddFilingForm = false;
-    this.addFilingForm = this._createAddFiling();
+    this.addFilingForm.reset();
   }
 
   private _createAddFiling() {
@@ -114,7 +147,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   public noWhitespaceValidator(control: FormControl) {
-    if (control.value.length === 0) {
+    if (control.value && control.value.length === 0) {
       return false;
     } else {
       const isWhitespace = (control.value || '').trim().length === 0;
@@ -223,7 +256,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   checkDuplicate(control: FormControl){
-    let value = (control.value).toUpperCase().split(',');
+    let value = (control.value)?.toUpperCase().split(',');
     if(value && new Set(value).size !== value.length){
       return {
         duplicateName: {
