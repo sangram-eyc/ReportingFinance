@@ -5,8 +5,8 @@
     &nbsp;<span class="back-opt">&nbsp;  Back</span>
   </div>
   <div class="user-info-header">
-    <h3>Team Details</h3>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+    <h3 class="team-details-h3">Team Details</h3>
+<!--      <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
       *ngIf="!enableEditor && teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')" (click)="enableEditForm()">
       <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
@@ -14,6 +14,25 @@
       <button class="save-submit" motifButton color="primary" size="small" [disabled]="editTeamForm.invalid"
         [ngClass]="editTeamForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
       <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
+    </div>   -->
+    <div class="circle-div">
+      <div motifDropdown placement="bottom-left">
+            <motif-icon [class.disabled]="!is_editable" class="dots-menu-horiz" motifDropdownToggle [src]="'/assets/icons/navigation/ic_more_horiz_24px.svg'"
+            *ngIf="teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+          </motif-icon>   
+        <div class="edit-pencil-icon" motifDropdownMenu aria-labelledby="motifExampleDropdown1">
+            <button motifDropdownItem (click)="enableEditForm()">
+                <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'">
+                </motif-icon>
+                Edit team details
+            </button>
+        </div>
+      </div>
+    </div>  
+    <div class="edit-form-team-details" *ngIf="enableEditor">
+      <button motifButton class="button-save-team-details" color="link-alt" 
+      [disabled]="editTeamForm.invalid" [ngClass]="editTeamForm.invalid ? 'dis-button-team-details' : ''" 
+      (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
     </div>
   </div>
 
