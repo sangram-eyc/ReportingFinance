@@ -4,13 +4,17 @@ import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
 import { formatDate } from '@angular/common';
-import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
+import {DataGrid, ExceptionDataGrid,ExceptionDetailsDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
+import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class DataManagedService {
-  public exceptionDetails: any;
+  // public exceptionDetails: any;
   public exceptionFileName:string;
+  public tableName: string;
+  public auditDate: string;
+  public auditHashID: string;
   public calSelectedMonth: string;
   public presentDate:Date;
   constructor(
@@ -18,12 +22,30 @@ export class DataManagedService {
     private eycDataApiService: EycDataApiService
   ) { }
 
-  set setExceptionDetails(val: any) {
-    this.exceptionDetails = val;
+  set setTableName(val: string) {
+    this.tableName = val;
   }
-  get getExceptionDetails(): any {
-    return this.exceptionDetails;
+  get getTableName(): string {
+    return this.tableName;
   }
+  set setAuditDate(val: string) {
+    this.auditDate = val;
+  }
+  get getAuditDate(): string {
+    return this.auditDate;
+  }
+  set setAuditHashID(val: string) {
+    this.auditHashID = val;
+  }
+  get getAuditHashID(): string {
+    return this.auditHashID;
+  }
+  // set setExceptionDetails(val: any) {
+  //   this.exceptionDetails = val;
+  // }
+  // get getExceptionDetails(): any {
+  //   return this.exceptionDetails;
+  // }
   set setExceptionFileName(val: string) {
     this.exceptionFileName = val;
   }
@@ -204,9 +226,72 @@ export class DataManagedService {
   }
 
   getExceptionTableData(params:ExceptionDataGrid) {
-    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_table_data}`,this.httpQueryParamsExceptionGrid(params));
+   return of({
+      "success": true,
+      "message": "",
+      "corelationId": "123456789112073",
+      "data": [
+          {
+              "type": "Accuracy",
+              "name": "ledger type is populated with an accurate ledger type\r\n",
+              "priority": "low",
+              "comments": null,
+              "exceptionCount": 0,
+              "dataSetRuleId": "32f0fbaa8607c7ed88792b94ebce4652edef853b333a8ab01f91cb2bf9f9d418",
+              "tableName": "troweprice_ingestion.bnym_trp_faop_d_workingtrialbalancetf",
+              "auditingDt": "2022-05-12",
+              "auditIngestionDate": "2022-04-09",
+              "auditRuleTyp": "row",
+              "exceptionReportDetails": "\"[]\"",
+              "auditHashId":"b1be551a2102cea9a97e691f7b18c5c81abbdfcf9fc375ea0ace4cb30152cb4e,96dd1a1bee147fb4402bcead9ba429bcfd82c53e6fcc0589796653c685874d26,2efc484323468c1fd186be45c44389760cb2685542c5cf99a411ec1f31604a77"
+          },
+          {
+              "type": "Attribute Level",
+              "name": "null check dms specific - General Ledger Daily endingledgerbalancequeryamount",
+              "priority": "high",
+              "comments": null,
+              "exceptionCount": 0,
+              "dataSetRuleId": "d81a521b4cd2e6a2f6eabfb84cfb296534dea194669a4b67f9db3ab43e66e35c",
+              "tableName": "troweprice_ingestion.bnym_trp_faop_d_workingtrialbalancetf",
+              "auditingDt": "2022-05-12",
+              "auditIngestionDate": "2022-04-09",
+              "auditRuleTyp": "row",
+              "exceptionReportDetails": "\"[]\"",
+              "auditHashId":"b1be551a2102cea9a97e691f7b18c5c81abbdfcf9fc375ea0ace4cb30152cb4e,96dd1a1bee147fb4402bcead9ba429bcfd82c53e6fcc0589796653c685874d26"
+          }
+   ],
+      "error": null
   }
-
+  )
+    //return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_table_data}`,this.httpQueryParamsExceptionGrid(params));
+  }
+  getExceptionDetailsTableData(params:ExceptionDetailsDataGrid) {
+    return of({
+      "success": true,
+      "message": "",
+      "corelationId": "090e6d0a-2384-4368-a9c1-8e2b40a2d1c4",
+      "data": [
+        {
+          "fundIdentifier": "70Y6",
+          "auditRecordHashId": "b1be551a2102cea9a97e691f7b18c5c81abbdfcf9fc375ea0ace4cb30152cb4e",
+          "primaryIssueIdentifier": "87280F401"
+        },
+        {
+          "fundIdentifier": "70J1",
+          "auditRecordHashId": "96dd1a1bee147fb4402bcead9ba429bcfd82c53e6fcc0589796653c685874d26",
+          "primaryIssueIdentifier": "20754LAA7"
+        },
+        {
+          "fundIdentifier": "70KZ",
+          "auditRecordHashId": "2efc484323468c1fd186be45c44389760cb2685542c5cf99a411ec1f31604a77",
+          "primaryIssueIdentifier": "T0J3C7JAPOJOLEAC"
+        }
+      ],
+      "error": null
+    }
+    )
+  //  return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_details_table_data}`,this.httpQueryParamsExceptionGrid(params));
+   }
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
   }

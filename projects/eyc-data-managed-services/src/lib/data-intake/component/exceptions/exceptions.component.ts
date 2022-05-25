@@ -414,13 +414,16 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onRowClicked(event: RowClickedEvent) {
-    const exceptionReportDetail = event.data.exceptionReportDetails;
+    const auditRuleTyp = event.data.auditRuleTyp;
     // FDF is not sending empty array. It is sending three type of values. 
-    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+    if(auditRuleTyp != "row") {
       return false;
-    } else if (event && event.data && exceptionReportDetail) {
-      this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+    } else if (event && event.data && auditRuleTyp =="row") {
+      // this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this.dataManagedService.setExceptionFileName = event.data.name;
+      this.dataManagedService.setTableName = event.data.tableName;
+      this.dataManagedService.setAuditDate = event.data.auditIngestionDate;
+      this.dataManagedService.setAuditHashID = event.data.auditHashId;
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
