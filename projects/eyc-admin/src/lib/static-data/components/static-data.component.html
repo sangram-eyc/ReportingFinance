@@ -131,7 +131,7 @@
                 <motif-select aria-label="Please select an option" [multiple]="true" [formControl]="addFilingForm.controls['fundFrequency']" ngDefaultControl>
                   <motif-option [value]="fundFrequencyStage" *ngFor="let fundFrequencyStage of fundFrequency">{{fundFrequencyStage}}</motif-option>
                 </motif-select>
-                <motif-error *ngIf=" addFilingForm.get('fundFrequency').hasError('required') && selectList[3].value">Fund Frequency is required
+                <motif-error *ngIf=" addFilingForm.get('fundFrequency').hasError('required') && selectList[3].value">Fund frequency is required
               </motif-error>
               </motif-form-field>
         </div>
@@ -142,10 +142,10 @@
                   <label motifLabel>Regulation Form Applicable (required)</label>
                   <input libRemoveSpaces motifInput type="text" aria-label="Regulation Form Applicable Field" [formControl]="addFilingForm.controls['regulationForm']" ngDefaultControl required/>
                   <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('required') &&
-                              addFilingForm.get('regulationForm').touched">Please provide a Regulation Form name!</motif-error>
+                              addFilingForm.get('regulationForm').touched">Please provide a regulation form name</motif-error>
                   <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('pattern')">Please enter valid data
                   </motif-error>
-                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('maxlength')">Regulation Form Applicable can be max 50 characters long
+                  <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('maxlength')">Regulation form applicable can be max 50 characters long
                   </motif-error>
                   <motif-error *ngIf="addFilingForm.get('regulationForm').hasError('whitespace') &&
                               addFilingForm.get('regulationForm').touched">Please enter valid data</motif-error>
