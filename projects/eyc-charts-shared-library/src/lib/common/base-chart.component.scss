@@ -3,17 +3,17 @@
   overflow: visible;
 
   
-  .bar{
-    cursor: pointer;
-  }
+  // .bar{
+  //   cursor: pointer;
+  // }
 
   .bar
   {
-    &.active,
-    &:hover {
-      opacity: 0.8;
-      transition: opacity 100ms ease-in-out;
-    }
+    // &.active,
+    // &:hover {
+    //   opacity: 0.8;
+    //   transition: opacity 100ms ease-in-out;
+    // }
 
     &:focus {
       outline: none;

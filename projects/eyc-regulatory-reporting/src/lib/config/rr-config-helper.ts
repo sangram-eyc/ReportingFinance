@@ -14,7 +14,8 @@ export const PBI_CONFIG = {
         //cacheLocation: 'localStorage', // Default is sessionStorage
         redirectUri:`${window.location.origin}/`    ,
         popUp: false    
-      }
+      },
+      pod:'RRMS'
 };
 
 export const INPUT_VALIDATON_CONFIG = {
