@@ -389,7 +389,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'name',
           sortable: true,
           filter: true,
-          minWidth: 150,
+          minWidth: 220,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -402,7 +402,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'provider',
           sortable: true,
           filter: true,
-          minWidth: 100,
+          maxWidth:120,
           wrapText: true,
           autoHeight: true
         },
@@ -412,7 +412,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'dataDomain',
           sortable: true,
           filter: true,
-          minWidth: 100,
+          maxWidth: 185,
           wrapText: true,
           autoHeight: true
         },
@@ -423,7 +423,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'functions',
           sortable: true,
           filter: true,
-          minWidth: 100,
+          maxWidth: 180,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -436,7 +436,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'dueDate',
           sortable: true,
           filter: true,
-          minWidth: 100,
+          maxWidth: 160,
           wrapText: true,
           autoHeight: true,
           cellRenderer: (params) =>{
@@ -476,7 +476,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'exceptions',
           sortable: true,
           filter: true,
-          minWidth: 200,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -490,7 +489,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'maxPriority',
           sortable: true,
           filter: true,
-          minWidth: 200,
+          maxWidth: 170,
           sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
@@ -504,7 +503,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'next',
           sortable: false,
           filter: false,
-          minWidth: 100,
+          maxWidth: 50,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,
           }
@@ -636,10 +635,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         console.log("File Review Summary API Call End", new Date().toISOString());
       });
     } else {
-      this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
-        this.dataList = dataProvider.data[0]['totalSeriesItem'];
+      this.dataManagedService.getReviewAllList(this.httpQueryParams).subscribe((dataProvider: any) => {
         this.totalFileCount = dataProvider.data[0]['totalCount'];
-        this.manipulateStatusWithResponse(this.dataList);
+        // After performance testing we will remove below comment line
+        // this.dataList = dataProvider.data[0]['totalSeriesItem'];
+        // this.manipulateStatusWithResponse(this.dataList); 
+        this.stackBarChartData = dataProvider.data[0].barChartDTO;
+        this.fileSummaries = dataProvider.data[0].donutChartDTO;
         console.log("File Review Summary API Call End", new Date().toISOString());
       });
     }
