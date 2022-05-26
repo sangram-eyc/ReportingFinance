@@ -55,4 +55,8 @@ export class UpdateFilingService {
   exportPBIMappingData(exportURL) {
     return this.apiService.invokeGetAPI(`${exportURL}`);
   }
+
+  getFrequency(){
+    return this.apiService.invokeGetAPI(`${this.settingService.static_data.filing_frequencies}`)
+  }
 }

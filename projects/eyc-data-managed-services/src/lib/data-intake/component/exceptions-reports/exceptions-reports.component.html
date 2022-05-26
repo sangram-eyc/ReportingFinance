@@ -48,9 +48,9 @@
 
     <div id="grid-wrapper">
         <motif-card>
-            <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
+            <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData"
                 (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-                [domLayout]="domLayout">
+                [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
             </motif-table>
         </motif-card>
     </div>

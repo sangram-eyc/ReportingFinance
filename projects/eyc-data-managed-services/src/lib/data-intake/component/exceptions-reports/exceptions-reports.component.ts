@@ -123,6 +123,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
       this.exceptionTableData = multiColumnData;
+      this.columnDefsFill.splice(0, 0, {headerName: '#',width:'70', valueGetter: 'node.rowIndex+1'});
       this.columnDefs = this.columnDefsFill;
     }
   }
@@ -133,16 +134,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.headerColumnName = []
     this.columnDefs = [];
     this.columnDefsFill = [];
-    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
-      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
-      const prop = str.split(',');
-      prop.forEach((props) => {
-        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
-        const value = props.split(':')[1].trim().replace(/"/g, '');
-        this.headerColumnName.push(columnName);
-        this.exceptionTableFillData.push({ [`${columnName}`]: value });
-      })
-    }
 
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
@@ -168,12 +159,28 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
     this.exceptionUrl=this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+    
+    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
+      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
+      const prop = str.split(',');
+      prop.forEach((props) => {
+        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
+        const value = props.split(':')[1].trim().replace(/"/g, '');
+        this.headerColumnName.push(columnName);
+        this.exceptionTableFillData.push({ [`${columnName}`]: value });
+      })
+    }
+  }
+
+  onSortChanged(params) {
+    this.gridApi.refreshCells();
   }
 
   // Table methods
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+    this.gridApi.refreshCells();
   }
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
@@ -189,6 +196,7 @@ if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA
         return false;
       }
     });
+    this.gridApi.refreshCells();
   }
 
   searchFilingValidation(event) {
