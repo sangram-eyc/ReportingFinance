@@ -130,7 +130,7 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
     const self = this;
     // const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [];
     const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
-
+    console.log(pbifilters,"pbifilters loaded")
     this.report.on('loaded', function (event) {
       console.log("Report Data", self.report);
       console.log("Get Filters", self.report.getFilters());
@@ -142,12 +142,14 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
           if (filter.target['column'] === 'FilingYear' && IS_FY_FILTER) {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
+              console.log("Year Filter is working",filter['values']);
               filter['values'].push(pbifilters[1]);
             }
           }
           if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
+              console.log("Year Filter is working",filter['values']);
               filter['values'].push(pbifilters[0]);
             }
           }
@@ -166,14 +168,8 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
   }
 
   getDatasetId(){
-    let id;
-    if(this.dataSetId && this.dataSetId.length > 1){
-      id=this.dataSetId.join();
-    }else{
-      id = this.dataSetId
-    }
     const dataSet ={
-      "dataSetIds": id
+      "dataSetIds": this.dataSetId
     }
     return dataSet;
   }
