@@ -52,7 +52,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   countDown: Subscription;
   counter = 18000;
   tick = 1000;
-  
+  showErrorModel = false;
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -95,6 +95,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   openErrorModal(header, description) {
+    if(this.showErrorModel) {
+      return;
+    }
+    this.showErrorModel = true;
     const dialogRef = this.dialog.open(SessionExtendModalComponent, {
       disableClose: true,
       width: '500px',
@@ -108,6 +112,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.showErrorModel = false;
       sessionStorage.setItem("sessionTimeOut", sessionStorage.getItem("inActivityTime"));
       if(result.button == 'Extend session') {
         this.settingsService.extentToken();
@@ -117,7 +122,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       } if(result.button == 'Log in') {
         this.settingsService.login();
       }
+      this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
       
+      this.sessionTimeOut();
     });
   }
 
@@ -190,29 +197,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   ngAfterViewChecked() {
     const url =  window.location.href.split('#');
     sessionStorage.setItem('pbiEndPoint',url[0]);
-  /*   setTimeout(() => {
-      if (this.settingsService.isUserLoggedin()) {
-        this.count++;
-        if (this.count == 1) {
-          this.checkTimeOut();
-          // for the warnings and notifications bulk download process of tax-reporting
-          this.wsBulkService.connect().subscribe(resp => {
-            if (resp.trim() === 'Connection Established') {
-              // to open the websocket conection
-              this.openConectionBulkWs();
-            } else {
-              this.bulkDownloadWarnings(resp);
-              // Some function for notifications with the object resp
-              // end the code for notifications
-            }
-          },
-            err => {
-              console.log('ws bulk error', err);
-            },
-            () => console.log('ws bulk complete'));
-        }
-      }
-    }, 0); */
   }
 
 
@@ -338,7 +322,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       if (event.data.includes('#access_token=')) {
         setTimeout(() => {
           this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
-          this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
+          // this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
         }, 1000);
       }
 

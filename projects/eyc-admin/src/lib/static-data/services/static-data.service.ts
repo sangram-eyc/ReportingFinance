@@ -22,4 +22,8 @@ export class StaticDataService {
   addStaticData(staticData){
     return this.apiService.invokePutAPI(`${this.settingService.static_data.add_static_data}`,staticData);
   }
+
+  getFrequency(){
+    return this.apiService.invokeGetAPI(`${this.settingService.static_data.filing_frequencies}`)
+  }
 }

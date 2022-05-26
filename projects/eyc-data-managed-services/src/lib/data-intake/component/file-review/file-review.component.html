@@ -238,8 +238,8 @@
    </ng-template>
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
-      {{stringTrim(row.name, 20)}}
-      <motif-tooltip placement="right" color="alternate" *ngIf="row.name?.length > 20">
+      {{stringTrim(row.name, 25)}}
+      <motif-tooltip placement="right" color="alternate">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>
@@ -267,8 +267,8 @@
    </ng-template>
 
    <ng-template #threeDotExceptionsTooltip let-row>
-      {{stringTrim(row.exceptions,20)}}
-      <motif-tooltip placement="left" color="alternate" *ngIf="row.exceptions?.length > 20">
+      {{stringTrim(row.exceptions,25)}}
+      <motif-tooltip placement="left" color="alternate" *ngIf="row.exceptions?.length > 25">
          <a motifTooltipTrigger motifTextLink aria-label="tooltip" href="javascript:void(0)">
             ...
          </a>

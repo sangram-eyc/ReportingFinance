@@ -84,16 +84,16 @@ export class FilingCardComponent implements OnInit {
     console.log(window.innerWidth);
     this.innerWidth = window.innerWidth;
     if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.filingWidth = 25;
+      this.filingWidth = 32;
       this.periodWidth = 20
     } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.filingWidth = 25;
+      this.filingWidth = 32;
       this.periodWidth = 16
     } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      this.filingWidth = 30;
+      this.filingWidth = 32;
       this.periodWidth = 20
     }else {
-      this.filingWidth = 15;
+      this.filingWidth = 32;
       this.periodWidth = 10
     }
   }
@@ -175,6 +175,7 @@ export class FilingCardComponent implements OnInit {
   routeToDetailsView() {
     // this.router.navigate(['/regulatory-filing-list/'+1]);
     this.filingService.setfilingData = this._filingData;
+    
     switch (this.status.stageCode) {
       case "FUND_SCOPING":
         if(this.permissions.validatePermission('Fund Scoping', 'View Fund Scoping')) {
@@ -187,7 +188,7 @@ export class FilingCardComponent implements OnInit {
                 return;
               }
               if ((i+1) ===this._filingData.status.length) {
-                 this.errorModalPopup();
+                this.checkAllStatus();
                }
             }
         }
@@ -203,7 +204,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
@@ -221,7 +222,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                }
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               }  
             }
         }
@@ -239,7 +240,7 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
@@ -254,12 +255,25 @@ export class FilingCardComponent implements OnInit {
                 return;
                } 
                if ((i+1) ===this._filingData.status.length) {
-                this.errorModalPopup();
+                this.checkAllStatus();
               } 
             }
         }
     }
 
+  }
+
+  checkAllStatus() {
+    for(let j=0; j < this._filingData.status.length; j++) {
+      
+       if(this.permissions.validatePermission(this.preapreStage(this._filingData.status[j].stageCode), this.preapreViewFeature(this._filingData.status[j].stageCode))) {
+        this.preapreRouting(this._filingData.status[j].stageCode);
+        return;
+       } 
+       if ((j+1) ===this._filingData.status.length) {
+        this.errorModalPopup();
+      } 
+    }
   }
 
   sortStates(a, b) {

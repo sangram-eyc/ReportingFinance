@@ -276,7 +276,7 @@
 }
 .each-card {
   margin-bottom: 12px;
-  padding: 0px 5px;
+  // padding: 0px 5px;
 }
 .comments-background {
   background-color: black;
@@ -298,14 +298,25 @@
      width: 100% !important;
    }
  }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
  .each-card {
-    width: 50% !important;
+  width: 33.33% !important;
   }
 }
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 999px) and (max-width: 1298px) {
   .each-card {
-     width: 33.33% !important;
+   width: 50% !important;
+   }
+ }
+@media screen and (min-width:1300px) and (max-width: 1400px) {
+  .each-card {
+     width: 33% !important;
+   }
+ }
+
+ @media screen and (min-width:1401px) and (max-width: 1600px) {
+  .each-card {
+     width: 33% !important;
    }
  }
 
