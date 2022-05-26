@@ -394,7 +394,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.threeDotTooltip
-          }
+          },
+          comparator: sortCaseInsentitve
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -428,7 +429,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.threeDotFunctionTooltip
-          }
+          },
+          comparator: sortCaseInsentitve
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
