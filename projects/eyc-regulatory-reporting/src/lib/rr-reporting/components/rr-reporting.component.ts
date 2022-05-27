@@ -703,7 +703,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.entityId,
-        entityType: "FILING_ENTITY",
+        entityType: "Filing Entity",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -760,7 +760,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "ANSWER_EXCEPTION_REPORT",
+        entityType: "Answer Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -823,10 +823,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       // this.commentsData = [];
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
      if (this.tabs == 2) {
-      this.commentEntityType = 'FILING_ENTITY';
+      this.commentEntityType = 'Filing Entity';
       this.entityId = row.entityId;
      } else {
-      this.commentEntityType = 'ANSWER_EXCEPTION_REPORT'
+      this.commentEntityType = 'Answer Data Exception Reports'
       this.entityId = row.exceptionId;
      }
      this.showComments = true;

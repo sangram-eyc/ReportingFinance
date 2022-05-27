@@ -8,12 +8,12 @@ export const notAllowedFileTyes = ['dll', 'exe'];
 export const MAX_FILE_SIZE = 26214400;
 export const MB_SIZE = 1048576;
 
-export const dataset = 'DATASET'; 
-export const answer_exception_report = 'ANSWER_EXCEPTION_REPORT';
-export const data_exception_report = 'DATA_EXCEPTION_REPORT';
-export const filing_entity = 'FILING_ENTITY';
-export const filing = 'FILING';
-export const line_item = 'LINE_ITEM';
+export const dataset = 'DataSet'; 
+export const answer_exception_report = 'Answer Data Exception Report';
+export const data_exception_report = 'Data Exception Report';
+export const filing_entity = 'Filing Entity';
+export const filing = 'Filing';
+export const line_item = 'Line Item';
 
 
 export const customComparator = (valueA, valueB) => {
