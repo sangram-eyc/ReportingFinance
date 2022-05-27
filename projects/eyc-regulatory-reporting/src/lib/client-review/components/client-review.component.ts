@@ -39,6 +39,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   exportHeaders;
   entityId;
   selectedRows = [];
+  filingEntityApprovedSelectedRows = [];
+  filingEntityUnaprovedSelectedRows = [];
   selectedEntities = [];
   selectedExceptionIds = [];
   approveFilingEntitiesModal = false;
@@ -73,7 +75,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   submitFunction;
   submitException;
   submitEntities;
-
+  unapproveFilingEntities:any;
   currentPage = 0;
   totalRecords = 5;
   pageSize = DEFAULT_PAGE_SIZE;
@@ -105,6 +107,20 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         style: "start",
         YesButton: "Yes",
         NoButton: "No"
+      }
+    }
+  };
+  
+  filingUnapproveModalConfig = {
+    width: '500px',
+    data: {
+      type: "Confirmation",
+      header: "Unapprove",
+      description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
       }
     }
   };
@@ -147,6 +163,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
+    this.unapproveFilingEntities = this.unApproveEntity.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     this.pageChangeFunc = this.onPageChange.bind(this);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
@@ -244,20 +261,20 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.actionButtonTemplate,
-          },
-          headerName: 'Action',
-          field: 'template',
-          minWidth: 70,
-          width: 70,
-          sortable: false,
-          cellClass: 'actions-button-cell',
-          pinned: 'left'
-        },
+        // {
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   cellRendererParams: {
+        //     ngTemplate: this.actionButtonTemplate,
+        //   },
+        //   headerName: 'Action',
+        //   field: 'template',
+        //   minWidth: 70,
+        //   width: 70,
+        //   sortable: false,
+        //   cellClass: 'actions-button-cell',
+        //   pinned: 'left'
+        // },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'ID',
@@ -599,8 +616,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   onSubmitApproveFilingEntities() {
     let selectedFiling = {
-      "currentReviewlevel": this.selectedRows.map(({ reviewLevel }) => reviewLevel)[0],
-      "entityIds": this.selectedRows.map(({ entityId }) => entityId),
+      "currentReviewlevel": this.filingEntityApprovedSelectedRows.map(({ reviewLevel }) => reviewLevel)[0],
+      "entityIds": this.filingEntityApprovedSelectedRows.map(({ entityId }) => entityId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
       "stage": "Client review"
@@ -613,12 +630,17 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       });
       this.createEntitiesRowData();
       this.selectedRows = [];
+      this.filingEntityApprovedSelectedRows = [];
+      this.filingEntityUnaprovedSelectedRows = [];
       this.filingService.invokeFilingDetails();
       this.approveFilingEntitiesModal = false;
       this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       setTimeout(() => {
         this.showToastAfterApproveFilingEntities = !this.showToastAfterApproveFilingEntities;
       }, 5000);
+    }, error => {
+      this.filingEntityApprovedSelectedRows = [];
+      this.filingEntityUnaprovedSelectedRows = [];
     });
   }
 
@@ -671,6 +693,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   filingEnitiesRowsSelected(event) {
     console.log(event);
     this.selectedRows = event;
+    this.filingEntityApprovedSelectedRows = this.selectedRows.filter(item => item.approved === false);
+    this.filingEntityUnaprovedSelectedRows = this.selectedRows.filter(item => item.approved === true);
+    console.log(this.filingEntityUnaprovedSelectedRows);
+    console.log(this.filingEntityApprovedSelectedRows);
   }
 
   addComment(row) {
@@ -816,16 +842,16 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     
   }
 
-  actionMenuEnableforEntity(row) {
-    this.currentEntityReviewLevel = '';
-    console.log('Client Review > unapprove > entity');
-    this.selectedEntityId = row.entityId;
-    this.currentEntityReviewLevel = row.reviewLevel;
-  setTimeout(() => {
-    this.actionMenuModalEnabled = true;
-    this.actionMenuModal = true;
-  }, 1);
-  }
+  // actionMenuEnableforEntity(row) {
+  //   this.currentEntityReviewLevel = '';
+  //   console.log('Client Review > unapprove > entity');
+  //   this.selectedEntityId = row.entityId;
+  //   this.currentEntityReviewLevel = row.reviewLevel;
+  // setTimeout(() => {
+  //   this.actionMenuModalEnabled = true;
+  //   this.actionMenuModal = true;
+  // }, 1);
+  // }
 
 actionMenuEnableforException(row) {
   console.log('Client Review > unapprove > exception');
@@ -836,62 +862,42 @@ actionMenuEnableforException(row) {
   }, 1);
 }
 
-  unApproveEntity(){
-    this.actionMenuModal = false;
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: {
-        type: "Confirmation",
-        header: "Unapprove",
-        description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
-        footer: {
-          style: "start",
-          YesButton: "Continue",
-          NoButton: "Cancel"
-        }
-      }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      if (result.button == 'Continue') {
-        this.selectedEntities = [];
-        this.selectedEntities.push(this.selectedEntityId);
-        const filingDetails = this.filingDetails;
-        let selectedFiling = {
-          "currentReviewlevel": this.currentEntityReviewLevel,
-          "entityType": "Filing Entity",
-          "entities": this.selectedEntities,
-          "filingName": this.filingDetails.filingName,
-          "period": this.filingDetails.period,
-          "stage": "Client review"
-          };
+  unApproveEntity() {
 
-          let tempRowData = this.rowData;
-          this.rowData = [];
-          this.service.unApprovefilingEntities(selectedFiling).subscribe(res => {
-            res['data'].forEach(ele => {
-              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
-              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel =  ele.reviewLevel;
-              tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].updatedBy =  ele.updatedBy;
-          });
-          this.rowData = tempRowData;
-          this.createEntitiesRowData();
-          this.selectedRows = [];
-          this.filingService.invokeFilingDetails();
-          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          setTimeout(() => {
-            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          }, 5000);
-        },error=>{
-          this.rowData = tempRowData;
-          this.createEntitiesRowData();
-        });
+    const filingDetails = this.filingDetails;
+    let selectedFiling = {
+      "currentReviewlevel": this.filingEntityUnaprovedSelectedRows.map(({ reviewLevel }) => reviewLevel)[0],
+      "entityType": "Filing Entity",
+      "entities": this.filingEntityUnaprovedSelectedRows.map(({ entityId }) => entityId),
+      "filingName": this.filingDetails.filingName,
+      "period": this.filingDetails.period,
+      "stage": "Client review"
+    };
 
-      }
+    let tempRowData = this.rowData;
+    this.rowData = [];
+    this.service.unApprovefilingEntities(selectedFiling).subscribe(res => {
+      res['data'].forEach(ele => {
+        tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].approved = false;
+        tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].reviewLevel = ele.reviewLevel;
+        tempRowData[tempRowData.findIndex(item => item.entityId === ele.entityId)].updatedBy = ele.updatedBy;
+      });
+      this.rowData = tempRowData;
+      this.createEntitiesRowData();
+      this.selectedRows = [];
+      this.filingEntityApprovedSelectedRows = [];
+      this.filingEntityUnaprovedSelectedRows = [];
+      this.filingService.invokeFilingDetails();
+      this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+      setTimeout(() => {
+        this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+      }, 5000);
+    }, error => {
+      this.rowData = tempRowData;
+      this.filingEntityApprovedSelectedRows = [];
+      this.filingEntityUnaprovedSelectedRows = [];
+      this.createEntitiesRowData();
     });
-  
-    
   }
 
   unApproveException(){
