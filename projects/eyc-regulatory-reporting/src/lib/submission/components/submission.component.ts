@@ -552,7 +552,7 @@ export class SubmissionComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.fileId,
-        entityType: "SUBMISSION_FILE",
+        entityType: "Submission File",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -602,7 +602,7 @@ export class SubmissionComponent implements OnInit {
 
   openComments(row) {
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
-      this.commentEntityType = 'SUBMISSION_FILE';
+      this.commentEntityType = 'Submission File';
       this.entityId = row.fileId;
      this.showComments = true;
   }
