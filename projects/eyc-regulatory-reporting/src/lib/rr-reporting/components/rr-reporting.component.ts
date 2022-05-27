@@ -826,7 +826,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.commentEntityType = 'Filing Entity';
       this.entityId = row.entityId;
      } else {
-      this.commentEntityType = 'Answer Data Exception Reports'
+      this.commentEntityType = 'Answer Data Exception Report'
       this.entityId = row.exceptionId;
      }
      this.showComments = true;
