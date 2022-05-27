@@ -54,8 +54,11 @@
       </div>
     </section>
     <div>
-      <lib-rr-visualisation [selectedReportId]="PBIReportId" [selectedFilling]="selectedFiling"
-        [selectedPeriod]="selectedPeriod"></lib-rr-visualisation>
+      <lib-power-bi-paginated-report-embed [selectedReportId]="PBIReportId" [pod]="activePod.pod" [selectedFilling]="selectedFiling"
+      [selectedPeriod]="selectedPeriod" [dataSetId]="dataSetId">
+      </lib-power-bi-paginated-report-embed>
+      <!-- <lib-rr-visualisation [selectedReportId]="PBIReportId" [selectedFilling]="selectedFiling"
+        [selectedPeriod]="selectedPeriod"></lib-rr-visualisation> -->
     </div>
   </div>
 </div>
