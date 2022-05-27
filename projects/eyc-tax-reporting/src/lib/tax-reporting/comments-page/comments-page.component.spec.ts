@@ -40,6 +40,9 @@ describe('CommentsPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should check the service', () => {
+    expect(commentService instanceof TaxCommentService).toBeTruthy();
+  });
   it('should get getComments', () => {
     let commentsList = []
     fixture.detectChanges();

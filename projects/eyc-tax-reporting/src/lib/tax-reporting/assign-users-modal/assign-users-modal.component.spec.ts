@@ -51,6 +51,9 @@ describe('AssignUsersModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should check the service', () => {
+    expect(assignmentsService instanceof AssignmentsFundsService).toBeTruthy();
+  });
   it('should return true after click ok', () => {
     spyOn(component, 'onClickYes');
     expect(component.modalDetails.footer.YesButton).toEqual(true);

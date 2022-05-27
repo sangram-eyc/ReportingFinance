@@ -41,6 +41,9 @@ describe('CommentsDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should check the service', () => {
+    expect(commentService instanceof TaxCommentService).toBeTruthy();
+  });
   it('should call handleGridReady', () => {
     component.handleGridReady({api: ''});
     expect(component.gridApi).toEqual('');

@@ -197,7 +197,7 @@ export class CycleDetailComponent implements OnInit {
   waitApproval: boolean = false;
   processingCheck: any = '';
   setClickApproveButton = false; 
-
+  downloadButton: HTMLElement = document.createElement('button');
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
@@ -216,12 +216,12 @@ export class CycleDetailComponent implements OnInit {
   backtoCycleView() {
     this.router.navigate(['app-tax-reporting']);
   }
-
+  
   ngAfterViewInit(): void {
     this.getCompletedProductCyclesData(this.productCycleId);
-    let downloadButton: any = document.querySelector('.second-button');
-    downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
-    downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
+    this.downloadButton = document.querySelector('.second-button') === null ? this.downloadButton : document.querySelector('.second-button');
+    this.downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
+    this.downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
   }
 
   showMyAssignedFunds() {

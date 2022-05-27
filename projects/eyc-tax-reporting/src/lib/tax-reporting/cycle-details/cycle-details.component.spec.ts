@@ -7,318 +7,51 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AgGridModule } from 'ag-grid-angular';
 import { environment } from '../../../../../../src/environments/environment';
 import { taxenvironment } from '../../../../../../src/environments/eyc-tax-reporting/tax-environment';
 import { ProductionCycleService } from '../services/production-cycle.service';
 import { CycleDetailComponent } from './cycle-details.component';
-
 describe('EycCycleDetailsComponent', () => {
   let component: CycleDetailComponent;
   let fixture: ComponentFixture<CycleDetailComponent>;
   let productionCyclesService: ProductionCycleService;
-  let mockCyclesDetails = {
-    "success": true,
-    "message": "",
-    "corelationId": null,
-    "data": [
-        {
-        "name": "Fund 1",
-        "id": "1ASKDJ10398ASKDJO",
-        "hasContent": false,         
-        "status": "open",
-        "openCommentsEY": 2,
-        "openCommentsClient": 3,
-        "totalComments":20,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers": [
-            {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@ey.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
-            },
-            {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
-            },
-            {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
-            },
-            {
-                "userId": 3305,
-                "userEmail": "Gabriel.Loy@email.com", 
-                "userFirstName": "Gabriel", 
-                "userLastName": "Loy" 
-            },
-            {
-                "userId": 2202,
-                "userEmail": "Diego.Morini@ey.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Morini" 
-            }
-        ]
+  let dummyFunds = [
+    {
+      "name": "Goldman Sachs China A-Share Equity Portfolio",
+      "code": "19614011",
+      "id": "PV100356"
     },
     {
-        "name": "Fund 2",
-        "id": "2ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 200,
-        "openCommentsClient": 2,
-        "totalComments":100,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@email.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
-            },
-            {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
-            },
-            {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
-            }
-        ]
+      "name": "Goldman Sachs China B-Share Equity Portfolio",
+      "code": "19614012",
+      "id": "PV100357"
     },
     {
-        "name": "Fund 3",
-        "id": "3ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 99,
-        "openCommentsClient": 660,
-        "totalComments":2,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-            }]
+      "name": "Goldman Sachs China C-Share Equity Portfolio",
+      "code": "19614013",
+      "id": "PV100358"
     },
     {
-        "name": "Fund 4",
-        "id": "4ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY":"10",
-        "openCommentsClient":"10",
-        "totalComments":30,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }
-       ]
+      "name": "Goldman Sachs China D-Share Equity Portfolio",
+      "code": "19614014",
+      "id": "PV100359"
     },
     {
-        "name": "Fund 5",
-        "id": "5ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 5,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-    },
-    {
-        "name": "Fund 6",
-        "id": "6ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 7",
-        "id": "7ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 8",
-        "id": "ASKDJ10398ASKDJ1",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 9",
-        "id": "ASKDJ10398ASKDJq",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 10",
-        "id": "ASKDJ10398ASKrJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 11",
-        "id": "ASKDJ103f8ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 12",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 1,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 13",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 1,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 14",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 15",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 17",
-        "id": "ASKDJ10398ASTTDJO",
-        "hasContent": true,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[{
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@ey.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }]
-
-    },
-    {
-        "name": "Fund 18",
-        "id": "ASKDJ10398PPKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 19",
-        "id": "ASKDJ10OO8ASKDJO",
-        "hasContent": false,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 20",
-        "id": "ASKDJ10398ASKXJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 21",
-        "id": "ASKDJ1039JJSKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 22",
-        "id": "ASKDJ10398ALLDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund D1",
-        "id": "ASKDJ10398AJJDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    }],
-    "error": null
-  };
-  let renderer: Renderer2;
+      "name": "Goldman Sachs China E-Share Equity Portfolio",
+      "code": "19614015",
+      "id": "PV100360"
+    }
+  ];
+  let fund = {
+    status : 'In client review',
+    openCommentsClient: 1,
+    openCommentsEY: 1
+  }
+  let row = {status : 'In client review'};
+  let red = { name: 'red', selectable: true, group: 'ordinal', domain: [ '#FF736A' ] };
+  let orange = { name: 'orange', selectable: true, group: 'ordinal', domain: [ '#FF9831' ] };
+  let teal = { name: 'teal', selectable: true, group: 'ordinal', domain: [ '#42C9C2' ] };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
@@ -330,6 +63,7 @@ describe('EycCycleDetailsComponent', () => {
         HttpClientTestingModule,
         RouterModule.forRoot([]),
         MatDialogModule,
+        AgGridModule.withComponents([])
       ],
       providers: [
         ProductionCycleService,
@@ -347,12 +81,134 @@ describe('EycCycleDetailsComponent', () => {
     fixture = TestBed.createComponent(CycleDetailComponent);
     component = fixture.componentInstance;
     productionCyclesService = TestBed.get(ProductionCycleService);
-/*     component.downloadButton = { nativeElement: 'nativeElement' };
-    component.approveBtn = { nativeElement: 'nativeElement' };
-    renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
-    spyOn(renderer, 'setAttribute'); */
     component.ngAfterViewInit();
     fixture.detectChanges();
+  });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+  it('should check the service', () => {
+    expect(productionCyclesService instanceof ProductionCycleService).toBeTruthy();
+  });
+  it('should call getCompletedProductCyclesDetails Data', fakeAsync(()=> {
+    let productionCycleDetails = []
+    fixture.detectChanges();
+    const result$ = productionCyclesService.getProductionCyclesDetails(1);
+    result$.subscribe(resp  => {
+        resp['data'].forEach((item) => {
+            const eachitem: any = {
+              name: item.name,
+              hasContent: item.hasContent,
+              id: item.id,
+              status: component.setStatus(item.status, item.hasContent),
+              approved: (!component.isApproved(item.status) && !item.hasContent) || !component.permissionApproval,
+              approvedBack: component.isApproved(item.status),
+              openCommentsEY: item.openCommentsEY,
+              openCommentsClient: item.openCommentsClient,
+              totalComments: item.totalComments,
+              statusChangedDate: item.statusChangedDate,
+              assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
+            };
+            //total opens comments by product-cycle
+            productionCycleDetails.push(eachitem);
+          });
+    })
+    expect(component.completedFunds).toEqual(productionCycleDetails);
+  }));
+  it('checkDataProcess should populate processingCheck with Data', () => {
+    fixture.detectChanges();
+    component.checkDataProcess(false)
+    expect(component.processingCheck).toEqual(false);
+  });
+  it('closeToast method should set showToastAfterSubmit to false',()=>{
+    component.closeToast();
+    expect(component.showToastAfterSubmit).toEqual(false);
+    expect(component.showToastAfterSubmitBulk).toEqual(false);
+  });
+  it('closeToast method should set showToastAfterSubmit to false',()=>{
+    component.closeToast();
+    expect(component.showToastAfterSubmit).toEqual(false);
+    expect(component.showToastAfterSubmitBulk).toEqual(false);
+  });
+  it('getOptionsProductCycles method should get getOptionsProductCyclesList from sessionStorage',()=>{
+    component.getOptionsProductCycles();
+    let mockedOptions = JSON.parse(sessionStorage.getItem('productionCyclesList'));
+    expect(component.options).toEqual(mockedOptions);
+  });
+  it('getFileSummuries method should set the fileSummaries',()=>{
+    let fileSummaries = [
+      {
+        label: "Open client comments",
+        value: component.openCommentsClientByProductCycle
+      },
+      {
+        label: "Open EY comments",
+        value: component.openCommentsEYByProductCycle
+      }
+    ]
+    component.getFileSummuries();
+    expect(component.fileSummaries).toEqual(fileSummaries);
+  });
+  it('setStatus method should return the status depending on the states parameter',()=>{
+    expect(component.setStatus('open', true)).toEqual('In client review');
+    expect(component.setStatus('open', false)).toEqual('In EY tax preparation');
+    expect(component.setStatus('approved', '')).toEqual('Approved by client');
+  });
+  it('isApproved method should return true if the string is equal to approved',()=>{
+    expect(component.isApproved('approved')).toEqual(true);
+  });
+  it('filterByOpenC method should return true the fund object is in client review',()=>{
+    expect(component.filterByOpenC(fund)).toEqual(true);
+  });
+  it('onSubmitApproveDatasets method should putApproveEntities and update productCyclesData',()=>{
+    let body = {
+      "status": "approved",
+      "fundIds": "1,2"
+    };
+    let mockedDatasetsSelectedRows = [{id:1},{id:2},{id:3}];
+    component.datasetsSelectedRows = mockedDatasetsSelectedRows;
+    component.cancelbtn = {};
+    component.onSubmitApproveDatasets();
+    expect(component.cancelbtn.disabled).toEqual(true)
+  });
+ /*  it('backtoCycleView method should go back to CycleView',fakeAsync(()=>{
+    let routerSpy = {navigate: jasmine.createSpy('navigate')};
+    spyOn(component,'backtoCycleView');
+    component.backtoCycleView(); 
+    tick(500);
+    expect(routerSpy.navigate).toHaveBeenCalledWith('app-tax-reporting');
+  })); */
+  it('setColorScheme method should set colors',()=>{
+    component.setColorScheme(); 
+    expect(component.colorScheme).toEqual(red);
+    expect(component.colorScheme2).toEqual(orange);
+    expect(component.colorScheme3).toEqual(teal);
+  });
+  it('getStatusCount method should get the count of status',()=>{
+    component.taxPreparationCount = 1;
+    component.clientReviewCount = 2;
+    component.approvedClientCount = 3;
+    component.getStatusCount(); 
+    let dataToChart = [
+      {
+        "in EY tax preparation": component.taxPreparationCount,
+        "in client review": component.clientReviewCount,
+        "Approved by client": component.approvedClientCount
+      }
+    ];
+    expect(component.dataToChart).toEqual(dataToChart);
+  });
+  it('setClasses method should set the status color',()=>{ 
+    expect(component.setClasses(row)).toEqual('#4EBEEB');
+    row.status = 'In EY tax preparation';
+    expect(component.setClasses(row)).toEqual('#724BC3');
+    row.status = 'Approved by client';
+    expect(component.setClasses(row)).toEqual('#57E188');
+  });
+  it('splitAssignedUser method should split users',()=>{ 
+    let users = [{userFirstName: "test", userLastName: 'User'},{userFirstName: "test",userLastName: 'User2'}];
+    let expectedResponse = 'test User,tU,test User2,tU';
+    expect(component.splitAssignedUser(users)).toEqual(expectedResponse);
   });
   
 });
