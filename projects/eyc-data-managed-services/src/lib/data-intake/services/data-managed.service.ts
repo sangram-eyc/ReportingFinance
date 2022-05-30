@@ -6,6 +6,7 @@ import { DataSummary } from '../models/data-summary.model'
 import { formatDate } from '@angular/common';
 import {DataGrid, ExceptionDataGrid,ExceptionDetailsDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
 import { of } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,12 +41,6 @@ export class DataManagedService {
   get getAuditHashID(): string {
     return this.auditHashID;
   }
-  // set setExceptionDetails(val: any) {
-  //   this.exceptionDetails = val;
-  // }
-  // get getExceptionDetails(): any {
-  //   return this.exceptionDetails;
-  // }
   set setExceptionFileName(val: string) {
     this.exceptionFileName = val;
   }
@@ -190,6 +185,10 @@ export class DataManagedService {
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
+  } 
+
+  getReviewAllList(params: DataSummary) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_review_all}`, this.httpQueryParams(params));
   } 
   getEmbedURL() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL}`);
