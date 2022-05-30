@@ -186,33 +186,6 @@ pageSize;
         id: 0
       };
     }
-    else if(this.pagination && !this.paginationApi && this.staticDataGrid){
-      this.dataset = [{
-        disable: false,
-        value: this.paginationSize * 2,
-        name: (this.paginationSize * 2).toString(),
-        id: 0
-      },
-      {
-        disable: false,
-        value: this.paginationSize*5,
-        name: (this.paginationSize*5).toString(),
-        id: 1
-      },
-      {
-        disable: false,
-        value: this.paginationSize*10,
-        name: (this.paginationSize*10).toString(),
-        id: 2
-      }];
-
-      this.currentlySelectedPageSize = {
-        disable: false,
-        value: this.paginationSize * 2 ,
-        name: (this.paginationSize * 2).toString(),
-        id: 0
-      };
-    }
     else{
       this.dataset = [{
         disable: false,
