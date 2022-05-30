@@ -24,7 +24,6 @@ export interface ExceptionDataGrid{
 export interface ExceptionDetailsDataGrid{
     tableName:StringOrNull;
     auditDate:StringOrNull;
-    auditHashID:StringOrNull;
 }
 
 export interface GroupByDataProviderCardGrid extends DataSummary{

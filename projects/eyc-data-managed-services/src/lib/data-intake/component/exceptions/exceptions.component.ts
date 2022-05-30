@@ -212,13 +212,6 @@ export class ExceptionsComponent implements OnInit {
       fileId: '',
       fileName: this.ExceptionFileNameAlias
     };
-    // if (this.dailyMonthlyStatus) {
-    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-    // } else {
-    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-    // }
     this.getExceptionTableData();
   }
 

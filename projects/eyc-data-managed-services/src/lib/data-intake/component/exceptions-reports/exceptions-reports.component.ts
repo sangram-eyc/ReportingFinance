@@ -85,19 +85,14 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
     private renderer: Renderer2, private customglobalService: CustomGlobalService, private routingState: RoutingStateService,
     private unsubscriber: AutoUnsubscriberService,) {
-    // this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
     this.isLoading = true;
-
     this.auditDate = this.dataManagedService.getAuditDate;
     this.tableName = this.dataManagedService.getTableName;
     this.auditHashID = this.dataManagedService.getAuditHashID;
-    // this.httpDataGridParams.auditDate = "this.dataManagedService.getAuditDate";
-    // this.httpDataGridParams.tableName =" ;"
-    // this.httpDataGridParams.auditHashID = "";
 
     this.httpDataGridParams = {
-      auditDate : this.auditDate, tableName: this.tableName, auditHashID: this.auditHashID
+      auditDate : this.auditDate, tableName: this.tableName
     }
   }
 
@@ -106,9 +101,10 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    const auditHashIds = { "auditHashId": this.auditHashID };
     this.dataManagedService
-      .getExceptionDetailsTableData(this.httpDataGridParams)
-      .pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+      .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
+      .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
         console.log(resp);
         if (resp.data.length > 0) {
           const firstRow = resp.data[0];
