@@ -153,7 +153,6 @@ export class DataManagedService {
     // Begin assigning parameters
     params = params.append('tableName', dataGrid.tableName);
     params = params.append('auditDate', dataGrid.auditDate);
-    // params = params.append('auditHashId', dataGrid.auditHashID);
     return params;
   }
 
