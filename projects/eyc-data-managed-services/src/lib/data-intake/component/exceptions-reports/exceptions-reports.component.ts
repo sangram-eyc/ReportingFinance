@@ -124,44 +124,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           this.columnDefs = this.columnDefsFill;
         }
       });
-    // if (this.headerColumnName && this.headerColumnName.length > 0) {
-    //   const headerColumnNameUnique = new Set(this.headerColumnName);
-    //   headerColumnNameUnique.forEach((key) => {
-    //     this.columnDefsFill.push({
-    //       headerComponentFramework: MotifTableHeaderRendererComponent,
-    //       headerName: key.replace(/_/g, ' '),
-    //       field: key,
-    //       sortable: true,
-    //       wrapText: true,
-    //       autoHeight: true
-    //     });
-    //   });
-    //   const multiColumnData = [];
-    //   for (let i = 0; i < this.exceptionTableFillData.length;) {
-    //     let headerColumnNameUniqueWithValue = {};
-    //     let headerIndex = 0;
-    //     for (const headerColumnNameUniqueKey of headerColumnNameUnique) {
-    //       const currentValue = this.exceptionTableFillData[i + headerIndex];
-    //       const currentValueKey = Object.keys(currentValue);
-    //       if (currentValueKey == headerColumnNameUniqueKey) {
-    //         headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
-    //       } else {
-    //         const currentValueNoMatch = this.exceptionTableFillData[i + headerIndex - 1];
-    //         headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValueNoMatch[`${Object.keys(currentValue)}`];
-    //         i++;
-    //         break;
-    //       }
-    //       headerIndex++;
-    //     }
-    //     if (headerColumnNameUnique.size === headerIndex) {
-    //       i = i + headerColumnNameUnique.size;
-    //     }
-    //     multiColumnData.push(headerColumnNameUniqueWithValue);
-    //   }
-    //   this.exceptionTableData = multiColumnData;
-    //   this.columnDefsFill.splice(0, 0, {headerName: '#',width:'70', valueGetter: 'node.rowIndex+1'});
-    //   this.columnDefs = this.columnDefsFill;
-    // }
   }
 
   ngOnInit(): void {
@@ -170,16 +132,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.headerColumnName = []
     this.columnDefs = [];
     this.columnDefsFill = [];
-    // if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
-    //   const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
-    //   const prop = str.split(',');
-    //   prop.forEach((props) => {
-    //     const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
-    //     const value = props.split(':')[1].trim().replace(/"/g, '');
-    //     this.headerColumnName.push(columnName);
-    //     this.exceptionTableFillData.push({ [`${columnName}`]: value });
-    //   })
-    // }
 
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
