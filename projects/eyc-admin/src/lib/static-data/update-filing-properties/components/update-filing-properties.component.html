@@ -195,7 +195,7 @@
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
       [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
-      [export]="true" (exportFlagToParent)="exportData()">
+      [export]="true" [staticDataGrid]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">

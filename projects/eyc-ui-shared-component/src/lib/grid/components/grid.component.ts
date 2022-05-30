@@ -101,6 +101,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() omitModal = false;
   @Input() uiPagination = false;
   @Input() title = '';
+  @Input() staticDataGrid = false;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -158,7 +159,34 @@ pageSize;
       this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
-    if(this.pagination && !this.paginationApi){
+    if(this.pagination && !this.paginationApi && !this.staticDataGrid){
+      this.dataset = [{
+        disable: false,
+        value: this.paginationSize,
+        name: (this.paginationSize).toString(),
+        id: 0
+      },
+      {
+        disable: false,
+        value: this.paginationSize*2,
+        name: (this.paginationSize*2).toString(),
+        id: 1
+      },
+      {
+        disable: false,
+        value: this.paginationSize*3,
+        name: (this.paginationSize*3).toString(),
+        id: 2
+      }];
+
+      this.currentlySelectedPageSize = {
+        disable: false,
+        value: this.paginationSize,
+        name: (this.paginationSize).toString(),
+        id: 0
+      };
+    }
+    else if(this.pagination && !this.paginationApi && !this.staticDataGrid){
       this.dataset = [{
         disable: false,
         value: this.paginationSize * 2,
@@ -167,20 +195,20 @@ pageSize;
       },
       {
         disable: false,
-        value: this.paginationSize * 5,
-        name: (this.paginationSize *5 ).toString(),
+        value: this.paginationSize*5,
+        name: (this.paginationSize*5).toString(),
         id: 1
       },
       {
         disable: false,
-        value: this.paginationSize * 10,
-        name: (this.paginationSize * 10).toString(),
+        value: this.paginationSize*10,
+        name: (this.paginationSize*10).toString(),
         id: 2
       }];
 
       this.currentlySelectedPageSize = {
         disable: false,
-        value:  this.paginationSize * 2,
+        value: this.paginationSize * 2 ,
         name: (this.paginationSize * 2).toString(),
         id: 0
       };
@@ -188,8 +216,8 @@ pageSize;
     else{
       this.dataset = [{
         disable: false,
-        value: this.paginationSize * 2,
-        name: (this.paginationSize * 2).toString(),
+        value: this.paginationSize*2,
+        name: (this.paginationSize*2).toString(),
         id: 0
       },
       {
