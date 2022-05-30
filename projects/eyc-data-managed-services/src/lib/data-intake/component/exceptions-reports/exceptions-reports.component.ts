@@ -72,7 +72,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionTableData = [];
   exceptionTableFillData = [];
   headerColumnName = [];
-  // exceptionReportDetails = "";
   exceptionFileName: string = "";
   auditDate: string = "";
   tableName: string = "";
