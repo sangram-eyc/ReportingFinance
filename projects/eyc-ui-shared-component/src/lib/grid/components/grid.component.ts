@@ -181,7 +181,7 @@ pageSize;
       this.currentlySelectedPageSize = {
         disable: false,
         value:  this.paginationSize * 2,
-        name: (this.paginationSize).toString(),
+        name: (this.paginationSize * 2).toString(),
         id: 0
       };
     }
