@@ -186,7 +186,7 @@ pageSize;
         id: 0
       };
     }
-    else if(this.pagination && !this.paginationApi && !this.staticDataGrid){
+    else if(this.pagination && !this.paginationApi && this.staticDataGrid){
       this.dataset = [{
         disable: false,
         value: this.paginationSize * 2,
