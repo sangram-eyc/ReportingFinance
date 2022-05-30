@@ -25,6 +25,24 @@ export class StaticDataComponent implements OnInit, OnChanges {
   showToastAfterFilingAdded = false;
   activeStaticData: any[] = []
   filterName: string;
+  fundFrequency;
+  selectList= [{
+    "field": "filingStages",
+    "value": false,
+  },
+  {
+    "field": "scopeStages",
+    "value": false,
+  },
+  {
+    "field": "filingEntitiyStages",
+    "value": false,
+  }, 
+  {
+    "field": "fundFrequency",
+    "value": false,
+  }]
+
 
   constructor(
     private service: StaticDataService,
@@ -42,12 +60,29 @@ export class StaticDataComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.tabHighlighted == 5) {
       this.activeFilings = [];
-      this.getStaticData();
-      this.getFilingStages();
-      this.getScopingStages();
-      this.getEntityStages();
+      this.getData();
       this.filterName='';
+      this.selectList.forEach((item) => {
+        this.addFilingForm.get(item.field).valueChanges.subscribe(res => {
+          if(res.length) {
+             if(this.selectList?.includes(item)){
+              item.value = false
+            }
+          }
+           else if(this.selectList?.includes(item)){
+            item.value = true
+          }
+          })
+      })
     }
+  }
+
+  getData(){
+    this.getStaticData();
+    this.getFilingStages();
+    this.getScopingStages();
+    this.getEntityStages();
+    this.getFundFrequency();
   }
 
   getFilingStages() {
@@ -63,6 +98,11 @@ export class StaticDataComponent implements OnInit, OnChanges {
   getEntityStages() {
     this.service.getStages("Filing Entity").subscribe(resp => {
       this.filingEntitiyStages = resp['data'];
+    });
+  }
+  getFundFrequency(){
+    this.service.getFrequency().subscribe(resp => {
+      this.fundFrequency = resp['data'][0]?.split(',');
     });
   }
 
@@ -82,12 +122,16 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   addnewFiling() {
+    this.selectList?.forEach((item) => {
+    item.value=false;
+    });
+    console.log("addnewFiling",this.selectList)
     this.showAddFilingForm = true;
   }
 
   closeAddFilingModal() {
     this.showAddFilingForm = false;
-    this.addFilingForm = this._createAddFiling();
+    this.addFilingForm.reset();
   }
 
   private _createAddFiling() {
@@ -96,12 +140,14 @@ export class StaticDataComponent implements OnInit, OnChanges {
       scopeStages: ['', [Validators.required]],
       filingEntitiyStages: ['', [Validators.required]],
       filingStages: ['', [Validators.required]],
-      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]]
+      filerType: ['', [Validators.maxLength(500), Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].FILER_TYPE),this.checkDuplicate.bind(this)]],
+      regulationForm: ['', [Validators.required, Validators.pattern(commonConstants['ADD_STATIC_DATA_REGEX_PATTERN'].REGULATION_FORM), Validators.maxLength(50), this.noWhitespaceValidator]],
+      fundFrequency:['', [Validators.required]]
     });
   }
 
   public noWhitespaceValidator(control: FormControl) {
-    if (control.value.length === 0) {
+    if (control.value && control.value.length === 0) {
       return false;
     } else {
       const isWhitespace = (control.value || '').trim().length === 0;
@@ -146,11 +192,14 @@ export class StaticDataComponent implements OnInit, OnChanges {
     let SELECTED_FILING_STAGES = this.getSelectedStages(obj.filingStages, this.filingStages, "Filing");
     let SELECTED_SCOPING_STAGES = this.getSelectedStages(obj.scopeStages, this.scopeStages, "Fund Scoping");
     let SELECTED_ENTITY_STAGES = this.getSelectedStages(obj.filingEntitiyStages, this.filingEntitiyStages, "Filing Entity");
+    let SELECTED_FUND_FREQUENCY = obj.fundFrequency;
     this.showAddFilingForm = false;
     const staticData = {
       "filingDisplayName": obj.displayName,
       "filerTypes": this.getFilerTypes(obj.filerType),
-      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES]
+      "stagesList": [...SELECTED_FILING_STAGES, ...SELECTED_SCOPING_STAGES, ...SELECTED_ENTITY_STAGES],
+      "regulationFormApplicable":obj.regulationForm,
+      "frequency":[...SELECTED_FUND_FREQUENCY]
     }
     this.service.addStaticData(staticData).subscribe((res) => {
       let staticDataObj = {
@@ -164,6 +213,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
       setTimeout(() => {
         this.showToastAfterFilingAdded = !this.showToastAfterFilingAdded;
       }, 5000);
+    }, error => {
+      console.log("add static data error");
     });
   }
 
@@ -205,7 +256,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   checkDuplicate(control: FormControl){
-    let value = (control.value).toUpperCase().split(',');
+    let value = (control.value)?.toUpperCase().split(',');
     if(value && new Set(value).size !== value.length){
       return {
         duplicateName: {

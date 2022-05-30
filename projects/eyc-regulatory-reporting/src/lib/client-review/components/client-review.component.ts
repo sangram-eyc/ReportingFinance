@@ -681,7 +681,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.entityId,
-        entityType: "FILING_ENTITY",
+        entityType: "Filing Entity",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -738,7 +738,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "ANSWER_EXCEPTION_REPORT",
+        entityType: "Answer Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -800,10 +800,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   openComments(row) {
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
      if (this.tabs == 2) {
-      this.commentEntityType = 'FILING_ENTITY';
+      this.commentEntityType = 'Filing Entity';
       this.entityId = row.entityId;
      } else {
-      this.commentEntityType = 'ANSWER_EXCEPTION_REPORT'
+      this.commentEntityType = 'Answer Data Exception Report'
       this.entityId = row.exceptionId;
      }
      this.showComments = true;
@@ -1024,7 +1024,7 @@ actionMenuEnableforException(row) {
         let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
-          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+          if((index==0 && element.auditDetails.auditObjectCurValue !='NA') && (index==0 && element.auditDetails.auditObjectCurValue !='Not Applicable')) {
             item1['auditActionType'] = 'Started'
               auditList.push(item1)
           }
@@ -1052,7 +1052,7 @@ actionMenuEnableforException(row) {
           }
 
         } else if (element.auditActionType == 'New') {
-          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA' || 'Not Applicable') {
             if (data.length == 1) {
               item1['auditActionType'] = 'Started'
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue
@@ -1090,7 +1090,7 @@ actionMenuEnableforException(row) {
         let item3 = this.copy(element)
         if(element.auditActionType == 'Approve') {
           
-          if(index==0 && element.auditDetails.auditObjectCurValue !='NA') {
+          if((index==0 && element.auditDetails.auditObjectCurValue !='NA') && (index==0 && element.auditDetails.auditObjectCurValue !='Not Applicable')) {
             item1['auditActionType'] = 'Started'
               auditList.push(item1)
           }
@@ -1118,7 +1118,7 @@ actionMenuEnableforException(row) {
           }
 
         } else if (element.auditActionType == 'New') {
-          if (element.auditDetails.auditObjectPrevValue == 'NA') {
+          if (element.auditDetails.auditObjectPrevValue == 'NA' || 'Not Applicable') {
             if (data.length == 1) {
               item1['auditActionType'] = 'Started'
               item1.auditDetails['auditObjectCurValue'] = element.auditDetails.auditObjectCurValue

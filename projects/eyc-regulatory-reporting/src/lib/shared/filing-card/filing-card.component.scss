@@ -1,44 +1,32 @@
+    .filing-wrapper {
 
-.filing-wrapper {
-
-    .motif-card-body[_nghost-tbk-c89]    :last-child, .motif-card-body   [_nghost-tbk-c89]    :last-child {
-        padding: 0 !important;
-    }
-    
     .motif-card {
-        // width: 422px;
+
+        .row>* {
+            padding: 0px 10px 0px 10px!important;
+        }
+
+        .motif-card-body  {
+            margin-left: 0px !important;
+        }
+       
         width: 100%;
         font-family: EYInterstate;
-        border: 1px solid #747480 !important;
-        // padding: 10px;
-        // margin-right: 22px;
+        border: 1px solid #EAEAF2 !important;
+       
     
         .motif-card-header {
             border: none;
-            // display: flex;
-            // justify-content: space-between;
-            // align-items: center;
-            // padding: 28px 20px 18px 23px;
             min-height: 85px;
             padding: 28px 20px 5px 22px !important;
-            .elli-wrap {
-                // width: 67%;
-            }
             .filing-name {
-                margin: 0;
+                font-family: EYInterstate;
+                font-style: normal;
                 font-weight: 700;
                 font-size: 16px;
                 line-height: 18px;
-                // width: 62%;
-            }
-            .eli-filing-name {
-                margin: 0;
-                font-weight: 700;
-                font-size: 16px;
-                line-height: 5px;
-                // width: 62%;
-                /* position: absolute;
-                margin-top: 25px; */
+                color: #2E2E38;
+                margin: 0 0 8px;
             }
             span.filing-name.ellipsis {
                 flex: 1;
@@ -46,41 +34,39 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: block;
-                width: 140px;
+                max-width: 280px;
+                margin: 0 0 -5px;
             }
-            span.filing-name.ellipsis-period {
-                flex: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: block;
-                width: 114px;
-            }
-            .filing-date-due {
-                display: flex;
-                align-items: center;
+            .filing-period {
+                font-family: 'EYInterstate';
+                font-style: normal;
+                font-weight: 300;
                 font-size: 12px;
-                justify-content: flex-end;
-                .motif-icon {
-                    margin-right: 4px;
-                    width: 12px;
-                    cursor: default;
-                    ::ng-deep {
-                        svg {
-                            fill: #6F6F7A;
-                        }
-                      }
-                }
+                line-height: 18px;
+                color: #747480;
             }
+            .filing-date-due  {
+                font-family: 'EYInterstate';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 12px;
+                line-height: 18px;
+                color: #2E2E38;
+            }
+            .filing-breaker {
+                border: 1px solid #EAEAF2;
+                display: inline-block;
+                margin: 0 auto;
+                margin-top: 15px !important;
+                margin-bottom: 16px !important;
+                width: 94%;
+            }
+            
         }
     
         .motif-card-body {
-            // display: flex;
-            // justify-content: space-between;
-            // padding-top: 0;
-            // padding-left: 23px;
-            // padding-bottom: 25px;
             padding: 10px 22px 24px 22px;
+            min-height: 230px;
             ::ng-deep {
                 &:last-child {
                     padding: 0px;
@@ -92,6 +78,11 @@
             .card-column {
                 display: flex;
                 flex-direction: column;
+                left: 25px;
+                position: relative;
+                text-align: right;
+                right: 0px;
+                width: 60px;
                 .status-text {
                     font-weight: 700;
                 }
@@ -105,283 +96,193 @@
                     align-items: center;
                     font-weight: 700;
                     color: rgba(0, 0, 0, 0.5);
-                    .motif-icon {
-                        padding: 0;
-                        margin-right: 8px;
-                        width: 18px;
-                        ::ng-deep {
-                            svg {
-                                box-sizing: unset;
-                                fill: rgba(0, 0, 0, 0.5);
-                            }
-                        }
-                        .motif-icon-wrap {
-                            padding: 0 !important;
-                        }
-                    }
-                }
-                .blue-comment {
-                    color: #155CB4;
-                    .motif-icon {
-                        ::ng-deep {
-                            svg {
-                                fill: #155CB4;
-                            }
-                        }
-                    }
                 }
             }
             .column-header {
-                font-size: 14px;
-                line-height: 20px;
-                color: #747480;
+                font-family: 'EYInterstate';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 18px;
+                // display: flex;
+                align-items: center;
+                text-align: right;
+                color: #3A3A4A;
+                display: inline-flex;
+                padding-top: 10px !important;
             }
-            .fund-number {
-                font-weight: 700;
-                font-size: 32px;
-                line-height: 48px;
-            }
-        }
-    
-        .filing-card-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 22px;
-            padding-left: 23px;
-            padding-right: 22px;
-            .footer-status {
-                border: 1px solid #23232F;
+           
+
+            .file-type-button {
+                height: 24px;
+                width: 60px;
+                left: 0px;
+                top: 0px;
                 border-radius: 16px;
-                padding: 0px 11px;
-                height: 22px;
-                font-family: 'EYInterstateLight';
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 2px 12px !important;
+                background: rgba(140, 232, 173, 0.8);
+                font-family: 'EYInterstate';
+                font-style: normal;
                 font-weight: 700;
                 font-size: 12px;
-            }
-            .card-button {
-                .motif-button {
-                    width: 66px;
-                    min-height: 31px;
-                    height: 31px;
+                line-height: 20px;
+                color: #2E2E38;
+        }
+
+            ::ng-deep {
+                .motif-step-container {
+                    .second-line-item-separator .second-line-vertical {
+                        width: 2px !important;
+                        height: 11px !important;
+                        border-left: 2px solid #E1E1E6 !important;
+                        top: 2px !important;
+                        position: relative;
+                        left: 4px !important;
+                    }
+                    .step-info .step-data-container .first-line {
+                        font-family: 'EYInterstate' !important;
+                        font-style: normal !important;
+                        font-weight: 300 !important;
+                        font-size: 14px !important;
+                        line-height: 24px !important;
+                        color: #3A3A4A !important;
+                        padding-top: 2px;
+                    }
+                   /*  .step-info .step-data-container {
+                        margin: 0 auto !important;
+                    } */
+                   .step-info .step-dot {
+                        width: 24px !important;
+                        height: 24px !important;
+                   }
+                  .step-info .step-dot.in-progress.in-progress .inner{
+                    height: 16.5px !important;
+                    width: 16.5px !important;
+                    left: 3px !important;
+                    top: 3px !important;
+                    background: #2E2E38 !important;
+                    position: relative;
+                    }
+                .motif-icon.motif-icon.completed-step-icon {
+                        width: 16px !important;
+                        height: 16px !important;
+                        left: -20px !important;
+                        top: 4px !important;
+                        border-radius: 50%;
+                        margin-top: 0px !important;
+                        margin-left: 0px !important;
+                        background: #189D3E;
+                        position: relative;
+                    }
+               .step-info .step-dot.completed {
+                        background: #FFFFFF !important;
+                        border: 2px solid #189D3E !important;;
+                    }
+                
                 }
+                motif-progress-indicators.motif-steps-container.vertical  motif-progress-step:last-child{
+                    .in-progress.second-line-vertical {
+                        border-left: 0px !important;
+                    }
+                   
+                }
+
+            span.completed.first-line {
+                position: relative;
+                left: -15px;
             }
+
+                
+            }
+
+            .right-section {
+                // border: 1px solid red;
+                min-height: 200px;
+            }
+
         }
-    }
     
-    
-    
-    .progress-indicator-container {
-        position: relative;
-        max-width: 10rem;
-        ::ng-deep {
-            .motif-steps-container {
-                position: relative;
-                z-index: 2;
+        .card-button {
+            float: right;
+            .motif-button {
+                max-width: 56px;
+                height: 36px;
+                font-family: 'EYInterstate' !important;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 22px;
             }
         }
-        .line {
-            height: 1px;
-            background-color: #C4C4CD;
-            position: absolute;
-            width: 80%;
-            top: 61%;
-            left: 10px;
-            z-index: 0;
+        .filing-type {
+            height: 24px;
+            width: 60px;
+            border-radius: 16px;
+            padding: 2px 12px !important;
+            background: rgba(140, 232, 173, 0.8);
+            font-family: 'EYInterstate';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 20px;
+            color: #2E2E38;
         }
-    }
-    .progress-indicator-container-4 {
-        position: relative;
-        max-width: 8rem;
-        ::ng-deep {
-            .motif-steps-container {
-                position: relative;
-                z-index: 2;
+        .right-section-alignmnet {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .right-entities {
+            font-family: 'EYInterstate';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 18px;
+            color: #3A3A4A;
+            padding-top: 10px !important;
+        }
+        .fund-number {
+            font-family: 'EYInterstate';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 24px;
+            color: #3A3A4A;
             }
-        }
-        .line {
-            height: 1px;
-            background-color: #C4C4CD;
-            position: absolute;
-            width: 80%;
-            top: 61%;
-            left: 10px;
-            z-index: 0;
-        }
-    }
-    .progress-indicator-container-3 {
-        position: relative;
-        max-width: 5rem;
-        ::ng-deep {
-            .motif-steps-container {
-                position: relative;
-                z-index: 2;
+
+
+            .right-section-alignmnet1 {
+               margin-top: 75px;
             }
-        }
-        .line {
-            height: 1px;
-            background-color: #C4C4CD;
-            position: absolute;
-            width: 80%;
-            top: 61%;
-            left: 10px;
-            z-index: 0;
-        }
-    }
-    .progress-indicator-container-2 {
-        position: relative;
-        max-width: 3rem;
-        ::ng-deep {
-            .motif-steps-container {
-                position: relative;
-                z-index: 2;
-            }
-        }
-        .line {
-            height: 1px;
-            background-color: #C4C4CD;
-            position: absolute;
-            width: 80%;
-            top: 61%;
-            left: 10px;
-            z-index: 0;
-        }
+
     }
     
     ::ng-deep {
-        .motif-step-container {
-            .step {
-                height: 1px !important;
-                &.in-progress, &.completed, &.not-set {
-                    background-color: #C4C4CD !important;
-                    display: none !important;
-                }
-            }
-            .step-info {
-                .step-dot {
-                    flex-shrink: 0 !important;
-                    &.completed {
-                        background-color: #FFFFFF !important;
-                    }
-                    &.not-set {
-                        border: 1px solid #C4C4CD !important;
-                        background-color: #FFFFFF !important
-                    }
-                    &.in-progress {
-                        // border: 1px solid #34C768 !important;
-                        // background-color: #34C768 !important;
-                    }
-                    .inner {
-                        visibility: hidden !important;
-                    }
-                }
-    
-                svg {
-                    fill: #000000 !important;
-                }
-            }
-            .completed-step-icon {
-                flex-shrink: 0;
-            }
+        .motif-button {
+            background: var(--btn-primary-alt-color) !important;
+            color: var(--btn-primary-alt-bg-color) !important;
         }
-    }
-    .only-period-ellipsis {
-        // display: flex;
+        .motif-button:hover {
+            background: var(--btn-primary-alt-bg-color) !important;
+            color: var(--btn-primary-alt-color) !important;
+        }
+        *:focus {
+            box-shadow: none !important;
+            outline: none;
+        }
+        .motif-step-container:hover .step-info .step-dot.not-set .inner{
+            visibility: hidden !important;
+        }
     }
     
-    ::ng-deep {
-        .motif-step-container .step-info .step-dot.in-progress.in-progress .inner{
-            // width: 66% !important;
-            // height: 66% !important;
-            // left: 16% !important;
-            // top: 17% !important;
-            // visibility: visible !important;
-            width: 0.63rem !important;
-            height: 0.63rem !important;
-            left: auto !important;
-            top: auto !important;
-            visibility: visible !important;
-            margin: auto;
-            border-radius: 49% !important;
-        }
-        .motif-step-container .step-info .step-dot.in-progress {
-            border: 1px solid #000000 !important;
-            background: #FFFFFF !important;
-        }
-       /*  .motif-tooltip {
-            width: 100% !important;
-        } */
-        .motif-icon.motif-tooltip-close {
-            display: none !important;
-        }
-        .motif-tooltip-trigger {
-            cursor: context-menu !important;
-        }
-        .motif-step-container .step-info .step-dot {
-            height: 1.24rem !important;
-            width: 1.24rem !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-        .motif-step-container .completed-step-icon {
-            width: .78571rem !important;
-            height: .78571rem !important;
-            margin-left: -1.02857rem !important;
-            margin-top: .19rem !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-        .motif-tooltip .motif-tooltip-inner{
-            padding: .85714rem 1rem .85714rem 1rem !important;
-        }
-        .motif-tooltip.color-default .motif-tooltip-close-button {
-            display: none;
-        }
-    }
-    @media screen and (min-width: 300px) {
-        
-       }
-      @media screen and (min-width: 1000px) {
-       
-      }
-      @media screen and (min-width: 1200px) {
-         span.filing-name.ellipsis {
-            width: 200px !important;
-        }
-        span.filing-name.ellipsis-period {
-            width: 200px !important;
-        }
-       }
-      
-       @media screen and (min-width: 1950px) {
-        span.filing-name.ellipsis {
-            width: 241px !important;
-        }
-        span.filing-name.ellipsis-period {
-            width: 200px !important;
-        }
-       }
-      
-       @media screen and (min-width: 2600px) {
-        
-       }
-      
-       @media screen and (min-width: 2800px) {
-        
-       }   
-    
-       @media screen and (min-width: 850px) and (max-width: 1000px) {
-        span.filing-name.ellipsis {
-            width: 230px !important;
-        }
-        span.filing-name.ellipsis-period {
-            width: 200px !important;
-        }
-    }
 }
 
-@media screen and (min-width: 990px) and (max-width: 1070px) {
-    .filing-wrapper .motif-card .motif-card-header .filing-date-due {
-        font-size: 10px;
+@media screen and (min-width: 769px) and (max-width: 1248px) {
+    span.filing-name.ellipsis {
+        max-width: 320px !important;
     }
-   }
+}  
 

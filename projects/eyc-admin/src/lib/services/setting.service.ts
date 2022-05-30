@@ -57,6 +57,7 @@ export class SettingService {
       pbi_question_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/questions' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/questions',
       add_pbi_mapping: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
       delete_pbi_mapping: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/pbi-mapping',
+      filing_frequencies : this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/filing/frequencies' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/filing/frequencies',
     }
     return static_data;
   }

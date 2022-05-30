@@ -449,7 +449,7 @@ export class ExceptionsComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.entityId,
-        entityType: "FILING_ENTITY",
+        entityType: "Filing Entity",
         forms: {
           isSelect: false,
           selectDetails: {

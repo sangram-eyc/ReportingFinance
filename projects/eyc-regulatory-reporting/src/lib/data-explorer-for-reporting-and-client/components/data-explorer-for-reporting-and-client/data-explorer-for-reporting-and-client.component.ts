@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EycPbiService } from '../../../services/eyc-pbi.service';
 import { EycRrSettingsService } from '../../../services/eyc-rr-settings.service';
-import { SESSION_PBI_TOKEN } from '../../../config/rr-config-helper';
+import { SESSION_PBI_TOKEN, PBI_CONFIG } from '../../../config/rr-config-helper';
 import { Location } from '@angular/common';
 
 @Component({
@@ -24,6 +24,8 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
   filingDetails: any;
   PBIReportId: any;
   isUserInDataExplorerPage = false;
+  activePod = PBI_CONFIG;
+  dataSetId:any;
   constructor(
     private router: Router,
     private pbiServices: EycPbiService,
@@ -138,8 +140,9 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
   getPowerBIReportID() {
     this.pbiServices.getPBIReportIDByFilingIdQuestionId(this.filingName?.formId, this.form.controls.questionId.value).subscribe(res => {
       console.log("PBI Response > ", res);
-      this.PBIReportId = res['data'];
-      console.log("PBIReportId", this.PBIReportId);
+      this.PBIReportId = res['data']['pbiReportId'];
+      this.dataSetId = res['data']['dataSetIds'];
+      console.log("PBIReportId", res['data']);
 
       // After API are ready will remove above line and uncomment below line
       // let obj = res['data'].filter(value => value.id === this.form.get('questionId').value);

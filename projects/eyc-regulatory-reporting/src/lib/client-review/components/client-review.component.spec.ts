@@ -354,7 +354,7 @@ describe('ClientReviewComponent', () => {
     };
     component.openComments(row);
     expect(component.commentsName).toEqual('FDI Loan // 2011');
-    expect(component.commentEntityType).toEqual('FILING_ENTITY')
+    expect(component.commentEntityType).toEqual('Filing Entity')
     expect(component.entityId).toEqual('101')
     expect(component.showComments).toEqual(true)
   })
@@ -370,7 +370,7 @@ describe('ClientReviewComponent', () => {
     };
     component.openComments(row);
     expect(component.commentsName).toEqual('FDI Loan // 2011');
-    expect(component.commentEntityType).toEqual('ANSWER_EXCEPTION_REPORT')
+    expect(component.commentEntityType).toEqual('Answer Data Exception Report')
     expect(component.entityId).toEqual('101')
     expect(component.showComments).toEqual(true)
   });
