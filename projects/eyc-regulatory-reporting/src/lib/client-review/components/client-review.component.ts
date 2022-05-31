@@ -553,9 +553,13 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.currentPage = 0;
     this.pageSize = DEFAULT_PAGE_SIZE;
     if(this.tabs == 2){
+      this.filingEntityUnaprovedSelectedRows = [];
+      this.filingEntityApprovedSelectedRows = [];
       this.modalMessage = ' Are you sure you want to approve the selected entities? This will approve them for submission.';
       this.getFilingEntities(true);
     } else if (this.tabs == 1) {
+      this.exceptionReportToApproveSelectedRows = [];
+      this.exceptionReportToUnaproveSelectedRows = [];
       this.modalMessage = 'Are you sure you want to approve these exception reports?';
       this.getExceptionReports(true);
     }
@@ -629,8 +633,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       }, 5000);
     }, error => {
-      this.filingEntityApprovedSelectedRows = [];
-      this.filingEntityUnaprovedSelectedRows = [];
+      this.exceptionReportToApproveSelectedRows = [];
+      this.exceptionReportToUnaproveSelectedRows = [];
     });
   }
 

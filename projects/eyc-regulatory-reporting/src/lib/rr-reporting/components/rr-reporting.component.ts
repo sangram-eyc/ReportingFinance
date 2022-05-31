@@ -580,9 +580,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.pageSize = DEFAULT_PAGE_SIZE;
     console.log(this.filingDetails);
     if (this.tabs == 2) {
+      this.filingEntityUnaprovedSelectedRows = [];
+      this.filingEntityApprovedSelectedRows = [];
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will move them to client review.';
       this.getFilingEntities(true);
     } else if (this.tabs == 1) {
+      this.exceptionReportToApproveSelectedRows = [];
+      this.exceptionReportToUnaproveSelectedRows = [];
       this.modalMessage = 'Are you sure you want to approve the selected exception report(s)? This will advance them to the next reviewer.';
       this.getExceptionReports(true);
     }
@@ -713,8 +717,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         this.showToastAfterApproveExceptionReports = !this.showToastAfterApproveExceptionReports;
       }, 5000);
     }, error => {
-      this.filingEntityApprovedSelectedRows = [];
-      this.filingEntityUnaprovedSelectedRows = [];
+      this.exceptionReportToApproveSelectedRows = [];
+      this.exceptionReportToUnaproveSelectedRows = [];
     });
   }
 
