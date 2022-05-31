@@ -491,7 +491,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'maxPriority',
           sortable: true,
           filter: true,
-          maxWidth: 170,
+          maxWidth: 180,
           sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
