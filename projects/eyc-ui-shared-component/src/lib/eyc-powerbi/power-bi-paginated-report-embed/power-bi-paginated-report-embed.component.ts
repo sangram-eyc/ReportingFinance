@@ -49,7 +49,7 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
         this.pbi.reset(this.el.nativeElement);
       }
       else{
-        console.log("selected report ID > ", this.selectedReportId);
+        console.log("selected report ID > ", this.selectedReportId,this.selectedFilling);
           this.showVisualizationForPowerBi();
       }
     } 
@@ -98,7 +98,24 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
       sessionStorage.setItem(SESSION_PBI_TOKEN, embedToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
       if(embedTokenRes['data']['embedReports'][0]['embedUrl']){
-        this.getReport(embedTokenRes['data']['embedReports'][0]['embedUrl'],embedToken);
+        let embedUrl = embedTokenRes['data']['embedReports'][0]['embedUrl'];
+        if(embedTokenRes['data']['embedReports'][0]['reportType'] == "PaginatedReport"){
+          const pbifilterName = this.selectedFilling.filingName;
+          const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
+            let periodfilter =  Array.isArray(pbifilters)? pbifilters[0]:'';
+            let yearFilter = Array.isArray(pbifilters)? pbifilters[1]:pbifilters;
+            embedUrl = new URL(embedUrl);
+            if(yearFilter){
+              embedUrl.searchParams.append('rp:Filing_Year', encodeURIComponent(yearFilter));
+            }
+            if(periodfilter){
+              embedUrl.searchParams.append('rp:Filing_Period', encodeURIComponent(periodfilter));
+            }
+            if(pbifilterName){
+              embedUrl.searchParams.append('rp:Filing_Type', encodeURIComponent(pbifilterName));
+            }
+        }
+        this.getReport(decodeURIComponent(embedUrl.toString()) ,embedToken);
       }
       else{
       this.getEmbedUrl().subscribe(embedTokenData => {
