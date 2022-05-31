@@ -3,7 +3,7 @@ import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import { EycPbiSharedService } from '../eyc-powerbi-embed/services/eyc-pbi-shared.service'
 import * as powerbiTheme from '../pbi-config/theme/eyc_2_theme.json';
-import { SESSION_PBI_TOKEN, PBI_ENCRYPTION_KEY, PBI_CONFIG, IS_THEME_APPLIED, IS_FY_FILTER, IS_PERIOD_FILTER } from '../pbi-config/pbi-config-helper';
+import { SESSION_PBI_TOKEN, PBI_ENCRYPTION_KEY, PBI_CONFIG, IS_THEME_APPLIED, IS_FY_FILTER, IS_PERIOD_FILTER, IS_NAME_FILTER } from '../pbi-config/pbi-config-helper';
 import { IReportEmbedConfiguration } from 'powerbi-client';
 @Component({
   selector: 'lib-power-bi-paginated-report-embed',
@@ -146,8 +146,9 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
     this.report = (this.pbi.embed(reportContainer, this.reportConfig) as powerbi.Report);
     const self = this;
     // const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [];
+    const pbifilterName = this.selectedFilling.filingName;
     const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
-    console.log(pbifilters,"pbifilters loaded")
+    console.log(pbifilters,pbifilterName,"pbifilters loaded")
     this.report.on('loaded', function (event) {
       console.log("Report Data", self.report);
       console.log("Get Filters", self.report.getFilters());
@@ -170,6 +171,14 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
               filter['values'].push(pbifilters[0]);
             }
           }
+          if (filter.target['column'] === 'Description' && IS_NAME_FILTER) {
+            filter['operator'] = 'In';
+            if (filter.hasOwnProperty('values')) {
+              console.log("Name Filter is working",filter['values']);
+              filter['values'].push(pbifilterName);
+            }
+          }
+           
 
           if (filter.target['column'] === 'period end date') {
             filter['operator'] = 'In';
