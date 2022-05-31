@@ -79,7 +79,7 @@ export class DataExplorerForReportingAndClientComponent implements OnInit, OnDes
             console.log('changed question value > ',  this.form.controls.questionId.value);
             if (res) {
               this.getPowerBIReportID();
-              this.selectedFiling = this.filingList.find(item => item.filingId === this.form.get('filingId').value);
+              this.selectedFiling = this.filingList.find(item => item.filingName === this.form.get('filingId').value);
               this.selectedPeriod = this.form.get('period').value;
             }
           });
