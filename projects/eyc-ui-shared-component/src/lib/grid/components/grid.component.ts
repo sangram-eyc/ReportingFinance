@@ -45,7 +45,14 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() modalMessage;
   @Input() toastSuccessMessage = 'Approved successfully';
   @Input() noData = 'No results found';
+  @Input() permissionToApproveButton = false;
+  @Input() disabledApproveButton = false;
+  @Input() approveButtonText = 'Approve'
+  @Input() permissionToUnapproveButton = false;
+  @Input() disabledUnapproveButton = false;
+  @Input() unApprovebuttonText = "Unapprove"
   @Input() submitFunction: () => void;
+  @Input() submitTwoFunction: () => void;
   @Input() modalConfig = {
     width: '400px',
     data: {
@@ -56,6 +63,19 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
         style: "start",
         YesButton: "Yes",
         NoButton: "No"
+      }
+    }
+  };
+  @Input() modalConfigTwo ={
+    width: '500px',
+    data: {
+      type: "Confirmation",
+      header: "Unapprove",
+      description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
       }
     }
   };
@@ -102,6 +122,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() uiPagination = false;
   @Input() title = '';
   @Input() staticDataGrid = false;
+  @Input() isHideCheckBox = true;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -259,8 +280,18 @@ pageSize;
   }
 
   async submit() {
-    this.selectedRowEmitter.emit(this.selectedRows);
     await this.submitFunction();
+    this.selectedRows = [];
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
+    this.buttonModal = false;
+    this.showToastAfterSubmit = !this.showToastAfterSubmit;
+    setTimeout(() => {
+      this.showToastAfterSubmit = !this.showToastAfterSubmit;
+    }, 5000);
+  }
+
+  async submitTwo() {
+    await this.submitTwoFunction();
     this.selectedRows = [];
     if(!this.isAllRecordSelected) this.gridApi.deselectAll();
     this.buttonModal = false;
@@ -311,6 +342,21 @@ pageSize;
     }
   }
 
+  approveButtonAction() {
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialog();
+    }
+  }
+  unapproveButtonAction() {
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialogTwo();
+    }
+  }
+
   openDialog() {
     if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
       this.newEventToParent.emit();
@@ -320,6 +366,19 @@ pageSize;
     dialogRef.afterClosed().subscribe(result => {
       if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
         this.submit();
+      } 
+    });
+  }
+
+  openDialogTwo() {
+    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
+      this.newEventToParent.emit();
+      return;
+    }
+    const dialogRef = this.dialog.open(ModalComponent, this.modalConfigTwo);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
+        this.submitTwo();
       } 
     });
   }
@@ -360,6 +419,7 @@ pageSize;
     if (this.customRowSelected) {
       this.rowSelected.emit(event);
       this.selectedRows = this.gridApi.getSelectedRows();
+      this.selectedRowEmitter.emit(this.selectedRows);
     } else {
       this.selectedRowEmitterProcess.emit('processing');
       this.selectedRows = [];
@@ -378,15 +438,21 @@ pageSize;
 
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
-    if (params.data) {
-      const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
-      return thisIsFirstColumn;
-    } else {
-      if(this.rowData){
-        const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+    if(this.isHideCheckBox) {
+      if (params.data) {
+        const thisIsFirstColumn = (displayedColumns[0] === params.column) && (params.data.approved === false);
         return thisIsFirstColumn;
-      } 
+      } else {
+        if(this.rowData){
+          const thisIsFirstColumn = (displayedColumns[0] === params.column) && !(this.rowData.every(item => item.approved === true));
+          return thisIsFirstColumn;
+        } 
+      }
+    } else {
+      const thisIsFirstColumn = displayedColumns[0] === params.column;
+      return thisIsFirstColumn;
     }
+    
   }
 
   searchGrid(input) {

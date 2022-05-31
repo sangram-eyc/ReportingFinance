@@ -13,12 +13,34 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc"
-            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
-            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig" (updatePageSize)="updatePageSize($event)"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
-            (selectedRowEmitter)="exceptionReportRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)"
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()"  [export] = "true"
+        <lib-shared-grid gridStyle="first"
+            [columnDefs]="exceptionDefs" 
+            [rowData]="exceptionRowData" 
+            (gridReady)="handleGridReady($event)" 
+            [pageChangeFunc]="pageChangeFunc"
+            rowSelection="multiple" 
+            [submitFunction]="submitException"
+            [submitTwoFunction]="unapproveExceptionReports" 
+            [modalMessage]="modalMessage" 
+            (searchInput)="searchGrid($event)" 
+            (currentPageChange)="currentPageChange($event)"
+            buttonPosition="left" 
+            [masterDetail]="true" 
+            [isToggle]="false" 
+            [modalConfig]="exceptionModalConfig"
+            [modalConfigTwo]="exceptionUnapproveModalConfig" 
+            (updatePageSize)="updatePageSize($event)"
+            [permissionToPrimaryButton]="false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
+            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Reporting', 'Exception Unapprove') && !checkFilingCompletedStatus()"
+            [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true"
+            (selectedRowEmitter)="exceptionReportRowsSelected($event)" 
+            (toggleEventToParent)="onClickMyTask($event)"
+            [hideHeaderCheckbox]="checkFilingCompletedStatus()"  
+            [export] = "true"
             (exportFlagToParent)="exportData('exceptions')" [pagination]="exceptionRowData?.length>0 ? true : false" [paginationApi]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
 
@@ -128,14 +150,27 @@
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
         <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
-            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true" (updatePageSize)="updatePageSize($event)" (searchInput)="searchGrid($event)"
-            [isToggle]="false" [modalConfig]="filingModalConfig" (gridReady)="handleGridReady($event)"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
+            [submitFunction]="submitEntities"
+            [submitTwoFunction]="unapproveFilingEntities"
+            [modalMessage]="modalMessage"
+            buttonPosition="left"
+            [masterDetail]="true" 
+            (updatePageSize)="updatePageSize($event)"
+            (searchInput)="searchGrid($event)"
+            [isToggle]="false" [modalConfig]="filingModalConfig" [modalConfigTwo]="filingUnapproveModalConfig"
+            (gridReady)="handleGridReady($event)"
+            [permissionToPrimaryButton] = "false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Reporting', 'Filing Entity Status Change Resolve')"
+            [disabledApproveButton]="filingEntityApprovedSelectedRows.length ==0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
+            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
             [pagination]="rowData?.length>0 ? true : false" [paginationApi]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
         <ng-template #headerTemplate>
-            <div>
+            <div> 
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
                     tabindex="0"></motif-icon>
             </div>
@@ -147,7 +182,7 @@
             </div>
         </ng-template>
 
-        <ng-template #actionButtonTemplate let-row>
+        <!-- <ng-template #actionButtonTemplate let-row>
             <div class="actionButtonTemplate">
                 <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
                     (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
@@ -165,7 +200,7 @@
                 </div>
                
             </div>
-        </ng-template>
+        </ng-template> -->
 
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Reporting', 'View Comments')"
