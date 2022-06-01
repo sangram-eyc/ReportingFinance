@@ -36,6 +36,8 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   actionSection: TemplateRef<any>;
   @ViewChild('reportIDSection')
   reportIDSection: TemplateRef<any>;
+  @ViewChild('dataSetIdsSection')
+  dataSetIdsSection: TemplateRef<any>;
   @ViewChild('questionSection')
   questionSection: TemplateRef<any>;
   displayCheckBox = true;
@@ -50,6 +52,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   filingData;
   backendFilingInfo;
   invalidEditReportIDs = [];
+  invalidEditDatasetIDs = [];
   showToastAfterDeleteTeams = false;
   fundFrequency = [];
   fundFrequencyList =[];
@@ -289,6 +292,11 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     };
   }
 
+  editDatasetID($event) {
+    return {
+      ngTemplate: this.dataSetIdsSection,
+    };
+  }
 
   // editQuestion($event) {
   //   return {
@@ -327,6 +335,20 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         comparator: customComparator
       },
       {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: this.editDatasetID.bind(this),
+        headerName: 'Dataset ID(s)',
+        field: 'dataSetIds',
+        sortable: true,
+        filter: true,
+        wrapText: true,
+        autoHeight: true,
+        width: 370,
+        sort: 'asc',
+        comparator: customComparator
+      },
+      {
         width: 80,
         headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
@@ -349,16 +371,27 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   private _createPBIReport() {
     return this.formBuilder.group({
       question: ['', [Validators.required, Validators.maxLength(100)]],
-      reportID: ['', [Validators.required, Validators.maxLength(150)]]
+      reportID: ['', [Validators.required, Validators.maxLength(150)]],
+      dataSetIds: ['', [Validators.required, Validators.maxLength(150)]],
     });
   }
 
   onSubmitNewQuestion() {
     const obj = this.addPBIReportForm.getRawValue();
+    // const mappingData = {
+    //   "formId": this.filingData.formId,
+    //   "questionPbiMap": {
+    //     [obj.question]: obj.reportID,
+    //   }
+    // }
+
     const mappingData = {
       "formId": this.filingData.formId,
       "questionPbiMap": {
-        [obj.question]: obj.reportID,
+        [obj.question]: {
+          "pbiReportId":obj.reportID ,
+          "dataSetIds": obj.dataSetIds
+        }
       }
     }
 
@@ -369,6 +402,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         let isquestion = mappingdata.find(item => item.name == element.name);
         if (isquestion) {
           mappingdata[mappingdata.findIndex(item => item.name === element.name)]['pbiReportId'] = element.pbiReportId;
+          mappingdata[mappingdata.findIndex(item => item.name === element.name)]['dataSetIds'] = element.dataSetIds;
         } else {
           mappingdata.push(element);
         }
@@ -423,7 +457,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       "questionPbiMap": {}
     }
     this.PBIMappingData.forEach(ele => {
-      mappingData.questionPbiMap[ele.name] = ele.pbiReportId
+      mappingData.questionPbiMap[ele.name] = { "pbiReportId":ele.pbiReportId , "dataSetIds": ele.dataSetIds }
     });
     
     this.service.addPBIMapping(mappingData).subscribe(resp => {
@@ -517,8 +551,19 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     }
   }
 
+  onChangeEditDatastID(question, isValid) {
+    if (isValid) {
+      if (!this.invalidEditDatasetIDs.includes(question)) this.invalidEditDatasetIDs.push(question);
+    } else {
+      const index = this.invalidEditDatasetIDs.indexOf(question);
+      if (index > -1) {
+        this.invalidEditDatasetIDs.splice(index, 1);
+      }
+    }
+  }
+
   exportData() {
-    let exportHeaders = 'name:Question,pbiReportId:Report ID';
+    let exportHeaders = 'name:Question,pbiReportId:Report ID,dataSetIds:Dataset ID(s)';
     let exportURL =  this.apiHelpers.static_data.pbi_mapping +this.filingData.formId +'/pbi-mapping' + "?export=" + true +"&headers=" + exportHeaders + "&reportType=csv";
   
     this.service.exportPBIMappingData(exportURL).subscribe(resp => {

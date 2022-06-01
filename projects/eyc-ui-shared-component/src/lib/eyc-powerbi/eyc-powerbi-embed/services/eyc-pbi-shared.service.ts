@@ -23,8 +23,13 @@ export class EycPbiSharedService {
     console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
     return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_EMBED_URL}?reportId=${data}`);
   }
-  embedTokenDms = (reportId) => {
-    console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
-    return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_AUTH_TOKEN_URL}/${reportId}`);
+  embedTokenDms = (reportId,pod,datasetId?) => {
+    if(pod==="DMS"){
+      console.log('pbiApiEndPoint Pbi-shared-service',sessionStorage.getItem('pbiEndPoint'));
+      return this.apiService.invokeGetAPINoHeader(`${sessionStorage.getItem('pbiEndPoint')+PBI_AUTH_TOKEN_URL}/${reportId}`);
+    }
+    else if(pod==="RRMS"){
+      return this.apiService.invokePostAPI(`${sessionStorage.getItem('pbiEndPoint')}${pbiReportingConfig.pbi_embeded_token_servicePRincipal}${reportId}`,datasetId);
+    }
   }
 }

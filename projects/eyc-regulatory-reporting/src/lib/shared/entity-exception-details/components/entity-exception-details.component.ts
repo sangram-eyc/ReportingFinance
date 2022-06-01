@@ -1,52 +1,37 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { RegulatoryReportingFilingService } from './../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
-import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
-import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ModalComponent, PermissionService, ResolveModalComponent } from 'eyc-ui-shared-component';
+import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
+import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { EntityExceptionDetailsService } from './../services/entity-exception-details.service';
+import { ModalComponent, PermissionService,  IndividualExceptionsResolveComponent} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { rr_module_name } from '../../../config/rr-config-helper';
 
-
 @Component({
-  selector: 'lib-view-exception-reports',
-  templateUrl: './view-exception-reports.component.html',
-  styleUrls: ['./view-exception-reports.component.scss']
+  selector: 'lib-entity-exception-details',
+  templateUrl: './entity-exception-details.component.html',
+  styleUrls: ['./entity-exception-details.component.scss']
 })
-export class ViewExceptionReportsComponent implements OnInit {
-
-  dueDate;
-  filingId;
-  period;
-  filingName;
-  exceptionReportName;
-  stage;
-
-  gridApi;
-  exceptionAnswersDefs;
+export class EntityExceptionDetailsComponent implements OnInit {
+  
+  componentStage: any;
+  filingDetails: any;
+  dueDate: any;
+  filingName: any;
+  period: any;
+  filingId: any;
+  exceptionCnt: number;
+  exceptionReportName: any;
+  parentModule: string;
+  exceptionDetails;
   exceptionAnswersData;
-  dataIntakeData;
-  parentModule;
+  exceptionAnswersDefs;
   commentsCount;
-  exportsHeader;
-
-  showComments = false;
-  commentsData;
-  commentsName;
-  commentEntityType;
-  entityId;
-  exceptionCnt;
-  enableResolveButton: boolean;
-  enableUnresolveButton: boolean;
-  exceptionResolveRows = []
-  exceptionDetailCellRendererParams;
-  count = 0;
-  dataIntakeExceptionsTable: boolean;
   answerExceptionTable: boolean
   moduleOriginated = rr_module_name;
-  
+
   @ViewChild('dropdownTemplate')
   dropdownTemplate: TemplateRef<any>;
   @ViewChild('commentExceptionTemplate')
@@ -55,59 +40,46 @@ export class ViewExceptionReportsComponent implements OnInit {
   exceptionResultTemplate: TemplateRef<any>;
   @ViewChild('actionResolvedTemplate')
   actionResolvedTemplate: TemplateRef<any>;
-  componentStage;
-  filingDetails;
+  exceptionResolveRows: any[];
+  enableResolveButton: boolean;
+  enableUnresolveButton: boolean;
+  commentsName: string;
+  commentEntityType: string;
+  entityId: any;
+  showComments: boolean = false;
+  exportsHeader: string;
+
+
   constructor(
     private filingService: RegulatoryReportingFilingService,
-    private viewService: ViewExceptionReportsService,
     private router: Router,
     private location: Location,
+    private viewService: EntityExceptionDetailsService,
+    public permissions: PermissionService,
     public dialog: MatDialog,
-    public permissions: PermissionService
-  ) {
+  ) { 
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
-      this.componentStage = navigation.extras.state.componentStage
-      const state = navigation.extras.state as { dataIntakeData: string };
-      this.dataIntakeData = state.dataIntakeData;
+      this.componentStage = navigation.extras.state.componentStage;
     }
   }
 
   ngOnInit(): void {
-    if (this.dataIntakeData) {
-      console.log('Date Intake Module', this.dataIntakeData);
-      this.exceptionReportName = this.dataIntakeData.exceptionReportName;
-      this.filingId = this.dataIntakeData.filingId;
-      this.dueDate = this.dataIntakeData.dueDate;
-      this.filingName = this.dataIntakeData.filingName;
-      this.parentModule = this.dataIntakeData.parentModule;
-      if (this.parentModule === 'Regulatory Reporting') {
-        this.period = this.dataIntakeData.period;
-        // this.formatDate();
-      }
-      this.stage = 'intake';
-    }
-    if (this.filingService.getFilingData) {
+  if (this.filingService.getFilingData) {
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
-      // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
       this.period = this.filingService.getFilingData.period;
       this.filingId = this.filingService.getFilingData.filingId;
-      this.exceptionCnt = parseInt(this.filingService.getExceptionData?.unresolved) + parseInt(this.filingService.getExceptionData?.resolved);
+      this.exceptionCnt = parseInt(this.filingService.getExceptionData?.Unresolved) + parseInt(this.filingService.getExceptionData?.Resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
-      this.parentModule = 'Regulatory Reporting';
-      
-      sessionStorage.setItem("reportingTab", '1');
-    }
-    if (this.dataIntakeData) {
-      this.getExceptionResults();
-      this.dataIntakeExceptionsTable = true;
-    } else {
-      this.stage = 'reporting'
-      this.getAnswerExceptionReports();
-      this.answerExceptionTable = true;
-    }
+    } ; 
+    
+    this.answerExceptionTable = true;
+    this.exceptionDetails = this.filingService.getExceptionData;
+    this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
+    this.getAnswerExceptionReports();
+    sessionStorage.setItem("exceptionV3Stage", this.componentStage);
   }
 
   sortByUnresolvedException(){
@@ -115,7 +87,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    this.viewService.getAnswerExceptionReports(this.filingName, this.period, this.filingService.getExceptionData.exceptionId, this.exceptionCnt, this.componentStage).subscribe(res => {
+    
+    this.viewService.getAnswerExceptionReports(this.filingService.getFilingEntityData.fundId, this.filingName, this.period, this.filingService.getExceptionData.AuditFilingID, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.exceptionAnswersData ? this.exceptionAnswersData.map(e => {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
@@ -131,29 +104,7 @@ export class ViewExceptionReportsComponent implements OnInit {
     });
   }
 
-  getExceptionResults() {
-    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
-      this.exceptionAnswersData = res.data;
-      this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
-    });
-  }
 
-  createDataIntakeExceptionsRowData() {
-    this.exceptionAnswersDefs = [];
-    for (const property in this.exceptionAnswersData[0]) {
-      console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-      this.exceptionAnswersDefs.push({
-        field: `${property}`,
-        headerName: `${property}`,
-        headerComponentFramework: TableHeaderRendererComponent,
-        sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
-      });
-    }
-  }
   createEntitiesRowData(): void {
     this.exceptionAnswersDefs = [];
 
@@ -209,26 +160,6 @@ export class ViewExceptionReportsComponent implements OnInit {
       }, sortable: false, autoHeight: true,
       wrapText: true
     });
-  }
-
-
-  formatDate() {
-    const due = new Date(this.dueDate);
-    const newdate = ('0' + (due.getMonth() + 1)).slice(-2) + '/'
-      + ('0' + due.getDate()).slice(-2) + '/'
-      + due.getFullYear();
-    this.dueDate = newdate;
-  }
-
-  redirecttoDataExplorer(event) {
-    console.log('Data explorer');
-  }
-  backtoParent(stage) {
-    this.count++;
-    if (this.count == 1) {
-      stage == 'intake' ? sessionStorage.setItem("enableTabsIntake", 'yes') : '';
-      this.location.back();
-    }
   }
 
   addCommentToException(row) {
@@ -294,11 +225,9 @@ export class ViewExceptionReportsComponent implements OnInit {
     console.log(this.entityId);
   }
 
-  commentAdded() {
-    this.getAnswerExceptionReports();
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
-
-  onClickMyTask(e) { }
 
   getResolveButtonPermission() {
     if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
@@ -310,10 +239,6 @@ export class ViewExceptionReportsComponent implements OnInit {
     if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
-  }
-  
-  checkFilingCompletedStatus(){
-    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
   }
 
   exceptionResolveRowsSelected(e) {
@@ -336,20 +261,8 @@ export class ViewExceptionReportsComponent implements OnInit {
     this.enableUnresolveButton = false;
   }
 
-  removeElementFromDataList(dataArr: any, prop: string) {
-    dataArr.forEach((el) => {
-      return delete el[prop]
-    });
-  }
-
-  getEnitityIds(status: string) {
-    let resultArr = this.exceptionResolveRows.filter((el) => {
-      return el.Status == status
-    })
-    return resultArr.map(e => e.AuditResultObjectID);
-  }
   actionResolvedClick(row) {
-    const dialogRef = this.dialog.open(ResolveModalComponent, {
+    const dialogRef = this.dialog.open(IndividualExceptionsResolveComponent, {
       width: '843px',
       data: {
         type: "ConfirmationTextUpload",
@@ -357,11 +270,12 @@ export class ViewExceptionReportsComponent implements OnInit {
         description: `<p>Are you sure you want to resolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b> Resolved exceptions will be noted with this icon <svg style="display: inline;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 6H14V8H2V6ZM2 10H14V12H2V10ZM2 16H10V14H2V16ZM23 13L21.5 11.5L16.01 17L13 14L11.5 15.5L16.01 20L23 13Z" fill="#168736"/></svg> When clicked you can view resolution comments.</p>`,
         entityType: "Answer Exception",
         moduleOriginated: rr_module_name,
-        entityId: this.getEnitityIds('Unresolved'),
+        auditResultObjectId: this.getEnitityIds('Unresolved'),
+        entityId: this.filingService.getFilingEntityData.fundId,
         filingName: this.filingName,
         period: this.period,
-        stage: this.stage,
-        exceptionId: this.filingService.getExceptionData.exceptionId,
+        stage: this.componentStage,
+        exceptionId: this.filingService.getExceptionData.AuditFilingID,
         statusTo: 'RESOLVE',
         forms: {
           isSelect: false,
@@ -413,9 +327,15 @@ export class ViewExceptionReportsComponent implements OnInit {
     });
   }
 
+  getEnitityIds(status: string) {
+    let resultArr = this.exceptionResolveRows.filter((el) => {
+      return el.Status == status
+    })
+    return resultArr.map(e => e.AuditResultObjectID);
+  }
 
   actionUnResolvedClick(row) {
-    const dialogRef = this.dialog.open(ResolveModalComponent, {
+    const dialogRef = this.dialog.open(IndividualExceptionsResolveComponent, {
       width: '843px',
       data: {
         type: "ConfirmationTextUpload",
@@ -423,11 +343,12 @@ export class ViewExceptionReportsComponent implements OnInit {
         description: `<p>Are you sure you want to unresolve the selected exception? If yes, you will need to add a general comment for this action. Please note, this will move these items to production review.</p><br><p><b style="font-weight: 800;">Note:</b>  Unresolved exceptions will be changed back to this icon <svg style="display: inline;" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1667 17.4167L10.0833 0L0 17.4167H20.1667ZM9.16667 14.6667V12.8333H11V14.6667H9.16667ZM9.16667 11H11V7.33333H9.16667V11Z" fill="#FF9831"/></svg>.</p>`,
         entityType: "Answer Exception",
         moduleOriginated: rr_module_name,
-        entityId: this.getEnitityIds('Resolved'),
+        auditResultObjectId: this.getEnitityIds('Resolved'),
+        entityId: this.filingService.getFilingEntityData.fundId,
         filingName: this.filingName,
         period: this.period,
-        stage: this.stage,
-        exceptionId: this.filingService.getExceptionData.exceptionId,
+        stage: this.componentStage,
+        exceptionId: this.filingService.getExceptionData.AuditFilingID,
         statusTo: 'UNRESOLVE',
         forms: {
           isSelect: false,
@@ -479,6 +400,8 @@ export class ViewExceptionReportsComponent implements OnInit {
     });
   }
 
+  onClickMyTask(e) { }
+
   exportData() {
     this.exportsHeader = '';
     for (const property in this.exceptionAnswersData[0]) {
@@ -496,7 +419,8 @@ export class ViewExceptionReportsComponent implements OnInit {
     }
     if(this.componentStage != null && this.componentStage != undefined) {
       const requestobj = {
-        "exceptionId": this.filingService.getExceptionData.exceptionId,
+        "exceptionId": Number(this.filingService.getExceptionData.AuditFilingID),
+        "entityId": this.filingService.getFilingEntityData.fundId,
         "export": true,
         "reportType": "CSV",
         "filingName": this.filingName,
@@ -507,19 +431,17 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });
-    } else {
-      const exportDataObj = {
-        "exceptionRuleId": this.dataIntakeData.ruleExceptionId,
-        "filingName": this.filingName,
-        "period": this.period,
-        "export": true,
-        "headers": this.exportsHeader,
-        "reportType":"csv"
-      }
+    } 
+  }
 
-      this.viewService.exportForDataIntake(exportDataObj).subscribe(res => {
-      });
-    }
+
+
+  backtoParent() {
+      this.location.back();
+  }
+
+  commentAdded() {
+    this.getAnswerExceptionReports();
   }
 
 }

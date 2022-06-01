@@ -183,7 +183,7 @@
 
   <div *ngIf="tabIn == 1">
     <div *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
-      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length" motifButton color="primary" size="large"
+      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length || invalidEditDatasetIDs.length" motifButton color="primary" size="large"
         (click)="onSaveReportID()">Save</button>
         <button class="cancel_edit_reportid_button" *ngIf="enableEditReportID" motifButton color="secondary" size="large"
         (click)="onCancelReportID()">Cancel</button>
@@ -195,7 +195,7 @@
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
       [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
-      [export]="true" (exportFlagToParent)="exportData()">
+      [export]="true" [staticDataGrid]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
@@ -233,6 +233,21 @@
         <motif-form-field>
           <input motifInput type="text" [(ngModel)]="row.pbiReportId" (ngModelChange)="onChangeEditReportID(row.name, row.pbiReportId?.length > 150)"/>
           <motif-error *ngIf="row.pbiReportId?.length > 150">Report id can be max 150 characters
+            long</motif-error>
+        </motif-form-field>
+      </div>
+    </ng-template>
+
+    <ng-template #dataSetIdsSection let-row>
+      <div class="displayReportID" *ngIf="!enableEditReportID">
+        <span class="reportid">
+          {{ row.dataSetIds }}
+        </span>
+      </div>
+      <div class="editReportID" *ngIf="enableEditReportID">
+        <motif-form-field>
+          <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 150)"/>
+          <motif-error *ngIf="row.dataSetIds?.length > 150">Report id can be max 150 characters
             long</motif-error>
         </motif-form-field>
       </div>
@@ -286,6 +301,19 @@
                 addPBIReportForm.get('reportID').touched">Please provide a report id
                 </motif-error>
                 <motif-error *ngIf="addPBIReportForm.get('reportID').hasError('maxlength')">Report id can be max 150 characters
+                  long</motif-error>
+              </motif-form-field>
+            </div>
+
+            <div class="motif-col-xs-4 motif-col-lg-12">
+              <motif-form-field>
+                <label motifLabel class="select-label">Enter Dataset ID</label>
+                <input motifInput type="text" [formControl]="addPBIReportForm.controls['dataSetIds']" />
+                <motif-error *ngIf="
+                addPBIReportForm.get('dataSetIds').hasError('required') &&
+                addPBIReportForm.get('dataSetIds').touched">Please provide a dataset id
+                </motif-error>
+                <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 150 characters
                   long</motif-error>
               </motif-form-field>
             </div>

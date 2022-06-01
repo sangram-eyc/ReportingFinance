@@ -12,6 +12,14 @@
                     <div *ngIf="permissionToSecondaryButton">
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                     </div>
+                    <div class="approve-button" *ngIf="permissionToApproveButton">
+                        <button motifButton color="secondary" size="small" (click)="approveButtonAction()"
+                        [disabled]="disabledApproveButton">{{approveButtonText}}</button>
+                    </div>
+                    <div *ngIf="permissionToUnapproveButton">
+                        <button class="second-button" [disabled]="disabledUnapproveButton" motifButton color="secondary" 
+                        size="small" (click)="unapproveButtonAction()">{{unApprovebuttonText}}</button>
+                    </div>
                     <div class="approve-button" *ngIf="permissionToResolveExceptionButton">
                         <button motifButton color="secondary" size="small" [disabled]="disableResolveButton" (click)="openResolveUnresolveDialog('resolve')">{{resolveButtonText}}</button>
                     </div>

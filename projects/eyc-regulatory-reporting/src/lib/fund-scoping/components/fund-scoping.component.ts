@@ -118,9 +118,11 @@ export class FundScopingComponent implements OnInit {
   }
 
   getFundsData(resetData = false) {
+    let filingCompletedStatus = this.filingService.checkFilingCompletedStatus(this.filingDetails);
+    let filingStatus = filingCompletedStatus ? 'completed' :'active'
     this.funds = [];
     this.sort = resetData ? 'fundName:true' : this.sort;
-    this.fundScopingService.getFundScopingDetails(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(filingStatus,this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
       if (resetData) {

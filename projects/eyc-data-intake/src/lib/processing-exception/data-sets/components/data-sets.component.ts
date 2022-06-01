@@ -170,7 +170,7 @@ export class DataSetsComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "DATASET",
+        entityType: "DataSet",
         forms: {
           isSelect: false,
           selectDetails: {
