@@ -29,6 +29,8 @@ import {
 } from '@default/notifications/archived-notifications/archived-notifications.component';
 import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
 import { ViewFilingEntityExceptionComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
+import { EntityExceptionDetailsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/entity-exception-details/components/entity-exception-details.component';
+
 import {
   NotificationsPreferencesComponent
 } from '@default/notifications/notifications-preferences/notifications-preferences.component';
@@ -77,6 +79,7 @@ const routes: Routes = [
   {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
   {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
   {path: 'view-filing-entity-exception', component: ViewFilingEntityExceptionComponent, canActivate : [AuthGuardService]},
+  {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate : [AuthGuardService]},
   {path: 'archived-notifications', component: ArchivedNotificationsComponent },
   {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
   {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},

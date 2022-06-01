@@ -565,7 +565,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.id,
-        entityType: "DATA_EXCEPTION_REPORT",
+        entityType: "Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -622,7 +622,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.exceptionId,
-        entityType: "DATASET",
+        entityType: "DataSet",
         moduleOriginated: rr_module_name,
         forms: {
           isSelect: false,
@@ -728,10 +728,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   openComments(row) {
     this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
     if (this.tabs == 2) {
-      this.commentEntityType = 'DATASET';
+      this.commentEntityType = 'DataSet';
       this.entityId = row.entityId;
     } else {
-      this.commentEntityType = 'DATA_EXCEPTION_REPORT'
+      this.commentEntityType = 'Data Exception Report'
       this.entityId = row.id;
     }
     this.showComments = true;

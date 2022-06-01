@@ -24,4 +24,7 @@ export class ErrorModalComponent implements OnInit {
   onClickYes() {
     this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
   }
+  close() {
+    this.dialogRef.close({ button: "close" });
+  }
 }

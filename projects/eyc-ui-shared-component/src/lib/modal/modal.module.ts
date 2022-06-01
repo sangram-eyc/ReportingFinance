@@ -14,6 +14,7 @@ import { ResolveModalComponent } from './resolve-modal/components/resolve-modal.
 import { SessionExtendModalComponent } from './session-extend-modal/session-extend-modal.component';
 import { FormatTimePipe } from '../pipes/format-time.pipe';
 import { CountdownModule } from 'ngx-countdown';
+import { IndividualExceptionsResolveComponent } from './individual-exceptions-resolve/components/individual-exceptions-resolve.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CountdownModule } from 'ngx-countdown';
     RemoveSpacesDirective,
     ResolveModalComponent,
     SessionExtendModalComponent,
-    FormatTimePipe
+    FormatTimePipe,
+    IndividualExceptionsResolveComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { CountdownModule } from 'ngx-countdown';
     RemoveSpacesDirective,
     ResolveModalComponent,
     SessionExtendModalComponent,
-    FormatTimePipe
+    FormatTimePipe,
+    IndividualExceptionsResolveComponent
   ]
 })
 export class ModalModule { }

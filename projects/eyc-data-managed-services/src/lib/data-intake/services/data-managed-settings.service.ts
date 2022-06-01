@@ -36,7 +36,7 @@ export class DataManagedSettingsService {
       PBI_EMBED_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl':this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl',
       base_Url:this.API_ENDPOINT,
       file_summary_review_all: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary-review' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
-      exception_details_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report/exception-details' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
+      exception_details_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/exception-details' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json'
     }
     console.log('data_Managed_Services', data_Managed_Services);
     return data_Managed_Services;

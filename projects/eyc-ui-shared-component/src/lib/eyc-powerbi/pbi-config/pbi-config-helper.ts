@@ -4,6 +4,7 @@ export const IS_FY_FILTER = true;
 export const IS_PERIOD_FILTER = true;
 export const SESSION_PBI_TOKEN= "pbi_token";
 export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
+export const IS_NAME_FILTER = true;
 
 
 /*PBI Theme file settings */
@@ -30,7 +31,8 @@ export const PBI_CONFIG = {
 
 export const pbiReportingConfig = {
   pbi_auth_token:  'gatewayService/api/v2/regreporting/getPBIAuthToken',
-  pbi_embeded_token:'gatewayService/api/v2/regreporting/getPBIEmbedToken/'
+  pbi_embeded_token:'gatewayService/api/v2/regreporting/getPBIEmbedToken/',
+  pbi_embeded_token_servicePRincipal:'gatewayService/api/v2/regreporting/pbi/service-principal/embedToken/'
 }
 
 export const PBI_AUTH_TOKEN_URL= 'gatewayService/api/v2/dms/getPBIEmbedToken';

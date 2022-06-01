@@ -27,6 +27,7 @@ import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
 import { DateSubmittedPipePipe } from './pipes/submission/date-submitted-pipe.pipe';
 import { ViewFilingEntityExceptionComponent } from './shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
+import { EntityExceptionDetailsComponent } from './shared/entity-exception-details/components/entity-exception-details.component';
 
  
 
@@ -77,6 +78,7 @@ import { ViewFilingEntityExceptionComponent } from './shared/view-filing-entity-
     ViewExceptionReportsComponent,
     DateSubmittedPipePipe,
     ViewFilingEntityExceptionComponent,
+    EntityExceptionDetailsComponent,
     
   ],
   /* providers: [EycRrApiService, EycPbiService], */
