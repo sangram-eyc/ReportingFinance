@@ -110,7 +110,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Unapprove",
-      description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
+      description: "Are you sure you want to unapprove selected exception report(s)? This will move this back to the previous reviewer/step",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -138,7 +138,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Unapprove",
-      description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+      description: "Are you sure you want to unapprove selected entity? This will move this back to the previous reviewer/step",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -210,6 +210,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
+    this.exceptionReportToApproveSelectedRows = [];
+    this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
@@ -234,6 +236,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
 
   getFilingEntities(resetData = false) {
     this.sort = resetData ? 'entityName:true' : this.sort;
+    this.filingEntityApprovedSelectedRows = [];
+    this.filingEntityUnaprovedSelectedRows = [];
     this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.rowData = res['data'];
       this.totalRecords = res['totalRecords'];

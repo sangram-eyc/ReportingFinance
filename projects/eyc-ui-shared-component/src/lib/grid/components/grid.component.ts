@@ -71,7 +71,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Unapprove",
-      description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+      description: "Are you sure you want to unapprove selected entity? This will move this back to the previous reviewer/step",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -261,7 +261,7 @@ pageSize;
     if (typeof (this.columnDefs) !== 'undefined' ) {
       this.columnDefsData = []
       this.columnDefsData = this.columnDefs.slice(0);
-      if (this.columnDefs[1]?.cellClass !== 'srno-class') {
+      if (!this.columnDefsData.some(ele =>ele?.cellClass == 'srno-class')) {
         let object = { 
           width: 30,
           valueGetter: (args) => this.paginationApi ? (this._getIndexValue(args) + (this.currentPage * this.prevPageSize) - this.prevPageSize) : this._getIndexValue(args), rowDrag: false,
