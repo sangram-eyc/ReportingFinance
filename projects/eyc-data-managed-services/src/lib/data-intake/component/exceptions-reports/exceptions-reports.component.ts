@@ -1,5 +1,4 @@
-import { formatDate } from '@angular/common';
-import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RoutingStateService } from '../../services/routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { AutoUnsubscriberService, CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
@@ -72,27 +71,31 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionTableData = [];
   exceptionTableFillData = [];
   headerColumnName = [];
+  exceptionReportDetails = "";
   exceptionFileName: string = "";
   auditDate: string = "";
   tableName: string = "";
   auditHashID: string = "";
-  
+  auditRuleType: string = "";
+
   isLoading = true;
   fileName="Files";
   httpDataGridParams: ExceptionDetailsDataGrid;
 
-  constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
-    private renderer: Renderer2, private customglobalService: CustomGlobalService, private routingState: RoutingStateService,
+  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+    private routingState: RoutingStateService,
     private unsubscriber: AutoUnsubscriberService,) {
+    this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
     this.isLoading = true;
     this.auditDate = this.dataManagedService.getAuditDate;
     this.tableName = this.dataManagedService.getTableName;
     this.auditHashID = this.dataManagedService.getAuditHashID;
-
+    this.auditRuleType = this.dataManagedService.getAuditRuleType;
     this.httpDataGridParams = {
       auditDate : this.auditDate, tableName: this.tableName
     }
+
   }
 
   capitalizeFirstLetter(string) {
@@ -100,30 +103,70 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const auditHashIds = { "auditHashId": this.auditHashID };
-    this.dataManagedService
-      .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
-      .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
-        console.log(resp);
-        if (resp.data.length > 0) {
-          const firstRow = resp.data[0];
-          for (const [key, value] of Object.entries(firstRow)) {
-            console.log(`${key}: ${value}`);
-            this.columnDefsFill.push({
-              headerComponentFramework: MotifTableHeaderRendererComponent,
-              headerName: key.replace(/_/g, ' '),
-              field: key,
-              sortable: true,
-              wrapText: true,
-              autoHeight: true
-            });
+    if (this.auditRuleType === "row") {
+      const auditHashIds = { "auditHashId": this.auditHashID };
+      this.dataManagedService
+        .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
+        .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
+          const respData = resp.data;
+          if (resp.data.length > 0) {
+            const firstRow = resp.data[0];
+            for (const [key] of Object.entries(firstRow)) {
+              this.columnDefsFill.push({
+                headerComponentFramework: MotifTableHeaderRendererComponent,
+                headerName: key.replace(/_/g, ' '),
+                field: key,
+                sortable: true,
+                wrapText: true,
+                autoHeight: true
+              });
+            }
+            this.columnDefs = this.columnDefsFill;
+            this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+            this.exceptionTableData = respData;
+            this.cdr.detectChanges();
           }
-          this.exceptionTableData = resp.data;
-          this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
-          this.columnDefs = this.columnDefsFill;
-        }
+        });
+    }
+    if (this.auditRuleType === "fileOrTable" && this.headerColumnName && this.headerColumnName.length > 0) {
+      const headerColumnNameUnique = new Set(this.headerColumnName);
+      headerColumnNameUnique.forEach((key) => {
+        this.columnDefsFill.push({
+          headerComponentFramework: MotifTableHeaderRendererComponent,
+          headerName: key.replace(/_/g, ' '),
+          field: key,
+          sortable: true,
+          wrapText: true,
+          autoHeight: true
+        });
       });
-  }
+      const multiColumnData = [];
+      for (let i = 0; i < this.exceptionTableFillData.length;) {
+        let headerColumnNameUniqueWithValue = {};
+        let headerIndex = 0;
+        for (const headerColumnNameUniqueKey of headerColumnNameUnique) {
+          const currentValue = this.exceptionTableFillData[i + headerIndex];
+          const currentValueKey = Object.keys(currentValue);
+          if (currentValueKey == headerColumnNameUniqueKey) {
+            headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValue[`${Object.keys(currentValue)}`];
+          } else {
+            const currentValueNoMatch = this.exceptionTableFillData[i + headerIndex - 1];
+            headerColumnNameUniqueWithValue[`${Object.keys(currentValue)}`] = currentValueNoMatch[`${Object.keys(currentValue)}`];
+            i++;
+            break;
+          }
+          headerIndex++;
+        }
+        if (headerColumnNameUnique.size === headerIndex) {
+          i = i + headerColumnNameUnique.size;
+        }
+        multiColumnData.push(headerColumnNameUniqueWithValue);
+      }
+      this.columnDefs = this.columnDefsFill;
+      this.exceptionTableData = multiColumnData;
+      this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+    }
+   }
 
   ngOnInit(): void {
     this.presentDate = new Date();
@@ -156,6 +199,17 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.exceptionUrl = this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName = exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+
+    if (this.auditRuleType === "fileOrTable" && this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
+      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
+      const prop = str.split(',');
+      prop.forEach((props) => {
+        const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));
+        const value = props.split(':')[1].trim().replace(/"/g, '');
+        this.headerColumnName.push(columnName);
+        this.exceptionTableFillData.push({ [`${columnName}`]: value });
+      })
+    }
   }
 
   onSortChanged(params) {

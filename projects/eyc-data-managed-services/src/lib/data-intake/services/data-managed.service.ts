@@ -11,11 +11,12 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class DataManagedService {
-  // public exceptionDetails: any;
+  public exceptionDetails: any;
   public exceptionFileName:string;
   public tableName: string;
   public auditDate: string;
   public auditHashID: string;
+  public auditRuleType: any;
   public calSelectedMonth: string;
   public presentDate:Date;
   constructor(
@@ -23,6 +24,12 @@ export class DataManagedService {
     private eycDataApiService: EycDataApiService
   ) { }
 
+  set setAuditRuleType(val: string) {
+    this.auditRuleType = val;
+  }
+  get getAuditRuleType(): string {
+    return this.auditRuleType;
+  }
   set setTableName(val: string) {
     this.tableName = val;
   }
@@ -40,6 +47,12 @@ export class DataManagedService {
   }
   get getAuditHashID(): string {
     return this.auditHashID;
+  }
+  set setExceptionDetails(val: any) {
+    this.exceptionDetails = val;
+  }
+  get getExceptionDetails(): any {
+    return this.exceptionDetails;
   }
   set setExceptionFileName(val: string) {
     this.exceptionFileName = val;
