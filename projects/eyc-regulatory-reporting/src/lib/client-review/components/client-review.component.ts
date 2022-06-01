@@ -192,6 +192,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     sessionStorage.removeItem("reportingTab");
+    sessionStorage.removeItem("exceptionV3Stage");
   }
 
   resetData() {
