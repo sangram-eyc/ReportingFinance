@@ -107,7 +107,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Unapprove",
-      description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
+      description: "Are you sure you want to unapprove selected exception report(s)? This will move this back to the previous reviewer/step",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -135,7 +135,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     data: {
       type: "Confirmation",
       header: "Unapprove",
-      description: "Are you sure you want to unapprove this entity? This will move this back to the previous reviewer/step",
+      description: "Are you sure you want to unapprove selected entity? This will move this back to the previous reviewer/step",
       footer: {
         style: "start",
         YesButton: "Continue",
@@ -201,6 +201,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
+    this.exceptionReportToApproveSelectedRows = [];
+    this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.exceptionData = res['data'];
@@ -225,6 +227,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   getFilingEntities(resetData = false){
+    this.filingEntityApprovedSelectedRows = [];
+    this.filingEntityUnaprovedSelectedRows = [];
     this.sort = resetData ? 'entityName:true' : this.sort;
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
       this.rowData = res['data'];

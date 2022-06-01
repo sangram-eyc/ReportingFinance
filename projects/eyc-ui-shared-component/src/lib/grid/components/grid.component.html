@@ -13,7 +13,7 @@
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
                     </div>
                     <div class="approve-button" *ngIf="permissionToApproveButton">
-                        <button motifButton color="primary" size="small" (click)="approveButtonAction()"
+                        <button motifButton color="secondary" size="small" (click)="approveButtonAction()"
                         [disabled]="disabledApproveButton">{{approveButtonText}}</button>
                     </div>
                     <div *ngIf="permissionToUnapproveButton">
