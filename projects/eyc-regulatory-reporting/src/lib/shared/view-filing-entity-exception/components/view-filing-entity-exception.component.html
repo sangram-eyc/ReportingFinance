@@ -50,14 +50,30 @@
     [export]="true" (exportFlagToParent)="exportData()" [uiPagination]="true">
   </lib-shared-grid>
 
+  <ng-template #commentExceptionTemplate let-row>
+    <div *ngIf="commentsCount[row.AuditFilingID] && permissions.validatePermission(componentStage, 'View Comments')"
+        class="comments-background" (click)="openComments(row)">
+      {{commentsCount[row.AuditFilingID]}}
+    </div>
+
+    <div class="commentTemplate"
+        *ngIf="!commentsCount[row.AuditFilingID] && permissions.validatePermission(componentStage, 'Add Comments') &&
+    !checkFilingCompletedStatus()">
+        <div class="add_icon">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
+                (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
+        </div>
+    </div>
+</ng-template>
+
     <ng-template #expandExceptionTemplate let-row>
-        <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{ row.exceptionReportName}}</div>
+        <div class="exceptionRouteCls" (click)="routeToEntityExceptionDetailsPage(row)">{{ row.exceptionReportName}}</div>
     </ng-template>
 
     <ng-template #viewDetTemplate let-row>
         <div class="view-det-arrow">
             <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
-                (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+                (click)="routeToEntityExceptionDetailsPage(row)"></motif-icon>
         </div>
     </ng-template>
     <ng-template #unresolveFilingTemplate let-row>
@@ -82,3 +98,8 @@
         </div>
     </ng-template>
 </div>
+
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityIdForComment" [entityType]="'Answer Data Exception Report'"
+    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission(componentStage, 'Add Comments')"
+    [filingStatus]="checkFilingCompletedStatus()"
+    (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
