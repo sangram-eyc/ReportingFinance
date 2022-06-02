@@ -956,10 +956,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.filingEntityApprovedSelectedRows = [];
       this.filingEntityUnaprovedSelectedRows = [];
       this.filingService.invokeFilingDetails();
-      this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-      setTimeout(() => {
+      if(res['data'] && res['data'].length) {
         this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-      }, 5000);
+        setTimeout(() => {
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+        }, 5000);  
+      }
     }, error => {
       this.rowData = tempRowData;
       this.filingEntityApprovedSelectedRows = [];
@@ -1009,11 +1011,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.exceptionReportToUnaproveSelectedRows = [];
       this.exceptionReportToApproveSelectedRows = [];
       this.filingService.invokeFilingDetails();
-      this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
       this.getExceptionReports();
-      setTimeout(() => {
+      if (res['data'] && res['data'].length) {
         this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-      }, 5000);
+        setTimeout(() => {
+          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
+        }, 5000);
+      }
     }, error => {
       this.exceptionReportToUnaproveSelectedRows = [];
       this.exceptionReportToApproveSelectedRows = [];
