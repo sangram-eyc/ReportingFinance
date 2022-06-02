@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 })
 export class DataManagedService {
   public exceptionDetails: any;
+  public exceptionReportField:string;
   public exceptionFileName:string;
   public tableName: string;
   public auditDate: string;
@@ -59,6 +60,14 @@ export class DataManagedService {
   }
   get getExceptionFileName(): string {
     return this.exceptionFileName;
+  }
+
+  set setExceptionReportField(val:string){
+    this.exceptionReportField=val;
+  }
+
+  get getExceptionReportField(): string {
+    return  this.exceptionReportField;
   }
 
   businessDate(businessWeekDay: Date): Date {

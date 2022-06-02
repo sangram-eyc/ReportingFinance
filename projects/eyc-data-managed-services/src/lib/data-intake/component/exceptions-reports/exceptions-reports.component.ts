@@ -73,6 +73,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   headerColumnName = [];
   exceptionReportDetails = "";
   exceptionFileName: string = "";
+  exceptionReportField:string="";
   auditDate: string = "";
   tableName: string = "";
   auditHashID: string = "";
@@ -87,6 +88,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     private unsubscriber: AutoUnsubscriberService,) {
     this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
+    this.exceptionReportField=this.dataManagedService.getExceptionReportField;
     this.isLoading = true;
     this.auditDate = this.dataManagedService.getAuditDate;
     this.tableName = this.dataManagedService.getTableName;

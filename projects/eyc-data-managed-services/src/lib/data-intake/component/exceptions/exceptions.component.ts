@@ -277,6 +277,16 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Field',
+          field: 'exceptionReportField',
+          sortable: true,
+          filter: false,
+          minWidth: 100,
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
@@ -409,6 +419,7 @@ export class ExceptionsComponent implements OnInit {
   onRowClicked(event: RowClickedEvent) {
     const exceptionReportDetail = event.data.exceptionReportDetails;
     const auditRuleTyp = event.data.auditRuleTyp;
+    this.dataManagedService.setExceptionReportField = event.data.exceptionReportField;
     // FDF is not sending empty array. It is sending three type of values. 
     if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
       return false;
