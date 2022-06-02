@@ -31,6 +31,14 @@ export class DataManagedService {
     return this.exceptionFileName;
   }
 
+  set setExceptionReportField(val:string){
+    this.setExceptionReportField=val;
+  }
+
+  get getExceptionReportField(): string {
+    return  this.setExceptionReportField;
+  }
+
   businessDate(businessWeekDay: Date): Date {
     const weekDay = businessWeekDay.getDay();
     switch (weekDay) {

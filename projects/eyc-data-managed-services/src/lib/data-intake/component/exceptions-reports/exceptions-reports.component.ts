@@ -73,6 +73,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   headerColumnName = [];
   exceptionReportDetails = "";
   exceptionFileName: string = "";
+  exceptionReportField:string="";
   isLoading = true;
   fileName="Files";
 
@@ -80,6 +81,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2, private customglobalService: CustomGlobalService, private routingState: RoutingStateService) {
     this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
+    this.exceptionReportField=this.dataManagedService.getExceptionReportField;
     this.isLoading = true;
   }
 
