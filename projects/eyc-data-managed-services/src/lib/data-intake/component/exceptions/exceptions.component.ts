@@ -284,6 +284,16 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Field',
+          field: 'exceptionReportField',
+          sortable: true,
+          filter: false,
+          minWidth: 100,
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
@@ -421,6 +431,7 @@ export class ExceptionsComponent implements OnInit {
     } else if (event && event.data && exceptionReportDetail) {
       this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
       this.dataManagedService.setExceptionFileName = event.data.name;
+      this.dataManagedService.setExceptionReportField = event.data.exceptionReportField;
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
