@@ -157,7 +157,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   getFilerTypes(filerTypes) {
-    if (filerTypes.length) {
+    if (filerTypes.length && filerTypes) {
       let types = filerTypes.split(',');
       let splittedFilerTypes = types.map(el => el.trim());
       return splittedFilerTypes;
@@ -207,7 +207,8 @@ export class StaticDataComponent implements OnInit, OnChanges {
         formId: res['data'].formId,
         approved: res['data'].approved
       }
-      this.activeFilings.push(staticDataObj);
+      if(!this.activeFilings.some(ele => ele.filingName == staticDataObj.filingName))
+          this.activeFilings.push(staticDataObj);
       this.addFilingForm = this._createAddFiling();
       this.showToastAfterFilingAdded = !this.showToastAfterFilingAdded;
       setTimeout(() => {
