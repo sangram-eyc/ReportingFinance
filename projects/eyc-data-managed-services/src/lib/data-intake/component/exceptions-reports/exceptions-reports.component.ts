@@ -1,11 +1,11 @@
-import { formatDate } from '@angular/common';
-import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RoutingStateService } from '../../services/routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
-import { CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
+import { ExceptionDetailsDataGrid } from '../../models/data-grid.model';
 
 @Component({
   selector: 'lib-exceptions-reports',
@@ -74,15 +74,30 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   exceptionReportDetails = "";
   exceptionFileName: string = "";
   exceptionReportField:string="";
+  auditDate: string = "";
+  tableName: string = "";
+  auditHashID: string = "";
+  auditRuleType: string = "";
+
   isLoading = true;
   fileName="Files";
+  httpDataGridParams: ExceptionDetailsDataGrid;
 
-  constructor(private dataManagedService: DataManagedService, private elementRef: ElementRef,
-    private renderer: Renderer2, private customglobalService: CustomGlobalService, private routingState: RoutingStateService) {
+  constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
+    private routingState: RoutingStateService,
+    private unsubscriber: AutoUnsubscriberService,) {
     this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
     this.exceptionReportField=this.dataManagedService.getExceptionReportField;
     this.isLoading = true;
+    this.auditDate = this.dataManagedService.getAuditDate;
+    this.tableName = this.dataManagedService.getTableName;
+    this.auditHashID = this.dataManagedService.getAuditHashID;
+    this.auditRuleType = this.dataManagedService.getAuditRuleType;
+    this.httpDataGridParams = {
+      auditDate : this.auditDate, tableName: this.tableName
+    }
+
   }
 
   capitalizeFirstLetter(string) {
@@ -90,7 +105,32 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.headerColumnName && this.headerColumnName.length > 0) {
+    if (this.auditRuleType === "row") {
+      const auditHashIds = { "auditHashId": this.auditHashID };
+      this.dataManagedService
+        .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
+        .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
+          const respData = resp.data;
+          if (resp.data.length > 0) {
+            const firstRow = resp.data[0];
+            for (const [key] of Object.entries(firstRow)) {
+              this.columnDefsFill.push({
+                headerComponentFramework: MotifTableHeaderRendererComponent,
+                headerName: key.replace(/_/g, ' '),
+                field: key,
+                sortable: true,
+                wrapText: true,
+                autoHeight: true
+              });
+            }
+            this.columnDefs = this.columnDefsFill;
+            this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+            this.exceptionTableData = respData;
+            this.cdr.detectChanges();
+          }
+        });
+    }
+    if (this.auditRuleType === "fileOrTable" && this.headerColumnName && this.headerColumnName.length > 0) {
       const headerColumnNameUnique = new Set(this.headerColumnName);
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
@@ -124,11 +164,11 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         }
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
-      this.exceptionTableData = multiColumnData;
-      this.columnDefsFill.splice(0, 0, {headerName: '#',width:'70', valueGetter: 'node.rowIndex+1'});
       this.columnDefs = this.columnDefsFill;
+      this.exceptionTableData = multiColumnData;
+      this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
     }
-  }
+   }
 
   ngOnInit(): void {
     this.presentDate = new Date();
@@ -136,7 +176,33 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.headerColumnName = []
     this.columnDefs = [];
     this.columnDefsFill = [];
-    if (this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
+
+    this.previousRoute = this.routingState.getPreviousUrl();
+    this.routeHistory = this.routingState.getHistory();
+    const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
+    const routePart=routeArray[routeArray.length - 2];
+
+    if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
+      this.isDataIntaketype = true;
+      this.fileName = decodeURIComponent(routeArray[routeArray.length - 1]);
+      if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+      }
+      else {
+        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+      }
+      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+    }
+    else {
+      this.fileName = "Files";
+      this.isDataIntaketype = false;
+    }
+    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    this.exceptionUrl = this.previousRoute;
+    const exceptionUrlSplitArray = this.exceptionUrl.split("/");
+    this.ExceptionFileName = exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+
+    if (this.auditRuleType === "fileOrTable" && this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
       const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
       const prop = str.split(',');
       prop.forEach((props) => {
@@ -146,31 +212,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         this.exceptionTableFillData.push({ [`${columnName}`]: value });
       })
     }
-
-    this.previousRoute = this.routingState.getPreviousUrl();
-    this.routeHistory = this.routingState.getHistory();
-    const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
-    const routePart=routeArray[routeArray.length - 2];
-
-if(routePart==DATA_INTAKE_TYPE.DATA_PROVIDER || routePart==DATA_INTAKE_TYPE.DATA_DOMAIN){
-  this.isDataIntaketype=true;
-  this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
-  if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
-    this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
-  }
-  else {
-    this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
-  }
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
-  }
-  else{
-    this.fileName="Files";
-    this.isDataIntaketype=false;
-  }
-    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
-    this.exceptionUrl=this.previousRoute;
-    const exceptionUrlSplitArray = this.exceptionUrl.split("/");
-    this.ExceptionFileName=exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
   }
 
   onSortChanged(params) {

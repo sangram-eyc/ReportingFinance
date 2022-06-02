@@ -637,10 +637,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         console.log("File Review Summary API Call End", new Date().toISOString());
       });
     } else {
-      this.dataManagedService.getFileSummaryList(this.httpQueryParams).subscribe((dataProvider: any) => {
-        this.dataList = dataProvider.data[0]['totalSeriesItem'];
+      this.dataManagedService.getReviewAllList(this.httpQueryParams).subscribe((dataProvider: any) => {
         this.totalFileCount = dataProvider.data[0]['totalCount'];
-        this.manipulateStatusWithResponse(this.dataList);
+        // After performance testing we will remove below comment line
+        // this.dataList = dataProvider.data[0]['totalSeriesItem'];
+        // this.manipulateStatusWithResponse(this.dataList); 
+        this.stackBarChartData = dataProvider.data[0].barChartDTO;
+        this.fileSummaries = dataProvider.data[0].donutChartDTO;
         console.log("File Review Summary API Call End", new Date().toISOString());
       });
     }

@@ -40,7 +40,7 @@ export class EycRrSettingsService {
       approve_answer_exceptions: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/answerExceptionResult/approve': this.API_ENDPOINT +  'gatewayService/api/v2/regreporting/answerExceptionResult/approve',
       client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/entity?stage=Client review' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/filingEntities.json',
       approve_client_review_filing_entities: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/entity': this.API_ENDPOINT +  '',
-      fund_scoping_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/fundScopingDetails?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/fundScopingDetails.json',
+      fund_scoping_details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v3/regreporting/fundScopingDetails?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/fundScopingDetails.json',
       fund_scoping_status: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/fundScopingStatus?' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/fundScopingStatus.json',
       approve_fund_scoping_status: this.rrproduction ? this.API_ENDPOINT +'gatewayService/api/v2/regreporting/fundScopingStatus': this.API_ENDPOINT +  '',
       submission_xml_files: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/getAnswerFilesList' : this.API_ENDPOINT +  'assets/eyc-regulatory-reporting/mock/xmlFilesList.json',

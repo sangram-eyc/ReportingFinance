@@ -101,6 +101,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() omitModal = false;
   @Input() uiPagination = false;
   @Input() title = '';
+  @Input() staticDataGrid = false;
   // @Input() exportRequestDetails;
   gridHeadingCls;
   gridContainerCls;
@@ -158,7 +159,7 @@ pageSize;
       this.gridStyle === 'first' ? this.srnoCls = 'srno-class' : this.srnoCls = '';
     }
     this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
-    if(this.pagination && !this.paginationApi){
+    if(this.pagination && !this.paginationApi && !this.staticDataGrid){
       this.dataset = [{
         disable: false,
         value: this.paginationSize,
