@@ -277,6 +277,16 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Field',
+          field: 'exceptionReportField',
+          sortable: true,
+          filter: false,
+          minWidth: 100,
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
@@ -407,16 +417,23 @@ export class ExceptionsComponent implements OnInit {
   }
 
   onRowClicked(event: RowClickedEvent) {
+    const exceptionReportDetail = event.data.exceptionReportDetails;
     const auditRuleTyp = event.data.auditRuleTyp;
+    this.dataManagedService.setExceptionReportField = event.data.exceptionReportField;
     // FDF is not sending empty array. It is sending three type of values. 
-    if(auditRuleTyp != "row") {
+    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
       return false;
-    } else if (event && event.data && auditRuleTyp =="row") {
-      // this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+    } else if (event && event.data && auditRuleTyp == "row" && event.data.auditHashId != "") {
       this.dataManagedService.setExceptionFileName = event.data.name;
       this.dataManagedService.setTableName = event.data.tableName;
       this.dataManagedService.setAuditDate = event.data.auditIngestionDate;
       this.dataManagedService.setAuditHashID = event.data.auditHashId;
+      this.dataManagedService.setAuditRuleType = "row";
+      this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
+    } else if (event && event.data && (auditRuleTyp == "file" || auditRuleTyp == "table")) {
+      this.dataManagedService.setExceptionFileName = event.data.name;
+      this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+      this.dataManagedService.setAuditRuleType = "fileOrTable";
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
