@@ -189,7 +189,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'AuditFilingID:Audit Filing ID, Audit:Exception Report Name, Unresolved:Unresolved,Resolved:Resolved';
+    this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
     this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
     
     });
@@ -211,7 +211,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.AuditFilingID,
+        entityId: row.AuditFilingID ? row.AuditFilingID : null,
         entityType: "Answer Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {

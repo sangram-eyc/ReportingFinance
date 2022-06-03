@@ -29,13 +29,69 @@
         }
 }
 .data-explorer {
-    position: relative;
-    float: right;
-    margin-top: -48px;
-    font-family: EYInterstate !important;
+  position: relative;
+  float: right;
+  margin-top: -48px;
+  font-family: EYInterstate !important;
+  font-size: 16px;
+  font-style: normal;
+  // border: 1px solid #2E2E38;;
+}
+
+.topside-popup {
+  width: 300px;
+  height: 500px;
+  z-index: 10000;
+  background: #2e2e38;
+  padding: 20px;
+  margin: auto;
+  top: 100px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+
+  .title {
+    color: white;
+    font-size: 20px;
+  }
+
+  .close {
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+  }
+
+  .as-link {
+    color: #76b4cf;
+    cursor: pointer;
     font-size: 16px;
-    font-style: normal;
-    // border: 1px solid #2E2E38;;
+    font-weight: 700;
+  }
+
+  .access-add, .edit-template {
+    margin-top: 40px;
+  }
+
+  .separator {
+    border-top: 1px solid #363645;
+  }
+
+  .btn-process {
+    margin-top: 20px;
+    background: white;
+    padding: 15px 35px;
+    font-weight: 700;
+  }
+
+  .desc {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+  }
 }
 
 // .data-explorer:hover {
