@@ -4,13 +4,20 @@ import { EycDataApiService } from './eyc-data-api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataSummary } from '../models/data-summary.model'
 import { formatDate } from '@angular/common';
-import {DataGrid, ExceptionDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
+import {DataGrid, ExceptionDataGrid,ExceptionDetailsDataGrid,GroupByDataProviderCardGrid} from '../models/data-grid.model';
+import { of } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataManagedService {
   public exceptionDetails: any;
+  public exceptionReportField:string;
   public exceptionFileName:string;
+  public tableName: string;
+  public auditDate: string;
+  public auditHashID: string;
+  public auditRuleType: any;
   public calSelectedMonth: string;
   public presentDate:Date;
   constructor(
@@ -18,6 +25,30 @@ export class DataManagedService {
     private eycDataApiService: EycDataApiService
   ) { }
 
+  set setAuditRuleType(val: string) {
+    this.auditRuleType = val;
+  }
+  get getAuditRuleType(): string {
+    return this.auditRuleType;
+  }
+  set setTableName(val: string) {
+    this.tableName = val;
+  }
+  get getTableName(): string {
+    return this.tableName;
+  }
+  set setAuditDate(val: string) {
+    this.auditDate = val;
+  }
+  get getAuditDate(): string {
+    return this.auditDate;
+  }
+  set setAuditHashID(val: string) {
+    this.auditHashID = val;
+  }
+  get getAuditHashID(): string {
+    return this.auditHashID;
+  }
   set setExceptionDetails(val: any) {
     this.exceptionDetails = val;
   }
@@ -29,6 +60,14 @@ export class DataManagedService {
   }
   get getExceptionFileName(): string {
     return this.exceptionFileName;
+  }
+
+  set setExceptionReportField(val:string){
+    this.exceptionReportField=val;
+  }
+
+  get getExceptionReportField(): string {
+    return  this.exceptionReportField;
   }
 
   businessDate(businessWeekDay: Date): Date {
@@ -129,6 +168,16 @@ export class DataManagedService {
     return params;
   }
 
+  
+  httpQueryParamsExceptionDetailsDataGrid(dataGrid: ExceptionDetailsDataGrid): HttpParams {
+    // Initialize Params Object
+    let params = new HttpParams();
+    // Begin assigning parameters
+    params = params.append('tableName', dataGrid.tableName);
+    params = params.append('auditDate', dataGrid.auditDate);
+    return params;
+  }
+
   httpQueryParamsProviderCardGrid(dataGrid: GroupByDataProviderCardGrid): HttpParams {
     // Initialize Params Object
     let params = new HttpParams();
@@ -157,6 +206,10 @@ export class DataManagedService {
 
   getFileSummaryList(params: DataSummary) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_list}`, this.httpQueryParams(params));
+  } 
+
+  getReviewAllList(params: DataSummary) {
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.file_summary_review_all}`, this.httpQueryParams(params));
   } 
   getEmbedURL() {
     return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.PBI_EMBED_URL}`);
@@ -206,7 +259,11 @@ export class DataManagedService {
   getExceptionTableData(params:ExceptionDataGrid) {
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_table_data}`,this.httpQueryParamsExceptionGrid(params));
   }
-
+  getExceptionDetailsTableData(params:ExceptionDetailsDataGrid, bodyParam: any) {
+    const tableName = `?tableName=${params.tableName}`;
+    const auditDate = `&auditDate=${params.auditDate}`;
+    return this.eycDataApiService.invokePostBodyAPI(`${this.dataManagedSettingsService.dataManagedServices.exception_details_table_data}${tableName}${auditDate}`, bodyParam);
+  }
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
   }

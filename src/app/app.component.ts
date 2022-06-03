@@ -1,30 +1,24 @@
-import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import {Subject, Subscription, timer} from 'rxjs';
-import {LoaderService} from './services/loader.service';
-import {ModuleLevelPermissionService} from './services/module-level-permission.service';
-import {SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE} from './services/settings-helpers';
-import {SettingsService} from './services/settings.service';
-import {ErrorModalComponent, SessionExtendModalComponent} from 'eyc-ui-shared-component';
-import {MatDialog} from '@angular/material/dialog';
-import {
-  BulkDownloadModalComponent
-} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
-import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
-import {
-  RoutingStateService
-} from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
-import {NotificationService} from '@default/services/notification.service';
-import {PreferencesService} from '@default/services/preferences.service';
+import { Subject, Subscription, timer } from 'rxjs';
+import { LoaderService } from './services/loader.service';
+import { ModuleLevelPermissionService } from './services/module-level-permission.service';
+import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
+import { SettingsService } from './services/settings.service';
+import { ErrorModalComponent, SessionExtendModalComponent } from 'eyc-ui-shared-component';
+import { MatDialog } from '@angular/material/dialog';
+import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
+import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, OnDestroy {
+export class AppComponent implements AfterViewChecked, AfterContentChecked, OnInit, AfterViewInit, OnDestroy {
   title = 'eyc-ServiceEngine-UI';
   timeoutId;
   count = 0;
@@ -58,7 +52,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   countDown: Subscription;
   counter = 18000;
   tick = 1000;
-
+  showErrorModel = false;
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -68,9 +62,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
-    private preferencesService: PreferencesService,
-    private notificationService: NotificationService,
-    private routingState: RoutingStateService,
+    private routingState:RoutingStateService,
   ) {
     // To hide header and footer from login page
 
@@ -81,7 +73,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
         }
       });
-    this.routingState.loadRouting();
+      this.routingState.loadRouting();
   }
 
   checkTimeOut() {
@@ -103,6 +95,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   }
 
   openErrorModal(header, description) {
+    if(this.showErrorModel) {
+      return;
+    }
+    this.showErrorModel = true;
     const dialogRef = this.dialog.open(SessionExtendModalComponent, {
       disableClose: true,
       width: '500px',
@@ -116,18 +112,19 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      sessionStorage.setItem('sessionTimeOut', sessionStorage.getItem('inActivityTime'));
-      if (result.button == 'Extend session') {
+      this.showErrorModel = false;
+      sessionStorage.setItem("sessionTimeOut", sessionStorage.getItem("inActivityTime"));
+      if(result.button == 'Extend session') {
         this.settingsService.extentToken();
-      }
-      if (result.button == 'Log out') {
+      } if(result.button == 'Log out') {
         this.settingsService.logoff();
         this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
-      }
-      if (result.button == 'Log in') {
+      } if(result.button == 'Log in') {
         this.settingsService.login();
       }
+      this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
 
+      this.sessionTimeOut();
     });
   }
 
@@ -139,25 +136,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-
-        setTimeout(() => {
-          this.preferencesService.emailToRecipient().subscribe(recipient => {
-          }, error => {
-            this.preferencesService.createRecipient().subscribe(err => {
-            });
-          });
-
-          this.notificationService.getNotArchivedNotifications(0).subscribe((notifications: any) => {
-            notifications.content.forEach(item => {
-              if (!item.isRead) {
-                this.isNotificationRead = false;
-              }
-            });
-          });
-        }, 1000);
-
-        if (JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
-          this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000;
+        console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
+        if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
+          this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
         }
         this.sessionTimeOut();
         if (uname) {
@@ -177,15 +158,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   }
 
-  ngAfterContentChecked(): void {
-    this.cdRef.detectChanges();
-
-  }
-
-
-  ngAfterViewChecked() {
-    const url =  window.location.href.split('#');
-    sessionStorage.setItem('pbiEndPoint', url[0]);
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
@@ -194,12 +167,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
           // for the warnings and notifications bulk download process of tax-reporting
           this.wsBulkService.connect().subscribe(resp => {
               if (resp.trim() === 'Connection Established') {
-                // to open the websocket conection
                 this.openConectionBulkWs();
               } else {
                 this.bulkDownloadWarnings(resp);
-                // Some function for notifications with the object resp
-                // end the code for notifications
               }
             },
             err => {
@@ -208,7 +178,18 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
             () => console.log('ws bulk complete'));
         }
       }
-    }, 0);
+    }, 10);
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdRef.detectChanges();
+
+  }
+
+
+  ngAfterViewChecked() {
+    const url =  window.location.href.split('#');
+    sessionStorage.setItem('pbiEndPoint',url[0]);
   }
 
 
@@ -334,7 +315,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       if (event.data.includes('#access_token=')) {
         setTimeout(() => {
           this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
-          this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
+          // this.settingsService.setToken(sessionStorage.getItem(SESSION_ACCESS_TOKEN));
         }, 1000);
       }
 
@@ -350,9 +331,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
             this.countDown.unsubscribe();
             return;
           } else {
-            --this.counter;
-            const sessionCounter = this.counter * 1000;
-            sessionStorage.setItem('sessionTimeOut', sessionCounter.toString());
+            --this.counter
+            let sessionCounter = this.counter * 1000;
+            sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
           }
         }
 
@@ -415,7 +396,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
   ngOnDestroy() {
     this.countDown = null;
-    const sessionCounter = this.counter * 1000;
-    sessionStorage.setItem('sessionTimeOut', sessionCounter.toString());
+    let sessionCounter = this.counter*1000;
+    sessionStorage.setItem("sessionTimeOut", sessionCounter.toString());
   }
 }

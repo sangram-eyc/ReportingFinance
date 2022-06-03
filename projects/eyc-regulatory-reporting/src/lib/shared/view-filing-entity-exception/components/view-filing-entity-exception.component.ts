@@ -1,11 +1,14 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { Location } from '@angular/common';
 import { ViewFilingEntityExceptionService } from './../services/view-filing-entity-exception.service';
 import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
-import { customComparator } from 'eyc-ui-shared-component';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
+import { PermissionService } from 'eyc-ui-shared-component';
+import { rr_module_name} from '../../../config/rr-config-helper';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-view-filing-entity-exception',
@@ -26,6 +29,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   exceptionCnt;
   componentStage;
   entityId;
+  moduleOriginated = rr_module_name;
+  showComments = false;
 
   @ViewChild('expandExceptionTemplate')
   expandExceptionTemplate: TemplateRef<any>;
@@ -36,21 +41,30 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   unresolveFilingTemplate: TemplateRef<any>;
   @ViewChild('resolveFilingTemplate')
   resolveFilingTemplate: TemplateRef<any>;
+  filingDetails: any;
+  @ViewChild('commentExceptionTemplate')
+  commentExceptionTemplate: TemplateRef<any>
+  commentsName: string;
+  commentsCount: any;
+  entityIdForComment: any;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private router: Router,
     private location: Location,
+    public dialog: MatDialog,
+    public permissions: PermissionService,
     private viewService: ViewFilingEntityExceptionService
   ) { 
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
-      this.componentStage = navigation.extras.state.componentStage;
+        this.componentStage = navigation.extras.state.componentStage;
     }
   }
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
+      this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
       this.filingName = this.filingService.getFilingData.filingName;
@@ -69,37 +83,34 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['entityExceptionMap'];
-      this.createEntitiesRowData();
+      if (this.exceptionAnswersData) {
+        this.createEntitiesRowData();
+      } else {
+        this.exceptionAnswersDefs = [];
+      }
+
+      this.commentsCount = res.data['commentCountMap'];
     });
   }
   createEntitiesRowData(): void {
     this.rowData = [];
+    this.exceptionAnswersDefs = [];
     this.exceptionAnswersData.forEach(element => {
       this.rowData.push({
+        AuditFilingID: element.AuditFilingID,
+        AuditType: element.AuditType,
         exceptionReportName: element.Audit,
         Unresolved: element.Unresolved,
         Resolved: element.Resolved
       });
     });
     this.exceptionAnswersDefs = [
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   headerName: 'Exception Report Type',
-      //   field: 'exceptionReportType',
-      //   sortable: true,
-      //   filter: true,
-      //   sort:'asc',
-      //  comparator: customComparator,
-      //  autoHeight: true,
-      //  wrapText: true,
-      //  width: 300
-      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        // cellRendererFramework: MotifTableCellRendererComponent,
-        // cellRendererParams: {
-        //   ngTemplate: this.expandExceptionTemplate,
-        // },
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.expandExceptionTemplate,
+        },
         headerName: 'Exception Report Name',
         field: 'exceptionReportName',
         sortable: true,
@@ -107,7 +118,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         wrapText: true,
         autoHeight: true,
         width: 300,
-        comparator: customComparator
+        comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -135,22 +146,27 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         width: 210,
         comparator: this.disableComparator
       },
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   headerName: 'Resolved/Exception',
-      //   field: 'resolveOrException',
-      //   sortable: true,
-      //   filter: true,
-      //   width: 210,
-      // },
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   cellRendererFramework: MotifTableCellRendererComponent,
-      //   cellRendererParams: {
-      //     ngTemplate: this.viewDetTemplate,
-      //   },
-      //   width: 50
-      // }
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.commentExceptionTemplate,
+        },
+        headerName: 'Comments',
+        field: 'comments',
+        sortable: true,
+        filter: true,
+        width: 155,
+        comparator: this.disableComparator
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.viewDetTemplate,
+        },
+        width: 50
+      }
     ]
   }
 
@@ -162,13 +178,18 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
     this.location.back();
   }
 
-  routeToExceptionDetailsPage(event:any) {
-    // this.filingService.setExceptionData = event;
-    // this.router.navigate(['/']);
+  routeToEntityExceptionDetailsPage(event:any) {
+    this.filingService.setExceptionData = event;
+
+    if (sessionStorage.getItem('exceptionV3Stage') && sessionStorage.getItem('exceptionV3Stage') != undefined) {
+      this.componentStage = sessionStorage.getItem("exceptionV3Stage");
+    } 
+
+    this.router.navigate(['/entity-exception-details'],{ state: { componentStage: this.componentStage }});
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved';
+    this.exportsHeader = 'AuditFilingID:Audit Filing ID, Audit:Exception Report Name, Unresolved:Unresolved,Resolved:Resolved';
     this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
     
     });
@@ -178,4 +199,75 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   disableComparator(data1, data2) {
     return 0; 
   }
+  checkFilingCompletedStatus(){
+    return this.filingService.checkFilingCompletedStatus(this.filingDetails);
+  }
+ 
+  
+  addCommentToException(row) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        type: "ConfirmationTextUpload",
+        header: "Add comment",
+        description: `Please add your comment below.`,
+        entityId: row.AuditFilingID,
+        entityType: "Answer Data Exception Report",
+        moduleOriginated: rr_module_name,
+        forms: {
+          isSelect: false,
+          selectDetails: {
+            label: "Assign to (Optional)",
+            formControl: 'assignTo',
+            type: "select",
+            data: [
+              { name: "Test1", id: 1 },
+              { name: "Test2", id: 2 },
+              { name: "Test3", id: 3 },
+              { name: "Test4", id: 4 }
+            ]
+          },
+          isTextarea: true,
+          textareaDetails: {
+            label: "Comment (required)",
+            formControl: 'comment',
+            type: "textarea",
+            validation: true,
+            validationMessage: "Comment is required"
+          }
+        },
+        footer: {
+          style: "start",
+          YesButton: "Submit",
+          NoButton: "Cancel"
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.button === "Submit") {
+        const obj = {
+          assignTo: result.data.assignTo,
+          comment: escape(result.data.comment),
+          files: result.data.files
+        }
+        this.commentsCount[row.AuditFilingID] = 1;
+        this.createEntitiesRowData();
+      } else {
+        console.log(result);
+      }
+    });
+  }
+
+  openComments(row) {
+    this.commentsName = this.filingName + ' // ' + this.period;
+    this.entityIdForComment = row.AuditFilingID;
+    this.showComments = true;
+    console.log(this.entityIdForComment);
+  }
+
+  commentAdded() {
+    this.getAnswerExceptionReports();
+  }
+
 }

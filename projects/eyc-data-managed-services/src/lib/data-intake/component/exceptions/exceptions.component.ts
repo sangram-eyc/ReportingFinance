@@ -212,13 +212,6 @@ export class ExceptionsComponent implements OnInit {
       fileId: '',
       fileName: this.ExceptionFileNameAlias
     };
-    // if (this.dailyMonthlyStatus) {
-    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
-    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
-    // } else {
-    //   this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
-    //   this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
-    // }
     this.getExceptionTableData();
   }
 
@@ -284,6 +277,16 @@ export class ExceptionsComponent implements OnInit {
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Exception Report Field',
+          field: 'exceptionReportField',
+          sortable: true,
+          filter: false,
+          minWidth: 100,
+          wrapText: true,
+          autoHeight: true
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
@@ -312,18 +315,18 @@ export class ExceptionsComponent implements OnInit {
             }
           }
         },
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   cellRendererFramework: MotifTableCellRendererComponent,
-        //   cellRendererParams: {
-        //     ngTemplate: this.commentTemplate,
-        //   },
-        //   headerName: 'Comments',
-        //   field: 'comments',
-        //   sortable: false,
-        //   filter: false,
-        //   width: 155
-        // },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentTemplate,
+          },
+          headerName: 'Comments',
+          field: 'comments',
+          sortable: false,
+          filter: false,
+          width: 155
+        },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
@@ -415,12 +418,22 @@ export class ExceptionsComponent implements OnInit {
 
   onRowClicked(event: RowClickedEvent) {
     const exceptionReportDetail = event.data.exceptionReportDetails;
+    const auditRuleTyp = event.data.auditRuleTyp;
+    this.dataManagedService.setExceptionReportField = event.data.exceptionReportField;
     // FDF is not sending empty array. It is sending three type of values. 
     if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
       return false;
-    } else if (event && event.data && exceptionReportDetail) {
-      this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+    } else if (event && event.data && auditRuleTyp == "row" && event.data.auditHashId != "") {
       this.dataManagedService.setExceptionFileName = event.data.name;
+      this.dataManagedService.setTableName = event.data.tableName;
+      this.dataManagedService.setAuditDate = event.data.auditIngestionDate;
+      this.dataManagedService.setAuditHashID = event.data.auditHashId;
+      this.dataManagedService.setAuditRuleType = "row";
+      this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
+    } else if (event && event.data && (auditRuleTyp == "file" || auditRuleTyp == "table")) {
+      this.dataManagedService.setExceptionFileName = event.data.name;
+      this.dataManagedService.setExceptionDetails = event.data.exceptionReportDetails;
+      this.dataManagedService.setAuditRuleType = "fileOrTable";
       this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION_DETAILS]);
     } else {
       console.log("Data (exceptionReportDetails) is not getting");
@@ -453,7 +466,7 @@ export class ExceptionsComponent implements OnInit {
         header: "Add comment",
         description: `Please add your comment below.`,
         entityId: row.entityId,
-        entityType: "FILING_ENTITY",
+        entityType: "Filing Entity",
         forms: {
           isSelect: false,
           selectDetails: {

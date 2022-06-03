@@ -25,8 +25,11 @@
 <div class="motif-row">
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
         <div class="space-between boder-b">
-            <div class="mt-3 mb-3 box-center">
+            <div class="mt-3 mb-3 box-center" *ngIf="!exceptionReportField">
                 <h1>{{exceptionFileName}}</h1>
+            </div>
+            <div class="mt-3 mb-3 box-center" *ngIf="exceptionReportField">
+                <h1>{{exceptionFileName}} on {{exceptionReportField}}</h1>
             </div>
         </div>
     </div>
@@ -48,9 +51,9 @@
 
     <div id="grid-wrapper">
         <motif-card>
-            <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData" rowSelection="multiple"
+            <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData"
                 (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-                [domLayout]="domLayout">
+                [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
             </motif-table>
         </motif-card>
     </div>
