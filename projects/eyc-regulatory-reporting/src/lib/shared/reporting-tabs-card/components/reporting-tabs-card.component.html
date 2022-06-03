@@ -46,8 +46,9 @@
       overrides to the values
     </p>
   </div>
-  <button [disabled]="!this.permissions.validatePermission('Reporting', 'Topsides Start Processing')"
-          class="btn-process">Process
+  <button (click)="startProcessing()"
+          [disabled]="!this.permissions.validatePermission('Reporting', 'Topsides Start Processing')"
+          class="btn-process">{{processingStatus ? 'Status: ' + processingStatus : 'Process'}}
   </button>
   <div class="other">
 
