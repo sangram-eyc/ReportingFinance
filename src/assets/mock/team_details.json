@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "1ef383d7-826a-42c9-b70c-2d5c0e4275a6",
+    "data": {
+        "teamId": 3,
+        "teamMembers": [
+            {
+                "userId": 26,
+                "userEmail": "Evan.Cannarozzi@ey.com",
+                "userFirstName": "Evan",
+                "userLastName": "Cannarozzi"
+            },
+            {
+                "userId": 27,
+                "userEmail": "John.M.Christiana@ey.com",
+                "userFirstName": "John",
+                "userLastName": "Christiana"
+            },
+            {
+                "userId": 48,
+                "userEmail": "Leng.Yang@ey.com",
+                "userFirstName": "Leng",
+                "userLastName": "Yang"
+            },
+            {
+                "userId": 24,
+                "userEmail": "stephen.a.rienzi@ey.com",
+                "userFirstName": "stephen",
+                "userLastName": "rienzi"
+            }
+        ],
+        "assignments": null
+    },
+    "error": null,
+    "totalRecords": 4
+}
