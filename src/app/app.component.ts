@@ -2,16 +2,22 @@ import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewC
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Subject, Subscription, timer } from 'rxjs';
-import { LoaderService } from './services/loader.service';
-import { ModuleLevelPermissionService } from './services/module-level-permission.service';
-import { SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE } from './services/settings-helpers';
-import { SettingsService } from './services/settings.service';
-import { ErrorModalComponent, SessionExtendModalComponent } from 'eyc-ui-shared-component';
-import { MatDialog } from '@angular/material/dialog';
-import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
-import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
-import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+import {Subject, Subscription, timer} from 'rxjs';
+import {LoaderService} from './services/loader.service';
+import {ModuleLevelPermissionService} from './services/module-level-permission.service';
+import {SESSION_ID_TOKEN, SESSION_ACCESS_TOKEN, IS_SURE_FOOT, HIDE_HOME_PAGE} from './services/settings-helpers';
+import {SettingsService} from './services/settings.service';
+import {ErrorModalComponent, SessionExtendModalComponent} from 'eyc-ui-shared-component';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  BulkDownloadModalComponent
+} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/bulk-download-modal/bulk-download-modal.component';
+import {WebSocketBulkService} from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
+import {
+  RoutingStateService
+} from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+import {PreferencesService} from "@default/services/preferences.service";
+import {NotificationService} from "@default/services/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -62,10 +68,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     public moduleLevelPermission: ModuleLevelPermissionService,
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
-    private routingState:RoutingStateService,
+    private routingState: RoutingStateService,
+    private preferencesService: PreferencesService,
+    private notificationService: NotificationService,
   ) {
     // To hide header and footer from login page
-    
+
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -123,7 +131,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.settingsService.login();
       }
       this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
-      
+
       this.sessionTimeOut();
     });
   }
@@ -136,10 +144,27 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-        console.log('sessionTimeOut',JSON.parse(sessionStorage.getItem('sessionTimeOut')));
-        if(JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
-          this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
+        console.log('sessionTimeOut', JSON.parse(sessionStorage.getItem('sessionTimeOut')));
+        if (JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
+          this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000
         }
+
+        setTimeout(() => {
+          this.preferencesService.emailToRecipient().subscribe(recipient => {
+          }, error => {
+            this.preferencesService.createRecipient().subscribe(err => {
+            });
+          });
+
+          this.notificationService.getNotArchivedNotifications(0).subscribe((notifications: any) => {
+            notifications.content.forEach(item => {
+              if (!item.isRead) {
+                this.isNotificationRead = false;
+              }
+            });
+          });
+        }, 1000);
+
         this.sessionTimeOut();
         if (uname) {
           this.userGivenName = uname.firstName;
