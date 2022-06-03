@@ -11,6 +11,7 @@ import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
+import { TasksService } from '../services/tasks.service'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -23,6 +24,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   exportUrl: string;
   constructor(private location: Location,
     private teamService: TeamsService,
+    private taskService:TasksService,
     private adminService: AdministrationService,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
@@ -39,6 +41,8 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
+  @ViewChild('toggleSwitch')
+  toggleSwitch: TemplateRef<any>;
   teamsListArr: any[] = [];
   teamInfo;
   curentTeamId;
@@ -77,7 +81,9 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   filter = '';
   sort = '';
   pageChangeFunc;
-  
+  taskAssignmentData;
+  searchNoDataAvilable = false;
+
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
       this.pageChangeFunc = this.onPageChange.bind(this);
@@ -152,6 +158,11 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     this.getTeamDetailsData(true);
   }
 
+  searchGrid_opc2(input){
+    this.gridApi.setQuickFilter(input);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+  }
+
   sortChanged(event) {
     switch(true) {
       case event === 'memberName:true':
@@ -205,6 +216,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           userEmail: element.userEmail,
           memberName: element.userFirstName + ' ' + element.userLastName
         })
+
       this.totalRecords=resp['totalRecords'];
       });
       if (resetData) {
@@ -262,6 +274,54 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   adminTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    if (selectedTab == 1) {
+      this.createTeamsRowData()
+      this.getTeamDetailsData(true)
+      this.gridApi.setRowData(this.teamsMemberData);
+    }
+    else if (selectedTab == 2) {
+      this.taskService.getTaskAssignments().subscribe( res =>{
+        this.taskAssignmentData = res.data
+        this.gridApi.setRowData(res.data);
+      })
+
+      this.columnDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          filter: false,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filling Type',
+          field: 'fillingType',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Task Assignment',
+          field: 'taskAssingment',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        }
+        
+      ];
+     
+      
+    }
   }
 
   private _updateTeam() {
@@ -497,7 +557,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       model
     );
   }
-  
+
   filingTypeLogEvent(event, type, model) {
     this.editTeamForm.patchValue({
       assignments: model

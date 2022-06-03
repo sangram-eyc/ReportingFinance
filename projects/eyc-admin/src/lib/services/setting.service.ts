@@ -28,7 +28,7 @@ export class SettingService {
       add_team: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team',
       delete_team: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team/' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team/',
       teams_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teams' : this.API_ENDPOINT + 'assets/mock/teams.json',
-      teams_Details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamDetails' : this.API_ENDPOINT + 'assets/mock/teams.json',
+      teams_Details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamDetails' : this.API_ENDPOINT + 'assets/mock/team_details.json',
       teamUpdate: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamUpdate' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamUpdate',
       deleteTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember',
       addTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember',
@@ -60,6 +60,13 @@ export class SettingService {
       filing_frequencies : this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/filing/frequencies' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/filing/frequencies',
     }
     return static_data;
+  }
+
+  get task_assignment(): any {
+    const task_assignment = {
+      tasks_assignment_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms/displayName' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
+    }
+    return task_assignment;
   }
 
   get authorization(): any{
