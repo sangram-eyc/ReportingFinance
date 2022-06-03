@@ -71,23 +71,44 @@ const routes: Routes = [
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},
   {path: 'client-review', component: ClientReviewComponent, canActivate : [AuthGuardService]},
   {path: 'regulatory-reporting', component: RrReportingComponent, canActivate : [AuthGuardService]},
-  {path: 'submission', component: SubmissionComponent, canActivate : [AuthGuardService]},
-  {path: 'user-details/:userId', component: UserDetailsComponent , canActivate : [AuthGuardService]},
-  {path: 'team-details/:teamId', component: EycTeamDetailsComponent, canActivate : [AuthGuardService]},
-  {path: 'update-filing', component: UpdateFilingPropertiesComponent, canActivate : [AuthGuardService]},
-  {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate : [AuthGuardService]},
-  {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate : [AuthGuardService]},
-  {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate : [AuthGuardService]},
-  {path: 'view-filing-entity-exception', component: ViewFilingEntityExceptionComponent, canActivate : [AuthGuardService]},
-  {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate : [AuthGuardService]},
-  {path: 'archived-notifications', component: ArchivedNotificationsComponent },
-  {path: 'data-managed-services', component:EycDataManagementServicesComponent, canActivate : [AuthGuardService]},
-  {path: 'data-managed-services/files-review', component:FileReviewComponent, canActivate : [AuthGuardService]},
-  {path: 'data-managed-services/files-review/:paramDataIntakeType/:paramDataIntakeName', component:FileReviewComponent, canActivate : [AuthGuardService]},
-  {path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: ExceptionsComponent, canActivate : [AuthGuardService] },
-  {path: 'data-managed-services/files/exception-details', component: ExceptionsReportsComponent, canActivate : [AuthGuardService] },
-  {path: 'data-managed-services/data-intake/:dataIntakeType', component: DonutGridListComponent, canActivate : [AuthGuardService] },
-  {path: 'european-fund-reporting', component: EuropeanFundReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'submission', component: SubmissionComponent, canActivate: [AuthGuardService]},
+  {path: 'user-details/:userId', component: UserDetailsComponent, canActivate: [AuthGuardService]},
+  {path: 'team-details/:teamId', component: EycTeamDetailsComponent, canActivate: [AuthGuardService]},
+  {path: 'update-filing', component: UpdateFilingPropertiesComponent, canActivate: [AuthGuardService]},
+  {path: 'data-explorer', component: DataExplorerForReportingAndClientComponent, canActivate: [AuthGuardService]},
+  {path: 'processing-exceptions', component: ProcessingExceptionComponent, canActivate: [AuthGuardService]},
+  {path: 'view-exception-reports', component: ViewExceptionReportsComponent, canActivate: [AuthGuardService]},
+  {
+    path: 'view-filing-entity-exception',
+    component: ViewFilingEntityExceptionComponent,
+    canActivate: [AuthGuardService]
+  },
+  {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
+  {path: 'archived-notifications', component: ArchivedNotificationsComponent},
+  {path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate: [AuthGuardService]},
+  {path: 'data-managed-services', component: EycDataManagementServicesComponent, canActivate: [AuthGuardService]},
+  {path: 'data-managed-services/files-review', component: FileReviewComponent, canActivate: [AuthGuardService]},
+  {
+    path: 'data-managed-services/files-review/:paramDataIntakeType/:paramDataIntakeName',
+    component: FileReviewComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'data-managed-services/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias',
+    component: ExceptionsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'data-managed-services/files/exception-details',
+    component: ExceptionsReportsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'data-managed-services/data-intake/:dataIntakeType',
+    component: DonutGridListComponent,
+    canActivate: [AuthGuardService]
+  },
+  {path: 'european-fund-reporting', component: EuropeanFundReportingComponent, canActivate: [AuthGuardService]},
   {path: '**', component: LoginComponent},
 ];
 
