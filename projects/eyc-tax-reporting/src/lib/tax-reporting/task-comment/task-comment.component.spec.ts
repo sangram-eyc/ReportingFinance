@@ -89,12 +89,20 @@ describe('TaskCommentComponent', () => {
     it('the method formatTarget should return the target formatted',() => {
     expect(component.formatTarget('EY')).toEqual('EY');
   });
-  /* it('the method noWhitespaceValidator should check for spaces', async(() => {
-    fixture.whenStable().then(() => {
-        let control = new FormControl();        
-        expect(component.noWhitespaceValidator(control)).toEqual(true);
-    })
-  })); */
+  it('noWhiteSpaceValidator method should return validation',()=>{
+    const mockData = {
+      value:'abcde'
+    }
+    let result = component.noWhitespaceValidator(mockData as FormControl);
+    expect(result).toEqual(null)
+  });
+  it('noWhiteSpaceValidator method should return validation with whitespace', () => {
+    const mockData = {
+      value: ' '
+    }
+    let result = component.noWhitespaceValidator(mockData as FormControl);
+    expect(result).toEqual({ whitespace: true })
+  });
   it('should call getListComments data', fakeAsync(()=> {
     fixture.detectChanges();
     let replyData= [];
@@ -106,10 +114,10 @@ describe('TaskCommentComponent', () => {
     })
     expect(component.replyData).toEqual(replyData);
   }));
-  it('formatDate should return 2 months ago from today', () => {
+  it('formatDate should return 3 months ago from today', () => {
     var date = new Date();
     date.setMonth(date.getMonth() - 3);
-    expect(component.formatDate(date)).toEqual('2 months ago');
+    expect(component.formatDate(date)).toEqual('3 months ago');
   });
   
 });

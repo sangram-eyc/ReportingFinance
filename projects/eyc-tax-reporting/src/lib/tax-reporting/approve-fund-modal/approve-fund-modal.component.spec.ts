@@ -51,6 +51,16 @@ describe('ApproveFundModalComponent', () => {
     expect(component).toBeTruthy();
     done();
   });
+  it('should set variables', () => {
+    expect(component.ConfirmationTextUpload).toEqual(true);
+    expect(component.disabledBtn).toEqual(true);
+    expect(component.toastSuccessMessage).toEqual("Users added successfully");
+    expect(component.showModal).toEqual(true);
+    expect(component.showToastAfterSubmit).toEqual(false);
+    expect(component.rowClass).toEqual('row-style');
+    expect(component.rowStyle.height).toEqual('74px');
+    expect(component.domLayout).toEqual('autoHeight');
+  });
   it('should return true after click ok', () => {
     spyOn(component, 'onClickYes');
     expect(component.modalDetails.footer.YesButton).toEqual(true);

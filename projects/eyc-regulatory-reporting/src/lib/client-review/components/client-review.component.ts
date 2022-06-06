@@ -150,7 +150,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     this.pageChangeFunc = this.onPageChange.bind(this);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
-
   }
 
   ngOnDestroy() {
