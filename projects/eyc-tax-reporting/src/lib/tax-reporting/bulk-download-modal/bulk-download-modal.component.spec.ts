@@ -83,7 +83,9 @@ describe('BulkDownloadModalComponent', () => {
   });
   it('should return false after click cancel', () => {
     component.close();
+    
     expect(component.modalDetails.footer.NoButton).toEqual(false);
   });
   
+
 });

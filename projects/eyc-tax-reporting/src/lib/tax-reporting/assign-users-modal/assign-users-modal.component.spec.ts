@@ -107,6 +107,7 @@ describe('AssignUsersModalComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AssignUsersModalComponent);
+    assignmentsService = TestBed.get(AssignmentsFundsService);
     component = fixture.componentInstance;
     component.modalDetails = mockedModal;
     fixture.detectChanges();
