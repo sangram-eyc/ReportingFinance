@@ -1079,7 +1079,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   onClickLastUpdatedByEntity(row) {
-    debugger;
     console.log(row);
 
     let auditObjectId = row.entityId;
