@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { TaxReportingComponent } from './tax-reporting.component';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -102,99 +102,92 @@ describe('TaxReportingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  /* it('should call getFilingsData and return list of flilingsData', async(()=> {
-    let activeFilings = []
-    // spyOn(filingService, 'getFilings').and.returnValue(of(response))
-    fixture.detectChanges();
-    const result$ = filingService.getFilings();
-    result$.subscribe(resp  => {
+  it('should check the service', () => {
+    expect(productionCycleService instanceof ProductionCycleService).toBeTruthy();
+    expect(managementReportsService instanceof ManagementReportsService).toBeTruthy();
+  });
+  it('should get completed filing data', () => {
+      let resp = mockFilings;
+      let filings = [];
+      let activeFilings = [];
+      let reportResp = [];
+      spyOn(managementReportsService, 'reportsData').and.returnValue(of(resp));
+      component.currentPage = 1;
+      component.getActiveFilingsData();
+      fixture.detectChanges();
       resp['data'].forEach((item) => {
-        const eachitem: any  = {
-          name: item.filingName,
-          dueDate: item.dueDate,
-          startDate: item.startDate,
-          comments: [],
-          status: item.filingStatus,
-          filingName: item.filingName,
-          period: item.period,
-          filingId: item.filingId
+        reportResp.push(resp);
+        reportResp[0].data.length === 0 ? component.noActivatedDataAvilable = true : component.noActivatedDataAvilable = false;
+        reportResp[0].data.forEach((item) => {
+        const eachitem: any = {
+          name: item.name,
+          author: item.author,
+          createdDate: item.createdDate,
+          downloadUrl: item.downloadUrl
         };
         activeFilings.push(eachitem);
+        });
       });
-      expect(component.activeFilings).toEqual(activeFilings);
-    })
-    
-  }));
-
-  it('should sort by due date', () => {
-    let a = {
-      dueDate: 1624335301155
-    }
-    let b = {
-      dueDate: 3516243353011
-    }
-    expect(component.sortByDueDate(a,b)).toEqual(1);
-    expect(component.sortByDueDate(b,a)).toEqual(-1);
-    expect(component.sortByDueDate(a,a)).toEqual(0);
+      expect(component.activeReports).toEqual(activeFilings);
   });
-
+  it('should call getCompletedProductCyclesData', fakeAsync(()=> {
+    let listUsers = []
+    fixture.detectChanges();
+    const result$ = productionCycleService.getProductionCycles();
+    result$.subscribe(resp  => {
+      resp['data'].forEach((item) => {
+        const eachitem: any = {
+          name: item.name,
+          id: item.id,
+          totalFunds: item.fundCount != null ? item.fundCount.fundTotalCount : 0,
+          dataToChart: [
+            {
+              "in EY tax preparation": item.fundCount != null ? item.fundCount.fundCountByStatus[0].fundCount : 0,
+              "in client review": item.fundCount != null ? item.fundCount.fundCountByStatus[1].fundCount: 0,
+              "Approved by client": item.fundCount != null ? item.fundCount.fundCountByStatus[2].fundCount: 0,
+            }
+          ]  
+        };
+        listUsers.push(eachitem);
+      });
+    })
+    expect(component.completedReports).toEqual(listUsers);
+  }));
+  it('searchFilingValidation method should validate search and retrun false',()=>{
+    let data = {
+      keyCode:'abcd',
+      preventDefault:()=>{}
+    }
+    spyOn(data,'preventDefault')
+    let result = component.searchFilingValidation(data);
+    expect(data.preventDefault).toHaveBeenCalled();
+    expect(result).toEqual(false)
+  });
   it('should format date', () => {
     expect(component.formatDate(1624288509000)).toEqual('06/21/2021');
   });
-
+  it('isFirstColumn method should set first colummn', () => {
+    let mockData = {
+      data: {
+        approved: false
+      },
+      columnApi: {
+        getAllDisplayedColumns: () => {
+          return [{ column: '' }]
+        }
+      }
+    }
+    expect(component.isFirstColumn(mockData)).toEqual(false);
+  });
+  it('should call handleGridReady', () => {
+    component.handleGridReady({api: ''});
+    expect(component.gridApi).toEqual('');
+  });
   it('should change tab to selected', () => {
     component.reportTabChange(3);
     expect(component.tabIn).toEqual(3);
   });
-
-  it('should get active filing data', () => {
-    let resp = mockFilings;
-    let filings = [];
-    spyOn(filingService, 'getFilings').and.returnValue(of(resp));
-    // spyOn(filingService, 'getFilingsHitory').and.returnValue(of(resp2));
-    component.getActiveFilingsData();
-    fixture.detectChanges();
-    resp['data'].forEach((item) => {
-      const eachitem: any = {
-        name: item.filingName,
-        dueDate: item.dueDate,
-        startDate: item.startDate,
-        comments: [],
-        status: item.filingStatus,
-        filingName: item.filingName,
-        period: item.period,
-        filingId: item.filingId
-      };
-      filings.push(eachitem);
-    });
-    expect(component.activeFilings).toEqual(filings);
-  });
-
-  it('should get completed filing data', () => {
-    let resp = mockFilings;
-    let filings = [];
-    spyOn(filingService, 'getFilingsHistory').and.returnValue(of(resp));
-    component.currentPage = 1;
-    component.noOfCompletdFilingRecords = 1;
-    component.getCompletedFilingsData();
-    component.noCompletedDataAvilable =  false;
-    component.noActivatedDataAvilable = false;
-    fixture.detectChanges();
-    resp['data'].forEach((item) => {
-      const eachitem: any = {
-        name: item.filingName + ' // ' + item.period,
-        period: item.period,
-        dueDate: item.dueDate,
-        startDate: item.startDate,
-        comments: [],
-        status: item.filingStatus
-      };
-      filings.push(eachitem);
-    });
-    expect(component.completedFilings).toEqual(filings);
-  });
-
+  
   it('should validate characters in search`', () => {
     const test1 = { keyCode: 65, preventDefault: function() {}};
     const test2 = { keyCode: 48, preventDefault: function() {} };
@@ -202,39 +195,5 @@ describe('TaxReportingComponent', () => {
     expect(component.searchFilingValidation(test1)).toEqual(true);
     expect(component.searchFilingValidation(test2)).toEqual(true);
     expect(component.searchFilingValidation(test3)).toEqual(false);
-  }); */
-
-  // it('grid API is available after `detectChanges`', () => {
-  //   fixture.detectChanges();
-  //   expect(component.gridApi).toBeTruthy();
-  // });
-
-  // it('should populate grid cells as expected', () => {
-  //   component.funds = dummyFunds;
-  //   component.createFundRowData();
-  //   fixture.detectChanges();
-  //   const hostElement = fixture.nativeElement;
-  //   const cellElements = hostElement.querySelectorAll('.ag-cell-value');
-  //   expect(cellElements.length).toEqual(20);
-  // });
-
-  // it('should search table', () => {
-  //   component.funds = dummyFunds;
-  //   component.createFundRowData();
-  //   fixture.detectChanges();
-  //   const hostElement = fixture.nativeElement;
-  //   // component.gridApi.setQuickFilter('19614013');
-  //   const input = {
-  //     el: {
-  //       nativeElement: {
-  //         value: '19614013'
-  //       }
-  //     }
-  //   }
-  //   component.searchFunds(input);
-  //   const cellElements = hostElement.querySelectorAll('.ag-cell-value');
-  //   expect(cellElements.length).toEqual(4);
-  // })
-
-
+  });
 });
