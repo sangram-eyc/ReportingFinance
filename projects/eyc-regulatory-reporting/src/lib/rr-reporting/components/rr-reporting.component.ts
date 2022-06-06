@@ -904,14 +904,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   // }, 1);
   // }
 
-  actionMenuEnableforException(row) {
-    console.log('Reporting > unapprove > exception');
-    this.selectedExceptionId = row.exceptionId;
-    setTimeout(() => {
-      this.actionMenuModalEnabled = true;
-      this.actionMenuModal = true;
-    }, 1);
-  }
+  // actionMenuEnableforException(row) {
+  //   console.log('Reporting > unapprove > exception');
+  //   this.selectedExceptionId = row.exceptionId;
+  //   setTimeout(() => {
+  //     this.actionMenuModalEnabled = true;
+  //     this.actionMenuModal = true;
+  //   }, 1);
+  // }
 
 
   unApproveEntity() {
