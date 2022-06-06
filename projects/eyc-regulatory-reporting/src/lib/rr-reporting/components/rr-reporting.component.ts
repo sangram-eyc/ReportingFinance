@@ -567,7 +567,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   onRowSelected(event: any): void {
-    debugger;
     let selectedArr = [];
     selectedArr = this.gridApi.getSelectedRows();
     this.selectedRows = selectedArr.filter(item => item.approved === false);
