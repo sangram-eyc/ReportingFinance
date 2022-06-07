@@ -127,7 +127,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           }
         ]
       console.log(this.totalOpenedCommentsDetails)
-    })
+    });
   }
 
   backtoCycleView() {
@@ -296,12 +296,14 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   }
 
   getTooltip() {
-   /*   const arrayTooltips = document.querySelectorAll(".motif-tooltip");
+    const arrayTooltips = document.querySelectorAll(".motif-tooltip");
     arrayTooltips.forEach((userItem) => {
       document.querySelector('.motif-pagination-select-wrapper').appendChild(userItem);
       window.scrollTo(0, window.scrollY + 1);
-      window.scrollTo(0, window.scrollY - 1);
-    }); */  
+      setTimeout(() => {
+        window.scrollTo(0, window.scrollY - 1);
+      }, 10);  
+    });   
   }
 
   showMyAssignedFunds() {

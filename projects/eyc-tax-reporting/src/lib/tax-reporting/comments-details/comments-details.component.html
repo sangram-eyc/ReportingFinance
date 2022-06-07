@@ -87,9 +87,9 @@
       </ng-template>
 
       <ng-template #completedCommentTemplate let-row>
-        <div *ngIf="row.description.length > 70">
+        <div *ngIf="row.description.length > 70" (click)="openDialog(row.id)">
           <motif-tooltip placement="top">
-            <div class='comment-col' motifTooltipTrigger aria-label="tooltip" (mouseover)="getTooltip()" (mouseout)="getTooltip()">                        
+            <div class='comment-col' motifTooltipTrigger aria-label="tooltip" (mouseover)="getTooltip()">                        
                 <div *ngFor="let part of row.splitComment; index as y;">
                   <span class='comment-span-1' *ngIf="y < 2">{{part}}</span>
                   <span class='comment-span-2' *ngIf="y == 1">...</span>  
