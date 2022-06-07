@@ -1,6 +1,7 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
-    [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-reporting-tabs-card>
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
+[dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-shared-tabs>
+
 <div class="review-content-container">
 
     <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
