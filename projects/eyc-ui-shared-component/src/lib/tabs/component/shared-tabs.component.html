@@ -1,0 +1,19 @@
+<div class="eyc-rr-tabs" *ngIf ="!isDataInteake">
+    <motif-tab-bar>
+       <button  *ngFor="let tabname of tabArr; let i = index"  motifButton class="motif-text-link"  (click)="reportTabChange(i+1)" [ngClass]="tabIn == i+1 ? 'motif-active' : '' ">{{tabname}}</button>
+    </motif-tab-bar>
+  <button class="data-explorer" motifButton color="secondary" size="medium" (click)="dataExplorer()"
+          *ngIf="dataExpPermission">Data Explorer
+  </button>
+</div>
+
+<div class="eyc-rr-tabs" *ngIf="isDataInteake">
+  <motif-tab-bar>
+    <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception Reports
+    </button>
+    <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Datasets
+    </button>
+  </motif-tab-bar>
+</div>
