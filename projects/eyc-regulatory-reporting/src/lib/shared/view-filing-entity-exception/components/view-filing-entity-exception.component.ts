@@ -82,7 +82,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
-      this.exceptionAnswersData =  res.data['entityExceptionMap'];
+      this.exceptionAnswersData =  res.data['exceptionResultJason'];
       if (this.exceptionAnswersData) {
         this.createEntitiesRowData();
       } else {
