@@ -1,5 +1,5 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [tabsData]="tabsData"
 [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-shared-tabs>
 
 <div class="review-content-container">
