@@ -93,6 +93,9 @@
 .menu-sidenav-btm-options li:last-child {
   border-bottom: 0px;
 }
+.sidenav-item:focus {
+  box-shadow: none !important;
+}
 
 .menu-icons {
     display: flex;
@@ -493,7 +496,7 @@ ul#user-info {
       }
     }
     &:hover {
-      background-color: #23232F;
+      background-color: #1a1a24;
       cursor: pointer;
     }
     span {
@@ -526,10 +529,11 @@ ul#user-info {
     }
   }
   .active {
-    background-color: #23232F;
+    // background-color: #23232F;#1a1a24
+    background-color: #1a1a24;
     border-left: 5px solid #FFE600;
     padding-left: 9px;
-    font-weight: 700;
+    // font-weight: 700;
     .triangle-bottomright {
       border-bottom: 9px solid #FFE600;
       left: 41px;
@@ -544,18 +548,21 @@ ul#user-info {
     .sidenav-item {
       padding-left: 43px;
       &:hover {
-        border-left: 5px solid #FFE600;
-        padding-left: 38px;
+        // border-left: 5px solid #FFE600;
+        background-color: #1a1a24;
+        // padding-left: 38px;
       }
     }
     .active-submenu {
-      border-left: 5px solid #FFE600;
-      padding-left: 38px;
-      font-weight: 700;
+      // border-left: 5px solid #FFE600;
+      color: #FFE600;
+      background-color: #1a1a24;
+      // padding-left: 38px;
+      // font-weight: 700;
     }
   }
   .submenu-open {
-    background-color: #23232F;
+    background-color: #1a1a24;
   }
 }
 
