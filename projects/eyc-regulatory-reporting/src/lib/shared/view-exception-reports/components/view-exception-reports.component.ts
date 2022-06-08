@@ -503,7 +503,8 @@ export class ViewExceptionReportsComponent implements OnInit {
         "period": this.period,
         "stage": this.componentStage,
         "totalExceptions": this.exceptionCnt,
-        "titles": this.exportsHeader
+        "titles": this.exportsHeader,
+        "subHeader": "Exception_Reports"
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });
