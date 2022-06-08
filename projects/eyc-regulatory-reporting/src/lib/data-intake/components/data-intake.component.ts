@@ -405,19 +405,19 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 150,
         comparator: this.disableComparator,
       } ,
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
-        },
-        headerName: 'Resolved',
-        field: 'resolvedCount',
-        sortable: true,
-        filter: true,
-        width: 200,
-        comparator: this.disableComparator,
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.resolveExceptionTemplate,
+      //   },
+      //   headerName: 'Resolved',
+      //   field: 'resolvedCount',
+      //   sortable: true,
+      //   filter: true,
+      //   width: 200,
+      //   comparator: this.disableComparator,
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
@@ -756,7 +756,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       exceptionReportName: event.file,
       parentModule: 'Regulatory Reporting',
       period: this.filingDetails.period,
-      ruleExceptionId: event.ruleExceptionId
+      ruleExceptionId: event.ruleExceptionId,
+      ruleType: event.ruleType,
+      tableName: event.tableName,
+      filename: event.filename
     }}};
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports'], navigationExtras);
@@ -765,9 +768,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exportData(type) {
     if(type == 'exceptions') {
       if(this.permissions.validatePermission('Data Intake', 'View Comments')) { 
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,exceptionCount:Exceptions';
       } else {
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,exceptionCount:Exceptions';
       }
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else if(type == 'dataset') {
