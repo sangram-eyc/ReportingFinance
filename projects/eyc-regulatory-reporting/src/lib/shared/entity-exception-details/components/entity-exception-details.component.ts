@@ -437,8 +437,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
 
 
   backtoParent() {
-      this.location.back();
-  }
+    this.router.navigate(['/view-filing-entity-exception'], { state: { componentStage: this.componentStage } });
+    }
 
   commentAdded() {
     this.getAnswerExceptionReports();
