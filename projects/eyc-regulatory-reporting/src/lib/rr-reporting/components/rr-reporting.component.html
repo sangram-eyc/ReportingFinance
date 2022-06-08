@@ -1,7 +1,7 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
 
 
-<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [tabsData]="tabsData"
 [dataExpPermission]="permissions.validatePermission('Reporting', 'Data Explorer')"></lib-shared-tabs>
 
 <div class="reporting-content-container">

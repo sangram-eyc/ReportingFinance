@@ -14,11 +14,9 @@ export class SharedTabsComponent implements OnInit {
   @Input() pageName;
   @Input() tabIn: any = 2;
   @Input() dataExpPermission = true;
-   
-
+  @Input() tabsData;
   showPopup: boolean;
-  tabArr: any = ['Exception Reports', 'Filing Entities'];
-
+  
   constructor(
     private router: Router,
     public permissions: PermissionService,

@@ -8,7 +8,7 @@ import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-sh
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
-import { rr_module_name } from '../../config/rr-config-helper';
+import { rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-client-review',
@@ -24,6 +24,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   showComments = false;
   currentEntityReviewLevel;
   moduleOriginated = rr_module_name;
+  tabsData = tabsForRR;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,

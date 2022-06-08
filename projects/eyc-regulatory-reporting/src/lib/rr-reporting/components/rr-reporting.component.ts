@@ -6,7 +6,7 @@ import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent } from 'eyc-ui-shared-component';
 //import { GridComponent } from 'eyc-ui-shared-component';
-import { customComparator, rr_module_name } from '../../config/rr-config-helper';
+import { customComparator, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
@@ -31,6 +31,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   ) { }
 
   moduleOriginated = rr_module_name;
+  tabsData = tabsForRR;
   tabs;
   exportURL;
   exportHeaders;
