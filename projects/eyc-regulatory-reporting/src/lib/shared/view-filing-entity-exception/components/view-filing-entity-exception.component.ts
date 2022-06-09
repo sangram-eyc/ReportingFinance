@@ -15,7 +15,7 @@ import { ModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
   templateUrl: './view-filing-entity-exception.component.html',
   styleUrls: ['./view-filing-entity-exception.component.scss']
 })
-export class ViewFilingEntityExceptionComponent implements OnInit {
+export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
 
   dueDate
   filingId;
@@ -64,6 +64,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
+      this.componentStage = this.componentStage ? this.componentStage : sessionStorage.getItem("detailExcepStage");
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
@@ -268,6 +269,10 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   commentAdded() {
     this.getAnswerExceptionReports();
+  }
+
+  ngOnDestroy(){
+    sessionStorage.removeItem("detailExcepStage");
   }
 
 }

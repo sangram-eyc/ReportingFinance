@@ -438,8 +438,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
 
 
   backtoParent() {
-    this.router.navigate(['/view-filing-entity-exception'], { state: { componentStage: this.componentStage } });
-    }
+      sessionStorage.setItem("detailExcepStage",  this.componentStage);
+      this.location.back();
+  }
 
   commentAdded() {
     this.getAnswerExceptionReports();
