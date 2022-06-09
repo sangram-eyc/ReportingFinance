@@ -8,7 +8,7 @@ import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-sh
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
-import { rr_module_name, tabsForRR } from '../../config/rr-config-helper';
+import { clientReviewStage, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-client-review',
@@ -820,7 +820,7 @@ actionMenuEnableforException(row) {
       "entities":  this.exceptionReportToUnaproveSelectedRows.map(({ exceptionId }) => exceptionId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
-      "stage": "Client Review"
+      "stage": clientReviewStage
       };
 
     let tempRowData = this.exceptionData;
@@ -877,7 +877,7 @@ actionMenuEnableforException(row) {
         "entities":  this.selectedExceptionIds,
         "filingName": this.filingDetails.filingName,
         "period": this.filingDetails.period,
-        "stage": "Client Review"
+        "stage": clientReviewStage
         };
 
         let tempRowData = this.exceptionData;
@@ -920,12 +920,12 @@ actionMenuEnableforException(row) {
   
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
-    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: clientReviewStage }});
   }
 
   routeToFilingEntityExceptionPage(event:any) {
     this.filingService.setFilingEntityData = event;
-    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: clientReviewStage }});
   }
 
   @HostListener('document:click', ['$event'])
