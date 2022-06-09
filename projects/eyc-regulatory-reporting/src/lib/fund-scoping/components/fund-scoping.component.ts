@@ -118,11 +118,9 @@ export class FundScopingComponent implements OnInit {
   }
 
   getFundsData(resetData = false) {
-    let filingCompletedStatus = this.filingService.checkFilingCompletedStatus(this.filingDetails);
-    let filingStatus = filingCompletedStatus ? 'completed' :'active'
     this.funds = [];
     this.sort = resetData ? 'fundName:true' : this.sort;
-    this.fundScopingService.getFundScopingDetails(filingStatus,this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(this.getFillingCompletedStatus(),this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
       if (resetData) {
@@ -287,9 +285,14 @@ export class FundScopingComponent implements OnInit {
     //     }, 5000);
   }
 
+  getFillingCompletedStatus(){
+    let filingCompletedStatus = this.filingService.checkFilingCompletedStatus(this.filingDetails);
+    let filingStatus = filingCompletedStatus ? 'completed' :'active'
+    return filingStatus
+  }
   exportScopeData() {
   this.exportHeaders = 'fundId:ID,fundCode:Code,fundName:Entity name,adviser:Adviser,businessUnit:Business Unit,filerType:Filing Type'
-  this.exportURL =  this.settingsService.regReportingFiling.fund_scoping_details + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+  this.exportURL =  this.settingsService.regReportingFiling.fund_scoping_details+ "fundScopingFilingStatus="+ this.getFillingCompletedStatus() + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
   console.log("exportRequestDetails > ", this.exportURL);
 
   this.fundScopingService.exportScopeData(this.exportURL).subscribe(resp => {
