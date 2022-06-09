@@ -16,8 +16,8 @@ describe('BulkDownloadModalComponent', () => {
   let mockedModal = {
     footer: {
       style : '',
-      YesButton : true,
-      NoButton : false
+      YesButton : 'Yes',
+      NoButton : 'No'
     },
     header: {
       style : ''
@@ -66,7 +66,7 @@ describe('BulkDownloadModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should return true after click ok', () => {
+  it('should return Yes after click ok and call bulkDownloadFirstCall and storePendingDownload functions', () => {
     let mockResp = { 
       data: {
         fileUploadDTO: {
@@ -74,18 +74,32 @@ describe('BulkDownloadModalComponent', () => {
         }
       } 
     };
+    let data:any = {
+      "idempotencyKey":  null,
+      "fundDTOS" : []
+     } 
+    spyOn(component['dialogRef'], 'close');
+    spyOn(component, 'storePendingDownload');
     spyOn(component['bulkService'],'bulkDownloadFirstCall').and.callFake(()=>{
       return of(mockResp)
     })
     component.onClickYes();
-    expect(component.modalDetails.footer.YesButton).toEqual(true);
-    expect(bulkService.bulkDownloadFirstCall).toHaveBeenCalled();
+    expect(component.modalDetails.footer.YesButton).toEqual('Yes');
+    expect(bulkService.bulkDownloadFirstCall).toHaveBeenCalledWith(data);
+    expect(component.storePendingDownload).toHaveBeenCalledWith('1');
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({ button: 'Yes' })
   });
-  it('should return false after click cancel', () => {
+  it('should return No after click close', () => {
+    spyOn(component['dialogRef'], 'close');
     component.close();
-    
-    expect(component.modalDetails.footer.NoButton).toEqual(false);
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({ button: 'No' })
   });
-  
-
+  it('storePendingDownload method should get pendingDownloads and update them', () => {
+    spyOn(sessionStorage,'getItem');
+    spyOn(sessionStorage,'setItem');
+    component.storePendingDownload('1');
+    expect(component.pendingDownloads).toEqual(['1']);
+    expect(sessionStorage.getItem).toHaveBeenCalledWith('pendingDownloadsBulk');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('pendingDownloadsBulk', JSON.stringify(['1']));
+  });
 });
