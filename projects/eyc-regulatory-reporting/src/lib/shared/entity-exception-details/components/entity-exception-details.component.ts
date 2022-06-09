@@ -80,6 +80,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
     this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     this.getAnswerExceptionReports();
     sessionStorage.setItem("exceptionV3Stage", this.componentStage);
+    sessionStorage.setItem("detailExcepStage",  this.componentStage);
   }
 
   sortByUnresolvedException(){
@@ -438,8 +439,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
 
 
   backtoParent() {
-    this.router.navigate(['/view-filing-entity-exception'], { state: { componentStage: this.componentStage } });
-    }
+      this.location.back();
+  }
 
   commentAdded() {
     this.getAnswerExceptionReports();
