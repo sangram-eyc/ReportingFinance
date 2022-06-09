@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, AfterContentChecked, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { Component, HostListener } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import {Subject, Subscription, timer} from 'rxjs';
 import {LoaderService} from './services/loader.service';
@@ -59,6 +59,27 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   counter = 18000;
   tick = 1000;
   showErrorModel = false;
+
+  sideMenu = {
+    regulatoryReporting: {
+      isActive: false
+    },
+    dataIntake: {
+      isActive: false
+    },
+    taxReporting: {
+      isActive: false
+    },
+    dataManagedServices: {
+      isActive: false
+    },
+    europeanFundReporting: {
+      isActive: false
+    },
+    admin: {
+      isActive: false
+    }
+  }
   constructor(
     private oauthservice: OAuthService,
     private loaderService: LoaderService,
@@ -76,6 +97,47 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     this.router.events.subscribe(
       (event: any) => {
+        if(event instanceof NavigationStart) {
+          switch(event.url) {
+            case '/app-regulatory-filing':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.regulatoryReporting.isActive = true;
+              break;
+            case '/data-intake-landing':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.dataIntake.isActive = true; 
+              break;
+            case '/app-tax-reporting':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.taxReporting.isActive = true;
+              break;
+            case '/data-managed-services':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.dataManagedServices.isActive = true;
+              break;
+            case '/european-fund-reporting':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.europeanFundReporting.isActive = true;
+              break;
+            case '/eyc-admin':
+              for (const key in this.sideMenu) {
+                this.sideMenu[key]['isActive'] = false;
+              }
+              this.sideMenu.admin.isActive = true;
+              break;
+          }
+          
+        }
         if (event instanceof NavigationEnd) {
           this.isNotification = false;
           this.showHeaderFooter = this.settingsService.isUserLoggedin();
@@ -144,7 +206,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       setTimeout(() => {
         const uname = res;
         sessionStorage.setItem('userEmail', uname.userEmail);
-        console.log('sessionTimeOut', JSON.parse(sessionStorage.getItem('sessionTimeOut')));
         if (JSON.parse(sessionStorage.getItem('sessionTimeOut'))) {
           this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000
         }
@@ -283,7 +344,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
 
     dialogConfirm.beforeClosed().subscribe(result => {
       if (result.button === 'Yes') {
-        console.log('YES CLOSED SESSION');
         this.settingsService.logoff();
         this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }

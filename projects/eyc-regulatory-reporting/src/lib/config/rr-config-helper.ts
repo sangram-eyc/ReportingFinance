@@ -59,3 +59,7 @@ export const IS_ALL_EXCEPTION = false;
 
 
 export const rr_module_name = 'Regulatory Reporting';
+
+export const tabsForRR: any = ['Exception Reports', 'Filing Entities'];
+
+export const clientReviewStage = 'Client review';

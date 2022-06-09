@@ -29,4 +29,5 @@ export * from './lib/modal/individual-exceptions-resolve/components/individual-e
 export * from './lib/modal/session-extend-modal/session-extend-modal.component';
 export * from './lib/audit-log/audit-log.module';
 export * from './lib/audit-log/components/audit-log.component';
+export * from './lib/tabs/component/shared-tabs.component';
 export const DEFAULT_PAGE_SIZE = 20;
