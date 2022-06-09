@@ -80,6 +80,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
     this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     this.getAnswerExceptionReports();
     sessionStorage.setItem("exceptionV3Stage", this.componentStage);
+    sessionStorage.setItem("detailExcepStage",  this.componentStage);
   }
 
   sortByUnresolvedException(){
@@ -438,7 +439,6 @@ export class EntityExceptionDetailsComponent implements OnInit {
 
 
   backtoParent() {
-      sessionStorage.setItem("detailExcepStage",  this.componentStage);
       this.location.back();
   }
 
