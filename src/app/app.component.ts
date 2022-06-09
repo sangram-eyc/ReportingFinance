@@ -413,11 +413,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         const startDownloading = this.pendingDownloads.find(element => element == id);
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
         sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
-        if (startDownloading != undefined) {
+/*         if (startDownloading != undefined) {
           if (url != '') {
             window.open(url);
           }
-        }
+        } */
       } 
     } catch (err) {
       console.log('bulkDownloadWarnings Error ->', err);
