@@ -949,7 +949,7 @@ actionMenuEnableforException(row) {
       } else {
         this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,reviewLevel:Review Level,unresolved:Unresolved,resolved:Resolved,updateBy:Last Updated By';
       }
-      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
 
     this.service.exportCRData(this.exportURL).subscribe(resp => {
