@@ -97,7 +97,7 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
       }
       sessionStorage.setItem(SESSION_PBI_TOKEN, embedToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-      if(embedTokenRes['data']['embedReports'][0]['embedUrl']){
+      if(this.pod == "RRMS" && embedTokenRes['data']?.['embedReports'][0]['embedUrl']){
         let embedUrl = embedTokenRes['data']['embedReports'][0]['embedUrl'];
         if(embedTokenRes['data']['embedReports'][0]['reportType'] == "PaginatedReport"){
           const pbifilterName = this.selectedFilling.filingName;
