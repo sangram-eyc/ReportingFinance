@@ -13,16 +13,16 @@
                 [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
             <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
                 [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
-            <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
-                [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Archived Reports</button>
+<!--             <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+                [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Archived Reports</button> -->
         </motif-tab-bar>
     </div>
 
-    <section [hidden]="!(tabIn == 3)">
+<!--     <section [hidden]="!(tabIn == 3)">
         <div >
             <lib-archived-reports></lib-archived-reports>
         </div>
-    </section>
+    </section> -->
 
     <section id='active-reports' [hidden]="!(tabIn == 2)">
         <div id="reports-history-heading">
