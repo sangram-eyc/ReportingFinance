@@ -161,10 +161,10 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
               console.log("Year Filter is working",filter['values']);
-              filter['values'].push(pbifilters[1]);
+              typeof pbifilters === 'string' ? filter['values'].push(pbifilters) : filter['values'].push(pbifilters[1]);
             }
           }
-          if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {
+          if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER &&  typeof pbifilters !== 'string') {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
               console.log("Year Filter is working",filter['values']);
@@ -187,8 +187,10 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
             }
           }
           self.filters.push(filter);
+          console.log('Filters', self.filters);
         }
         self.setFilter(self.filters);
+        console.log('Filters1', self.filters);
       });
     });
   }
