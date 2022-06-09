@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { environment } from '../../../../../../src/environments/environment';
 import { taxenvironment } from '../../../../../../src/environments/eyc-tax-reporting/tax-environment';
 import { ApproveFundModalComponent } from './approve-fund-modal.component';
@@ -13,13 +14,20 @@ describe('ApproveFundModalComponent', () => {
   let mockedModal = {
     footer: {
       style : '',
-      YesButton : true,
-      NoButton : false
+      YesButton : 'Yes',
+      NoButton : 'No'
     },
     header: {
       style : ''
-    }
-  }
+    },
+    funds: []
+  };
+  let matDialogStub = {
+    open: () => {
+      return { afterClosed: () => of() }
+    },
+    close: () => { }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ApproveFundModalComponent ],
@@ -34,7 +42,7 @@ describe('ApproveFundModalComponent', () => {
         {provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
         {provide:"taxProduction",  useValue: taxenvironment.production},
         {provide:"rrproduction",  useValue: environment.production},
-        {provide: MatDialogRef, useValue: {} },
+        {provide: MatDialogRef, useValue: matDialogStub },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ]
     })
@@ -61,12 +69,14 @@ describe('ApproveFundModalComponent', () => {
     expect(component.rowStyle.height).toEqual('74px');
     expect(component.domLayout).toEqual('autoHeight');
   });
-  it('should return true after click ok', () => {
-    spyOn(component, 'onClickYes');
-    expect(component.modalDetails.footer.YesButton).toEqual(true);
+  it('should return Yes after click ok', () => {
+    spyOn(component['dialogRef'], 'close');
+    component.onClickYes();
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({ button: 'Yes' })
   });
-  it('should return false after click cancel', () => {
-    spyOn(component, 'close');
-    expect(component.modalDetails.footer.NoButton).toEqual(false);
+  it('should return No after click close', () => {
+    spyOn(component['dialogRef'], 'close');
+    component.close();
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({ button: 'No' })
   });
 });
