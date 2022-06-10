@@ -8,10 +8,36 @@
     width: 9.9px;
     height: 9.9px;
     border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
   }
   
   .tax-legend-text {
     font-family: EYInterstate;
     font-size: 11px;
     color: #2E2E38;
+  }
+
+  .empty-bar {
+    height: 20px; 
+    background-color: #FAFAFC; 
+    border-style: solid; 
+    border-color: #C4C4CD; 
+    border-width: thin;
+  }
+
+  .empty-bar-table {
+    height: 20px; 
+    background-color: #FAFAFC; 
+    border-style: solid; 
+    border-color: #C4C4CD; 
+    border-width: thin;
+    width: 370px;
+    margin-left: 10px;
+  }
+
+  .empty-msg {
+    text-align: center; 
+    color: #C4C4CD; 
+    font-size: 11px;
   }

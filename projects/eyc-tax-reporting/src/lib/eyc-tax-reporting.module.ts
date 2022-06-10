@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaxCardComponent } from './shared/tax-card/tax-card.component';
 import { DonutTaxChartComponent } from './shared/donut-tax-chart/donut-tax-chart.component';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
-import { MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifAvatarModule  } from '@ey-xd/ng-motif';
+import { MotifDropdownModule,MotifTooltipModule ,MotifCardModule, MotifButtonModule, MotifIconModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifFormsModule, MotifTabBarModule, MotifPaginationModule, MotifBreadcrumbModule, MotifChipModule, MotifModalModule, MotifToastModule, MotifAvatarModule  } from '@ey-xd/ng-motif';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
 import {EycTaxSettingsService} from './services/eyc-tax-settings.service';
@@ -27,6 +27,7 @@ import { CommentsDetailsComponent } from './tax-reporting/comments-details/comme
 import { BulkDownloadModalComponent } from './tax-reporting/bulk-download-modal/bulk-download-modal.component';
 import { WarningModalComponent } from './tax-reporting/../shared/warning-modal/warning-modal.component';
 import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/approve-fund-modal.component';
+import { ArchivedReportsComponent } from './tax-reporting/archived-reports/archived-reports.component';
 
 
 
@@ -56,7 +57,8 @@ import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/ap
     MatChipsModule,
     MatButtonModule,
     MatRadioModule,
-    MotifAvatarModule
+    MotifAvatarModule,
+    MotifDropdownModule
   ],
   declarations: [
     TaxReportingComponent,
@@ -74,7 +76,8 @@ import { ApproveFundModalComponent } from './tax-reporting/approve-fund-modal/ap
     CommentsDetailsComponent,
     WarningModalComponent,
     ApproveFundModalComponent,
-    BulkDownloadModalComponent
+    BulkDownloadModalComponent,
+    ArchivedReportsComponent
   ],
   exports: [TaxReportingComponent]
 })

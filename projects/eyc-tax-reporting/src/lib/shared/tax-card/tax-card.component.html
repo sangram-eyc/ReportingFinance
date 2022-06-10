@@ -4,26 +4,22 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <h6 *ngIf="name.length <= reportWidth"><span class="report-name ellipsis">{{name}}</span></h6>
-                            <div *ngIf="name.length > reportWidth" class="elli-wrap">
-                                <motif-tooltip placement="top">
-                                    <h6 motifTooltipTrigger aria-label="tooltip"><span class="report-name ellipsis">{{name}}</span></h6>
-                                    {{name}} 
-                                </motif-tooltip>                              
-                            </div>                    
+                        <div *ngIf="name.length > reportWidth" class="elli-wrap">
+                            <motif-tooltip placement="top">
+                                <h6 motifTooltipTrigger aria-label="tooltip"><span class="report-name ellipsis">{{name}}</span></h6>
+                                {{name}} 
+                            </motif-tooltip>                              
+                        </div>                    
                 </div>
             </div>
         </motif-card-header>
         <motif-card-body>
             <div class="row">
                 <div class="col-md-3 col-sm-3">
-                    <div class="card-column">
-                        <div _ngcontent-nxa-c70="" class="motif-icon-content" ng-reflect-inline-s-v-g="/assets/icons/action/ic_date_r">
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z">  
-                                </path>
-                            </svg> -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="darkblue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
-                        </div>
+                    <div class="card-column">                      
+                        <svg width="31" height="39" viewBox="0 0 31 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.25 0.75H4.25C2.1875 0.75 0.51875 2.4375 0.51875 4.5L0.5 34.5C0.5 36.5625 2.16875 38.25 4.23125 38.25H26.75C28.8125 38.25 30.5 36.5625 30.5 34.5V12L19.25 0.75ZM23 30.75H8V27H23V30.75ZM23 23.25H8V19.5H23V23.25ZM17.375 13.875V3.5625L27.6875 13.875H17.375Z" fill="#155CB4"/>
+                        </svg>                                                                                     
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-9">
@@ -35,17 +31,10 @@
             </div>
         </motif-card-body>
         <div class="report-card-footer">
-
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve" stroke="darkblue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="darkblue">
-                <path d="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32 c-8.832,0-16,7.168-16,16v228.32l-62.88-55.104c-6.624-5.792-16.704-5.152-22.56,1.472l-21.088,23.968 c-5.856,6.656-5.184,16.8,1.472,22.624l126.528,110.752c6.048,5.28,15.04,5.28,21.088,0L377.056,237.28 C383.712,231.456,384.384,221.312,378.528,214.688z"/>
-                <path d="M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32 C432,423.168,424.832,416,416,416z"/>   
-            </svg>
-            <!--<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="darkblue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>-->
-            <a href="{{downloadUrl}}" download="{{name}}"><div style="color:darkblue;">Download</div></a>
-           <!--  <div class="card-button">
-              <div>icono</div>
-              <div>icono</div>
-            </div> -->
+            <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM5.25 6.25V1.75H6.75V6.25H7.6275L6 7.8775L4.3725 6.25H5.25ZM0.75 11.5H11.25V13H0.75V11.5Z" fill="#155CB4"/>
+            </svg>               
+            <a class="text-card-mgr" href="{{downloadUrl}}" download="{{name}}">Download</a>
         </div>
     </motif-card>
  </div>

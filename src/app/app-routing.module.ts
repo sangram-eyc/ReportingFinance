@@ -34,6 +34,12 @@ import { EntityExceptionDetailsComponent } from 'projects/eyc-regulatory-reporti
 import {
   NotificationsPreferencesComponent
 } from '@default/notifications/notifications-preferences/notifications-preferences.component';
+
+import { ExpenseReportComponent } from 'projects/eyc-expense-reporting/src/lib/expense-report/expense-report.component';
+import { ExpenseTaskAssignmentComponent } from 'projects/eyc-expense-reporting/src/lib/expense-task-assignment/expense-task-assignment.component';
+import { ExpenseTaskVisibilityComponent } from 'projects/eyc-expense-reporting/src/lib/expense-task-visibility/expense-task-visibility.component';
+import { ExpenseMilestoneCalendarComponent } from 'projects/eyc-expense-reporting/src/lib/expense-milestone-calendar/expense-milestone-calendar.component';
+import { EycExpenseReportingComponent } from 'projects/eyc-expense-reporting/src/lib/eyc-expense-reporting.component';
 import { AdministrationComponent } from 'projects/eyc-admin/src/lib/administration/components/administration.component';
 import { AdminRegulatoryReportingComponent } from 'projects/eyc-admin/src/lib/admin-regulatory-reporting/components/admin-regulatory-reporting.component';
 import { EycTeamDetailsComponent } from 'projects/eyc-admin/src/lib/admin-regulatory-reporting/eyc-team-details/eyc-team-details.component';
@@ -50,10 +56,16 @@ const routes: Routes = [
   {path: 'admin-dashboard', component: AdminRegulatoryReportingComponent, canActivate : [AuthGuardService]},
   {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
-  {path: 'app-tax-reporting', component: TaxReportingComponent, canActivate : [AuthGuardService]},
-  {path: 'cycle-details/:id/:name', component: CycleDetailComponent , canActivate : [AuthGuardService]},
-  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type/:cycleId', component: CommentsPagecomponent , canActivate : [AuthGuardService]},
-  {path: 'comments-details/:cycleId/:cycleName', component: CommentsDetailsComponent , canActivate : [AuthGuardService]},
+  {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'app-expense-reporting', component:EycExpenseReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'expense-reports', component:ExpenseReportComponent, canActivate : [AuthGuardService]},
+  {path: 'expense-tasks', component:ExpenseTaskAssignmentComponent, canActivate : [AuthGuardService]},
+  {path: 'expense-task-assignment', component:TaxReportingComponent, canActivate : [AuthGuardService]},
+  {path: 'expense-task-visibility', component:ExpenseTaskVisibilityComponent, canActivate : [AuthGuardService]},
+  {path: 'expense-milestone-calendar', component:ExpenseMilestoneCalendarComponent, canActivate : [AuthGuardService]},
+  {path: 'cycle-details/:id/:name',component:CycleDetailComponent , canActivate : [AuthGuardService]},
+  {path: 'comment-page/:id/:name/:prodCycleName/:status/:openCommentsEY/:openCommentsClient/:type/:cycleId',component:CommentsPagecomponent , canActivate : [AuthGuardService]},
+  {path: 'comments-details/:cycleId/:cycleName',component:CommentsDetailsComponent , canActivate : [AuthGuardService]},
   {path: 'data-intake-landing', component: DataIntakeLandingComponent, canActivate : [AuthGuardService]},
   {path: 'fund-scoping', component: FundScopingComponent, canActivate : [AuthGuardService]},
   {path: 'data-intake', component: DataIntakeComponent, canActivate : [AuthGuardService]},

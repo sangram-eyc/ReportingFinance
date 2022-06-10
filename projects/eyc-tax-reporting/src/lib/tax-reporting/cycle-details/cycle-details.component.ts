@@ -15,7 +15,7 @@ import { BulkDownloadModalComponent } from '../bulk-download-modal/bulk-download
 import { TaxCommentModalComponent } from '../../shared/tax-comment-modal/tax-comment-modal.component';
 import { Subject } from 'rxjs';
 import { WarningModalComponent } from '../../shared/warning-modal/warning-modal.component';
-import { TaxLoaderService } from '../services/tax-loader.service'
+import { TaxLoaderService } from '../services/tax-loader.service';
 
 
 @Component({
@@ -196,8 +196,8 @@ export class CycleDetailComponent implements OnInit {
   blockApprovalProcess: boolean = false;
   waitApproval: boolean = false;
   processingCheck: any = '';
- 
-
+  setClickApproveButton = false; 
+  downloadButton: HTMLElement = document.createElement('button');
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
@@ -216,15 +216,12 @@ export class CycleDetailComponent implements OnInit {
   backtoCycleView() {
     this.router.navigate(['app-tax-reporting']);
   }
-
+  
   ngAfterViewInit(): void {
-    this.cancelbtn = document.querySelector('.second-button');
-    this.approveBtn = document.querySelector('.approve-button button');
-    this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true)
     this.getCompletedProductCyclesData(this.productCycleId);
-    let downloadButton: any = document.querySelector('.second-button');
-    downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
-    downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
+    this.downloadButton = document.querySelector('.second-button') === null ? this.downloadButton : document.querySelector('.second-button');
+    this.downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
+    this.downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
   }
 
   showMyAssignedFunds() {
@@ -280,7 +277,7 @@ export class CycleDetailComponent implements OnInit {
     this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
   }
 
-  getCompletedProductCyclesData(id: any) {
+  getCompletedProductCyclesData(id: any, toast?: boolean, msgToast? : any) {
     this.completedFunds = [];
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
@@ -296,7 +293,7 @@ export class CycleDetailComponent implements OnInit {
           openCommentsEY: item.openCommentsEY,
           openCommentsClient: item.openCommentsClient,
           totalComments: item.totalComments,
-          lastUpdatedDate: item.lastUpdatedDate,
+          statusChangedDate: item.statusChangedDate,
           assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
         };
         //total opens comments by product-cycle
@@ -304,11 +301,17 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY);
         this.completedFunds.push(eachitem);
       });
-      console.log('total open comments', this.openCommentsClientByProductCycle)
       this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
+      if(toast){
+        this.toastSuccessMessage = msgToast;
+        this.showToastAfterSubmit = true;
+        setTimeout(() => {
+          this.showToastAfterSubmit = false;
+        }, 5000);
+      }
     });
   }
 
@@ -348,7 +351,7 @@ export class CycleDetailComponent implements OnInit {
         openCommentsEY: fund.openCommentsEY,
         openCommentsClient: fund.openCommentsClient,
         totalComments: fund.totalComments,
-        lastUpdatedDate: fund.lastUpdatedDate,
+        statusChangedDate: fund.statusChangedDate,
         assignedTo: fund.assignedTo,
         assignedToSearch: fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
@@ -375,12 +378,12 @@ export class CycleDetailComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.fundName,
         },
-        headerName: 'Fund Name',
+        headerName: 'Fund name',
         field: 'name',
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 400,
+        minWidth: 300,
         sort: 'asc'
       },
       {
@@ -394,7 +397,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: false,
-        minWidth: 400,
+        minWidth: 200,
         sort: 'asc'
       },
       {
@@ -408,7 +411,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -417,12 +420,12 @@ export class CycleDetailComponent implements OnInit {
         cellRendererParams: {
           ngTemplate: this.statusChangedToTemplate,
         },
-        headerName: 'status changed',
-        field: 'lastUpdatedDate',
+        headerName: 'Status changed',
+        field: 'statusChangedDate',
         sortable: true,
         filter: true,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -436,7 +439,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -450,7 +453,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       },
       {
@@ -464,7 +467,7 @@ export class CycleDetailComponent implements OnInit {
         sortable: true,
         filter: 'agNumberColumnFilter',
         resizeable: true,
-        minWidth: 300,
+        minWidth: 220,
         sort: 'asc'
       },
       {
@@ -474,10 +477,10 @@ export class CycleDetailComponent implements OnInit {
           ngTemplate: this.urlDownload,
         },
         headerName: 'Actions',
-        sortable: true,
+        sortable: false,
         filter: false,
         resizeable: true,
-        minWidth: 300,
+        minWidth: 150,
         sort: 'asc'
       }
     ];
@@ -490,6 +493,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   checkDataProcess(data) {
+    console.log('click',data)
     this.processingCheck = data;
   }
 
@@ -537,13 +541,14 @@ export class CycleDetailComponent implements OnInit {
     });
   }
   openApprovalDialog(){
+    const fundsSelected = this.datasetsSelectedRows.length;
     const approvalDialog = this.dialog.open(ApproveFundModalComponent, {
       width: '550px',
       disableClose: true,
       hasBackdrop: true,
       data: {
         type: "Confirmation",
-        header: "Approve Selected",
+        header: "Approve (" + fundsSelected + " selected)",
         description: "Are you sure want to approve this workbook deliverables? This indicates that you have no further comments.",
         footer: {
           style: "start",
@@ -579,10 +584,15 @@ export class CycleDetailComponent implements OnInit {
   }
 
   datasetsReportRowsSelected(event) {
+    if(this.setClickApproveButton === false){
+      this.setClickApproveButton = true;
+      this.cancelbtn = document.querySelector('.second-button');
+      this.approveBtn = document.querySelector('.approve-button button');
+      this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true);
+    }
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-
     if (this.datasetsSelectedRows.length > 0) {
       this.approveBtn.disabled = false;
       this.cancelbtn.disabled = false;
@@ -593,35 +603,24 @@ export class CycleDetailComponent implements OnInit {
   }
 
   onSubmitApproveDatasets() {
-    debugger
+    this.iDs = "";
     this.datasetsSelectedRows.forEach(ele => {
-      if (this.iDs == "") {
-        this.iDs = ele.id
-      } else {
-        this.iDs = this.iDs + "," + ele.id
-      }
+      this.iDs = this.iDs === "" ? ele.id : this.iDs + "," + ele.id;
     });
     const body = {
       "status": "approved",
       "fundIds": this.iDs.split(',')
     }
-    // console.log("body: ", body.fundIds);
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-      this.toastSuccessMessage = "Fund approved successfully";
-      this.showToastAfterSubmit = true;
-      setTimeout(() => {
-        this.showToastAfterSubmit = false;
-        console.log(resp);
-      }, 5000);
+      this.getCompletedProductCyclesData(this.productCycleId, true, "Fund approved successfully");
     });
-    console.log('row data submit-->', this.rowData)
-    this.getCompletedProductCyclesData(this.productCycleId);
+    this.cancelbtn.disabled = true;
   }
 
 
   handleGridReady(params) {
     this.gridApi = params.api;
-    this.gridApi.addEventListener('paginationChanged', this.resetPaginationSelection.bind(this));  
+    this.gridApi.addEventListener('paginationChanged', this.resetPaginationSelection.bind(this));        
   }
 
   addUsersToFund(_id: any) {
@@ -641,14 +640,8 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('add-user-modal was closed', result);
       if (result.button === "Save") {
-        this.toastSuccessMessage = "Users added successfully";
-        this.showToastAfterSubmit = true;
-        setTimeout(() => {
-          this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId);
+        this.getCompletedProductCyclesData(this.productCycleId, true, "Users added successfully");
       } else {
         console.log('result afterClosed', result);
       }
@@ -670,7 +663,6 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('add-user-modal was closed', result);
       if (result.button === "Continue") {
         let funds = [];
         funds.push(_id);
@@ -678,18 +670,9 @@ export class CycleDetailComponent implements OnInit {
           "status": "approved",
           "fundIds": funds
         }
-        console.log("body: ", body.fundIds);
         this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-          console.log(resp);
-          this.toastSuccessMessage = "Fund approved successfully";
-          this.showToastAfterSubmit = true;
-          setTimeout(() => {
-            this.showToastAfterSubmit = false;
-            console.log(resp);
-          }, 5000);
+          this.getCompletedProductCyclesData(this.productCycleId, true, "Fund approved successfully");
         });
-        console.log('row data submit-->', this.rowData)
-        this.getCompletedProductCyclesData(this.productCycleId);
       }
     });
   }
@@ -731,15 +714,8 @@ export class CycleDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if (result.button === "Post") {
-        //Refresh comments Submit
-        this.toastSuccessMessage = "Comment added successfully";
-        this.showToastAfterSubmit = true;
-        setTimeout(() => {
-          this.showToastAfterSubmit = false;
-        }, 4000);
-        this.getCompletedProductCyclesData(this.productCycleId)
+        this.getCompletedProductCyclesData(this.productCycleId, true, "Comment added successfully");
       } else {
         console.log('result afterClosed', result);
       }
@@ -753,9 +729,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getOptionsProductCycles() {
-    this.productcyclesService.getProductionCycles().subscribe(resp => {
-      this.options = resp['data'];
-    });
+    this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
   }
 
   onOptionsSelected(idCycle) {
@@ -836,20 +810,12 @@ export class CycleDetailComponent implements OnInit {
   unApproveFund(row: any) {
     let funds = [];
     funds.push(row.id);
-    console.log('This row to unapprove-->', funds);
-    //uncomment when de endpoint is ready
     const body = {
       "status": "open",
       "fundIds": funds
     }
     this.productcyclesService.putApproveEntities(body).subscribe(resp => {
-      console.log('Response unapprove', resp);
-      this.toastSuccessMessage = "Fund unapproved successfully";
-      this.showToastAfterSubmit = true;
-      setTimeout(() => {
-        this.showToastAfterSubmit = false;
-      }, 4000);
-      this.getCompletedProductCyclesData(this.productCycleId);
+      this.getCompletedProductCyclesData(this.productCycleId, true, "Fund unapproved successfully");
     });
   }
 
@@ -895,8 +861,7 @@ export class CycleDetailComponent implements OnInit {
           }
         });
 
-        dialogRef.componentInstance.bulkprocesed.subscribe(result => {
-          //console.log('Finalizo el bulk download:', result);   
+        dialogRef.componentInstance.bulkprocesed.subscribe(result => { 
           this.toastSuccessMessage = "Download in progress. This may take a few minutes.";
           this.showToastAfterSubmitBulk = true;
           setTimeout(() => {
@@ -948,23 +913,24 @@ export class CycleDetailComponent implements OnInit {
   }
 
   resetPaginationSelection(){   
-    //Initialize pagination data
-    let paginationSize = this.gridApi.paginationGetPageSize();
-    let currentPageNum = this.gridApi.paginationGetCurrentPage();
-    let totalRowsCount = this.gridApi.getDisplayedRowCount();
+      //Initialize pagination data
+      let paginationSize = this.gridApi.paginationGetPageSize();
+      let currentPageNum = this.gridApi.paginationGetCurrentPage();
+      let totalRowsCount = this.gridApi.getDisplayedRowCount();
 
-    //Calculate current page row indexes
-    let currentPageRowStartIndex = (currentPageNum * paginationSize);
-    let currentPageRowLastIndex = (currentPageRowStartIndex + paginationSize);
-    if(currentPageRowLastIndex > totalRowsCount) currentPageRowLastIndex = (totalRowsCount);
+      //Calculate current page row indexes
+      let currentPageRowStartIndex = (currentPageNum * paginationSize);
+      let currentPageRowLastIndex = (currentPageRowStartIndex + paginationSize);
+      if(currentPageRowLastIndex > totalRowsCount) currentPageRowLastIndex = (totalRowsCount);
 
-    for(let i = 0; i < totalRowsCount; i++)
-    {
-        //Set isRowSelectable=true attribute for current page rows, and false for other page rows
-        let isWithinCurrentPage = (i >= currentPageRowStartIndex && i < currentPageRowLastIndex);        
-        this.gridApi.getDisplayedRowAtIndex(i).setRowSelectable(isWithinCurrentPage);        
-    }   
+      for(let i = 0; i < totalRowsCount; i++)
+      {
+          //Set isRowSelectable=true attribute for current page rows, and false for other page rows
+          let isWithinCurrentPage = (i >= currentPageRowStartIndex && i < currentPageRowLastIndex);        
+          this.gridApi.getDisplayedRowAtIndex(i).setRowSelectable(isWithinCurrentPage);        
+      }   
   }
+
 }
 
 
