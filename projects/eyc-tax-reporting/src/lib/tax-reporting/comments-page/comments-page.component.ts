@@ -136,6 +136,20 @@ export class CommentsPagecomponent implements OnInit {
     }
   }
 
+  commentaddTagSearch(commentItem: { id: any; idTag: any; }){
+    let addTag:any;
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      if(commentItem.idTag == 1){
+        addTag = {"id": 1,"name": "Edit Required"}
+      }else if(commentItem.idTag == 2){
+        addTag = {"id": 2,"name": "Include in cycle debrief"}
+      }      
+        updatedComment.tags.push(addTag)
+      }      
+    }
+  
+
   commentPriorityUpdateSearch(commentItem: { id: any; priority: any; }){
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
@@ -153,7 +167,6 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   backtoCycleView() {
-    //this.location.back();
     this.router.navigate(['cycle-details',this.cycleId,this.productCycleName]);
   }
 

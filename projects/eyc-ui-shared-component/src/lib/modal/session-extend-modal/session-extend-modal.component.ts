@@ -32,11 +32,7 @@ export class SessionExtendModalComponent implements OnInit, OnDestroy {
 
 
   close(): void {
-    if (this.isSessionExtent) {
-      this.logout();
-    } else {
-      this.logIn();
-    }
+    this.logout();
   }
   sessionExtent() {
     this.dialogRef.close({ button: "Extend session" });

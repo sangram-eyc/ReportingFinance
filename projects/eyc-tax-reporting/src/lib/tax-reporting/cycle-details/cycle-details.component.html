@@ -22,9 +22,10 @@
     <div id="selectNewCycle" class="col-md-4 col-sm-4" (click)="OptionsClassSelected()">
       <form [formGroup]="cycleSelectForm">
         <motif-form-field>
+          <label motifLabel class="select-label">Production cycles</label>
           <motif-select aria-label="Please select an option" formControlName="mySelect"
             (ngModelChange)="onOptionsSelected($event)">
-            <motif-option *ngFor="let item of options;index as i;" [value]="item.id">{{item.name}}</motif-option>
+            <motif-option *ngFor="let item of options; index as i;" [value]="item.id">{{item.name}}</motif-option>
           </motif-select>
         </motif-form-field>
       </form>
@@ -36,13 +37,13 @@
       <p class="production-cycle-summary-header">Summary</p>
     </div>
 
-    <div class="motif-col-xs-3 motif-col-sm-3 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
-      <motif-card class='donut-chart-card-tax'>
+<!--     <div class="motif-col-xs-3 motif-col-sm-3 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
+      <motif-card class='donut-chart-card-tax'> -->
         <!-- Donut chart integration -->
         <!--  <lib-donut-chart style ='flex-direction: row;
         display: flex;' id="donutchart" [data]="fileSummaries"> </lib-donut-chart> -->
-      </motif-card>
-    </div>
+<!--       </motif-card>
+    </div> -->
 
     <div class="motif-col-xs-9 motif-col-sm-9 motif-col-md-9 motif-col-lg-9 motif-col-xl-9">
       <motif-card class='donut-chart-card-tax'>
@@ -104,9 +105,9 @@
 
     <div class="mt-2" *ngIf="row.approvedBack === false && (!row.hasContent) || !permissionApproval">
       <svg class="gray-check" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="0.5" width="18" height="18" fill="#C4C4CD" />
-      </svg>
-    </div>
+        <rect y="0.5" width="18" height="18" fill="#C4C4CD"/>
+      </svg>      
+    </div>  
 
     <div class="margin-tooltip-v2 mt-2 actions-in-funds" *ngIf="row.assignedTo.length > 0 || row.approvedBack || permissions.validatePermission('Production Cycles', 'Add comments') || permissions.validatePermission('Production Cycles', 'Fund Approval')">
       <motif-tooltip class='cycle-detais-motif-tooltip' placement="bottom">
@@ -177,7 +178,6 @@
             <p class="text-tooltip">Unapprove Fund</p>
           </div>
         </div>
-
       </motif-tooltip>
     </div>
 
@@ -204,19 +204,15 @@
   <ng-template #urlDownload let-row>
     <div class="ml-4 grid-actions">
       <a class='btn-download-enabled' *ngIf="row.hasContent" (click)="getDownloadFile(row)">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
-          x="0px" y="0px" viewBox="0 0 480 480" xml:space="preserve">
-          <path d="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32 c-8.832,0-16,7.168-16,16v228.32l-62.88-55.104c-6.624-5.792-16.704-5.152-22.56,1.472l-21.088,23.968 c-5.856,6.656-5.184,16.8,1.472,22.624l126.528,110.752c6.048,5.28,15.04,5.28,21.088,0L377.056,237.28 C383.712,231.456,384.384,221.312,378.528,214.688z" />
-          <path d="M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32 C432,423.168,424.832,416,416,416z" />
-        </svg>
+        <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z" fill="#2E2E38"/>
+        </svg>          
       </a>
 
       <a class='btn-download-disabled' *ngIf="!row.hasContent">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
-          x="0px" y="0px" viewBox="0 0 480 480" xml:space="preserve">
-          <path d="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32 c-8.832,0-16,7.168-16,16v228.32l-62.88-55.104c-6.624-5.792-16.704-5.152-22.56,1.472l-21.088,23.968 c-5.856,6.656-5.184,16.8,1.472,22.624l126.528,110.752c6.048,5.28,15.04,5.28,21.088,0L377.056,237.28 C383.712,231.456,384.384,221.312,378.528,214.688z" />
-          <path d="M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32 C432,423.168,424.832,416,416,416z" />
-        </svg>
+        <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z" fill="#C4C4CD"/>
+        </svg>                    
       </a>
 
       <a class='btn-comment-enabled' (click)="createComment(row,'')"
@@ -289,7 +285,7 @@
   </ng-template>
 
   <ng-template #statusChangedToTemplate let-row>
-    <span *ngIf="row.status != 'In EY tax preparation'"class='status-changes'> {{row.lastUpdatedDate | date: 'MM/dd/yyyy'}} </span>
+    <span *ngIf="row.status != 'In EY tax preparation'"class='status-changes'> {{row.statusChangedDate | date: 'MM/dd/yyyy'}} </span>
     <span *ngIf="row.status == 'In EY tax preparation'" class='status-changes'> -- </span>
   </ng-template>
 

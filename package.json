@@ -16,6 +16,7 @@
     "eyc-charts-shared-library:package": "npm run eyc-charts-shared && npm run eyc-charts-shared-library:pack && npm run eyc-charts-shared-library:install",
     "eyc-data-managed-services": "ng build --prod eyc-data-managed-services",
     "eyc-tax-reporting": "ng build --prod eyc-tax-reporting",
+    "eyc-expensive-reporting": "ng build --prod eyc-expensive-reporting",
     "eyc-data-intake": "ng build --prod eyc-data-intake",
     "eyc-european-fund-reporting": "ng build --prod eyc-european-fund-reporting",
     "eyc-ui-serviceengine:package": "npm run eyc-charts-shared && npm run eyc-ui-shared && npm run buildWithLocalHref",

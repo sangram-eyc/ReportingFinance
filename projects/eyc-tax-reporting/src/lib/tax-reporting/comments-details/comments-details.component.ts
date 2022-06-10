@@ -41,6 +41,12 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   completedCommentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate')
   dateTemplate: TemplateRef<any>;
+  @ViewChild('fundTemplate')
+  fundTemplate: TemplateRef<any>;
+  @ViewChild('replyTemplate')
+  replyTemplate: TemplateRef<any>;
+  @ViewChild('tagsTemplate')
+  tagsTemplate: TemplateRef<any>;
   tooltipFunCall = false;
 
   //Total-comments-box
@@ -121,7 +127,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           }
         ]
       console.log(this.totalOpenedCommentsDetails)
-    })
+    });
   }
 
   backtoCycleView() {
@@ -181,7 +187,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         createdDate: item.createdDate,
         tags: item.tags,
         replyCount: item.replyCount,
-        assignedTo: item.assignedUsers == null ? [] : item.assignedUsers
+        assignedTo: item.assignedUsers == null ? [] : item.assignedUsers,
+        tagsToSearch: item.priority == 1 ? this.splitTags(item.tags, true): this.splitTags(item.tags, false)
       })
     });
     this.isToggleLeftDisabled()
@@ -203,12 +210,16 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.fundTemplate,
+        },
         headerName: 'Fund/entity workbook',
         field: 'entityName',
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 400,
+        width: 300,
         sort: 'asc'
       },
       {
@@ -236,7 +247,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
@@ -250,29 +261,49 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
         sort: 'asc'
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.replyTemplate,
+        },
         headerName: 'Replies',
         field: 'replyCount',
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 200,
+        width: 150,
+        sort: 'asc'
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.tagsTemplate,
+        },
+        headerName: 'Tags',
+        field: 'tagsToSearch',
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        width: 300,
         sort: 'asc'
       }
     ];
   }
 
   getTooltip() {
-   /*   const arrayTooltips = document.querySelectorAll(".motif-tooltip");
+    const arrayTooltips = document.querySelectorAll(".motif-tooltip");
     arrayTooltips.forEach((userItem) => {
       document.querySelector('.motif-pagination-select-wrapper').appendChild(userItem);
       window.scrollTo(0, window.scrollY + 1);
-      window.scrollTo(0, window.scrollY - 1);
-    }); */  
+      setTimeout(() => {
+        window.scrollTo(0, window.scrollY - 1);
+      }, 10);  
+    });   
   }
 
   showMyAssignedFunds() {
@@ -321,11 +352,11 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   openDialog(_idTaskComment): void {
     this.completedComments = [];
     this.commentService.getCommentExpandDetails(_idTaskComment).subscribe(resp => {
-      const item = resp['data'];
+      const item = resp['data'].taskResponse;
+      const _replies = resp['data'].repliesDetail;
         const comment: any = {
           id: item.id,
           entityId: item.entityId,
-          entityType: item.entityType,
           description: item.description,
           status: item.status,
           priority: item.priority,
@@ -336,13 +367,12 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           createdDate: item.createdDate,
           tags: item.tags,
           replyCount: item.replyCount,
-          attachmentsCount: (item.attachmentsCount == undefined || item.attachmentsCount == null) ? 0 : item.attachmentsCount,
           attachments:item.attachments,
           priorityToFind: item.priority == 1 ? "critical":"",
           tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
           tagIncludeTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 2) != undefined ? item.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "",
           authorTofind: item.author != null ? item.author.userFirstName + " " + item.author.userLastName : item.createdBy,
-          replies : item.replies
+          replies : _replies
         };
         this.commentDetails = comment;      
         const dialogRef = this.dialog.open(PanelRightCommentDetailsComponent, {
@@ -353,6 +383,11 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           position: { rowStart : '0' },
           animation: { to: 'left' }
         });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getCommentsList();
+        });
+
     })
   }
 

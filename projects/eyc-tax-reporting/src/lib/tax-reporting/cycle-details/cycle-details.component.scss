@@ -7,21 +7,6 @@
     box-shadow: none !important;
   }
 
- /*  .add-user-enabled{
-    svg{
-     width:24px; 
-     height:14px;  
-     fill:#155CB4
-    }
-  }
-  .add-user-disabled{
-    svg{
-      width:24px; 
-      height:14px;  
-      fill:#C4C4CD
-    }
-  }
- */
   #grid-wrapper {
     ::ng-deep {
       .ag-root-wrapper {
@@ -122,13 +107,7 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    // color: #2E2E38 !important;
-    // border: 0px;
   }
-
-  /* .save-submit:hover {
-    background-color: var(--btn-primary-bg-color);
-  } */
 
   button.motif-button.save-submit.dis-button:hover {
     background-color: var(--btn-primary-disabled-bg-color) !important;
@@ -142,9 +121,6 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-   /*  color: #2E2E38 !important;
-    border: 0.5px solid #2E2E38 !important; */
-
   }
 
   .dropdownTemplate-v2{
@@ -188,7 +164,6 @@
     position: relative; 
     z-index: 1; 
   }
-  
   .gray-check{
     height: 18px;
     width: 18px;
@@ -521,6 +496,7 @@ motif-icon.motif-icon.user-edit {
       enable-background:new 0 0 480 480;
       fill:black;
     }
+    margin-right: 12px;
   }
   .btn-download-disabled{
     svg{
@@ -528,6 +504,7 @@ motif-icon.motif-icon.user-edit {
       cursor:auto;
       enable-background:new 0 0 480 480;
     }
+    margin-right: 12px;
   }
   .btn-comment-enabled{
     svg{
@@ -724,8 +701,6 @@ button.close {
 
 }
 
-
-
 .production-cycle-summary-header {
   font-family: EYInterstate;
   font-size: 19px;
@@ -798,10 +773,6 @@ button.close {
   font-weight:600 !important;
 }
 
-/* .donut-chart-card-tax ::ng-deep .donut-summary{
-  margin-top:56px !important;
-} */
-
 .donut-chart-card-tax ::ng-deep .donut-summary .flexbox{
     display: flex;
     flex-direction: row-reverse;
@@ -865,6 +836,7 @@ button.close {
   width: 9.9px;
   height: 9.9px;
   border-radius: 50%;
+  margin-right: 5px;
 }
 
 .tax-legend-text {
@@ -876,7 +848,7 @@ button.close {
 
 .status-changes{
   font-size:12px !important;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 lib-donut-chart{

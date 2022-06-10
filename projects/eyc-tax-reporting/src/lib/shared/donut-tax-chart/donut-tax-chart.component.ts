@@ -67,15 +67,33 @@ export class DonutTaxChartComponent {
     const color: any = d3.scaleOrdinal().range(this._colors); // color code inject in radius
     const pie = d3.pie().value(d => d[1]);
     const data_ready = pie(data_map as any); // data inject into donut chart
+   
+    //Default empty donut chart
+    if(this.totalFilesNumber === 0){
+      const data_map_empty = [1].map((d, index) => [String.fromCharCode(asciiStart + index), d])
+      const colorEmpty: any = d3.scaleOrdinal().range(['#EAEAF2']); // color code inject in radius
+      const pieEmpty = d3.pie().value(d => d[1]);
+      const data_readyEmpty = pieEmpty(data_map_empty as any); // data inject into donut chart
+      svg.selectAll('background')
+      .data(data_readyEmpty)
+      .join('path')
+      .attr('d', d3.arc().innerRadius(this.innerRadius).outerRadius(radius) as any)
+      .attr('fill', d => colorEmpty(d.data[0]))
+      .attr("stroke", "#EAEAF2")
+      .style("stroke-width", "2px")
+    }
+    //End default empty donut chart
 
     // Configure SVG for donut chart
-    svg.selectAll('whatever')
+    if(this.totalFilesNumber > 0){
+      svg.selectAll('whatever')
       .data(data_ready)
       .join('path')
       .attr('d', d3.arc().innerRadius(this.innerRadius).outerRadius(radius) as any)
       .attr('fill', d => color(d.data[0]))
       .attr("stroke", "white")
       .style("stroke-width", "2px")
+    }
 
     // Add TotalFileNumber into middle of donut chart as per figma
     svg.append("text")
