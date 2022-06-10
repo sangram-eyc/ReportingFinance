@@ -5,8 +5,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent } from 'eyc-ui-shared-component';
-//import { GridComponent } from 'eyc-ui-shared-component';
-import { customComparator, rr_module_name } from '../../config/rr-config-helper';
+import { customComparator, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
@@ -31,6 +30,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   ) { }
 
   moduleOriginated = rr_module_name;
+  tabsData = tabsForRR;
   tabs;
   exportURL;
   exportHeaders;
@@ -85,7 +85,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   exceptionRowData = [];
   submitFunction;
   submitException;
-  submitTest;
   pageChangeFunc;
   currentPage = 0;
   totalRecords = 5;
@@ -182,20 +181,13 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   @ViewChild('resolveExceptionTemplate')
   resolveExceptionTemplate: TemplateRef<any>;
 
-
-
   ngOnInit(): void {
-
     this.submitEntities = this.onSubmitApproveFilingEntities.bind(this);
     this.submitException = this.onSubmitApproveExceptionReports.bind(this);
     this.unapproveExceptionReports = this.unApproveException.bind(this);
     this.unapproveFilingEntities = this.unApproveEntity.bind(this);
-    this.submitTest = this.onSubmitTest.bind(this);
     this.pageChangeFunc = this.onPageChange.bind(this);
-    console.log(this.filingDetails);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
-    //  this.getExceptionReports();
-
   }
 
   ngOnDestroy() {
@@ -217,19 +209,16 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
       this.totalRecords = res['totalRecords'];
-      console.log(this.exceptionData);
       if (resetData) {
         this.resetData();
       } else {
         const newColDefs = this.gridApi.getColumnDefs();
         this.exceptionDefs = [];
         this.exceptionDefs = newColDefs;
-        console.log('EXCEPTION DATA COL', this.exceptionData);
         this.exceptionRowData = [...this.exceptionData];
       }
     }, error => {
       this.exceptionData = [];
-      console.log("Client Review error");
     });
 
   }
@@ -249,10 +238,8 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         this.columnDefs = newColDefs;
         this.filingEntityRowData = [...this.rowData];
       }
-      console.log('FILING ENTITIES', res['data']);
     }, error => {
       this.rowData = [];
-      console.log("FILING ENTITIES API error");
     });
   }
 
@@ -279,20 +266,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: false,
           pinned: 'left'
         },
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   cellRendererFramework: MotifTableCellRendererComponent,
-        //   cellRendererParams: {
-        //     ngTemplate: this.actionButtonTemplate,
-        //   },
-        //   headerName: 'Action',
-        //   field: 'template',
-        //   minWidth: 70,
-        //   width: 70,
-        //   sortable: false,
-        //   cellClass: 'actions-button-cell',
-        //   pinned: 'left'
-        // },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'ID',
@@ -302,15 +275,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 140,
           comparator: this.disableComparator
         },
-        /* {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Entity Group',
-          field: 'entityGroup',
-          sortable: true,
-          filter: true,
-          sort:'asc',
-         comparator: customComparator
-        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -360,15 +324,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 210,
           comparator: this.disableComparator
         },
-        /* ,
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'My Tasks',
-          field: 'myTasks',
-          sortable: true,
-          filter: true,
-          width: 140
-        } */,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -381,9 +336,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           filter: true,
           width: 155,
           comparator: this.disableComparator
-          //   cellClass: params => {
-          //     return params.value === '' ? '' :'comments-background';
-          // }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -488,24 +440,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           width: 210,
           comparator: this.disableComparator
         },
-        /* {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Review Level',
-          field: 'reviewLevel',
-          sortable: true,
-          filter: true,
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.myTasksExceptionTemplate,
-          },
-          headerName: 'My Tasks',
-          field: 'mytask',
-          sortable: true,
-          filter: true,
-        } */,
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -583,7 +517,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.filter = '';
     this.currentPage = 0;
     this.pageSize = DEFAULT_PAGE_SIZE;
-    console.log(this.filingDetails);
     if (this.tabs == 2) {
       this.filingEntityUnaprovedSelectedRows = [];
       this.filingEntityApprovedSelectedRows = [];
@@ -598,8 +531,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   receiveFilingDetails(event) {
-    console.log("receiveFilingDetails", event);
-
     this.filingDetails = event;
     if (this.tabs == 1) {
       this.modalMessage = 'Are you sure you want to approve the selected exception reports? This will advance them to the next reviewer.';
@@ -610,11 +541,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.getFilingEntities(true);
     }
 
-  }
-
-  onSubmitTest() {
-    console.log('This is being called from the shared grid component');
-    console.log(this);
   }
 
   onSubmitApproveFilingEntities() {
@@ -667,12 +593,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   currentPageChange(event) {
-    console.log('CURRENT PAGE CHANGE', event - 1);
     this.currentPage = event - 1;
   }
 
   updatePageSize(event) {
-    console.log('CURRENT PAGE SIZE', event);
     this.pageSize = event;
     this.exceptionEntitySwitch();
   }
@@ -689,7 +613,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   onSubmitApproveExceptionReports() {
-    console.log(this.exceptionReportToApproveSelectedRows);
     const filingDetails = this.filingDetails;
     let selectedFiling = {
       "exceptionReportIds": this.exceptionReportToApproveSelectedRows.map(({ exceptionId }) => exceptionId),
@@ -699,18 +622,10 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     };
     this.rrservice.approveAnswerExceptions(selectedFiling).subscribe(res => {
       res['data']['answerExceptions'].forEach(ele => {
-        console.log("resolveOrException count after approval >", ele.resolveOrException);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].approved = true;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].updateBy = ele.updatedBy;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolved = ele.resolved;
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].unresolved = ele.unresolved;
-        /* let selectedException = this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)];
-        if(selectedException.resolveOrException.indexOf("/") !== -1){ 
-          let exceptionVal = selectedException.resolveOrException.split("/");
-          let updatedExceptionVal = exceptionVal[1]+'/'+exceptionVal[1];
-          this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === ele.exceptionId)].resolveOrException = updatedExceptionVal;
-        } */
-
       });
       this.createEntitiesRowData();
       this.exceptionReportToApproveSelectedRows = [];
@@ -728,23 +643,15 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   exceptionReportRowsSelected(event) {
-    console.log(event);
-    //this.exceptionReportRows = event;
     this.selectedRows = event;
     this.exceptionReportToApproveSelectedRows = this.selectedRows.filter(item => item.approved === false)
     this.exceptionReportToUnaproveSelectedRows = this.selectedRows.filter(item => item.approved === true)
-    console.log(this.exceptionReportToApproveSelectedRows);
-    console.log(this.exceptionReportToUnaproveSelectedRows);
-
   }
 
   filingEnitiesRowsSelected(event) {
-    console.log(event);
     this.selectedRows = event;
     this.filingEntityApprovedSelectedRows = this.selectedRows.filter(item => item.approved === false);
     this.filingEntityUnaprovedSelectedRows = this.selectedRows.filter(item => item.approved === true);
-    console.log(this.filingEntityUnaprovedSelectedRows);
-    console.log(this.filingEntityApprovedSelectedRows);
   }
 
 
@@ -789,19 +696,15 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
       if (result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
@@ -846,24 +749,19 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
       if (result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
   onClickMyTask(event) {
-    console.log(event);
     if (event) {
       this.exceptionData = this.exceptionDataForFilter.filter(item => item.mytask == true);
     } else {
@@ -872,8 +770,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   openComments(row) {
-    console.log(row);
-      // this.commentsData = [];
      this.commentsName = this.filingDetails.filingName + ' // ' + this.filingDetails.period;
      if (this.tabs == 2) {
       this.commentEntityType = 'Filing Entity';
@@ -883,36 +779,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       this.entityId = row.exceptionId;
     }
     this.showComments = true;
-    console.log(this.entityId);
-    /*this.rrservice.getComments('filing', 2).subscribe(res => {
-      this.commentsData = res['data'];
-    },error=>{
-      this.commentsData =[];
-      console.log("Comments error");
-    }); */
-
   }
 
-  // actionMenuEnableforEntity(row) {
-  //   console.log('Reporting > unapprove > entity');
-  //   this.currentEntityReviewLevel = '';
-  //   this.selectedEntityId = row.entityId;
-  //   this.currentEntityReviewLevel = row.reviewLevel;
-  // setTimeout(() => {
-  //   this.actionMenuModalEnabled = true;
-  //   this.actionMenuModal = true;
-  // }, 1);
-  // }
-
-  // actionMenuEnableforException(row) {
-  //   console.log('Reporting > unapprove > exception');
-  //   this.selectedExceptionId = row.exceptionId;
-  //   setTimeout(() => {
-  //     this.actionMenuModalEnabled = true;
-  //     this.actionMenuModal = true;
-  //   }, 1);
-  // }
-
+ 
 
   unApproveEntity() {
 
@@ -1069,17 +938,12 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       }
       this.exportURL = this.settingsService.regReportingFiling.rr_exception_reports + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Reporting" + "&export=" + true + "&headers=" + this.exportHeaders + "&reportType=csv";
     }
-    console.log("export URL > ", this.exportURL);
-
     this.rrservice.exportRRData(this.exportURL).subscribe(resp => {
-      console.log(resp);
     })
 
   }
 
   onClickLastUpdatedByEntity(row) {
-    console.log(row);
-
     let auditObjectId = row.entityId;
     let auditObjectType = 'Filing Entity'
 
@@ -1140,8 +1004,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   onClickLastUpdatedByException(row) {
-    console.log(row);
-
     let auditObjectId = row.exceptionId;
     let auditObjectType = 'Exception Report'
 

@@ -45,13 +45,24 @@
                     "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
                     "description": "Comment two Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
                     "status": "OPEN",
-                    "priority": 0,
+                    "priority": 1,
                     "target": "CLIENT",
                     "company": "EY",
                     "author": null,
                     "createdBy": "anonymousUser",
                     "createdDate": "2021-10-21T12:02:30.43",
-                    "tags": [],
+                    "tags": [
+                        {
+                            "id": 1,
+                            "name": "Edit required",
+                            "description": "Indicates that deliverable files need to be updated"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Include in debrief",
+                            "description": "Indicates that deliverable files need to be included in the cycle debrief"
+                        }
+                    ],
                     "replyCount": 13,
                     "attachments": []
                 },
@@ -60,7 +71,7 @@
                     "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
                     "description": "This is a comment ",
                     "status": "ACCEPTED",
-                    "priority": 0,
+                    "priority": 1,
                     "target": "EY",
                     "company": "EY",
                     "author": {
@@ -154,6 +165,91 @@
                 ]
             },
             "tasks": null
+        },
+        {
+            "fundDTO": {
+                "id": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                "name": "7047 - T. Rowe Price Global Allocation Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 2,
+                "openCommentsClient": 0,
+                "totalComments": 2,
+                "assignedUsers": [
+                    {
+                        "userId": 9,
+                        "userEmail": "francisco.carmona.garcia@ey.com",
+                        "userFirstName": "Francisco",
+                        "userLastName": "Carmona Garcia"
+                    },
+                    {
+                        "userId": 7,
+                        "userEmail": "jonnathan.caballero@ey.com",
+                        "userFirstName": "Jonnathan",
+                        "userLastName": "Caballero"
+                    },
+                    {
+                        "userId": 3,
+                        "userEmail": "diego.garavito.henao@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Garavito Henao"
+                    },
+                    {
+                        "userId": 5,
+                        "userEmail": "diego.morini@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Morini"
+                    }
+                ]
+            },
+            "tasks": [
+                {
+                    "id": 1,
+                    "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                    "description": "Comment two Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+                    "status": "OPEN",
+                    "priority": 1,
+                    "target": "CLIENT",
+                    "company": "EY",
+                    "author": null,
+                    "createdBy": "anonymousUser",
+                    "createdDate": "2021-10-21T12:02:30.43",
+                    "tags": [
+                        {
+                            "id": 1,
+                            "name": "Edit required",
+                            "description": "Indicates that deliverable files need to be updated"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Include in debrief",
+                            "description": "Indicates that deliverable files need to be included in the cycle debrief"
+                        }
+                    ],
+                    "replyCount": 13,
+                    "attachments": []
+                },
+                {
+                    "id": 2,
+                    "entityId": "01KV7KIYDTCHO7VZYWPVAYVMCX5K5OT5IN",
+                    "description": "This is a comment ",
+                    "status": "ACCEPTED",
+                    "priority": 1,
+                    "target": "EY",
+                    "company": "EY",
+                    "author": {
+                        "userId": 7,
+                        "userEmail": "jonnathan.caballero@ey.com",
+                        "userFirstName": "Jonnathan",
+                        "userLastName": "Caballero"
+                    },
+                    "createdBy": "Jonnathan.Caballero@ey.com",
+                    "createdDate": "2021-10-22T03:33:07.23",
+                    "tags": [],
+                    "replyCount": 8,
+                    "attachments": []
+                }
+            ]
         }
     ],
     "error": null

@@ -27,7 +27,7 @@ export class ViewExceptionReportsService {
     return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.export_data_for_data_intake}`,exportData);
   }
 
-  getExceptionResults(exceptionRuleId) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_report_results}exceptionRuleId=${exceptionRuleId}`);
+  getExceptionResults(exceptionRuleId, ruleType, tableName, filename) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.view_exception_report_results}exceptionRuleId=${exceptionRuleId}&ruleType=${ruleType}&secondaryInternalFileName=${filename}&tableName=${tableName}&result_limit=${100}`);
   }
 }

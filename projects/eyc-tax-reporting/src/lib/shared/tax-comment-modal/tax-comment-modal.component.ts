@@ -54,8 +54,6 @@ export class TaxCommentModalComponent implements OnInit {
   }
   onClickYes() {
     if (this.modalDetails.type === "ConfirmationTextUpload") {
-
-      console.log('Form-->', this.modalForm);
        
       if(this.modalForm.get('edit').value){
         this.TagsToSend.push(1);
@@ -73,12 +71,7 @@ export class TaxCommentModalComponent implements OnInit {
         "tags": this.TagsToSend
       };
 
-      console.log('CommentObj-->', commentObj);
-      console.log('entityId-->', this.modalDetails.entityId);
       this.commentService.addTask(commentObj, this.modalDetails.entityId).subscribe(res => {
-        console.log("Result addTask-->",res);
-        console.log("id task", res['data']['id']);
-        console.log("filesList.length-->",this.filesList.length); 
         if (this.filesList.length) {
           const userEmail = sessionStorage.getItem('userEmail');
           let formData = new FormData();
@@ -88,11 +81,9 @@ export class TaxCommentModalComponent implements OnInit {
           formData.append('mode', "SYNC");
           formData.append('uploadedBy', userEmail);
           this.filesList.forEach(element => {
-            console.log('Arhivos -->', element);
             formData.append('files', element.file.rawFile);
           });
             this.commentService.uploadFile(formData).subscribe(uploadRes => {
-            console.log("uploadRes-->",uploadRes);
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton });
           }, uploadError => {
             console.log(uploadError);
@@ -113,7 +104,6 @@ export class TaxCommentModalComponent implements OnInit {
 
   uploadedFiles(emitiedFiles) {
     this.filesList = emitiedFiles;
-    console.log('Emiter files-->',this.filesList);
     this.modalForm.patchValue({
       files: this.filesList
     })

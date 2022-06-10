@@ -3,7 +3,7 @@
         <div id="{{gridHeadingCls}}" [ngClass]="gridStyle === 'first' ? 'first-heading' : 'second-heading'">
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
                 <div *ngIf="button" class="approve-button">
-                    <button motifButton color="primary" size="large" (click)="openDialog()"
+                    <button motifButton color="primary-alt" size="large" (click)="openDialog()"
                         [disabled]="selectedRows.length==0"><motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon>{{buttonText}}</button>
                 </div>
                 <div *ngIf="!button"></div>

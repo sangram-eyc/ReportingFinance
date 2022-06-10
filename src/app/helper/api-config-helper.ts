@@ -21,3 +21,8 @@ export const token_interceptor = {
 
 export const notifier_ws = environment.production ? 'wss://10.48.234.20/qa35/notifierAgentService/ws-notifier-agent-communication': 'https://127.0.0.1:8081/notifierAgentService/ws-notifier-agent-communication';
 
+export const app_concurrent_sessions = {
+    exit_ui_inactivity : environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout' : environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout',
+    delete_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout' : environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout',
+    add_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/login' : environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/login',
+  };
