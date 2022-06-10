@@ -14,6 +14,7 @@ import { MotifCardModule } from '@ey-xd/ng-motif';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EycRegulatoryReportingModule } from 'projects/eyc-regulatory-reporting/src/lib/eyc-regulatory-reporting.module';
 import {EycTaxReportingModule} from 'projects/eyc-tax-reporting/src/lib/eyc-tax-reporting.module';
+import {EycExpenseReportingModule} from 'projects/eyc-expense-reporting/src/lib/eyc-expense-reporting.module'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import {environment} from '../environments/eyc-regulatory-reporting/environment-rr-dev';
 import {TokenInterceptor} from './interceptor/token-interceptor';
@@ -65,6 +66,7 @@ import { CommonModule } from '@angular/common';
     NotificationModule,
     EycRegulatoryReportingModule,
     EycTaxReportingModule,
+    EycExpenseReportingModule,
     OAuthModule.forRoot(),
     MatDialogModule,
     EycUiSharedComponentModule,

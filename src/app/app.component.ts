@@ -41,8 +41,8 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   is_Sure_Foot = IS_SURE_FOOT;
   hide_home_page = HIDE_HOME_PAGE;
-  @ViewChild('notification', {static: false}) notificationCard: ElementRef;
-  @ViewChild('notificationicon', {static: false}) notificationIcon: ElementRef;
+  @ViewChild('notification', { static: false }) notificationCard: ElementRef;
+  @ViewChild('notificationicon', { static: false }) notificationIcon: ElementRef;
   permission = {
     isDataIntake: false,
     isTaxReporting: false,
@@ -237,7 +237,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.permission.isTaxReporting = this.moduleLevelPermission.checkPermission('Tax Reporting');
         this.permission.isDMS = this.moduleLevelPermission.checkPermission('Data Managed Services');
         this.permission.isEFR = this.moduleLevelPermission.checkPermission('European Fund Reporting');
-
       }, 100);
 
     });
@@ -249,22 +248,30 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       if (this.settingsService.isUserLoggedin()) {
         this.count++;
         if (this.count == 1) {
+          console.log('Run ngAfterViewInit', this.count);
           this.checkTimeOut();
           // for the warnings and notifications bulk download process of tax-reporting
           this.wsBulkService.connect().subscribe(resp => {
-              if (resp.trim() === 'Connection Established') {
-                this.openConectionBulkWs();
-              } else {
-                this.bulkDownloadWarnings(resp);
-              }
-            },
-            err => {
-              console.log('ws bulk error', err);
-            },
-            () => console.log('ws bulk complete'));
+            if (resp.trim() === 'Connection Established') {
+              this.openConectionBulkWs();
+            } else {
+              const objectFromWs = JSON.parse(resp);
+              const objectContent = JSON.parse(objectFromWs.request.content);
+              const notificationEventType = objectContent.extraParameters.notificationEventType;
+              if(notificationEventType === "ConcurrentSession"){
+                    this.closeConcurrentSession(resp);
+              }else{
+                    this.bulkDownloadWarnings(resp);
+              }             
+            }
+          },
+          err => {
+            console.log('ws bulk error', err);
+          },
+          () => console.log('ws bulk complete'));
         }
       }
-    }, 10);
+    }, 10); 
   }
 
   ngAfterContentChecked(): void {
@@ -338,7 +345,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     dialogConfirm.beforeClosed().subscribe(result => {
       if (result.button === 'Yes') {
         this.settingsService.logoff();
-        this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     });
   }
@@ -351,12 +358,12 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       } else {
         this.wsBulkService.closeConection();
         this.settingsService.logoff();
-        this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     } else {
       this.wsBulkService.closeConection();
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     }
   }
 
@@ -440,8 +447,9 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     });
   }
 
-  bulkDownloadWarnings(objectFromServer: string){
-    try{
+  bulkDownloadWarnings(objectFromServer: string) {
+    try {
+      console.log('Enter to bulkDownloadWarnings');
       const objectFromWs = JSON.parse(objectFromServer);
       const storedNotifications = sessionStorage.getItem('notifications');
       const notifications = storedNotifications ? JSON.parse(storedNotifications) : [];
@@ -454,18 +462,24 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       sessionStorage.setItem('isNotificationRead', 'false');
 
       const fails = Number(objectContent.extraParameters.fails);
-      if (fails > 0){
-         const fundsNames = objectContent.extraParameters.failsName;
-         this.openPendingDownloadsTaxModal('Error',
-         'Some of selected files had errors, so that can\'t be downloaded. Please reload the page and try again the missing file(s) from : ' + fundsNames + '.');
+      if (fails > 0) {
+        const fundsNames = objectContent.extraParameters.failsName;
+        this.openPendingDownloadsTaxModal('Error',
+          'Some of selected files had errors, so that can\'t be downloaded. Please reload the page and try again the missing file(s) from : ' + fundsNames + '.');
       }
-      if (sessionStorage.getItem('pendingDownloadsBulk') != null){
+      if (sessionStorage.getItem('pendingDownloadsBulk') != null) {
         const id = objectContent.extraParameters.downloadId;
         this.pendingDownloads = JSON.parse(sessionStorage.getItem('pendingDownloadsBulk'));
+        const startDownloading = this.pendingDownloads.find(element => element == id);
         this.pendingDownloadsNew = this.pendingDownloads.filter(item => item != id);
         sessionStorage.setItem('pendingDownloadsBulk', JSON.stringify(this.pendingDownloadsNew));
-      }
-    }catch (err){
+/*         if (startDownloading != undefined) {
+          if (url != '') {
+            window.open(url);
+          }
+        } */
+      } 
+    } catch (err) {
       console.log('bulkDownloadWarnings Error ->', err);
     }
   }
@@ -477,6 +491,17 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.wsBulkService.openConection(sessionStorage.getItem('userEmail'));
       }
     }, 100);
+  }
+
+  closeConcurrentSession(respFromWs:any){
+    const objectFromWs = JSON.parse(respFromWs);
+    const objectContent = JSON.parse(objectFromWs.request.content);
+    const session_id_ws = objectContent.extraParameters.notificationType;
+    const current_session_id = sessionStorage.getItem('session_id');
+    if(session_id_ws !== current_session_id){
+      this.settingsService.logoff();
+      this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
+    }
   }
 
   ngOnDestroy() {
