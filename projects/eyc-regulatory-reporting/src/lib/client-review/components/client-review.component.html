@@ -1,6 +1,7 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
-    [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-reporting-tabs-card>
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [tabsData]="tabsData"
+[dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-shared-tabs>
+
 <div class="review-content-container">
 
     <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
@@ -179,26 +180,6 @@
             </div>
         </ng-template>
 
-        <!-- <ng-template #actionButtonTemplate let-row>
-            <div class="actionButtonTemplate">
-                <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
-
-                <div #actionMenuTemp *ngIf='tabs==2'>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
-                            (click)="unApproveEntity()" class="action-mode">
-                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
-                            <span>Unapprove</span>
-                        </div>
-                    </motif-card>
-                </div>
-
-            </div>
-        </ng-template> -->
-
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Client Review', 'View Comments')"
                 class="comments-background" (click)="openComments(row)">
@@ -276,12 +257,9 @@
         </motif-toast>
     </section>
 </div>
-
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName"
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
     (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
-
-    
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>

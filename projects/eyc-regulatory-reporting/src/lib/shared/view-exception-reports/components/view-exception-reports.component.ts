@@ -132,7 +132,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getExceptionResults() {
-    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
+    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId, this.dataIntakeData.ruleType, this.dataIntakeData.tableName, this.dataIntakeData.filename).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
     });
@@ -503,7 +503,8 @@ export class ViewExceptionReportsComponent implements OnInit {
         "period": this.period,
         "stage": this.componentStage,
         "totalExceptions": this.exceptionCnt,
-        "titles": this.exportsHeader
+        "titles": this.exportsHeader,
+        "subHeader": "Exception_Reports"
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });

@@ -8,7 +8,7 @@ import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-sh
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
-import { rr_module_name } from '../../config/rr-config-helper';
+import { clientReviewStage, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-client-review',
@@ -24,6 +24,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   showComments = false;
   currentEntityReviewLevel;
   moduleOriginated = rr_module_name;
+  tabsData = tabsForRR;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -208,20 +209,17 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
       this.totalRecords = res['totalRecords'];
-      console.log(this.exceptionData);
       if (resetData) {
         this.resetData();
       } else {
         const newColDefs = this.gridApi.getColumnDefs();
         this.exceptionDefs = [];
         this.exceptionDefs = newColDefs;
-        console.log('EXCEPTION DATA COL', this.exceptionData);
         this.exceptionRowData = [...this.exceptionData];
       }
       
     },error=>{
       this.exceptionData =[];
-      console.log("Client Review error");
     });
 
   }
@@ -243,7 +241,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       }
     },error=>{
       this.rowData =[];
-      console.log("Client Review error");
     });
   }
 
@@ -343,15 +340,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           width: 210,
           comparator: this.disableComparator
         },
-         /*,
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'My Tasks',
-          field: 'myTasks',
-          sortable: true,
-          filter: true,
-          width: 140
-        }, */
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -530,12 +518,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   currentPageChange(event) {
-    console.log('CURRENT PAGE CHANGE', event - 1);
     this.currentPage = event - 1;
   }
 
   updatePageSize(event) {
-    console.log('CURRENT PAGE SIZE', event);
     this.pageSize = event;
     this.exceptionEntitySwitch();
   }
@@ -612,7 +598,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   onSubmitApproveExceptionReports() {
-    console.log(this.exceptionReportToApproveSelectedRows);
     const filingDetails = this.filingDetails;
     let selectedFiling = {
       "exceptionReportIds": this.exceptionReportToApproveSelectedRows.map(({ exceptionId }) => exceptionId),
@@ -646,18 +631,12 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.selectedRows = event;
     this.exceptionReportToApproveSelectedRows = this.selectedRows.filter(item => item.approved === false)
     this.exceptionReportToUnaproveSelectedRows = this.selectedRows.filter(item => item.approved === true)
-    console.log(this.exceptionReportToApproveSelectedRows);
-    console.log(this.exceptionReportToUnaproveSelectedRows);
-
   }
 
   filingEnitiesRowsSelected(event) {
-    console.log(event);
     this.selectedRows = event;
     this.filingEntityApprovedSelectedRows = this.selectedRows.filter(item => item.approved === false);
     this.filingEntityUnaprovedSelectedRows = this.selectedRows.filter(item => item.approved === true);
-    console.log(this.filingEntityUnaprovedSelectedRows);
-    console.log(this.filingEntityApprovedSelectedRows);
   }
 
   addComment(row) {
@@ -701,19 +680,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
@@ -758,24 +733,19 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
       if(result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
   onClickMyTask(event){
-    console.log(event);
     if(event){
       this.exceptionData = this.exceptionDataForFilter.filter(item => item.mytask ==true);
     } else {
@@ -797,7 +767,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
 actionMenuEnableforException(row) {
-  console.log('Client Review > unapprove > exception');
     this.selectedExceptionId = row.exceptionId;
   setTimeout(() => {
     this.actionMenuModalEnabled = true;
@@ -845,20 +814,12 @@ actionMenuEnableforException(row) {
   unApproveException(){
     this.selectedExceptionIds = [];
     this.selectedExceptionIds.push(this.selectedExceptionId);
-    // let selectedFiling = {
-    // "entityType": "Answer Exception Report",
-    // "entities":  this.selectedExceptionIds,
-    // "filingName": this.filingDetails.filingName,
-    // "period": this.filingDetails.period,
-    // "stage": "Client Review"
-    // };
-
     let selectedFiling = {
       "entityType": "Answer Exception Report",
       "entities":  this.exceptionReportToUnaproveSelectedRows.map(({ exceptionId }) => exceptionId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
-      "stage": "Client Review"
+      "stage": clientReviewStage
       };
 
     let tempRowData = this.exceptionData;
@@ -906,7 +867,6 @@ actionMenuEnableforException(row) {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if (result.button == 'Continue') {
         this.selectedExceptionIds = [];
         this.selectedExceptionIds.push(this.selectedExceptionId);
@@ -916,7 +876,7 @@ actionMenuEnableforException(row) {
         "entities":  this.selectedExceptionIds,
         "filingName": this.filingDetails.filingName,
         "period": this.filingDetails.period,
-        "stage": "Client Review"
+        "stage": clientReviewStage
         };
 
         let tempRowData = this.exceptionData;
@@ -959,12 +919,12 @@ actionMenuEnableforException(row) {
   
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
-    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: clientReviewStage }});
   }
 
   routeToFilingEntityExceptionPage(event:any) {
     this.filingService.setFilingEntityData = event;
-    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: clientReviewStage }});
   }
 
   @HostListener('document:click', ['$event'])
@@ -988,19 +948,16 @@ actionMenuEnableforException(row) {
       } else {
         this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,reviewLevel:Review Level,unresolved:Unresolved,resolved:Resolved,updateBy:Last Updated By';
       }
-      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
-    console.log("export URL > ", this.exportURL);
 
     this.service.exportCRData(this.exportURL).subscribe(resp => {
-      console.log(resp);
     })
     
   }
 
   onClickLastUpdatedByEntity(row) {
-    console.log(row);
-    
+ 
     let auditObjectId = row.entityId;
     let auditObjectType = 'Filing Entity'
 
@@ -1065,8 +1022,6 @@ actionMenuEnableforException(row) {
   }
 
   onClickLastUpdatedByException(row) {
-    console.log(row);
-    
     let auditObjectId = row.exceptionId;
     let auditObjectType = 'Exception Report'
     
