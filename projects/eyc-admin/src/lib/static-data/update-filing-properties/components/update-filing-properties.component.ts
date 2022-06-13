@@ -372,10 +372,14 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     return this.formBuilder.group({
       question: ['', [Validators.required, Validators.maxLength(100)]],
       reportID: ['', [Validators.required, Validators.maxLength(150)]],
-      dataSetIds: ['', [Validators.required, Validators.maxLength(150)]],
+      dataSetIds: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9,-]*$"), Validators.maxLength(8000)]],
     });
   }
 
+  checkDataSetIdPatternError(string){
+    const regPattern = /^[a-zA-Z0-9,-]*$/
+    return !regPattern.test(string)
+  }
   onSubmitNewQuestion() {
     const obj = this.addPBIReportForm.getRawValue();
     // const mappingData = {
