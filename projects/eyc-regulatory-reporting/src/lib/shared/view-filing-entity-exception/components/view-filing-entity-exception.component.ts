@@ -47,6 +47,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   commentsName: string;
   commentsCount: any;
   entityIdForComment: any;
+  permissionStage: any;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -65,6 +66,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
       this.componentStage = this.componentStage ? this.componentStage : sessionStorage.getItem("detailExcepStage");
+      this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
