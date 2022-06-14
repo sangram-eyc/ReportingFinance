@@ -372,12 +372,12 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     return this.formBuilder.group({
       question: ['', [Validators.required, Validators.maxLength(100)]],
       reportID: ['', [Validators.required, Validators.maxLength(150)]],
-      dataSetIds: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9,-]*$"), Validators.maxLength(8000)]],
+      dataSetIds: ['', [Validators.required,Validators.pattern("^[0-9a-zA-Z-]+(,[0-9a-zA-Z-]+)*$"), Validators.maxLength(8000)]],
     });
   }
 
   checkDataSetIdPatternError(string){
-    const regPattern = /^[a-zA-Z0-9,-]*$/
+    const regPattern = /^[0-9a-zA-Z-]+(,[0-9a-zA-Z-]+)*$/
     return !regPattern.test(string)
   }
   onSubmitNewQuestion() {
