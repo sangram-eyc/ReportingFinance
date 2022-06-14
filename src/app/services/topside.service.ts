@@ -13,15 +13,15 @@ export class TopsideService {
   ) {
   }
 
-  getLastTopside(report: string, name: string) {
-    return this.http.get(`${environment.SERVICE_URL}gatewayService/api/topsides/last?filingName=${name}&reportingType=${report}`);
+  getLastTopside(id: any) {
+    return this.http.get(`${environment.apiEndpoint}gatewayService/api/topsides/last?filingId=${id}`);
   }
 
-  startProcessing(report: string, name: string) {
-    return this.http.post(`${environment.SERVICE_URL}gatewayService/api/template?filingName=${name}&reportingType=${report}`, {});
+  startProcessing(report: string, name: string, id: any) {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template?filingId=${id}&filingName=${name}&period=${report}`, {});
   }
 
-  emailToRecipient() {
-    return this.http.get(`${environment.apiEndpoint}gatewayService/api/notification/config/preferences/email-to-recipient-id?email=${sessionStorage.getItem('userEmail')}`, {responseType: 'text'});
+  generateProcessing(report: string, name: string, id: any) {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template/generate?filingId=${id}&filingName=${name}&period=${report}`, {});
   }
 }

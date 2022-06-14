@@ -22,6 +22,7 @@ export class ReportingTabsCardComponent implements OnInit {
 
   showPopup: boolean;
   processingStatus = null;
+  generateInterval;
 
   constructor(
     private router: Router,
@@ -38,29 +39,43 @@ export class ReportingTabsCardComponent implements OnInit {
   }
 
   reportTabChange(selectedTab) {
+    console.log(selectedTab);
     if (selectedTab == 3) {
       this.showPopup = true;
-      this.topsideService.getLastTopside(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName).subscribe((res: any) => {
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
         this.processingStatus = res.processingStatus;
       });
     } else {
       this.showPopup = false;
     }
     this.tabIn = selectedTab;
-    this.messageEvent.emit(this.tabIn)
+    this.messageEvent.emit(this.tabIn);
   }
 
   startProcessing() {
-    this.topsideService.startProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName).subscribe(res => {
+    this.topsideService.startProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+      this.processingStatus = res.processingStatus;
     });
+    clearInterval(this.generateInterval);
     setInterval(() => {
-      this.topsideService.getLastTopside(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName).subscribe((res: any) => {
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
         this.processingStatus = res.processingStatus;
       });
-    }, 10000);
+    }, 20000);
+  }
+
+  generateProcessing() {
+    this.topsideService.generateProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+      this.processingStatus = res.processingStatus;
+    });
+    this.generateInterval = setInterval(() => {
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+        this.processingStatus = res.processingStatus;
+      });
+    }, 20000);
   }
 
   dataExplorer() {
-    this.router.navigate(['/data-explorer'])
+    this.router.navigate(['/data-explorer']);
   }
 }
