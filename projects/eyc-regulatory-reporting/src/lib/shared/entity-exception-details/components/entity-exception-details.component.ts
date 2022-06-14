@@ -48,6 +48,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
   entityId: any;
   showComments: boolean = false;
   exportsHeader: string;
+  permissionStage: any;
 
 
   constructor(
@@ -74,7 +75,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
       this.exceptionCnt = parseInt(this.filingService.getExceptionData?.Unresolved) + parseInt(this.filingService.getExceptionData?.Resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     } ; 
-    
+    this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
     this.answerExceptionTable = true;
     this.exceptionDetails = this.filingService.getExceptionData;
     this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
