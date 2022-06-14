@@ -75,10 +75,10 @@
     [uiPagination]="true">
   </lib-shared-grid>
     <ng-template #commentExceptionTemplate let-row>
-      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
+      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(permissionStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
           {{commentsCount[row.AuditResultObjectID]}}
       </div>
-      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'Add Comments') && !checkFilingCompletedStatus()">
+      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID] && permissions.validatePermission(permissionStage, 'Add Comments') && !checkFilingCompletedStatus()">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
         </div>
@@ -90,7 +90,7 @@
         </motif-icon> -->
 
         <div class="result_complete"
-        *ngIf="(row?.Status == 'Resolved') && permissions.validatePermission(componentStage, 'View Comments')">
+        *ngIf="(row?.Status == 'Resolved') && permissions.validatePermission(permissionStage, 'View Comments')">
             <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'" (click)="openComments(row)"></motif-icon>
         </div>
         <div class="result_warning" *ngIf="row?.Status == 'Unresolved' || row?.Status == '' ">
@@ -102,7 +102,7 @@
 
   <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [filingStatus]="checkFilingCompletedStatus()" 
-    [permissionToAddComment]="permissions.validatePermission(componentStage, 'Add Comments')"
+    [permissionToAddComment]="permissions.validatePermission(permissionStage, 'Add Comments')"
     (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
   
