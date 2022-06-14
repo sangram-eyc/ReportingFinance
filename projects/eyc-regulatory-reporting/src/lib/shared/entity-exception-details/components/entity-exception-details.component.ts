@@ -232,13 +232,13 @@ export class EntityExceptionDetailsComponent implements OnInit {
   }
 
   getResolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
       return true
     } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
   }
