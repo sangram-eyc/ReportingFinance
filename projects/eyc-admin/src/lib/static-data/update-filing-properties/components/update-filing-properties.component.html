@@ -246,9 +246,12 @@
       </div>
       <div class="editReportID" *ngIf="enableEditReportID">
         <motif-form-field>
-          <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 150)"/>
-          <motif-error *ngIf="row.dataSetIds?.length > 150">Report id can be max 150 characters
+          <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 8000)"/>
+          <motif-error *ngIf="row.dataSetIds?.length > 8000">Dataset id can be max 8000 characters
             long</motif-error>
+            <motif-error *ngIf="checkDataSetIdPatternError(row.dataSetIds)">Dataset id must contain only
+              characters
+            </motif-error>
         </motif-form-field>
       </div>
     </ng-template>
@@ -307,14 +310,17 @@
 
             <div class="motif-col-xs-4 motif-col-lg-12">
               <motif-form-field>
-                <label motifLabel class="select-label">Enter Dataset ID</label>
+                <label motifLabel class="select-label">Enter Dataset ID(s) (Comma seperated)</label>
                 <input motifInput type="text" [formControl]="addPBIReportForm.controls['dataSetIds']" />
                 <motif-error *ngIf="
                 addPBIReportForm.get('dataSetIds').hasError('required') &&
                 addPBIReportForm.get('dataSetIds').touched">Please provide a dataset id
                 </motif-error>
-                <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 150 characters
+                <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 8000 characters
                   long</motif-error>
+                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only
+                    characters
+                  </motif-error>
               </motif-form-field>
             </div>
 
