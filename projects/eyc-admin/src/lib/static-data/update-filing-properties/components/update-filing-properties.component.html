@@ -249,9 +249,7 @@
           <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 8000)"/>
           <motif-error *ngIf="row.dataSetIds?.length > 8000">Dataset id can be max 8000 characters
             long</motif-error>
-            <motif-error *ngIf="checkDataSetIdPatternError(row.dataSetIds)">Dataset id must contain only
-              characters
-            </motif-error>
+            <motif-error *ngIf="checkDataSetIdPatternError(row.dataSetIds)">Dataset id must contain only characters and hyphen, It can be comma separated</motif-error>
         </motif-form-field>
       </div>
     </ng-template>
@@ -318,9 +316,7 @@
                 </motif-error>
                 <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 8000 characters
                   long</motif-error>
-                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only
-                    characters
-                  </motif-error>
+                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only characters and hyphen, It can be comma separated</motif-error>
               </motif-form-field>
             </div>
 
