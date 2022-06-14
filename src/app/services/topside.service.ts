@@ -17,11 +17,11 @@ export class TopsideService {
     return this.http.get(`${environment.apiEndpoint}gatewayService/api/topsides/last?filingId=${id}`);
   }
 
-  startProcessing(report: string, name: string, id: any) {
-    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template?filingId=${id}&filingName=${name}&period=${report}`, {});
+  startProcessing(period: string, name: string, id: any) {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template?filingId=${id}&filingName=${name}&period=${period}`, {});
   }
 
-  generateProcessing(report: string, name: string, id: any) {
-    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template/generate?filingId=${id}&filingName=${name}&period=${report}`, {});
+  generateTemplate(period: string, name: string, id: any) {
+    return this.http.post(`${environment.apiEndpoint}gatewayService/api/template/generate?filingId=${id}&filingName=${name}&period=${period}`, {});
   }
 }

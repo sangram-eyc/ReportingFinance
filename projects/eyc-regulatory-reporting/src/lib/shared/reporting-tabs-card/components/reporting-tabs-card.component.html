@@ -50,10 +50,10 @@
           [disabled]="!this.permissions.validatePermission('Reporting', 'Topsides Start Processing')"
           class="btn-process">{{'Proceed'}}
   </button>
-  <button (click)="generateProcessing()" *ngIf="!processingStatus"
+  <button (click)="generateTemplate()" *ngIf="!processingStatus"
           class="btn-process">{{'Generate'}}
   </button>
-  <button (click)="generateProcessing()" *ngIf="processingStatus && processingStatus != 'READY_FOR_PROCESSING'"
+  <button *ngIf="processingStatus && processingStatus != 'READY_FOR_PROCESSING'"
           class="btn-process" [disabled]="true">{{processingStatus}}
   </button>
   <div class="other">

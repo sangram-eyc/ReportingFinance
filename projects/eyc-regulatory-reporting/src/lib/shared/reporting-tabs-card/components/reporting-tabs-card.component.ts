@@ -64,8 +64,8 @@ export class ReportingTabsCardComponent implements OnInit {
     }, 20000);
   }
 
-  generateProcessing() {
-    this.topsideService.generateProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+  generateTemplate() {
+    this.topsideService.generateTemplate(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
       this.processingStatus = res.processingStatus;
     });
     this.generateInterval = setInterval(() => {
