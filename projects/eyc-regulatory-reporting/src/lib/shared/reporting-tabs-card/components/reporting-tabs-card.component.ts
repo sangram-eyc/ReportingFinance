@@ -39,7 +39,6 @@ export class ReportingTabsCardComponent implements OnInit {
   }
 
   reportTabChange(selectedTab) {
-    console.log(selectedTab);
     if (selectedTab == 3) {
       this.showPopup = true;
       this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
