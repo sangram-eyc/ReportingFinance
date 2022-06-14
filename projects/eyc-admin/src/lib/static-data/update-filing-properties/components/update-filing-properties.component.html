@@ -318,9 +318,7 @@
                 </motif-error>
                 <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 8000 characters
                   long</motif-error>
-                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only
-                    characters
-                  </motif-error>
+                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only characters and hyphen, It can be comma separated</motif-error>
               </motif-form-field>
             </div>
 
