@@ -46,8 +46,15 @@
       overrides to the values
     </p>
   </div>
-  <button [disabled]="!this.permissions.validatePermission('Reporting', 'Topsides Start Processing')"
-          class="btn-process">Process
+  <button (click)="startProcessing()" *ngIf="processingStatus == 'READY_FOR_PROCESSING'"
+          [disabled]="!this.permissions.validatePermission('Reporting', 'Topsides Start Processing')"
+          class="btn-process">{{'Proceed'}}
+  </button>
+  <button (click)="generateTemplate()" *ngIf="!processingStatus"
+          class="btn-process">{{'Generate'}}
+  </button>
+  <button *ngIf="processingStatus && processingStatus != 'READY_FOR_PROCESSING'"
+          class="btn-process" [disabled]="true">{{processingStatus}}
   </button>
   <div class="other">
 
