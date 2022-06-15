@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {PermissionService} from 'eyc-ui-shared-component';
-// import {TopsideService} from "@default/services/topside.service";
 import {
   RegulatoryReportingFilingService
-} from "../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service";
+} from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import {TopsideService} from '../../../topsides/services/topside.service';
 
 @Component({
   selector: 'lib-reporting-tabs-card',
@@ -26,7 +26,7 @@ export class ReportingTabsCardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private topsideService: TopsideService,
+    private topsideService: TopsideService,
     private fillingService: RegulatoryReportingFilingService,
     public permissions: PermissionService,
   ) {
@@ -41,9 +41,9 @@ export class ReportingTabsCardComponent implements OnInit {
   reportTabChange(selectedTab) {
     if (selectedTab == 3) {
       this.showPopup = true;
-      // this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
-      //   this.processingStatus = res.processingStatus;
-      // });
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+        this.processingStatus = res.processingStatus;
+      });
     } else {
       this.showPopup = false;
     }
@@ -52,26 +52,26 @@ export class ReportingTabsCardComponent implements OnInit {
   }
 
   startProcessing() {
-    // this.topsideService.startProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
-    //   this.processingStatus = res.processingStatus;
-    // });
-    // clearInterval(this.generateInterval);
-    // setInterval(() => {
-    //   this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
-    //     this.processingStatus = res.processingStatus;
-    //   });
-    // }, 20000);
+    this.topsideService.startProcessing(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+      this.processingStatus = res.processingStatus;
+    });
+    clearInterval(this.generateInterval);
+    setInterval(() => {
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+        this.processingStatus = res.processingStatus;
+      });
+    }, 20000);
   }
 
   generateTemplate() {
-    // this.topsideService.generateTemplate(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
-    //   this.processingStatus = res.processingStatus;
-    // });
-    // this.generateInterval = setInterval(() => {
-    //   this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
-    //     this.processingStatus = res.processingStatus;
-    //   });
-    // }, 20000);
+    this.topsideService.generateTemplate(this.fillingService.getFilingData.period, this.fillingService.getFilingData.filingName, this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+      this.processingStatus = res.processingStatus;
+    });
+    this.generateInterval = setInterval(() => {
+      this.topsideService.getLastTopside(this.fillingService.getFilingData.filingId).subscribe((res: any) => {
+        this.processingStatus = res.processingStatus;
+      });
+    }, 20000);
   }
 
   dataExplorer() {
