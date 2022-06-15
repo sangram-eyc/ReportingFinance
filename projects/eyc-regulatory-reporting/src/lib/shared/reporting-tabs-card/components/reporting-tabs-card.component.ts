@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {PermissionService} from 'eyc-ui-shared-component';
-import {TopsideService} from "@default/services/topside.service";
 import {
   RegulatoryReportingFilingService
-} from "../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service";
+} from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import {TopsideService} from '../../../topsides/services/topside.service';
 
 @Component({
   selector: 'lib-reporting-tabs-card',
