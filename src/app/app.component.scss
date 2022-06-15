@@ -93,6 +93,9 @@
 .menu-sidenav-btm-options li:last-child {
   border-bottom: 0px;
 }
+.sidenav-item:focus {
+  box-shadow: none !important;
+}
 
 .menu-icons {
     display: flex;
@@ -462,7 +465,7 @@ ul#user-info {
 
 #sidenav {
   background-color: #2E2E38;
-  color: white;
+  color: #c4c4cd;
   width: 284px;
   height: 100%;
   min-height: 100vh;
@@ -489,12 +492,18 @@ ul#user-info {
     position: relative;
     ::ng-deep {
       svg {
-          fill: #DADADA;
+          fill: #c4c4cd;
       }
     }
     &:hover {
-      background-color: #23232F;
+      background-color: #1a1a24;
+      color: white;
       cursor: pointer;
+      ::ng-deep {
+        svg {
+            fill: white;
+        }
+      }
     }
     span {
       margin-left: 17px;
@@ -526,13 +535,20 @@ ul#user-info {
     }
   }
   .active {
-    background-color: #23232F;
+    // background-color: #23232F;#1a1a24
+    background-color: #1a1a24;
+    color: white;
     border-left: 5px solid #FFE600;
     padding-left: 9px;
-    font-weight: 700;
+    // font-weight: 700;
     .triangle-bottomright {
       border-bottom: 9px solid #FFE600;
       left: 41px;
+    }
+    ::ng-deep {
+      svg {
+          fill: white;
+      }
     }
   }
   .sidenav-submenu {
@@ -544,18 +560,31 @@ ul#user-info {
     .sidenav-item {
       padding-left: 43px;
       &:hover {
-        border-left: 5px solid #FFE600;
-        padding-left: 38px;
+        // border-left: 5px solid #FFE600;
+        background-color: #1a1a24;
+        color: white;
+        // padding-left: 38px;
       }
     }
     .active-submenu {
-      border-left: 5px solid #FFE600;
-      padding-left: 38px;
-      font-weight: 700;
+      // border-left: 5px solid #FFE600;
+      color: #FFE600;
+      background-color: #1a1a24;
+      // padding-left: 38px;
+      // font-weight: 700;
+      &:hover {
+      color: #FFE600 !important;
+      }
     }
   }
   .submenu-open {
-    background-color: #23232F;
+    background-color: #1a1a24;
+    color: white;
+    ::ng-deep {
+      svg {
+          fill: white;
+      }
+    }
   }
 }
 

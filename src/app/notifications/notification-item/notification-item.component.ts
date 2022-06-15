@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener} from '@angular/core';
+import {NotificationService} from '@default/services/notification.service';
 
 @Component({
   selector: 'app-notification-item',
@@ -15,7 +16,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
 
   public content: any;
 
-  constructor() {
+  constructor(private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -28,20 +29,26 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   expand(id): void {
+    this.notificationService.setMultipleAsRead(id).subscribe();
     this.expandNotification.emit(id);
   }
 
   delete(): void {
+    this.notificationService.deleteNotification(this.notification.engineId).subscribe(res => {
+
+    });
     this.deleteNotification.emit();
   }
 
   archive(): void {
+    this.notificationService.setAsArchived(this.notification.engineId).subscribe();
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.flagNotification.emit();
-    this.content.flagged = !this.content.flagged;
+    this.notificationService.setNotificationFlagged(this.notification.engineId, !this.content.flagged).subscribe(res => {
+      this.content.flagged = !this.content.flagged;
+    });
   }
 
   calculateNotificationTime(date) {
@@ -102,7 +109,7 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     // If we don't have an anchor tag, we don't need to do anything.
-    if (!(event.target instanceof HTMLAnchorElement)) {
+    if (event.target instanceof HTMLAnchorElement === false) {
       return;
     }
     // Prevent page from reloading
@@ -112,5 +119,4 @@ export class NotificationItemComponent implements OnInit, OnChanges {
     // Navigate to the path in the link
     window.open(target.href, '_self');
   }
-
 }

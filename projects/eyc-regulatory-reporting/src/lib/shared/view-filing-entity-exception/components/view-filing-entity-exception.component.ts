@@ -15,7 +15,7 @@ import { ModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
   templateUrl: './view-filing-entity-exception.component.html',
   styleUrls: ['./view-filing-entity-exception.component.scss']
 })
-export class ViewFilingEntityExceptionComponent implements OnInit {
+export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
 
   dueDate
   filingId;
@@ -47,6 +47,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   commentsName: string;
   commentsCount: any;
   entityIdForComment: any;
+  permissionStage: any;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -64,6 +65,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
+      this.componentStage = this.componentStage ? this.componentStage : sessionStorage.getItem("detailExcepStage");
+      this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
@@ -82,7 +85,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   getAnswerExceptionReports() {
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
-      this.exceptionAnswersData =  res.data['entityExceptionMap'];
+      this.exceptionAnswersData =  res.data['exceptionResultJason'];
       if (this.exceptionAnswersData) {
         this.createEntitiesRowData();
       } else {
@@ -189,7 +192,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'AuditFilingID:Audit Filing ID, Audit:Exception Report Name, Unresolved:Unresolved,Resolved:Resolved';
+    this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
     this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
     
     });
@@ -211,7 +214,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.AuditFilingID,
+        entityId: row.AuditFilingID ? row.AuditFilingID : null,
         entityType: "Answer Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
@@ -268,6 +271,10 @@ export class ViewFilingEntityExceptionComponent implements OnInit {
 
   commentAdded() {
     this.getAnswerExceptionReports();
+  }
+
+  ngOnDestroy(){
+    sessionStorage.removeItem("detailExcepStage");
   }
 
 }

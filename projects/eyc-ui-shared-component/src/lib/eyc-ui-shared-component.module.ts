@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ModalModule } from './modal/modal.module';
-import { MotifButtonModule, MotifIconModule } from '@ey-xd/ng-motif';
+import { MotifButtonModule, MotifIconModule, MotifTabBarModule } from '@ey-xd/ng-motif';
 import { UploadModule } from './upload/upload.module';
 import { DownloadModule } from './download/download.module';
 // import { UploadComponent } from './upload/components/upload.component';
@@ -14,12 +14,14 @@ import { CommentSideMenuModule } from './comment-side-menu/comment-side-menu.mod
 import {PanelRightCommentDetailsModule} from './panel-right-comment-details/panel-right-comment-details.module'
 import {CommentDetailsPrModule} from './comment-details-pr/comment-details-pr.module'
 import { AuditLogModule } from './audit-log/audit-log.module';
+import { SharedTabsComponent } from './tabs/component/shared-tabs.component';
 
 @NgModule({
-  declarations: [TableHeaderRendererComponent],
+  declarations: [TableHeaderRendererComponent, SharedTabsComponent],
   imports: [
     ModalModule,
     MotifButtonModule,
+    MotifTabBarModule,
     UploadModule,
     DownloadModule,
     EycPowerbiModule,
@@ -36,6 +38,7 @@ import { AuditLogModule } from './audit-log/audit-log.module';
   exports: [
     ModalModule,
     UploadModule,
+    MotifTabBarModule,
     DownloadModule,
     EycPowerbiModule,
     GridModule,
@@ -44,7 +47,8 @@ import { AuditLogModule } from './audit-log/audit-log.module';
     TableHeaderRendererComponent,
     PanelRightCommentDetailsModule,
     CommentDetailsPrModule,
-    AuditLogModule
+    AuditLogModule,
+    SharedTabsComponent
   ]
 })
 export class EycUiSharedComponentModule { }

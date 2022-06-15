@@ -51,6 +51,10 @@
       "eyc-charts-shared-library/*": [
         "projects/eyc-charts-shared-library/src/lib/*"
       ],
+      "eyc-expense-reporting": [
+        "dist/eyc-expense-reporting/eyc-expense-reporting",
+        "dist/eyc-expense-reporting"
+      ],
       "eyc-admin": [
         "dist/eyc-admin/eyc-admin",
         "dist/eyc-admin",

@@ -48,6 +48,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
   entityId: any;
   showComments: boolean = false;
   exportsHeader: string;
+  permissionStage: any;
 
 
   constructor(
@@ -74,12 +75,13 @@ export class EntityExceptionDetailsComponent implements OnInit {
       this.exceptionCnt = parseInt(this.filingService.getExceptionData?.Unresolved) + parseInt(this.filingService.getExceptionData?.Resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     } ; 
-    
+    this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
     this.answerExceptionTable = true;
     this.exceptionDetails = this.filingService.getExceptionData;
     this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     this.getAnswerExceptionReports();
     sessionStorage.setItem("exceptionV3Stage", this.componentStage);
+    sessionStorage.setItem("detailExcepStage",  this.componentStage);
   }
 
   sortByUnresolvedException(){
@@ -230,13 +232,13 @@ export class EntityExceptionDetailsComponent implements OnInit {
   }
 
   getResolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
       return true
     } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
   }
@@ -414,7 +416,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
       }
     }
 
-    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
+    if(this.permissions.validatePermission(this.permissionStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
     if(this.componentStage != null && this.componentStage != undefined) {
@@ -427,7 +429,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
         "period": this.period,
         "stage": this.componentStage,
         "totalExceptions": this.exceptionCnt,
-        "titles": this.exportsHeader
+        "titles": this.exportsHeader,
+        "subHeader": "Filing_Entities"
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });

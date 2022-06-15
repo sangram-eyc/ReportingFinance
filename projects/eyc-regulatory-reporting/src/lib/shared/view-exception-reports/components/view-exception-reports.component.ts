@@ -57,6 +57,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   actionResolvedTemplate: TemplateRef<any>;
   componentStage;
   filingDetails;
+  permissionStage: any;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
@@ -108,6 +109,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.getAnswerExceptionReports();
       this.answerExceptionTable = true;
     }
+    this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
   }
 
   sortByUnresolvedException(){
@@ -132,7 +134,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getExceptionResults() {
-    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId).subscribe(res => {
+    this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId, this.dataIntakeData.ruleType, this.dataIntakeData.tableName, this.dataIntakeData.filename).subscribe(res => {
       this.exceptionAnswersData = res.data;
       this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
     });
@@ -301,13 +303,13 @@ export class ViewExceptionReportsComponent implements OnInit {
   onClickMyTask(e) { }
 
   getResolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
       return true
     } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
   }
@@ -491,7 +493,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
     }
 
-    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
+    if(this.permissions.validatePermission(this.permissionStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
     if(this.componentStage != null && this.componentStage != undefined) {
@@ -503,7 +505,8 @@ export class ViewExceptionReportsComponent implements OnInit {
         "period": this.period,
         "stage": this.componentStage,
         "totalExceptions": this.exceptionCnt,
-        "titles": this.exportsHeader
+        "titles": this.exportsHeader,
+        "subHeader": "Exception_Reports"
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });
