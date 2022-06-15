@@ -147,7 +147,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
   }
 
   public noWhitespaceValidator(control: FormControl) {
-    if (control.value && control.value.length === 0) {
+    if (control.value.length === 0) {
       return false;
     } else {
       const isWhitespace = (control.value || '').trim().length === 0;
