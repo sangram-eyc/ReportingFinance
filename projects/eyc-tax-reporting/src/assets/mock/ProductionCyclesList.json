@@ -36,19 +36,19 @@
             "id": "01KV7KIYHWSXPAXR2E7FEY4FWXL22DFCX2",
             "statusTracker": null,
             "fundCount": {
-                "fundTotalCount":15,
+                "fundTotalCount":149,
                 "fundCountByStatus": [
                     {
                         "statusName": "in EY tax preparation",
-                        "fundCount": 5
+                        "fundCount": 39
                     },
                     {
                         "statusName": "in client review",
-                        "fundCount": 5
+                        "fundCount": 104
                     },
                     {
                         "statusName": "Approved by client",
-                        "fundCount": 5
+                        "fundCount": 6
                     }
                 ]
             }
