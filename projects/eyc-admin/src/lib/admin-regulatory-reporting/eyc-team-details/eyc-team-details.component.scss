@@ -385,3 +385,71 @@ button.motif-active.motif-text-link, button.motif-text-link {
   }
 }
 
+::ng-deep .circle-div{
+  height: 25px;
+  width: 25px;
+  background-color: #EAEAF2;
+  position: relative;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: inherit;
+}
+
+::ng-deep .circle-div svg{
+  fill: rgb(116, 116, 128);
+}
+
+.dots-menu-horiz{
+  border-color: transparent !important;
+}
+
+::ng-deep .circle-div .edit-pencil-icon svg{
+  fill: #2E2E38;
+}
+
+ ::ng-deep .circle-div .motif-dropdown-item {
+  height: 3.7rem;
+  font-weight: 500;
+  .motif-icon-content svg{
+    height: 24px !important;
+    width: 24px !important;
+    margin-top: 3px;
+    margin-right: 3px;
+  }
+} 
+
+::ng-deep .button-save-team-details{
+  background-color: var(--btn-link-bg-color);
+  border-color: var(--btn-link-border-color);
+  color: #155cb4;
+  font-weight: var(--weight-bold);
+  width: auto;
+}
+
+::ng-deep .dis-button-team-details{
+  color: #747480;
+}
+
+.edit-form-team-details{
+  display: flex;
+  position: absolute;
+  left: 240px;
+  margin-top: 10px;
+}
+
+.team-details-h3{
+  margin-right: 11px;
+}
+
+::ng-deep .circle-div .motif-dropdown-menu{
+  border: transparent;
+}
+
+::ng-deep .circle-div .motif-dropdown-menu[x-placement^=bottom-left]:before, .motif-dropdown-menu[x-placement^=bottom-right]:before {
+  border-top: transparent;
+  border-right: transparent;
+}
+
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -17,7 +17,7 @@ import * as commonConstants from '../../shared/common-contstants'
   templateUrl: './eyc-team-details.component.html',
   styleUrls: ['./eyc-team-details.component.scss']
 })
-export class EycTeamDetailsComponent implements OnInit {
+export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   exportHeaders;
   exportUrl: string;
@@ -107,6 +107,13 @@ export class EycTeamDetailsComponent implements OnInit {
     this.addTeamMemberForm = this._createTeamMembers();
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const addMemberButton = document.querySelector('.approve-button .motif-button');
+      addMemberButton.setAttribute("color", "primary-alt");
+    }, 10); 
+  }
+
   getFilingAssignments() {
     if (this.module == 'Regulatory Reporting') {
       this.teamService.getFileType().subscribe(res => {
@@ -164,8 +171,8 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   enableEditForm() {
-    this.enableEditor = !this.enableEditor;
-    this.disableAddMemberButton = !this.disableAddMemberButton;
+    this.enableEditor = true;//!this.enableEditor;
+    this.disableAddMemberButton = false;//!this.disableAddMemberButton;
   }
 
   getUsersList() {
@@ -290,7 +297,7 @@ export class EycTeamDetailsComponent implements OnInit {
     const obj = this.editTeamForm.getRawValue();
     if (this.editTeamForm.valid) {
       this.enableEditor = !this.enableEditor;
-      this.disableAddMemberButton = !this.disableAddMemberButton;
+      this.disableAddMemberButton = false;//!this.disableAddMemberButton;
       let team;
       console.log(obj);
       

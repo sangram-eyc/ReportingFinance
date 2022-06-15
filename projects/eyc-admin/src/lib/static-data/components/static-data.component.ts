@@ -207,7 +207,7 @@ export class StaticDataComponent implements OnInit, OnChanges {
         formId: res['data'].formId,
         approved: res['data'].approved
       }
-      if(!this.activeFilings.some(ele => ele.filingName == staticDataObj.filingName))
+      if(!this.activeFilings.some(ele => ele.filingName.toLowerCase() == staticDataObj.filingName.toLowerCase()))
           this.activeFilings.push(staticDataObj);
       this.addFilingForm = this._createAddFiling();
       this.showToastAfterFilingAdded = !this.showToastAfterFilingAdded;
