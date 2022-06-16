@@ -344,7 +344,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         filter: true,
         wrapText: true,
         autoHeight: true,
-        width: 370,
+        width: 500,
         sort: 'asc',
         comparator: customComparator
       },
