@@ -12,6 +12,7 @@ export class ApiCatalogComponent implements OnInit {
 
   domains;
   show2:boolean=false;
+  modeselect;
   columnDefs: string[] = [
     'name',
     'nullable',
