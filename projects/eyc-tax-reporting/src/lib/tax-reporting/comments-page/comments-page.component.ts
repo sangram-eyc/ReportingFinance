@@ -56,7 +56,7 @@ export class CommentsPagecomponent implements OnInit {
       this.fundId = params.id
       this.type = params.type
       this.productCycleName = params.prodCycleName
-      this.isApproved = params.status === "approved";
+      this.isApproved = params.status === "Approved by client";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
       this.cycleId = params.cycleId;
       console.log('params -->', params);
