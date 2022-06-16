@@ -270,4 +270,2830 @@ export class DataManagedService {
   getApiBaseUrl(){
     return this.dataManagedSettingsService.dataManagedServices.base_Url;
   }
+
+  getApiCatalog(){
+return of({
+  "data":[{
+  "domain": "product",
+  "operations": [
+     {
+        "operation": "getSecurities",
+        "methodType": "POST",
+        "description": "get securities based on filter values. SecuritiesFilter is required.",
+        "request": {
+           "name": "securitiesFilter",
+           
+"parameters": [
+           {
+               "name": "first",
+               "description": "The cursor to continue, this is mandatory field.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Int",
+               "nullable": false
+           },
+           {
+               "name": "offset",
+               "description": "Number of records to continue after cursor.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Int",
+               "nullable": true
+           },
+           {
+               "name": "asOfDate",
+               "description": "As of Date, optional, if not provided latest batch date will be used.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Date",
+               "nullable": true
+           },
+           {
+               "name": "adminName",
+               "description": "Optional Admin Name, if not provided all admin names will be captured.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "String",
+               "nullable": true
+           },
+           {
+               "name": "X-API-KEY",
+               "description": "API KEY",
+               "parameterType": "Header",
+               "dataType": "String",
+               "nullable": false
+           },
+           {
+               "name": "X-CLIENT-ID",
+               "description": "CLIENT ID",
+               "parameterType": "Header",
+               "dataType": "String",
+               "nullable": false
+           }
+       ]
+ 
+           },
+        "response": {
+           "name": "SecuritiesResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "securities",
+                "type": [
+                    {
+                        "name": "ratings",
+                        "type": [
+                            {
+                                "name": "moodysRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "standardAndPoorsRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "fitchRating",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "securityClassification",
+                        "type": [
+                            {
+                                "name": "securityTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "securityDescription",
+                                "type": "String"
+                            },
+                            {
+                                "name": "contractMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "investmentTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issueUnitOfMeasure",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuePricingMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "alternativeIssueIdentifier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "assetGroup",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySyn",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssue",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssueDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "currencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "poolNumber",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "paymentFrequencyCodeFixedIncome",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayCountBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "sharesOutstanding",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "strikePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "underlyingSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "firstCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayOfMonthOverride",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponDayOfMonth",
+                        "type": "String"
+                    },
+                    {
+                        "name": "nextCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "businessDayConvention",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondCallaableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondPutableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amountIssued",
+                        "type": "String"
+                    },
+                    {
+                        "name": "demandFeatureIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionStartDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionEndDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionRatio",
+                        "type": "String"
+                    },
+                    {
+                        "name": "convertibleSecurityIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "delayDays",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cusip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "isin",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stockExchangeDailyOfficialList",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factorDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "resetDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redemptionDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amortizationMethod",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "productExchangeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "callPutIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "rule144aIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "alternativeMinimumTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "thirdPartyAdministratorClientIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "federalTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "payReceiveIndicatorSecurity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIssueIdentifiers",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySynonym",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponTypeDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "optionsMaturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityYield",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePriceQuote",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueTypeDescription",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getIssuers",
+        "methodType": "POST",
+        "description": "get issuers based on filter values. IssuersFilter is required.",
+        "request": {
+           "name": "issuersFilter",
+           
+"parameters": [
+            {
+                "name": "first",
+                "description": "The cursor to continue, this is mandatory field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": false
+            },
+            {
+                "name": "offset",
+                "description": "Number of records to continue after cursor.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": true
+            },
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "IssuersResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "issuers",
+                "type": [
+                    {
+                        "name": "primaryIssuerIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateParentIssuer",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfRisk",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "classification",
+                        "type": [
+                            {
+                                "name": "issuerIndustryGroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerGlobalIndustryClassificationSystemIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustrySubgroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSector",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSectorName",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemIndustryGroup",
+                                "type": "String"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getIssuer",
+        "methodType": "POST",
+        "description": "gets specific issuer(s) based on issuer filter. IssuerFilter is required.",
+        "request": {
+           "name": "issuerFilter",
+          
+"parameters": [
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "primaryIssuerIdentifier",
+                "description": "primaryIssuerIdentifier is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "IssuerDetails",
+           
+"response": [
+            {
+                "name": "issuers",
+                "type": [
+                    {
+                        "name": "primaryIssuerIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateParentIssuer",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfRisk",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "classification",
+                        "type": [
+                            {
+                                "name": "issuerIndustryGroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerGlobalIndustryClassificationSystemIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustrySubgroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSector",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSectorName",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemIndustryGroup",
+                                "type": "String"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getSecurity",
+        "methodType": "POST",
+        "description": "gets specific securities based on security filter. SecurityFilter is required.",
+        "request": {
+           "name": "securityFilter",
+           
+"parameters": [
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "primarySecurityIdentifier",
+                "description": "primarySecurityIdentifier is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "primarySecurityIdentifierType",
+                "description": "primarySecurityIdentifierType is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "SecurityDetails",
+          
+"response": [
+            {
+                "name": "securities",
+                "type": [
+                    {
+                        "name": "ratings",
+                        "type": [
+                            {
+                                "name": "moodysRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "standardAndPoorsRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "fitchRating",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "securityClassification",
+                        "type": [
+                            {
+                                "name": "securityTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "securityDescription",
+                                "type": "String"
+                            },
+                            {
+                                "name": "contractMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "investmentTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issueUnitOfMeasure",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuePricingMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "alternativeIssueIdentifier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "assetGroup",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySyn",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssue",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssueDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "currencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "poolNumber",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "paymentFrequencyCodeFixedIncome",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayCountBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "sharesOutstanding",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "strikePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "underlyingSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "firstCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayOfMonthOverride",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponDayOfMonth",
+                        "type": "String"
+                    },
+                    {
+                        "name": "nextCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "businessDayConvention",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondCallaableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondPutableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amountIssued",
+                        "type": "String"
+                    },
+                    {
+                        "name": "demandFeatureIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionStartDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionEndDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionRatio",
+                        "type": "String"
+                    },
+                    {
+                        "name": "convertibleSecurityIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "delayDays",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cusip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "isin",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stockExchangeDailyOfficialList",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factorDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "resetDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redemptionDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amortizationMethod",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "productExchangeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "callPutIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "rule144aIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "alternativeMinimumTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "thirdPartyAdministratorClientIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "federalTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "payReceiveIndicatorSecurity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIssueIdentifiers",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySynonym",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponTypeDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "optionsMaturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityYield",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePriceQuote",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueTypeDescription",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getCorporateActionDetails",
+        "methodType": "POST",
+        "description": "gets corporate action details for specific primary issuer identifier",
+        "request": {
+           "name": "corporateActionsFilter",
+          
+"parameters": [
+            {
+                "name": "first",
+                "description": "The cursor to continue, this is mandatory field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": false
+            },
+            {
+                "name": "offset",
+                "description": "Number of records to continue after cursor.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": true
+            },
+            {
+                "name": "primaryIssuerIdentifier",
+                "description": "primaryIssuerIdentifier is optional field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "correspondingPrimaryIssueIdentifier",
+                "description": "Corresponding Primary Issue Identifier is optional field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "from",
+                "description": "From date is a mandatory field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": false
+            },
+            {
+                "name": "to",
+                "description": "To date is a mandatory field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": false
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "CorporateActionsDetailsResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "corporateActions",
+                "type": [
+                    {
+                        "name": "fundIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "fundName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "investmentTypeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionAccountingDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionMonthEndAccountingDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "blockOrderIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cancelIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionAccountingBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "positionLongShortIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "positionQuantity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "lotIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "lotLevelPositionIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionUnits",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendExDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "foreignExchangeSpotRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingSystemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingTickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingPrimaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporationActionFinalPositionQuantity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingPostCorpActionEventPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "postCorpActionPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingCostLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingCostBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingIssueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionConversionFactor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "toIssueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "announcementDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendPayDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionCashConversionFactor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dateOfRecord",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ratioFromCorpActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ratioToCorpActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "mandatoryVoluntaryIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "receivableOrPayableAmountLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "receivableOrPayableAmountBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "fractionalSharesIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bookValueLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bookValueBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionCancelStatus",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateIdentifierClientSpecific",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionProcessingPriority",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionProcessingStatus",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionEventSequence",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     }
+  ]
+},
+{
+  "domain": "product2",
+  "operations": [
+     {
+        "operation": "getSecurities",
+        "methodType": "POST",
+        "description": "get securities based on filter values. SecuritiesFilter is required.",
+        "request": {
+           "name": "securitiesFilter",
+           
+"parameters": [
+           {
+               "name": "first",
+               "description": "The cursor to continue, this is mandatory field.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Int",
+               "nullable": false
+           },
+           {
+               "name": "offset",
+               "description": "Number of records to continue after cursor.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Int",
+               "nullable": true
+           },
+           {
+               "name": "asOfDate",
+               "description": "As of Date, optional, if not provided latest batch date will be used.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "Date",
+               "nullable": true
+           },
+           {
+               "name": "adminName",
+               "description": "Optional Admin Name, if not provided all admin names will be captured.",
+               "parameterType": "GraphQL Variable",
+               "dataType": "String",
+               "nullable": true
+           },
+           {
+               "name": "X-API-KEY",
+               "description": "API KEY",
+               "parameterType": "Header",
+               "dataType": "String",
+               "nullable": false
+           },
+           {
+               "name": "X-CLIENT-ID",
+               "description": "CLIENT ID",
+               "parameterType": "Header",
+               "dataType": "String",
+               "nullable": false
+           }
+       ]
+ 
+           },
+        "response": {
+           "name": "SecuritiesResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "securities",
+                "type": [
+                    {
+                        "name": "ratings",
+                        "type": [
+                            {
+                                "name": "moodysRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "standardAndPoorsRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "fitchRating",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "securityClassification",
+                        "type": [
+                            {
+                                "name": "securityTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "securityDescription",
+                                "type": "String"
+                            },
+                            {
+                                "name": "contractMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "investmentTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issueUnitOfMeasure",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuePricingMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "alternativeIssueIdentifier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "assetGroup",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySyn",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssue",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssueDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "currencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "poolNumber",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "paymentFrequencyCodeFixedIncome",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayCountBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "sharesOutstanding",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "strikePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "underlyingSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "firstCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayOfMonthOverride",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponDayOfMonth",
+                        "type": "String"
+                    },
+                    {
+                        "name": "nextCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "businessDayConvention",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondCallaableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondPutableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amountIssued",
+                        "type": "String"
+                    },
+                    {
+                        "name": "demandFeatureIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionStartDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionEndDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionRatio",
+                        "type": "String"
+                    },
+                    {
+                        "name": "convertibleSecurityIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "delayDays",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cusip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "isin",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stockExchangeDailyOfficialList",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factorDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "resetDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redemptionDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amortizationMethod",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "productExchangeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "callPutIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "rule144aIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "alternativeMinimumTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "thirdPartyAdministratorClientIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "federalTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "payReceiveIndicatorSecurity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIssueIdentifiers",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySynonym",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponTypeDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "optionsMaturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityYield",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePriceQuote",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueTypeDescription",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getIssuers",
+        "methodType": "POST",
+        "description": "get issuers based on filter values. IssuersFilter is required.",
+        "request": {
+           "name": "issuersFilter",
+           
+"parameters": [
+            {
+                "name": "first",
+                "description": "The cursor to continue, this is mandatory field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": false
+            },
+            {
+                "name": "offset",
+                "description": "Number of records to continue after cursor.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": true
+            },
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "IssuersResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "issuers",
+                "type": [
+                    {
+                        "name": "primaryIssuerIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateParentIssuer",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfRisk",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "classification",
+                        "type": [
+                            {
+                                "name": "issuerIndustryGroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerGlobalIndustryClassificationSystemIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustrySubgroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSector",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSectorName",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemIndustryGroup",
+                                "type": "String"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getIssuer",
+        "methodType": "POST",
+        "description": "gets specific issuer(s) based on issuer filter. IssuerFilter is required.",
+        "request": {
+           "name": "issuerFilter",
+          
+"parameters": [
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "primaryIssuerIdentifier",
+                "description": "primaryIssuerIdentifier is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "IssuerDetails",
+           
+"response": [
+            {
+                "name": "issuers",
+                "type": [
+                    {
+                        "name": "primaryIssuerIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateParentIssuer",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ultimateIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfRisk",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "classification",
+                        "type": [
+                            {
+                                "name": "issuerIndustryGroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerGlobalIndustryClassificationSystemIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustry",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuerIndustrySubgroup",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSector",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemSectorName",
+                                "type": "String"
+                            },
+                            {
+                                "name": "globalIndustryClassificationSystemIndustryGroup",
+                                "type": "String"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getSecurity",
+        "methodType": "POST",
+        "description": "gets specific securities based on security filter. SecurityFilter is required.",
+        "request": {
+           "name": "securityFilter",
+           
+"parameters": [
+            {
+                "name": "asOfDate",
+                "description": "As of Date, optional, if not provided latest batch date will be used.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": true
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "primarySecurityIdentifier",
+                "description": "primarySecurityIdentifier is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "primarySecurityIdentifierType",
+                "description": "primarySecurityIdentifierType is required field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "SecurityDetails",
+          
+"response": [
+            {
+                "name": "securities",
+                "type": [
+                    {
+                        "name": "ratings",
+                        "type": [
+                            {
+                                "name": "moodysRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "standardAndPoorsRating",
+                                "type": "String"
+                            },
+                            {
+                                "name": "fitchRating",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "securityClassification",
+                        "type": [
+                            {
+                                "name": "securityTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "securityDescription",
+                                "type": "String"
+                            },
+                            {
+                                "name": "contractMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "investmentTypeCode",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issueUnitOfMeasure",
+                                "type": "String"
+                            },
+                            {
+                                "name": "issuePricingMultiplier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "alternativeIssueIdentifier",
+                                "type": "String"
+                            },
+                            {
+                                "name": "assetGroup",
+                                "type": "String"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuerName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssueIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySyn",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssue",
+                        "type": "String"
+                    },
+                    {
+                        "name": "countryOfIssueDomicile",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "currencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityCurrency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "poolNumber",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "paymentFrequencyCodeFixedIncome",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayCountBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "sharesOutstanding",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "strikePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "underlyingSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "firstCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dayOfMonthOverride",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponDayOfMonth",
+                        "type": "String"
+                    },
+                    {
+                        "name": "nextCouponDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "businessDayConvention",
+                        "type": "String"
+                    },
+                    {
+                        "name": "maturityPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondCallaableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bondPutableIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amountIssued",
+                        "type": "String"
+                    },
+                    {
+                        "name": "demandFeatureIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionStartDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionEndDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "conversionRatio",
+                        "type": "String"
+                    },
+                    {
+                        "name": "convertibleSecurityIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "delayDays",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cusip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "isin",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stockExchangeDailyOfficialList",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "factorDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponFrequency",
+                        "type": "String"
+                    },
+                    {
+                        "name": "resetDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redemptionDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "amortizationMethod",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "productExchangeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "callPutIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "stateName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "rule144aIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "alternativeMinimumTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "thirdPartyAdministratorClientIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "federalTaxIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "redCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "payReceiveIndicatorSecurity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIssueIdentifiers",
+                        "type": "String"
+                    },
+                    {
+                        "name": "clientSecuritySynonym",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "couponTypeDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "optionsMaturityDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueCurrencyName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityYield",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issuePriceQuote",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "internalSecurityIdentifierType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "issueTypeDescription",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     },
+     {
+        "operation": "getCorporateActionDetails",
+        "methodType": "POST",
+        "description": "gets corporate action details for specific primary issuer identifier",
+        "request": {
+           "name": "corporateActionsFilter",
+          
+"parameters": [
+            {
+                "name": "first",
+                "description": "The cursor to continue, this is mandatory field.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": false
+            },
+            {
+                "name": "offset",
+                "description": "Number of records to continue after cursor.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Int",
+                "nullable": true
+            },
+            {
+                "name": "primaryIssuerIdentifier",
+                "description": "primaryIssuerIdentifier is optional field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "correspondingPrimaryIssueIdentifier",
+                "description": "Corresponding Primary Issue Identifier is optional field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "from",
+                "description": "From date is a mandatory field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": false
+            },
+            {
+                "name": "to",
+                "description": "To date is a mandatory field",
+                "parameterType": "GraphQL Variable",
+                "dataType": "Date",
+                "nullable": false
+            },
+            {
+                "name": "adminName",
+                "description": "Optional Admin Name, if not provided all admin names will be captured.",
+                "parameterType": "GraphQL Variable",
+                "dataType": "String",
+                "nullable": true
+            },
+            {
+                "name": "X-API-KEY",
+                "description": "API KEY",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            },
+            {
+                "name": "X-CLIENT-ID",
+                "description": "CLIENT ID",
+                "parameterType": "Header",
+                "dataType": "String",
+                "nullable": false
+            }
+        ]
+        },
+        "response": {
+           "name": "CorporateActionsDetailsResponse",
+          
+"response": [
+            {
+                "name": "rowCount",
+                "type": "Int"
+            },
+            {
+                "name": "pageInfo",
+                "type": [
+                    {
+                        "name": "hasPreviousPage",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "hasNextPage",
+                        "type": "Boolean"
+                    }
+                ]
+            },
+            {
+                "name": "corporateActions",
+                "type": [
+                    {
+                        "name": "fundIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "fundName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "systemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "investmentTypeCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "primaryIssuerIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "securityDescription",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionAccountingDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionMonthEndAccountingDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "blockOrderIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cancelIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionAccountingBasis",
+                        "type": "String"
+                    },
+                    {
+                        "name": "positionLongShortIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "positionQuantity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "lotIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "lotLevelPositionIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionType",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionUnits",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendExDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "foreignExchangeSpotRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingSystemIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingTickerSymbol",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingPrimaryIssueIdentifier",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporationActionFinalPositionQuantity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingPostCorpActionEventPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "postCorpActionPrice",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingCostLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingCostBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "correspondingIssueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionConversionFactor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "toIssueName",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendRate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "announcementDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dividendPayDate",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionCashConversionFactor",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dateOfRecord",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ratioFromCorpActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ratioToCorpActionShares",
+                        "type": "String"
+                    },
+                    {
+                        "name": "mandatoryVoluntaryIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "receivableOrPayableAmountLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "receivableOrPayableAmountBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionCode",
+                        "type": "String"
+                    },
+                    {
+                        "name": "fractionalSharesIndicator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bookValueLocal",
+                        "type": "String"
+                    },
+                    {
+                        "name": "bookValueBase",
+                        "type": "String"
+                    },
+                    {
+                        "name": "transactionCancelStatus",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateIdentifierClientSpecific",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionProcessingPriority",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionProcessingStatus",
+                        "type": "String"
+                    },
+                    {
+                        "name": "corporateActionEventSequence",
+                        "type": "String"
+                    },
+                    {
+                        "name": "adminName",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+        }
+     }
+  ]
+}
+]
+}
+);
+    // return this.eycDataApiService.invokeGetAPI(`${this.dataManagedSettingsService.dataManagedServices.api_catalog}`);
+  }
 }

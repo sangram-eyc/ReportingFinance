@@ -29,23 +29,18 @@
 </div>
 
 <div style="min-height: 50vh;">
-    <div *ngFor="let domain of temp_domains?.slice(startFrom, startFrom + showRules) ">
-        <motif-accordion [class.hidden]="!find_present(domain.APIs[0].FAST_FILTERS)">
-            <motif-accordion-header class="outer-layer"
-                (click)="fetch_domain_details(domain.DOMAIN_NAME, domain.API_TYP, $event)">
-                {{domain.DOMAIN_NAME}}
+    <div *ngFor="let domain of domains; let i = index">
+        <motif-accordion>
+            <motif-accordion-header class="outer-layer">
+                {{domain.domain}}
                 <div>
                     <button>
                         <span class="material-icons md-dark">list</span>
                         List Operations
                     </button>
-                    <!-- <button>
-                           <span class="material-icons-outlined">expand</span>
-                           Expand operations
-                       </button> -->
                 </div>
                 <div>
-                    <button (click)=expand_all($event)>
+                    <button>
                         <span class="material-icons-outlined">expand</span>
                         Expand all operations
                     </button>
@@ -53,11 +48,11 @@
             </motif-accordion-header>
 
             <motif-accordion-content>
-                <div class="spinner" *ngIf="domain.loading">
+                <!-- <div class="spinner" *ngIf="domain.loading">
                     <motif-progress-bar [progress]="100" [newProgressbar]="false" [circle]="true" [determinated]="false"
                         [showLabel]="false"></motif-progress-bar>
-                </div>
-                <div class="filters" *ngIf="!domain.loading">
+                </div> -->
+                <!-- <div class="filters" *ngIf="!domain.loading">
                     FAST FILTERS:
                     <button [class.unavailable]="!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'delete')"
                         [class.absent]="get_specific(domain.DOMAIN_NAME)?.delete"
@@ -75,40 +70,35 @@
                         [class.absent]="get_specific(domain.DOMAIN_NAME)?.put"
                         (click)="get_specific(domain.DOMAIN_NAME).put = !get_specific(domain.DOMAIN_NAME)?.put">Put
                     </button>
-                </div>
-                <motif-accordion *ngFor="let api of get_specific(domain.DOMAIN_NAME)?.api; let i = index"
-                    [class.hidden]="(api.type.toUpperCase() === 'GET' && get_specific(domain.DOMAIN_NAME).get)
-                                       || (api.type.toUpperCase() === 'POST' && get_specific(domain.DOMAIN_NAME).post)
-                                       || (api.type.toUpperCase() === 'PUT' && get_specific(domain.DOMAIN_NAME).put)
-                                       || (api.type.toUpperCase() === 'DELETE' && get_specific(domain.DOMAIN_NAME).delete)"
-                    (click)="fetch_schema(api, domain)">
+                </div> -->
+                
+                <motif-accordion *ngFor="let api of domain.operations; let j = index">
                     <motif-accordion-header>
-                        <div [class.get]="api.type.toUpperCase() === 'GET'"
-                            [class.post]="api.type.toUpperCase() === 'POST'"
-                            [class.put]="api.type.toUpperCase() === 'PUT'"
-                            [class.delete]="api.type.toUpperCase() === 'DELETE'">{{api.type}}</div>
+                        <div [class.get]="api.methodType.toUpperCase() === 'GET'"
+                            [class.post]="api.methodType.toUpperCase() === 'POST'"
+                            [class.put]="api.methodType.toUpperCase() === 'PUT'"
+                            [class.delete]="api.methodType.toUpperCase() === 'DELETE'">{{api.methodType}}</div>
 
                         &nbsp;&nbsp;
 
                         <motif-icon id="arrow" [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'">
                         </motif-icon>
-                        {{domain.API_TYP === 'graphQL' ? '/'+domain.DOMAIN_NAME.toLowerCase()+'/graphql' :
-                        api.path.substring(api.path.lastIndexOf("/"))}} &nbsp;&nbsp;
+                        &nbsp;&nbsp;
                         <motif-tooltip class="motif-tooltipdisplay" placement="bottom">
-                            <span motifTooltipTrigger>{{api.summary?.length > 100 ? (api.summary | slice:0:100) + '..' :
-                                api.summary}}</span>
-                            {{api.summary}}
+                            <span motifTooltipTrigger>{{api.description?.length > 100 ? (api.description | slice:0:100) + '..' :
+                                api.description}}</span>
+                            {{api.description}}
                         </motif-tooltip>
                     </motif-accordion-header>
 
                     <motif-accordion-content>
                         <span>Parameters
-                            <button (click)="api.show2 = true; fetch_query_parameters(api, domain)">
+                            <button (click)="show2 = true">
                                 <mat-icon>remove_red_eye</mat-icon>
                                 See example
                             </button>
                         </span>
-                        <motif-modal [show]="api.show2" (close)="api.show2 = false" [slideout]="true">
+                        <motif-modal [show]="show2" (close)="show2 = false" [slideout]="true">
                             <motif-modal-header>Parameters example</motif-modal-header>
                             <motif-modal-body>
                                 <div id="response-type">
@@ -120,8 +110,7 @@
                                     </motif-form-field>
 
                                     <motif-tab-bar>
-                                        <button [class.focus]="tab == 0" motifButton class="motif-text-link"
-                                            (click)="fetch_query_parameters(api, domain)">Example value</button>
+                                        <button [class.focus]="tab == 0" motifButton class="motif-text-link">Example value</button>
                                         <button motifButton class="motif-text-link"
                                             (click)="fetch_model(api, domain)">Model</button>
                                     </motif-tab-bar>
@@ -134,19 +123,19 @@
                                     </div>
 
                                     <div id="code">
-                                        <pre *ngIf="modal_content[domain.DOMAIN_NAME] !== '' && modal_content[domain.DOMAIN_NAME] !== undefined"
-                                            [innerHTML]="modal_content[domain.DOMAIN_NAME] | prettyjson"></pre>
+                                        <pre *ngIf="domain.domain !== '' && domain.domain !== undefined"
+                                            [innerHTML]="domain.domain | prettyjson"></pre>
                                     </div>
                                 </div>
                             </motif-modal-body>
                             <motif-modal-footer>
                                 <button motifButton color="secondary"
-                                    (click)="api.show2 = false; tab = tab + 1">Close</button>
+                                    (click)="show2 = false; tab = tab + 1">Close</button>
                             </motif-modal-footer>
                         </motif-modal>
 
                         <div class="parameter-table" style="width: 100%; position: relative; top: 20px;">
-                            <table mat-table [dataSource]="api.parameters">
+                            <table mat-table [dataSource]="api.request.parameters">
                                 <tr mat-header-row *matHeaderRowDef="columnDefs; sticky: true"></tr>
                                 <tr mat-row *matRowDef="let row; columns: columnDefs;"></tr>
                                 <ng-container *ngFor="let column of columnDefs">
@@ -164,7 +153,7 @@
                         <span>Response Code</span>
 
                         <div class="parameter-table" style="width: 100%; position: relative; top: 20px;">
-                            <table mat-table [dataSource]="api.responses">
+                            <table mat-table [dataSource]="responsesTyps">
                                 <ng-container matColumnDef="key">
                                     <th mat-header-cell *matHeaderCellDef> Key </th>
                                     <td mat-cell *matCellDef="let element"> {{element.key}} </td>
@@ -176,7 +165,7 @@
                                             <div id="success_code" fxLayout="column" fxLayoutAlign="space-around start">
                                                 {{element.description}}
                                                 <pre *ngIf="element.key == '200'"
-                                                    [innerHTML]="modal_content[domain.DOMAIN_NAME] | prettyjson"></pre>
+                                                    [innerHTML]="api.response.response | prettyjson"></pre>
                                             </div>
                                         </div>
                                     </td>
@@ -193,7 +182,7 @@
     </div>
 </div>
 
-<div class="paginator">
+<!-- <div class="paginator">
     <span class="details">Showing {{startFrom + 1}} - {{startFrom + showRules > temp_domains?.length ?
         temp_domains?.length : startFrom + showRules}} of {{temp_domains?.length}}</span>
     <span class="details">Showing {{startFrom + 1}} - {{startFrom + showRules > get_filter(searchKey) ?
@@ -236,4 +225,4 @@
     </select>
 
     <span class="motif-pagination-select-label">per page</span>
-</div>
+</div> -->
