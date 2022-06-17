@@ -49,7 +49,7 @@
             <div class="motif-row">
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
-                  <label motifLabel>Team name (Required)</label>
+                  <label motifLabel>Team name (required)</label>
                   <input libRemoveSpaces motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" ngDefaultControl/>
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
