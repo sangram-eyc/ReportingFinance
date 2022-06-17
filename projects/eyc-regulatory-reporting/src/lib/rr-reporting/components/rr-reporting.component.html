@@ -33,14 +33,13 @@
             (updatePageSize)="updatePageSize($event)"
             [permissionToPrimaryButton]="false"
             [permissionToApproveButton]="this.permissions.validatePermission('Reporting', 'Exception Status Change Resolve')"
-            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0"
+            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
             [permissionToUnapproveButton] = "this.permissions.validatePermission('Reporting', 'Exception Unapprove')"
             [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
             [isHideCheckBox]="false"
             [customRowSelected]="true"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)" 
-            (toggleEventToParent)="onClickMyTask($event)"
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()"  
+            (toggleEventToParent)="onClickMyTask($event)" 
             [export] = "true"
             (exportFlagToParent)="exportData('exceptions')" [pagination]="exceptionRowData?.length>0 ? true : false" [paginationApi]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
         </lib-shared-grid>
