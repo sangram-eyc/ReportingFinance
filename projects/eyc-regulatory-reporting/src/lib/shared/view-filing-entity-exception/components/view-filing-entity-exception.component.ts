@@ -192,7 +192,11 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
+    if (this.permissions.validatePermission(this.permissionStage, 'View Comments')) {
+      this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
+    } else {
+      this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved';
+    }
     this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
     
     });
