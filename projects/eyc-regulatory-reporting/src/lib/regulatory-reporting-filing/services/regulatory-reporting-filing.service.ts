@@ -74,7 +74,8 @@ export class RegulatoryReportingFilingService {
   }
 
   checkFilingCompletedStatus(filingStages:any){
-    let statusArr = [...filingStages.status]
+    let statusArr = [...filingStages.status];
+    statusArr = statusArr?.sort((a, b) => parseFloat(a.displayOrder) - parseFloat(b.displayOrder));
     let lastStageIndex = statusArr.length-1;
     return filingStages.status[lastStageIndex].progress === 'COMPLETED' || filingStages.status[lastStageIndex].progress === 'Completed'
   }
