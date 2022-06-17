@@ -117,7 +117,8 @@ export class TaskCommentComponent implements OnInit {
     const commentObj = {
       "comment": escape(this.ReplayForm.get('comment').value),
       "entityId": this.idTask,
-      "entityType": "TASK",
+      "entityType": "Task",
+      "moduleOriginated": "Tax Reporting"
     };
 
     this.commentService.addComment(commentObj).subscribe(commentResponse => {
