@@ -5,13 +5,18 @@ import { Inject, Injectable } from '@angular/core';
 })
 export class SettingService {
 
-  constructor(@Inject('apiEndpoint') private apiEndpoint, @Inject('rrproduction') private rrproduction,
-  @Inject('taxapiEndpoint') private taxApiEndpoint, @Inject('taxProduction') private taxproduction) { }
+  constructor(@Inject('apiEndpoint') private apiEndpoint, 
+  @Inject('rrproduction') private rrproduction,
+  @Inject('taxapiEndpoint') private taxApiEndpoint, @Inject('taxProduction') private taxproduction,
+  @Inject('dataManagedProduction') private dataManagedProduction,
+  @Inject('dataManagedEndPoint') private dataManagedEndPoint,) { }
   public API_ENDPOINT = this.apiEndpoint.slice(-1) === "." ?
     this.apiEndpoint.substr(0, this.apiEndpoint.length - 1) : this.apiEndpoint;
   // public API_ENDPOINT = "https://10.48.234.20/qa32/"
   // private rrproduction = true;
   public production = this.rrproduction;
+  public dms_API_ENDPOINT=this.dataManagedEndPoint.slice(-1) === "." ?
+  this.dataManagedEndPoint.substr(0, this.dataManagedEndPoint.length - 1) : this.dataManagedEndPoint;
 
   get regReportingFiling(): any {
     const regulatory_Reporting = {
@@ -24,6 +29,13 @@ export class SettingService {
       bulk_upload: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload/comments/bulk' : this.API_ENDPOINT + 'gatewayService/api/v2/documentService/files/upload/comments/bulk',
     }
     return regulatory_Reporting;
+  }
+
+  get DMSFilling(): any {
+    const dataManagedServices = {
+      add_comment: this.dataManagedProduction ? this.dms_API_ENDPOINT + 'gatewayService/api/v2/commentary/comment' : this.dms_API_ENDPOINT + 'gatewayService/api/v2/commentary/comment',
+    }
+    return dataManagedServices
   }
 
   public TAX_API_ENDPOINT = this.taxApiEndpoint.slice(-1) === "." ?
