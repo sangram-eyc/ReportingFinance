@@ -117,12 +117,12 @@
         </div>
     </ng-template>
     <ng-template #commentTemplate let-row>
-        <div class="comments-background" (click)="openComments(row)" *ngIf="(row.comments!==0 || row.comments)">
+        <div class="comments-background" (click)="openComments(row); $event.stopPropagation ()" *ngIf="(row.comments!==0 || row.comments)">
             {{row.comments || 0}}
         </div>
         <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments)">
             <div class="add_icon">
-                <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row)"><span
+                <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addComment(row); $event.stopPropagation ()"><span
                         class="plus">+</span></motif-icon>
             </div>
         </div>

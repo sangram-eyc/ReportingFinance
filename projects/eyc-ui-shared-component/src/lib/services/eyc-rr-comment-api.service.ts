@@ -12,9 +12,8 @@ moduleOrigin="Data Managed Services";
   ) { }
 
   addComment(data) {
-    debugger;
     if(data.moduleOriginated?.replace(/\s/g, '') === this.moduleOrigin.replace(/\s/g, '')){
-    return this.apiService.invokePostAPI(`${this.settingsService.DMSFilling.add_comment}`, data);
+    return this.apiService.invokePostAPI(`${this.settingsService.DMSFilling.add_comment}`, JSON.stringify(data));
     }
     else{
       return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_comment}`, data);
