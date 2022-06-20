@@ -133,7 +133,6 @@ export class HomeComponent implements OnInit {
     }
     dialogRef.afterClosed().subscribe(result => {
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       console.log('The dialog was closed', result);
     });
   }
