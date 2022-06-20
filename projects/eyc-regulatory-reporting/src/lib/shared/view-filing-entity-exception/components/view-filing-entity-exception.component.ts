@@ -121,7 +121,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         wrapText: true,
         autoHeight: true,
         width: 300,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -134,7 +134,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 210,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -147,7 +147,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 210,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -160,7 +160,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 155,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
