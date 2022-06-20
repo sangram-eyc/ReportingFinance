@@ -36,12 +36,19 @@ export class ApiSharedService {
       const headers = this.setHeaders();
       return this.httpClient.get<any>(url, { headers , responseType: 'blob' as 'json' , observe: 'response' });
     }
+    
 
     /*--------------GENERIC API FOR POST METHOD-------------*/
   invokePostAPI(url: string, params?: any) {
     const headers = this.setHeaders1();
     return this.httpClient.post(url, params, { headers });
   }
+
+  invokePostAPIV2(url: string, params?: any) {
+    const headers = this.setHeaders();
+    return this.httpClient.post(url, params, { headers });
+  }
+
 
   /*--------------GENERIC API FOR DELETE METHOD-------------*/
   invokeDeleteAPI(url: string): Observable<any> {
