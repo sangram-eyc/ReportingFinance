@@ -57,7 +57,7 @@ export class TaxCommentService {
 
   listComments(entityId) {
     if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/TASK/${entityId}/comments`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/Task/${entityId}/comments?module=Tax Reporting`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
