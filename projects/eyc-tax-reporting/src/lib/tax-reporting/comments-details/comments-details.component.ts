@@ -89,6 +89,44 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
     });
 
     this.getCommentsList();
+  }
+
+  backtoCycleView() {
+    this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
+  }
+
+  getCommentsList() {
+    this.completedComments = [];
+    this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp => {
+      console.log("call all comments", resp);
+      resp['data'].forEach((item: any) => {
+        if (item.fundDTO.totalComments > 0) {
+          item.tasks.forEach(itemTask => {
+            const eachitem: any = {
+              id: itemTask.id,
+              entityId: item.fundDTO.id,
+              entityName: item.fundDTO.name,
+              description: itemTask.description,
+              completedComment: itemTask.description,
+              status: itemTask.status.toLowerCase(),
+              priority: itemTask.priority,
+              target: itemTask.target.toUpperCase(),
+              company: itemTask.company,
+              author: itemTask.author != null ? (itemTask.author.userFirstName + " " + itemTask.author.userLastName) : itemTask.createdBy, //toDo if null
+              createdBy: itemTask.createdBy,
+              createdDate: itemTask.createdDate,
+              tags: itemTask.tags,
+              replyCount: itemTask.replyCount,
+              assignedTo: item.fundDTO.assignedUsers == null ? [] : item.fundDTO.assignedUsers
+            };
+            this.completedComments.push(eachitem);
+          });
+        }
+      });
+      this.createCommentsRowData(this.completedComments);
+    });
+    
+    //Fill in the data on the graph
     this.getCommentsDetails = this.commentService.getCommentsDetailsPerProductCycle(this.productCycleId).subscribe(res => {
       this.totalOpenedComments = res.data.totalOpen;
       this.totalClosedComments = res.data.totalClosed;
@@ -126,43 +164,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
             "value": ((DeclinedByEY != undefined) ? DeclinedByEY.value : 0 )  +  ( (DeclinedByClient != undefined) ? DeclinedByClient.value : 0)
           }
         ]
-      console.log(this.totalOpenedCommentsDetails)
-    });
-  }
-
-  backtoCycleView() {
-    this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
-  }
-
-  getCommentsList() {
-    this.completedComments = [];
-    this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp => {
-      console.log("call all comments", resp);
-      resp['data'].forEach((item: any) => {
-        if (item.fundDTO.totalComments > 0) {
-          item.tasks.forEach(itemTask => {
-            const eachitem: any = {
-              id: itemTask.id,
-              entityId: item.fundDTO.id,
-              entityName: item.fundDTO.name,
-              description: itemTask.description,
-              completedComment: itemTask.description,
-              status: itemTask.status.toLowerCase(),
-              priority: itemTask.priority,
-              target: itemTask.target.toUpperCase(),
-              company: itemTask.company,
-              author: itemTask.author != null ? (itemTask.author.userFirstName + " " + itemTask.author.userLastName) : itemTask.createdBy, //toDo if null
-              createdBy: itemTask.createdBy,
-              createdDate: itemTask.createdDate,
-              tags: itemTask.tags,
-              replyCount: itemTask.replyCount,
-              assignedTo: item.fundDTO.assignedUsers == null ? [] : item.fundDTO.assignedUsers
-            };
-            this.completedComments.push(eachitem);
-          });
-        }
-      });
-      this.createCommentsRowData(this.completedComments);
     });
   }
 
