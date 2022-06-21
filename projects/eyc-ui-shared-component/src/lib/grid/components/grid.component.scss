@@ -342,6 +342,7 @@ cursor: pointer;
     .motif-icon:hover {
       background-color:transparent !important;
     }
+    cursor: not-allowed !important;
 
      svg {
       fill: #747480 !important; 
@@ -363,4 +364,5 @@ cursor: pointer;
 
       ::ng-deep #motif-datatable .ag-paging-panel .ag-disabled .ag-icon{
         color: #747480 !important;
+        cursor: not-allowed !important;
       }
