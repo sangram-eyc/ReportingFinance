@@ -14,7 +14,7 @@ export class TasksService {
   getTaskAssignments(){
 
     if (this.settingService.production) {
-      // return this.apiService.invokeGetAPI(`${this.settingService.taxReporting.production_cycles_details}/${id}`);
+      return this.apiService.invokeGetAPI(`${this.settingService.task_assignment.tasks_assignment_list}`);
     } 
     else{
       return this.apiService.invokeGetAPI(`${this.settingService.task_assignment.tasks_assignment_list}`);
