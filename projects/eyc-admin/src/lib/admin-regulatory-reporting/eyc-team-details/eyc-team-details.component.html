@@ -230,7 +230,7 @@
   </div>
 
   <div *ngIf="tabIn == 2">
-    <lib-shared-grid *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs" 
+    <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs" 
       [rowData]="taskAssignmentData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
       [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
     </lib-shared-grid>

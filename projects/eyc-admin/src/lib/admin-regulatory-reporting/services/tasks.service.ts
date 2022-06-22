@@ -12,16 +12,7 @@ export class TasksService {
   constructor(private apiService: ApiSharedService, private settingService: SettingService) { }
 
   getTaskAssignments(){
-
-    if (this.settingService.production) {
-      // return this.apiService.invokeGetAPI(`${this.settingService.taxReporting.production_cycles_details}/${id}`);
-    } 
-    else{
       return this.apiService.invokeGetAPI(`${this.settingService.task_assignment.tasks_assignment_list}`);
-    }
-    
   }
-
- 
 
 }

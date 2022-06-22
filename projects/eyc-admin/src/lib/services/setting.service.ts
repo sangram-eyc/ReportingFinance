@@ -64,7 +64,7 @@ export class SettingService {
 
   get task_assignment(): any {
     const task_assignment = {
-      tasks_assignment_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms/displayName' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
+      tasks_assignment_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/taskAssignment.json' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
     }
     return task_assignment;
   }
