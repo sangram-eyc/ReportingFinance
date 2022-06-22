@@ -47,6 +47,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   commentsName: string;
   commentsCount: any;
   entityIdForComment: any;
+  permissionStage: any;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
@@ -65,6 +66,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.filingService.getFilingData) {
       this.componentStage = this.componentStage ? this.componentStage : sessionStorage.getItem("detailExcepStage");
+      this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
       this.filingDetails = this.filingService.getFilingData;
       this.dueDate = this.filingService.getFilingData.dueDate;
       // this.formatDate();
@@ -119,7 +121,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         wrapText: true,
         autoHeight: true,
         width: 300,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -132,7 +134,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 210,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -145,7 +147,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 210,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -158,7 +160,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         sortable: true,
         filter: true,
         width: 155,
-        comparator: this.disableComparator
+        // comparator: this.disableComparator
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -190,7 +192,11 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   }
   exportData() {
     this.exportsHeader = '';
-    this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
+    if (this.permissions.validatePermission(this.permissionStage, 'View Comments')) {
+      this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved,commentCountMap:Comments';
+    } else {
+      this.exportsHeader = 'AuditFilingID:Audit Filing ID,Audit:Exception Report Name,Unresolved:Unresolved,Resolved:Resolved';
+    }
     this.viewService.exportData(this.entityId, this.filingName, this.period, this.exceptionCnt, this.exportsHeader, this.componentStage).subscribe(res => {
     
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router,ActivatedRoute} from '@angular/router';
 import {OauthService} from '../../services/oauth.service';
 import { OAuthService} from 'angular-oauth2-oidc';
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   isLoogedInUser = false;
   isEycLogin = EYC_LOGIN;
+  showToasterIfUserSessionExtent = false;
   constructor(private router: Router,private oauthSvc: OauthService,
     private oauthService: OAuthService,
     private activatedRoute: ActivatedRoute,private settingsService: SettingsService) { 
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
  }
 
   ngOnInit(): void {
+    if(sessionStorage.getItem('navigateToLogin') && sessionStorage.getItem('navigateToLogin') !== undefined) {
+      this.showToasterIfUserSessionExtent = true;
+      sessionStorage.removeItem('navigateToLogin')
+    }
     if (EYC_LOGIN) {
       this.eycWebApplogin();
     }

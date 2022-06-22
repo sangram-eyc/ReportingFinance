@@ -8,3 +8,7 @@
       </div>
     </motif-card>
 </div>
+<motif-toast [type]="'success'" [show]="showToasterIfUserSessionExtent"
+  (close)="showToasterIfUserSessionExtent = !showToasterIfUserSessionExtent">
+  This session has expired. Please login to continue working.
+</motif-toast>

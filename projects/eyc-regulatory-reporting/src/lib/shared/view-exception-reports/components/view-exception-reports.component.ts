@@ -57,6 +57,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   actionResolvedTemplate: TemplateRef<any>;
   componentStage;
   filingDetails;
+  permissionStage: any;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
@@ -108,6 +109,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       this.getAnswerExceptionReports();
       this.answerExceptionTable = true;
     }
+    this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
   }
 
   sortByUnresolvedException(){
@@ -301,13 +303,13 @@ export class ViewExceptionReportsComponent implements OnInit {
   onClickMyTask(e) { }
 
   getResolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
       return true
     } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
   }
@@ -491,7 +493,7 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
     }
 
-    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
+    if(this.permissions.validatePermission(this.permissionStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
     if(this.componentStage != null && this.componentStage != undefined) {

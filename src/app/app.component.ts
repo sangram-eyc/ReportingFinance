@@ -150,7 +150,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     this.inActivityTime = sessionStorage.getItem('inActivityTime');
     this.timeoutId = setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
-        this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
+        this.openErrorModal();
       }
     }, this.inActivityTime);
 
@@ -164,7 +164,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     }, (this.inActivityTime - 120000));
   }
 
-  openErrorModal(header, description) {
+  openErrorModal() {
     if(this.showErrorModel) {
       return;
     }
@@ -173,8 +173,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       disableClose: true,
       width: '500px',
       data: {
-        header,
-        description,
         footer: {
           style: 'start',
           YesButton: 'OK'
@@ -188,9 +186,11 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
         this.settingsService.extentToken();
       } if(result.button == 'Log out') {
         this.settingsService.logoff();
-        this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
       } if(result.button == 'Log in') {
         this.settingsService.login();
+      } if (result.button == 'Time out') {
+        sessionStorage.setItem('navigateToLogin', "true")
+        this.settingsService.logoff();
       }
       this.counter = JSON.parse(sessionStorage.getItem('sessionTimeOut'))/1000
 
@@ -345,7 +345,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     dialogConfirm.beforeClosed().subscribe(result => {
       if (result.button === 'Yes') {
         this.settingsService.logoff();
-        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     });
   }
@@ -358,12 +357,10 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       } else {
         this.wsBulkService.closeConection();
         this.settingsService.logoff();
-        this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       }
     } else {
       this.wsBulkService.closeConection();
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     }
   }
 
@@ -419,7 +416,7 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
       this.countDown = timer(0, this.tick).subscribe(() => {
         if (this.settingsService.isUserLoggedin()) {
           if (this.counter == 0) {
-            this.openErrorModal('Inactivity', 'You will be logged out due to inactivity');
+            this.openErrorModal();
             this.countDown.unsubscribe();
             return;
           } else {
@@ -500,7 +497,6 @@ export class AppComponent implements AfterViewChecked, AfterContentChecked, OnIn
     const current_session_id = sessionStorage.getItem('session_id');
     if(session_id_ws !== current_session_id){
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], {queryParams: {logout: true}});
     }
   }
 

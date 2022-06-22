@@ -464,7 +464,7 @@ pageSize;
     if(this.uiPagination) {
       this.searchGrid(input)
     } else {
-      this.searchInput.emit(input.el.nativeElement.value);
+      this.searchInput.emit(encodeURIComponent(input.el.nativeElement.value));
       this.currentPage = 1;
       console.log('SEARCH GRID PAGINATION EMIT');
     }

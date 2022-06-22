@@ -27,4 +27,21 @@
     }
   }
 
- 
+  ::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 4px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    // .motif-icon-button {
+    //     display: none !important;
+    // }
+  }
+  

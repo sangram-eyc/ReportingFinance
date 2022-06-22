@@ -161,6 +161,7 @@ export class SettingsService {
         }
         authConfig.loginUrl = this.authdetails.data.authenticationUrl;
         authConfig.logoutUrl = this.authdetails.data.logoutUrl;
+        authConfig.postLogoutRedirectUri = this.authdetails.data.silentRefreshRedirectUri.split( 'silent-refresh.html' )[0];
         authConfig.redirectUri = environment.production ? this.authdetails.data.redirectUrl : this.authdetails.data.redirectUrl;
         authConfig.clientId = this.authdetails.data.clientId;
         authConfig.silentRefreshRedirectUri = environment.production ? this.authdetails.data.silentRefreshRedirectUri : this.authdetails.data.silentRefreshRedirectUri;
