@@ -2,6 +2,42 @@
   top: 20px;
   position: relative;
 
+  .mb-0 {
+    margin-bottom: 0px !important;
+  }
+ 
+  .card-block{
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  .assignment_icon {
+    height: 54.2px;
+    width: 59.6px;
+    margin: 0 auto 11px;
+  }
+
+  .assignment_txt{
+   display: block;
+   font-family: EYInterstate;
+   font-size: 16px;
+   line-height: 20px;
+   letter-spacing: 0px;
+   text-align: center;
+   color:#5c5c6a
+  }
+
+  .no_data {
+    width: 100%;
+    height: auto;
+    padding-top: 14px;
+    h5 {
+      font-size: 16px;
+      line-height: 20px;
+      font-family: EYInterstate !important;
+    }
+  }
+  
 
   *:focus {
     box-shadow: none !important;
