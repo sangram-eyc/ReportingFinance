@@ -135,6 +135,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
 
   getActiveFilingsData() {
+    this.activeFilings = [];
     this.filingService.getFilings().pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.filingResp.push(resp);
       resp['data'].length === 0 ? this.noActivatedDataAvilable = true : this.noActivatedDataAvilable = false;

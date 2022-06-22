@@ -34,7 +34,6 @@ export class ModuleLevelPermissionService {
       }
     } else {
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       return false;
     }
   }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
-import { MotifButtonModule, MotifCardModule } from '@ey-xd/ng-motif';
+import { MotifButtonModule, MotifCardModule, MotifToastModule } from '@ey-xd/ng-motif';
 import { RouterModule } from '@angular/router';
 
 
@@ -12,7 +12,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MotifButtonModule,
     MotifCardModule,
-    RouterModule
+    RouterModule,
+    MotifToastModule
   ]
 })
 export class LoginModule { }
