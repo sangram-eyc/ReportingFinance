@@ -14,6 +14,7 @@ export class ApiCatalogComponent implements OnInit {
   show2:boolean=false;
   modeselect;
   motifTypeahead;
+  editTrigger;
   columnDefs: string[] = [
     'name',
     'nullable',
@@ -460,15 +461,15 @@ export class ApiCatalogComponent implements OnInit {
     return Object.keys(obj).length > 0 || obj instanceof Array ? obj : undefined;
   };
 
-  // fetch_query_parameters(api, domain) {
-  //   this.tab = 0;
-  //   api.parameters.forEach((e) => {
-  //     let parameters = { name: '', type: '' };
-  //     parameters.type = e.parameter_type;
-  //     parameters.name = e.field_name;
-  //     this.fetch_query_parameters_list.push(parameters);
-  //   });
-  //   this.modal_content[domain.DOMAIN_NAME] = this.fetch_query_parameters_list;
-  // }
+  fetch_query_parameters(api, domain) {
+    this.tab = 0;
+    api.parameters.forEach((e) => {
+      let parameters = { name: '', type: '' };
+      parameters.type = e.parameter_type;
+      parameters.name = e.field_name;
+      this.fetch_query_parameters_list.push(parameters);
+    });
+    // this.modal_content[domain.DOMAIN_NAME] = this.fetch_query_parameters_list;
+  }
 
 }

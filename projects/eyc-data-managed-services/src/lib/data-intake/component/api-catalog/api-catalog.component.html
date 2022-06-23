@@ -1,228 +1,228 @@
 <div>
-    <h4 class="main-header">Catalog</h4>
+    <h4 class="main-header">API Catalog</h4>
     <p class="header-line">
         Congue ut euismod adipiscing est lobortis blandit semper nisi. Consectetur congue egestas in amet morbi urna at
         egestas.
     </p>
 </div>
-
-<div id='header'>
-
-    <p>Domain</p>
-
-    <div id="search-filters">
-        <motif-form-field [ngClass]="{'less-than-two': fast_filters.length <= 2, 'three': fast_filters.length === 3}">
-            <input motifInput motifSearch type="text" placeholder="Search..." aria-label="Search"
-                [(ngModel)]="searchKey" (ngModelChange)="get_filtered_domains()" tabindex="0"
-                [motifTypeahead]="motifTypeahead" />
-        </motif-form-field>
-        <div class="filters">
-            FAST FILTERS:
-            <button (click)="filter.present = !filter.present" [class.absent]="!filter.present"
-                *ngFor="let filter of fast_filters">{{filter.name | titlecase}}</button>
-            <button class="button">Functional</button>
-            <button class="button">Data quality</button>
-            <button class="button">Data profile</button>
-            <button class="button">Client registry</button>
-        </div>
-    </div>
-</div>
-
-<div style="min-height: 50vh;">
-    <div *ngFor="let domain of domains; let i = index">
-        <motif-accordion>
-            <motif-accordion-header class="outer-layer">
-                {{domain.domain}}
-                <div>
-                    <button>
-                        <span class="material-icons md-dark">list</span>
-                        List Operations
-                    </button>
-                </div>
-                <div>
-                    <button>
-                        <span class="material-icons-outlined">expand</span>
-                        Expand all operations
-                    </button>
-                </div>
-            </motif-accordion-header>
-
-            <motif-accordion-content>
-                <!-- <div class="spinner" *ngIf="domain.loading">
-                    <motif-progress-bar [progress]="100" [newProgressbar]="false" [circle]="true" [determinated]="false"
-                        [showLabel]="false"></motif-progress-bar>
-                </div> -->
-                <!-- <div class="filters" *ngIf="!domain.loading">
-                    FAST FILTERS:
-                    <button [class.unavailable]="!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'delete')"
-                        [class.absent]="get_specific(domain.DOMAIN_NAME)?.delete"
-                        (click)="get_specific(domain.DOMAIN_NAME).delete = !get_specific(domain.DOMAIN_NAME)?.put">Delete
-                    </button>
-                    <button [class.unavailable]="!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'get')"
-                        [class.absent]="get_specific(domain.DOMAIN_NAME)?.get"
-                        (click)="get_specific(domain.DOMAIN_NAME).get = !get_specific(domain.DOMAIN_NAME)?.get">Get
-                    </button>
-                    <button [class.unavailable]="!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'post')"
-                        [class.absent]="get_specific(domain.DOMAIN_NAME)?.post"
-                        (click)="get_specific(domain.DOMAIN_NAME).post = !get_specific(domain.DOMAIN_NAME)?.post">Post
-                    </button>
-                    <button [class.unavailable]="!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'put')"
-                        [class.absent]="get_specific(domain.DOMAIN_NAME)?.put"
-                        (click)="get_specific(domain.DOMAIN_NAME).put = !get_specific(domain.DOMAIN_NAME)?.put">Put
-                    </button>
-                </div> -->
-                
-                <motif-accordion *ngFor="let api of domain.operations; let j = index">
-                    <motif-accordion-header>
-                        <div [class.get]="api.methodType.toUpperCase() === 'GET'"
-                            [class.post]="api.methodType.toUpperCase() === 'POST'"
-                            [class.put]="api.methodType.toUpperCase() === 'PUT'"
-                            [class.delete]="api.methodType.toUpperCase() === 'DELETE'">{{api.methodType}}</div>
-
-                        &nbsp;&nbsp;
-
-                        <motif-icon id="arrow" [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'">
-                        </motif-icon>
-                        &nbsp;&nbsp;
-                        <motif-tooltip class="motif-tooltipdisplay" placement="bottom">
-                            <span motifTooltipTrigger>{{api.description?.length > 100 ? (api.description | slice:0:100) + '..' :
-                                api.description}}</span>
-                            {{api.description}}
-                        </motif-tooltip>
-                    </motif-accordion-header>
-
-                    <motif-accordion-content>
-                        <span>Parameters
-                            <button (click)="show2 = true">
-                                <mat-icon>remove_red_eye</mat-icon>
-                                See example
-                            </button>
-                        </span>
-                        <motif-modal [show]="show2" (close)="show2 = false" [slideout]="true">
-                            <motif-modal-header>Parameters example</motif-modal-header>
-                            <motif-modal-body>
-                                <div id="response-type">
-                                    <motif-form-field>
-                                        <label motifLabel class="select-label">Response content type (required)</label>
-                                        <motif-select aria-label="Please select an option" [(ngModel)]="modeselect">
-                                            <motif-option value="app/json">Application/json</motif-option>
-                                        </motif-select>
-                                    </motif-form-field>
-
-                                    <motif-tab-bar>
-                                        <button [class.focus]="tab == 0" motifButton class="motif-text-link">Example value</button>
-                                        <button motifButton class="motif-text-link"
-                                            (click)="fetch_model(api, domain)">Model</button>
-                                    </motif-tab-bar>
-
-                                    <div id="toggle-switch">
-                                        Edit code
-                                        <motif-toggle-switch name="trigger" [prelabel]="'Off'" [postlabel]="'On'"
-                                            ngDefaultControl>
-                                        </motif-toggle-switch>
-                                    </div>
-
-                                    <div id="code">
-                                        <pre *ngIf="domain.domain !== '' && domain.domain !== undefined"
+<motif-card id = "api-catalog">
+      <div id = 'header'>
+          <p>Domain</p>
+  
+      <div id = "search-filters">
+          <motif-form-field [ngClass] = "{'less-than-two': fast_filters.length <= 2, 'three': fast_filters.length === 3}">
+              <input
+                  motifInput
+                  motifSearch
+                  type="text"
+                  placeholder="Search..."
+                  aria-label="Search"
+                  [(ngModel)]="searchKey"
+                  (ngModelChange)="get_filtered_domains()"
+                  tabindex="0"
+                  [motifTypeahead]="motifTypeahead"
+              />
+          </motif-form-field>
+          <div class = "filters">
+              FAST FILTERS:
+              <button  (click) = "filter.present = !filter.present"
+              [class.absent] = "!filter.present"
+              *ngFor = "let filter of fast_filters">{{filter.name | titlecase}}</button>
+              <!-- <button>Data quality</button>
+              <button>Data profile</button>
+              <button>Client registry</button> -->
+          </div>
+      </div>
+      </div>
+  
+      <div style="min-height: 50vh;">
+          <div *ngFor="let domain of domains; let i = index">
+              <motif-accordion>
+                  <motif-accordion-header class = "outer-layer">
+                    {{domain.domain}}
+                      <div>
+                          <button>
+                              <span class="material-icons md-dark">list</span>
+                              List Operations
+                          </button>
+                          <!-- <button>
+                              <span class="material-icons-outlined">expand</span>
+                              Expand operations
+                          </button> -->
+                      </div>
+                      <div>
+                          <button>
+                              <span class="material-icons">expand</span>
+                              Expand all operations
+                          </button>
+                      </div>
+                  </motif-accordion-header>
+  
+                  <motif-accordion-content>
+                      <!-- <div class="spinner">
+                          <motif-progress-bar [progress]="100" [newProgressbar]="false" [circle]="true" [determinated]="false"
+                            [showLabel]="false"></motif-progress-bar>
+                      </div> -->
+                      <!-- <div class = "filters">
+                          FAST FILTERS:
+                          <button [class.unavailable]  = "!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'delete')"
+                          [class.absent]="get_specific(domain.DOMAIN_NAME)?.delete"
+                              (click) = "get_specific(domain.DOMAIN_NAME).delete = !get_specific(domain.DOMAIN_NAME)?.put">Delete
+                          </button>
+                          <button [class.unavailable]  = "!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'get')"
+                          [class.absent]="get_specific(domain.DOMAIN_NAME)?.get"
+                              (click) = "get_specific(domain.DOMAIN_NAME).get = !get_specific(domain.DOMAIN_NAME)?.get">Get
+                          </button>
+                          <button [class.unavailable]  = "!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'post')"
+                              [class.absent]="get_specific(domain.DOMAIN_NAME)?.post"
+                              (click) = "get_specific(domain.DOMAIN_NAME).post = !get_specific(domain.DOMAIN_NAME)?.post">Post
+                          </button>
+                          <button [class.unavailable]  = "!is_available(get_specific(domain.DOMAIN_NAME)?.api, 'put')"
+                          [class.absent]="get_specific(domain.DOMAIN_NAME)?.put"
+                              (click) = "get_specific(domain.DOMAIN_NAME).put = !get_specific(domain.DOMAIN_NAME)?.put">Put
+                          </button>
+                      </div> -->
+                      <motif-accordion *ngFor="let api of domain.operations; let j = index" >
+                          <motif-accordion-header>
+                            <div class="method-type" [class.get]="api.methodType?.toUpperCase() === 'GET'"
+                            [class.post]="api.methodType?.toUpperCase() === 'POST'"
+                            [class.put]="api.methodType?.toUpperCase() === 'PUT'"
+                            [class.delete]="api.methodType?.toUpperCase() === 'DELETE'">{{api.methodType}}</div>
+  
+                              &nbsp;&nbsp;
+                              <motif-icon id = "arrow" [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
+                              {{'/'+ api.operation}} &nbsp;&nbsp;
+                              
+                              <motif-tooltip class="motif-tooltipdisplay" placement="bottom">
+                                  <span motifTooltipTrigger aria-label="tooltip">{{api.description?.length > 85 ? (api.description | slice:0:85) + '...' : api.description}}</span>
+                                  {{api.description}}
+                              </motif-tooltip>
+                          </motif-accordion-header>
+  
+                          <motif-accordion-content>
+                              <span>Parameters
+                                  <button (click)="show2 = true; fetch_query_parameters(api, domain)">
+                                      <mat-icon>remove_red_eye</mat-icon>
+                                      See example
+                                  </button>
+                              </span>
+                              <motif-modal [show]="show2" (close)="show2 = false" [slideout]="true">
+                                  <motif-modal-header>Parameters example</motif-modal-header>
+                                  <motif-modal-body>
+                                      <div id = "response-type">
+                                          <motif-form-field>
+                                              <label motifLabel class="select-label">Response content type (required)</label>
+                                              <motif-select aria-label="Please select an option" [(ngModel)]="modeselect">
+                                                  <motif-option value="app/json">Application/json</motif-option>
+                                              </motif-select>
+                                          </motif-form-field>
+  
+                                          <motif-tab-bar>
+                                              <button [class.focus] = "tab == 0" motifButton class="motif-text-link" (click) = "fetch_query_parameters(api, domain)">Example value</button>
+                                              <button motifButton class="motif-text-link" (click) = "fetch_model(api, domain)">Model</button>
+                                          </motif-tab-bar>
+  
+                                          <div id = "toggle-switch">
+                                              Edit code
+                                              <motif-toggle-switch name="trigger" [prelabel]="'Off'" [postlabel]="'On'" [(ngModel)]="editTrigger" ngDefaultControl>
+                                              </motif-toggle-switch>
+                                          </div>
+  
+                                          <div id="code">
+                                            <pre *ngIf="domain.domain !== '' && domain.domain !== undefined"
                                             [innerHTML]="domain.domain | prettyjson"></pre>
-                                    </div>
-                                </div>
-                            </motif-modal-body>
-                            <motif-modal-footer>
-                                <button motifButton color="secondary"
-                                    (click)="show2 = false; tab = tab + 1">Close</button>
-                            </motif-modal-footer>
-                        </motif-modal>
-
-                        <div class="parameter-table" style="width: 100%; position: relative; top: 20px;">
-                            <table mat-table [dataSource]="api.request.parameters">
-                                <tr mat-header-row *matHeaderRowDef="columnDefs; sticky: true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: columnDefs;"></tr>
-                                <ng-container *ngFor="let column of columnDefs">
-                                    <ng-container [matColumnDef]="column">
-                                        <th mat-header-cell *matHeaderCellDef>{{ column.replace('_', ' ') | titlecase }}
-                                        </th>
-                                        <td mat-cell #el *matCellDef="let row" [matTooltip]="row[column]"
-                                            [matTooltipPosition]="'left'"
-                                            [matTooltipDisabled]="el.scrollWidth <= el.clientWidth">{{row[column]}}</td>
-                                    </ng-container>
-                                </ng-container>
-                            </table>
-                        </div>
-
-                        <span>Response Code</span>
-
-                        <div class="parameter-table" style="width: 100%; position: relative; top: 20px;">
-                            <table mat-table [dataSource]="responsesTyps">
-                                <ng-container matColumnDef="key">
-                                    <th mat-header-cell *matHeaderCellDef> Key </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.key}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="description">
-                                    <th mat-header-cell *matHeaderCellDef> Description </th>
-                                    <td mat-cell *matCellDef="let element">
-                                        <div>
-                                            <div id="success_code" fxLayout="column" fxLayoutAlign="space-around start">
-                                                {{element.description}}
-                                                <pre *ngIf="element.key == '200'"
-                                                    [innerHTML]="api.response.response | prettyjson"></pre>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </ng-container>
-                                <tr mat-header-row *matHeaderRowDef="columnDefs1"></tr>
-                                <tr mat-row *matRowDef="let row; columns: columnDefs1;"></tr>
-                            </table>
-                        </div>
-
-                    </motif-accordion-content>
-                </motif-accordion>
-            </motif-accordion-content>
-        </motif-accordion>
-    </div>
-</div>
-
-<!-- <div class="paginator">
-    <span class="details">Showing {{startFrom + 1}} - {{startFrom + showRules > temp_domains?.length ?
-        temp_domains?.length : startFrom + showRules}} of {{temp_domains?.length}}</span>
-    <span class="details">Showing {{startFrom + 1}} - {{startFrom + showRules > get_filter(searchKey) ?
-        get_filter(searchKey) : startFrom + showRules}} of {{get_filter(searchKey)}}</span>
-    <motif-pagination>
-
-        <button motifIconButton size="small" aria-label="Go to first page" (click)="handlePageChange((currentPage = 1))"
-            [disabled]="currentPage === 1">
-            <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
-        </button>
-
-        <button motifIconButton size="small" aria-label="Go to previous page"
-            (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
-            <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
-        </button>
-
-        <motif-count [currentPage]="currentPage"
-            [numberOfPages]="get_filter(searchKey) === 0 ? maxPages : get_filter_maxpages()" [allowInput]="true"
-            (currentPageChangeByUserInput)="onPageChangeByUserInput($event)" aria-label="Current Page"></motif-count>
-
-        <button motifIconButton size="small" aria-label="Go to next page" (click)="handlePageChange(currentPage + 1)"
-            [disabled]="get_filter(searchKey) === 0 ? currentPage === maxPages : currentPage === get_filter_maxpages()">
-            <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
-        </button>
-
-        <button motifIconButton size="small" aria-label="Go to last page"
-            (click)="handlePageChange((currentPage = maxPages))"
-            [disabled]="get_filter(searchKey) === 0 ? currentPage === maxPages : currentPage === get_filter_maxpages()">
-            <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
-        </button>
-    </motif-pagination>
-
-    <select class="show-records-dropdown" [(ngModel)]="idefaultPagination"
-        (change)="paginationChangeFunc(idefaultPagination)">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
-
-    <span class="motif-pagination-select-label">per page</span>
-</div> -->
+                                          </div>
+                                      </div>
+                                  </motif-modal-body>
+                                  <motif-modal-footer>
+                                      <button motifButton color="secondary" (click)="show2 = false; tab = tab + 1">Close</button>
+                                  </motif-modal-footer>
+                              </motif-modal>
+  
+                              <div class = "parameter-table" style="width: 100%; position: relative; top: 20px;">
+                                  <table mat-table [dataSource]="api.request.parameters">
+                                      <tr mat-header-row *matHeaderRowDef="columnDefs; sticky: true"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: columnDefs;"></tr>
+                                      <ng-container *ngFor="let column of columnDefs">
+                                        <ng-container [matColumnDef]="column">
+                                          <th mat-header-cell *matHeaderCellDef>{{ column.replace('_', ' ') | titlecase }}</th>
+                                          <td mat-cell  #el *matCellDef="let row" [matTooltip]="row[column]" [matTooltipPosition]="'left'" [matTooltipDisabled]="el.scrollWidth <= el.clientWidth">{{row[column]}}</td>
+                                        </ng-container>
+                                      </ng-container>
+                                  </table>
+                              </div>
+  
+                              <span>Response Code</span>
+  
+                              <div class = "parameter-table" style="width: 100%; position: relative; top: 20px;">
+                                  <table mat-table [dataSource]="responsesTyps">
+                                      <ng-container matColumnDef="key">
+                                          <th mat-header-cell *matHeaderCellDef> Key </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="description">
+                                          <th mat-header-cell *matHeaderCellDef> Description </th>
+                                          <td mat-cell *matCellDef="let element">
+                                              <div>
+                                                  <div id="success_code" fxLayout="column" fxLayoutAlign="space-around start">
+                                                    {{element.description}}
+                                                    <pre *ngIf="element.key == '200'"
+                                                        [innerHTML]="api.response.response | prettyjson"></pre>
+                                                </div>
+                                              </div>
+                                          </td>
+                                      </ng-container>
+                                      <tr mat-header-row *matHeaderRowDef="columnDefs1"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: columnDefs1;"></tr>
+                                  </table>
+                              </div>
+  
+                          </motif-accordion-content>
+                      </motif-accordion>
+                  </motif-accordion-content>
+              </motif-accordion>
+          </div>
+      </div>
+  
+      <!-- <div class = "paginator">
+          <span class = "details" *ngIf = "get_filter(searchKey) === 0">Showing {{startFrom + 1}} - {{startFrom + showRules > temp_domains?.length ? temp_domains?.length : startFrom + showRules}} of {{temp_domains?.length}}</span>
+          <span class = "details" *ngIf = "get_filter(searchKey) != 0">Showing {{startFrom + 1}} - {{startFrom + showRules > get_filter(searchKey) ? get_filter(searchKey) : startFrom + showRules}} of {{get_filter(searchKey)}}</span>
+          <motif-pagination>
+  
+              <button motifIconButton size="small" aria-label="Go to first page" (click)="handlePageChange((currentPage = 1))"
+              [disabled]="currentPage === 1">
+                  <motif-icon [src]="'./assets/icons/navigation/ic_first_page_24px.svg'"></motif-icon>
+              </button>
+  
+              <button motifIconButton size="small" aria-label="Go to previous page"
+              (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">
+                  <motif-icon [src]="'./assets/icons/navigation/ic_chevron_left_24px.svg'"></motif-icon>
+              </button>
+  
+              <motif-count [currentPage]="currentPage" [numberOfPages]="get_filter(searchKey) === 0 ? maxPages : get_filter_maxpages()" [allowInput]="true"
+              (currentPageChangeByUserInput)="onPageChangeByUserInput($event)" aria-label="Current Page"></motif-count>
+  
+              <button motifIconButton size="small" aria-label="Go to next page"
+              (click)="handlePageChange(currentPage + 1)" [disabled]="get_filter(searchKey) === 0 ? currentPage === maxPages : currentPage === get_filter_maxpages()">
+                  <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
+              </button>
+  
+              <button motifIconButton size="small" aria-label="Go to last page" (click)="handlePageChange((currentPage = maxPages))"
+              [disabled]="get_filter(searchKey) === 0 ? currentPage === maxPages : currentPage === get_filter_maxpages()">
+                  <motif-icon [src]="'./assets/icons/navigation/ic_last_page_24px.svg'"></motif-icon>
+              </button>
+          </motif-pagination>
+  
+          <select class="show-records-dropdown" [(ngModel)]="idefaultPagination" (change)="paginationChangeFunc(idefaultPagination)">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+          </select>
+  
+          <span class = "motif-pagination-select-label">per page</span>
+      </div> -->
+  
+  </motif-card>
+  
