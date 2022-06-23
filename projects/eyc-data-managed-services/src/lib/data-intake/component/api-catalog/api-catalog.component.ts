@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataManagedService } from '../../services/data-managed.service';
+import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
+import { debug } from 'console';
 
 @Component({
   selector: 'lib-api-catalog',
@@ -8,31 +11,16 @@ import { Component, OnInit } from '@angular/core';
 export class ApiCatalogComponent implements OnInit {
 
   domains;
-  temp_domains;
-  public modeselect = 'app/json';
-  jsn;
-  model = '';
-  modal_content = [];
-  motifTypeahead = [];
-  api_data = [];
-  expand_api = false;
-  specific_api: {
-    url: null;
-    api: [];
-    domain: 'Accounts and Funds';
-    post: false;
-    get: false;
-    put: false;
-    delete: false;
-    show2: false;
-    type: null;
-  };
+  show2:boolean=false;
+  modeselect;
+  motifTypeahead;
+  editTrigger;
   columnDefs: string[] = [
-    'field_name',
-    'required',
+    'name',
+    'nullable',
     'description',
-    'parameter_type',
-    'data_type',
+    'parameterType',
+    'dataType',
   ];
   columnDefs1: string[] = ['key', 'description'];
   searchKey: string = '';
@@ -44,12 +32,17 @@ export class ApiCatalogComponent implements OnInit {
     { disable: false, value: 50, name: '50', id: 3 },
     { disable: false, value: 100, name: '100', id: 4 },
   ];
+
+  responsesTyps = [
+    { key: 200, description: 'Successful' },
+    { key: 400, description: 'Bad request' },
+    { key: 500, description: 'Internal Server Error' },
+  ];
   idefaultPagination = 5;
   showRules: number = 5;
   startFrom: number = 0;
   maxPages;
   fast_filters = [];
-  show2 = false;
   response = 'abc';
   fetch_query_parameters_list: any = [];
   example_values = {};
@@ -62,14 +55,16 @@ export class ApiCatalogComponent implements OnInit {
   warningMessage = 'There is some issue loading data from this API';
   toastArray = [];
 
-  //constructor(private postDataService: PostDataService, private toasterService: ToasterService) {}
+  constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService,
+    // private postDataService: PostDataService, private toasterService: ToasterService
+    ) {}
 
   ngOnInit(): void {
 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     let filter;
-
+    this.getAPICatalog();
     // this.postDataService.getDomainURL().subscribe(
     //   (data) => {
     //     this.domains = data[0].apicatalog;
@@ -95,6 +90,12 @@ export class ApiCatalogComponent implements OnInit {
     // );
   }
 
+  getAPICatalog(){
+    this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
+    .subscribe((data: any) => {
+      this.domains=data.data;
+    });
+  }
   handlePageChange(val: number): void {
     this.currentPage = val;
     if (val === 1) {
@@ -104,7 +105,8 @@ export class ApiCatalogComponent implements OnInit {
     }
   }
 
-  get_filtered_domains = () => this.temp_domains = this.searchKey === '' || this.searchKey === null ? this.domains : this.domains.filter(item => item.DOMAIN_NAME.toString().toLowerCase().includes(this.searchKey.toLowerCase()))
+  get_filtered_domains(){}
+  // get_filtered_domains = () => this.temp_domains = this.searchKey === '' || this.searchKey === null ? this.domains : this.domains.filter(item => item.DOMAIN_NAME.toString().toLowerCase().includes(this.searchKey.toLowerCase()))
 
   onPageChangeByUserInput(event: any) {
     this.currentPage = event.newCurrentPage;
@@ -119,11 +121,11 @@ export class ApiCatalogComponent implements OnInit {
     // e.preventDefault();
     this.showRules = parseInt(idefaultPagination);
 
-    if (parseInt(`${this.domains.length % this.showRules}`) === 0) {
-      this.maxPages = parseInt(`${this.temp_domains.length / this.showRules}`);
-    } else {
-      this.maxPages = parseInt(`${this.temp_domains.length / this.showRules}`) + 1;
-    }
+    // if (parseInt(`${this.domains.length % this.showRules}`) === 0) {
+    //   this.maxPages = parseInt(`${this.temp_domains.length / this.showRules}`);
+    // } else {
+    //   this.maxPages = parseInt(`${this.temp_domains.length / this.showRules}`) + 1;
+    // }
 
     // this.getMaxPages(this.domains);
     this.onPageChangeByUserInput({ newCurrentPage: 1 });
@@ -137,64 +139,64 @@ export class ApiCatalogComponent implements OnInit {
   //   }
   // }
 
-  fetch_api_content(data) {
-    let api;
-    let parameter;
-    let obj;
+  // fetch_api_content(data) {
+  //   let api;
+  //   let parameter;
+  //   let obj;
 
-    Object.keys(this.jsn.paths).forEach((e) => {
-      api = {
-        path: null,
-        summary: '',
-        parameters: [],
-        type: '',
-        responses: [],
-      };
+  //   Object.keys(this.jsn.paths).forEach((e) => {
+  //     api = {
+  //       path: null,
+  //       summary: '',
+  //       parameters: [],
+  //       type: '',
+  //       responses: [],
+  //     };
 
-      api.path = e;
-      api.type = Object.keys(Object.values(this.jsn.paths)[Object.keys(this.jsn.paths).indexOf(e)])[0];
-      let object = Object.values(Object.values(this.jsn.paths)[Object.keys(this.jsn.paths).indexOf(e)])[0];
-      api.summary = object.summary;
+  //     api.path = e;
+  //     api.type = Object.keys(Object.values(this.jsn.paths)[Object.keys(this.jsn.paths).indexOf(e)])[0];
+  //     let object = Object.values(Object.values(this.jsn.paths)[Object.keys(this.jsn.paths).indexOf(e)])[0];
+  //     api.summary = object.summary;
 
-      object.parameters.forEach((param) => {
-        parameter = {
-          field_name: null,
-          required: null,
-          description: null,
-          parameter_type: null,
-          data_type: null,
-        };
+  //     object.parameters.forEach((param) => {
+  //       parameter = {
+  //         field_name: null,
+  //         required: null,
+  //         description: null,
+  //         parameter_type: null,
+  //         data_type: null,
+  //       };
 
-        parameter.field_name = param.name;
-        parameter.required = param.name ? 'Yes' : 'No';
-        if (!param.description.startsWith('(required)'))
-          parameter.description = param.description;
-        parameter.parameter_type = param.in;
-        parameter.data_type = param.type === undefined ? param.schema.type : param.type;
-        api.parameters.push(parameter);
-      });
-      for (var key in object.responses) {
-        obj = {
-          key: null,
-          value: null,
-          description: null,
-          content: null,
-          response_dto: null,
-        };
-        obj.key = key;
-        obj.value = object.responses[key];
-        obj.description = object.responses[key].description;
-        obj.response_dto = key.toString() === '200' ?
-          (object.responses[key].content !== undefined ?
-            Object.values(Object.values(Object.values(object.responses[key].content)[0]))[0].properties :
-            (Object.values(object.responses[key])[1] !== undefined ? Object.values(Object.values(object.responses[key])[1])[1] :
-              null)) :
-          null;
-        api.responses.push(obj);
-      }
-      data.api.push(api);
-    });
-  }
+  //       parameter.field_name = param.name;
+  //       parameter.required = param.name ? 'Yes' : 'No';
+  //       if (!param.description.startsWith('(required)'))
+  //         parameter.description = param.description;
+  //       parameter.parameter_type = param.in;
+  //       parameter.data_type = param.type === undefined ? param.schema.type : param.type;
+  //       api.parameters.push(parameter);
+  //     });
+  //     for (var key in object.responses) {
+  //       obj = {
+  //         key: null,
+  //         value: null,
+  //         description: null,
+  //         content: null,
+  //         response_dto: null,
+  //       };
+  //       obj.key = key;
+  //       obj.value = object.responses[key];
+  //       obj.description = object.responses[key].description;
+  //       obj.response_dto = key.toString() === '200' ?
+  //         (object.responses[key].content !== undefined ?
+  //           Object.values(Object.values(Object.values(object.responses[key].content)[0]))[0].properties :
+  //           (Object.values(object.responses[key])[1] !== undefined ? Object.values(Object.values(object.responses[key])[1])[1] :
+  //             null)) :
+  //         null;
+  //       api.responses.push(obj);
+  //     }
+  //     data.api.push(api);
+  //   });
+  // }
 
   get_intro_params(url, api) {
     let parameter;
@@ -369,7 +371,7 @@ export class ApiCatalogComponent implements OnInit {
     });
   }
 
-  get_specific = (domain) => this.api_data.find((api) => api.domain.replace('_', ' ').toLowerCase() === domain.toLowerCase());
+  // get_specific = (domain) => this.api_data.find((api) => api.domain.replace('_', ' ').toLowerCase() === domain.toLowerCase());
 
   get_specific_domain = (domain) => this.domains.find((api) => api.DOMAIN_NAME.replace('_', ' ').toLowerCase() === domain.toLowerCase());
 
@@ -377,60 +379,60 @@ export class ApiCatalogComponent implements OnInit {
 
   is_available = (api, type) => api?.some((e) => e.type.toLowerCase() === type);
 
-  get_filter_maxpages = () => Math.ceil(this.get_filter(this.searchKey) / this.showRules)
+  // get_filter_maxpages = () => Math.ceil(this.get_filter(this.searchKey) / this.showRules)
 
-  get_filter = (event): number => event === '' ? 0 : this.temp_domains.length
+  // get_filter = (event): number => event === '' ? 0 : this.temp_domains.length
 
   get_current_page() {
     this.currentPage = 1;
     return 1
   }
 
-  expand_all(data) {
-    this.expand_api = !this.expand_api;
-    // console.log('Expand all APIs', this.expand_api,data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
-    console.log('Expand all APIs', this.expand_api, data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
-  }
+  // expand_all(data) {
+  //   this.expand_api = !this.expand_api;
+  //   // console.log('Expand all APIs', this.expand_api,data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
+  //   console.log('Expand all APIs', this.expand_api, data.path[5].childNodes[1].childNodes[0].childNodes[0].children[1].children[1]);
+  // }
 
-  fetch_domain_details(domain, type, data) {
-    if (data == null || data.target.offsetParent.classList.contains('motif-expanded') == false) {
-      this.get_specific_domain(domain).loading = true;
+  // fetch_domain_details(domain, type, data) {
+  //   if (data == null || data.target.offsetParent.classList.contains('motif-expanded') == false) {
+  //     this.get_specific_domain(domain).loading = true;
 
-      if (!this.api_data.some((api) => api.domain.replace('_', ' ').toLowerCase() === domain.toLowerCase() && api.type === type)) {
-        this.fetch_api(domain, type).then((data) => {
-          this.get_specific(domain);
-        }).catch(e => {
-          console.log("Error ========>", e);
-        });
-      }
+  //     if (!this.api_data.some((api) => api.domain.replace('_', ' ').toLowerCase() === domain.toLowerCase() && api.type === type)) {
+  //       this.fetch_api(domain, type).then((data) => {
+  //         this.get_specific(domain);
+  //       }).catch(e => {
+  //         console.log("Error ========>", e);
+  //       });
+  //     }
 
-      setTimeout(() => {
-        this.get_specific_domain(domain).loading = false;
-      }, 500);
-    }
-  }
+  //     setTimeout(() => {
+  //       this.get_specific_domain(domain).loading = false;
+  //     }, 500);
+  //   }
+  // }
 
   fetch_model(api, domain) {
     this.tab++;
-    this.fetch_schema(api, domain);
+    // this.fetch_schema(api, domain);
   }
 
-  fetch_schema(api, domain) {
-    if (this.tab === 0)
-      return
-    if (api.responses.url) {
-      // this.postDataService.getIntrospectionOperation(api.responses.url).subscribe((data) => {
-      //       this.modal_content[domain.DOMAIN_NAME] = data.data;
-      //     },
-      //     (err) => {
-      //       this.toastArray.push(this.toasterService.showWarning(this.warningMessage));
-      //     }
-      //   );
-    } else {
-      let dto_name = api.responses.find((res) => res.key === '200').response_dto;
-      this.modal_content[domain.DOMAIN_NAME] = dto_name !== undefined ? dto_name : "{}";
-    }
-  }
+  // fetch_schema(api, domain) {
+  //   if (this.tab === 0)
+  //     return
+  //   if (api.responses.url) {
+  //     // this.postDataService.getIntrospectionOperation(api.responses.url).subscribe((data) => {
+  //     //       this.modal_content[domain.DOMAIN_NAME] = data.data;
+  //     //     },
+  //     //     (err) => {
+  //     //       this.toastArray.push(this.toasterService.showWarning(this.warningMessage));
+  //     //     }
+  //     //   );
+  //   } else {
+  //     let dto_name = api.responses.find((res) => res.key === '200').response_dto;
+  //     this.modal_content[domain.DOMAIN_NAME] = dto_name !== undefined ? dto_name : "{}";
+  //   }
+  // }
 
   validate_swagger(data) {
     // return new Promise((resolve, reject) => {
@@ -467,7 +469,7 @@ export class ApiCatalogComponent implements OnInit {
       parameters.name = e.field_name;
       this.fetch_query_parameters_list.push(parameters);
     });
-    this.modal_content[domain.DOMAIN_NAME] = this.fetch_query_parameters_list;
+    // this.modal_content[domain.DOMAIN_NAME] = this.fetch_query_parameters_list;
   }
 
 }
