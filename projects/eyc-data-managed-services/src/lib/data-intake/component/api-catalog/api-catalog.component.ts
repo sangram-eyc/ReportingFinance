@@ -93,7 +93,7 @@ export class ApiCatalogComponent implements OnInit {
   getAPICatalog(){
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
     .subscribe((data: any) => {
-      this.domains=data.data;
+      this.domains=data;
     });
   }
   handlePageChange(val: number): void {
