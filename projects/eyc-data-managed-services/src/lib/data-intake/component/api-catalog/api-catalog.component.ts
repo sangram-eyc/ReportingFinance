@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataManagedService } from '../../services/data-managed.service';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-import { debug } from 'console';
 
 @Component({
   selector: 'lib-api-catalog',
@@ -13,6 +12,7 @@ export class ApiCatalogComponent implements OnInit {
   domains;
   show2:boolean=false;
   modeselect;
+  selectedFilter:string="Daily";
   motifTypeahead;
   editTrigger;
   columnDefs: string[] = [
@@ -55,8 +55,8 @@ export class ApiCatalogComponent implements OnInit {
   warningMessage = 'There is some issue loading data from this API';
   toastArray = [];
 
-  constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService,
-    // private postDataService: PostDataService, private toasterService: ToasterService
+  constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService
+    // private toasterService: ToasterService
     ) {}
 
   ngOnInit(): void {
@@ -65,35 +65,14 @@ export class ApiCatalogComponent implements OnInit {
     document.documentElement.scrollTop = 0;
     let filter;
     this.getAPICatalog();
-    // this.postDataService.getDomainURL().subscribe(
-    //   (data) => {
-    //     this.domains = data[0].apicatalog;
-    //     this.temp_domains = this.domains;
-    //     this.domains.forEach((domain) => {
-    //       domain.loading = false;
-    //       this.motifTypeahead = [...this.motifTypeahead, domain.DOMAIN_NAME]
-    //       filter = { name: '', present: true };
-    //       if (
-    //         !this.fast_filters.some(
-    //           (filter) => filter.name === domain.APIs[0].FAST_FILTERS
-    //         )
-    //       ) {
-    //         filter.name = domain.APIs[0].FAST_FILTERS;
-    //         this.fast_filters.push(filter);
-    //       }
-    //     });
-    //     this.maxPages = Math.ceil(this.domains.length / this.showRules);
-    //   },
-    //   (err) => {
-    //     this.toastArray.push(this.toasterService.showWarning(this.warningMessage));
-    //   }
-    // );
   }
 
   getAPICatalog(){
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
     .subscribe((data: any) => {
-      this.domains=data.data;
+      debugger;
+      this.fast_filters=data.filters;
+      this.domains=data.APICatalog;
     });
   }
   handlePageChange(val: number): void {
@@ -117,6 +96,10 @@ export class ApiCatalogComponent implements OnInit {
     }
   }
 
+  filterCatalog(filter){
+    debugger;
+    this.selectedFilter=filter;
+  }
   paginationChangeFunc(idefaultPagination) {
     // e.preventDefault();
     this.showRules = parseInt(idefaultPagination);

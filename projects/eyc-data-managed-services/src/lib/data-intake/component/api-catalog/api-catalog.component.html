@@ -25,12 +25,8 @@
           </motif-form-field>
           <div class = "filters">
               FAST FILTERS:
-              <button  (click) = "filter.present = !filter.present"
-              [class.absent] = "!filter.present"
-              *ngFor = "let filter of fast_filters">{{filter.name | titlecase}}</button>
-              <!-- <button>Data quality</button>
-              <button>Data profile</button>
-              <button>Client registry</button> -->
+              <button [class.absent] = "filter!==selectedFilter"
+              *ngFor = "let filter of fast_filters" (click) = "filterCatalog(filter)">{{filter | titlecase}}</button>
           </div>
       </div>
       </div>
@@ -83,7 +79,7 @@
                           </button>
                       </div> -->
                       <motif-accordion *ngFor="let api of domain.operations; let j = index" >
-                          <motif-accordion-header>
+                          <motif-accordion-header  *ngIf="(api.filter==='' || api.filter?.toUpperCase()=== selectedFilter?.toUpperCase()) ? true : false">
                             <div class="method-type" [class.get]="api.methodType?.toUpperCase() === 'GET'"
                             [class.post]="api.methodType?.toUpperCase() === 'POST'"
                             [class.put]="api.methodType?.toUpperCase() === 'PUT'"
