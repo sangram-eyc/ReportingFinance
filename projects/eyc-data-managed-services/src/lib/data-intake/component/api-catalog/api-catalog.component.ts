@@ -70,7 +70,6 @@ export class ApiCatalogComponent implements OnInit {
   getAPICatalog(){
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
     .subscribe((data: any) => {
-      debugger;
       this.fast_filters=data.filters;
       this.domains=data.APICatalog;
     });
@@ -97,7 +96,6 @@ export class ApiCatalogComponent implements OnInit {
   }
 
   filterCatalog(filter){
-    debugger;
     this.selectedFilter=filter;
   }
   paginationChangeFunc(idefaultPagination) {
