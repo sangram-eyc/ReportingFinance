@@ -5,14 +5,19 @@ import { ApiSharedService } from './api-shared.service';
   providedIn: 'root'
 })
 export class EycRrCommentApiService {
-
+moduleOrigin="Data Managed Services";
   constructor(
     private apiService: ApiSharedService,
     private settingsService: SettingService
   ) { }
 
   addComment(data) {
-    return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_comment}`, data);
+    if(data.moduleOriginated?.replace(/\s/g, '') === this.moduleOrigin.replace(/\s/g, '')){
+    return this.apiService.invokePostAPIV2(`${this.settingsService.DMSFilling.add_comment}`, JSON.stringify(data));
+    }
+    else{
+      return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_comment}`, data);
+    }
   }
 
   uploadFile(data) { 

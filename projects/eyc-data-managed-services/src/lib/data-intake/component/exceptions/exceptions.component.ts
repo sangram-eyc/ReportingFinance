@@ -315,18 +315,18 @@ export class ExceptionsComponent implements OnInit {
             }
           }
         },
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   cellRendererFramework: MotifTableCellRendererComponent,
-        //   cellRendererParams: {
-        //     ngTemplate: this.commentTemplate,
-        //   },
-        //   headerName: 'Comments',
-        //   field: 'comments',
-        //   sortable: false,
-        //   filter: false,
-        //   width: 155
-        // },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.commentTemplate,
+          },
+          headerName: 'Comments',
+          field: 'comments',
+          sortable: false,
+          filter: false,
+          width: 155
+        },
         {
           headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
@@ -465,8 +465,9 @@ export class ExceptionsComponent implements OnInit {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.entityId,
-        entityType: "Filing Entity",
+        entityId: row.dataSetRuleId,
+        entityType: "DMS Exception",
+        moduleOriginated: "Data Managed Services",
         forms: {
           isSelect: false,
           selectDetails: {
