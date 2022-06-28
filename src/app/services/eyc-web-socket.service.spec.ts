@@ -4,7 +4,7 @@ import { EycWebSocketService } from './eyc-web-socket.service';
 
 describe('EycWebSocketService', () => {
   let service: EycWebSocketService;
-
+  let socket$  = this.getNewWebSocket();
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(EycWebSocketService);

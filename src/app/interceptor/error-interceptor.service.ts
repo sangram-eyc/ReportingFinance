@@ -131,7 +131,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
     // }
     dialogRef.afterClosed().subscribe(result => {
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
     });
   }
 }

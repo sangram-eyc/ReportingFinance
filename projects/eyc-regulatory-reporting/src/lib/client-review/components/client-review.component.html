@@ -1,6 +1,7 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
-    [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-reporting-tabs-card>
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [tabsData]="tabsData"
+[dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-shared-tabs>
+
 <div class="review-content-container">
 
     <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
@@ -14,13 +15,25 @@
 
     <section id="exceptionReports" *ngIf="tabs==1">
         <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
-            rowSelection="multiple" [submitFunction]="submitException" [modalMessage]="modalMessage"
-            buttonPosition="left" [masterDetail]="true" [isToggle]="false" [modalConfig]="exceptionModalConfig"
+            rowSelection="multiple" 
+            [submitFunction]="submitException" 
+            [submitTwoFunction]="unapproveExceptionReports"
+            [modalMessage]="modalMessage"
+            buttonPosition="left" 
+            [masterDetail]="true" 
+            [isToggle]="false" 
+            [modalConfig]="exceptionModalConfig"
+            [modalConfigTwo]="exceptionUnapproveModalConfig"
             [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
+            [permissionToPrimaryButton]="false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
+            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Exception Unapprove')"
+            [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()"
             [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="exceptionRowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
@@ -131,11 +144,23 @@
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
         <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
-            [submitFunction]="submitEntities" [modalMessage]="modalMessage" buttonPosition="left" [masterDetail]="true"
-            [isToggle]="false" [modalConfig]="entitiesModalConfig"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams" [defaultColDef]="exceptionDefaultColDef"
+            [submitFunction]="submitEntities"
+            [submitTwoFunction]="unapproveFilingEntities"
+            [modalMessage]="modalMessage" 
+            buttonPosition="left" 
+            [masterDetail]="true"
+            [isToggle]="false" 
+            [modalConfig]="entitiesModalConfig"
+            [detailCellRendererParams]="exceptionDetailCellRendererParams" 
+            [defaultColDef]="exceptionDefaultColDef"
             (toggleEventToParent)="onClickMyTask($event)"
-            [permissionToPrimaryButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
+            [permissionToPrimaryButton] = "false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
+            [disabledApproveButton]="filingEntityApprovedSelectedRows.length ==0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') "
+            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
             [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="rowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
@@ -151,26 +176,6 @@
             <div class="dropdownTemplate">
                 <motif-icon class="complete" *ngIf="row.approved == true"
                     [src]="'/assets/icons/action/ic_done_24px.svg'"></motif-icon>
-            </div>
-        </ng-template>
-
-        <ng-template #actionButtonTemplate let-row>
-            <div class="actionButtonTemplate">
-                <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
-
-                <div #actionMenuTemp *ngIf='tabs==2'>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
-                            (click)="unApproveEntity()" class="action-mode">
-                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
-                            <span>Unapprove</span>
-                        </div>
-                    </motif-card>
-                </div>
-
             </div>
         </ng-template>
 
@@ -251,12 +256,9 @@
         </motif-toast>
     </section>
 </div>
-
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName"
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
     (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
-
-    
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>

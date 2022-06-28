@@ -4,13 +4,21 @@
             <div [ngClass]="{'left-button': buttonPosition === 'left', 'right-button' : buttonPosition === 'right' }">
                 <div *ngIf="button" class="buttons">
                     <div class="approve-button" *ngIf="permissionToPrimaryButton">
-                        <button motifButton color="primary" size="large" (click)="primaryButtonAction()"
+                        <button motifButton color="primary-alt" size="large" (click)="primaryButtonAction()"
                         [disabled]="selectedRows.length==0">
                         <span *ngIf="displayPlusIcon">
                             <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'"></motif-icon></span>{{buttonText}}</button>
                     </div>
                     <div *ngIf="permissionToSecondaryButton">
                         <button class="second-button" *ngIf="displaySecondButton" [disabled]="displaySecondButton" motifButton color="secondary" size="large">{{secondbuttonText}}</button>
+                    </div>
+                    <div class="approve-button" *ngIf="permissionToApproveButton">
+                        <button motifButton color="secondary" size="small" (click)="approveButtonAction()"
+                        [disabled]="disabledApproveButton">{{approveButtonText}}</button>
+                    </div>
+                    <div *ngIf="permissionToUnapproveButton">
+                        <button class="second-button" [disabled]="disabledUnapproveButton" motifButton color="secondary" 
+                        size="small" (click)="unapproveButtonAction()">{{unApprovebuttonText}}</button>
                     </div>
                     <div class="approve-button" *ngIf="permissionToResolveExceptionButton">
                         <button motifButton color="secondary" size="small" [disabled]="disableResolveButton" (click)="openResolveUnresolveDialog('resolve')">{{resolveButtonText}}</button>
@@ -57,7 +65,7 @@
         </div>
         <div [hidden]="!permissionToShowDataTable">
         
-        <motif-table *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
+        <motif-table id="motif-datatable" *ngIf="displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [title] = 'title'
             [rowData]="rowData"
             [defaultColDef]="{}"
@@ -69,7 +77,7 @@
             [suppressRowClickSelection]="supressCellSelection" [suppressCellSelection]="true" [pagination]="pagination && !paginationApi"
             [paginationPageSize]="currentlySelectedPageSize.value" [paginationSelectTemplate]="paginationSelectTemplate"></motif-table>
     
-        <motif-table *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
+        <motif-table id="motif-datatable" *ngIf="!displayCheckBox" [hidden]="searchNoDataAvilable || (rowData?.length < 1)" [columnDefs]="columnDefsData"
             [title]="title"
             [rowData]="rowData" 
             [defaultColDef]="defaultColDef" 
@@ -143,7 +151,7 @@
             </p>
         </motif-modal-body>
         <motif-modal-footer>
-            <button motifButton class="approve-yes" color="primary"
+            <button motifButton class="approve-yes" color="primary-alt"
                 (click)="submit()">Continue</button>
             <button motifButton class="approve-no" color="secondary"
                 (click)="buttonModal = false">Cancel</button>

@@ -2,6 +2,42 @@
   top: 20px;
   position: relative;
 
+  .mb-0 {
+    margin-bottom: 0px !important;
+  }
+ 
+  .card-block{
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  .assignment_icon {
+    height: 54.2px;
+    width: 59.6px;
+    margin: 0 auto 11px;
+  }
+
+  .assignment_txt{
+   display: block;
+   font-family: EYInterstate;
+   font-size: 16px;
+   line-height: 20px;
+   letter-spacing: 0px;
+   text-align: center;
+   color:#5c5c6a
+  }
+
+  .no_data {
+    width: 100%;
+    height: auto;
+    padding-top: 14px;
+    h5 {
+      font-size: 16px;
+      line-height: 20px;
+      font-family: EYInterstate !important;
+    }
+  }
+  
 
   *:focus {
     box-shadow: none !important;
@@ -384,4 +420,72 @@ button.motif-active.motif-text-link, button.motif-text-link {
     padding-top: 84px;
   }
 }
+
+::ng-deep .circle-div{
+  height: 25px;
+  width: 25px;
+  background-color: #EAEAF2;
+  position: relative;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: inherit;
+}
+
+::ng-deep .circle-div svg{
+  fill: rgb(116, 116, 128);
+}
+
+.dots-menu-horiz{
+  border-color: transparent !important;
+}
+
+::ng-deep .circle-div .edit-pencil-icon svg{
+  fill: #2E2E38;
+}
+
+ ::ng-deep .circle-div .motif-dropdown-item {
+  height: 3.7rem;
+  font-weight: 500;
+  .motif-icon-content svg{
+    height: 24px !important;
+    width: 24px !important;
+    margin-top: 3px;
+    margin-right: 3px;
+  }
+} 
+
+::ng-deep .button-save-team-details{
+  background-color: var(--btn-link-bg-color);
+  border-color: var(--btn-link-border-color);
+  color: #155cb4;
+  font-weight: var(--weight-bold);
+  width: auto;
+}
+
+::ng-deep .dis-button-team-details{
+  color: #747480;
+}
+
+.edit-form-team-details{
+  display: flex;
+  position: absolute;
+  left: 240px;
+  margin-top: 10px;
+}
+
+.team-details-h3{
+  margin-right: 11px;
+}
+
+::ng-deep .circle-div .motif-dropdown-menu{
+  border: transparent;
+}
+
+::ng-deep .circle-div .motif-dropdown-menu[x-placement^=bottom-left]:before, .motif-dropdown-menu[x-placement^=bottom-right]:before {
+  border-top: transparent;
+  border-right: transparent;
+}
+
+
 

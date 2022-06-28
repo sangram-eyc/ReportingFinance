@@ -3,7 +3,7 @@ import * as powerbi from 'powerbi-client';
 import * as models from 'powerbi-models';
 import { EycPbiSharedService } from '../eyc-powerbi-embed/services/eyc-pbi-shared.service'
 import * as powerbiTheme from '../pbi-config/theme/eyc_2_theme.json';
-import { SESSION_PBI_TOKEN, PBI_ENCRYPTION_KEY, PBI_CONFIG, IS_THEME_APPLIED, IS_FY_FILTER, IS_PERIOD_FILTER } from '../pbi-config/pbi-config-helper';
+import { SESSION_PBI_TOKEN, PBI_ENCRYPTION_KEY, PBI_CONFIG, IS_THEME_APPLIED, IS_FY_FILTER, IS_PERIOD_FILTER, IS_NAME_FILTER } from '../pbi-config/pbi-config-helper';
 import { IReportEmbedConfiguration } from 'powerbi-client';
 @Component({
   selector: 'lib-power-bi-paginated-report-embed',
@@ -49,7 +49,7 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
         this.pbi.reset(this.el.nativeElement);
       }
       else{
-        console.log("selected report ID > ", this.selectedReportId);
+        console.log("selected report ID > ", this.selectedReportId,this.selectedFilling);
           this.showVisualizationForPowerBi();
       }
     } 
@@ -97,8 +97,25 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
       }
       sessionStorage.setItem(SESSION_PBI_TOKEN, embedToken);
       // this.regSettingsSvc.setSessionToken(authToken,SESSION_PBI_TOKEN,PBI_ENCRYPTION_KEY);
-      if(embedTokenRes['data']['embedReports'][0]['embedUrl']){
-        this.getReport(embedTokenRes['data']['embedReports'][0]['embedUrl'],embedToken);
+      if(this.pod == "RRMS" && embedTokenRes['data']?.['embedReports'][0]['embedUrl']){
+        let embedUrl = embedTokenRes['data']['embedReports'][0]['embedUrl'];
+        if(embedTokenRes['data']['embedReports'][0]['reportType'] == "PaginatedReport"){
+          const pbifilterName = this.selectedFilling.filingName;
+          const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
+            let periodfilter =  Array.isArray(pbifilters)? pbifilters[0]:'';
+            let yearFilter = Array.isArray(pbifilters)? pbifilters[1]:pbifilters;
+            embedUrl = new URL(embedUrl);
+            if(yearFilter){
+              embedUrl.searchParams.append('rp:Filing_Year', encodeURIComponent(yearFilter));
+            }
+            if(periodfilter){
+              embedUrl.searchParams.append('rp:Filing_Period', encodeURIComponent(periodfilter));
+            }
+            if(pbifilterName){
+              embedUrl.searchParams.append('rp:Filing_Type', encodeURIComponent(pbifilterName));
+            }
+        }
+        this.getReport(decodeURIComponent(embedUrl.toString()) ,embedToken);
       }
       else{
       this.getEmbedUrl().subscribe(embedTokenData => {
@@ -129,8 +146,9 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
     this.report = (this.pbi.embed(reportContainer, this.reportConfig) as powerbi.Report);
     const self = this;
     // const pbifilters = this.selectedPeriod ? this.selectedPeriod.split(' ') : [];
+    const pbifilterName = this.selectedFilling.filingName;
     const pbifilters = this.selectedPeriod ? /^\d+$/.test(this.selectedPeriod) ? this.selectedPeriod : this.selectedPeriod.split(' ') : [] ;
-    console.log(pbifilters,"pbifilters loaded")
+    console.log(pbifilters,pbifilterName,"pbifilters loaded")
     this.report.on('loaded', function (event) {
       console.log("Report Data", self.report);
       console.log("Get Filters", self.report.getFilters());
@@ -143,16 +161,24 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
               console.log("Year Filter is working",filter['values']);
-              filter['values'].push(pbifilters[1]);
+              typeof pbifilters === 'string' ? filter['values'].push(pbifilters) : filter['values'].push(pbifilters[1]);
             }
           }
-          if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER) {
+          if (filter.target['column'] === 'FilingPeriod' && IS_PERIOD_FILTER &&  typeof pbifilters !== 'string') {
             filter['operator'] = 'In';
             if (filter.hasOwnProperty('values')) {
               console.log("Year Filter is working",filter['values']);
               filter['values'].push(pbifilters[0]);
             }
           }
+          if (filter.target['column'] === 'Description' && IS_NAME_FILTER) {
+            filter['operator'] = 'In';
+            if (filter.hasOwnProperty('values')) {
+              console.log("Name Filter is working",filter['values']);
+              filter['values'].push(pbifilterName);
+            }
+          }
+           
 
           if (filter.target['column'] === 'period end date') {
             filter['operator'] = 'In';
@@ -161,8 +187,10 @@ export class PowerBiPaginatedReportEmbedComponent implements OnInit,OnChanges {
             }
           }
           self.filters.push(filter);
+          console.log('Filters', self.filters);
         }
         self.setFilter(self.filters);
+        console.log('Filters1', self.filters);
       });
     });
   }

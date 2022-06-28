@@ -1,12 +1,14 @@
-<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team member has been deleted successfully</motif-toast>
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team member has been deleted successfully
+</motif-toast>
 <div class="user-details-wrapper">
   <div class="back-wrapper">
-    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>
-    &nbsp;<span class="back-opt">&nbsp;  Back</span>
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoTeamVIew()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp; Back</span>
   </div>
   <div class="user-info-header">
-    <h3>Team Details</h3>
-    <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+    <h3 class="team-details-h3">Team Details</h3>
+    <!--      <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
       *ngIf="!enableEditor && teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')" (click)="enableEditForm()">
       <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
@@ -14,50 +16,70 @@
       <button class="save-submit" motifButton color="primary" size="small" [disabled]="editTeamForm.invalid"
         [ngClass]="editTeamForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
       <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
+    </div>   -->
+    <div class="circle-div">
+      <div motifDropdown placement="bottom-left">
+        <motif-icon [class.disabled]="!is_editable" class="dots-menu-horiz" motifDropdownToggle
+          [src]="'/assets/icons/navigation/ic_more_horiz_24px.svg'"
+          *ngIf="teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+        </motif-icon>
+        <div class="edit-pencil-icon" motifDropdownMenu aria-labelledby="motifExampleDropdown1">
+          <button motifDropdownItem (click)="enableEditForm()">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'">
+            </motif-icon>
+            Edit team details
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="edit-form-team-details" *ngIf="enableEditor">
+      <button motifButton class="button-save-team-details" color="link-alt" [disabled]="editTeamForm.invalid"
+        [ngClass]="editTeamForm.invalid ? 'dis-button-team-details' : ''"
+        (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
     </div>
   </div>
 
   <div class="team-detailscontent-container" *ngIf="!enableEditor && teamInfo">
-   
+
     <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-6 lablel-heading">
-            Team Name
-          </div>
-          <div class="col-md-6  lablel-heading">
-            <span *ngIf="module == 'Regulatory Reporting'">
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Team Name
+        </div>
+        <div class="col-md-6  lablel-heading">
+          <span *ngIf="module == 'Regulatory Reporting'">
             Filing Type/Reports
-            </span>
-          </div>
-          <div class="col-md-6 label-value">
-            {{teamInfo?.teamName}} 
-          </div>
-          <div class="col-md-6  label-value">
-            <span *ngIf="module == 'Regulatory Reporting'">
-              {{teamInfo?.assignments}}
-            </span>
-          </div>
+          </span>
         </div>
-        <div class="row">
-          <div class="col-md-6 lablel-heading">
-            Role
-          </div>
-          <div class="col-md-6 lablel-heading">
-            Description
-          </div>
-          <div class="col-md-6 label-value">
-            {{teamInfo?.role}}
-          </div>
-          <div class="col-md-6  label-value">
-            {{teamInfo?.teamDescription}}
-          </div>
+        <div class="col-md-6 label-value">
+          {{teamInfo?.teamName}}
         </div>
+        <div class="col-md-6  label-value">
+          <span *ngIf="module == 'Regulatory Reporting'">
+            {{teamInfo?.assignments}}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Role
+        </div>
+        <div class="col-md-6 lablel-heading">
+          Description
+        </div>
+        <div class="col-md-6 label-value">
+          {{teamInfo?.role}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{teamInfo?.teamDescription}}
+        </div>
+      </div>
     </div>
 
   </div>
 
   <div class="team-detailscontent-container" *ngIf="enableEditor && teamInfo">
-  
+
     <div class="container-fluid">
       <form [formGroup]="editTeamForm" *ngIf="editTeamForm">
         <div class="row">
@@ -71,12 +93,14 @@
           </div>
           <div class="col-md-6">
             <motif-form-field>
-              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
+              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName"
+                (keyup)="teamDuplicateCheck($event.target.value)" />
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
               </motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('pattern')">Team name must be alpha numeric!
               </motif-error>
-              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters long</motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters
+                long</motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('whitespace')">Please enter valid data
               </motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
@@ -85,8 +109,11 @@
           </div>
           <div class="col-md-6">
             <motif-form-field *ngIf="module == 'Regulatory Reporting'">
-              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings" (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)" [ngModelOptions]="{standalone: true}" required>
-                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">{{assignment.filingName}}</motif-option>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings"
+                (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">
+                  {{assignment.filingName}}</motif-option>
               </motif-select>
               <motif-error *ngIf="!selectedFilings.length">Please provide a assignment!</motif-error>
             </motif-form-field>
@@ -101,7 +128,7 @@
           </div>
           <div class="col-md-6">
             <motif-form-field>
-              <motif-select formControlName="role" aria-label="Aria Label" >
+              <motif-select formControlName="role" aria-label="Aria Label">
                 <motif-option *ngFor="let item of roleList;index as i;" [value]="item">
                   {{item}}</motif-option>
               </motif-select>
@@ -110,7 +137,8 @@
           <div class="col-md-6">
             <motif-form-field>
               <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
-              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250
+                characters long
               </motif-error>
             </motif-form-field>
           </div>
@@ -120,25 +148,32 @@
 
   </div>
 
-  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!</motif-toast>
+  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!
+  </motif-toast>
   <motif-tab-bar>
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
-    <!-- <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
-      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
-    <button motifButton (click)="adminTabChange(3)" class="motif-text-link"
+    <button *ngIf="module == 'Regulatory Reporting'" motifButton (click)="adminTabChange(2)" class="motif-text-link"
+      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Task Assignment</button>
+    <!--<button motifButton (click)="adminTabChange(3)" class="motif-text-link"
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
-    
-    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')" [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
-    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"
-    [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
-    [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
-    (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)" (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)" (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
+    <lib-shared-grid
+      [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
+      [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs"
+      (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'"
+      rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}"
+      gridStyle="third" [export]="true" (exportFlagToParent)="exportTeamsDetailsData()"
+      [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
+      [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
+      (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)"
+      (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)"
+      (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
 
     <ng-template #actionSection let-row>
-      <div class="delete-icon" (click)="deleteTeamMember(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+      <div class="delete-icon" (click)="deleteTeamMember(row)"
+        *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
@@ -152,7 +187,7 @@
         Add member to team
       </motif-modal-header>
       <motif-modal-body>
-    
+
         <form [formGroup]="addTeamMemberForm">
           <span class="description"> Select members to add to this team below
           </span>
@@ -160,8 +195,10 @@
             <div class="motif-col-xs-4 motif-col-lg-12">
               <motif-form-field>
                 <label motifLabel class="select-label">Select</label>
-                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
-                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
+                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members"
+                  ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
+                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}}
+                    {{member.userLastName}}</motif-option>
                   <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
                 </motif-select>
                 <motif-error *ngIf="
@@ -175,14 +212,15 @@
               </motif-chip-group>
             </div> -->
             <div class="motif-col-xs-4 motif-col-lg-12 add-member-note">
-              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span>
+              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User
+                tab.</span>
             </div>
           </div>
         </form>
         <!-- <span class="add-member-note"><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span> -->
       </motif-modal-body>
       <motif-modal-footer>
-        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeamMembers()"
+        <button motifButton class="approve-yes" color="primary-alt" (click)="onSubmitNewTeamMembers()"
           [disabled]="addTeamMemberForm.invalid">Save</button>
         <button motifButton class="approve-no" color="secondary" (click)="closeTeamMemberModal()">Cancel</button>
       </motif-modal-footer>
@@ -190,4 +228,37 @@
 
     <motif-toast [type]="'success'" [show]="showToastAfterAddTeamMember">Team members added successfully</motif-toast>
   </div>
+
+  <div *ngIf="tabIn == 2">
+    <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs" 
+      [rowData]="taskAssignmentData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
+      [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
+    </lib-shared-grid>
+
+    <div *ngIf="taskAssignmentData.length == 0">
+      <motif-card>
+        <div class="card-block">
+          <svg class='assignment_icon' width="60" height="55" viewBox="0 0 60 55" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M54.5832 9.02852L23.6811 39.9577L12.1978 28.4743L16.0165 24.6556L23.6811 32.3202L50.7644 5.23685L54.5832 9.02852ZM27.4998 49.166C15.5561 49.166 5.83317 39.4431 5.83317 27.4994C5.83317 15.5556 15.5561 5.83268 27.4998 5.83268C31.7519 5.83268 35.7332 7.07852 39.0915 9.2181L43.0186 5.29102C38.604 2.2306 33.2686 0.416016 27.4998 0.416016C12.5498 0.416016 0.416504 12.5493 0.416504 27.4994C0.416504 42.4494 12.5498 54.5827 27.4998 54.5827C32.1853 54.5827 36.5998 53.391 40.4457 51.2785L36.3832 47.216C33.6748 48.4619 30.6686 49.166 27.4998 49.166ZM46.4582 35.6244H38.3332V41.041H46.4582V49.166H51.8748V41.041H59.9998V35.6244H51.8748V27.4994H46.4582V35.6244Z" fill="#747480" />
+          </svg>
+          <span class="assignment_txt">
+            No task assignments displayed.<br>
+            Please click <b>Filings</b> to enable filing permissions and show available task assignments.</span>
+        </div>
+      </motif-card>
+    </div>
+
+    <div *ngIf="searchNoDataAvilable">
+      <motif-card class="no_data">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+    </div>
+  </div>
+
+  <ng-template #toggleSwitch let-row>
+    <motif-toggle-switch class="mb-0"></motif-toggle-switch>
+  </ng-template>
 </div>

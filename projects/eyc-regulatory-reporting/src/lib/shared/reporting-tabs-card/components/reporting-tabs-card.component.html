@@ -2,14 +2,59 @@
     <motif-tab-bar>
         <button motifButton class="motif-text-link"  (click)="reportTabChange(1)" [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception Reports</button>
         <button motifButton class="motif-text-link" (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Filing Entities</button>
-        <!-- <button motifButton class="motif-text-link"  (click)="reportTabChange(3)" [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Topsides</button> -->
+       <button motifButton class="motif-text-link"
+               (click)="reportTabChange(3)" [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Topsides
+       </button>
     </motif-tab-bar>
-    <button  class="data-explorer" motifButton color="secondary" size="medium" (click)="dataExplorer()"  *ngIf="dataExpPermission">Data Explorer</button>
+  <button class="data-explorer" motifButton color="secondary" size="medium" (click)="dataExplorer()"
+          *ngIf="dataExpPermission">Data Explorer
+  </button>
+</div>
+
+<div class="eyc-rr-tabs" *ngIf="isDataInteake">
+  <motif-tab-bar>
+    <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+            [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception Reports
+    </button>
+    <!--         <button motifButton class="motif-text-link" (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Files</button>
+     -->
+    <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+            [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Datasets
+    </button>
+  </motif-tab-bar>
+</div>
+
+<div *ngIf="showPopup" class="topside-popup">
+  <div class="close" (click)="showPopup = false">X</div>
+  <div class="title">
+    Manage Topsides
   </div>
-  <div class="eyc-rr-tabs" *ngIf ="isDataInteake">
-    <motif-tab-bar>
-        <button motifButton class="motif-text-link"  (click)="reportTabChange(1)" [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Exception Reports</button>
-<!--         <button motifButton class="motif-text-link" (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Files</button>
- -->        <button motifButton class="motif-text-link"  (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Datasets</button>
-      </motif-tab-bar>
+  <div class="access-add">
+    <p class="as-link">Access add
+      template</p>
+    <p class="desc">
+      The add template is used to determine
+      how many funds there will be
+    </p>
   </div>
+  <div class="separator"></div>
+  <div class="edit-template">
+    <p class="as-link">Access edit template</p>
+    <p class="desc">
+      The edit template is used to
+      overrides to the values
+    </p>
+  </div>
+  <button (click)="startProcessing()" *ngIf="processingStatus == 'READY_FOR_PROCESSING'"
+          class="btn-process">{{'Proceed'}}
+  </button>
+  <button (click)="generateTemplate()" *ngIf="!processingStatus"
+          class="btn-process">{{'Generate'}}
+  </button>
+  <button *ngIf="processingStatus && processingStatus != 'READY_FOR_PROCESSING'"
+          class="btn-process" [disabled]="true">{{processingStatus}}
+  </button>
+  <div class="other">
+
+  </div>
+</div>

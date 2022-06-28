@@ -4,6 +4,7 @@ export const IS_FY_FILTER = true;
 export const IS_PERIOD_FILTER = true;
 export const SESSION_PBI_TOKEN= "pbi_token";
 export const PBI_ENCRYPTION_KEY = '123456$#@$^@1PBI';
+export const IS_NAME_FILTER = true;
 
 
 /*PBI Theme file settings */

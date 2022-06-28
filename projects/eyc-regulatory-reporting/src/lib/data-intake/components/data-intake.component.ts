@@ -405,19 +405,19 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         width: 150,
         comparator: this.disableComparator,
       } ,
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
-        },
-        headerName: 'Resolved',
-        field: 'resolvedCount',
-        sortable: true,
-        filter: true,
-        width: 200,
-        comparator: this.disableComparator,
-      },
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.resolveExceptionTemplate,
+      //   },
+      //   headerName: 'Resolved',
+      //   field: 'resolvedCount',
+      //   sortable: true,
+      //   filter: true,
+      //   width: 200,
+      //   comparator: this.disableComparator,
+      // },
       {
         headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
@@ -564,7 +564,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.id,
+        entityId: row.datasetRuleId,
         entityType: "Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
@@ -606,7 +606,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-        this.exceptionData[this.exceptionData.findIndex(item => item.id === row.id)].commentCount = 1;
+        this.exceptionData[this.exceptionData.findIndex(item => item.datasetRuleId === row.datasetRuleId)].commentCount = 1;
         this.createEntitiesRowData();
       } else {
         console.log(result);
@@ -732,7 +732,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.entityId = row.entityId;
     } else {
       this.commentEntityType = 'Data Exception Report'
-      this.entityId = row.id;
+      this.entityId = row.datasetRuleId;
     }
     this.showComments = true;
 
@@ -756,7 +756,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       exceptionReportName: event.file,
       parentModule: 'Regulatory Reporting',
       period: this.filingDetails.period,
-      ruleExceptionId: event.ruleExceptionId
+      ruleExceptionId: event.ruleExceptionId,
+      ruleType: event.ruleType,
+      tableName: event.tableName,
+      filename: event.filename
     }}};
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports'], navigationExtras);
@@ -765,9 +768,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exportData(type) {
     if(type == 'exceptions') {
       if(this.permissions.validatePermission('Data Intake', 'View Comments')) { 
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,exceptionCount:Exceptions';
       } else {
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,exceptionCount:Exceptions';
       }
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else if(type == 'dataset') {

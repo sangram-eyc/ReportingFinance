@@ -56,7 +56,7 @@ export class CommentsPagecomponent implements OnInit {
       this.fundId = params.id
       this.type = params.type
       this.productCycleName = params.prodCycleName
-      this.isApproved = params.status === "approved";
+      this.isApproved = params.status === "Approved by client";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
       this.cycleId = params.cycleId;
       console.log('params -->', params);
@@ -136,6 +136,20 @@ export class CommentsPagecomponent implements OnInit {
     }
   }
 
+  commentaddTagSearch(commentItem: { id: any; idTag: any; }){
+    let addTag:any;
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      if(commentItem.idTag == 1){
+        addTag = {"id": 1,"name": "Edit Required"}
+      }else if(commentItem.idTag == 2){
+        addTag = {"id": 2,"name": "Include in cycle debrief"}
+      }      
+        updatedComment.tags.push(addTag)
+      }      
+    }
+  
+
   commentPriorityUpdateSearch(commentItem: { id: any; priority: any; }){
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
@@ -153,7 +167,6 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   backtoCycleView() {
-    //this.location.back();
     this.router.navigate(['cycle-details',this.cycleId,this.productCycleName]);
   }
 

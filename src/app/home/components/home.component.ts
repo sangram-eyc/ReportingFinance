@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorModalComponent } from 'eyc-ui-shared-component';
 import { ModuleLevelPermissionService } from '@default/services/module-level-permission.service';
 import { Router } from '@angular/router';
+import { ConcurrentSessionsService } from '@default/services/concurrent-sessions/concurrent-sessions.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     private settingsService: SettingsService,
     public dialog: MatDialog,
     private moduleLevelPermission: ModuleLevelPermissionService,
-    private router: Router
+    private router: Router,
+    private concurrentSessionsService:ConcurrentSessionsService
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class HomeComponent implements OnInit {
       this.settingsService.setIdToken(sessionStorage.getItem(SESSION_ID_TOKEN));
     }
 
-    this.moduleLevelPermission.getModuleLevelPermission().subscribe(res => {
+    this.moduleLevelPermission.getModuleLevelPermission().subscribe(async res => {
       this.moduleLevelPermissionData = res['data'];
       if (!res['data']) {
         this.openErrorModal("Access Denied", "User is not a valid user. Please contact an administrator.");
@@ -39,7 +41,8 @@ export class HomeComponent implements OnInit {
         this.openErrorModal("Access Denied", "User does not have access to any module. Please contact an administrator.");
       } else {
         this.settingsService.setModulePermissionData = res['data'];
-        sessionStorage.setItem('modules', JSON.stringify(res['data']))
+        sessionStorage.setItem('modules', JSON.stringify(res['data']));
+        await this.setSessionId(res['data'].userEmail);
         this.moduleLevelPermission.invokeModulePermissionDetails(res['data']);
         if (res['data'].userModules.hasOwnProperty('Regulatory Reporting')) {
           this.permissionList('Regulatory Reporting');
@@ -62,6 +65,24 @@ export class HomeComponent implements OnInit {
       sessionStorage.setItem("permissionList", JSON.stringify(resp.data));
     });
   }
+
+ 
+ async setSessionId(email: any) {
+    console.log('setSessionId email->', email)
+    //set session id to avoid concurrent sessions
+    const body = {
+      "userEmail": email
+    }
+
+    try {
+      const res = await this.concurrentSessionsService.addSessionId(body);
+      sessionStorage.setItem('session_id', res['data'].id);
+    } catch (err) {
+      // request failed
+      console.error(err);
+    }
+  }
+
 
   navigation() {
     if (IS_SURE_FOOT) {
@@ -112,7 +133,6 @@ export class HomeComponent implements OnInit {
     }
     dialogRef.afterClosed().subscribe(result => {
       this.settingsService.logoff();
-      this.router.navigate(['/eyComply'], { queryParams: { logout: true } });
       console.log('The dialog was closed', result);
     });
   }

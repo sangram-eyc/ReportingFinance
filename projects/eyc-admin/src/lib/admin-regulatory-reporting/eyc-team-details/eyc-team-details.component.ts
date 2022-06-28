@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,18 +11,20 @@ import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
+import { TasksService } from '../services/tasks.service'
 
 @Component({
   selector: 'app-eyc-team-details',
   templateUrl: './eyc-team-details.component.html',
   styleUrls: ['./eyc-team-details.component.scss']
 })
-export class EycTeamDetailsComponent implements OnInit {
+export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   exportHeaders;
   exportUrl: string;
   constructor(private location: Location,
     private teamService: TeamsService,
+    private taskService:TasksService,
     private adminService: AdministrationService,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
@@ -39,6 +41,8 @@ export class EycTeamDetailsComponent implements OnInit {
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
+  @ViewChild('toggleSwitch')
+  toggleSwitch: TemplateRef<any>;
   teamsListArr: any[] = [];
   teamInfo;
   curentTeamId;
@@ -77,7 +81,9 @@ export class EycTeamDetailsComponent implements OnInit {
   filter = '';
   sort = '';
   pageChangeFunc;
-  
+  taskAssignmentData;
+  searchNoDataAvilable = false;
+
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
       this.pageChangeFunc = this.onPageChange.bind(this);
@@ -105,6 +111,13 @@ export class EycTeamDetailsComponent implements OnInit {
       })
     }
     this.addTeamMemberForm = this._createTeamMembers();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const addMemberButton = document.querySelector('.approve-button .motif-button');
+      addMemberButton.setAttribute("color", "primary-alt");
+    }, 10); 
   }
 
   getFilingAssignments() {
@@ -145,6 +158,11 @@ export class EycTeamDetailsComponent implements OnInit {
     this.getTeamDetailsData(true);
   }
 
+  searchGrid_opc2(input){
+    this.gridApi.setQuickFilter(input);
+    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+  }
+
   sortChanged(event) {
     switch(true) {
       case event === 'memberName:true':
@@ -164,8 +182,8 @@ export class EycTeamDetailsComponent implements OnInit {
   }
 
   enableEditForm() {
-    this.enableEditor = !this.enableEditor;
-    this.disableAddMemberButton = !this.disableAddMemberButton;
+    this.enableEditor = true;//!this.enableEditor;
+    this.disableAddMemberButton = false;//!this.disableAddMemberButton;
   }
 
   getUsersList() {
@@ -198,6 +216,7 @@ export class EycTeamDetailsComponent implements OnInit {
           userEmail: element.userEmail,
           memberName: element.userFirstName + ' ' + element.userLastName
         })
+
       this.totalRecords=resp['totalRecords'];
       });
       if (resetData) {
@@ -255,6 +274,54 @@ export class EycTeamDetailsComponent implements OnInit {
 
   adminTabChange(selectedTab) {
     this.tabIn = selectedTab;
+    if (selectedTab == 1) {
+      this.createTeamsRowData()
+      this.getTeamDetailsData(true)
+      this.gridApi.setRowData(this.teamsMemberData);
+    }
+    else if (selectedTab == 2) {
+      this.taskService.getTaskAssignments().subscribe( res =>{
+        this.taskAssignmentData = res.data
+        this.gridApi.setRowData(res.data);
+      })
+
+      this.columnDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          filter: false,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filling Type',
+          field: 'fillingType',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Task Assignment',
+          field: 'taskAssingment',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        }
+        
+      ];
+     
+      
+    }
   }
 
   private _updateTeam() {
@@ -290,7 +357,7 @@ export class EycTeamDetailsComponent implements OnInit {
     const obj = this.editTeamForm.getRawValue();
     if (this.editTeamForm.valid) {
       this.enableEditor = !this.enableEditor;
-      this.disableAddMemberButton = !this.disableAddMemberButton;
+      this.disableAddMemberButton = false;//!this.disableAddMemberButton;
       let team;
       console.log(obj);
       
@@ -490,7 +557,7 @@ export class EycTeamDetailsComponent implements OnInit {
       model
     );
   }
-  
+
   filingTypeLogEvent(event, type, model) {
     this.editTeamForm.patchValue({
       assignments: model
