@@ -182,7 +182,7 @@ describe('RrReportingComponent', () => {
       return of(mockResp)
     })
     component.getFilingEntities(true);
-    expect(component.rowData).toEqual(mockResp['data']);
+    expect(component.rowData).toEqual(mockResp['data'] as any);
     expect(component.totalRecords).toEqual(1)
   });
 
@@ -274,11 +274,6 @@ describe('RrReportingComponent', () => {
     expect(component.modalMessage).toEqual('Are you sure you want to approve the selected exception reports? This will move them to client review.')
   })
 
-  it('onSubmitTest method should show logs', () => {
-    spyOn(console, 'log')
-    component.onSubmitTest()
-  })
-
   it('onSubmitApproveFilingEntities method should call api to submit filling entities for approval', fakeAsync(() => {
     component.filingDetails = {
       filingName: 'Form pf',
@@ -294,7 +289,7 @@ describe('RrReportingComponent', () => {
         reviewLevel: "L2 Review",
         updatedBy: "Akshay.raskar@ey.com",
       }
-    ]
+    ] as any
 
     component.rowData = [{
       approved: false,
@@ -303,8 +298,7 @@ describe('RrReportingComponent', () => {
       fundId: "21114980",
       reviewLevel: "L2 Review",
       updatedBy: "Akshay.raskar@ey.com",
-    }]
-
+    }] as any
     let mockResp = {
       data: [{
         approved: false,
@@ -328,7 +322,7 @@ describe('RrReportingComponent', () => {
       fundId: "21114980",
       reviewLevel: "Client Review",
       updatedBy: "nitin.madake@ey.com",
-    }]);
+    }] as any);
     expect(component.showToastAfterApproveFilingEntities).toEqual(true)
     tick(5000);
     expect(component.showToastAfterApproveFilingEntities).toEqual(false)
@@ -420,7 +414,7 @@ describe('RrReportingComponent', () => {
         unresolved: 1,
         resolved: 0
       }
-    ]
+    ] as any
 
     component.exceptionData = [
       {
@@ -492,7 +486,7 @@ describe('RrReportingComponent', () => {
     ]
 
     component.exceptionReportRowsSelected(mockEvent);
-    expect(component.selectedRows).toEqual(mockEvent);
+    expect(component.selectedRows).toEqual(mockEvent as any);
     expect(component.exceptionReportToApproveSelectedRows).toEqual([{
       approved: false,
       exceptionId: 8554,
@@ -501,7 +495,7 @@ describe('RrReportingComponent', () => {
       updateBy: "nitin.madake@ey.com",
       unresolved: 2,
       resolved: 1
-    }]);
+    }] as any);
     expect(component.exceptionReportToUnaproveSelectedRows).toEqual([
       {
         approved: true,
@@ -512,7 +506,7 @@ describe('RrReportingComponent', () => {
         unresolved: 1,
         resolved: 0
       }
-    ])
+    ] as any)
 
   })
 
@@ -539,7 +533,7 @@ describe('RrReportingComponent', () => {
     ]
 
     component.filingEnitiesRowsSelected(mockEvent);
-    expect(component.selectedRows).toEqual(mockEvent);
+    expect(component.selectedRows).toEqual(mockEvent as any);
     expect(component.filingEntityApprovedSelectedRows).toEqual([{
       approved: false,
       entityId: 8554,
@@ -548,7 +542,7 @@ describe('RrReportingComponent', () => {
       updateBy: "nitin.madake@ey.com",
       unresolved: 2,
       resolved: 1
-    }]);
+    }] as any);
     expect(component.filingEntityUnaprovedSelectedRows).toEqual([
       {
         approved: true,
@@ -559,7 +553,7 @@ describe('RrReportingComponent', () => {
         unresolved: 1,
         resolved: 0
       }
-    ])
+    ] as any)
   })
 
   it('onClickMyTask method should set myTask - positive', () => {
@@ -570,7 +564,7 @@ describe('RrReportingComponent', () => {
         entityName: "CL BUY AND MAINTAIN FIXED INCOME LP",
         mytask: true
       }
-    ]
+    ] as any
     component.onClickMyTask(true);
     expect(component.exceptionData).toEqual([
       {
@@ -597,7 +591,7 @@ describe('RrReportingComponent', () => {
         entityName: "CL BUY AND MAINTAIN FIXED INCOME LP",
         mytask: false
       }
-    ]
+    ]as any
     component.onClickMyTask(false);
     expect(component.exceptionData).toEqual([
       {
@@ -660,7 +654,7 @@ describe('RrReportingComponent', () => {
         reviewLevel: 'Approved',
         updatedBy: 'nitin.madake@ey.com'
       }
-    ]
+    ]as any
 
     component.rowData = [
       {
@@ -669,7 +663,7 @@ describe('RrReportingComponent', () => {
         reviewLevel: 'Approved',
         updatedBy: 'nitin.madake@ey.com'
       }
-    ]
+    ] as any
 
     let mockResp = {
       data: [
@@ -695,7 +689,7 @@ describe('RrReportingComponent', () => {
         updatedBy: 'nitin.madake@ey.com'
       }
 
-    ])
+    ] as any)
     expect(component.createEntitiesRowData).toHaveBeenCalled();
     expect(component.selectedRows).toEqual([])
   })
@@ -735,7 +729,7 @@ describe('RrReportingComponent', () => {
         resolved: '1',
         unresolved: '1',
       }
-    ]
+    ] as any
 
     component.exceptionData = [
       {
@@ -927,7 +921,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }] as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 
@@ -996,7 +990,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }]as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 
@@ -1064,7 +1058,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }] as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 
@@ -1123,7 +1117,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }] as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 
@@ -1192,7 +1186,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }]as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 
@@ -1261,7 +1255,7 @@ describe('RrReportingComponent', () => {
     let auditLogs = [{
       duration: 'JUN',
       progress: [...auditList]
-    }]
+    }] as any
     expect(component.auditLogs).toEqual(auditLogs)
   })
 }); 
