@@ -60,7 +60,7 @@ describe('SubmissionComponent', () => {
 
   describe('The function onRowSelected ...', () => {
     it(`- should do something`, () => {
-      component.onRowSelected();
+      component.onRowSelected('');
       expect(component).toBeTruthy();
     });
   }); 
