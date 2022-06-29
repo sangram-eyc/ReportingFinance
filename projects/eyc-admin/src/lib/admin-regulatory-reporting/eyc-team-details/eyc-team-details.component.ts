@@ -12,6 +12,7 @@ import { AdministrationService } from '../../administration/services/administrat
 import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
 import { TasksService } from '../services/tasks.service'
+import { DataExplorerService } from '../services/data-explorer.service'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -31,12 +32,13 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     public permissions: PermissionService,
-    private apiHelpers: SettingService) {
+    private apiHelpers: SettingService,
+    private dataExplorerService: DataExplorerService) {
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
     this.moduleId = module.moduleId;
     this.editTeamForm = this._updateTeam();
-
+    
   }
 
   @ViewChild('actionSection')
@@ -82,7 +84,14 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   sort = '';
   pageChangeFunc;
   taskAssignmentData;
+  dataExplorerData;
   searchNoDataAvilable = false;
+  currentlySelectedPageSizeNewTabs = {
+    disable: false,
+    value: 10,
+    name: '10',
+    id: 0
+  };
 
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
@@ -318,9 +327,48 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           comparator: customComparator
         }
         
-      ];
-     
-      
+      ];     
+    }
+    else if (selectedTab == 4) {
+      this.dataExplorerService.getDataExplorerInformation().subscribe(res =>{
+        this.dataExplorerData = res.data
+        this.gridApi.setRowData(res.data);
+      })
+
+      this.columnDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          filter: false,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filling name',
+          field: 'fillingType',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Report name',
+          field: 'taskAssingment',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 370,
+          comparator: customComparator
+        }
+        
+      ];     
     }
   }
 

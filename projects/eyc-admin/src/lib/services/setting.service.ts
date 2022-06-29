@@ -77,4 +77,11 @@ export class SettingService {
   }
   return authorization;
   }
+
+  get data_explorer(): any{
+    const data_explorer = {
+      data_explorer_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/taskAssignment.json' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
+    }
+    return data_explorer;
+  }
 }
