@@ -75,7 +75,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  //permissionApproval = true
+  // permissionApproval = true
 
 
 
@@ -198,13 +198,14 @@ export class CycleDetailComponent implements OnInit {
   processingCheck: any = '';
   setClickApproveButton = false; 
   downloadButton: HTMLElement = document.createElement('button');
+  isArchived:boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
       this.productCycleId = params.id
     });
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
-    this.getOptionsProductCycles();
+    // this.getOptionsProductCycles();
     this.cycleSelectForm = this.fb.group({
       mySelect: [this.productCycleId]
     });
@@ -274,7 +275,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   createComment(row: any, type: any) {
-    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
+    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId,this.isArchived]);
   }
 
   getCompletedProductCyclesData(id: any, toast?: boolean, msgToast? : any) {
@@ -282,7 +283,8 @@ export class CycleDetailComponent implements OnInit {
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
-      resp['data'].forEach((item) => {
+      (resp.data[0].isArchived != undefined) ? this.isArchived = resp.data[0].isArchived  : this.isArchived = false;
+      resp.data[0].productionCycleDetails.forEach((item) => {
         const eachitem: any = {
           name: item.name,
           hasContent: item.hasContent,
@@ -312,6 +314,7 @@ export class CycleDetailComponent implements OnInit {
           this.showToastAfterSubmit = false;
         }, 5000);
       }
+      this.getOptionsProductCycles();
     });
   }
 
@@ -593,7 +596,7 @@ export class CycleDetailComponent implements OnInit {
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    if (this.datasetsSelectedRows.length > 0) {
+    if (this.datasetsSelectedRows.length > 0 && !this.isArchived) {
       this.approveBtn.disabled = false;
       this.cancelbtn.disabled = false;
     } else {
@@ -729,7 +732,12 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getOptionsProductCycles() {
-    this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
+    if (this.isArchived){
+      this.options = JSON.parse(sessionStorage.getItem('archivedProdCyclesList'));
+    }else{ 
+      this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
+    }
+    
   }
 
   onOptionsSelected(idCycle) {
@@ -820,7 +828,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getMoreDetailsPage() {
-    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName]);
+    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName,this.isArchived]);
   }
 
   removeEvCloseSession(e: Event) {

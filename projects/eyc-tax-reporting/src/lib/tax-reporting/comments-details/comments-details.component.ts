@@ -24,6 +24,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   productCycleSubTitle: String = 'Following details belong to all comments received from clients and EY users for '
   completedComments: any[] = [];
   commentDetails:any;
+  isArchived:boolean = false;
   rowData;
   columnDefs;
   exceptionDetailCellRendererParams;
@@ -86,6 +87,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleId = params.cycleId
       this.productCycleName = params.cycleName
+      this.isArchived = params.isArchived === "true"
     });
 
     this.getCommentsList();
@@ -98,7 +100,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   getCommentsList() {
     this.completedComments = [];
     this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp => {
-      console.log("call all comments", resp);
       resp['data'].forEach((item: any) => {
         if (item.fundDTO.totalComments > 0) {
           item.tasks.forEach(itemTask => {
@@ -164,7 +165,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
             "value": ((DeclinedByEY != undefined) ? DeclinedByEY.value : 0 )  +  ( (DeclinedByClient != undefined) ? DeclinedByClient.value : 0)
           }
         ]
-      console.log(this.totalOpenedCommentsDetails)
     });
 
   }
@@ -382,7 +382,8 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           width: '50%',
           height: '100%',
           data: { idTaskComment: _idTaskComment,
-                   dataComent: this.commentDetails},
+                   dataComent: this.commentDetails,
+                  isArchived: this.isArchived},
           position: { rowStart : '0' },
           animation: { to: 'left' }
         });
