@@ -154,7 +154,7 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
 
-    {reportName:'DMS_TRP_General Ledger Entries',reportId:'7cb9b499-4a71-417e-8ff0-50fba597e2e',reportDisplayName:'General Ledger Entries'},
+    {reportName:'DMS_TRP_General Ledger Entries',reportId:'7cb9b499-4a71-417e-8ff0-50fba597e2ef',reportDisplayName:'General Ledger Entries'},
     {reportName:'DMS_TRP_Transactions Cash Activity',reportId:'3cbfd379-ab3f-4d8c-832a-4372e7b4a7a0',reportDisplayName:'Transactions Cash Activity'},
     {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'3531243f-9105-4cf8-8ae3-6c6806919c14',reportDisplayName:'Transactions Realized Unrealized'},
     {reportName:'DMS_TRP_Account Capital Stock',reportId:'4e262c1a-5b19-4bf8-b2d6-6a43dd9eef71',reportDisplayName:'Account Capital Stock'},
