@@ -130,9 +130,11 @@ export const PowerBiReportMonthlyList=[
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'5765ccf3-7ff1-40cc-805f-cdae79cb32af',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'},
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss Monthly',reportId:'97d362b2-37c4-45e6-8a74-7aef7f4ce39f',reportDisplayName:'Transaction Realized Gain and Loss'},
 
     {reportName:'DMS_TRP_PerformanceNetAssetValue Monthly',reportId:'63c23801-9a9e-488c-a075-5f8349e5f964',reportDisplayName:'Performance Net Asset Value'},
+    {reportName:'DMS_TRP_Transaction Realized Unrealized Gain Loss Monthly',reportId:'8c7b3560-f04a-4e5c-8583-b176902efc14',reportDisplayName:'Transaction Realized Unrealized Gain Loss'},
+
 ];
 
 export const PowerBiReportDailyListProd=[
@@ -184,9 +186,10 @@ export const PowerBiReportMonthlyListProd=[
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},
     {reportName:'DMS_TRP_Product Corporate Actions',reportId:'809a6a05-36e3-4f60-91cb-be68413bef15',reportDisplayName:'Product Corporate Actions'},
-    {reportName:'DMS_TRP_Transaction Realized Gain and Loss',reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98',reportDisplayName:'Transaction Realized Gain and Loss'},
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss Monthly',reportId:'674999ba-64cd-4096-afd2-4e9505efa930',reportDisplayName:'Transaction Realized Gain and Loss'},
     
     {reportName:'DMS_TRP_PerformanceNetAssetValue Monthly',reportId:'151bcd50-45b9-431c-8a77-78708e9d4ba0',reportDisplayName:'Performance Net Asset Value'},
+    {reportName:'DMS_TRP_Transaction Realized Unrealized Gain Loss Monthly',reportId:'01bea707-c18d-447d-99bb-ccdbb758a02b',reportDisplayName:'Transaction Realized Unrealized Gain Loss'}
 
 ];
 
