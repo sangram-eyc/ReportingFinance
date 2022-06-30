@@ -24,7 +24,7 @@ export class WebSocketBulkService {
     let WS_ENDPOINT = this.settingsService.production ? 
                       origin.trim() + base_url_ws.trim(): 
                       this.settingsService.taxReporting.websocket_bulk_url;
-    const url_ws = WS_ENDPOINT.replace("https:", "wss:");
+    const url_ws = WS_ENDPOINT.replace("https:", "ws:");
     //const url_ws = this.settingsService.taxReporting.websocket_bulk_url.replace("https:", "wss:");
     console.log("url ws new->", url_ws);
     return webSocket({url: url_ws,
