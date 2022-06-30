@@ -9,11 +9,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class PanelRightCommentDetailsComponent implements OnInit {
 
   commentfromApi:any;
+  isArchived:any;
   constructor(public dialogRef: MatDialogRef<PanelRightCommentDetailsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-                this.commentfromApi = data.dataComent;         
+                this.commentfromApi = data.dataComent; 
+                this.isArchived = data.isArchived    
                }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+   }
 
 }

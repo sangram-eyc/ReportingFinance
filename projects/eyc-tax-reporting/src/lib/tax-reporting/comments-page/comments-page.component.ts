@@ -37,6 +37,7 @@ export class CommentsPagecomponent implements OnInit {
   hasOpenComments: boolean = false;
   showOnlyOpenComments:boolean = false;
   cycleId:string;
+  isArchived:boolean = false;
 
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
@@ -59,6 +60,7 @@ export class CommentsPagecomponent implements OnInit {
       this.isApproved = params.status === "Approved by client";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
       this.cycleId = params.cycleId;
+      this.isArchived = params.isArchived === "true"
       console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.

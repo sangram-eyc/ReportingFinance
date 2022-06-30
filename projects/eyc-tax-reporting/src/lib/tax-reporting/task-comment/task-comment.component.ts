@@ -14,6 +14,7 @@ import * as FileSaver from 'file-saver';
 export class TaskCommentComponent implements OnInit {
 
   @Input() TaskCommentData: any;
+  @Input() isArchived:any; 
   @Output() onCommentStatusChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() onCommentTagDeleted: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCommentaddTag: EventEmitter<any> = new EventEmitter<any>();
@@ -62,6 +63,7 @@ export class TaskCommentComponent implements OnInit {
   }
 
   permissionStatus = this.permissions.validatePermission('Production Cycles', 'Update task status');
+  // permissionStatus = true
 
   ngOnInit(): void {
     this.createdDate = this.TaskCommentData.createdDate;
