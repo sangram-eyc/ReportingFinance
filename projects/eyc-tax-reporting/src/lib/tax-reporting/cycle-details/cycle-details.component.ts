@@ -283,8 +283,8 @@ export class CycleDetailComponent implements OnInit {
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
-      (resp.data[0].isArchived != undefined) ? this.isArchived = resp.data[0].isArchived  : this.isArchived = false;
-      resp.data[0].productionCycleDetails.forEach((item) => {
+      (resp.data.isArchived != undefined) ? this.isArchived = resp.data.isArchived  : this.isArchived = false;
+      resp.data.productionCycleDetails.forEach((item) => {
         const eachitem: any = {
           name: item.name,
           hasContent: item.hasContent,
