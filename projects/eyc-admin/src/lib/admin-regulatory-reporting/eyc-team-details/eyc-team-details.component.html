@@ -157,7 +157,7 @@
       [ngClass]="tabIn == 2 ? 'motif-active' : ''">Task Assignment</button>
     <!--<button motifButton (click)="adminTabChange(3)" class="motif-text-link"
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
-      <button motifButton (click)="adminTabChange(4)" class="motif-text-link"
+      <button *ngIf="module == 'Regulatory Reporting'" motifButton (click)="adminTabChange(4)" class="motif-text-link"
       [ngClass]="tabIn == 4 ? 'motif-active' : ''">Data Explorer</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
