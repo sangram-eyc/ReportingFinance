@@ -205,7 +205,7 @@ export class CycleDetailComponent implements OnInit {
       this.productCycleId = params.id
     });
     this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
-    // this.getOptionsProductCycles();
+    this.getOptionsProductCycles();
     this.cycleSelectForm = this.fb.group({
       mySelect: [this.productCycleId]
     });
