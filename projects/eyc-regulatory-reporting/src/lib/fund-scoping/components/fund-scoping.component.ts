@@ -43,6 +43,7 @@ export class FundScopingComponent implements OnInit {
   gridApi;
   rowData;
   columnDefs;
+  columnDefsAgGrid=[];
   onSubmitApproveFund;
   currentPage = 0;
   totalRecords = 5;
@@ -171,6 +172,34 @@ export class FundScopingComponent implements OnInit {
   createFundRowData() {
     this.columnDefs = [];
     this.scopingRowData = [];
+    this.columnDefsAgGrid =[{
+      headerName: 'Action',
+      field: 'template',
+    },
+    {
+      headerName: 'ID',
+      field: 'fundId',
+    },
+    {
+      headerName: 'Code',
+      field: 'fundCode',
+    },
+    {
+      headerName: 'Entity name',
+      field: 'fundName',
+    },
+    {
+      headerName: 'Adviser',
+      field: 'adviser',
+    },
+    {
+      headerName: 'Business Unit',
+      field: 'businessUnit',
+    },
+    {
+      headerName: 'Filing Type',
+      field: 'filerType',
+    }]
     this.columnDefs = [
       {
         headerName: 'Action',

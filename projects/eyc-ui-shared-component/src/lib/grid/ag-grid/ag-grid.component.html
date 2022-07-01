@@ -1,0 +1,12 @@
+<ag-grid-angular
+    style="width: 100%; height: 500px;"
+    class="ag-theme-material"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [rowSelection]="rowSelection"
+    [groupSelectsChildren]="true"
+    [suppressRowClickSelection]="true"
+    [suppressAggFuncInHeader]="true"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)"
+  ></ag-grid-angular>
