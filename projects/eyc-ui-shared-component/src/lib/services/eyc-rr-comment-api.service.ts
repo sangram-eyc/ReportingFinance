@@ -13,7 +13,7 @@ moduleOrigin="Data Managed Services";
 
   addComment(data) {
     if(data.moduleOriginated?.replace(/\s/g, '') === this.moduleOrigin.replace(/\s/g, '')){
-    return this.apiService.invokePostAPIV2(`${this.settingsService.DMSFilling.add_comment}`, JSON.stringify(data));
+    return this.apiService.invokePostAPI(`${this.settingsService.DMSFilling.add_comment}`, data);
     }
     else{
       return this.apiService.invokePostAPI(`${this.settingsService.regReportingFiling.add_comment}`, data);
