@@ -64,7 +64,9 @@
 
 <div class="scoping-content-container">
     <lib-ag-grid [rowData]="scopingRowData" [columnDefs]="columnDefsAgGrid"
-    [displayCheckBox] = "true"></lib-ag-grid>
+    [displayCheckBox] = "true"
+    [export]="true"
+    [search]="true" paginationSize="10"></lib-ag-grid>
     <!-- <section id="funds">
         <lib-shared-grid
         gridStyle="first"

@@ -207,7 +207,7 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'Entity name',
       field: 'fundName',
-      maxWidth: 150,
+      maxWidth: 200,
       filter: 'agSetColumnFilter',
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
@@ -231,7 +231,7 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'Filing Type',
       field: 'filerType',
-      maxWidth: 150,
+      maxWidth: 200,
       filter: 'agSetColumnFilter',
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
