@@ -9,4 +9,8 @@
     [suppressAggFuncInHeader]="true"
     [rowData]="rowData"
     (gridReady)="onGridReady($event)"
-  ></ag-grid-angular>
+    [gridOptions]="gridOptions"
+    [pagination]="pagination"
+    [paginationPageSize]="paginationPageSize"
+    [paginationNumberFormatter]="paginationNumberFormatter"
+  ></ag-grid-angular> 

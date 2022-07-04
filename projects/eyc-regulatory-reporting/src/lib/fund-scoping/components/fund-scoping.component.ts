@@ -121,7 +121,7 @@ export class FundScopingComponent implements OnInit {
   getFundsData(resetData = false) {
     this.funds = [];
     this.sort = resetData ? 'fundName:true' : this.sort;
-    this.fundScopingService.getFundScopingDetails(this.getFillingCompletedStatus(),this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(this.getFillingCompletedStatus(),this.filingDetails.filingName, this.filingDetails.period).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
       if (resetData) {
@@ -172,33 +172,69 @@ export class FundScopingComponent implements OnInit {
   createFundRowData() {
     this.columnDefs = [];
     this.scopingRowData = [];
-    this.columnDefsAgGrid =[{
+    this.columnDefsAgGrid =[
+      {
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
+      maxWidth: 120,
+      sortable: false,
+      menuTabs: ['generalMenuTab','columnsMenuTab'],
+      pinned: 'left'
+      },
+      {
       headerName: 'Action',
       field: 'template',
+      maxWidth: 110,
+
     },
     {
       headerName: 'ID',
       field: 'fundId',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Code',
       field: 'fundCode',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Entity name',
       field: 'fundName',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Adviser',
       field: 'adviser',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Business Unit',
       field: 'businessUnit',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Filing Type',
       field: 'filerType',
+      maxWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
     }]
     this.columnDefs = [
       {
