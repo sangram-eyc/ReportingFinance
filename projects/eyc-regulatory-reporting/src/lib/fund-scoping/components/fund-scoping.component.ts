@@ -177,6 +177,7 @@ export class FundScopingComponent implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
+      valueGetter: "node.rowIndex + 1",
       maxWidth: 120,
       sortable: false,
       menuTabs: ['generalMenuTab','columnsMenuTab'],
