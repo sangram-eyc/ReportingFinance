@@ -1,36 +1,70 @@
+.first-heading {
+    background: #fff;
+    border-left: 1px solid #e1e1e6;
+    border-right: 1px solid #e1e1e6;
+    margin-bottom: 0px;
+    padding: 28px 34px 12px 12px;
+}
+
+.second-heading {
+    padding: 20px 0px;
+}
+
+.user-style-container {
+    padding: 20px;
+    background: #fff;
+}
+
+#grid-heading, #grid-heading-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    h5 {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 25px;
+        margin: 0;
+    }
+    ::ng-deep {
+    .motif-form-field {
+        width: 258px;
+        margin-bottom: 0 !important;
+    }
+    }
+    .right-button {
+        flex-direction: row-reverse;
+    }
+    .left-button, .right-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        .buttons {
+            display: flex;
+            .second-button {
+                margin-left: 16px;
+            }
+            .toggle-left{
+                margin: 0px 0px -8px 20px;
+                display: flex;
+                flex-direction: column;
+                h4{
+                    margin-bottom: 8px;
+                    font-weight: 600px;
+                }
+                .disabled{
+                    color: #747480
+                }
+            }
+        }
+    }
+}
 .search {
     display: flex;
     .toggle {
       margin: 12px 0px -8px 20px;
       display: flex;
-    }
-}
-
-.right-button {
-    flex-direction: row-reverse;
-}
-.left-button, .right-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    .buttons {
-        display: flex;
-        .second-button {
-            margin-left: 16px;
-        }
-        .toggle-left{
-            margin: 0px 0px -8px 20px;
-            display: flex;
-            flex-direction: column;
-            h4{
-                margin-bottom: 8px;
-                font-weight: 600px;
-            }
-            .disabled{
-                color: #747480
-            }
-        }
     }
 }
 
@@ -48,9 +82,7 @@
     margin-left: 15px;
     justify-content: space-between;
     cursor: pointer;
-    width: 18px;
-    height: 18px;
-    fill: #155CB4;
+    fill: #155cb4;
     span {
         font-family: EYInterstate;
         font-size: 14px;
@@ -103,4 +135,18 @@
             }
         }
       }
+  }
+
+
+  .paginationPageJump{
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 10px;
+    gap: 10px;
+    width: 40px;
+    height: 24px;
+    background: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
   }

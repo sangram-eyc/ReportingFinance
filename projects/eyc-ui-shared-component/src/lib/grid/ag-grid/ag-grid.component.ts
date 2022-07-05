@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  AgGridEvent,
   CheckboxSelectionCallbackParams,
   ColDef,
   GridApi,
@@ -86,15 +87,14 @@ export class AgGridComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
-      sideBar: this.sideBar,
+      // sideBar: this.sideBar,
   }
 }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-
+    this.gridApi.setSideBarVisible(false);
   }
 
   ngOnInit(): void {
@@ -210,5 +210,29 @@ export class AgGridComponent implements OnInit {
     params: PaginationNumberFormatterParams
   ) => string = (params: PaginationNumberFormatterParams) => {
     return '[' + params.value.toLocaleString() + ']';
-  };
+  }
+
+  onSortChanged(e: AgGridEvent) {
+    e.api.refreshCells();
+  }
+
+  onFilterChanged(e: AgGridEvent) {
+    e.api.refreshCells();
+  }
+
+  jumpToPage() {
+    let SelectedRowNo= (document.getElementById('jumpTo') as HTMLInputElement).value
+    this.gridApi.paginationGoToPage(parseInt(SelectedRowNo)?parseInt(SelectedRowNo)-1: 0);
+  }
+
+  openCloseToolPanel(key) {
+    if(this.gridApi.getOpenedToolPanel()){
+      this.gridApi.closeToolPanel();
+      this.gridApi.setSideBarVisible(false);
+     }
+     else{
+      this.gridApi.setSideBarVisible(true);
+      this.gridApi.openToolPanel(key);
+    }
+ }
 }

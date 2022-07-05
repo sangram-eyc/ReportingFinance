@@ -57,6 +57,15 @@
           </div>
           <span>Export to CSV</span>
         </div>
+        <div class="exportWrapper" (click)="openCloseToolPanel('filters')">
+          <span>Filter</span>
+          <div class="export_icon">
+            <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>
+          </div>
+        </div>
+        <!-- <div class="approve-button" (click)="openCloseToolPanel('filters')">
+          <span>Filter <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon></span>
+        </div> -->
       </div>
       <div class="search" *ngIf="!search">
         <div class="exportWrapper" *ngIf="export && (rowData?.length >= 1)" (click)="exportData()">
@@ -79,8 +88,8 @@
       [suppressRowClickSelection]="true" [suppressAggFuncInHeader]="true" [rowData]="rowData"
       (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [pagination]="pagination"
       [paginationPageSize]="paginationPageSize" [paginationNumberFormatter]="paginationNumberFormatter"
-      [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-      (modelUpdated)="onModelUpdated($event)">
+      [overlayNoRowsTemplate]="overlayNoRowsTemplate" [sideBar]="{ toolPanels: ['filters'] }"
+      (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)">
     </ag-grid-angular>
 <!-- 
     <ng-template #paginationSelectTemplate>
@@ -89,8 +98,20 @@
       </div>
   </ng-template> -->
 
+
     <div class="pagination">
-      Page Size:
+      <div style="padding: 4px;">
+        Jump to Page
+      <input
+      type="text"
+      (input)="jumpToPage()"
+      id="jumpTo"
+      class="paginationPageJump"
+      placeholder="Jump to"
+    />
+    </div>
+
+      Page Size
       <select (change)="onPageSizeChanged()" id="page-size">
         <option *ngFor="let item of pageList" [value]="item">
            {{ item }}
