@@ -1,0 +1,106 @@
+.search {
+    display: flex;
+    .toggle {
+      margin: 12px 0px -8px 20px;
+      display: flex;
+    }
+}
+
+.right-button {
+    flex-direction: row-reverse;
+}
+.left-button, .right-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .buttons {
+        display: flex;
+        .second-button {
+            margin-left: 16px;
+        }
+        .toggle-left{
+            margin: 0px 0px -8px 20px;
+            display: flex;
+            flex-direction: column;
+            h4{
+                margin-bottom: 8px;
+                font-weight: 600px;
+            }
+            .disabled{
+                color: #747480
+            }
+        }
+    }
+}
+
+.ag-overlay{
+    height: 250px !important;
+}
+
+::ng-deep .ag-overlay{
+    height: 250px !important;
+}
+
+.exportWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    fill: #155CB4;
+    span {
+        font-family: EYInterstate;
+        font-size: 14px;
+        line-height: 22px;
+        color: #155CB4;
+        top: -2px;
+        position: relative;
+        left: 2px;
+        font-weight: bold;
+    }
+}
+
+.pagination {
+    display: flex;
+    background: #fff;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 3px 15px;
+    .page-description {
+      font-family: EYInterstate;
+      .page-number {
+        font-weight: 700;
+      }
+    }
+    .motif-pagination-select-wrapper {
+        position: relative;
+        text-align: right;
+        top: rem(-5);
+        right: rem(60);
+      }
+      
+      .motif-dropdown {
+        position: absolute !important;
+        top: 9px;
+        right: 7px;
+      
+        &.motif-pagination-select {
+          position: relative !important;
+          bottom: 55px;
+          right: 350px;
+          top: unset;
+      
+            .motif-dropdown-trigger {
+                line-height: unset;
+                width: unset;
+      
+                .motif-icon-button {
+                    display: flex;
+                }
+            }
+        }
+      }
+  }

@@ -63,8 +63,11 @@
 
 
 <div class="scoping-content-container">
-    <!-- <lib-ag-grid [rowData]="scopingRowData" [columnDefs]="columnDefsAgGrid"></lib-ag-grid> -->
-    <section id="funds">
+    <lib-ag-grid [rowData]="scopingRowData" [columnDefs]="columnDefsAgGrid"
+    [displayCheckBox] = "true"
+    [export]="true"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+    <!-- <section id="funds">
         <lib-shared-grid
         gridStyle="first"
         [columnDefs]="columnDefs"
@@ -84,7 +87,7 @@
         (gridReady)="handleGridReady($event)" [pagination]="scopingRowData?.length > 0 ? true : false" [paginationApi]="scopingRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
         (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"
         ></lib-shared-grid>
-    </section>
+    </section> -->
     
     <ng-template #headerFundsTemplate>
         <motif-icon
