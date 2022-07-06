@@ -4,7 +4,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent } from 'eyc-ui-shared-component';
+import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent, CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 import { customComparator, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
@@ -224,10 +224,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   getFilingEntities(resetData = false) {
-    this.sort = resetData ? 'entityName:true' : this.sort;
     this.filingEntityApprovedSelectedRows = [];
     this.filingEntityUnaprovedSelectedRows = [];
-    this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.totalRecords = res['totalRecords'];
       if (resetData) {
@@ -255,110 +254,101 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.columnDefs = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'approved',
-          headerName: '',
-          width: 20,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          maxWidth: 120,
           sortable: false,
-          pinned: 'left'
-        },
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left',
+          },
+          {
+            headerName: 'ID',
+            field: 'fundId',
+            maxWidth: 150,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'ID',
-          field: 'fundId',
-          sortable: true,
-          filter: true,
-          width: 140,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.expandEntityTemplate,
           },
           headerName: 'Entity Name',
           field: 'entityName',
+          minWidth: 250,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          cellStyle: {"white-space": "normal",'line-height': '22px'}
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
+          maxWidth: 150,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.unresolveFilingTemplate,
           },
           headerName: 'Unresolved',
           field: 'unResolvedException',
+          maxWidth: 150,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.resolveFilingTemplate,
           },
           headerName: 'Resolved',
           field: 'resolvedException',
+          maxWidth: 150,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.commentTemplate,
           },
           headerName: 'Comments',
           field: 'commentsCount',
+          maxWidth: 150,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          width: 155,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.lastUpdatedByTemplate,
           },
           headerName: 'Last Updated By',
           field: 'updatedBy',
-          wrapText: true,
-          autoHeight: true,
+          minWidth: 300,
+          filter: 'agSetColumnFilter',
           sortable: true,
-          filter: true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.viewFilingEntityTemplate,
           },
-          width: 50
+          maxWidth: 50,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         }
       ];
 

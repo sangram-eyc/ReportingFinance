@@ -128,7 +128,12 @@
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
+
+    <lib-ag-grid [rowData]="filingEntityRowData" [columnDefs]="columnDefs"
+    [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
             [submitFunction]="submitEntities"
             [submitTwoFunction]="unapproveFilingEntities"
             [modalMessage]="modalMessage"
@@ -147,7 +152,7 @@
             [customRowSelected]="true"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)" (toggleEventToParent)="onClickMyTask($event)" [export]="true" (exportFlagToParent)="exportData('entities')"
             [pagination]="rowData?.length>0 ? true : false" [paginationApi]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
         <ng-template #headerTemplate>
             <div> 
                 <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown"
