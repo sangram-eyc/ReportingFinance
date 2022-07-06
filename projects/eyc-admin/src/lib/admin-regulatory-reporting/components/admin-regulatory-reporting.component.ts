@@ -10,6 +10,7 @@ import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component'
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import * as commonConstants from '../../shared/common-contstants'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'app-admin-regulatory-reporting',
@@ -43,6 +44,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   sort = '';
   pageChangeFunc;
   resetRowData = [];
+  columnDefsAgGrid;
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -182,6 +184,56 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   createTeamsRowData(): void {
     this.resetRowData = [];
     this.columnDefs = [];
+    this.columnDefsAgGrid = [];
+    this.columnDefsAgGrid =[
+      {
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 75,
+        sortable: false,
+        menuTabs: ['generalMenuTab','columnsMenuTab'],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Team  Name',
+          field: 'teamName',
+          minWidth: 350,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          wrapText: true,
+          autoHeight: true,
+          sort: 'asc',
+          tooltipField: 'teamName',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Role',
+          field: 'role',
+          minWidth: 200,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          wrapText: true,
+          autoHeight: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Members',
+          field: 'numberOfTeamMembers',
+          minWidth: 150,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          wrapText: true,
+          autoHeight: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams:this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'Actions',
+          width: 80,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+    ]
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,

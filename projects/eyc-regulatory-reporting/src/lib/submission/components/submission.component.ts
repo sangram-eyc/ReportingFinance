@@ -11,6 +11,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 
 @Component({
@@ -88,6 +89,7 @@ export class SubmissionComponent implements OnInit {
   filter = '';
   sort = '';
   defaultColDef;
+  columnDefsAgGrid;
 
   @ViewChild('dateSubmittedTemplate')
   dateSubmittedTemplate: TemplateRef<any>;
@@ -220,7 +222,7 @@ export class SubmissionComponent implements OnInit {
 
   getXmlFilesList(resetData = false) {
     this.sort = resetData ? 'fileName:true' : this.sort;
-    this.service.getXmlFilesListTest(this.filingName, this.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.service.getXmlFilesListTest(this.filingName, this.period).subscribe(res => {
       this.totalRecords = res['totalRecords'];
       this.noFilesDataAvilable = false;
       this.submittedFiles = res['data'];
@@ -246,6 +248,81 @@ export class SubmissionComponent implements OnInit {
     this.subRowData = [];
     this.columnDefs = [];
     setTimeout(() => {
+      this.columnDefsAgGrid=[
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+          {
+            headerName: 'File Name',
+            field: 'fileName',
+            width: 300,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            wrapText: true,
+            autoHeight: true,
+            sort:'asc',
+            cellStyle: {"white-space": "normal",'line-height': '22px'},
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.statusTemplate,
+            },
+            headerName: 'Status',
+            field: 'status',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams:{
+              ngTemplate:this.dateSubmittedTemplate
+            },
+            headerName: 'Status Changed',
+            field: 'dateSubmitted',
+            minWidth: 220,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.lastUpdatedByTemplate,
+            },
+            headerName: 'Last updated by',
+            field: 'updatedBy',
+            width: 350,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            wrapText: true,
+            autoHeight: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.commentTemplate,
+            },
+            headerName: 'Comments',
+            field: 'commentsCount',
+            maxWidth: 150,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            width: 155,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      ]
       this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
