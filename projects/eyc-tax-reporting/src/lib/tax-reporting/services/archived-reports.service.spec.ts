@@ -6,30 +6,32 @@ import { environment } from '../../../../../../src/environments/environment';
 import { taxenvironment } from '../../../../../../src/environments/eyc-tax-reporting/tax-environment';
 import { EycApiService } from '../../services/eyc-tax-api.service';
 import { EycTaxSettingsService } from '../../services/eyc-tax-settings.service';
-import { ArchivedReportsService} from './archived-reports.service';
+import { ArchivedReportsService } from './archived-reports.service';
 
 describe('ArchivedReportsService', () => {
   let service: ArchivedReportsService;
   let eycTaxSettingsServiceStub = {
     taxReporting: {
-        archived_reports: '/archived-production-cycles'
-    }
-  }
+      archived_reports: '/archived-production-cycles',
+    },
+  };
   let eycTaxReportingApiServiceStub = {
-    invokeGetAPI: () => { },
-    invokePutAPI: () => { },
-  }
+    invokeGetAPI: () => {},
+    invokePutAPI: () => {},
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [
-          {provide:EycApiService, useValue:  eycTaxReportingApiServiceStub},
-          {provide:EycTaxSettingsService, useValue:eycTaxSettingsServiceStub},
-        {provide:"apiEndpoint",  useValue: environment.apiEndpoint},
-        {provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
-        {provide:"taxProduction",  useValue: taxenvironment.production},
-        {provide:"rrproduction",  useValue: environment.production}]
+        ArchivedReportsService,
+        { provide: EycApiService, useValue: eycTaxReportingApiServiceStub },
+        { provide: EycTaxSettingsService, useValue: eycTaxSettingsServiceStub },
+        { provide: 'apiEndpoint', useValue: environment.apiEndpoint },
+        { provide: 'taxapiEndpoint', useValue: taxenvironment.apiEndpoint },
+        { provide: 'taxProduction', useValue: taxenvironment.production },
+        { provide: 'rrproduction', useValue: environment.production },
+      ],
     });
     service = TestBed.inject(ArchivedReportsService);
   });
@@ -40,7 +42,7 @@ describe('ArchivedReportsService', () => {
 
   it('getArchivedReportsData method should call api and fetch exception', () => {
     spyOn(service['apiService'], 'invokeGetAPI').and.callFake(() => {
-      return of({ data: [] })
+      return of({ data: [] });
     });
     service.getArchivedReportsData();
     let url = '/archived-production-cycles';
