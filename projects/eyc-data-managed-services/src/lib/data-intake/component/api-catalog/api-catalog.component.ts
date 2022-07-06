@@ -63,8 +63,7 @@ export class ApiCatalogComponent implements OnInit {
 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    let filter;
-    this.getAPICatalog();
+    // this.getAPICatalog();
   }
 
   getAPICatalog(){
