@@ -742,7 +742,7 @@ export class CycleDetailComponent implements OnInit {
 
   onOptionsSelected(idCycle) {
     let cycle = this.options.find(x => x.id === idCycle);
-    if (this.productCycleId != idCycle) {
+    if (this.productCycleId != idCycle && cycle != undefined) {
       this.productCycleName = cycle.name;
       this.productCycleId = idCycle;
       this.cycleSelectForm.patchValue({mySelect:idCycle});
