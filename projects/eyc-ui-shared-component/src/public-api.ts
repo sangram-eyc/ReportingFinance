@@ -31,4 +31,5 @@ export * from './lib/audit-log/audit-log.module';
 export * from './lib/audit-log/components/audit-log.component';
 export * from './lib/tabs/component/shared-tabs.component';
 export * from './lib/grid/ag-grid/ag-grid.component';
+export * from './lib/grid/cell-renderer-template/cell-renderer-template.component';
 export const DEFAULT_PAGE_SIZE = 20;
