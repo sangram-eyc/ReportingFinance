@@ -8,6 +8,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   exportHeaders: string;
   exportURL;
   loaded :boolean=false;
+  columnDefsAgGrid: any[];
   constructor(
     private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
@@ -241,6 +243,100 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     this.columnDefs = [];
     this.completedFilings = [];
     setTimeout(() => {
+
+      this.columnDefsAgGrid=[
+        {
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 75,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+          {
+            headerName: '',
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.dropdownTemplate,
+            },
+            field: 'template',
+            minWidth: 75,
+            width: 75,
+            sortable: false,
+            cellClass: 'actions-button-cell',
+            pinned: 'left'
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.filingNameTemplate,
+            },
+            headerName: 'Filing Report Name',
+            field: 'filingName',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            wrapText: true,
+            autoHeight: true,
+            sort: 'asc',
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Filing period',
+            field: 'period',
+            minWidth: 200,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Total entities',
+            field: 'totalFunds',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.dueDateTemplate,
+            },
+            headerName: 'Due date',
+            field: 'dueDate',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Submission date',
+            field: 'subDate',
+            minWidth: 180,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.completedDateTemplate,
+            },
+            headerName: 'Date marked complete',
+            field: 'completedDate',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Marked completed by',
+            field: 'completedBy',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      ]
       this.columnDefs = [
         {
           headerName: '',

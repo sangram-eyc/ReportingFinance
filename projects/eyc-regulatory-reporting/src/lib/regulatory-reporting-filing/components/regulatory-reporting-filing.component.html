@@ -85,8 +85,11 @@
 </section>
 
 <section id='reports-history' *ngIf="(tabIn == 2)">
- 
-    <lib-shared-grid
+    <lib-ag-grid [rowData]="completedFilings" [columnDefs]="columnDefsAgGrid"
+    [displayCheckBox] = "true"
+    [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+    <!-- <lib-shared-grid
         gridStyle="second"
         [displayCheckBox]="true"
         [columnDefs]="columnDefs"
@@ -99,7 +102,7 @@
         [export] = "true" (exportFlagToParent)="exportReportHistoryData()"
         [paginationApi]="rowData?.length>0 ? true : false" [pageChangeFunc]="pageChangeFunc" 
         [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-        (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+        (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
     <ng-template #filingNameTemplate let-row>
         <div class="filingNameRouteCls" (click)="routeToViewFiling(row)">{{row.name}}</div>

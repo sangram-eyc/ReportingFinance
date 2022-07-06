@@ -54,6 +54,7 @@ export class AgGridComponent implements OnInit {
   @Input() isToggle = false;
   @Input() export = false;
   @Input() permissionToShowDataTable = true;
+  @Input() disableAddMemberButton = true;
   mytasks = false;
   @Input() hideLabels:boolean = false;
   private gridApi!: GridApi;
@@ -71,6 +72,8 @@ export class AgGridComponent implements OnInit {
     flex: 1,
     minWidth: 100,
     resizable: true,
+    autoHeight: true,
+    // cellStyle: {"white-space": "normal",'line-height': '22px'}
   };
   public rowSelection = 'multiple';
   isHideCheckBox: any;
@@ -82,6 +85,7 @@ export class AgGridComponent implements OnInit {
   srnoCls;
   gridColumnApi: any;
   dataset;
+  public domLayout: 'normal' | 'autoHeight' | 'print' = 'autoHeight';
 
   
   constructor(private http: HttpClient) {
@@ -95,6 +99,8 @@ export class AgGridComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.setSideBarVisible(false);
+    this.gridApi.setDomLayout('autoHeight');
+    (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
   }
 
   ngOnInit(): void {
@@ -235,4 +241,11 @@ export class AgGridComponent implements OnInit {
       this.gridApi.openToolPanel(key);
     }
  }
+
+ setAutoHeight() {
+  this.gridApi.setDomLayout('autoHeight');
+  // auto height will get the grid to fill the height of the contents,
+  // so the grid div should have no height set, the height is dynamic.
+  (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
+}
 }

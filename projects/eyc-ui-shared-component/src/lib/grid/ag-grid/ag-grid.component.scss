@@ -15,6 +15,24 @@
     background: #fff;
 }
 
+.ag-theme-material {
+    --ag-even-row-background-color: #f6f6fa;
+    --ag-border-color: #e1e1e6;
+  }
+  ::ng-deep .ag-theme-material .ag-row-even {
+    background-color: var(--ag-even-row-background-color);
+  }
+
+  ::ng-deep .ag-theme-material .ag-root-wrapper-body {
+    border: solid 1px #e1e1e6  !important;
+}
+
+::ng-deep .ag-theme-material .ag-paging-panel{
+    font: 400 14px/20px EYInterstate !important;
+    letter-spacing: normal !important;
+    color: #212529 !important; 
+}
+
 #grid-heading, #grid-heading-admin {
     display: flex;
     align-items: center;
@@ -95,13 +113,17 @@
     }
 }
 
-.pagination {
-    display: flex;
-    background: #fff;
-    width: 100%;
-    justify-content: flex-end;
-    padding: 3px 15px;
-    .page-description {
+
+    .pagination {
+        display: flex;
+        background: #fff;
+        max-width: 300px;
+        justify-content: flex-end;
+        margin: 0 auto;
+        position: relative;
+        top: -40px;
+        left: -70px;
+        .page-description {
       font-family: EYInterstate;
       .page-number {
         font-weight: 700;

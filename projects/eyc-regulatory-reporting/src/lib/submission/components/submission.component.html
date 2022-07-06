@@ -34,12 +34,17 @@
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div>  -->
-        <lib-shared-grid gridStyle="first" title="Answer Files" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
+        <lib-ag-grid [rowData]="subRowData" [columnDefs]="columnDefsAgGrid"
+        [displayCheckBox] = "true"
+        [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first" title="Answer Files" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
             rowSelection="multiple" [submitFunction]="downloadSubmit" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" buttonText="Download selected"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" (updatePageSize)="updatePageSize($event)" (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
             [permissionToPrimaryButton]="permissions.validatePermission('Submission', 'Download Files')" [export] = "true" [defaultColDef]="defaultColDef" (rowSelected)="onRowSelected($event)"
             (exportFlagToParent)="exportSubmissionData()" [pagination]="subRowData?.length > 0 ? true : false" [paginationApi]="subRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
         <!-- <motif-card class="no_data" *ngIf="noFilesDataAvilable">
             <motif-card-body>
                 <h5>No result found.</h5>

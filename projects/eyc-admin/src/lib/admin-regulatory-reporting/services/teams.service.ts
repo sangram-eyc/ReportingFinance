@@ -22,11 +22,11 @@ export class TeamsService {
   }
 
   getTeamsList(moduleName,page,size,sort,filter) {
-    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_list}?module=${moduleName}&page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
+    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_list}?module=${moduleName}`);
   }
 
   getTeamsDetails(teamId,page,size,sort,filter) {
-    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_Details}?page=${page}&filterKey=${filter}&teamId=${teamId}&sortBy=${sort}&size=${size}`);
+    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_Details}?teamId=${teamId}`);
   }
 
   getRoles(moduleName) {
