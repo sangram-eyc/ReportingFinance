@@ -601,7 +601,7 @@ export class CycleDetailComponent implements OnInit {
       this.cancelbtn.disabled = false;
     } else {
       this.approveBtn.disabled = true;
-      this.cancelbtn.disabled = true;
+      this.cancelbtn.disabled = false;
     }
   }
 
