@@ -303,6 +303,7 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY);
         this.completedFunds.push(eachitem);
       });
+      this.getOptionsProductCycles();
       this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
@@ -314,7 +315,6 @@ export class CycleDetailComponent implements OnInit {
           this.showToastAfterSubmit = false;
         }, 5000);
       }
-      this.getOptionsProductCycles();
     });
   }
 
@@ -745,6 +745,7 @@ export class CycleDetailComponent implements OnInit {
     if (this.productCycleId != idCycle) {
       this.productCycleName = cycle.name;
       this.productCycleId = idCycle;
+      this.cycleSelectForm.patchValue({mySelect:idCycle});
       this.getCompletedProductCyclesData(this.productCycleId);
 
       //To clean de selected option class
