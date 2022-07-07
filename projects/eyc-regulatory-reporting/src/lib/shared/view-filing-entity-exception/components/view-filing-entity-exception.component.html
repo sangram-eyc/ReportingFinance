@@ -33,7 +33,9 @@
         [defaultColDef]="{}" [disableAddMemberButton]="false" gridStyle="third" [noData]="'No exceptions found'"
         [displayCheckBox]="true" [pagination]="true"  [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid> -->
-
+    <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"></lib-ag-grid>
+<!-- 
     <lib-shared-grid
     (newEventToParent)="redirecttoDataExplorer($event)" 
     [columnDefs]="exceptionAnswersDefs" 
@@ -48,12 +50,12 @@
     [displayCheckBox]="true"
     [pagination]="true"
     [export]="true" (exportFlagToParent)="exportData()" [uiPagination]="true">
-  </lib-shared-grid>
+  </lib-shared-grid> -->
 
   <ng-template #commentExceptionTemplate let-row>
     <div *ngIf="commentsCount[row.AuditFilingID] && permissions.validatePermission(permissionStage, 'View Comments')"
-        class="comments-background" (click)="openComments(row)">
-      {{commentsCount[row.AuditFilingID]}}
+        (click)="openComments(row)">
+      <span class="comments-background" >{{commentsCount[row.AuditFilingID]}}</span>
     </div>
 
     <div class="commentTemplate"

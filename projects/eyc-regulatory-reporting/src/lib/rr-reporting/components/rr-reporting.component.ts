@@ -206,7 +206,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.exceptionReportToApproveSelectedRows = [];
     this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
-    this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
       this.totalRecords = res['totalRecords'];

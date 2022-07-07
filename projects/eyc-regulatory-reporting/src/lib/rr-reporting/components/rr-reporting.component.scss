@@ -241,7 +241,7 @@
         .motif-modal-body {
             padding: 0px !important;
             padding-left: 20px !important;
-            // padding-top: 20px !important;
+            padding-top: 20px !important;
         }
     }
 } 
@@ -312,7 +312,7 @@ motif-icon.motif-icon.actionCursor {
     }
     ::ng-deep .motif-icon-content {
         cursor: pointer;
-        padding-top: 0.24rem;
+        // padding-top: 0.24rem;
         padding-right: 5px;
         ::ng-deep path {
             fill: #155CB4 !important;

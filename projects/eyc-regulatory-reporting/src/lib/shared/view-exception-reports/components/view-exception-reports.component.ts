@@ -5,7 +5,7 @@ import { TableHeaderRendererComponent } from './../../table-header-renderer/tabl
 import { ViewExceptionReportsService } from './../services/view-exception-reports.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ModalComponent, PermissionService, ResolveModalComponent } from 'eyc-ui-shared-component';
+import { CellRendererTemplateComponent, ModalComponent, PermissionService, ResolveModalComponent } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { rr_module_name } from '../../../config/rr-config-helper';
 
@@ -25,7 +25,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   stage;
 
   gridApi;
-  exceptionAnswersDefs;
+  // exceptionAnswersDefs;
+  exceptionAnswersDefsAgGrid;
   exceptionAnswersData;
   dataIntakeData;
   parentModule;
@@ -127,7 +128,8 @@ export class ViewExceptionReportsComponent implements OnInit {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
       } else {
-        this.exceptionAnswersDefs = [];
+        // this.exceptionAnswersDefs = [];
+        this.exceptionAnswersDefsAgGrid = [];
       }
       this.commentsCount = res.data['commentCountMap'];
     });
@@ -136,80 +138,157 @@ export class ViewExceptionReportsComponent implements OnInit {
   getExceptionResults() {
     this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId, this.dataIntakeData.ruleType, this.dataIntakeData.tableName, this.dataIntakeData.filename).subscribe(res => {
       this.exceptionAnswersData = res.data;
-      this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
+      // this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
+      this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefsAgGrid = [];
     });
   }
 
   createDataIntakeExceptionsRowData() {
-    this.exceptionAnswersDefs = [];
+    // this.exceptionAnswersDefs = [];
+    this.exceptionAnswersDefsAgGrid = [
+      {
+        headerName: 'Sr No',
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 90,
+        sortable: false,
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
+      }
+    ];
     for (const property in this.exceptionAnswersData[0]) {
       console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
-      this.exceptionAnswersDefs.push({
+      // this.exceptionAnswersDefs.push({
+      //   field: `${property}`,
+      //   headerName: `${property}`,
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   sortable: true,
+      //   autoHeight: true,
+      //   width: 320,
+      //   wrapText: true,
+      //   filter: true
+      // });
+      this.exceptionAnswersDefsAgGrid.push({
         field: `${property}`,
         headerName: `${property}`,
-        headerComponentFramework: TableHeaderRendererComponent,
+        minWidth: 320,
+        filter: 'agSetColumnFilter',
         sortable: true,
-        autoHeight: true,
-        width: 320,
-        wrapText: true,
-        filter: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
       });
     }
   }
   createEntitiesRowData(): void {
-    this.exceptionAnswersDefs = [];
-
-    this.exceptionAnswersDefs.push(
+    // this.exceptionAnswersDefs = [];
+    this.exceptionAnswersDefsAgGrid = [];
+    // this.exceptionAnswersDefs.push(
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.dropdownTemplate,
+    //     },
+    //     field: 'approved',
+    //     headerName: '',
+    //     width: 20,
+    //     sortable: false,
+    //     pinned: 'left'
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.exceptionResultTemplate,
+    //     },
+    //     headerName: 'Result',
+    //     field: 'Status',
+    //     minWidth: 70,
+    //     width: 70,
+    //     sortable: false,
+    //     cellClass: 'actions-button-cell'
+    //   }
+    // );
+    this.exceptionAnswersDefsAgGrid.push(
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
-        },
-        field: 'approved',
-        headerName: '',
-        width: 20,
+        headerCheckboxSelection: true,
+        headerCheckboxSelectionFilteredOnly: true,
+        checkboxSelection: true,
+        headerName: 'Sr No',
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 120,
         sortable: false,
-        pinned: 'left'
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.exceptionResultTemplate,
         },
         headerName: 'Result',
         field: 'Status',
-        minWidth: 70,
-        width: 70,
+        maxWidth: 120,
+        menuTabs: [],
+        filter:false,
         sortable: false,
         cellClass: 'actions-button-cell'
       }
     );
-    
     for (const property in this.exceptionAnswersData[0]) {
       console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
       if(property != 'approved') {
-        this.exceptionAnswersDefs.push({
-          field: `${property}`,
-          headerName: `${property}`,
-          headerComponentFramework: TableHeaderRendererComponent,
-          sortable: true,
-          autoHeight: true,
-          width: 320,
-          wrapText: true,
-          filter: true
-        });
+        // this.exceptionAnswersDefs.push({
+        //   field: `${property}`,
+        //   headerName: `${property}`,
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   sortable: true,
+        //   autoHeight: true,
+        //   width: 320,
+        //   wrapText: true,
+        //   filter: true
+        // });
+        if (property == 'Entity Name') {
+          this.exceptionAnswersDefsAgGrid.push({
+            field: `${property}`,
+            headerName: `${property}`,
+            minWidth: 320,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            tooltipField: `${property}`
+          });
+        } else {
+          this.exceptionAnswersDefsAgGrid.push({
+            field: `${property}`,
+            headerName: `${property}`,
+            minWidth: 320,
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          });
+        }
       }
     }
-    this.exceptionAnswersDefs.push({
+    // this.exceptionAnswersDefs.push({
+    //   headerName: 'Comments',
+    //   headerComponentFramework: TableHeaderRendererComponent,
+    //   cellRendererFramework: MotifTableCellRendererComponent,
+    //   cellRendererParams: {
+    //     ngTemplate: this.commentExceptionTemplate,
+    //   }, sortable: false, autoHeight: true,
+    //   wrapText: true
+    // });
+    this.exceptionAnswersDefsAgGrid.push({
       headerName: 'Comments',
-      headerComponentFramework: TableHeaderRendererComponent,
-      cellRendererFramework: MotifTableCellRendererComponent,
+      cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
         ngTemplate: this.commentExceptionTemplate,
-      }, sortable: false, autoHeight: true,
-      wrapText: true
+      }, 
+      filter: 'agSetColumnFilter',
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+      minWidth: 155 
     });
   }
 
