@@ -75,7 +75,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  // permissionApproval = true
+  //permissionApproval = true
 
 
 
@@ -596,14 +596,19 @@ export class CycleDetailComponent implements OnInit {
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    if (this.datasetsSelectedRows.length > 0 && !this.isArchived) {
-      this.approveBtn.disabled = false;
-      this.cancelbtn.disabled = false;
-    } else {
-      this.approveBtn.disabled = true;
-      this.cancelbtn.disabled = false;
+    if (this.datasetsSelectedRows.length > 0){
+      if (!this.isArchived){
+        this.approveBtn.disabled = false;
+        this.cancelbtn.disabled = false;
+      }else {
+        this.approveBtn.disabled = true;
+        this.cancelbtn.disabled = false;
     }
+  }else{
+    this.approveBtn.disabled = true;
+    this.cancelbtn.disabled = true;
   }
+}
 
   onSubmitApproveDatasets() {
     this.iDs = "";
