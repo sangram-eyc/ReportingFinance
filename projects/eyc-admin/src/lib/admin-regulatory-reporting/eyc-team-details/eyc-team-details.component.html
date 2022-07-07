@@ -161,7 +161,7 @@
       [ngClass]="tabIn == 4 ? 'motif-active' : ''">Data Explorer</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
-    <lib-shared-grid
+    <!-- <lib-shared-grid
       [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
       [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs"
       (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'"
@@ -171,7 +171,12 @@
       [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
       (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)"
       (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)"
-      (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
+      (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid> -->
+      <lib-ag-grid [rowData]="teamsMemberData" [columnDefs]="columnDefsAgGrid" 
+      [displayCheckBox] = "true" [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
+      [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="third"
+      [export]="true" buttonPosition="right"
+      [search]="true" paginationSize="10"></lib-ag-grid>
 
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)"
@@ -232,11 +237,16 @@
   </div>
 
   <div *ngIf="tabIn == 2">
-    <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
+    <!-- <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
       [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true"  
       [rowData]="taskAssignmentData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
       [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
-    </lib-shared-grid>
+    </lib-shared-grid> -->
+    <lib-ag-grid *ngIf="taskAssignmentData.length != 0" [rowData]="taskAssignmentData" [columnDefs]="columnDefsAgGrid" [button]='false'
+    [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
+    [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
+    [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true"
+    [search]="true" paginationSize="10"></lib-ag-grid>
 
     <div *ngIf="taskAssignmentData.length == 0">
       <motif-card>
@@ -269,11 +279,17 @@
   </div>
 
   <div *ngIf="tabIn == 4">
-    <lib-shared-grid [button]='false' *ngIf="dataExplorerData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
+    <!-- <lib-shared-grid [button]='false' *ngIf="dataExplorerData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
       [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true" 
       [rowData]="dataExplorerData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
       [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
-    </lib-shared-grid>
+    </lib-shared-grid> -->
+
+    <lib-ag-grid *ngIf="dataExplorerData.length != 0" [rowData]="dataExplorerData" [columnDefs]="columnDefsAgGrid" [button]='false'
+    [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
+    [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
+    [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true"
+    [search]="true" paginationSize="10"></lib-ag-grid>
 
     <div *ngIf="dataExplorerData.length == 0">
       <motif-card>

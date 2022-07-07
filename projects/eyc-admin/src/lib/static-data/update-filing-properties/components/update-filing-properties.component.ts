@@ -8,6 +8,7 @@ import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../../services/setting.service';
 import * as commonConstants from '../../../shared/common-contstants'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-update-filing-properties',
@@ -28,6 +29,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   entityStagesList = [];
   tabIn = 1;
   columnDefs;
+  columnDefsAgGrid;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   PBIMappingData = []
@@ -305,6 +307,57 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   // }
 
   createTeamsRowData(): void {
+    this.columnDefsAgGrid =[
+      {
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 75,
+        sortable: false,
+        menuTabs: ['generalMenuTab','columnsMenuTab'],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Question',
+          field: 'name',
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          sort: 'asc',
+          tooltipField: 'name',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 250,
+          // cellStyle : { 'text-overflow':'ellipsis','white-space': 'nowrap', 'overflow': 'hidden', 'line-height': '22px'}       
+         },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editReportID.bind(this),
+          headerName: 'Report ID',
+          field: 'pbiReportId',
+          minWidth: 250,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          tooltipField: 'pbiReportId',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editDatasetID.bind(this),
+          headerName: 'Dataset ID(s)',
+          field: 'dataSetIds',
+          tooltipField: 'dataSetIds',
+          minWidth: 500,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'name',
+          minWidth: 80,
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+    ]
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,

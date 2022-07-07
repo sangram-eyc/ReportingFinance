@@ -8,7 +8,7 @@ export class UsersService {
   constructor(private apiService: ApiSharedService, private settingService: SettingService) { }
 
   getUsersList(page,size,sort,filter) {
-    return this.apiService.invokeGetAPI(`${this.settingService.regulatory_Reporting.view_User}?page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
+    return this.apiService.invokeGetAPI(`${this.settingService.regulatory_Reporting.view_User}`);
   }
   getAllUsersList() {
     return this.apiService.invokeGetAPI(`${this.settingService.regulatory_Reporting.view_User}`);
