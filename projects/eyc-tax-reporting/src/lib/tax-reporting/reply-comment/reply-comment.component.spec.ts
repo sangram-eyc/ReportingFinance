@@ -28,4 +28,17 @@ describe('ReplyCommentComponent', () => {
   it('should create',() => {
     expect(component).toBeTruthy();
   });
+  it('ngOnInit method should set variables',() => {
+    let mockedReplyCommentData = {
+      timeStamp: '12/12/12',
+      authorFirstName: 'Test name',
+      authorLastName: 'Test LastName',
+      commentText: 'Comment Text'
+    };
+    component.ReplyCommentData = mockedReplyCommentData;
+    component.ngOnInit();
+    expect(component.createdDate).toEqual(mockedReplyCommentData.timeStamp);
+    expect(component.createdBy).toEqual(mockedReplyCommentData.authorFirstName + ' ' + mockedReplyCommentData.authorLastName);
+    expect(component.description).toEqual(mockedReplyCommentData.commentText);
+  });
 });

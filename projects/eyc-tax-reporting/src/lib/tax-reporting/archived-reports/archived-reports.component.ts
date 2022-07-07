@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { ArchivedReportsService } from '../services/archived-reports.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { ArchivedReportsService } from '../services/archived-reports.service';
 })
 export class ArchivedReportsComponent implements OnInit {
 
-  constructor(private archivedReportsService: ArchivedReportsService) { }
+  constructor(private archivedReportsService: ArchivedReportsService,
+              private router: Router) { }
 
 
   activeReport: any[] = [];
@@ -107,6 +109,7 @@ export class ArchivedReportsComponent implements OnInit {
 
         };
         this.completedReports.push(eachitem);
+        sessionStorage.setItem('archivedProdCyclesList', JSON.stringify(this.completedReports));
       });
       this.createHistoryRowData(_filterYear);
     });
@@ -311,4 +314,8 @@ export class ArchivedReportsComponent implements OnInit {
       this.createHistoryRowData(_filterYear); 
     }
    }
+
+   getProdCycleDetail(row) {
+    this.router.navigate(['cycle-details', row.id, row.name]);
+  }
 }

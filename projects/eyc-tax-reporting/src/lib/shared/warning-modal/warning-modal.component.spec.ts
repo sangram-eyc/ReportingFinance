@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { environment } from '../../../../../../src/environments/environment';
 import { taxenvironment } from '../../../../../../src/environments/eyc-tax-reporting/tax-environment';
 import {WarningModalComponent} from './warning-modal.component';
@@ -12,14 +13,29 @@ describe('WarningModalComponent', () => {
   let fixture: ComponentFixture<WarningModalComponent>;
   let mockedModal = {
     footer: {
-      style : '',
-      YesButton : true,
-      NoButton : false
+      style: '',
+      YesButton: 'Yes',
+      NoButton: 'No',
     },
     header: {
-      style : ''
-    }
-  }
+      style: '',
+    },
+    funds: [],
+    type: 'ConfirmationTextUpload',
+    description: 'abc',
+    forms: {
+      textareaDetails: {
+        label: '',
+        validationMessage: '',
+      },
+    },
+  };
+  let matDialogStub = {
+    open: () => {
+      return { afterClosed: () => of() };
+    },
+    close: () => {},
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ WarningModalComponent ],
@@ -33,7 +49,7 @@ describe('WarningModalComponent', () => {
         {provide:"taxapiEndpoint",  useValue: taxenvironment.apiEndpoint},
         {provide:"taxProduction",  useValue: taxenvironment.production},
         {provide:"rrproduction",  useValue: environment.production},
-        {provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: matDialogStub },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ]
     })
@@ -64,13 +80,17 @@ describe('WarningModalComponent', () => {
     expect(component.initialUsers).toEqual([]);
     expect(component.selectedUsers).toEqual([]);
   });
-  it('should return false after click cancel', () => {
-    spyOn(component, 'close');
-    expect(component.modalDetails.footer.NoButton).toEqual(false);
+  it('should return No after click close', () => {
+    spyOn(component['dialogRef'], 'close');
+    component.close();
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({ button: 'No' });
   });
-  it('should return true after click yes', () => {
-    spyOn(component, 'onClickYes');
-    expect(component.modalDetails.footer.YesButton).toEqual(true);
+  it('closeToast method should return true after click yes', () => {
+    spyOn(component['dialogRef'], 'close');
+    component.onClickYes();
+    expect(component['dialogRef'].close).toHaveBeenCalledWith({
+      button: 'Yes',
+    });
     expect(component.showToastAfterSubmit).toEqual(false);
   });
 });

@@ -23,7 +23,7 @@
                         </svg>
                             
                         <div class="container">                         
-                          <div class="row" *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')">
+                          <div class="row" *ngIf="permissions.validatePermission('Production Cycles', 'Update task status')  && !isArchived">
                             <div class="col-md-12 col-sm-12">
                             <div class="row row-hover" (click)="setStatusComment('accepted')" >
                                 <div class="col-md-4 col-sm-4">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>     
                          </div>
-                         <div class="row" *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status')">
+                         <div class="row" *ngIf="!permissions.validatePermission('Production Cycles', 'Update task status') || isArchived">
                             <div class="col-md-12 col-sm-12 update-task-status">
                             <div class="row" >
                                 <div class="col-md-4 col-sm-4">
@@ -82,7 +82,7 @@
                     <span class='mat-chip-text'>
                         {{editRequired.name}}
                     </span>
-                    <svg (click)="deleteTag(editRequired.name, editRequired.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="(!isArchived)?deleteTag(editRequired.name, editRequired.id):false" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
@@ -93,7 +93,7 @@
                     <span class='mat-chip-text'>
                         {{includeDebrief.name}}
                     </span>
-                    <svg (click)="deleteTag(includeDebrief.name, includeDebrief.id)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="(!isArchived)?deleteTag(includeDebrief.name, includeDebrief.id):false" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"
@@ -106,7 +106,7 @@
                     <span class='mat-chip-text'>
                         {{criticalTag}}
                     </span>
-                    <svg (click)="deletePriority(criticalTag)" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
+                    <svg (click)="(!isArchived)?deletePriority(criticalTag):false" class='icon-cross margin-left-btns' width="8" height="8" viewBox="0 0 10 11" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M9.66634 1.7735L8.72634 0.833496L4.99967 4.56016L1.27301 0.833496L0.333008 1.7735L4.05967 5.50016L0.333008 9.22683L1.27301 10.1668L4.99967 6.44016L8.72634 10.1668L9.66634 9.22683L5.93967 5.50016L9.66634 1.7735Z"

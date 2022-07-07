@@ -36,4 +36,9 @@ describe('TaxHorizontalStackedBarChartComponent', () => {
   it('trackItem should return index', () => {
     expect(component.trackItem(1)).toEqual(1);
   });
+  it('ngAfterViewInit method should call renderBarChartSVG', () => {
+    spyOn(component, 'renderBarChartSVG');
+    component.ngAfterViewInit();
+    expect(component.renderBarChartSVG).toHaveBeenCalled();
+  });
 });
