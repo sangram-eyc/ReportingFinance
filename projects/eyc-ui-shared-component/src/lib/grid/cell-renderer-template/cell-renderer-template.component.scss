@@ -1,7 +1,7 @@
-::ng-depp .custom-cellTemplate {
-    display: flex;
-    align-items: center;
-    height: 100%;
+::ng-deep .custom-cellTemplate > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 * {
