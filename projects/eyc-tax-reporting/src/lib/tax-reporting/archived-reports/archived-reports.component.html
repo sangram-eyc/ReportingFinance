@@ -72,7 +72,7 @@
 
         <ng-template #ActionsTemplate let-row>
             <button class="btn custom-link">
-                <button class="custom-button">View</button>
+                <button (click)="getProdCycleDetail(row)" class="custom-button">View</button>
             </button>
         </ng-template>
     </section>

@@ -1,302 +1,44 @@
 {
     "success": true,
     "message": "",
-    "corelationId": null,
-    "data": [
-        {
-        "name": "7047 - T. Rowe Price Global Allocation Fund",
-        "id": "1ASKDJ10398ASKDJO",
-        "hasContent": false,         
-        "status": "open",
-        "openCommentsEY": 2,
-        "openCommentsClient": 3,
-        "totalComments":20,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers": [
+    "corelationId": "6ba60650-be27-4edb-9d35-da5e0eb64e07",
+    "data": {
+        "productionCycleDetails": [
             {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@ey.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
+                "id": "01KV7KIYCCAEC367GPGNHJT4AZJGM4QY6M",
+                "name": "7047 - T. Rowe Price Global Allocation Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 2,
+                "openCommentsClient": 1,
+                "totalComments": 3,
+                "assignedUsers": [],
+                "statusChangedDate": "2022-06-16T14:02:06.797+00:00"
             },
             {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
+                "id": "01KV7KIYEJQNSBHPF3Z5FKDE2XTVO3HAWS",
+                "name": "70FB - T. Rowe Price European Stock Fund",
+                "hasContent": true,
+                "status": "approved",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2022-06-29T20:15:36.870+00:00"
             },
             {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
-            },
-            {
-                "userId": 3305,
-                "userEmail": "Gabriel.Loy@email.com", 
-                "userFirstName": "Gabriel", 
-                "userLastName": "Loy" 
-            },
-            {
-                "userId": 2202,
-                "userEmail": "Diego.Morini@ey.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Morini" 
+                "id": "01KV7KIYD5AEL7GQT7UJDLPYLGSHYSWXL3",
+                "name": "70V6 - T. Rowe Price European Stock Fund",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2022-06-16T14:02:10.963+00:00"
             }
-        ]
+        ],
+        "isArchived": true
     },
-    {
-        "name": "Fund 2",
-        "id": "2ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 200,
-        "openCommentsClient": 2,
-        "totalComments":100,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@email.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
-            },
-            {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
-            },
-            {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
-            }
-        ]
-    },
-    {
-        "name": "Fund 3",
-        "id": "3ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 99,
-        "openCommentsClient": 660,
-        "totalComments":2,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-            }]
-    },
-    {
-        "name": "Fund 4",
-        "id": "4ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY":"10",
-        "openCommentsClient":"10",
-        "totalComments":30,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }
-       ]
-    },
-    {
-        "name": "Fund 5",
-        "id": "5ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 5,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-    },
-    {
-        "name": "Fund 6",
-        "id": "6ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 7",
-        "id": "7ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "statusChangedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 8",
-        "id": "8ASKDJ10398ASKDJ1",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 9",
-        "id": "9ASKDJ10398ASKDJq",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 10",
-        "id": "10ASKDJ10398ASKrJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 11",
-        "id": "11ASKDJ103f8ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 12",
-        "id": "12ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 13",
-        "id": "13ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 1,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 14",
-        "id": "14ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 15",
-        "id": "15ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 17",
-        "id": "17ASKDJ10398ASTTDJO",
-        "hasContent": true,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[{
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@ey.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }]
-
-    },
-    {
-        "name": "Fund 18",
-        "id": "18ASKDJ10398PPKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 19",
-        "id": "19ASKDJ10OO8ASKDJO",
-        "hasContent": false,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 20",
-        "id": "20ASKDJ10398ASKXJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 21",
-        "id": "21ASKDJ1039JJSKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 22",
-        "id": "22ASKDJ10398ALLDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund D1",
-        "id": "23ASKDJ10398AJJDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    }],
     "error": null
 }

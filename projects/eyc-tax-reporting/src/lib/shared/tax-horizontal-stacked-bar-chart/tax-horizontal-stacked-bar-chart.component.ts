@@ -146,13 +146,13 @@ export class TaxHorizontalStackedBarChartComponent{
       .join('rect')
       .attr('width',(x)=> {
         let total: any = Object.values(this.data[0]).reduce((a: number, b: number) => a + b);
-        let widthValue: any = Math.round(((Math.round(((x[1] - x[0]) * 100) / (total))) * this.widthServer) / 100)
+        let widthValue: any = ((((((x[1] - x[0]) * 100) / (total))) * this.widthServer) / 100)
         arrWidthPosition.push(widthValue - 3)
         return total > 0 ? (widthValue - 3) : 0; //the -3 it's for separation
       })
       .attr('x',(x)=> {
         let total: any = Object.values(this.data[0]).reduce((a: number, b: number) => a + b);
-        let xPos = Math.round(((Math.round((x[0] * 100) / (total))) * (this.widthServer)) / 100)
+        let xPos = (((((x[0] * 100) / (total))) * (this.widthServer)) / 100)
         positionX = total > 0 ? xPos : 0;
         arrPositionX.push(xPos)
         return positionX;
@@ -166,9 +166,9 @@ export class TaxHorizontalStackedBarChartComponent{
       .on("mouseleave", mouseleave);
 
       if (this.gridEnabled){
-        d3.select(chartId).selectAll('g').filter(":nth-child(1)").append('text').text(this.dataValues[0]).attr('x', (arrPositionX[0] + (arrWidthPosition[0] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
-        d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + (arrWidthPosition[1] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
-        d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + (arrWidthPosition[2] / 2))).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
+        if(this.dataValues[0] > 0) d3.select(chartId).selectAll('g').filter(":nth-child(1)").append('text').text(this.dataValues[0]).attr('x', (arrPositionX[0] + (arrWidthPosition[0] / 2))-15).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
+        if(this.dataValues[1] > 0) d3.select(chartId).selectAll('g').filter(":nth-child(2)").append('text').text(this.dataValues[1]).attr('x', (arrPositionX[1] + (arrWidthPosition[1]/ 2))-15).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
+        if(this.dataValues[2] > 0) d3.select(chartId).selectAll('g').filter(":nth-child(3)").append('text').text(this.dataValues[2]).attr('x', (arrPositionX[2] + (arrWidthPosition[2]/ 2))-15).attr('y', 25).attr('font-size', 30).attr('fill', '#212529').attr('alignment-baseline', 'middle').on("mouseover", mouseover).on("mousemove", mousemove).on("mouseleave", mouseleave);
         //hover method for text tag
         
       }
