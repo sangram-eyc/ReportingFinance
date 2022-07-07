@@ -126,7 +126,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
       });
       this.createCommentsRowData(this.completedComments);
     });
-
+    
     //Fill in the data on the graph
     this.getCommentsDetails = this.commentService.getCommentsDetailsPerProductCycle(this.productCycleId).subscribe(res => {
       this.totalOpenedComments = res.data.totalOpen;
@@ -166,7 +166,6 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           }
         ]
     });
-
   }
 
 

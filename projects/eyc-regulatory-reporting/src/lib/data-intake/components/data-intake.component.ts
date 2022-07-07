@@ -564,7 +564,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.id,
+        entityId: row.datasetRuleId,
         entityType: "Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
@@ -606,7 +606,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-        this.exceptionData[this.exceptionData.findIndex(item => item.id === row.id)].commentCount = 1;
+        this.exceptionData[this.exceptionData.findIndex(item => item.datasetRuleId === row.datasetRuleId)].commentCount = 1;
         this.createEntitiesRowData();
       } else {
         console.log(result);
@@ -732,7 +732,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.entityId = row.entityId;
     } else {
       this.commentEntityType = 'Data Exception Report'
-      this.entityId = row.id;
+      this.entityId = row.datasetRuleId;
     }
     this.showComments = true;
 
