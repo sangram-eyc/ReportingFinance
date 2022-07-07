@@ -5,14 +5,11 @@ import { SettingService } from '../../services/setting.service';
 @Injectable({
   providedIn: 'root'
 })
-
-
-export class TasksService {
+export class DataExplorerService {
 
   constructor(private apiService: ApiSharedService, private settingService: SettingService) { }
 
-  getTaskAssignments(){
-      return this.apiService.invokeGetAPI(`${this.settingService.task_assignment.tasks_assignment_list}`);
-  }
-
+  getDataExplorerInformation(){
+    return this.apiService.invokeGetAPI(`${this.settingService.data_explorer.data_explorer_list}`);
+}
 }

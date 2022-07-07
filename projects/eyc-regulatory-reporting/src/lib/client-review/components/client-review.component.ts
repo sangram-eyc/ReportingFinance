@@ -850,65 +850,6 @@ actionMenuEnableforException(row) {
   }
 
 
-  unApproveExceptionOld(){
-    this.actionMenuModal = false;
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: {
-        type: "Confirmation",
-        header: "Unapprove",
-        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
-        footer: {
-          style: "start",
-          YesButton: "Continue",
-          NoButton: "Cancel"
-        }
-      }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.button == 'Continue') {
-        this.selectedExceptionIds = [];
-        this.selectedExceptionIds.push(this.selectedExceptionId);
-        const filingDetails = this.filingDetails;
-        let selectedFiling = {
-        "entityType": "Answer Exception Report",
-        "entities":  this.selectedExceptionIds,
-        "filingName": this.filingDetails.filingName,
-        "period": this.filingDetails.period,
-        "stage": clientReviewStage
-        };
-
-        let tempRowData = this.exceptionData;
-        this.exceptionData = [];
-        this.service.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
-          res['data'].forEach(ele => {
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].updateBy = ele.updatedBy;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolved = ele.resolved;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].unresolved = ele.unresolved;
-          });
-          this.exceptionData = tempRowData;
-          this.createEntitiesRowData();
-          this.exceptionReportRows = [];
-          this.filingService.invokeFilingDetails();
-          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          this.getExceptionReports();
-          setTimeout(() => {
-            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          }, 5000);
-        },error=>{
-          this.exceptionData = tempRowData;
-          this.createEntitiesRowData();
-        });
-
-      }
-    });
-  
-    
-  }
-
-
   commentAdded() {
     if (this.tabs==2) {
       this.getFilingEntities();
