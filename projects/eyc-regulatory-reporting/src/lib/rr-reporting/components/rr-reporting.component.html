@@ -14,7 +14,11 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first"
+
+        <lib-ag-grid [rowData]="exceptionRowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first"
             [columnDefs]="exceptionDefs" 
             [rowData]="exceptionRowData" 
             (gridReady)="handleGridReady($event)" 
@@ -42,12 +46,12 @@
             (toggleEventToParent)="onClickMyTask($event)" 
             [export] = "true"
             (exportFlagToParent)="exportData('exceptions')" [pagination]="exceptionRowData?.length>0 ? true : false" [paginationApi]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
 
         <ng-template #commentExceptionTemplate let-row>
             <div *ngIf="row.comments!==0 && permissions.validatePermission('Reporting', 'View Comments')"
-                class="comments-background" (click)="openComments(row)">
-                {{row.comments}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.comments}}</span> 
             </div>
 
             <div class="commentTemplate"
@@ -128,10 +132,8 @@
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-
-    <lib-ag-grid [rowData]="filingEntityRowData" [columnDefs]="columnDefs"
-    [export]="true" buttonPosition="left"
-    [search]="true" paginationSize="10"></lib-ag-grid>
+        <lib-ag-grid [rowData]="filingEntityRowData" [columnDefs]="columnDefs" [export]="true" buttonPosition="left"
+            [search]="true" paginationSize="10"></lib-ag-grid>
 
         <!-- <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple" [pageChangeFunc]="pageChangeFunc" (currentPageChange)="currentPageChange($event)"
             [submitFunction]="submitEntities"
@@ -167,8 +169,8 @@
         </ng-template>
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Reporting', 'View Comments')"
-                class="comments-background" (click)="openComments(row)">
-                {{row.commentsCount}}
+                (click)="openComments(row)">
+                <span class="comments-background">{{row.commentsCount}}</span> 
             </div>
             <div class="commentTemplate"
                 *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Reporting', 'Add Comments') && !checkFilingCompletedStatus()">
