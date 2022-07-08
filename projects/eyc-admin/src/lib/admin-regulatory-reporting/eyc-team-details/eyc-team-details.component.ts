@@ -13,6 +13,7 @@ import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
 import { TasksService } from '../services/tasks.service'
 import { DataExplorerService } from '../services/data-explorer.service'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -59,6 +60,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   roleList = [];
   assignments = [];
   columnDefs;
+  columnDefsAgGrid;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   tabIn;
@@ -244,6 +246,39 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   }
 
   createTeamsRowData(): void {
+    this.columnDefsAgGrid = [
+      {
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 120,
+        sortable: false,
+        menuTabs: ['generalMenuTab','columnsMenuTab'],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Name',
+          field: 'memberName',
+          width: 370,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Email',
+          field: 'userEmail',
+          width: 370,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+    ]
     this.columnDefs = [
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -293,6 +328,42 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         this.taskAssignmentData = res.data
         this.gridApi.setRowData(res.data);
       })
+      this.columnDefsAgGrid = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+          {
+            headerName: 'Filling Type',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Task Assignment',
+            field: 'taskAssingment',
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }
+      ]
 
       this.columnDefs = [
         {
@@ -334,6 +405,42 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         this.dataExplorerData = res.data
         this.gridApi.setRowData(res.data);
       })
+      this.columnDefsAgGrid = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+          {
+            headerName: 'Filling name',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Report name',
+            field: 'taskAssingment',
+            filter: 'agSetColumnFilter',
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }
+      ]
 
       this.columnDefs = [
         {

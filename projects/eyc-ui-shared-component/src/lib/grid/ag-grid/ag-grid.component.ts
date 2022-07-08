@@ -65,6 +65,7 @@ export class AgGridComponent implements OnInit {
   pageList=[20,50,100];
   pageSize=20;
   currentlySelectedPageSize;
+  @Input() staticDataGrid = false;
 
 
 
