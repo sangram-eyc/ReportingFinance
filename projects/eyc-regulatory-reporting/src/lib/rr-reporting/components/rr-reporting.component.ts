@@ -213,11 +213,11 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
+        // const newColDefs = this.gridApi.getColumnDefs();
         // this.exceptionDefs = [];
-        this.exceptionDefsAgGrid = []
+        // this.exceptionDefsAgGrid = []
         // this.exceptionDefs = newColDefs;
-        this.exceptionDefsAgGrid = newColDefs;
+        // this.exceptionDefsAgGrid = newColDefs;
         this.exceptionRowData = [...this.exceptionData];
       }
     }, error => {
@@ -235,9 +235,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
-        this.columnDefs = [];
-        this.columnDefs = newColDefs;
+        // const newColDefs = this.gridApi.getColumnDefs();
+        // this.columnDefs = [];
+        // this.columnDefs = newColDefs;
         this.filingEntityRowData = [...this.rowData];
       }
     }, error => {
@@ -356,122 +356,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         }
       ];
 
-      // this.exceptionDefs = [
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.dropdownTemplate,
-      //     },
-      //     field: 'template',
-      //     headerName: '',
-      //     width: 20,
-      //     sortable: false,
-      //     pinned: 'left',
-      //     filter: false,
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     headerName: 'Exception Report Type',
-      //     field: 'exceptionReportType',
-      //     sortable: true,
-      //     filter: true,
-      //     comparator: this.disableComparator,
-      //     autoHeight: true,
-      //     wrapText: true,
-      //     width: 300
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.expandExceptionTemplate,
-      //     },
-      //     headerName: 'Exception Report Name',
-      //     field: 'exceptionReportName',
-      //     sortable: true,
-      //     filter: true,
-      //     wrapText: true,
-      //     autoHeight: true,
-      //     width: 300,
-      //     sort: 'asc',
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     headerName: 'Review Level',
-      //     field: 'reviewLevel',
-      //     sortable: true,
-      //     filter: true,
-      //     wrapText: true,
-      //     autoHeight: true,
-      //     width: 300,
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.unresolveExceptionTemplate,
-      //     },
-      //     headerName: 'Unresolved',
-      //     field: 'unresolved',
-      //     sortable: true,
-      //     filter: true,
-      //     width: 210,
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.resolveExceptionTemplate,
-      //     },
-      //     headerName: 'Resolved',
-      //     field: 'resolved',
-      //     sortable: true,
-      //     filter: true,
-      //     width: 210,
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.commentExceptionTemplate,
-      //     },
-      //     headerName: 'Comments',
-      //     field: 'comments',
-      //     sortable: true,
-      //     filter: true,
-      //     width: 155,
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.lastUpdatedByTemplate,
-      //     },
-      //     headerName: 'Last Updated By',
-      //     field: 'updatedBy',
-      //     wrapText: true,
-      //     autoHeight: true,
-      //     sortable: true,
-      //     filter: true,
-      //     width: 300,
-      //     comparator: this.disableComparator
-      //   },
-      //   {
-      //     headerComponentFramework: TableHeaderRendererComponent,
-      //     cellRendererFramework: MotifTableCellRendererComponent,
-      //     cellRendererParams: {
-      //       ngTemplate: this.viewDetTemplate,
-      //     },
-      //     width: 50,
-      //     comparator: this.disableComparator
-      //   }
-      // ];
+
       this.exceptionDefsAgGrid = [
         {
           headerCheckboxSelection: true,

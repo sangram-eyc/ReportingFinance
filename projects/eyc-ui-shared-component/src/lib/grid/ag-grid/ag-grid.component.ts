@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../../modal/component/modal.component';
 import {
   AgGridEvent,
   CheckboxSelectionCallbackParams,
@@ -21,7 +23,9 @@ import 'ag-grid-enterprise';
   styleUrls: ['./ag-grid.component.scss']
 })
 export class AgGridComponent implements OnInit {
+  @Input() customRowSelected = false;
   @Input() columnDefs: ColDef[] = [];
+  @Input() omitModal = false;
   @Input() rowData!: any[];
   @Input() displayCheckBox: any;
   @Input() paginationPageSize = 20;
@@ -54,11 +58,23 @@ export class AgGridComponent implements OnInit {
   @Input() isToggle = false;
   @Input() export = false;
   @Input() permissionToShowDataTable = true;
+  @Input() disablePrimaryButton = true;
   @Input() disableAddMemberButton = true;
   mytasks = false;
   @Input() hideLabels:boolean = false;
   private gridApi!: GridApi;
   @Input() paginationSize = 100;
+  @Output() rowSelected = new EventEmitter<any>();
+  @Output() selectedRowEmitter = new EventEmitter<any[]>();
+  @Output() selectedRowEmitterProcess = new EventEmitter<string>();
+  @Output() newEventToParent = new EventEmitter<string>();
+  @Input() submitFunction: () => void;
+  @Input() submitTwoFunction: () => void;
+  @Input() pageChangeFunc: () => void;
+  @Input() modalMessage;
+  @Input() masterDetail = false;
+  @Input() detailCellRendererParams: any;
+  isAllRecordSelected = false;
   overlayNoRowsTemplate =`<span style="font-size: 16px;
   line-height: 20px;
   font-family: EYInterstate!important;;">No data found with current filters</span>`;
@@ -66,8 +82,36 @@ export class AgGridComponent implements OnInit {
   pageSize=20;
   currentlySelectedPageSize;
   @Input() staticDataGrid = false;
+  showToastAfterSubmit = false;
+  buttonModal = false;
+  @Input() isHideCheckBox = true;
 
-
+  @Input() modalConfig = {
+    width: '400px',
+    data: {
+      type: "Confirmation",
+      header: "Approve Selected",
+      description: "Are you sure you want to approve the selected entities?",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
+  @Input() modalConfigTwo ={
+    width: '500px',
+    data: {
+      type: "Confirmation",
+      header: "Unapprove",
+      description: "Are you sure you want to unapprove selected entity? This will move this back to the previous reviewer/step",
+      footer: {
+        style: "start",
+        YesButton: "Continue",
+        NoButton: "Cancel"
+      }
+    }
+  };
 
   public defaultColDef: ColDef = {
     flex: 1,
@@ -77,7 +121,6 @@ export class AgGridComponent implements OnInit {
     // cellStyle: {"white-space": "normal",'line-height': '22px'}
   };
   public rowSelection = 'multiple';
-  isHideCheckBox: any;
   public sideBar: SideBarDef | string | string[] | boolean | null = 'filters';
   public gridOptions:GridOptions;
   selectedRows = [];
@@ -89,7 +132,7 @@ export class AgGridComponent implements OnInit {
   public domLayout: 'normal' | 'autoHeight' | 'print' = 'autoHeight';
 
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
       // sideBar: this.sideBar,
@@ -143,6 +186,32 @@ export class AgGridComponent implements OnInit {
     
    }
 
+   ngOnChanges(changes: SimpleChanges) {
+    console.log('GRID CHANGES', changes);
+    this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
+  }
+
+   onChange(event): void {
+    if (this.customRowSelected) {
+      this.rowSelected.emit(event);
+      this.selectedRows = this.gridApi.getSelectedRows();
+      this.selectedRowEmitter.emit(this.selectedRows);
+    } else {
+      this.selectedRowEmitterProcess.emit('processing');
+      this.selectedRows = [];
+      this.selectedRows = this.gridApi.getSelectedRows().filter(item => item.approved === false);
+      this.selectedRowEmitter.emit(this.selectedRows);
+      this.selectedRowEmitterProcess.emit('finished');
+      if (this.selectedRows.length === 0) this.gridApi.deselectAll();
+      if (this.selectedRows.length === (this.rowData.filter(item => item.approved === false)).length) {
+        this.gridApi.selectAll();
+        this.isAllRecordSelected = true;
+      } else {
+        this.isAllRecordSelected = false;
+      }
+    }
+  }
+
   isFirstColumn = (params) => {
     const displayedColumns = params.columnApi.getAllDisplayedColumns();
     if(this.isHideCheckBox) {
@@ -190,15 +259,59 @@ export class AgGridComponent implements OnInit {
   }
 
   primaryButtonAction(){
+    if (this.omitModal) {
+      this.submit();
+    } else {
+      this.openDialog();
+    }
+  }
 
+  async submit() {
+    await this.submitFunction();
+    this.selectedRows = [];
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
+    this.buttonModal = false;
+  }
+
+  async submitTwo() {
+    await this.submitTwoFunction();
+    this.selectedRows = [];
+    if(!this.isAllRecordSelected) this.gridApi.deselectAll();
+    this.buttonModal = false;
   }
 
   approveButtonAction(){
-
+    this.openDialog();
   }
 
   unapproveButtonAction() {
+    this.openDialogTwo();
+  }
 
+  openDialog() {
+    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
+      this.newEventToParent.emit();
+      return;
+    }
+    const dialogRef = this.dialog.open(ModalComponent, this.modalConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
+        this.submit();
+      } 
+    });
+  }
+  
+  openDialogTwo() {
+    if(this.buttonText === "Add User" || this.buttonText === "Add team" || this.buttonText === "Add member" || this.buttonText === "Data Explorer" || this.buttonText === "Add PBI") {
+      this.newEventToParent.emit();
+      return;
+    }
+    const dialogRef = this.dialog.open(ModalComponent, this.modalConfigTwo);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.button === "Submit" || result.button === "Continue" || result.button === "Yes") {
+        this.submitTwo();
+      } 
+    });
   }
 
   openResolveUnresolveDialog(type:string){
@@ -249,4 +362,5 @@ export class AgGridComponent implements OnInit {
   // so the grid div should have no height set, the height is dynamic.
   (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
 }
+
 }
