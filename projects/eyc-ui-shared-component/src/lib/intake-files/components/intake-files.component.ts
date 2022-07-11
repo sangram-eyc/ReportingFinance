@@ -25,7 +25,8 @@ export class IntakeFilesComponent implements OnInit {
   @Input() isEnabled;
   @Output() exportFlagToDataIntakeformSharedIntake = new EventEmitter<boolean>();
   @Input() export = true;
-  columnDefs;
+  // columnDefs;
+  columnDefsAgGrid;
 
   @ViewChild('headerTemplate')
   headerTemplate: TemplateRef<any>;
@@ -49,84 +50,202 @@ export class IntakeFilesComponent implements OnInit {
   }
 
   createRowData(): void {
-    this.columnDefs = [
+    // this.columnDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Dataset',
+    //     field: 'dataset',
+    //     sortable: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     filter: true,
+    //     width: 300,
+    //     comparator: customComparator,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'File Name',
+    //     field: 'fileName',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 400,
+    //     comparator: customComparator,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Status',
+    //     field: 'status',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Report',
+    //     field: 'report',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Source',
+    //     field: 'source',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Data Owner',
+    //     field: 'dataOwner',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Source Type',
+    //     field: 'sourceType',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Data Owner Email',
+    //     field: 'ownerEmail',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 400,
+    //     comparator: customComparator
+    //   },
+    //   /*
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.commentTemplate,
+    //     },
+    //     headerName: 'Comments',
+    //     field: 'comments',
+    //     sortable: true,
+    //     filter: false,
+    //   },
+      
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.unresolveTemplate,
+    //     },
+    //     headerName: 'Unresolved',
+    //     field: 'unresolve_exception',
+    //     sortable: true,
+    //     filter: false,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.resolveTemplate,
+    //     },
+    //     headerName: 'Resolved',
+    //     field: 'resolve_exception',
+    //     sortable: true,
+    //     filter: false,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.viewDetTemplate,
+    //     },
+    //     width: 50
+    //   } */
+    // ];
+
+    this.columnDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 70,
+        sortable: false,
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
+      },
+      {
         headerName: 'Dataset',
         field: 'dataset',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        wrapText: true,
-        autoHeight: true,
-        filter: true,
-        width: 300,
-        comparator: customComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 300,
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File Name',
         field: 'fileName',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 400,
-        comparator: customComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 400,
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Status',
         field: 'status',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Report',
         field: 'report',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Source',
         field: 'source',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Data Owner',
         field: 'dataOwner',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Source Type',
         field: 'sourceType',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Data Owner Email',
         field: 'ownerEmail',
+        filter: 'agSetColumnFilter',
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 400,
-        comparator: customComparator
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 400,
       },
       /*
       {
