@@ -174,6 +174,7 @@ export class SubmissionComponent implements OnInit {
         const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
+      this.selectedRows = [];
       setTimeout(() => {
         this.showToastAfterDownload = !this.showToastAfterDownload;
       }, 5000);
