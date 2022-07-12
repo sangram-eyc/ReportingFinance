@@ -12,10 +12,13 @@ import {
   ICellRendererParams,
   PaginationNumberFormatterParams,
   SideBarDef,
+  StatusPanelDef,
 } from 'ag-grid-community';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
+import { StatusBarComponent } from '../status-bar/status-bar.component'
+
 
 @Component({
   selector: 'lib-ag-grid',
@@ -130,12 +133,20 @@ export class AgGridComponent implements OnInit {
   gridColumnApi: any;
   dataset;
   public domLayout: 'normal' | 'autoHeight' | 'print' = 'autoHeight';
-
+  statusBar: {
+    statusPanels: StatusPanelDef[];
+  } = {
+    statusPanels: [
+      { statusPanel: StatusBarComponent , align: 'right', key: 'statusBarCompKey', }
+    ],
+  };
+  totalPage: number;
+  currentpage: number;
+  context: any;
   
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
-      // sideBar: this.sideBar,
   }
 }
 
@@ -145,6 +156,8 @@ export class AgGridComponent implements OnInit {
     this.gridApi.setSideBarVisible(false);
     this.gridApi.setDomLayout('autoHeight');
     (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
+    this.totalPage = this.gridApi.paginationGetTotalPages();
+    this.currentpage = this.gridApi.paginationGetCurrentPage();
   }
 
   ngOnInit(): void {
@@ -241,12 +254,24 @@ export class AgGridComponent implements OnInit {
   }
 
   onModelUpdated($event) {
+    if (this.gridApi) {
     if (this.gridApi?.getDisplayedRowCount() && this.gridApi?.getDisplayedRowCount() == 0) {
       this.gridApi.showNoRowsOverlay();
     }
     if (this.gridApi?.getDisplayedRowCount() && this.gridApi?.getDisplayedRowCount() > 0) {
       this.gridApi.hideOverlay();
     }
+    this.totalPage = this.gridApi.paginationGetTotalPages();
+    this.currentpage = this.gridApi.paginationGetCurrentPage();
+    this.context=({componentParent: this,totalPage : this.gridApi.paginationGetTotalPages(),
+      currentpage : this.gridApi.paginationGetCurrentPage()
+    })
+    const statusBarComponent = this.gridApi.getStatusPanel(
+      'statusBarCompKey'
+    ) as any;
+    statusBarComponent.totalPage = this.gridApi.paginationGetTotalPages();
+    statusBarComponent.currentpage = this.gridApi.paginationGetCurrentPage();
+  }
   }
 
   onPageSizeChanged() {
