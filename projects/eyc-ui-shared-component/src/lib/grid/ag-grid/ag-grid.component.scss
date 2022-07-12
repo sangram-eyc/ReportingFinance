@@ -114,16 +114,20 @@
     }
 }
 
-.pagination {
-    display: flex;
-    background: #fff;
-    max-width: 300px;
-    justify-content: flex-end;
-    margin: 0 auto;
-    position: relative;
-    top: -40px;
-    left: -70px;
-    .page-description {
+
+    .pagination {
+        display: flex;
+        background: #fff;
+        max-width: 437px;
+        justify-content: space-between;
+        margin: 0 auto;
+        position: relative;
+        top: -43px;
+        left: 40px;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        .page-description {
       font-family: EYInterstate;
       .page-number {
         font-weight: 700;
@@ -157,6 +161,16 @@
             }
         }
       }
+
+      input#jumpTo,input#colTo {
+        border: none;
+    }
+
+    select#page-size {
+        border: none;
+        font-weight: 700;
+        margin-left: -22px;
+    }
   }
 
 
@@ -175,4 +189,118 @@
 
   ::ng-deep .approved_icon .ag-cell-wrapper .ag-selection-checkbox {
     margin-right: -20px !important;
+  }
+  
+  .filterWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+    fill: #3A3A4A;;
+    span {
+        font-family: EYInterstate;
+        font-size: 14px;
+        line-height: 22px;
+        top: -2px;
+        position: relative;
+        left: 2px;
+        font-weight: 400;
+    }
+    .filter_icon {
+        margin-left: 16px;
+        font-weight: 400;
+    }
+}
+
+  ::ng-deep .ag-theme-material .ag-ltr .ag-cell {
+    border-right: none !important;
+}
+
+::ng-deep .ag-header-cell-label {
+    font-family: 'EYInterstate';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    color: #2E2E38;
+}
+
+::ng-deep .ag-header-cell .ag-header-active{
+    display: block;
+}
+
+::ng-deep .ag-filter-body-wrapper.ag-set-filter-body-wrapper {
+    background: #F2F2F2;
+    width: 344px;
+}
+
+::ng-deep .ag-wrapper.ag-input-wrapper.ag-text-field-input-wrapper {
+    background: #FAFAFC;
+}
+
+::ng-deep span.ag-paging-row-summary-panel {
+    display: none;
+}
+
+// side filter css - start
+::ng-deep .ag-tool-panel-wrapper {
+    width: 380px;
+    .ag-group-title-bar.ag-filter-toolpanel-group-title-bar {
+        background: #FFFFFF;
+    }
+
+    .ag-group-title-bar.ag-filter-toolpanel-group-title-bar {
+        background: #FFFFFF;
+        color: #3A3A4A;
+        font-family: 'EYInterstate';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        left: 5px;
+    }
+
+    .ag-filter-toolpanel {
+        background: #FFFFFF;
+    }
+
+    .ag-virtual-list-container.ag-filter-virtual-list-container {
+        background: #FFFFFF;
+        color: #3A3A4A;
+        font-family: 'EYInterstate';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .ag-set-filter {
+        background: #FFFFFF;
+        padding: 5px;
+        margin-top: -28px;
+        .ag-input-wrapper .ag-input-field-input {
+            border-bottom: 1px solid #3A3A4A;
+        }
+    }
+
+    .ag-group.ag-filter-toolpanel-group.ag-group-item-alignment-stretch {
+        border-bottom: 1px solid #EAEAF2;
+        left: 5px;
+    }
+
+    .ag-input-wrapper .ag-input-field-input {
+        border-bottom: 1px solid #3A3A4A;
+    }
+
+
+    .ag-filter-toolpanel-search {
+        display: none;
+    }
+}
+
+// side filter css - end
+
+::ng-deep .ag-theme-material .ag-checkbox-input-wrapper.ag-checked::after {
+    color: #23232F !important;
 }
