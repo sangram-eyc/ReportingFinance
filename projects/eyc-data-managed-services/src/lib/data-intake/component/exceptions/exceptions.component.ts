@@ -96,7 +96,8 @@ export class ExceptionsComponent implements OnInit {
     name: '10',
     id: 0
   };
-  commentEntityType
+  commentEntityType;
+  moduleOriginated;
   showComments = false;
   commentsName;
   entityId;
@@ -456,8 +457,13 @@ export class ExceptionsComponent implements OnInit {
 
   openComments(row) {
     console.log(row);
+    this.commentsName = "dms";
+    this.commentEntityType = 'DMS Exception';
+    this.entityId = row.dataSetRuleId;
+    this.moduleOriginated="Data Managed Services";
     this.showComments = true;
   }
+
   addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
@@ -512,5 +518,6 @@ export class ExceptionsComponent implements OnInit {
     });
   }
   commentAdded() {
+    this.getExceptionTableData();
   }
 }
