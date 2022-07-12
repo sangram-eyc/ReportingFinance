@@ -86,8 +86,8 @@
     <ag-grid-angular id="agGrid" style="width: 100%;" class="ag-theme-material" [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef" [rowSelection]="rowSelection" [groupSelectsChildren]="true"
       [suppressRowClickSelection]="true" [suppressAggFuncInHeader]="true" [rowData]="rowData"
-      (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [pagination]="pagination"
-      [paginationPageSize]="paginationPageSize" [enableBrowserTooltips]="true"
+      (gridReady)="onGridReady($event)" (change)="onChange($event)" [gridOptions]="gridOptions" [pagination]="pagination"
+      [paginationPageSize]="paginationPageSize" [paginationNumberFormatter]="paginationNumberFormatter"
       [overlayNoRowsTemplate]="overlayNoRowsTemplate" [sideBar]="{ toolPanels: ['filters'] }"
       (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)">
     </ag-grid-angular>

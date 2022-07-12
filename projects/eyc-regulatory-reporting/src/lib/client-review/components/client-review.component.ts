@@ -214,11 +214,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
+        // const newColDefs = this.gridApi.getColumnDefs();
         // this.exceptionDefs = [];
-        this.exceptionDefsAgGrid = [];
+        // this.exceptionDefsAgGrid = [];
         // this.exceptionDefs = newColDefs;
-        this.exceptionDefsAgGrid = newColDefs;
+        // this.exceptionDefsAgGrid = newColDefs;
         this.exceptionRowData = [...this.exceptionData];
       }
       
@@ -238,11 +238,11 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
+        // const newColDefs = this.gridApi.getColumnDefs();
         // this.columnDefs = [];
-        this.columnDefsAgGrid = []
+        // this.columnDefsAgGrid = []
         // this.columnDefs = newColDefs;
-        this.columnDefsAgGrid = newColDefs;
+        // this.columnDefsAgGrid = newColDefs;
         this.filingEntityRowData = [...this.rowData];
       }
     },error=>{
