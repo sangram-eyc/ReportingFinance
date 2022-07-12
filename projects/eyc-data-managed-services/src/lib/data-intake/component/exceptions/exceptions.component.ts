@@ -506,6 +506,7 @@ export class ExceptionsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Submit") {
+        this.getExceptionTableData();
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
