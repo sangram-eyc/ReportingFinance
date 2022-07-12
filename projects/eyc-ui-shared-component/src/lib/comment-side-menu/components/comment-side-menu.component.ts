@@ -48,6 +48,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    debugger;
     console.log(changes);
     console.log(this.entityId);
     if(this.entityId) {
@@ -72,6 +73,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   }
 
   viewComments() {
+    debugger;
     if (this.show) {
       this.openComments();
     } else {
@@ -80,6 +82,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   }
 
   openComments() {
+    debugger;
     console.log('Calling Open Comments');
     this.appContainer.style.paddingRight = '25%';
     console.log(this.appContainer);
@@ -88,6 +91,7 @@ export class CommentSideMenuComponent implements OnInit, OnDestroy {
   }
 
   closeComments() {
+    debugger;
     this.appContainer.style.paddingRight = '0';
     this.show = false;
     this.showChange.emit(this.show);
