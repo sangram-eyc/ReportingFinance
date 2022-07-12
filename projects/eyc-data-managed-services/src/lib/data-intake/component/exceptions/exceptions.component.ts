@@ -463,7 +463,7 @@ export class ExceptionsComponent implements OnInit {
     this.moduleOriginated="Data Managed Services";
     this.showComments = true;
   }
-  
+
   addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
@@ -518,6 +518,5 @@ export class ExceptionsComponent implements OnInit {
     });
   }
   commentAdded() {
-    debugger;
   }
 }
