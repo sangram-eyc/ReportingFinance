@@ -70,6 +70,7 @@ export class AgGridComponent implements OnInit {
   @Output() rowSelected = new EventEmitter<any>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
+  @Output() unresolveEventToParent = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Input() submitFunction: () => void;
   @Input() submitTwoFunction: () => void;
@@ -352,7 +353,7 @@ export class AgGridComponent implements OnInit {
   }
 
   openResolveUnresolveDialog(type:string){
-
+    type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
 
   toggleLeftChanged(event){

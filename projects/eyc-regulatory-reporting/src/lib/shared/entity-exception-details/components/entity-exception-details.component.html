@@ -15,7 +15,11 @@
     [permissionToResolveExceptionButton]="getResolveButtonPermission()"
     [permissionToUnresolveExceptionButton]="getUnresolveButtonPermission()"
     [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [pageSize]="pageSize"
-    [disableUnresolveButton]="!enableUnresolveButton"></lib-ag-grid>
+    [disableUnresolveButton]="!enableUnresolveButton"
+    (selectedRowEmitter)="exceptionResolveRowsSelected($event)"
+    (newEventToParent)="actionResolvedClick($event)"
+    (unresolveEventToParent)="actionUnResolvedClick($event)"
+     rowSelection="multiple"></lib-ag-grid>
 
 <!-- <lib-shared-grid *ngIf="answerExceptionTable"
     [columnDefs]="exceptionAnswersDefs" 
