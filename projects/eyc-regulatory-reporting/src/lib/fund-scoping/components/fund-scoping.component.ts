@@ -219,7 +219,7 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'Entity name',
       field: 'fundName',
-      minWidth: 200,
+      minWidth: 250,
       filter: 'agSetColumnFilter',
       filterParams: {
         buttons: ['reset']
@@ -241,7 +241,7 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'Business Unit',
       field: 'businessUnit',
-      minWidth: 150,
+      minWidth: 250,
       filter: 'agSetColumnFilter',
       filterParams: {
         buttons: ['reset']
