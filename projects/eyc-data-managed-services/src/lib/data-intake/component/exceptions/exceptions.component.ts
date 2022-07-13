@@ -522,8 +522,7 @@ export class ExceptionsComponent implements OnInit {
       }
     });
   }
-  commentAdded(event) {
-    if(event)
+  commentAdded() {
     this.getExceptionTableData();
   }
 }
