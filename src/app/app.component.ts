@@ -292,11 +292,9 @@ export class AppComponent
     );
   }
   connectSse() {
-    // let username = sessionStorage.getItem('userEmail');
-    let username = 'gabriel.bustos@ey.com';
+    let username = sessionStorage.getItem('userEmail');
     username = username.replace(/\@/g, '%40');
     username = username.replace(/\./g, '%40%40');
-    console.log(username);
     this.sseService
       .getServerSentEvent(
         'https://eycomply-qa.sbp.eyclienthub.com/qa37/notifierAgentService/sse-notifier-agent-communication-async/' +
@@ -319,6 +317,27 @@ export class AppComponent
         }
       });
   }
+  connectWebSocket(){
+    this.wsBulkService.connect().subscribe(resp => {
+      console.log(resp);
+      if (resp.trim() === 'Connection Established') {
+        this.openConectionBulkWs();
+      } else {
+        const objectFromWs = JSON.parse(resp);
+        const objectContent = JSON.parse(objectFromWs.request.content);
+        const notificationEventType = objectContent.extraParameters.notificationEventType;
+        if(notificationEventType === "ConcurrentSession"){
+              this.closeConcurrentSession(resp);
+        }else{
+              this.bulkDownloadWarnings(resp);
+        }             
+      }
+    },
+    err => {
+      console.log('ws bulk error', err);
+    },
+    () => console.log('ws bulk complete'));
+  }
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.settingsService.isUserLoggedin()) {
@@ -327,48 +346,6 @@ export class AppComponent
           console.log('Run ngAfterViewInit', this.count);
           this.checkTimeOut();
           this.connectSse();
-
-          /*
-    this.wsBulkService.connect().subscribe(resp => {
-            console.log(resp);
-            if (resp.trim() === 'Connection Established') {
-              this.openConectionBulkWs();
-            } else {
-              const objectFromWs = JSON.parse(resp);
-              const objectContent = JSON.parse(objectFromWs.request.content);
-              const notificationEventType = objectContent.extraParameters.notificationEventType;
-              if(notificationEventType === "ConcurrentSession"){
-                    this.closeConcurrentSession(resp);
-              }else{
-                    this.bulkDownloadWarnings(resp);
-              }             
-            }
-          },
-          err => {
-            console.log('ws bulk error', err);
-          },
-          () => console.log('ws bulk complete'));
-          this.sseClient
-          .get(
-            'https://eycomply-qa.sbp.eyclienthub.com/qa37/notifierAgentService/sse-notifier-agent-communication-async/' + username, { keepAlive: true }
-          )
-          .subscribe((resp:any) => {
-            console.log(resp.message);
-            if (resp === 'Connection Established') {
-              //this.openConectionBulkWs();
-            } else {
-              const objectFromWs = JSON.parse(resp.message);
-              const objectContent = JSON.parse(objectFromWs.request.content);
-              const notificationEventType = objectContent.extraParameters.notificationEventType;
-              if(notificationEventType === "ConcurrentSession"){
-                    this.closeConcurrentSession(resp.message);
-              }else{
-                    this.bulkDownloadWarnings(resp.message);
-              }             
-            }
-          });
-  }
-            */
         }
       }
     }, 40);

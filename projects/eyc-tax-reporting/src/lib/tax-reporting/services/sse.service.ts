@@ -12,13 +12,11 @@ export class SseService {
     return Observable.create(observer => {
       const eventSource = this.getEventSource(url);
       eventSource.onopen = (ev) => {
-        console.log('Connection to server opened.', ev);
         this._zone.run(() => {
           observer.next(ev);
         });
       };
       eventSource.onerror = (ev) => {
-        console.log('EventSource failed.', ev);
       };
       eventSource.addEventListener('message', event => {
         this._zone.run(() => {
@@ -29,7 +27,6 @@ export class SseService {
   }
   private getEventSource(url: string): EventSource {
     if (this.eventSource) {
-      console.log('EventSource closed.');
       this.eventSource.close();
     }
     this.eventSource = new EventSource(url);
