@@ -59,6 +59,8 @@ export class ViewExceptionReportsComponent implements OnInit {
   componentStage;
   filingDetails;
   permissionStage: any;
+  pageList = [100,200,300];
+  pageSize =100;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,

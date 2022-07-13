@@ -50,6 +50,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
   showComments: boolean = false;
   exportsHeader: string;
   permissionStage: any;
+  pageList = [100,200,300];
+  pageSize =100;
 
 
   constructor(

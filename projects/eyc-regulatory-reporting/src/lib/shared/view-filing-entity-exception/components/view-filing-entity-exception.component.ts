@@ -49,6 +49,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   commentsCount: any;
   entityIdForComment: any;
   permissionStage: any;
+  pageList = [100,200,300];
+  pageSize =100;
 
   constructor(
     private filingService: RegulatoryReportingFilingService,
