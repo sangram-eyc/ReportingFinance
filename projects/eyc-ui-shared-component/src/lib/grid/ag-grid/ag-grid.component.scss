@@ -310,3 +310,13 @@
 ::ng-deep .ag-theme-material .ag-pinned-left-header {
     border-right: none !important;
 }
+
+// Hide filter side button
+::ng-deep .ag-side-button.ag-selected {
+    display: none;
+}
+
+//Filter reset button to left align
+::ng-deep .ag-filter-apply-panel {
+    justify-content: start !important;
+}
