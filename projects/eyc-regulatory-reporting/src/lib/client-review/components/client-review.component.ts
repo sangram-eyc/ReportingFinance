@@ -390,7 +390,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerCheckboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
-          headerName: 'Sr No',
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
@@ -402,6 +401,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'ID',
           field: 'fundId',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 140,
@@ -414,6 +416,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Entity Name',
           field: 'entityName',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,
@@ -423,6 +428,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Review Level',
           field: 'reviewLevel',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth:155
@@ -435,6 +443,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Unresolved',
           field: 'unResolvedException',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -447,6 +458,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Resolved',
           field: 'resolvedException',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -459,6 +473,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Comments',
           field: 'commentsCount',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -471,6 +488,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Last Updated By',
           field: 'updatedBy',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,
@@ -602,7 +622,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerCheckboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
-          headerName: 'Sr No',
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
@@ -614,6 +633,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Exception Report Type',
           field: 'exceptionReportType',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,
@@ -627,6 +649,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Exception Report Name',
           field: 'exceptionReportName',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,
@@ -636,6 +661,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Review Level',
           field: 'reviewLevel',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -648,6 +676,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Unresolved',
           field: 'unresolved',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -660,6 +691,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Resolved',
           field: 'resolved',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -672,6 +706,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Comments',
           field: 'comments',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 155,
@@ -684,6 +721,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerName: 'Last Updated By',
           field: 'updatedBy',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,

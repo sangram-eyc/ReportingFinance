@@ -146,7 +146,6 @@ export class EntityExceptionDetailsComponent implements OnInit {
         headerCheckboxSelection: true,
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
-        headerName: 'Sr No',
         valueGetter: "node.rowIndex + 1",
         maxWidth: 120,
         sortable: false,
@@ -187,6 +186,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
             field: `${property}`,
             headerName: `${property}`,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
             minWidth: 300,
@@ -197,6 +199,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
             field: `${property}`,
             headerName: `${property}`,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
             minWidth: 300,
@@ -220,6 +225,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
         ngTemplate: this.commentExceptionTemplate,
       }, 
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
       minWidth: 155

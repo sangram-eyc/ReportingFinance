@@ -147,6 +147,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
             field: 'name',
             minWidth: 410,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             sort: 'asc',
             tooltipField: 'name',
@@ -157,6 +160,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
             field: 'email',
             minWidth: 410,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             cellClass: 'custom-user-email',
             sortable: true,
             tooltipField: 'email',
@@ -172,43 +178,43 @@ export class UsersComponent implements OnInit, AfterViewInit {
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
       ]
-      this.columnDefs1 = [
-        {
-          width: 410,
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Name',
-          field: 'name',
-          sortable: true,
-          filter: true,
-          cellClass: 'custom-user-name',
-          sort: 'asc',
-          wrapText: true,
-          autoHeight: true,
-          comparator: this.disableComparator
-        },
-        {
-          width: 410,
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Email',
-          field: 'email',
-          cellClass: 'custom-user-email',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          comparator: this.disableComparator
-        },
-        {
-          width: 80,
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: this.editAct.bind(this),
-          headerName: 'Actions',
-          field: 'Actions',
-          sortable: false,
-          filter: false,
-        },
-      ];
+      // this.columnDefs1 = [
+      //   {
+      //     width: 410,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Name',
+      //     field: 'name',
+      //     sortable: true,
+      //     filter: true,
+      //     cellClass: 'custom-user-name',
+      //     sort: 'asc',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     width: 410,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Email',
+      //     field: 'email',
+      //     cellClass: 'custom-user-email',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     width: 80,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: this.editAct.bind(this),
+      //     headerName: 'Actions',
+      //     field: 'Actions',
+      //     sortable: false,
+      //     filter: false,
+      //   },
+      // ];
       this.resetRowData = this.rowData;
     },1);
   }

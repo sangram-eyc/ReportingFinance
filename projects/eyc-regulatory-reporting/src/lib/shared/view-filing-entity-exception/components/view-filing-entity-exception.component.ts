@@ -177,7 +177,6 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
 
     this.exceptionAnswersDefsAgGrid = [
       {
-        headerName: 'Sr No',
         valueGetter: "node.rowIndex + 1",
         maxWidth: 90,
         sortable: false,
@@ -193,6 +192,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         headerName: 'Exception Report Name',
         field: 'exceptionReportName',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 350,
@@ -205,6 +207,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         headerName: 'Unresolved',
         field: 'Unresolved',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 155,
@@ -217,6 +222,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         headerName: 'Resolved',
         field: 'Resolved',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 155,
@@ -229,6 +237,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         headerName: 'Comments',
         field: 'comments',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 155,

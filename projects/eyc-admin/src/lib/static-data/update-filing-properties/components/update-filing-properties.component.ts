@@ -319,6 +319,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           headerName: 'Question',
           field: 'name',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           sort: 'asc',
           tooltipField: 'name',
@@ -333,6 +336,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           field: 'pbiReportId',
           minWidth: 250,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           tooltipField: 'pbiReportId',
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
@@ -345,6 +351,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           tooltipField: 'dataSetIds',
           minWidth: 500,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -353,65 +362,65 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
           field: 'name',
-          minWidth: 80,
+          minWidth: 150,
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         }
     ]
-    this.columnDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        // cellRendererFramework: MotifTableCellRendererComponent,
-        // cellRendererParams: this.editQuestion.bind(this),
-        headerName: 'Question',
-        field: 'name',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editReportID.bind(this),
-        headerName: 'Report ID',
-        field: 'pbiReportId',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editDatasetID.bind(this),
-        headerName: 'Dataset ID(s)',
-        field: 'dataSetIds',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 500,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        width: 80,
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editAct.bind(this),
-        headerName: 'Actions',
-        field: 'name',
-        sortable: false,
-        filter: false,
-      }
-    ];
+    // this.columnDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     // cellRendererFramework: MotifTableCellRendererComponent,
+    //     // cellRendererParams: this.editQuestion.bind(this),
+    //     headerName: 'Question',
+    //     field: 'name',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editReportID.bind(this),
+    //     headerName: 'Report ID',
+    //     field: 'pbiReportId',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editDatasetID.bind(this),
+    //     headerName: 'Dataset ID(s)',
+    //     field: 'dataSetIds',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 500,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     width: 80,
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editAct.bind(this),
+    //     headerName: 'Actions',
+    //     field: 'name',
+    //     sortable: false,
+    //     filter: false,
+    //   }
+    // ];
 
   }
 

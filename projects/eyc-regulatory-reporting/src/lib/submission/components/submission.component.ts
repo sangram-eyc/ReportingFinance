@@ -163,7 +163,7 @@ export class SubmissionComponent implements OnInit {
 
   onDownloadSelected() {
     console.log('DOWNLOADING SELECTED');
-    this.selectedRows = this.gridApi.getSelectedRows();
+    // this.selectedRows = this.gridApi.getSelectedRows();
     this.slectedFiles = [];
     this.selectedRows.forEach((item) => {
       this.slectedFiles.push(item['fileName']);
@@ -176,6 +176,7 @@ export class SubmissionComponent implements OnInit {
         const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
+      this.selectedRows = [];
       setTimeout(() => {
         this.showToastAfterDownload = !this.showToastAfterDownload;
       }, 5000);
@@ -256,20 +257,21 @@ export class SubmissionComponent implements OnInit {
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
-          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          menuTabs: [],
           pinned: 'left'
           },
           {
             headerName: 'File Name',
             field: 'fileName',
-            width: 300,
+            minWidth: 300,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
-            wrapText: true,
-            autoHeight: true,
             sort:'asc',
-            cellStyle: {"white-space": "normal",'line-height': '22px'},
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            tooltipField: 'fileName'
           },
           {
             cellRendererFramework: CellRendererTemplateComponent,
@@ -278,8 +280,11 @@ export class SubmissionComponent implements OnInit {
             },
             headerName: 'Status',
             field: 'status',
-            minWidth: 150,
+            minWidth: 220,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
@@ -292,6 +297,9 @@ export class SubmissionComponent implements OnInit {
             field: 'dateSubmitted',
             minWidth: 220,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
@@ -302,8 +310,11 @@ export class SubmissionComponent implements OnInit {
             },
             headerName: 'Last updated by',
             field: 'updatedBy',
-            width: 350,
+            minWidth: 350,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             wrapText: true,
             autoHeight: true,
@@ -316,93 +327,96 @@ export class SubmissionComponent implements OnInit {
             },
             headerName: 'Comments',
             field: 'commentsCount',
-            maxWidth: 150,
+            minWidth: 150,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             width: 155,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
       ]
-      this.columnDefs = [
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
+      // this.columnDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
           
-          },
-          field: 'template',
-          headerName: '',
-          width: 70,
-          sortable: false,
-          pinned: 'left'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'File Name',
-          field: 'fileName',
-          cellClass: 'custom-report-name',
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          sortable: true,
-          filter:true,
-          sort:'asc',
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.statusTemplate,
-          },
-          headerName: 'Status',
-          field:'status',
-          sortable: true,
-          filter:true,
-          minWidth: 200
-        },
-        {
-          headerComponentFramework:TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams:{
-            ngTemplate:this.dateSubmittedTemplate
-          },
-          field:'dateSubmitted',
-          headerName:'Status Changed',
-          sortable: true,
-          filter:true,
-          minWidth: 220,
-          cellClass:'date-submitted-class'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.lastUpdatedByTemplate,
-          },
-          headerName: 'Last updated by',
-          field: 'updatedBy',
-          wrapText: true,
-          autoHeight: true,
-          sortable: true,
-          filter:true,
-          width: 350,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'commentsCount',
-          sortable: true,
-          filter: true,
-          width: 155,
-          comparator: this.disableComparator
-        },
-      ];
+      //     },
+      //     field: 'template',
+      //     headerName: '',
+      //     width: 70,
+      //     sortable: false,
+      //     pinned: 'left'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'File Name',
+      //     field: 'fileName',
+      //     cellClass: 'custom-report-name',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 300,
+      //     sortable: true,
+      //     filter:true,
+      //     sort:'asc',
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.statusTemplate,
+      //     },
+      //     headerName: 'Status',
+      //     field:'status',
+      //     sortable: true,
+      //     filter:true,
+      //     minWidth: 200
+      //   },
+      //   {
+      //     headerComponentFramework:TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams:{
+      //       ngTemplate:this.dateSubmittedTemplate
+      //     },
+      //     field:'dateSubmitted',
+      //     headerName:'Status Changed',
+      //     sortable: true,
+      //     filter:true,
+      //     minWidth: 220,
+      //     cellClass:'date-submitted-class'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.lastUpdatedByTemplate,
+      //     },
+      //     headerName: 'Last updated by',
+      //     field: 'updatedBy',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     sortable: true,
+      //     filter:true,
+      //     width: 350,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.commentTemplate,
+      //     },
+      //     headerName: 'Comments',
+      //     field: 'commentsCount',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 155,
+      //     comparator: this.disableComparator
+      //   },
+      // ];
       this.subRowData = this.rowData;
     }, 1);
   }

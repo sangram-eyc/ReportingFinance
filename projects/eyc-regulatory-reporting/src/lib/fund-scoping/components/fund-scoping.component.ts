@@ -199,6 +199,9 @@ export class FundScopingComponent implements OnInit {
       field: 'fundId',
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
@@ -207,6 +210,9 @@ export class FundScopingComponent implements OnInit {
       field: 'fundCode',
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
@@ -215,6 +221,9 @@ export class FundScopingComponent implements OnInit {
       field: 'fundName',
       minWidth: 250,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
@@ -223,6 +232,9 @@ export class FundScopingComponent implements OnInit {
       field: 'adviser',
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
@@ -231,6 +243,9 @@ export class FundScopingComponent implements OnInit {
       field: 'businessUnit',
       minWidth: 250,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
@@ -239,6 +254,9 @@ export class FundScopingComponent implements OnInit {
       field: 'filerType',
       minWidth: 200,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     }]
