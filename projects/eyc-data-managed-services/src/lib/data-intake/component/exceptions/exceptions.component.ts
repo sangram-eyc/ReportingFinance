@@ -509,7 +509,7 @@ export class ExceptionsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Submit") {
         // this.getExceptionTableData();
-        this.glRowdata[this.glRowdata.findIndex(item => item.entityId === row.dataSetRuleId)].commentsCount = 1;
+        this.glRowdata[this.glRowdata.findIndex(item => item.dataSetRuleId === row.dataSetRuleId)].commentsCount = 1;
         // this.createEntitiesRowData();
         const obj = {
           assignTo: result.data.assignTo,
@@ -522,7 +522,8 @@ export class ExceptionsComponent implements OnInit {
       }
     });
   }
-  commentAdded() {
-    // this.getExceptionTableData();
+  commentAdded(event) {
+    if(event)
+    this.getExceptionTableData();
   }
 }
