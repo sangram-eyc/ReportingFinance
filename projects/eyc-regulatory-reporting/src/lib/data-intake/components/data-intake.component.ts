@@ -498,6 +498,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Due',
         field: 'due',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 130
@@ -510,6 +513,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'File',
         field: 'file',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 300,
@@ -520,6 +526,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Exception Report Type',
         field: 'exceptionReportType',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -528,6 +537,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Exception Report Name',
         field: 'exceptionReportName',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250,
@@ -540,6 +552,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Comments',
         field: 'commentCount',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 150,
@@ -561,6 +576,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Exceptions',
         field: 'exceptionCount',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 200,
@@ -702,6 +720,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Due',
         field: 'due',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 150
@@ -710,6 +731,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'File',
         field: 'file',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 300,
@@ -719,6 +743,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Source',
         field: 'source',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 200,
@@ -732,6 +759,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Resolved',
         field: 'resolved',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 155,
@@ -740,6 +770,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         headerName: 'Version',
         field: 'version',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 155
