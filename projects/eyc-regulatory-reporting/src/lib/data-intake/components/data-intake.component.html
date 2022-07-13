@@ -17,6 +17,9 @@
         <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
         [search]="true" paginationSize="10"
         [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
+        rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
+        [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+        [detailCellRendererParams]="exceptionDetailCellRendererParams"
         ></lib-ag-grid>
 
         <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData"
