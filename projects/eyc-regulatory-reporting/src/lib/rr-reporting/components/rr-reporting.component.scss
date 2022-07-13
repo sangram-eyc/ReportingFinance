@@ -188,8 +188,8 @@
           color: #fff;
           position: absolute;
           font-size: 17px;
-          top: -1px;
-          left: 6px;
+          top: -14px;
+          left: 7px;
       }
   }
 }
@@ -312,7 +312,7 @@ motif-icon.motif-icon.actionCursor {
     }
     ::ng-deep .motif-icon-content {
         cursor: pointer;
-        padding-top: 0.24rem;
+        // padding-top: 0.24rem;
         padding-right: 5px;
         ::ng-deep path {
             fill: #155CB4 !important;

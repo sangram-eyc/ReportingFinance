@@ -8,6 +8,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   exportHeaders: string;
   exportURL;
   loaded :boolean=false;
+  columnDefsAgGrid: any[];
   constructor(
     private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
@@ -241,134 +243,249 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     this.columnDefs = [];
     this.completedFilings = [];
     setTimeout(() => {
-      this.columnDefs = [
+
+      this.columnDefsAgGrid=[
         {
-          headerName: '',
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'template',
-          minWidth: 43,
-          width: 43,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 70,
           sortable: false,
-          cellClass: 'actions-button-cell',
+          menuTabs: [],
           pinned: 'left'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.filingNameTemplate,
           },
-          headerName: 'Filing Report Name',
-          field: 'filingName',
-          sortable: true,
-          filter: true,
-          resizeable: true,
-          minWidth: 300,
-          sort: 'asc',
-          wrapText: true,
-          autoHeight: true,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Filing period',
-          field: 'period',
-          sortable: true,
-          filter: true,
-          resizeable: true,
-          minWidth: 200,
-          comparator: this.disableComparator
-        },
-
-        // Change for User story 288907 and keep this commented code for future US requirement -->
-
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   cellRendererFramework: MotifTableCellRendererComponent,
-        //   headerName: 'Comments',
-        //   field: 'comments',domLayout
-        //   sortable: true,
-        //   filter: true,
-        //   minWidth: 140,
-        //   cellRendererParams: {
-        //       ngTemplate: this.commentTemplate,
-        //     }
-        // },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Total entities',
-          field: 'totalFunds',
-          sortable: true,
-          filter: true,
-          minWidth: 180,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dueDateTemplate,
+          {
+            headerName: '',
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.dropdownTemplate,
+            },
+            field: 'template',
+            maxWidth: 70,
+            sortable: false,
+            menuTabs: [],
+            cellClass: 'actions-button-cell',
+            pinned: 'left'
           },
-          headerName: 'Due date',
-          field: 'dueDate',
-          sortable: true,
-          filter: true,
-          minWidth: 180,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Submission date',
-          field: 'subDate',
-          sortable: true,
-          filter: true,
-          minWidth: 180,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.completedDateTemplate,
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.filingNameTemplate,
+            },
+            headerName: 'Filing Report Name',
+            field: 'filingName',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            wrapText: true,
+            autoHeight: true,
+            sort: 'asc',
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
-          headerName: 'Date marked complete',
-          field: 'completedDate',
-          sortable: true,
-          filter: true,
-          minWidth: 300,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Marked completed by',
-          field: 'completedBy',
-          sortable: true,
-          filter: true,
-          minWidth: 300,
-          comparator: this.disableComparator
-        }
+          {
+            headerName: 'Filing period',
+            field: 'period',
+            minWidth: 200,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Total entities',
+            field: 'totalFunds',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.dueDateTemplate,
+            },
+            headerName: 'Due date',
+            field: 'dueDate',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Submission date',
+            field: 'subDate',
+            minWidth: 180,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.completedDateTemplate,
+            },
+            headerName: 'Date marked complete',
+            field: 'completedDate',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Marked completed by',
+            field: 'completedBy',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      ]
+      // this.columnDefs = [
+      //   {
+      //     headerName: '',
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.dropdownTemplate,
+      //     },
+      //     field: 'template',
+      //     minWidth: 43,
+      //     width: 43,
+      //     sortable: false,
+      //     cellClass: 'actions-button-cell',
+      //     pinned: 'left'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.filingNameTemplate,
+      //     },
+      //     headerName: 'Filing Report Name',
+      //     field: 'filingName',
+      //     sortable: true,
+      //     filter: true,
+      //     resizeable: true,
+      //     minWidth: 300,
+      //     sort: 'asc',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Filing period',
+      //     field: 'period',
+      //     sortable: true,
+      //     filter: true,
+      //     resizeable: true,
+      //     minWidth: 200,
+      //     comparator: this.disableComparator
+      //   },
 
-        // Change for User story 288907 and keep this commented code for future US requirement -->
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   headerName: 'Exceptions',
-        //   field: 'exceptions',
-        //   sortable: true,
-        //   filter: true,
-        //   minWidth: 140
-        // },
-        // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
-        //   headerName: 'Resolved',
-        //   field: 'resolved',
-        //   sortable: true,
-        //   filter: true,
-        //   minWidth: 140
-        // },
-      ];
+      //   // Change for User story 288907 and keep this commented code for future US requirement -->
+
+      //   // {
+      //   //   headerComponentFramework: TableHeaderRendererComponent,
+      //   //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   //   headerName: 'Comments',
+      //   //   field: 'comments',domLayout
+      //   //   sortable: true,
+      //   //   filter: true,
+      //   //   minWidth: 140,
+      //   //   cellRendererParams: {
+      //   //       ngTemplate: this.commentTemplate,
+      //   //     }
+      //   // },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Total entities',
+      //     field: 'totalFunds',
+      //     sortable: true,
+      //     filter: true,
+      //     minWidth: 180,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.dueDateTemplate,
+      //     },
+      //     headerName: 'Due date',
+      //     field: 'dueDate',
+      //     sortable: true,
+      //     filter: true,
+      //     minWidth: 180,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Submission date',
+      //     field: 'subDate',
+      //     sortable: true,
+      //     filter: true,
+      //     minWidth: 180,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.completedDateTemplate,
+      //     },
+      //     headerName: 'Date marked complete',
+      //     field: 'completedDate',
+      //     sortable: true,
+      //     filter: true,
+      //     minWidth: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Marked completed by',
+      //     field: 'completedBy',
+      //     sortable: true,
+      //     filter: true,
+      //     minWidth: 300,
+      //     comparator: this.disableComparator
+      //   }
+
+      //   // Change for User story 288907 and keep this commented code for future US requirement -->
+      //   // {
+      //   //   headerComponentFramework: TableHeaderRendererComponent,
+      //   //   headerName: 'Exceptions',
+      //   //   field: 'exceptions',
+      //   //   sortable: true,
+      //   //   filter: true,
+      //   //   minWidth: 140
+      //   // },
+      //   // {
+      //   //   headerComponentFramework: TableHeaderRendererComponent,
+      //   //   headerName: 'Resolved',
+      //   //   field: 'resolved',
+      //   //   sortable: true,
+      //   //   filter: true,
+      //   //   minWidth: 140
+      //   // },
+      // ];
       // this.updateData();
       this.completedFilings = this.rowData;
     }, 1);

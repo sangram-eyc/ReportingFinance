@@ -9,6 +9,7 @@ import { PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { letProto } from 'rxjs-compat/operator/let';
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-fund-scoping',
@@ -27,6 +28,7 @@ export class FundScopingComponent implements OnInit {
   ) { }
 
   filingDetails: any;
+  selectedRows = [];
   exportURL;
   exportHeaders;
   fundScopingStatus = null;
@@ -43,6 +45,7 @@ export class FundScopingComponent implements OnInit {
   gridApi;
   rowData;
   columnDefs;
+  columnDefsAgGrid=[];
   onSubmitApproveFund;
   currentPage = 0;
   totalRecords = 5;
@@ -120,7 +123,7 @@ export class FundScopingComponent implements OnInit {
   getFundsData(resetData = false) {
     this.funds = [];
     this.sort = resetData ? 'fundName:true' : this.sort;
-    this.fundScopingService.getFundScopingDetails(this.getFillingCompletedStatus(),this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
+    this.fundScopingService.getFundScopingDetails(this.getFillingCompletedStatus(),this.filingDetails.filingName, this.filingDetails.period).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       this.totalRecords = resp['totalRecords'];
       this.rowData = resp['data'];
       if (resetData) {
@@ -171,81 +174,92 @@ export class FundScopingComponent implements OnInit {
   createFundRowData() {
     this.columnDefs = [];
     this.scopingRowData = [];
-    this.columnDefs = [
+    this.columnDefsAgGrid =[
       {
-        headerName: 'Action',
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dropdownFundsTemplate,
-        },
-        field: 'template',
-        minWidth: 43,
-        width: 85,
-        maxWidth: 85,
-        sortable: false,
-        cellClass: 'actions-button-cell'
+     /*  headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true, */
+      valueGetter: "node.rowIndex + 1",
+      maxWidth: 80,
+      sortable: false,
+      menuTabs: [],
+      pinned: 'left'
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'ID',
-        field: 'fundId',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        maxWidth: 140,
-        comparator: this.disableComparator,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Code',
-        field: 'fundCode',
-        sortable: true,
-        filter: true,
-        maxWidth: 140,
-        comparator: this.disableComparator,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Entity name',
-        field: 'fundName',
-        sortable: true,
-        filter: true,
-        sort:'asc',
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Adviser',
-        field: 'adviser',
-        sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Business Unit',
-        field: 'businessUnit',
-        sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Filing Type',
-        field: 'filerType',
-        sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true
+      headerName: 'Action',
+      field: 'template',
+      maxWidth: 110,
+      cellRendererFramework: CellRendererTemplateComponent,
+      cellRendererParams: {
+        ngTemplate: this.dropdownFundsTemplate,
       }
-    ]; 
+    },
+    {
+      headerName: 'ID',
+      field: 'fundId',
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    },
+    {
+      headerName: 'Code',
+      field: 'fundCode',
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    },
+    {
+      headerName: 'Entity name',
+      field: 'fundName',
+      minWidth: 250,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    },
+    {
+      headerName: 'Adviser',
+      field: 'adviser',
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    },
+    {
+      headerName: 'Business Unit',
+      field: 'businessUnit',
+      minWidth: 250,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    },
+    {
+      headerName: 'Filing Type',
+      field: 'filerType',
+      minWidth: 200,
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+    }]
     this.scopingRowData = this.rowData;
   }
 
@@ -255,6 +269,8 @@ export class FundScopingComponent implements OnInit {
   }
 
   onSubmitApproveFunds() {
+
+    // console.log("selected rows > ",  this.selectedRows);
     const approveInfo = {
       filingId: this.filingDetails.filingId,
       stageId: this.fundScopingStatus[0].stageId
@@ -290,6 +306,12 @@ export class FundScopingComponent implements OnInit {
     let filingStatus = filingCompletedStatus ? 'completed' :'active'
     return filingStatus
   }
+
+  approveRowsSelected(event) {
+    console.log("selctedq > ", this.selectedRows);
+    this.selectedRows = event;
+  }
+
   exportScopeData() {
   this.exportHeaders = 'fundId:ID,fundCode:Code,fundName:Entity name,adviser:Adviser,businessUnit:Business Unit,filerType:Filing Type'
   this.exportURL =  this.settingsService.regReportingFiling.fund_scoping_details+ "fundScopingFilingStatus="+ this.getFillingCompletedStatus() + "&filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";

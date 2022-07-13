@@ -5,7 +5,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EntityExceptionDetailsService } from './../services/entity-exception-details.service';
-import { ModalComponent, PermissionService,  IndividualExceptionsResolveComponent} from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService,  IndividualExceptionsResolveComponent, CellRendererTemplateComponent} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { rr_module_name } from '../../../config/rr-config-helper';
 
@@ -27,7 +27,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
   parentModule: string;
   exceptionDetails;
   exceptionAnswersData;
-  exceptionAnswersDefs;
+  // exceptionAnswersDefs;
+  exceptionAnswersDefsAgGrid = [];
   commentsCount;
   answerExceptionTable: boolean
   moduleOriginated = rr_module_name;
@@ -49,6 +50,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
   showComments: boolean = false;
   exportsHeader: string;
   permissionStage: any;
+  pageList = [100,200,300];
+  pageSize =100;
 
 
   constructor(
@@ -100,7 +103,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
       } else {
-        this.exceptionAnswersDefs = [];
+        // this.exceptionAnswersDefs = [];
+        this.exceptionAnswersDefsAgGrid = [];
       }
       this.commentsCount = res.data['commentCountMap'];
     });
@@ -108,32 +112,60 @@ export class EntityExceptionDetailsComponent implements OnInit {
 
 
   createEntitiesRowData(): void {
-    this.exceptionAnswersDefs = [];
+    // this.exceptionAnswersDefs = [];
 
-    this.exceptionAnswersDefs.push(
+    this.exceptionAnswersDefsAgGrid = [];
+
+    // this.exceptionAnswersDefs.push(
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.dropdownTemplate,
+    //     },
+    //     field: 'approved',
+    //     headerName: '',
+    //     width: 20,
+    //     sortable: false,
+    //     pinned: 'left'
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.exceptionResultTemplate,
+    //     },
+    //     headerName: 'Result',
+    //     field: 'Status',
+    //     minWidth: 70,
+    //     width: 70,
+    //     sortable: false,
+    //     cellClass: 'actions-button-cell'
+    //   }
+    // );
+    this.exceptionAnswersDefsAgGrid.push(
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
-        },
-        field: 'approved',
-        headerName: '',
-        width: 20,
+        headerCheckboxSelection: true,
+        headerCheckboxSelectionFilteredOnly: true,
+        checkboxSelection: true,
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 120,
         sortable: false,
-        pinned: 'left'
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.exceptionResultTemplate,
         },
         headerName: 'Result',
         field: 'Status',
-        minWidth: 70,
-        width: 70,
+        maxWidth: 120,
         sortable: false,
+        menuTabs: [],
+        filter:false,
         cellClass: 'actions-button-cell'
       }
     );
@@ -141,26 +173,66 @@ export class EntityExceptionDetailsComponent implements OnInit {
     for (const property in this.exceptionAnswersData[0]) {
       console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
       if(property != 'approved') {
-        this.exceptionAnswersDefs.push({
-          field: `${property}`,
-          headerName: `${property}`,
-          headerComponentFramework: TableHeaderRendererComponent,
-          sortable: true,
-          autoHeight: true,
-          width: 320,
-          wrapText: true,
-          filter: true
-        });
+        // this.exceptionAnswersDefs.push({
+        //   field: `${property}`,
+        //   headerName: `${property}`,
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   sortable: true,
+        //   autoHeight: true,
+        //   width: 320,
+        //   wrapText: true,
+        //   filter: true
+        // });
+        if (property == 'Entity Name') {
+          this.exceptionAnswersDefsAgGrid.push({
+            field: `${property}`,
+            headerName: `${property}`,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            minWidth: 300,
+            tooltipField: `${property}`
+          });
+        } else {
+          this.exceptionAnswersDefsAgGrid.push({
+            field: `${property}`,
+            headerName: `${property}`,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            minWidth: 300,
+          });
+        }
       }
     }
-    this.exceptionAnswersDefs.push({
+    // this.exceptionAnswersDefs.push({
+    //   headerName: 'Comments',
+    //   headerComponentFramework: TableHeaderRendererComponent,
+    //   cellRendererFramework: MotifTableCellRendererComponent,
+    //   cellRendererParams: {
+    //     ngTemplate: this.commentExceptionTemplate,
+    //   }, sortable: false, autoHeight: true,
+    //   wrapText: true
+    // });
+    this.exceptionAnswersDefsAgGrid.push({
       headerName: 'Comments',
-      headerComponentFramework: TableHeaderRendererComponent,
-      cellRendererFramework: MotifTableCellRendererComponent,
+      cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
         ngTemplate: this.commentExceptionTemplate,
-      }, sortable: false, autoHeight: true,
-      wrapText: true
+      }, 
+      filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+      minWidth: 155
     });
   }
 

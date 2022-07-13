@@ -63,7 +63,22 @@
 
 
 <div class="scoping-content-container">
-    <section id="funds">
+    <lib-ag-grid [rowData]="scopingRowData" [columnDefs]="columnDefsAgGrid"
+    [displayCheckBox] = "true"
+    [export]="true"
+    [search]="true" paginationSize="10"  [customRowSelected]="true"
+    (selectedRowEmitter)="approveRowsSelected($event)" [pageChangeFunc]="pageChangeFunc"
+    rowSelection="multiple"
+    buttonPosition="left"
+    [modalConfig]="fundScopingModalConfig"
+    [permissionToPrimaryButton]="permissions.validatePermission('Fund Scoping', 'Approve Fund Scoping')"
+    [buttonText]="'Approve'"
+    [displayPlusIcon]='false'
+    [disablePrimaryButton]="fundScopingStatus === null || fundScopingStatus.length == 0 || fundScopingStatus[0]?.progress === 'Completed'"
+    [submitFunction]="onSubmitApproveFund" 
+    [displayCheckBox] = "true">
+    </lib-ag-grid>
+    <!-- <section id="funds">
         <lib-shared-grid
         gridStyle="first"
         [columnDefs]="columnDefs"
@@ -83,7 +98,7 @@
         (gridReady)="handleGridReady($event)" [pagination]="scopingRowData?.length > 0 ? true : false" [paginationApi]="scopingRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
         (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"
         ></lib-shared-grid>
-    </section>
+    </section> -->
     
     <ng-template #headerFundsTemplate>
         <motif-icon

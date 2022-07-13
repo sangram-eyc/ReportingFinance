@@ -12,8 +12,14 @@
 </div>
 
 <div class="review-content-container" *ngIf="enableTabs">
-    <section id="exceptionReports" [hidden]="!(tabs==1)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData"
+    <section id="exceptionReports" *ngIf="tabs==1">
+
+        <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"
+        [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
+        ></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData"
             rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
             [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [detailCellRendererParams]="exceptionDetailCellRendererParams"
@@ -21,12 +27,12 @@
             [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="rowData?.length > 0 ? true : false"
             (gridReady)="handleExceptionGridReady($event)" [pagination]="rowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoException.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
 
         <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
             <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
-                class="comments-background" (click)="openComments(row)">
-                {{row.commentCount}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.commentCount}}</span>
             </div>
             <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount ">
                 <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments') && !checkFilingCompletedStatus()">
@@ -73,12 +79,21 @@
             <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)" *ngIf="!mockDataEnable">{{row.file}}</div>
             <div *ngIf="mockDataEnable">{{row.file}}</div>
         </ng-template>
+        <ng-template #datasetsDropdownTemplate let-row>
+            <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
+            </motif-icon>
+        </ng-template>
+
     </section>
 
-    <section id="dataset" [hidden]="!(tabs==2)">
+    <section id="dataset" *ngIf="(tabs==2)">
+
+        <lib-ag-grid [rowData]="datasetData" [columnDefs]="datasetsDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"
+        [permissionToPrimaryButton]="false"></lib-ag-grid>
 
 
-        <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasetData" rowSelection="multiple"
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasetData" rowSelection="multiple"
             [displayCheckBox]="true" [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
             [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
             (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
@@ -86,7 +101,7 @@
             [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="datasetData?.length > 0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="datasetData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoData.totalRecords" (customSortChange)="sortChanged($event)"
             (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
 
         <ng-template #datasetsDropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">

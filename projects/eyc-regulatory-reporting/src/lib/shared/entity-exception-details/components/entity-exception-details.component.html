@@ -10,8 +10,14 @@
     <!-- <span>Compare borrowings vs. the net asset value of the entity. Flag entities that have borrowings that exceed 33.3% of the NAV for review</span> -->
 </div>
 
+<lib-ag-grid [rowData]="exceptionAnswersData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"
+    [permissionToResolveExceptionButton]="getResolveButtonPermission()"
+    [permissionToUnresolveExceptionButton]="getUnresolveButtonPermission()"
+    [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [pageSize]="pageSize"
+    [disableUnresolveButton]="!enableUnresolveButton"></lib-ag-grid>
 
-<lib-shared-grid *ngIf="answerExceptionTable"
+<!-- <lib-shared-grid *ngIf="answerExceptionTable"
     [columnDefs]="exceptionAnswersDefs" 
     [rowData]="exceptionAnswersData"
     rowSelection="multiple"
@@ -29,10 +35,10 @@
     [disableUnresolveButton]="!enableUnresolveButton"
     [hideHeaderCheckbox]="false"  [export]="true" (exportFlagToParent)="exportData()"
     [uiPagination]="true">
-  </lib-shared-grid>
+  </lib-shared-grid> -->
     <ng-template #commentExceptionTemplate let-row>
-      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(permissionStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
-          {{commentsCount[row.AuditResultObjectID]}}
+      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(permissionStage, 'View Comments')" (click)="openComments(row)">
+          <span class="comments-background">{{commentsCount[row.AuditResultObjectID]}}</span>
       </div>
       <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID] && permissions.validatePermission(permissionStage, 'Add Comments') && !checkFilingCompletedStatus()">
         <div class="add_icon">

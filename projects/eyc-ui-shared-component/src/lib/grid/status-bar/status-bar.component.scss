@@ -1,0 +1,136 @@
+// .pagination {
+//     display: flex;
+//     background: #fff;
+//     width: 100%;
+//     justify-content: flex-end;
+//     padding: 3px 15px;
+//     .page-description {
+//       font-family: EYInterstate;
+//       .page-number {
+//         font-weight: 700;
+//       }
+//     }
+//     .motif-pagination-select-wrapper {
+//         position: relative;
+//         text-align: right;
+//         top: rem(-5);
+//         right: rem(60);
+//       }
+
+//       .motif-dropdown {
+//         position: absolute !important;
+//         top: 9px;
+//         right: 7px;
+
+//         &.motif-pagination-select {
+//           position: relative !important;
+//           bottom: 55px;
+//           right: 350px;
+//           top: unset;
+
+//             .motif-dropdown-trigger {
+//                 line-height: unset;
+//                 width: unset;
+
+//                 .motif-icon-button {
+//                     display: flex;
+//                 }
+//             }
+//         }
+//       }
+//   }
+
+.pagination {
+    display: flex;
+    background: #fff;
+    justify-content: space-between;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    color: #2E2E38;
+    font-family: 'EYInterstate';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  
+    .page-description {
+      font-family: EYInterstate;
+  
+      .page-number {
+        font-weight: 700;
+      }
+    }
+  
+    .motif-pagination-select-wrapper {
+      position: relative;
+      text-align: right;
+      top: rem(-5);
+      right: rem(60);
+    }
+  
+    .motif-dropdown {
+      position: absolute !important;
+      top: 9px;
+      right: 7px;
+  
+      &.motif-pagination-select {
+        position: relative !important;
+        bottom: 55px;
+        right: 350px;
+        top: unset;
+  
+        .motif-dropdown-trigger {
+          line-height: unset;
+          width: unset;
+          .motif-icon-button {
+            display: flex;
+          }
+        }
+      }
+    }
+  
+  
+    select#page-size {
+      border: none;
+      font-weight: 700;
+    }
+  }
+  
+  .paginationPageJump {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 10px;
+    gap: 10px;
+    width: 40px;
+    height: 24px;
+    background: #ffffff;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  
+  input#jumpToPage {
+    border: none;
+ }
+
+ select#page-size {
+  border: none;
+  font-weight: 700;
+}
+
+.pagination .JumpToPage{
+  padding: 4px;
+  margin-right: 24px;
+}
+
+.pagination .pageSizeClass{
+  padding: 4px;
+}
+
+.pageSizeSelect{
+  cursor: pointer;
+}

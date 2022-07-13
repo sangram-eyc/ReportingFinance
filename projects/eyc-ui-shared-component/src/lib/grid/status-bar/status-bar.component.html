@@ -1,0 +1,37 @@
+
+
+  <div class="pagination">
+    <div class="JumpToPage">
+      Jump to Page
+    <input
+    type="text"
+    (input)="jumpToPage()"
+    id="jumpToPage"
+    class="paginationPageJump"
+    placeholder="Jump to"
+  />
+  </div>
+  <div class="pageSizeClass">
+    Page Size
+    <select class="pageSizeSelect" (change)="onPageSizeChanged()" id="page-size">
+      <option *ngFor="let item of pageList" [value]="item">
+         {{ item }}
+      </option>
+    </select>
+</div>
+    <span class="ag-paging-page-summary-panel" role="presentation" >
+        <div ref="btFirst" class="ag-paging-button" role="button" (click)="onBtFirst()" aria-label="First Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-first" unselectable="on" role="presentation"></span></div>
+        <div ref="btPrevious" class="ag-paging-button" role="button" (click)="onBtPrevious()" aria-label="Previous Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-previous" unselectable="on" role="presentation"></span></div>
+        <span class="ag-paging-description" role="status">
+            <span id="ag-496-start-page-number" ref="lbCurrent" class="ag-paging-number">{{currentpage+1}}</span>
+            <span id="ag-496-of-page">/</span>
+            <span id="ag-496-of-page-number" ref="lbTotal" class="ag-paging-number">{{totalPage}}</span>
+        </span>
+        <div ref="btNext" class="ag-paging-button" role="button" (click)="onBtNext()" aria-label="Next Page" tabindex="0" aria-disabled="true"><span class="ag-icon ag-icon-next" unselectable="on" role="presentation"></span></div>
+        <div ref="btLast" class="ag-paging-button" role="button" (click)="onBtLast()" aria-label="Last Page" tabindex="0" aria-disabled="true"><span class="ag-icon ag-icon-last" unselectable="on" role="presentation"></span></div>
+    </span>
+
+  </div>
+
+
+
