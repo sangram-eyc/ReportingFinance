@@ -147,7 +147,6 @@ export class ViewExceptionReportsComponent implements OnInit {
     // this.exceptionAnswersDefs = [];
     this.exceptionAnswersDefsAgGrid = [
       {
-        headerName: 'Sr No',
         valueGetter: "node.rowIndex + 1",
         maxWidth: 90,
         sortable: false,
@@ -173,6 +172,9 @@ export class ViewExceptionReportsComponent implements OnInit {
         headerName: `${property}`,
         minWidth: 320,
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
       });
@@ -213,7 +215,6 @@ export class ViewExceptionReportsComponent implements OnInit {
         headerCheckboxSelection: true,
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
-        headerName: 'Sr No',
         valueGetter: "node.rowIndex + 1",
         maxWidth: 120,
         sortable: false,
@@ -254,6 +255,9 @@ export class ViewExceptionReportsComponent implements OnInit {
             headerName: `${property}`,
             minWidth: 320,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
             tooltipField: `${property}`
@@ -264,6 +268,9 @@ export class ViewExceptionReportsComponent implements OnInit {
             headerName: `${property}`,
             minWidth: 320,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           });
@@ -286,6 +293,9 @@ export class ViewExceptionReportsComponent implements OnInit {
         ngTemplate: this.commentExceptionTemplate,
       }, 
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
       minWidth: 155 

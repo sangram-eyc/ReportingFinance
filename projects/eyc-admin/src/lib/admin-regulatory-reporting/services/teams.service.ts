@@ -21,11 +21,11 @@ export class TeamsService {
     return this.TeamsData;
   }
 
-  getTeamsList(moduleName,page,size,sort,filter) {
+  getTeamsList(moduleName) {
     return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_list}?module=${moduleName}`);
   }
 
-  getTeamsDetails(teamId,page,size,sort,filter) {
+  getTeamsDetails(teamId) {
     return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_Details}?teamId=${teamId}`);
   }
 

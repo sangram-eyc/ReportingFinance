@@ -261,7 +261,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerCheckboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
-          headerName: 'Sr No',
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
@@ -274,6 +273,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             field: 'fundId',
             minWidth: 140,
             filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
@@ -287,6 +289,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'entityName',
           minWidth: 250,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           tooltipField: 'entityName',
@@ -296,6 +301,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'reviewLevel',
           minWidth: 150,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset'],
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -308,6 +316,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'unResolvedException',
           minWidth: 150,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -320,6 +331,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'resolvedException',
           minWidth: 150,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -332,6 +346,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'commentsCount',
           minWidth: 150,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -344,6 +361,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           field: 'updatedBy',
           minWidth: 300,
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
@@ -362,7 +382,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerCheckboxSelection: true,
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
-          headerName: 'Sr No',
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
@@ -375,6 +394,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Exception Report Type',
           field: 'exceptionReportType',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           tooltipField: 'exceptionReportType',
@@ -388,6 +410,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Exception Report Name',
           field: 'exceptionReportName',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           tooltipField: 'exceptionReportName',
@@ -397,6 +422,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Review Level',
           field: 'reviewLevel',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 150,
@@ -409,6 +437,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Unresolved',
           field: 'unresolved',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 150,
@@ -421,6 +452,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Resolved',
           field: 'resolved',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 150,
@@ -433,6 +467,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Comments',
           field: 'comments',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 150,
@@ -445,6 +482,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Last Updated By',
           field: 'updatedBy',
           filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,

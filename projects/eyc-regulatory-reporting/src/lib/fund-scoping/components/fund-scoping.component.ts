@@ -197,48 +197,66 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'ID',
       field: 'fundId',
-      maxWidth: 150,
+      minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Code',
       field: 'fundCode',
-      maxWidth: 150,
+      minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Entity name',
       field: 'fundName',
-      maxWidth: 200,
+      minWidth: 200,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Adviser',
       field: 'adviser',
-      maxWidth: 150,
+      minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Business Unit',
       field: 'businessUnit',
-      maxWidth: 150,
+      minWidth: 150,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     },
     {
       headerName: 'Filing Type',
       field: 'filerType',
-      maxWidth: 200,
+      minWidth: 200,
       filter: 'agSetColumnFilter',
+      filterParams: {
+        buttons: ['reset']
+      },
       sortable: true,
       menuTabs: ['filterMenuTab', 'generalMenuTab'],
     }]

@@ -187,6 +187,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Dataset',
         field: 'dataset',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 300,
@@ -195,6 +198,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'File Name',
         field: 'fileName',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 400,
@@ -203,6 +209,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Status',
         field: 'status',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -211,6 +220,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Report',
         field: 'report',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -219,6 +231,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Source',
         field: 'source',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -227,6 +242,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Data Owner',
         field: 'dataOwner',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -235,6 +253,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Source Type',
         field: 'sourceType',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 250
@@ -243,6 +264,9 @@ export class IntakeFilesComponent implements OnInit {
         headerName: 'Data Owner Email',
         field: 'ownerEmail',
         filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab'],
         minWidth: 400,
