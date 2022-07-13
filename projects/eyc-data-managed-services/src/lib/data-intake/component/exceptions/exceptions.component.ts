@@ -98,6 +98,7 @@ export class ExceptionsComponent implements OnInit {
   };
   commentEntityType;
   moduleOriginated;
+  filingStatus=true;
   showComments = false;
   commentsName;
   entityId;
@@ -461,6 +462,7 @@ export class ExceptionsComponent implements OnInit {
     this.commentEntityType = 'DMS Exception';
     this.entityId = row.dataSetRuleId;
     this.moduleOriginated="Data Managed Services";
+    this.filingStatus=false;
     this.showComments = true;
   }
 
@@ -506,7 +508,9 @@ export class ExceptionsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Submit") {
-        this.getExceptionTableData();
+        // this.getExceptionTableData();
+        this.glRowdata[this.glRowdata.findIndex(item => item.entityId === row.dataSetRuleId)].commentsCount = 1;
+        // this.createEntitiesRowData();
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
