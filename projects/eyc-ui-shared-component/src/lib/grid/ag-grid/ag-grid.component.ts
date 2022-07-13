@@ -81,8 +81,8 @@ export class AgGridComponent implements OnInit {
   overlayNoRowsTemplate =`<span style="font-size: 16px;
   line-height: 20px;
   font-family: EYInterstate!important;;">No data found with current filters</span>`;
-  pageList=[20,50,100];
-  pageSize=20;
+  @Input()pageList=[20,50,100];
+  @Input()pageSize=20;
   currentlySelectedPageSize;
   @Input() staticDataGrid = false;
   showToastAfterSubmit = false;
@@ -158,9 +158,16 @@ export class AgGridComponent implements OnInit {
     (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
     this.totalPage = this.gridApi.paginationGetTotalPages();
     this.currentpage = this.gridApi.paginationGetCurrentPage();
+    this.context=({componentParent: this,totalPage : this.gridApi.paginationGetTotalPages(),
+      currentpage : this.gridApi.paginationGetCurrentPage(),
+      pageList : this.pageList,
+      pageSize : this.pageSize
+
+    })
   }
 
   ngOnInit(): void {
+   console.log(this.pageList,"this.pageList this.pageList this.pageList") 
     if (this.displayCheckBox) {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
@@ -264,7 +271,10 @@ export class AgGridComponent implements OnInit {
     this.totalPage = this.gridApi.paginationGetTotalPages();
     this.currentpage = this.gridApi.paginationGetCurrentPage();
     this.context=({componentParent: this,totalPage : this.gridApi.paginationGetTotalPages(),
-      currentpage : this.gridApi.paginationGetCurrentPage()
+      currentpage : this.gridApi.paginationGetCurrentPage(),
+      pageList : this.pageList,
+      pageSize : this.pageSize
+
     })
     const statusBarComponent = this.gridApi.getStatusPanel(
       'statusBarCompKey'

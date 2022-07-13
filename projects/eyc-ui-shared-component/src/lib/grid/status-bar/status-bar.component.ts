@@ -14,7 +14,7 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   gridApi: any;
   totalPage:number;
   currentpage:number;
-  pageList=[20,50,100];
+  pageList = [20,50,100];
   componentParent: any;
 
   constructor() { }
@@ -27,17 +27,22 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   onGridReady() {
     this.count = this.params.api.getModel().getRowCount();
     this.gridApi = this.params.api;
-    setTimeout(() => {
-      if (this.gridApi) {
-        this.componentParent = this.params.context.componentParent;
-        this.componentParent.onModelUpdated();
-        this.totalPage = this.gridApi.paginationGetTotalPages();
-        this.currentpage = this.gridApi.paginationGetCurrentPage();
-      }
-      if (this.componentParent.totalPage) {
-        console.log("totalPage is loaded")
-      }
-    }, 1000);
+    // this.pageList = this.params?.context?.componentParent.pageList;
+
+    // setTimeout(() => {
+    //   if (this.gridApi) {
+    //     this.componentParent = this.params.context?.componentParent;
+    //     this.componentParent?.onModelUpdated();
+    //     this.totalPage = this.gridApi.paginationGetTotalPages();
+    //     this.currentpage = this.gridApi.paginationGetCurrentPage();
+    //     this.pageList = this.componentParent?.pageList;
+    //     console.log(this.pageList,"totalPage is loaded")
+
+    //   }
+    //   if (this.componentParent.totalPage) {
+    //     console.log("totalPage is loaded")
+    //   }
+    // }, 1000);
   }
 
   onBtFirst() {
@@ -48,6 +53,7 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   onBtLast() {
     this.gridApi.paginationGoToLastPage();
     this.pagingData();
+    console.log(this.gridApi.paginationGoToLastPage(),"this.gridApi.paginationGoToLastPage()")
 }
 
   onBtNext() {

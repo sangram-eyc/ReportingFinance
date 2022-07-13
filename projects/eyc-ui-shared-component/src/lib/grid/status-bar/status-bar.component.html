@@ -13,7 +13,7 @@
   </div>
   <div class="pageSizeClass">
     Page Size
-    <select (change)="onPageSizeChanged()" id="page-size">
+    <select class="pageSizeSelect" (change)="onPageSizeChanged()" id="page-size">
       <option *ngFor="let item of pageList" [value]="item">
          {{ item }}
       </option>

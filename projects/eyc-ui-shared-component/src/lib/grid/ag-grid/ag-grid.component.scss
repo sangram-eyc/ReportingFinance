@@ -304,3 +304,9 @@
 ::ng-deep .ag-theme-material .ag-checkbox-input-wrapper.ag-checked::after {
     color: #23232F !important;
 }
+
+//header
+
+::ng-deep .ag-theme-material .ag-pinned-left-header {
+    border-right: none !important;
+}
