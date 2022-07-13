@@ -281,6 +281,8 @@ export class AgGridComponent implements OnInit {
     ) as any;
     statusBarComponent.totalPage = this.gridApi.paginationGetTotalPages();
     statusBarComponent.currentpage = this.gridApi.paginationGetCurrentPage();
+    statusBarComponent.pageList = this.pageList,
+    statusBarComponent.pageSize = this.pageSize;
   }
   }
 

@@ -14,7 +14,7 @@
     [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"
     [permissionToResolveExceptionButton]="getResolveButtonPermission()"
     [permissionToUnresolveExceptionButton]="getUnresolveButtonPermission()"
-    [disableResolveButton]="!enableResolveButton"
+    [disableResolveButton]="!enableResolveButton" [pageList]="pageList" pageSize="pageSize"
     [disableUnresolveButton]="!enableUnresolveButton"></lib-ag-grid>
 
 <!-- <lib-shared-grid *ngIf="answerExceptionTable"
