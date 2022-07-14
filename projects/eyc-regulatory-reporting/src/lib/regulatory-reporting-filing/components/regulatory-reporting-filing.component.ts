@@ -24,6 +24,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
   exportURL;
   loaded :boolean=false;
   columnDefsAgGrid: any[];
+  exportName: string;
   constructor(
     private route: ActivatedRoute,
     private filingService: RegulatoryReportingFilingService,
@@ -173,6 +174,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
 
   getCompletedFilingsData(resetData = false) {
     this.sort = resetData ? 'filingName:true' : this.sort;
+    this.exportName= "Reports History_"
     this.filingService.getFilingsHistory(this.currentPage, this.pageSize,this.sort,this.filter).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       const data = [];
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;

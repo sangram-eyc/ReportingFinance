@@ -89,6 +89,7 @@ export class AgGridComponent implements OnInit {
   showToastAfterSubmit = false;
   buttonModal = false;
   @Input() isHideCheckBox = true;
+  @Input() exportName ;
 
   @Input() modalConfig = {
     width: '400px',
@@ -252,7 +253,18 @@ export class AgGridComponent implements OnInit {
   }
 
   exportData() {
-    this.gridApi.exportDataAsCsv();
+    console.log(this.exportName,"exportName")
+    let currentdate = new Date(); 
+    var datetime =  currentdate.getFullYear() + "-" +(currentdate.getMonth()+1)  + "-" +currentdate.getDate() + " "
+                + currentdate.getHours() + "-"  
+                + currentdate.getMinutes() + "-" 
+                + currentdate.getSeconds();
+    let name = this.exportName+datetime
+    console.log(name,this.exportName,datetime,"currentDate datetime")
+    var csvcelParams = {
+      fileName: name,
+  }
+    this.gridApi.exportDataAsCsv(csvcelParams);
   }
 
   onQuickFilterChanged() {

@@ -50,6 +50,7 @@ export class SubmissionComponent implements OnInit {
   exportURL;
   toastAfterExportInSubmission: boolean = false;
   previousStatus: any;
+  exportName: string;
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
@@ -209,6 +210,7 @@ export class SubmissionComponent implements OnInit {
   receiveFilingDetails(event) {
     this.submittedFiles = []
     this.filingDetails = event;
+    this.exportName =this.filingDetails.filingName+"_"+this.filingDetails.period+"_Submission_";
     console.log("filing details > ", this.filingDetails)
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;

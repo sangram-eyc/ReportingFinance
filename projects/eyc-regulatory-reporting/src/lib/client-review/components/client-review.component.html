@@ -30,7 +30,7 @@
         [customRowSelected]="true"
         (selectedRowEmitter)="exceptionReportRowsSelected($event)"
         (gridReady)="handleGridReady($event)"
-        [modalConfig]="exceptionModalConfig"
+        [modalConfig]="exceptionModalConfig" [exportName] = "exportName"
         [modalConfigTwo]="exceptionUnapproveModalConfig">
         </lib-ag-grid>
 
@@ -180,7 +180,7 @@
             [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') "
             [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
             [isHideCheckBox]="false"
-            [customRowSelected]="true"
+            [customRowSelected]="true" [exportName] = "exportName"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
             (gridReady)="handleGridReady($event)"></lib-ag-grid>
 

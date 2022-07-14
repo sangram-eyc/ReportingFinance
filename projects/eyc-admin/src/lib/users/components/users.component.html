@@ -32,8 +32,8 @@
      <lib-ag-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')"
      [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
      [rowData]="resetRowData" [columnDefs]="columnDefsAgGrid" [buttonText] ="'Add User'"
-       [displayCheckBox] = "true" [disablePrimaryButton]="false"
-       [export]="true" buttonPosition="right" gridStyle="third"
+       [displayCheckBox] = "true" [disablePrimaryButton]="false" [exportName] = "exportName"
+       [export]="true" buttonPosition="left" gridStyle="third"
        [search]="true" paginationSize="10" (newEventToParent)="addUser($event)"></lib-ag-grid>
  
      <ng-template #headerTemplate>
