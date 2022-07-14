@@ -32,9 +32,9 @@
      <lib-ag-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')"
      [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
      [rowData]="resetRowData" [columnDefs]="columnDefsAgGrid" [buttonText] ="'Add User'"
-       [displayCheckBox] = "true" [disableAddMemberButton]="false" [disableAddMemberButton]="false"
+       [displayCheckBox] = "true" [disablePrimaryButton]="false"
        [export]="true" buttonPosition="right" gridStyle="third"
-       [search]="true" paginationSize="10"></lib-ag-grid>
+       [search]="true" paginationSize="10" (newEventToParent)="addUser($event)"></lib-ag-grid>
  
      <ng-template #headerTemplate>
        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">

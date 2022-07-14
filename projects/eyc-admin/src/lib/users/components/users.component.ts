@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.usersListArr.push(eachitem);
         });
         this.rowData = this.usersListArr;
-        // this.resetRowData = this.rowData;
+        this.resetRowData = this.rowData;
         this.pageInfo.totalRecords=resp['totalRecords'];
         if (resetData) {
           this.resetData();
@@ -343,7 +343,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.rowData = this.usersListArr;
       });
 
-      this.gridApi.setRowData(this.rowData);
+      // this.gridApi.setRowData(this.rowData);
+      this.resetRowData = this.rowData;
       this.updatePageSize(this.pageInfo.pageSize);
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {
