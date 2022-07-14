@@ -84,4 +84,11 @@ export class SettingService {
     }
     return data_explorer;
   }
+
+  get filing_entities(): any{
+    const filing_entities = {
+      filing_entities_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/filingEntities.json' : this.API_ENDPOINT + 'assets/mock/filingEntities.json',
+    }
+    return filing_entities;
+  }
 }

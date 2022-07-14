@@ -14,6 +14,7 @@ import * as commonConstants from '../../shared/common-contstants'
 import { TasksService } from '../services/tasks.service'
 import { DataExplorerService } from '../services/data-explorer.service'
 import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
+import { FilingEntityService} from '../services/filing-entity.service'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -35,7 +36,8 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     public permissions: PermissionService,
     private apiHelpers: SettingService,
-    private dataExplorerService: DataExplorerService) {
+    private dataExplorerService: DataExplorerService,
+    private filingEntityService: FilingEntityService) {
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
     this.moduleId = module.moduleId;
@@ -88,6 +90,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   pageChangeFunc;
   taskAssignmentData;
   dataExplorerData;
+  filingEntitiesData;
   searchNoDataAvilable = false;
   currentlySelectedPageSizeNewTabs = {
     disable: false,
@@ -499,6 +502,123 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         
       // ];   
       this.exportName = this.module+"_Data_Explorer_"
+    }
+    else if (selectedTab == 5) {
+      this.filingEntityService.getFilingEntitiesData().subscribe(res =>{
+        this.filingEntitiesData = res.data
+        this.gridApi.setRowData(res.data);
+      })
+
+      this.columnDefsAgGrid = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+          {
+            headerName: 'Filing Type',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Filing Entity Name',
+            field: 'entityName',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Filing Entity Code',
+            field: 'entityCode',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }   
+      ]
+      this.exportName = this.module+"_Filing_Entity_"
+
+     /*  this.columnDefs = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+          headerName: 'Access',
+          field: 'approved',
+          sortable: false,
+          filter: false,
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Type',
+          field: 'fillingType',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Entity Name',
+          field: 'entityName',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Entity ID',
+          field: 'entityId',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Entity Code',
+          field: 'entityCode',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
+          comparator: customComparator
+        }
+      ];  */    
     }
   }
 
