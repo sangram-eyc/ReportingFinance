@@ -117,8 +117,8 @@
         </div>
     </ng-template>
     <ng-template #commentTemplate let-row>
-        <div class="comments-background" (click)="openComments(row); $event.stopPropagation ()" *ngIf="(row.comments!==0 || row.comments)">
-            {{row.comments || 0}}
+        <div class="comments-background" (click)="openComments(row); $event.stopPropagation ()" *ngIf="(row.comments!==null || row.comments)">
+            {{row.comments}}
         </div>
         <div class="commentTemplate" *ngIf="(row.comments===0 || !row.comments)">
             <div class="add_icon">
@@ -137,5 +137,5 @@
     </motif-card>
 </div>
 
-<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingStatus]="filingStatus"
     [filingName]="commentsName" [moduleOriginated]="moduleOriginated" (commentAddedEmitter)="commentAdded()"></lib-comment-side-menu>
