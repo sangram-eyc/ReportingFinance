@@ -325,7 +325,7 @@ export class ExceptionsComponent implements OnInit {
           },
           headerName: 'Comments',
           field: 'comments',
-          sortable: false,
+          sortable: true,
           filter: false,
           width: 155
         },
