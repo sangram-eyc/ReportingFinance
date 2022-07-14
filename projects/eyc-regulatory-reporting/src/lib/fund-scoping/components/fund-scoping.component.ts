@@ -18,6 +18,7 @@ import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
   providers: [AutoUnsubscriberService]
 })
 export class FundScopingComponent implements OnInit {
+  filingName: string;
 
   constructor(
     private fundScopingService: FundScopingService,
@@ -140,6 +141,7 @@ export class FundScopingComponent implements OnInit {
       this.rowData =[];
       console.log("FUnd Scoping error");
     });
+    this.filingName = this.filingDetails.filingName +"_"+this.filingDetails.period+"_Fund Scoping_"
   }
 
   receiveFilingDetails(event) {

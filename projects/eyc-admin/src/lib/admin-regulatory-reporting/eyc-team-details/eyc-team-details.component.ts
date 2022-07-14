@@ -24,6 +24,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   exportHeaders;
   exportUrl: string;
+  exportName: any;
   constructor(private location: Location,
     private teamService: TeamsService,
     private taskService:TasksService,
@@ -198,6 +199,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   }
 
   getUsersList() {
+    this.exportName = this.module+"_Team_Members_"
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
       this.userService.getAllUsersList().subscribe(resp => {
         this.allUsers = resp.data
@@ -328,6 +330,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.createTeamsRowData()
       this.getTeamDetailsData(true)
       this.gridApi.setRowData(this.teamsMemberData);
+      this.exportName = this.module+"_Team_Members_"
     }
     else if (selectedTab == 2) {
       this.taskService.getTaskAssignments().subscribe( res =>{
@@ -411,6 +414,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       //   }
         
       // ];     
+      this.exportName = this.module+"_Task_Assignment_"
     }
     else if (selectedTab == 4) {
       this.dataExplorerService.getDataExplorerInformation().subscribe(res =>{
@@ -493,7 +497,8 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       //     comparator: customComparator
       //   }
         
-      // ];     
+      // ];   
+      this.exportName = this.module+"_Data_Explorer_"
     }
   }
 

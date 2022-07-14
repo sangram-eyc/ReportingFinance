@@ -35,7 +35,7 @@
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div>  -->
         <lib-ag-grid [rowData]="subRowData" [columnDefs]="columnDefsAgGrid"
-        [displayCheckBox] = "true"
+        [displayCheckBox] = "true" [exportName] = "exportName"
         [export]="true" buttonPosition="left"
         [search]="true" paginationSize="10" rowSelection="multiple" [submitFunction]="downloadSubmit" buttonPosition="left" [masterDetail]="true"
         (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"

@@ -58,6 +58,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   showToastAfterDeleteTeams = false;
   fundFrequency = [];
   fundFrequencyList =[];
+  exportName: string;
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -273,6 +274,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       this.PBIMappingData = resp['data']['questionPbiMap'];
       this.storePBIMappingData = JSON.parse(JSON.stringify(this.PBIMappingData));
       this.createTeamsRowData();
+      this.exportName = resp['data']?.['formName']+"_PBI mapping_"
     });
   }
 

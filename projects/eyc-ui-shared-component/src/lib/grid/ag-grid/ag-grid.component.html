@@ -47,6 +47,12 @@
           <motif-toggle-switch [hideLabels]="true" [(ngModel)]="mytasks" (change)="toggleChanged($event)">
           </motif-toggle-switch>
         </div>
+        <div class="filterWrapper" (click)="openCloseToolPanel('filters')">
+          <span>Filter</span>
+          <div class="filter_icon">
+            <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>
+          </div>
+        </div>
         <div class="exportWrapper" *ngIf="export && (rowData?.length >= 1)" (click)="exportData()">
           <div class="export_icon">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,17 +63,17 @@
           </div>
           <span>Export to CSV</span>
         </div>
+        <!-- <div class="approve-button" (click)="openCloseToolPanel('filters')">
+          <span>Filter <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon></span>
+        </div> -->
+      </div>
+      <div class="search" *ngIf="!search">
         <div class="filterWrapper" (click)="openCloseToolPanel('filters')">
           <span>Filter</span>
           <div class="filter_icon">
             <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>
           </div>
         </div>
-        <!-- <div class="approve-button" (click)="openCloseToolPanel('filters')">
-          <span>Filter <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon></span>
-        </div> -->
-      </div>
-      <div class="search" *ngIf="!search">
         <div class="exportWrapper" *ngIf="export && (rowData?.length >= 1)" (click)="exportData()">
           <div class="export_icon">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,26 +99,6 @@
   </ag-grid-angular>
 
 
-    <!-- <div class="pagination">
-      <div style="padding: 4px;">
-        Jump to Page
-      <input
-      type="text"
-      (input)="jumpToPage()"
-      id="jumpTo"
-      class="paginationPageJump"
-      placeholder="Jump to"
-    />
-    </div>
-
-      Page Size
-      <select (change)="onPageSizeChanged()" id="page-size">
-        <option *ngFor="let item of pageList" [value]="item">
-           {{ item }}
-        </option>
-      </select>
-
-    </div> -->
 
   </div>
 

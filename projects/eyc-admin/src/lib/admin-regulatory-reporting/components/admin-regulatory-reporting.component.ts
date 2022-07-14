@@ -45,6 +45,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   pageChangeFunc;
   resetRowData = [];
   columnDefsAgGrid;
+  exportName: any;
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -160,6 +161,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   getTeamList(resetData = false) {
     this.sort = resetData ? 'teamName:true' : this.sort;
+    this.exportName =this.moduleName + "_Teams_"
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
       this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {

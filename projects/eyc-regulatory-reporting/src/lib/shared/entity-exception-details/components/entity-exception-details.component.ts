@@ -52,6 +52,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
   permissionStage: any;
   pageList = [100,200,300];
   pageSize =100;
+  exportName: any;
 
 
   constructor(
@@ -92,7 +93,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Exception_Reports_Individual_Exception_Report_";
     this.viewService.getAnswerExceptionReports(this.filingService.getFilingEntityData.fundId, this.filingName, this.period, this.filingService.getExceptionData.AuditFilingID, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.exceptionAnswersData ? this.exceptionAnswersData.map(e => {

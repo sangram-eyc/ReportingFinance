@@ -98,6 +98,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   moduleOriginated = rr_module_name;
   showIntakeModal = false;
   intakeStageCompleted = false;
+  exportName: string;
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -149,6 +150,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Exception Reports_"
     this.pageInfoException.sort = resetData ? 'file:true' : this.pageInfoException.sort;
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
@@ -174,6 +176,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getFiles() {
     console.log('FILING DETAILS', this.filingDetails);
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_"
     this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
       this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
@@ -187,7 +190,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getDatasets(resetData = false) {
     console.log("getDatasets");
-    
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Dataset_Data_"
     this.pageInfoData.sort = resetData ? 'file:true' : this.pageInfoData.sort;
     this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {

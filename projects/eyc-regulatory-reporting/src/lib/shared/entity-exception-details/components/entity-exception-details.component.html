@@ -17,7 +17,7 @@
     [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [pageSize]="pageSize"
     [disableUnresolveButton]="!enableUnresolveButton"
     (selectedRowEmitter)="exceptionResolveRowsSelected($event)"
-    (newEventToParent)="actionResolvedClick($event)"
+    (newEventToParent)="actionResolvedClick($event)" [exportName] = "exportName"
     (unresolveEventToParent)="actionUnResolvedClick($event)"
      rowSelection="multiple"></lib-ag-grid>
 

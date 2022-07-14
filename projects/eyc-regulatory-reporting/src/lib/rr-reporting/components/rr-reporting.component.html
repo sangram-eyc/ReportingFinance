@@ -30,7 +30,7 @@
         [permissionToUnapproveButton] = "this.permissions.validatePermission('Reporting', 'Exception Unapprove')"
         [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
         [isHideCheckBox]="false"
-        [customRowSelected]="true"
+        [customRowSelected]="true" [exportName] = "exportName"
         (selectedRowEmitter)="exceptionReportRowsSelected($event)"></lib-ag-grid>
 
         <!-- <lib-shared-grid gridStyle="first"
@@ -160,7 +160,7 @@
             [permissionToUnapproveButton] = "this.permissions.validatePermission('Reporting', 'Filing Entity Unapprove') "
             [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
             [isHideCheckBox]="false"
-            [customRowSelected]="true"
+            [customRowSelected]="true" [exportName] = "exportName"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)" 
             paginationSize="10"></lib-ag-grid>
 
