@@ -292,51 +292,61 @@ export class AppComponent
     );
   }
   connectSse() {
-    let username = sessionStorage.getItem('userEmail');
-    username = username.replace(/\@/g, '%40');
-    username = username.replace(/\./g, '%40%40');
-    this.sseService
-      .getServerSentEvent(
-        'https://eycomply-qa.sbp.eyclienthub.com/qa37/notifierAgentService/sse-notifier-agent-communication-async/' +
-          username
-      )
-      .subscribe((resp: any) => {
-        console.log(resp);
-        if (resp.data) {
-          if (resp.data !== 'no-data' && resp.data !== 'Connection Established') {
-            const objectFromWs = JSON.parse(resp.data);
-            const objectContent = JSON.parse(objectFromWs.request.content);
-            const notificationEventType =
-              objectContent.extraParameters.notificationEventType;
-            if (notificationEventType === 'ConcurrentSession') {
-              this.closeConcurrentSession(resp.data);
-            } else {
-              this.bulkDownloadWarnings(resp.data);
+    const timerIdUserEmail = setInterval(() => {
+      if (sessionStorage.getItem('userEmail') != null) {
+        clearInterval(timerIdUserEmail);
+        let username = sessionStorage.getItem('userEmail');
+        username = username.replace(/\@/g, '%40');
+        username = username.replace(/\./g, '%40%40');
+        this.sseService
+          .getServerSentEvent(
+            'https://eycomply-qa.sbp.eyclienthub.com/qa37/notifierAgentService/sse-notifier-agent-communication-async/' +
+              username
+          )
+          .subscribe((resp: any) => {
+            if (resp.data) {
+              if (
+                resp.data !== 'no-data' &&
+                resp.data !== 'Connection Established'
+              ) {
+                const objectFromWs = JSON.parse(resp.data);
+                const objectContent = JSON.parse(objectFromWs.request.content);
+                const notificationEventType =
+                  objectContent.extraParameters.notificationEventType;
+                if (notificationEventType === 'ConcurrentSession') {
+                  this.closeConcurrentSession(resp.data);
+                } else {
+                  this.bulkDownloadWarnings(resp.data);
+                }
+              }
             }
+          });
+      }
+    }, 100);
+  }
+  connectWebSocket() {
+    this.wsBulkService.connect().subscribe(
+      (resp) => {
+        console.log(resp);
+        if (resp.trim() === 'Connection Established') {
+          this.openConectionBulkWs();
+        } else {
+          const objectFromWs = JSON.parse(resp);
+          const objectContent = JSON.parse(objectFromWs.request.content);
+          const notificationEventType =
+            objectContent.extraParameters.notificationEventType;
+          if (notificationEventType === 'ConcurrentSession') {
+            this.closeConcurrentSession(resp);
+          } else {
+            this.bulkDownloadWarnings(resp);
           }
         }
-      });
-  }
-  connectWebSocket(){
-    this.wsBulkService.connect().subscribe(resp => {
-      console.log(resp);
-      if (resp.trim() === 'Connection Established') {
-        this.openConectionBulkWs();
-      } else {
-        const objectFromWs = JSON.parse(resp);
-        const objectContent = JSON.parse(objectFromWs.request.content);
-        const notificationEventType = objectContent.extraParameters.notificationEventType;
-        if(notificationEventType === "ConcurrentSession"){
-              this.closeConcurrentSession(resp);
-        }else{
-              this.bulkDownloadWarnings(resp);
-        }             
-      }
-    },
-    err => {
-      console.log('ws bulk error', err);
-    },
-    () => console.log('ws bulk complete'));
+      },
+      (err) => {
+        console.log('ws bulk error', err);
+      },
+      () => console.log('ws bulk complete')
+    );
   }
   ngAfterViewInit(): void {
     setTimeout(() => {
