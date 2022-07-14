@@ -252,11 +252,11 @@ export class ExceptionsComponent implements OnInit {
     this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
-      this.createEntitiesRowData();
+      this.createEntitiesRowData(false);
     });
   }
 
-  createEntitiesRowData(){
+  createEntitiesRowData(isCommentCall){
     setTimeout(() => {
       this.columnGl = [
         {
@@ -365,6 +365,10 @@ export class ExceptionsComponent implements OnInit {
         //   }
         // },
       ];
+      if(isCommentCall){
+        this.glRowdata = this.glRowdata;
+      }
+      
     },1)
   }
 
@@ -516,7 +520,7 @@ export class ExceptionsComponent implements OnInit {
       if (result.button === "Submit") {
         // this.getExceptionTableData();
         this.glRowdata[this.glRowdata.findIndex(item => item.dataSetRuleId === row.dataSetRuleId)].commentsCount = 1;
-        this.createEntitiesRowData();
+        this.createEntitiesRowData(true);
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
