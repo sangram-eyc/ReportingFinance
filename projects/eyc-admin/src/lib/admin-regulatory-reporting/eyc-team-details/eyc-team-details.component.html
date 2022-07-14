@@ -174,9 +174,9 @@
       (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid> -->
       <lib-ag-grid [rowData]="teamsMemberData" [columnDefs]="columnDefsAgGrid" 
       [displayCheckBox] = "true" [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
-      [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="third"
+      [disablePrimaryButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="third"
       [export]="true" buttonPosition="right"
-      [search]="true" paginationSize="10"></lib-ag-grid>
+      [search]="true" paginationSize="10" (newEventToParent)="addTeamMembers($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row>
       <div class="delete-icon" (click)="deleteTeamMember(row)"

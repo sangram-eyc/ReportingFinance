@@ -317,6 +317,18 @@
 }
 
 //Filter reset button to left align
-::ng-deep .ag-filter-apply-panel {
-    justify-content: start !important;
+::ng-deep  {
+    .motif-button:focus {
+        border-color: var(--btn-primary-alt-bg-color) !important;
+    }
+    .ag-filter-apply-panel {
+        justify-content: start !important;
+    }
+    *:focus {
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
 }
+
