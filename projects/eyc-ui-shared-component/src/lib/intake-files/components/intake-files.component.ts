@@ -25,6 +25,7 @@ export class IntakeFilesComponent implements OnInit {
   @Input() isEnabled;
   @Output() exportFlagToDataIntakeformSharedIntake = new EventEmitter<boolean>();
   @Input() export = true;
+  @Input() exportName;
   // columnDefs;
   columnDefsAgGrid;
 

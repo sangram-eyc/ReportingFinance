@@ -26,6 +26,15 @@ import { StatusBarComponent } from '../status-bar/status-bar.component'
   styleUrls: ['./ag-grid.component.scss']
 })
 export class AgGridComponent implements OnInit {
+
+  public icons: {
+    [key: string]: Function | string;
+  } = {
+      sortAscending: '<i class="fa fa-caret-up" style="font-size: 14px; margin-top: 4px;"></i>',
+      sortDescending: '<i class="fa fa-caret-down" style="font-size: 14px; margin-top: 4px;"></i>',
+      sortUnSort: `<i class="fa fa-sort" aria-hidden="true" style="font-size: 14px; margin-top: 4px;"></i>`
+    };
+
   @Input() customRowSelected = false;
   @Input() columnDefs: ColDef[] = [];
   @Input() omitModal = false;
@@ -70,6 +79,7 @@ export class AgGridComponent implements OnInit {
   @Output() rowSelected = new EventEmitter<any>();
   @Output() selectedRowEmitter = new EventEmitter<any[]>();
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
+  @Output() unresolveEventToParent = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
   @Input() submitFunction: () => void;
   @Input() submitTwoFunction: () => void;
@@ -88,6 +98,7 @@ export class AgGridComponent implements OnInit {
   showToastAfterSubmit = false;
   buttonModal = false;
   @Input() isHideCheckBox = true;
+  @Input() exportName ;
 
   @Input() modalConfig = {
     width: '400px',
@@ -147,6 +158,7 @@ export class AgGridComponent implements OnInit {
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
+      unSortIcon: true
   }
 }
 
@@ -251,7 +263,18 @@ export class AgGridComponent implements OnInit {
   }
 
   exportData() {
-    this.gridApi.exportDataAsCsv();
+    console.log(this.exportName,"exportName")
+    let currentdate = new Date(); 
+    var datetime =  currentdate.getFullYear() + "-" +(currentdate.getMonth()+1)  + "-" +currentdate.getDate() + " "
+                + currentdate.getHours() + "-"  
+                + currentdate.getMinutes() + "-" 
+                + currentdate.getSeconds();
+    let name = this.exportName+datetime
+    console.log(name,this.exportName,datetime,"currentDate datetime")
+    var csvcelParams = {
+      fileName: name,
+  }
+    this.gridApi.exportDataAsCsv(csvcelParams);
   }
 
   onQuickFilterChanged() {
@@ -352,7 +375,7 @@ export class AgGridComponent implements OnInit {
   }
 
   openResolveUnresolveDialog(type:string){
-
+    type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
 
   toggleLeftChanged(event){

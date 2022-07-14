@@ -17,6 +17,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./rr-reporting.component.scss']
 })
 export class RrReportingComponent implements OnInit, OnDestroy {
+  exportName: string;
 
 
   constructor(
@@ -206,6 +207,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
     this.exceptionReportToApproveSelectedRows = [];
     this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Reporting_Exception_Reports_";
     this.rrservice.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Reporting').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
@@ -227,6 +229,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
   }
 
   getFilingEntities(resetData = false) {
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Reporting_Filing_Entities_";
     this.filingEntityApprovedSelectedRows = [];
     this.filingEntityUnaprovedSelectedRows = [];
     this.rrservice.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
@@ -299,7 +302,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         {
           headerName: 'Review Level',
           field: 'reviewLevel',
-          minWidth: 150,
+          minWidth: 180,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset'],

@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   moduleName;
   displayCheckBox = true;
   exportUrl: any;
+  exportName: string;
 
   constructor(
     private userService: UsersService,
@@ -86,6 +87,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   getUsersData(resetData = false) {
     this.pageInfo.sort = resetData ? 'userLastName:true' : this.pageInfo.sort;
+    this.exportName =   this.moduleName + "_Users_"
     if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
       this.userService.getUsersList(this.pageInfo.currentPage,this.pageInfo.pageSize,this.pageInfo.sort,this.pageInfo.filter).subscribe(resp => {
         this.userResp =[];
@@ -102,7 +104,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.usersListArr.push(eachitem);
         });
         this.rowData = this.usersListArr;
-        // this.resetRowData = this.rowData;
+        this.resetRowData = this.rowData;
         this.pageInfo.totalRecords=resp['totalRecords'];
         if (resetData) {
           this.resetData();
@@ -343,7 +345,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.rowData = this.usersListArr;
       });
 
-      this.gridApi.setRowData(this.rowData);
+      // this.gridApi.setRowData(this.rowData);
+      this.resetRowData = this.rowData;
       this.updatePageSize(this.pageInfo.pageSize);
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {

@@ -56,7 +56,7 @@
     line-height: 24px;
     margin-top: 5px;
     margin-bottom: 5px;
-  
+    background: #F6F6FA;
     .page-description {
       font-family: EYInterstate;
   
@@ -97,6 +97,7 @@
     select#page-size {
       border: none;
       font-weight: 700;
+      background: #F6F6FA;
     }
   }
   
@@ -120,6 +121,7 @@
  select#page-size {
   border: none;
   font-weight: 700;
+  background: #F6F6FA;
 }
 
 .pagination .JumpToPage{
@@ -133,4 +135,14 @@
 
 .pageSizeSelect{
   cursor: pointer;
+}
+
+::ng-deep .ag-theme-material .ag-paging-button {
+  margin: 0;
+  border: none;
+  background: inherit;
+}
+
+::ng-deep .ag-theme-material .disabled_class{
+  cursor: not-allowed;;
 }

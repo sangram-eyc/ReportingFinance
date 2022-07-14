@@ -6,7 +6,7 @@
 <div *ngIf="!enableTabs" class="intakeFilesWrapper">
     <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr"
         [buttonTxt]="'All exceptions'" [filesDatasets]="bdFilesList" [isEnabled] ="permissions.validatePermission('Data Intake', 'View All Exceptions')" (datasetEvent)="getBDFilesList($event)"
-        (commentClickEvent)="openComments($event)" (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)"
+        (commentClickEvent)="openComments($event)" (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)" [exportName]="exportName"
          (exportFlagToDataIntakeformSharedIntake)="exportData('accordion')">
     </shared-lib-intake-files>
 </div>
@@ -17,6 +17,9 @@
         <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
         [search]="true" paginationSize="10"
         [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
+        rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
+        [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+        [detailCellRendererParams]="exceptionDetailCellRendererParams" [exportName] = "exportName"
         ></lib-ag-grid>
 
         <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData"
@@ -89,7 +92,7 @@
     <section id="dataset" *ngIf="(tabs==2)">
 
         <lib-ag-grid [rowData]="datasetData" [columnDefs]="datasetsDefsAgGrid" [export]="true" buttonPosition="left"
-        [search]="true" paginationSize="10"
+        [search]="true" paginationSize="10" [exportName] = "exportName"
         [permissionToPrimaryButton]="false"></lib-ag-grid>
 
 

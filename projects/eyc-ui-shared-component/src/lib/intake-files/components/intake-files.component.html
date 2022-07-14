@@ -39,7 +39,7 @@
 
     <motif-accordion-content>
         <lib-ag-grid [rowData]="filesDatasets[i]" [columnDefs]="columnDefsAgGrid" [export]="true" buttonPosition="left"
-        [search]="true" paginationSize="10"
+        [search]="true" paginationSize="10" [exportName]="exportName"
         [permissionToPrimaryButton]="false"></lib-ag-grid>
 
         <!-- <lib-shared-grid gridStyle="second" [columnDefs]="columnDefs" [rowData]="filesDatasets[i]"

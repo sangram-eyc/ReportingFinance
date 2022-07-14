@@ -61,6 +61,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   permissionStage: any;
   pageList = [100,200,300];
   pageSize =100;
+  exportName: string;
   constructor(
     private filingService: RegulatoryReportingFilingService,
     private viewService: ViewExceptionReportsService,
@@ -135,9 +136,11 @@ export class ViewExceptionReportsComponent implements OnInit {
       }
       this.commentsCount = res.data['commentCountMap'];
     });
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Exception_Reports_Individual_Exception_Report_";
   }
 
   getExceptionResults() {
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Data Intake_Exception_Reports_Individual_Exception_Report_";
     this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId, this.dataIntakeData.ruleType, this.dataIntakeData.tableName, this.dataIntakeData.filename).subscribe(res => {
       this.exceptionAnswersData = res.data;
       // this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []

@@ -25,6 +25,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   currentEntityReviewLevel;
   moduleOriginated = rr_module_name;
   tabsData = tabsForRR;
+  exportName: string;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -207,6 +208,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.exceptionReportToApproveSelectedRows = [];
     this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Filing_Entities_";
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
@@ -232,6 +234,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.filingEntityApprovedSelectedRows = [];
     this.filingEntityUnaprovedSelectedRows = [];
     this.sort = resetData ? 'entityName:true' : this.sort;
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Exception_Reports_";
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.totalRecords = res['totalRecords'];

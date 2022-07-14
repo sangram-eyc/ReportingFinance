@@ -200,9 +200,9 @@
 
     <lib-ag-grid [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
     [rowData]="PBIMappingData" [columnDefs]="columnDefsAgGrid" [buttonText]="'Add PBI'"
-      [displayCheckBox] = "true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
-      [export]="true" buttonPosition="right" gridStyle="third" [staticDataGrid]="true"
-      [search]="true" paginationSize="10"></lib-ag-grid>
+      [displayCheckBox] = "true" [disablePrimaryButton]="disableAddMemberButton || enableEditReportID"
+      [export]="true" buttonPosition="left" gridStyle="third" [staticDataGrid]="true" [exportName] = "exportName"
+      [search]="true" paginationSize="10"  (newEventToParent)="addPBIReport($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
       <div class="delete-icon" (click)="deletePBIMapping(row)" *ngIf="true">
