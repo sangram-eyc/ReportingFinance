@@ -32,7 +32,9 @@ describe('TaxCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('it should set variables', () => {
+  it('ngOnInit should set variables', () => {
+    component.innerWidth = 900;
+    component.ngOnInit();
     expect(component.reportWidth).toEqual(15);
     expect(component.periodWidth).toEqual(10);
     expect(component.author).toEqual('');

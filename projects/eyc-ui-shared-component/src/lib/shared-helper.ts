@@ -15,6 +15,8 @@ export const filing_entity = 'Filing Entity';
 export const filing = 'Filing';
 export const line_item = 'Line Item';
 
+export const no_results_found ='No results found.'
+
 
 export const customComparator = (valueA, valueB) => {
 	if (valueA == null) {
