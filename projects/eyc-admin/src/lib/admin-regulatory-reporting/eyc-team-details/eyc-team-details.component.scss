@@ -81,6 +81,10 @@
   /* .btn_close:hover {
     background-color: var(--btn-secondary-bg-color);
   } */
+
+  ::ng-deep .motif-toggle-switch-container{
+    vertical-align: middle !important;
+  }
 }
 
 .back-wrapper {
@@ -494,6 +498,8 @@ button.motif-active.motif-text-link, button.motif-text-link {
   right: 10px;
   margin-top: 10px;
 }
+
+
 
 
 
