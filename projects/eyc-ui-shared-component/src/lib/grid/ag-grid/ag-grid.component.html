@@ -95,7 +95,8 @@
     (gridReady)="onGridReady($event)" (change)="onChange($event)" [gridOptions]="gridOptions" [pagination]="pagination" [statusBar]="statusBar"
     [paginationPageSize]="paginationPageSize" [enableBrowserTooltips]="true" [context]="context"
     [overlayNoRowsTemplate]="overlayNoRowsTemplate" [sideBar]="{ toolPanels: ['filters'] }" suppressPaginationPanel=true
-    (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)">
+    (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)"
+    [icons]="icons" [suppressMenuHide]="true">
   </ag-grid-angular>
 
 
