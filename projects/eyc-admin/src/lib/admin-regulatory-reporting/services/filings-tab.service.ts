@@ -5,11 +5,11 @@ import { SettingService } from '../../services/setting.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DataExplorerService {
+export class FilingsTabService {
 
   constructor(private apiService: ApiSharedService, private settingService: SettingService) { }
 
-  getDataExplorerInformation(){
-    return this.apiService.invokeGetAPI(`${this.settingService.data_explorer.data_explorer_list}`);
+  getFilingData(){
+    return this.apiService.invokeGetAPI(`${this.settingService.filings_tab.filings_tab_list}`);
   }
 }

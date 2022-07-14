@@ -499,6 +499,31 @@ button.motif-active.motif-text-link, button.motif-text-link {
   margin-top: 10px;
 }
 
+.close-toast-td {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  position: relative;
+  height: 45px;
+  width: 45px;
+  font-size: 25px;
+ }
+ 
+ 
+ button.close-toast-td:hover {
+  background-color: var(--modal-header-border-color) !important;
+ }
+ 
+ button.close-toast-td {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  left:14px;
+ } 
+
 
 
 

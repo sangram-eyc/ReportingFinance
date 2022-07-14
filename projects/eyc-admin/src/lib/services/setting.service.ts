@@ -91,4 +91,11 @@ export class SettingService {
     }
     return filing_entities;
   }
+  
+  get filings_tab(): any{
+    const data_explorer = {
+      filings_tab_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms' : this.API_ENDPOINT + 'assets/mock/filingsTableData.json',
+    }
+    return data_explorer;
+  }
 }
