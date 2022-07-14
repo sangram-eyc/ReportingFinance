@@ -214,7 +214,8 @@
 }
 
   ::ng-deep .ag-theme-material .ag-ltr .ag-cell {
-    border-right: none !important;
+    border: none !important;
+    box-shadow: none;
 }
 
 ::ng-deep .ag-header-cell-label {
@@ -332,3 +333,20 @@
     }
 }
 
+.ag-tabs{
+    .ag-menu.ag-focus-managed.ag-ltr.ag-popup-child {
+        background: #f2f2f2;
+    }
+
+    .ag-tabs-header.ag-menu-header {
+        display: none;
+    }
+}
+
+::ng-deep .ag-status-bar {
+    background: #F6F6FA;
+}
+
+::ng-deep .ag-theme-material .ag-checkbox-input-wrapper input {
+    cursor: pointer;
+}
