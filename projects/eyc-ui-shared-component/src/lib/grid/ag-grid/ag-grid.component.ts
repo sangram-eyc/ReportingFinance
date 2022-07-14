@@ -26,6 +26,15 @@ import { StatusBarComponent } from '../status-bar/status-bar.component'
   styleUrls: ['./ag-grid.component.scss']
 })
 export class AgGridComponent implements OnInit {
+
+  public icons: {
+    [key: string]: Function | string;
+  } = {
+      sortAscending: '<i class="fa fa-caret-up" style="font-size: 14px; margin-top: 4px;"></i>',
+      sortDescending: '<i class="fa fa-caret-down" style="font-size: 14px; margin-top: 4px;"></i>',
+      sortUnSort: `<i class="fa fa-sort" aria-hidden="true" style="font-size: 14px; margin-top: 4px;"></i>`
+    };
+
   @Input() customRowSelected = false;
   @Input() columnDefs: ColDef[] = [];
   @Input() omitModal = false;
@@ -149,6 +158,7 @@ export class AgGridComponent implements OnInit {
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
+      unSortIcon: true
   }
 }
 

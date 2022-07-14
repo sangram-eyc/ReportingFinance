@@ -39,7 +39,7 @@
 
   <div class="exceptionResults">
     <lib-ag-grid *ngIf="dataIntakeExceptionsTable" [rowData]="exceptionAnswersData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left"
-    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false" [pageList]="pageList" [pageSize]="pageSize" [exportName] = "exportName"></lib-ag-grid>
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false" [pageList]="pageList" [paginationPageSize]="pageSize" [exportName] = "exportName"></lib-ag-grid>
 <!-- 
     <lib-shared-grid *ngIf="dataIntakeExceptionsTable"
       (newEventToParent)="redirecttoDataExplorer($event)" 
@@ -62,7 +62,7 @@
     [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"
     [permissionToResolveExceptionButton]="getResolveButtonPermission()"
     [permissionToUnresolveExceptionButton]="getUnresolveButtonPermission()"
-    [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [pageSize]="pageSize"
+    [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [paginationPageSize]="pageSize"
     [disableUnresolveButton]="!enableUnresolveButton"
     rowSelection="multiple"
     (selectedRowEmitter)="exceptionResolveRowsSelected($event)" [exportName] = "exportName"

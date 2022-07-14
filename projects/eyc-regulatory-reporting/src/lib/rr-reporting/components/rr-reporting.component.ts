@@ -302,7 +302,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
         {
           headerName: 'Review Level',
           field: 'reviewLevel',
-          minWidth: 150,
+          minWidth: 180,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset'],

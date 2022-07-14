@@ -34,7 +34,7 @@
         [displayCheckBox]="true" [pagination]="true"  [export]="true" (exportFlagToParent)="exportData()">
     </lib-shared-grid> -->
     <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left" [exportName] = "exportName"
-    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false" [pageList]="pageList" [pageSize]="pageSize"></lib-ag-grid>
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false" [pageList]="pageList" [paginationPageSize]="pageSize"></lib-ag-grid>
 <!-- 
     <lib-shared-grid
     (newEventToParent)="redirecttoDataExplorer($event)" 
