@@ -252,12 +252,6 @@ export class ExceptionsComponent implements OnInit {
     this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];
-      this.createEntitiesRowData(false);
-    });
-  }
-
-  createEntitiesRowData(isCommentCall){
-    setTimeout(() => {
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -365,11 +359,7 @@ export class ExceptionsComponent implements OnInit {
         //   }
         // },
       ];
-      if(isCommentCall){
-        this.glRowdata = this.glRowdata;
-      }
-      
-    },1)
+    });
   }
 
   toggleCalendar(event): void {
@@ -518,9 +508,9 @@ export class ExceptionsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Submit") {
-        // this.getExceptionTableData();
-        this.glRowdata[this.glRowdata.findIndex(item => item.dataSetRuleId === row.dataSetRuleId)].commentsCount = 1;
-        this.createEntitiesRowData(true);
+        
+        // this.glRowdata[this.glRowdata.findIndex(item => item.dataSetRuleId === row.dataSetRuleId)].commentsCount = 1;
+        this.commentAdded();
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
