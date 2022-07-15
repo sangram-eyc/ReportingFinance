@@ -260,7 +260,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
             cellRendererParams: {
               ngTemplate: this.dropdownTemplate,
             },
-            field: 'template',
+            field: 'Actions',
             maxWidth: 70,
             sortable: false,
             menuTabs: [],
