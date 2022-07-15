@@ -91,7 +91,7 @@ export class AgGridComponent implements OnInit {
   isAllRecordSelected = false;
   overlayNoRowsTemplate =`<span style="font-size: 16px;
   line-height: 20px;
-  font-family: EYInterstate!important;;">No data found with current filters</span>`;
+  font-family: EYInterstate!important;;">No data found</span>`;
   @Input()pageList=[20,50,100];
   @Input()pageSize=20;
   currentlySelectedPageSize;
@@ -329,6 +329,9 @@ export class AgGridComponent implements OnInit {
     this.gridApi.setQuickFilter(
       (document.getElementById('quickFilter') as HTMLInputElement).value
     );
+    if(this.gridApi.getDisplayedRowCount() == 0) {
+      this.gridApi.showNoRowsOverlay();
+    }
   }
 
   onModelUpdated($event) {
