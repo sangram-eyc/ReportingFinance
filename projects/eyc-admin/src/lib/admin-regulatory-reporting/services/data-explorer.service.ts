@@ -11,5 +11,5 @@ export class DataExplorerService {
 
   getDataExplorerInformation(){
     return this.apiService.invokeGetAPI(`${this.settingService.data_explorer.data_explorer_list}`);
-  }
+}
 }
