@@ -96,7 +96,7 @@
     [paginationPageSize]="paginationPageSize" [enableBrowserTooltips]="true" [context]="context"
     [overlayNoRowsTemplate]="overlayNoRowsTemplate" [sideBar]="{ toolPanels: ['filters'] }" suppressPaginationPanel=true
     (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)"
-    [icons]="icons" [suppressMenuHide]="true">
+    [icons]="icons" [suppressMenuHide]="true" [getContextMenuItems]="getContextMenuItems">
   </ag-grid-angular>
 
 

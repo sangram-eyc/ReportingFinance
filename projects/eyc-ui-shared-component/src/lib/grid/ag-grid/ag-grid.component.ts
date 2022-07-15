@@ -6,6 +6,7 @@ import {
   AgGridEvent,
   CheckboxSelectionCallbackParams,
   ColDef,
+  GetContextMenuItemsParams,
   GridApi,
   GridOptions,
   GridReadyEvent,
@@ -154,11 +155,13 @@ export class AgGridComponent implements OnInit {
   totalPage: number;
   currentpage: number;
   context: any;
+  columnsForExport: any[];
   
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
     this.gridOptions = {
-      unSortIcon: true
+      unSortIcon: true,
+      context: this.exportName
   }
 }
 
@@ -263,19 +266,64 @@ export class AgGridComponent implements OnInit {
   }
 
   exportData() {
-    console.log(this.exportName,"exportName")
-    let currentdate = new Date(); 
-    var datetime =  currentdate.getFullYear() + "-" +(currentdate.getMonth()+1)  + "-" +currentdate.getDate() + " "
-                + currentdate.getHours() + "-"  
-                + currentdate.getMinutes() + "-" 
-                + currentdate.getSeconds();
-    let name = this.exportName+datetime
-    console.log(name,this.exportName,datetime,"currentDate datetime")
+    let currentdate = new Date();
+    var datetime = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " "
+      + currentdate.getHours() + "-"
+      + currentdate.getMinutes() + "-"
+      + currentdate.getSeconds();
+    let name = this.exportName + datetime;
+    var allColumns = this.gridOptions.columnApi.getAllColumns();
+    this.columnsForExport = [];
+    allColumns.forEach((element: any) => {
+      if (element.colId != "Actions") {
+        this.columnsForExport.push(element.colId)
+      }
+    });
+    console.log(this.columnsForExport, "columnsForExport columnsForExport")
     var csvcelParams = {
       fileName: name,
-  }
+      columnKeys: this.columnsForExport
+    }
     this.gridApi.exportDataAsCsv(csvcelParams);
   }
+
+  getContextMenuItems(params: GetContextMenuItemsParams) {
+    let currentdate = new Date();
+    var datetime = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " "
+      + currentdate.getHours() + "-"
+      + currentdate.getMinutes() + "-"
+      + currentdate.getSeconds();
+     console.log(params,datetime,"this.exportName")
+    var name = params.context.componentParent.exportName +datetime;
+    var allColumns = params.columnApi.getAllColumns();
+    var columnsForExport = [];
+    allColumns.forEach((element: any) => {
+      if (element.colId != "Actions") {
+        columnsForExport.push(element.colId)
+      }
+    });    return [  
+      {
+          name: 'CSV Export',
+          action: function(data) {
+            var csvcelParams = {
+              fileName: name,
+              columnKeys: columnsForExport
+            }
+            params.api.exportDataAsCsv(csvcelParams);
+          },
+        },
+        {
+          name: 'Excel Export',
+          action: function(data) {
+            var excelcelParams = {
+              fileName: name,
+              columnKeys: columnsForExport
+            }
+            params.api.exportDataAsExcel(excelcelParams);
+          },
+        },
+      ];
+    }
 
   onQuickFilterChanged() {
     this.gridApi.setQuickFilter(

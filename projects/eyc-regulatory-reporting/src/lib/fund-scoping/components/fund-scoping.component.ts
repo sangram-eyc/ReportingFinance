@@ -189,7 +189,7 @@ export class FundScopingComponent implements OnInit {
       },
       {
       headerName: 'Action',
-      field: 'template',
+      field: 'Actions',
       maxWidth: 110,
       cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
