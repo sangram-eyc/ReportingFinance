@@ -27,8 +27,8 @@
             <span id="ag-496-of-page">/</span>
             <span id="ag-496-of-page-number" ref="lbTotal" class="ag-paging-number">{{totalPage}}</span>
         </span>
-        <button ref="btNext" class="ag-paging-button" role="button" (click)="onBtNext()" aria-label="Next Page" tabindex="0" aria-disabled="true"><span class="ag-icon ag-icon-next" unselectable="on" role="presentation"></span></button>
-        <button ref="btLast" class="ag-paging-button" role="button" (click)="onBtLast()" aria-label="Last Page" tabindex="0" aria-disabled="true"><span class="ag-icon ag-icon-last" unselectable="on" role="presentation"></span></button>
+        <button ref="btNext" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': (currentpage+1==totalPage)}" [disabled]="(currentpage+1==totalPage)" (click)="onBtNext()" aria-label="Next Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-next" unselectable="on" role="presentation"></span></button>
+        <button ref="btLast" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': (currentpage+1==totalPage)}" [disabled]="(currentpage+1==totalPage)" (click)="onBtLast()" aria-label="Last Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-last" unselectable="on" role="presentation"></span></button>
     </span>
 
   </div>
