@@ -490,7 +490,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           ngTemplate: this.actionButtonTemplate,
         },
         headerName: 'Action',
-        field: 'template',
+        field: 'Actions',
         minWidth: 100,
         sortable: false,
         menuTabs: [],

@@ -363,7 +363,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
-          field: 'name',
+          field: 'Actions',
           minWidth: 150,
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],

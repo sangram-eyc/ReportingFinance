@@ -285,7 +285,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: this.editAct.bind(this),
           headerName: 'Actions',
-          field: 'userId',
+          field: 'Actions',
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         }
