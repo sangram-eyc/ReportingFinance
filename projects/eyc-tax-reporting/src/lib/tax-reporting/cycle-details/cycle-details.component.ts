@@ -215,7 +215,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   backtoCycleView() {
-    this.router.navigate(['app-tax-reporting']);
+    this.router.navigate(['app-tax-reporting',this.isArchived]);
   }
   
   ngAfterViewInit(): void {
