@@ -253,7 +253,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         valueGetter: "node.rowIndex + 1",
         maxWidth: 120,
         sortable: false,
-        menuTabs: ['generalMenuTab','columnsMenuTab'],
+        menuTabs: [],
         pinned: 'left'
         },
         {
@@ -345,7 +345,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
-          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          menuTabs: [],
           pinned: 'left'
           },
         {
@@ -429,7 +429,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
           sortable: false,
-          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          menuTabs: [],
           pinned: 'left'
           },
         {

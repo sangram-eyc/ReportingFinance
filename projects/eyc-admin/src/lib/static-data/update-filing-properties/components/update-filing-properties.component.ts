@@ -314,7 +314,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         valueGetter: "node.rowIndex + 1",
         maxWidth: 75,
         sortable: false,
-        menuTabs: ['generalMenuTab','columnsMenuTab'],
+        menuTabs: [],
         pinned: 'left'
         },
         {
