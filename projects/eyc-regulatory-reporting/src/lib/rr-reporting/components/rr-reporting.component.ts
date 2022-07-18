@@ -362,7 +362,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           headerName: 'Last Updated By',
           field: 'updatedBy',
-          minWidth: 300,
+          minWidth: 350,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
@@ -483,14 +483,14 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             ngTemplate: this.lastUpdatedByTemplate,
           },
           headerName: 'Last Updated By',
-          field: 'updatedBy',
+          field: 'updateBy',
+          minWidth: 350,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 300,
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,

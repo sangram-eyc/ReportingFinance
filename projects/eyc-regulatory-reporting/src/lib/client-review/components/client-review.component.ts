@@ -208,7 +208,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.exceptionReportToApproveSelectedRows = [];
     this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
-    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Filing_Entities_";
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Exception_Reports_";
     this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
@@ -234,7 +234,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.filingEntityApprovedSelectedRows = [];
     this.filingEntityUnaprovedSelectedRows = [];
     this.sort = resetData ? 'entityName:true' : this.sort;
-    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Exception_Reports_";
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Filing_Entities_";
     this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.totalRecords = res['totalRecords'];
@@ -496,7 +496,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 300,
+          minWidth: 350,
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,
@@ -722,14 +722,14 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
             ngTemplate: this.lastUpdatedByTemplate,
           },
           headerName: 'Last Updated By',
-          field: 'updatedBy',
+          field: 'updateBy',
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 300,
+          minWidth: 350,
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,
