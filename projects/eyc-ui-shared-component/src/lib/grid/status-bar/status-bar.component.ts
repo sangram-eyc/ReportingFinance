@@ -67,6 +67,7 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   }
 
   pagingData(){
+    this.resetJumpToValue()
     this.totalPage = this.gridApi.paginationGetTotalPages();
     this.currentpage = this.gridApi.paginationGetCurrentPage();  
   }
@@ -80,11 +81,16 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   }
 
   onPageSizeChanged() {
+    this.resetJumpToValue()
     var value = (document.getElementById('page-size') as HTMLInputElement)
       .value;
     this.gridApi?.paginationSetPageSize(Number(value));
     this.totalPage = this.gridApi.paginationGetTotalPages();
     this.currentpage = this.gridApi.paginationGetCurrentPage();
+  }
+
+  resetJumpToValue(){
+    (document.getElementById('jumpToPage') as HTMLInputElement).value = '';
   }
 
 }
