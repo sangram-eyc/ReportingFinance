@@ -242,6 +242,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         this.gridApi.setRowData(this.teamsMemberData);
       }
     });
+    this.exportName = this.module+"_"+this.teamService?.getTeamDetailsData?.teamName+"_Team_Members_";
   }
 
 
