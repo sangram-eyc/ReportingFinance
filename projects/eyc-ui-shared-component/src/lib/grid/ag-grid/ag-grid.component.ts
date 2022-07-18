@@ -276,7 +276,7 @@ export class AgGridComponent implements OnInit {
     var allColumns = this.gridOptions.columnApi.getAllColumns();
     this.columnsForExport = [];
     allColumns.forEach((element: any) => {
-      if (element.colId != "Actions") {
+      if (element.colId != "Actions" && element.colDef.headerName!="Result") {
         this.columnsForExport.push(element.colId)
       }
     });
@@ -299,7 +299,7 @@ export class AgGridComponent implements OnInit {
     var allColumns = params.columnApi.getAllColumns();
     var columnsForExport = [];
     allColumns.forEach((element: any) => {
-      if (element.colId != "Actions") {
+      if (element.colId != "Actions" && element.colDef.headerName!="Result") {
         columnsForExport.push(element.colId)
       }
     });    return [  

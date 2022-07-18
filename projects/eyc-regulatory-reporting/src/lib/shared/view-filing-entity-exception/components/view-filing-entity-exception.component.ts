@@ -88,7 +88,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
   }
 
   getAnswerExceptionReports() {
-    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Exception_Reports_";
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Filing_Entities_Exception_Reports_";
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['exceptionResultJason'];
       if (this.exceptionAnswersData) {
