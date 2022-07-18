@@ -214,6 +214,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.datasets = [];
       console.log("Datasets error");
     });
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Datasets_"
   }
 
   getBDFilesList(event) {

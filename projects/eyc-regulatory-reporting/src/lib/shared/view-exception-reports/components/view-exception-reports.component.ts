@@ -140,7 +140,7 @@ export class ViewExceptionReportsComponent implements OnInit {
   }
 
   getExceptionResults() {
-    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Data Intake_Exception_Reports_Individual_Exception_Report_";
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Intake_Individual_Exception_Report_";
     this.viewService.getExceptionResults(this.dataIntakeData.ruleExceptionId, this.dataIntakeData.ruleType, this.dataIntakeData.tableName, this.dataIntakeData.filename).subscribe(res => {
       this.exceptionAnswersData = res.data;
       // this.exceptionAnswersData ? this.createDataIntakeExceptionsRowData() : this.exceptionAnswersDefs = []
