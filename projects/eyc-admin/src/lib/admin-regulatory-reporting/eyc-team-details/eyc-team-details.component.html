@@ -153,13 +153,13 @@
   <motif-tab-bar>
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
-    <button *ngIf="module == 'Regulatory Reporting'" motifButton (click)="adminTabChange(2)" class="motif-text-link"
+    <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(2)" class="motif-text-link"
       [ngClass]="tabIn == 2 ? 'motif-active' : ''">Task Assignment</button>
     <!--<button motifButton (click)="adminTabChange(3)" class="motif-text-link"
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
-      <button *ngIf="module == 'Regulatory Reporting'" motifButton (click)="adminTabChange(4)" class="motif-text-link"
+      <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(4)" class="motif-text-link"
       [ngClass]="tabIn == 4 ? 'motif-active' : ''">Data Explorer</button>
-      <button *ngIf="module == 'Regulatory Reporting'" motifButton (click)="adminTabChange(5)" class="motif-text-link"
+      <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(5)" class="motif-text-link"
       [ngClass]="tabIn == 5 ? 'motif-active' : ''">Filing Entities</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">

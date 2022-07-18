@@ -9,7 +9,7 @@ import { DEFAULT_PAGE_SIZE, customComparator, ModalComponent, PermissionService,
 import { UsersService } from '../../users/services/users.service';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
-import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
+import { IS_TEAM_DETAILS_EDITABLE, IS_TEAM_ASSIGNMNETS_TABS } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
 import { TasksService } from '../services/tasks.service'
 import { DataExplorerService } from '../services/data-explorer.service'
@@ -60,6 +60,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   teamResp: any[] = [];
   teamsData;
   is_editable = IS_TEAM_DETAILS_EDITABLE;
+  is_enable_assignmnet_tabs = IS_TEAM_ASSIGNMNETS_TABS;
   roleList = [];
   assignments = [];
   columnDefs;
