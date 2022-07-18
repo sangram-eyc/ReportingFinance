@@ -465,8 +465,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         cellRendererParams: {
           ngTemplate: this.datasetsDropdownTemplate,
         },
-        field: 'approved',
-        headerCheckboxSelection: true,
+        headerCheckboxSelection: this.exceptionData.some(item => item.approved == false),
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: params=>params.data.approved == false,
         maxWidth: 70,
