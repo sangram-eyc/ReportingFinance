@@ -56,6 +56,7 @@ const routes: Routes = [
   {path: 'admin-dashboard', component: AdminRegulatoryReportingComponent, canActivate : [AuthGuardService]},
   {path: 'notification', component: DashboardNotificationComponent, canActivate : [AuthGuardService]},
   {path: 'app-regulatory-filing', component: RegulatoryReportingFilingComponent, canActivate : [AuthGuardService]},
+  {path: 'app-tax-reporting/:isArchived', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'app-tax-reporting', component:TaxReportingComponent, canActivate : [AuthGuardService]},
   {path: 'app-expense-reporting', component:EycExpenseReportingComponent, canActivate : [AuthGuardService]},
   {path: 'expense-reports', component:ExpenseReportComponent, canActivate : [AuthGuardService]},
