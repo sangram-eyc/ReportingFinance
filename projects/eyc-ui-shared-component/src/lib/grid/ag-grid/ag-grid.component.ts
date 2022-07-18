@@ -222,6 +222,9 @@ export class AgGridComponent implements OnInit {
    ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
+    if(this.rowData.length==0){
+      this.columnDefs =[];
+    }
   }
 
    onChange(event): void {
