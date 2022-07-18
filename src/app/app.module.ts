@@ -40,6 +40,8 @@ import {EycEuropeanFundReportingModule} from 'projects/eyc-european-fund-reporti
 import {europeanfrenvironment} from '../environments/eyc-european-fund-reporting/europena-fr-environment'
 import { CountdownModule } from 'ngx-countdown';
 import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';  
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,10 @@ import { CommonModule } from '@angular/common';
     EycAdminModule,
     EycEuropeanFundReportingModule,
     CountdownModule,
-    CommonModule
+    CommonModule,
+    AgGridModule.withComponents([]),
+    FormsModule,
+    BrowserAnimationsModule
 
   ],
 

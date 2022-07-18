@@ -190,13 +190,19 @@
       <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary-alt" size="large" [disabled]="disableAddMemberButton"
         (click)="enableEditReportId()">Edit</button>
     </div>
-    <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
+    <!-- <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
       [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
       [export]="true" [staticDataGrid]="true" (exportFlagToParent)="exportData()">
-    </lib-shared-grid>
+    </lib-shared-grid> -->
+
+    <lib-ag-grid [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+    [rowData]="PBIMappingData" [columnDefs]="columnDefsAgGrid" [buttonText]="'Add PBI'"
+      [displayCheckBox] = "true" [disablePrimaryButton]="disableAddMemberButton || enableEditReportID"
+      [export]="true" buttonPosition="left" gridStyle="third" [staticDataGrid]="true" [exportName] = "exportName"
+      [search]="true" paginationSize="10"  (newEventToParent)="addPBIReport($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
       <div class="delete-icon" (click)="deletePBIMapping(row)" *ngIf="true">

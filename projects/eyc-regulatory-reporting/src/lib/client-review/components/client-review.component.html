@@ -14,7 +14,28 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
+        <lib-ag-grid [rowData]="exceptionRowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"
+        [permissionToPrimaryButton]="false"
+        rowSelection="multiple" 
+        [submitFunction]="submitException" 
+        [submitTwoFunction]="unapproveExceptionReports"
+        [modalMessage]="modalMessage"
+        buttonPosition="left" 
+        [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
+        [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+        [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Exception Unapprove')"
+        [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+        [isHideCheckBox]="false"
+        [customRowSelected]="true"
+        (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+        (gridReady)="handleGridReady($event)"
+        [modalConfig]="exceptionModalConfig" [exportName] = "exportName"
+        [modalConfigTwo]="exceptionUnapproveModalConfig">
+        </lib-ag-grid>
+
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" 
             [submitFunction]="submitException" 
             [submitTwoFunction]="unapproveExceptionReports"
@@ -36,13 +57,13 @@
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
             [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="exceptionRowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
 
         <ng-template #commentExceptionTemplate let-row>
             <div *ngIf="row.comments!==0 && permissions.validatePermission('Client Review', 'View Comments') "
-                class="comments-background" (click)="openComments(row)">
-                {{row.comments}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.comments}}</span>
             </div>
             <div class="commentTemplate"
                 *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">
@@ -143,7 +164,27 @@
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
+        <lib-ag-grid [rowData]="filingEntityRowData" [columnDefs]="columnDefsAgGrid" [export]="true" buttonPosition="left"
+            [search]="true" paginationSize="10"
+            [submitFunction]="submitEntities"
+            [submitTwoFunction]="unapproveFilingEntities"
+            [modalMessage]="modalMessage" 
+            buttonPosition="left" 
+            [masterDetail]="true"
+            [isToggle]="false" 
+            [modalConfig]="entitiesModalConfig"
+            [detailCellRendererParams]="exceptionDetailCellRendererParams" 
+            [permissionToPrimaryButton] = "false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
+            [disabledApproveButton]="filingEntityApprovedSelectedRows.length ==0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') "
+            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true" [exportName] = "exportName"
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
+            (gridReady)="handleGridReady($event)"></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities"
             [submitTwoFunction]="unapproveFilingEntities"
             [modalMessage]="modalMessage" 
@@ -164,7 +205,7 @@
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
             [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="rowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
         <ng-template #headerTemplate>
             <div>
@@ -181,8 +222,8 @@
 
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Client Review', 'View Comments')"
-                class="comments-background" (click)="openComments(row)">
-                {{row.commentsCount}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.commentsCount}}</span>
             </div>
             <div class="commentTemplate"
                 *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">

@@ -9,10 +9,12 @@ import { DEFAULT_PAGE_SIZE, customComparator, ModalComponent, PermissionService,
 import { UsersService } from '../../users/services/users.service';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
-import { IS_TEAM_DETAILS_EDITABLE } from '../../config/setting-helper';
+import { IS_TEAM_DETAILS_EDITABLE, IS_TEAM_ASSIGNMNETS_TABS } from '../../config/setting-helper';
 import * as commonConstants from '../../shared/common-contstants'
 import { TasksService } from '../services/tasks.service'
 import { DataExplorerService } from '../services/data-explorer.service'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
+import { FilingEntityService} from '../services/filing-entity.service'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -23,6 +25,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   exportHeaders;
   exportUrl: string;
+  exportName: any;
   constructor(private location: Location,
     private teamService: TeamsService,
     private taskService:TasksService,
@@ -33,7 +36,8 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     public permissions: PermissionService,
     private apiHelpers: SettingService,
-    private dataExplorerService: DataExplorerService) {
+    private dataExplorerService: DataExplorerService,
+    private filingEntityService: FilingEntityService) {
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
     this.moduleId = module.moduleId;
@@ -56,9 +60,11 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   teamResp: any[] = [];
   teamsData;
   is_editable = IS_TEAM_DETAILS_EDITABLE;
+  is_enable_assignmnet_tabs = IS_TEAM_ASSIGNMNETS_TABS;
   roleList = [];
   assignments = [];
   columnDefs;
+  columnDefsAgGrid;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   tabIn;
@@ -85,6 +91,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   pageChangeFunc;
   taskAssignmentData;
   dataExplorerData;
+  filingEntitiesData;
   searchNoDataAvilable = false;
   currentlySelectedPageSizeNewTabs = {
     disable: false,
@@ -196,6 +203,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   }
 
   getUsersList() {
+    this.exportName = this.module+"_Team_Members_"
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
       this.userService.getAllUsersList().subscribe(resp => {
         this.allUsers = resp.data
@@ -206,7 +214,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   getTeamDetailsData(resetData = false) {
     this.sort = resetData ? 'userFirstName:true' : this.sort;
-    this.teamService.getTeamsDetails(this.curentTeamId,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
+    this.teamService.getTeamsDetails(this.curentTeamId).subscribe(resp => {
       this.editTeamForm.patchValue({
         teamName: this.teamInfo.teamName.trim(),
         role: this.teamInfo.role.trim(),
@@ -234,6 +242,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         this.gridApi.setRowData(this.teamsMemberData);
       }
     });
+    this.exportName = this.module+"_"+this.teamService?.getTeamDetailsData?.teamName+"_Team_Members_";
   }
 
 
@@ -244,40 +253,79 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   }
 
   createTeamsRowData(): void {
-    this.columnDefs = [
+    this.columnDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Name',
-        field: 'memberName',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Email',
-        field: 'userEmail',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        comparator: customComparator
-      },
-      {
-        width: 80,
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editAct.bind(this),
-        headerName: 'Actions',
-        field: 'userId',
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 120,
         sortable: false,
-        filter: false,
-      }
-    ];
+        menuTabs: [],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Name',
+          field: 'memberName',
+          width: 370,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Email',
+          field: 'userEmail',
+          width: 370,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'Actions',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+    ]
+    // this.columnDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Name',
+    //     field: 'memberName',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Email',
+    //     field: 'userEmail',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     width: 80,
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editAct.bind(this),
+    //     headerName: 'Actions',
+    //     field: 'userId',
+    //     sortable: false,
+    //     filter: false,
+    //   }
+    // ];
 
   }
 
@@ -287,88 +335,292 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.createTeamsRowData()
       this.getTeamDetailsData(true)
       this.gridApi.setRowData(this.teamsMemberData);
+      this.exportName = this.module+"_Team_Members_"
     }
     else if (selectedTab == 2) {
       this.taskService.getTaskAssignments().subscribe( res =>{
         this.taskAssignmentData = res.data
         this.gridApi.setRowData(res.data);
       })
-
-      this.columnDefs = [
+      this.columnDefsAgGrid = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: [],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
           headerName: 'Access',
           field: 'userId',
           sortable: false,
-          filter: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Filling Type',
-          field: 'fillingType',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 370,
-          comparator: customComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Task Assignment',
-          field: 'taskAssingment',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 370,
-          comparator: customComparator
-        }
+          {
+            headerName: 'Filling Type',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Task Assignment',
+            field: 'taskAssingment',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }
+      ]
+
+      // this.columnDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+      //     headerName: 'Access',
+      //     field: 'userId',
+      //     sortable: false,
+      //     filter: false,
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Filling Type',
+      //     field: 'fillingType',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 370,
+      //     comparator: customComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Task Assignment',
+      //     field: 'taskAssingment',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 370,
+      //     comparator: customComparator
+      //   }
         
-      ];     
+      // ];     
+      this.exportName = this.module+"_Task_Assignment_"
     }
     else if (selectedTab == 4) {
       this.dataExplorerService.getDataExplorerInformation().subscribe(res =>{
         this.dataExplorerData = res.data
         this.gridApi.setRowData(res.data);
       })
+      this.columnDefsAgGrid = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: [],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+          {
+            headerName: 'Filling name',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Report name',
+            field: 'taskAssingment',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }
+      ]
 
-      this.columnDefs = [
+      // this.columnDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: { ngTemplate: this.toggleSwitch } ,
+      //     headerName: 'Access',
+      //     field: 'userId',
+      //     sortable: false,
+      //     filter: false,
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Filling name',
+      //     field: 'fillingType',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 370,
+      //     comparator: customComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Report name',
+      //     field: 'taskAssingment',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 370,
+      //     comparator: customComparator
+      //   }
+        
+      // ];   
+      this.exportName = this.module+"_Data_Explorer_"
+    }
+    else if (selectedTab == 5) {
+      this.filingEntityService.getFilingEntitiesData().subscribe(res =>{
+        this.filingEntitiesData = res.data
+        this.gridApi.setRowData(res.data);
+      })
+
+      this.columnDefsAgGrid = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          headerName: 'Access',
+          field: 'userId',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+          {
+            headerName: 'Filing Type',
+            field: 'fillingType',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Filing Entity Name',
+            field: 'entityName',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Filing Entity Code',
+            field: 'entityCode',
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 370,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          }   
+      ]
+      this.exportName = this.module+"_Filing_Entity_"
+
+     /*  this.columnDefs = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: { ngTemplate: this.toggleSwitch } ,
           headerName: 'Access',
-          field: 'userId',
+          field: 'approved',
           sortable: false,
           filter: false,
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Filling name',
+          headerName: 'Filing Type',
           field: 'fillingType',
           sortable: true,
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 370,
+          width: 260,
           comparator: customComparator
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Report name',
-          field: 'taskAssingment',
+          headerName: 'Filing Entity Name',
+          field: 'entityName',
           sortable: true,
           filter: true,
           wrapText: true,
           autoHeight: true,
-          width: 370,
+          width: 260,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Entity ID',
+          field: 'entityId',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
+          comparator: customComparator
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          headerName: 'Filing Entity Code',
+          field: 'entityCode',
+          sortable: true,
+          filter: true,
+          wrapText: true,
+          autoHeight: true,
+          width: 260,
           comparator: customComparator
         }
-        
-      ];     
+      ];  */    
     }
   }
 

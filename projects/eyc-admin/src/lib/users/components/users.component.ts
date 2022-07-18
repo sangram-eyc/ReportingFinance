@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import * as commonConstants from '../../shared/common-contstants'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -29,6 +30,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   moduleName;
   displayCheckBox = true;
   exportUrl: any;
+  exportName: string;
 
   constructor(
     private userService: UsersService,
@@ -49,6 +51,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   columnDefs1;
   rowData;
+  columnDefsAgGrid;
 
   @ViewChild('motifTable') table: ElementRef;
   @ViewChild('headerTemplate')
@@ -84,6 +87,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   getUsersData(resetData = false) {
     this.pageInfo.sort = resetData ? 'userLastName:true' : this.pageInfo.sort;
+    this.exportName =   this.moduleName + "_Users_"
     if(this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')) {
       this.userService.getUsersList(this.pageInfo.currentPage,this.pageInfo.pageSize,this.pageInfo.sort,this.pageInfo.filter).subscribe(resp => {
         this.userResp =[];
@@ -100,7 +104,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.usersListArr.push(eachitem);
         });
         this.rowData = this.usersListArr;
-        // this.resetRowData = this.rowData;
+        this.resetRowData = this.rowData;
         this.pageInfo.totalRecords=resp['totalRecords'];
         if (resetData) {
           this.resetData();
@@ -129,45 +133,90 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   setUserRows() {
     this.columnDefs1 = [];
+    this.columnDefsAgGrid = [];
     this.resetRowData = [];
     setTimeout(() => {
-      this.columnDefs1 = [
+      this.columnDefsAgGrid =[
         {
-          width: 410,
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Name',
-          field: 'name',
-          sortable: true,
-          filter: true,
-          cellClass: 'custom-user-name',
-          sort: 'asc',
-          wrapText: true,
-          autoHeight: true,
-          comparator: this.disableComparator
-        },
-        {
-          width: 410,
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Email',
-          field: 'email',
-          cellClass: 'custom-user-email',
-          sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          comparator: this.disableComparator
-        },
-        {
-          width: 80,
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: this.editAct.bind(this),
-          headerName: 'Actions',
-          field: 'Actions',
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 75,
           sortable: false,
-          filter: false,
-        },
-      ];
+          menuTabs: [],
+          pinned: 'left'
+          },
+          {
+            headerName: 'Name',
+            field: 'name',
+            minWidth: 410,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            sort: 'asc',
+            tooltipField: 'name',
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            headerName: 'Email',
+            field: 'email',
+            minWidth: 410,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            cellClass: 'custom-user-email',
+            sortable: true,
+            tooltipField: 'email',
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams:this.editAct.bind(this),
+            headerName: 'Actions',
+            field: 'Actions',
+            sortable: false,
+            width: 80,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      ]
+      // this.columnDefs1 = [
+      //   {
+      //     width: 410,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Name',
+      //     field: 'name',
+      //     sortable: true,
+      //     filter: true,
+      //     cellClass: 'custom-user-name',
+      //     sort: 'asc',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     width: 410,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Email',
+      //     field: 'email',
+      //     cellClass: 'custom-user-email',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     width: 80,
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: this.editAct.bind(this),
+      //     headerName: 'Actions',
+      //     field: 'Actions',
+      //     sortable: false,
+      //     filter: false,
+      //   },
+      // ];
       this.resetRowData = this.rowData;
     },1);
   }
@@ -296,7 +345,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.rowData = this.usersListArr;
       });
 
-      this.gridApi.setRowData(this.rowData);
+      // this.gridApi.setRowData(this.rowData);
+      this.resetRowData = this.rowData;
       this.updatePageSize(this.pageInfo.pageSize);
       this.showToastAfterDeleteUser = true;
       setTimeout(() => {

@@ -198,6 +198,7 @@ export class CycleDetailComponent implements OnInit {
   processingCheck: any = '';
   setClickApproveButton = false; 
   downloadButton: HTMLElement = document.createElement('button');
+  isArchived:boolean = false;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
@@ -214,7 +215,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   backtoCycleView() {
-    this.router.navigate(['app-tax-reporting']);
+    this.router.navigate(['app-tax-reporting',this.isArchived]);
   }
   
   ngAfterViewInit(): void {
@@ -274,7 +275,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   createComment(row: any, type: any) {
-    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId]);
+    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId,this.isArchived]);
   }
 
   getCompletedProductCyclesData(id: any, toast?: boolean, msgToast? : any) {
@@ -282,7 +283,8 @@ export class CycleDetailComponent implements OnInit {
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
-      resp['data'].forEach((item) => {
+      (resp.data.isArchived != undefined) ? this.isArchived = resp.data.isArchived  : this.isArchived = false;
+      resp.data.productionCycleDetails.forEach((item) => {
         const eachitem: any = {
           name: item.name,
           hasContent: item.hasContent,
@@ -301,6 +303,7 @@ export class CycleDetailComponent implements OnInit {
         this.openCommentsEYByProductCycle = this.openCommentsEYByProductCycle + Number(item.openCommentsEY);
         this.completedFunds.push(eachitem);
       });
+      this.getOptionsProductCycles();
       this.getStatusCount();
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
@@ -593,14 +596,19 @@ export class CycleDetailComponent implements OnInit {
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
     this.datasetsSelectedRows = event;
-    if (this.datasetsSelectedRows.length > 0) {
-      this.approveBtn.disabled = false;
-      this.cancelbtn.disabled = false;
-    } else {
-      this.approveBtn.disabled = true;
-      this.cancelbtn.disabled = true;
+    if (this.datasetsSelectedRows.length > 0){
+      if (!this.isArchived){
+        this.approveBtn.disabled = false;
+        this.cancelbtn.disabled = false;
+      }else {
+        this.approveBtn.disabled = true;
+        this.cancelbtn.disabled = false;
     }
+  }else{
+    this.approveBtn.disabled = true;
+    this.cancelbtn.disabled = true;
   }
+}
 
   onSubmitApproveDatasets() {
     this.iDs = "";
@@ -729,14 +737,20 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getOptionsProductCycles() {
-    this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
+    if (this.isArchived){
+      this.options = JSON.parse(sessionStorage.getItem('archivedProdCyclesList'));
+    }else{ 
+      this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
+    }
+    
   }
 
   onOptionsSelected(idCycle) {
     let cycle = this.options.find(x => x.id === idCycle);
-    if (this.productCycleId != idCycle) {
+    if (this.productCycleId != idCycle && cycle != undefined) {
       this.productCycleName = cycle.name;
       this.productCycleId = idCycle;
+      this.cycleSelectForm.patchValue({mySelect:idCycle});
       this.getCompletedProductCyclesData(this.productCycleId);
 
       //To clean de selected option class
@@ -820,7 +834,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getMoreDetailsPage() {
-    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName]);
+    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName,this.isArchived]);
   }
 
   removeEvCloseSession(e: Event) {

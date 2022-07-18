@@ -11,6 +11,8 @@
 
 @import './../node_modules/@ey-xd/ng-motif/styles/_variables.scss';
 @import './../node_modules/@ey-xd/ng-motif/styles/_mixins.scss';
+@import "~ag-grid-community/dist/styles/ag-grid.css";  
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css"; 
 
 @font-face {
   font-family: 'Noto Sans';
@@ -698,3 +700,22 @@ span.ag-icon.ag-icon-grip {
   position: fixed;
   top: 10px;
 }
+
+.no-data-img {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  left: 53px;
+  span {
+  display: inline-block;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10px;
+  left: -40px;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: EYInterstate!important;
+  }
+}
+

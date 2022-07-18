@@ -1,0 +1,11 @@
+::ng-deep .custom-cellTemplate > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+* {
+    display: flex;
+    align-items: center;
+    height: 100%; 
+}
