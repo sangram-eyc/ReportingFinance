@@ -701,7 +701,7 @@ export class SubmissionComponent implements OnInit {
   }
 
   commentAdded() {
-    this.getXmlFilesList();
+    this.getXmlFilesList(true);
   }
 
   reopenFilling(){
