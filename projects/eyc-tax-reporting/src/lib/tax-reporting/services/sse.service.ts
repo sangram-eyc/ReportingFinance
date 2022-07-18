@@ -16,7 +16,11 @@ export class SseService {
           observer.next(ev);
         });
       };
-      eventSource.onerror = (ev) => {
+      eventSource.onerror = (error) => {
+        setTimeout(() => {
+          console.log('Reconnecting');
+          this.getServerSentEvent(url);
+        }, 1000);
       };
       eventSource.addEventListener('message', event => {
         this._zone.run(() => {
