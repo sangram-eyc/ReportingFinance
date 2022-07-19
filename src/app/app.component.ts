@@ -300,7 +300,6 @@ export class AppComponent
         username = username.replace(/\./g, '%40%40');
         this.sseService
           .getServerSentEvent(
-            'https://eycomply-qa.sbp.eyclienthub.com/qa37/notifierAgentService/sse-notifier-agent-communication-async/' +
               username
           )
           .subscribe((resp: any) => {
@@ -345,7 +344,7 @@ export class AppComponent
       (err) => {
         console.log('ws bulk error', err);
       },
-      () => console.log('ws bulk complete')
+      () => console.log('ws bulk complete') 
     );
   }
   ngAfterViewInit(): void {
