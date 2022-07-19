@@ -37,7 +37,7 @@ export class EycTaxSettingsService {
       production_cycles_comments_details : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/taxreporting/production-cycles' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/cycle-more-details.json',
       bulk_download_service1 : this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/download/downloads' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/bulk-download-response.json',
       websocket_bulk_url : this.production ? 'gatewayService/ws-notifier-agent-communication' : 'https://10.48.234.20/qa34/gatewayService/ws-notifier-agent-communication',
-      sse_client_url : this.production ? this.API_ENDPOINT + 'gatewayService/notifierAgentService/sse-notifier-agent-communication-async/' : 'https://eycomply-qa.sbp.eyclienthub.com/qa35/notifierAgentService/sse-notifier-agent-communication-async/',
+      sse_client_url : this.production ? this.API_ENDPOINT + 'gatewayService/sse-notifier-agent-communication-async/' : 'https://eycomply-qa.sbp.eyclienthub.com/qa35/sse-notifier-agent-communication-async/',
       comment_expand_details: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/collaboration' : this.API_ENDPOINT + 'assets/eyc-tax-reporting/mock/comment-Expand-Details.json'
     }
 
