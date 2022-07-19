@@ -477,6 +477,13 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         cellClass: 'approved_icon'
       },
       {
+        maxWidth: 80,
+        hide: true,
+        pinned: 'left',
+        field: 'approved',
+        headerName: 'Status',
+      },
+      {
         valueGetter: "node.rowIndex + 1",
         maxWidth: 70,
         sortable: false,
