@@ -16,7 +16,7 @@ export class SseService {
                       origin.trim() + base_url_sse.trim(): 
                       this.settingsService.taxReporting.sse_client_url;
     return Observable.create(observer => {
-      const eventSource = this.getEventSource(sse_ENDPOINT + username);
+      const eventSource = this.getEventSource(sse_ENDPOINT+username);
       eventSource.onopen = (ev) => {
         this._zone.run(() => {
           observer.next(ev);
