@@ -252,6 +252,7 @@
 // side filter css - start
 ::ng-deep .ag-tool-panel-wrapper {
     width: 380px;
+    border-left: 2px solid #f2f2f2 !important;
     .ag-group-title-bar.ag-filter-toolpanel-group-title-bar {
         background: #FFFFFF;
     }
