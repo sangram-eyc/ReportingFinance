@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private unsubscriber: AutoUnsubscriberService,
-    private settingsService: EycRrSettingsService
+    private settingsService: EycRrSettingsService,
+    public datepipe: DatePipe
   ) { }
 
   activeFilings: any[] = [];
@@ -192,7 +194,7 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
           subDate: '-',
           exceptions: 0,
           resolved: 0,
-          completedDate: item.completedDate,
+          completedDate: this.datepipe.transform(item.completedDate,'MMM dd y hh:mm a') + ' GMT',
           completedBy: item.completedBy
         };
         data.push(eachitem);
@@ -334,10 +336,10 @@ export class RegulatoryReportingFilingComponent implements OnInit, OnDestroy {
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
           {
-            cellRendererFramework: CellRendererTemplateComponent,
-            cellRendererParams: {
-              ngTemplate: this.completedDateTemplate,
-            },
+            // cellRendererFramework: CellRendererTemplateComponent,
+            // cellRendererParams: {
+            //   ngTemplate: this.completedDateTemplate,
+            // },
             headerName: 'Date marked complete',
             field: 'completedDate',
             minWidth: 300,

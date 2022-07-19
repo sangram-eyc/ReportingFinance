@@ -283,9 +283,14 @@ export class AgGridComponent implements OnInit {
     console.log(this.columnsForExport, "columnsForExport columnsForExport")
     var csvcelParams = {
       fileName: name,
-      columnKeys: this.columnsForExport
+      columnKeys: this.columnsForExport,
+      processCellCallback: (params) => this.processCells(params)
     }
     this.gridApi.exportDataAsCsv(csvcelParams);
+  }
+
+  processCells(params: any) {
+    return params.value;
   }
 
   getContextMenuItems(params: GetContextMenuItemsParams) {

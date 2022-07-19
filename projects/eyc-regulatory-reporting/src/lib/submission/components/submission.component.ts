@@ -229,7 +229,10 @@ export class SubmissionComponent implements OnInit {
       this.totalRecords = res['totalRecords'];
       this.noFilesDataAvilable = false;
       this.submittedFiles = res['data'];
-      this.rowData = res['data'];
+      this.rowData = res['data'].map(item => {
+        item.dateSubmitted? item.dateSubmitted = this.datepipe.transform(item.dateSubmitted,'MMM dd y hh:mm a') + ' GMT':item.dateSubmitted = '';
+        return item
+    });
       console.log('GET XML FILES ROW DATA', this.rowData);
       if (resetData) {
         this.resetData();
@@ -291,10 +294,10 @@ export class SubmissionComponent implements OnInit {
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
           {
-            cellRendererFramework: CellRendererTemplateComponent,
-            cellRendererParams:{
-              ngTemplate:this.dateSubmittedTemplate
-            },
+            // cellRendererFramework: CellRendererTemplateComponent,
+            // cellRendererParams:{
+            //   ngTemplate:this.dateSubmittedTemplate
+            // },
             headerName: 'Status Changed',
             field: 'dateSubmitted',
             minWidth: 220,
@@ -537,7 +540,7 @@ export class SubmissionComponent implements OnInit {
             for (let j in this.submittedFiles) {
               if (this.submittedFiles[j].fileName == res['data'][i].fileName) {
                 this.submittedFiles[j].status = res['data'][i].status;
-                this.submittedFiles[j].dateSubmitted = res['data'][i].updatedDate;
+                this.submittedFiles[j].dateSubmitted = this.datepipe.transform(res['data'][i].updatedDate,'MMM dd y hh:mm a') + ' GMT';
                 this.submittedFiles[j].updatedBy = res['data'][i].updatedBy;
                 break;
               }
