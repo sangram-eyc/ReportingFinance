@@ -493,7 +493,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         field: 'Actions',
         minWidth: 100,
         sortable: false,
-        menuTabs: [],
+        menuTabs: ['generalMenuTab'],
         filter:false,
         cellClass: 'actions-button-cell'
       },
