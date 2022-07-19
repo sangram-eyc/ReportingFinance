@@ -189,6 +189,12 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         pinned: 'left',
       },
       {
+        headerName: 'Audit Filing ID',
+        field: 'AuditFilingID',
+        minWidth: 350,
+        hide: true,
+      },
+      {
         cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.expandExceptionTemplate,

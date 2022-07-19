@@ -194,7 +194,8 @@ export class FundScopingComponent implements OnInit {
       cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
         ngTemplate: this.dropdownFundsTemplate,
-      }
+      },
+      menuTabs: ['generalMenuTab'],
     },
     {
       headerName: 'ID',
