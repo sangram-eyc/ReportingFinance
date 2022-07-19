@@ -47,7 +47,7 @@
           <motif-toggle-switch [hideLabels]="true" [(ngModel)]="mytasks" (change)="toggleChanged($event)">
           </motif-toggle-switch>
         </div>
-        <div class="filterWrapper" (click)="openCloseToolPanel('filters')">
+        <div *ngIf="filterDisable" class="filterWrapper" (click)="openCloseToolPanel('filters')">
           <span>Filter</span>
           <div class="filter_icon">
             <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>
@@ -68,7 +68,7 @@
         </div> -->
       </div>
       <div class="search" *ngIf="!search">
-        <div class="filterWrapper" (click)="openCloseToolPanel('filters')">
+        <div  *ngIf="filterDisable" class="filterWrapper" (click)="openCloseToolPanel('filters')">
           <span>Filter</span>
           <div class="filter_icon">
             <motif-icon [src]="'/assets/icons/content/ic_filter_list_24px.svg'"></motif-icon>

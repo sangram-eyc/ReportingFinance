@@ -46,6 +46,7 @@ export class AgGridComponent implements OnInit {
   @Input() gridStyle = 'first';
   @Input() permissionToPrimaryButton = true;
   @Input() permissionToSecondaryButton = true;
+  @Input() filterDisable = true;
   @Input() displayPlusIcon = true;
   @Input() buttonText = 'Approve selected';
   @Input() displaySecondButton = false;
@@ -222,7 +223,7 @@ export class AgGridComponent implements OnInit {
    ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if(this.rowData.length==0){
+    if(this.rowData && this.rowData.length==0){
       this.columnDefs =[];
     }
   }
