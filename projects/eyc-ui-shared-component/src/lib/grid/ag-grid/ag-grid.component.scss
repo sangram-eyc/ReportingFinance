@@ -3,7 +3,7 @@
     border-left: 1px solid #e1e1e6;
     border-right: 1px solid #e1e1e6;
     margin-bottom: 0px;
-    padding: 28px 34px 12px 12px;
+    padding: 20px;
 }
 
 .second-heading {
@@ -102,6 +102,8 @@
     justify-content: space-between;
     cursor: pointer;
     fill: #155cb4;
+    position: relative;
+    top: 3px;
     span {
         font-family: EYInterstate;
         font-size: 14px;
@@ -197,7 +199,9 @@
     margin-left: 15px;
     justify-content: space-between;
     cursor: pointer;
-    fill: #3A3A4A;;
+    fill: #3A3A4A;
+    top: 3px;
+    position: relative;
     span {
         font-family: EYInterstate;
         font-size: 14px;
@@ -208,7 +212,7 @@
         font-weight: 400;
     }
     .filter_icon {
-        margin-left: 16px;
+        margin-left: 10px;
         font-weight: 400;
     }
 }
