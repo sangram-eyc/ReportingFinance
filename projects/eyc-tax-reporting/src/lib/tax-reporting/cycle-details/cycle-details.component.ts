@@ -74,8 +74,8 @@ export class CycleDetailComponent implements OnInit {
   productCycleId;
   productCycleName;
   productCycleParams: string;
-  //permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  permissionApproval = true
+  permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
+  //permissionApproval = true
 
 
 
