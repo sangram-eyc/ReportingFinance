@@ -229,10 +229,13 @@ export class SubmissionComponent implements OnInit {
       this.totalRecords = res['totalRecords'];
       this.noFilesDataAvilable = false;
       this.submittedFiles = res['data'];
-      this.rowData = res['data'].map(item => {
-        item.dateSubmitted? item.dateSubmitted = this.datepipe.transform(item.dateSubmitted,'MMM dd y hh:mm a') + ' GMT':item.dateSubmitted = '';
-        return item
-    });
+      if( res['data']) {
+        this.rowData = res['data'].map(item => {
+          item.dateSubmitted? item.dateSubmitted = this.datepipe.transform(item.dateSubmitted,'MMM dd y hh:mm a') + ' GMT':item.dateSubmitted = '';
+          return item
+      });
+      }
+      
       console.log('GET XML FILES ROW DATA', this.rowData);
       if (resetData) {
         this.resetData();
