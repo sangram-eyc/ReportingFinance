@@ -200,6 +200,10 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'ID',
       field: 'fundId',
+      comparator: (valueA, valueB) => {
+        if (valueA == valueB) return 0;
+        return (valueA > valueB) ? 1 : -1;
+      },
       minWidth: 150,
       filter: 'agSetColumnFilter',
       filterParams: {
