@@ -75,7 +75,7 @@ export class AppComponent
   pendingDownloads: any;
   pendingDownloadsNew: any;
   timeoutWarnDownloads;
-
+  notificationServiceDetail: string = 'see';
   countDown: Subscription;
   counter = 18000;
   tick = 1000;
@@ -354,7 +354,7 @@ export class AppComponent
         if (this.count == 1) {
           console.log('Run ngAfterViewInit', this.count);
           this.checkTimeOut();
-          this.connectSse();
+          this.notificationServiceDetail === 'sse' ? this.connectSse() : this.connectWebSocket();
         }
       }
     }, 40);
@@ -445,11 +445,11 @@ export class AppComponent
       ) {
         this.warningMessage();
       } else {
-        //this.wsBulkService.closeConection();
+        this.notificationServiceDetail === 'websocket' ? this.wsBulkService.closeConection(): '';
         this.settingsService.logoff();
       }
     } else {
-      //this.wsBulkService.closeConection();
+      this.notificationServiceDetail === 'websocket' ? this.wsBulkService.closeConection(): '';
       this.settingsService.logoff();
     }
   }
