@@ -75,7 +75,7 @@ export class AppComponent
   pendingDownloads: any;
   pendingDownloadsNew: any;
   timeoutWarnDownloads;
-  notificationServiceDetail: string = 'websocket';
+  notificationServiceDetail: string = 'see';
   countDown: Subscription;
   counter = 18000;
   tick = 1000;
