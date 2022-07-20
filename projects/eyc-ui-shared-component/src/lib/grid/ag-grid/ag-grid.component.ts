@@ -225,7 +225,10 @@ export class AgGridComponent implements OnInit {
     this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
     if(this.rowData && this.rowData.length==0){
       this.columnDefs =[];
-    }
+      this.filterDisable= false;
+      }else {
+        this.filterDisable= true;
+    }    
   }
 
    onChange(event): void {
