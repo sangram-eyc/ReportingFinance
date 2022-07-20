@@ -91,6 +91,10 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Filing_Entities_Exception_Reports_";
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['exceptionResultJason'];
+      this.commentsCount = res.data['commentCountMap'];
+      res.data['exceptionResultJason'].forEach(obj=>{
+        obj['comments'] = this.commentsCount[obj.AuditFilingID] ? this.commentsCount[obj.AuditFilingID] : 0;
+     })
       if (this.exceptionAnswersData) {
         this.createEntitiesRowData();
       } else {
@@ -98,8 +102,6 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         this.createEntitiesRowData();
         this.exceptionAnswersDefsAgGrid = [];
       }
-
-      this.commentsCount = res.data['commentCountMap'];
     });
   }
   createEntitiesRowData(): void {
@@ -112,7 +114,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         AuditType: element.AuditType,
         exceptionReportName: element.Audit,
         Unresolved: element.Unresolved,
-        Resolved: element.Resolved
+        Resolved: element.Resolved,
+        comments: element.comments
       });
     });
     // this.exceptionAnswersDefs = [
@@ -350,6 +353,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditFilingID === row.AuditFilingID)].comments = 1;
         this.commentsCount[row.AuditFilingID] = 1;
         this.createEntitiesRowData();
       } else {

@@ -127,6 +127,10 @@ export class ViewExceptionReportsComponent implements OnInit {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
+      this.commentsCount = res.data['commentCountMap'];
+      this.exceptionAnswersData.forEach(obj=>{
+        obj['comments'] = this.commentsCount[obj.AuditResultObjectID] ? this.commentsCount[obj.AuditResultObjectID] : 0;
+     })
       if (this.exceptionAnswersData) {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
@@ -134,7 +138,6 @@ export class ViewExceptionReportsComponent implements OnInit {
         // this.exceptionAnswersDefs = [];
         this.exceptionAnswersDefsAgGrid = [];
       }
-      this.commentsCount = res.data['commentCountMap'];
     });
     this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Exception_Reports_Individual_Exception_Report_";
   }
@@ -268,6 +271,7 @@ export class ViewExceptionReportsComponent implements OnInit {
             tooltipField: `${property}`
           });
         } else {
+          if(property != "comments"){
           this.exceptionAnswersDefsAgGrid.push({
             field: `${property}`,
             headerName: `${property}`,
@@ -279,6 +283,7 @@ export class ViewExceptionReportsComponent implements OnInit {
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           });
+        }
         }
       }
     }
@@ -292,11 +297,12 @@ export class ViewExceptionReportsComponent implements OnInit {
     //   wrapText: true
     // });
     this.exceptionAnswersDefsAgGrid.push({
-      headerName: 'Comments',
       cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
         ngTemplate: this.commentExceptionTemplate,
       }, 
+      headerName: 'Comments',
+      field:'comments',
       filter: 'agSetColumnFilter',
       filterParams: {
         buttons: ['reset']
@@ -374,6 +380,7 @@ export class ViewExceptionReportsComponent implements OnInit {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
         this.commentsCount[row.AuditResultObjectID] = 1;
         this.createEntitiesRowData();
       } else {

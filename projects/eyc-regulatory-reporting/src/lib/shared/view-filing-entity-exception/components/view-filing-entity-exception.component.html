@@ -53,13 +53,13 @@
   </lib-shared-grid> -->
 
   <ng-template #commentExceptionTemplate let-row>
-    <div *ngIf="commentsCount[row.AuditFilingID] && permissions.validatePermission(permissionStage, 'View Comments')"
+    <div *ngIf="row.comments && permissions.validatePermission(permissionStage, 'View Comments')"
         (click)="openComments(row)">
-      <span class="comments-background" >{{commentsCount[row.AuditFilingID]}}</span>
+      <span class="comments-background" >{{row.comments}}</span>
     </div>
 
     <div class="commentTemplate"
-        *ngIf="!commentsCount[row.AuditFilingID] && permissions.validatePermission(permissionStage, 'Add Comments') &&
+        *ngIf="!row.comments && permissions.validatePermission(permissionStage, 'Add Comments') &&
     !checkFilingCompletedStatus()">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
