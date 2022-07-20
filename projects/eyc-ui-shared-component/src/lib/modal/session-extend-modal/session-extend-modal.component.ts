@@ -15,13 +15,13 @@ export class SessionExtendModalComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.modalDetails = data;
-    console.log(this.modalDetails);
 
   }
 
   onTimerFinished(e: CountdownEvent) {
     if (e.action == 'done') {
-      this.isSessionExtent = false;
+      // this.isSessionExtent = false;
+      this.dialogRef.close({ button: "Time out" });
     }
   }
 
@@ -32,11 +32,7 @@ export class SessionExtendModalComponent implements OnInit, OnDestroy {
 
 
   close(): void {
-    if (this.isSessionExtent) {
-      this.logout();
-    } else {
-      this.logIn();
-    }
+    this.logout();
   }
   sessionExtent() {
     this.dialogRef.close({ button: "Extend session" });

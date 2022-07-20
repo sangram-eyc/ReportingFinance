@@ -270,4 +270,8 @@ export class DataManagedService {
   getApiBaseUrl(){
     return this.dataManagedSettingsService.dataManagedServices.base_Url;
   }
+
+  getApiCatalog(){
+    return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.api_catalog}`);
+  }
 }

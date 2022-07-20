@@ -53,7 +53,7 @@
       <div class="col-md-4 col-sm-4 mb-3 wrapper-approve-btn">
         <span class="pull-right">
           <button motifButton class="approve-button" color="primary" size="large" 
-            [disabled]='!canApprove()' (click)="approveToFund()">
+            [disabled]='!canApprove() || isArchived' (click)="approveToFund()">
             Approve
           </button>
         </span>
@@ -71,7 +71,7 @@
         <div class="col-md-3 col-sm-3 padding-left-comment">
           <div class="card-column">
             <button motifButton color="primary-alt" class="btn-width-auto" (click)="addCommentToFund()"
-              [disabled]="!canAddComments()">New Comment</button>
+              [disabled]="!canAddComments() || isArchived">New Comment</button>
           </div>
         </div>
         <div class="col-md-5 col-sm-5">
@@ -149,7 +149,11 @@
       <!-- Task component -->
       <div class="section-list-comments row">
         <div class="each-element" *ngFor="let comment of filteredComments">
-          <app-task-comment [TaskCommentData]='comment' (onCommentStatusChanged)="commentStatusUpdated($event)" (onCommentTagDeleted)="commentTagUpdateSearch($event)" (onCommentPriorityDeleted)="commentPriorityUpdateSearch($event)">
+          <app-task-comment [TaskCommentData]='comment' [isArchived]= 'isArchived'
+            (onCommentStatusChanged)="commentStatusUpdated($event)" 
+            (onCommentTagDeleted)="commentTagUpdateSearch($event)" 
+            (onCommentaddTag)="commentaddTagSearch($event)"
+            (onCommentPriorityUpdated)="commentPriorityUpdateSearch($event)">
           </app-task-comment>
         </div>   
         <div class="col-md-12 col-sm-12 mt-5 no_data_task" *ngIf="emptyCommentSearch && isData"> 

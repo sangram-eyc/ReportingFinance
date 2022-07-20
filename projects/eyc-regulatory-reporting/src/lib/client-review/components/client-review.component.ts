@@ -4,11 +4,11 @@ import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
+import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE, CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
-import { rr_module_name } from '../../config/rr-config-helper';
+import { clientReviewStage, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 
 @Component({
   selector: 'lib-client-review',
@@ -24,6 +24,8 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   showComments = false;
   currentEntityReviewLevel;
   moduleOriginated = rr_module_name;
+  tabsData = tabsForRR;
+  exportName: string;
   constructor(
     private service: ClientReviewService,
     private filingService: RegulatoryReportingFilingService,
@@ -66,8 +68,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
-  columnDefs;
-  exceptionDefs;
+  // columnDefs;
+  columnDefsAgGrid;
+  // exceptionDefs;
+  exceptionDefsAgGrid;
   exceptionData;
   exceptionDataForFilter = [];
   exceptionDefaultColDef;
@@ -187,7 +191,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.unapproveExceptionReports = this.unApproveException.bind(this);
     this.pageChangeFunc = this.onPageChange.bind(this);
     sessionStorage.getItem("reportingTab") ? this.tabs = sessionStorage.getItem("reportingTab") : this.tabs = 2;
-
   }
 
   ngOnDestroy() {
@@ -205,24 +208,24 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.exceptionReportToApproveSelectedRows = [];
     this.exceptionReportToUnaproveSelectedRows = [];
     this.sort = resetData ? 'unresolved:false' : this.sort;
-    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review', this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Exception_Reports_";
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, 'Client review').subscribe(res => {
       this.exceptionData = res['data'];
       this.exceptionDataForFilter = this.exceptionData;
       this.totalRecords = res['totalRecords'];
-      console.log(this.exceptionData);
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
-        this.exceptionDefs = [];
-        this.exceptionDefs = newColDefs;
-        console.log('EXCEPTION DATA COL', this.exceptionData);
+        // const newColDefs = this.gridApi.getColumnDefs();
+        // this.exceptionDefs = [];
+        // this.exceptionDefsAgGrid = [];
+        // this.exceptionDefs = newColDefs;
+        // this.exceptionDefsAgGrid = newColDefs;
         this.exceptionRowData = [...this.exceptionData];
       }
       
     },error=>{
       this.exceptionData =[];
-      console.log("Client Review error");
     });
 
   }
@@ -231,20 +234,22 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.filingEntityApprovedSelectedRows = [];
     this.filingEntityUnaprovedSelectedRows = [];
     this.sort = resetData ? 'entityName:true' : this.sort;
-    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_Client Review_Filing_Entities_";
+    this.service.getfilingEntities(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       this.rowData = res['data'];
       this.totalRecords = res['totalRecords'];
       if (resetData) {
         this.resetData();
       } else {
-        const newColDefs = this.gridApi.getColumnDefs();
-        this.columnDefs = [];
-        this.columnDefs = newColDefs;
+        // const newColDefs = this.gridApi.getColumnDefs();
+        // this.columnDefs = [];
+        // this.columnDefsAgGrid = []
+        // this.columnDefs = newColDefs;
+        // this.columnDefsAgGrid = newColDefs;
         this.filingEntityRowData = [...this.rowData];
       }
     },error=>{
       this.rowData =[];
-      console.log("Client Review error");
     });
   }
 
@@ -268,240 +273,470 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     const customComparator = (valueA, valueB) => {
       return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
     };
-    this.columnDefs = [];
-    this.exceptionDefs = [];
+    // this.columnDefs = [];
+    this.columnDefsAgGrid = []
+    // this.exceptionDefs = [];
+    this.exceptionDefsAgGrid = [];
     this.filingEntityRowData = [];
     this.exceptionRowData = [];
     setTimeout(() => {
-      this.columnDefs = [
+      // this.columnDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.dropdownTemplate,
+      //     },
+      //     field: 'template',
+      //     headerName: '',
+      //     width: 20,
+      //     sortable: false,
+      //     pinned: 'left'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'ID',
+      //     field: 'fundId',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 140,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.expandEntityTemplate,
+      //     },
+      //     headerName: 'Entity Name',
+      //     field: 'entityName',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Review Level',
+      //     field: 'reviewLevel',
+      //     sortable: true,
+      //     filter: true,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.unresolveFilingTemplate,
+      //     },
+      //     headerName: 'Unresolved',
+      //     field: 'unResolvedException',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 210,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.resolveFilingTemplate,
+      //     },
+      //     headerName: 'Resolved',
+      //     field: 'resolvedException',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 210,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.commentTemplate,
+      //     },
+      //     headerName: 'Comments',
+      //     field: 'commentsCount',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 155,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.lastUpdatedByTemplate,
+      //     },
+      //     headerName: 'Last Updated By',
+      //     field: 'updatedBy',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     sortable: true,
+      //     filter:true,
+      //     width: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.viewFilingEntityTemplate,
+      //     },
+      //     width: 50
+      //   }
+      // ];
+      this.columnDefsAgGrid = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'template',
-          headerName: '',
-          width: 20,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
           sortable: false,
-          pinned: 'left'
+          menuTabs: [],
+          filter:false,
+          pinned: 'left',
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'ID',
           field: 'fundId',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 140,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 140,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.expandEntityTemplate,
           },
           headerName: 'Entity Name',
           field: 'entityName',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
+          tooltipField: 'entityName'
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth:155
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.unresolveFilingTemplate,
           },
           headerName: 'Unresolved',
           field: 'unResolvedException',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.resolveFilingTemplate,
           },
           headerName: 'Resolved',
           field: 'resolvedException',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
-         /*,
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'My Tasks',
-          field: 'myTasks',
-          sortable: true,
-          filter: true,
-          width: 140
-        }, */
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.commentTemplate,
           },
           headerName: 'Comments',
           field: 'commentsCount',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 155,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.lastUpdatedByTemplate,
           },
           headerName: 'Last Updated By',
           field: 'updatedBy',
-          wrapText: true,
-          autoHeight: true,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter:true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 350,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.viewFilingEntityTemplate,
           },
-          width: 50
+          maxWidth: 50
         }
       ];
 
-      this.exceptionDefs = [
+      // this.exceptionDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.dropdownTemplate,
+      //     },
+      //     field: 'template',
+      //     headerName: '',
+      //     width: 20,
+      //     sortable: false,
+      //     pinned: 'left'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Exception Report Type',
+      //     field: 'exceptionReportType',
+      //     sortable: true,
+      //     filter: true,
+      //     comparator: this.disableComparator,
+      //     autoHeight: true,
+      //    wrapText: true,
+      //    width: 300
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.expandExceptionTemplate,
+      //     },
+      //     headerName: 'Exception Report Name',
+      //     field: 'exceptionReportName',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'Review Level',
+      //     field: 'reviewLevel',
+      //     sortable: true,
+      //     filter: true,
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.unresolveExceptionTemplate,
+      //     },
+      //     headerName: 'Unresolved',
+      //     field: 'unresolved',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 210,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.resolveExceptionTemplate,
+      //     },
+      //     headerName: 'Resolved',
+      //     field: 'resolved',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 210,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.commentExceptionTemplate,
+      //     },
+      //     headerName: 'Comments',
+      //     field: 'comments',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 155,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.lastUpdatedByTemplate,
+      //     },
+      //     headerName: 'Last Updated By',
+      //     field: 'updatedBy',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     sortable: true,
+      //     filter:true,
+      //     width: 300,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.viewDetTemplate,
+      //     },
+      //     width: 50
+      //   }
+      // ];
+      this.exceptionDefsAgGrid=  [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.dropdownTemplate,
-          },
-          field: 'template',
-          headerName: '',
-          width: 20,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
           sortable: false,
-          pinned: 'left'
+          menuTabs: [],
+          filter:false,
+          pinned: 'left',
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exception Report Type',
           field: 'exceptionReportType',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          comparator: this.disableComparator,
-          autoHeight: true,
-         wrapText: true,
-         width: 300
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
+          tooltipField: 'exceptionReportType'
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.expandExceptionTemplate,
           },
           headerName: 'Exception Report Name',
           field: 'exceptionReportName',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
+          tooltipField: 'exceptionReportName'
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Review Level',
           field: 'reviewLevel',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.unresolveExceptionTemplate,
           },
           headerName: 'Unresolved',
           field: 'unresolved',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.resolveExceptionTemplate,
           },
           headerName: 'Resolved',
           field: 'resolved',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 210,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.commentExceptionTemplate,
           },
           headerName: 'Comments',
           field: 'comments',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          width: 155,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 155,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.lastUpdatedByTemplate,
           },
           headerName: 'Last Updated By',
-          field: 'updatedBy',
-          wrapText: true,
-          autoHeight: true,
+          field: 'updateBy',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter:true,
-          width: 300,
-          comparator: this.disableComparator
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 350,
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.viewDetTemplate,
           },
-          width: 50
+          maxWidth: 50
         }
       ];
       this.filingEntityRowData = this.rowData;
@@ -531,12 +766,10 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   currentPageChange(event) {
-    console.log('CURRENT PAGE CHANGE', event - 1);
     this.currentPage = event - 1;
   }
 
   updatePageSize(event) {
-    console.log('CURRENT PAGE SIZE', event);
     this.pageSize = event;
     this.exceptionEntitySwitch();
   }
@@ -613,7 +846,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
   onSubmitApproveExceptionReports() {
-    console.log(this.exceptionReportToApproveSelectedRows);
     const filingDetails = this.filingDetails;
     let selectedFiling = {
       "exceptionReportIds": this.exceptionReportToApproveSelectedRows.map(({ exceptionId }) => exceptionId),
@@ -647,18 +879,12 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     this.selectedRows = event;
     this.exceptionReportToApproveSelectedRows = this.selectedRows.filter(item => item.approved === false)
     this.exceptionReportToUnaproveSelectedRows = this.selectedRows.filter(item => item.approved === true)
-    console.log(this.exceptionReportToApproveSelectedRows);
-    console.log(this.exceptionReportToUnaproveSelectedRows);
-
   }
 
   filingEnitiesRowsSelected(event) {
-    console.log(event);
     this.selectedRows = event;
     this.filingEntityApprovedSelectedRows = this.selectedRows.filter(item => item.approved === false);
     this.filingEntityUnaprovedSelectedRows = this.selectedRows.filter(item => item.approved === true);
-    console.log(this.filingEntityUnaprovedSelectedRows);
-    console.log(this.filingEntityApprovedSelectedRows);
   }
 
   addComment(row) {
@@ -702,19 +928,15 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.rowData[this.rowData.findIndex(item => item.entityId === row.entityId)].commentsCount = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
@@ -759,24 +981,19 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed', result);
       if(result.button === "Submit") {
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
           files: result.data.files
         }
-        console.log(obj);
         this.exceptionData[this.exceptionData.findIndex(item => item.exceptionId === row.exceptionId)].comments = 1;
         this.createEntitiesRowData();
-      } else {
-        console.log(result);
-      }
+      } 
     });
   }
 
   onClickMyTask(event){
-    console.log(event);
     if(event){
       this.exceptionData = this.exceptionDataForFilter.filter(item => item.mytask ==true);
     } else {
@@ -798,7 +1015,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
   }
 
 actionMenuEnableforException(row) {
-  console.log('Client Review > unapprove > exception');
     this.selectedExceptionId = row.exceptionId;
   setTimeout(() => {
     this.actionMenuModalEnabled = true;
@@ -846,20 +1062,12 @@ actionMenuEnableforException(row) {
   unApproveException(){
     this.selectedExceptionIds = [];
     this.selectedExceptionIds.push(this.selectedExceptionId);
-    // let selectedFiling = {
-    // "entityType": "Answer Exception Report",
-    // "entities":  this.selectedExceptionIds,
-    // "filingName": this.filingDetails.filingName,
-    // "period": this.filingDetails.period,
-    // "stage": "Client Review"
-    // };
-
     let selectedFiling = {
       "entityType": "Answer Exception Report",
       "entities":  this.exceptionReportToUnaproveSelectedRows.map(({ exceptionId }) => exceptionId),
       "filingName": this.filingDetails.filingName,
       "period": this.filingDetails.period,
-      "stage": "Client Review"
+      "stage": clientReviewStage
       };
 
     let tempRowData = this.exceptionData;
@@ -890,66 +1098,6 @@ actionMenuEnableforException(row) {
   }
 
 
-  unApproveExceptionOld(){
-    this.actionMenuModal = false;
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: {
-        type: "Confirmation",
-        header: "Unapprove",
-        description: "Are you sure you want to unapprove this exception report(s)? This will move this back to the previous reviewer/step",
-        footer: {
-          style: "start",
-          YesButton: "Continue",
-          NoButton: "Cancel"
-        }
-      }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      if (result.button == 'Continue') {
-        this.selectedExceptionIds = [];
-        this.selectedExceptionIds.push(this.selectedExceptionId);
-        const filingDetails = this.filingDetails;
-        let selectedFiling = {
-        "entityType": "Answer Exception Report",
-        "entities":  this.selectedExceptionIds,
-        "filingName": this.filingDetails.filingName,
-        "period": this.filingDetails.period,
-        "stage": "Client Review"
-        };
-
-        let tempRowData = this.exceptionData;
-        this.exceptionData = [];
-        this.service.unApproveAnswerExceptions(selectedFiling).subscribe(res => {
-          res['data'].forEach(ele => {
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].approved = false;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].updateBy = ele.updatedBy;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].resolved = ele.resolved;
-            tempRowData[tempRowData.findIndex(item => item.exceptionId === ele.entityId)].unresolved = ele.unresolved;
-          });
-          this.exceptionData = tempRowData;
-          this.createEntitiesRowData();
-          this.exceptionReportRows = [];
-          this.filingService.invokeFilingDetails();
-          this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          this.getExceptionReports();
-          setTimeout(() => {
-            this.showToastAfterUnApproveFilings = !this.showToastAfterUnApproveFilings;
-          }, 5000);
-        },error=>{
-          this.exceptionData = tempRowData;
-          this.createEntitiesRowData();
-        });
-
-      }
-    });
-  
-    
-  }
-
-
   commentAdded() {
     if (this.tabs==2) {
       this.getFilingEntities();
@@ -960,12 +1108,12 @@ actionMenuEnableforException(row) {
   
   routeToExceptionDetailsPage(event:any) {
     this.filingService.setExceptionData = event;
-    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-exception-reports'],{ state: { componentStage: clientReviewStage }});
   }
 
   routeToFilingEntityExceptionPage(event:any) {
     this.filingService.setFilingEntityData = event;
-    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: 'Client Review' }});
+    this.router.navigate(['/view-filing-entity-exception'],{ state: { componentStage: clientReviewStage }});
   }
 
   @HostListener('document:click', ['$event'])
@@ -989,19 +1137,16 @@ actionMenuEnableforException(row) {
       } else {
         this.exportHeaders = 'exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,reviewLevel:Review Level,unresolved:Unresolved,resolved:Resolved,updateBy:Last Updated By';
       }
-      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client Review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
+      this.exportURL =  this.settingsService.regReportingFiling.rr_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period + "&stage=Client review" + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     }
-    console.log("export URL > ", this.exportURL);
 
     this.service.exportCRData(this.exportURL).subscribe(resp => {
-      console.log(resp);
     })
     
   }
 
   onClickLastUpdatedByEntity(row) {
-    console.log(row);
-    
+ 
     let auditObjectId = row.entityId;
     let auditObjectType = 'Filing Entity'
 
@@ -1066,8 +1211,6 @@ actionMenuEnableforException(row) {
   }
 
   onClickLastUpdatedByException(row) {
-    console.log(row);
-    
     let auditObjectId = row.exceptionId;
     let auditObjectType = 'Exception Report'
     

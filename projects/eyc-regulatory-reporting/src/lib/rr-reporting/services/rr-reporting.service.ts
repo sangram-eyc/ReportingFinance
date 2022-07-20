@@ -12,12 +12,12 @@ export class RrReportingService {
     private apiService: EycRrApiService, private settingsService: EycRrSettingsService
   ) { }
 
-  getExceptionReports(filingName, period, stage, page, size, filter, sort) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}filingName=${filingName}&period=${period}&stage=${stage}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
+  getExceptionReports(filingName, period, stage) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_exception_reports}filingName=${filingName}&period=${period}&stage=${stage}`);
   }
 
-  getfilingEntities(filingName, period, page, size, filter, sort) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}&filingName=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
+  getfilingEntities(filingName, period) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.rr_filing_entities}&filingName=${filingName}&period=${period}`);
   }
 
   approvefilingEntities(data) {

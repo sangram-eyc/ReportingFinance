@@ -39,10 +39,10 @@
 </div>
 
 <div class="modal-footer {{modalDetails.footer.style}}">
-    <button *ngIf="!ConfirmationTextUpload" motifButton class="approve-yes" color="primary"
+    <button *ngIf="!ConfirmationTextUpload" motifButton class="approve-yes" color="primary-alt"
         (click)="onClickYes()">{{modalDetails.footer.YesButton}}</button>
 
-    <button *ngIf="ConfirmationTextUpload" motifButton class="approve-yes" color="primary" (click)="onClickYes()"
+    <button *ngIf="ConfirmationTextUpload" motifButton class="approve-yes" color="primary-alt" (click)="onClickYes()"
         [disabled]="modalForm.invalid">{{modalDetails.footer.YesButton}}</button>
 
     <button motifButton class="approve-no" color="secondary" (click)="close()">{{modalDetails.footer.NoButton}}</button>

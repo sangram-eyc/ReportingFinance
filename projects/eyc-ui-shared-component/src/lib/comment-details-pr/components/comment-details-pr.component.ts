@@ -13,6 +13,7 @@ import * as FileSaver from 'file-saver';
 export class CommentDetailsPrComponent implements OnInit {
 
   @Input() TaskCommentData:any;
+  @Input() isArchived:any;
   
   Requestfrom:string = 'Client'
   createdBy:string = 'Patrick Mahomes'

@@ -1,6 +1,7 @@
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"></lib-dots-card>
-<lib-reporting-tabs-card (messageEvent)="receiveMessage($event)" [tabIn]="tabs"
-    [dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-reporting-tabs-card>
+<lib-shared-tabs (messageEvent)="receiveMessage($event)" [tabIn]="tabs" [tabsData]="tabsData"
+[dataExpPermission]="permissions.validatePermission('Client Review', 'Data Explorer')"></lib-shared-tabs>
+
 <div class="review-content-container">
 
     <motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
@@ -13,7 +14,28 @@
     </motif-toast>
 
     <section id="exceptionReports" *ngIf="tabs==1">
-        <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
+        <lib-ag-grid [rowData]="exceptionRowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"
+        [permissionToPrimaryButton]="false"
+        rowSelection="multiple" 
+        [submitFunction]="submitException" 
+        [submitTwoFunction]="unapproveExceptionReports"
+        [modalMessage]="modalMessage"
+        buttonPosition="left" 
+        [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
+        [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+        [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Exception Unapprove')"
+        [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+        [isHideCheckBox]="false"
+        [customRowSelected]="true"
+        (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+        (gridReady)="handleGridReady($event)"
+        [modalConfig]="exceptionModalConfig" [exportName] = "exportName"
+        [modalConfigTwo]="exceptionUnapproveModalConfig">
+        </lib-ag-grid>
+
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="exceptionRowData"
             rowSelection="multiple" 
             [submitFunction]="submitException" 
             [submitTwoFunction]="unapproveExceptionReports"
@@ -27,22 +49,21 @@
             (toggleEventToParent)="onClickMyTask($event)"
             [permissionToPrimaryButton]="false"
             [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Exception Status Change Resolve')"
-            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0"
-            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Exception Unapprove') && !checkFilingCompletedStatus()"
-            [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0"
+            [disabledApproveButton]="exceptionReportToApproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Exception Unapprove')"
+            [disabledUnapproveButton] ="exceptionReportToUnaproveSelectedRows.length == 0 || checkFilingCompletedStatus()"
             [isHideCheckBox]="false"
             [customRowSelected]="true"
             (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()"
             [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="exceptionRowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="exceptionRowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
 
         <ng-template #commentExceptionTemplate let-row>
             <div *ngIf="row.comments!==0 && permissions.validatePermission('Client Review', 'View Comments') "
-                class="comments-background" (click)="openComments(row)">
-                {{row.comments}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.comments}}</span>
             </div>
             <div class="commentTemplate"
                 *ngIf="(row.comments===0 || !row.comments) &&  permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">
@@ -143,7 +164,27 @@
     </section>
 
     <section id="filingEntities" *ngIf="tabs==2" (click)="outsideClick($event)">
-        <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
+        <lib-ag-grid [rowData]="filingEntityRowData" [columnDefs]="columnDefsAgGrid" [export]="true" buttonPosition="left"
+            [search]="true" paginationSize="10"
+            [submitFunction]="submitEntities"
+            [submitTwoFunction]="unapproveFilingEntities"
+            [modalMessage]="modalMessage" 
+            buttonPosition="left" 
+            [masterDetail]="true"
+            [isToggle]="false" 
+            [modalConfig]="entitiesModalConfig"
+            [detailCellRendererParams]="exceptionDetailCellRendererParams" 
+            [permissionToPrimaryButton] = "false"
+            [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
+            [disabledApproveButton]="filingEntityApprovedSelectedRows.length ==0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') "
+            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
+            [isHideCheckBox]="false"
+            [customRowSelected]="true" [exportName] = "exportName"
+            (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
+            (gridReady)="handleGridReady($event)"></lib-ag-grid>
+
+        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="filingEntityRowData" rowSelection="multiple"
             [submitFunction]="submitEntities"
             [submitTwoFunction]="unapproveFilingEntities"
             [modalMessage]="modalMessage" 
@@ -157,14 +198,14 @@
             [permissionToPrimaryButton] = "false"
             [permissionToApproveButton]="this.permissions.validatePermission('Client Review', 'Filing Entity Status Change Resolve')"
             [disabledApproveButton]="filingEntityApprovedSelectedRows.length ==0"
-            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
-            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0"
+            [permissionToUnapproveButton] = "this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') "
+            [disabledUnapproveButton] ="filingEntityUnaprovedSelectedRows.length ==0 || checkFilingCompletedStatus()"
             [isHideCheckBox]="false"
             [customRowSelected]="true"
             (selectedRowEmitter)="filingEnitiesRowsSelected($event)"
             [export]="true" (exportFlagToParent)="exportData('entities')" [paginationApi]="rowData?.length>0 ? true : false"
             (gridReady)="handleGridReady($event)" [pagination]="rowData?.length>0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
         <ng-template #headerTemplate>
             <div>
@@ -179,30 +220,10 @@
             </div>
         </ng-template>
 
-        <!-- <ng-template #actionButtonTemplate let-row>
-            <div class="actionButtonTemplate">
-                <motif-icon *ngIf='tabs==2' [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" tabindex="0"
-                    (click)="actionMenuEnableforEntity(row)" [ngClass]="row.approved ? 'actionCursor' : ''">
-                </motif-icon>
-
-                <div #actionMenuTemp *ngIf='tabs==2'>
-                    <motif-card class="action-menu-card"
-                        *ngIf="actionMenuModal && selectedEntityId == row.entityId && row.approved">
-                        <div *ngIf="this.permissions.validatePermission('Client Review', 'Filing Entity Unapprove') && !checkFilingCompletedStatus()"
-                            (click)="unApproveEntity()" class="action-mode">
-                            <motif-icon [src]="'/assets/icons/content/ic_undo_24px.svg'"></motif-icon>
-                            <span>Unapprove</span>
-                        </div>
-                    </motif-card>
-                </div>
-
-            </div>
-        </ng-template> -->
-
         <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Client Review', 'View Comments')"
-                class="comments-background" (click)="openComments(row)">
-                {{row.commentsCount}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.commentsCount}}</span>
             </div>
             <div class="commentTemplate"
                 *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Client Review', 'Add Comments') && !checkFilingCompletedStatus()">
@@ -276,12 +297,9 @@
         </motif-toast>
     </section>
 </div>
-
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName"
     [permissionToAddComment]="permissions.validatePermission('Client Review', 'Add Comments')"
     [filingStatus]="checkFilingCompletedStatus()"
     (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
-
-    
 <lib-audit-log [(show)]="showAuditLog" [auditLogs]="auditLogs" [fileDetail]="fileDetail" [stage]="'Client review'"></lib-audit-log>

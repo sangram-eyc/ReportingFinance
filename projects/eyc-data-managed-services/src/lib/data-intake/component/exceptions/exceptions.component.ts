@@ -6,7 +6,7 @@ import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHead
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -22,13 +22,13 @@ import { colorSets, Color } from 'eyc-charts-shared-library';
 export class ExceptionsComponent implements OnInit {
   previousRoute: string;
   routeHistory: any;
-  fileName:string;
+  fileName: string;
   filereviewUrl: string;
   isDataIntaketype: boolean = false;
   dataIntakeTypeDisplay: object;
   dataIntakeTypeDisplayText = DATA_INTAKE_TYPE_DISPLAY_TEXT;
   dataIntakeTypeUrl: string = '';
-  routeUrlConst=ROUTE_URL_CONST;
+  routeUrlConst = ROUTE_URL_CONST;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
   @ViewChild('dailyfilter', { static: false }) dailyfilter: ElementRef;
   @ViewChild('monthlyfilter', { static: false }) monthlyfilter: ElementRef;
@@ -46,7 +46,7 @@ export class ExceptionsComponent implements OnInit {
 
 
   presentDate: Date;
-  curDate:string;
+  curDate: string;
   calSelectedMonth: string;
   form: FormGroup;
   calSelectedDate: string;
@@ -96,11 +96,13 @@ export class ExceptionsComponent implements OnInit {
     name: '10',
     id: 0
   };
-  commentEntityType
+  commentEntityType;
+  moduleOriginated;
+  filingStatus=true;
   showComments = false;
   commentsName;
   entityId;
- 
+
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
@@ -110,18 +112,18 @@ export class ExceptionsComponent implements OnInit {
     private dataManagedService: DataManagedService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
-    private _activatedroute: ActivatedRoute,private _router: Router,private routingState: RoutingStateService) {
-      this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true'? true: false;
-      const currentDate = new Date();
-      currentDate.setMonth(currentDate.getMonth());
-      this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-      this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
-      this._activatedroute.paramMap.subscribe(params => {
-        this.ExceptionFileName = params.get('paramFilename');
-        this.ExceptionAuditGuidName = params.get('paramguidName');
-        this.ExceptionFileNameAlias=params.get('paramfileNameAlias');
-      });
-  
+    private _activatedroute: ActivatedRoute, private _router: Router, private routingState: RoutingStateService) {
+    this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth());
+    this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    this.lastMonthDueDateFormat = `${formatDate(this.lastMonthDate, 'yyyy-MM-dd', 'en')}`;
+    this._activatedroute.paramMap.subscribe(params => {
+      this.ExceptionFileName = params.get('paramFilename');
+      this.ExceptionAuditGuidName = params.get('paramguidName');
+      this.ExceptionFileNameAlias = params.get('paramfileNameAlias');
+    });
+
   }
 
   ngOnInit(): void {
@@ -153,7 +155,7 @@ export class ExceptionsComponent implements OnInit {
 
     if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
       this.isDataIntaketype = true;
-      this.fileName= decodeURIComponent(routeArray[routeArray.length - 1]);
+      this.fileName = decodeURIComponent(routeArray[routeArray.length - 1]);
       if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
       }
@@ -162,12 +164,12 @@ export class ExceptionsComponent implements OnInit {
       }
       this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
     }
-    else if (routePart == "files" || routeArray[2]=="files") {
-      const urlPartArray=this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
-      const urlPart=urlPartArray[urlPartArray.length - 2];
+    else if (routePart == "files" || routeArray[2] == "files") {
+      const urlPartArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
+      const urlPart = urlPartArray[urlPartArray.length - 2];
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
-        this.fileName=decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
+        this.fileName = decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
         if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -177,12 +179,12 @@ export class ExceptionsComponent implements OnInit {
         this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
       }
       else {
-        this.fileName="Files";
+        this.fileName = "Files";
         this.isDataIntaketype = false;
       }
-    }else if((routeArray[routeArray.length - 1])=="files-review"){
+    } else if ((routeArray[routeArray.length - 1]) == "files-review") {
       this.isDataIntaketype = false;
-      this.fileName="Files";
+      this.fileName = "Files";
     }
     else {
       this.isDataIntaketype = false;
@@ -223,7 +225,7 @@ export class ExceptionsComponent implements OnInit {
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
     let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
+    let pastedText = (clipboardData.getData('text')).split("");
     pastedText.forEach((ele, index) => {
       if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
         if ((pastedText.length - 1) === index) {
@@ -323,7 +325,7 @@ export class ExceptionsComponent implements OnInit {
           },
           headerName: 'Comments',
           field: 'comments',
-          sortable: false,
+          sortable: true,
           filter: false,
           width: 155
         },
@@ -364,7 +366,7 @@ export class ExceptionsComponent implements OnInit {
     this.disabledDailyMonthlyButton = false;
     this.calSelectedDate = event.singleDate.jsDate;
     if (this.calSelectedDate) {
-      this.httpDataGridParams.dueDate =`${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
+      this.httpDataGridParams.dueDate = `${formatDate(new Date(this.calSelectedDate).toLocaleDateString(), 'yyyy-MM-dd', 'en')}`;
       sessionStorage.setItem("selectedDate", `${this.calSelectedDate}`);
       this.getExceptionTableData();
     }
@@ -391,7 +393,7 @@ export class ExceptionsComponent implements OnInit {
 
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '')
-    if(!sessionStorage.getItem("selectedDate")){
+    if (!sessionStorage.getItem("selectedDate")) {
       this.httpDataGridParams.dueDate = this.presentDateFormat;
       this.patchDatePicker(this.presentDate);
     }
@@ -407,7 +409,7 @@ export class ExceptionsComponent implements OnInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
-    if(!sessionStorage.getItem("selectedDate")){
+    if (!sessionStorage.getItem("selectedDate")) {
       this.patchDatePicker(this.lastMonthDate);
       this.httpDataGridParams.dueDate = this.lastMonthDueDateFormat;
     }
@@ -421,7 +423,7 @@ export class ExceptionsComponent implements OnInit {
     const auditRuleTyp = event.data.auditRuleTyp;
     this.dataManagedService.setExceptionReportField = event.data.exceptionReportField;
     // FDF is not sending empty array. It is sending three type of values. 
-    if(exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+    if (exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
       return false;
     } else if (event && event.data && auditRuleTyp == "row" && event.data.auditHashId != "") {
       this.dataManagedService.setExceptionFileName = event.data.name;
@@ -456,8 +458,14 @@ export class ExceptionsComponent implements OnInit {
 
   openComments(row) {
     console.log(row);
+    this.commentsName = "dms";
+    this.commentEntityType = 'DMS Exception';
+    this.entityId = row.dataSetRuleId;
+    this.moduleOriginated="Data Managed Services";
+    this.filingStatus=false;
     this.showComments = true;
   }
+
   addComment(row) {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '700px',
@@ -465,8 +473,9 @@ export class ExceptionsComponent implements OnInit {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.entityId,
-        entityType: "Filing Entity",
+        entityId: row.dataSetRuleId,
+        entityType: "DMS Exception",
+        moduleOriginated: "Data Managed Services",
         forms: {
           isSelect: false,
           selectDetails: {
@@ -499,6 +508,9 @@ export class ExceptionsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.button === "Submit") {
+        
+        // this.glRowdata[this.glRowdata.findIndex(item => item.dataSetRuleId === row.dataSetRuleId)].commentsCount = 1;
+        this.commentAdded();
         const obj = {
           assignTo: result.data.assignTo,
           comment: escape(result.data.comment),
@@ -511,5 +523,6 @@ export class ExceptionsComponent implements OnInit {
     });
   }
   commentAdded() {
+    this.getExceptionTableData();
   }
 }

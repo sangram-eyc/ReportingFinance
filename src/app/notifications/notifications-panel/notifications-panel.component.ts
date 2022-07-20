@@ -53,6 +53,9 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   delete(i): void {
     this.notifications.splice(i, 1);
     this.notifications = Object.assign([], this.notifications);
+    this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
+      this.totalElements = res.totalElements;
+    });
     event.stopPropagation();
     event.preventDefault();
     sessionStorage.setItem('notifications', JSON.stringify(this.notifications));
@@ -62,6 +65,9 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
     this.delete(i);
     setTimeout(() => {
       this.getArchivedNotifications();
+      this.notificationService.getNotArchivedNotifications(this.currentPage).subscribe(res => {
+        this.totalElements = res.totalElements;
+      });
     }, 1000);
   }
 

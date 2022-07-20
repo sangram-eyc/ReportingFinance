@@ -13,37 +13,39 @@ import * as FileSaver from 'file-saver';
 })
 export class TaskCommentComponent implements OnInit {
 
-  @Input() TaskCommentData:any;
+  @Input() TaskCommentData: any;
+  @Input() isArchived:any; 
   @Output() onCommentStatusChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() onCommentTagDeleted: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onCommentPriorityDeleted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCommentaddTag: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCommentPriorityUpdated: EventEmitter<any> = new EventEmitter<any>();
 
-  Requestfrom:string = 'Client'
-  createdBy:string = 'Patrick Mahomes'
-  createdDate:any;
-  description:any;
-  status:any;
-  target:any;
-  company:any;
-  editRequired:any;
-  includeDebrief:any;
-  priority:number;
-  idTask:any;
-  showReplyComment:boolean = false;
-  showReplyCommentButton:boolean = true;
-  statusSelected:string ='open';
+  Requestfrom: string = 'Client'
+  createdBy: string = 'Patrick Mahomes'
+  createdDate: any;
+  description: any;
+  status: any;
+  target: any;
+  company: any;
+  editRequired: any;
+  includeDebrief: any;
+  priority: number;
+  idTask: any;
+  showReplyComment: boolean = false;
+  showReplyCommentButton: boolean = true;
+  statusSelected: string = 'open';
   ReplayForm: FormGroup;
-  entityId:any;
-  entityType:any;
+  entityId: any;
+  entityType: any;
   showToastAfterSubmit = false;
   toastSuccessMessage = "Comment added successfully";
   showReplies = false;
-  replyCount:any;
-  attachmentsCount:any=0;
-  attachments:any;
-  replyData:any = [];
+  replyCount: any;
+  attachmentsCount: any = 0;
+  attachments: any;
+  replyData: any = [];
   formattedTimes = [];
-  criticalTag:string = "Critical";
+  criticalTag: string = "Critical";
 
 
   constructor(
@@ -56,11 +58,12 @@ export class TaskCommentComponent implements OnInit {
 
     this.ReplayForm = this.fb.group({
       comment: ['', [Validators.required, Validators.maxLength(250), this.noWhitespaceValidator, Validators.pattern('[a-zA-Z0-9-_:/*$%.,@+? ]*')]],
-      statusReplay:['open']
+      statusReplay: ['open']
     });
   }
 
-  permissionStatus= this.permissions.validatePermission('Production Cycles', 'Update task status');
+  permissionStatus = this.permissions.validatePermission('Production Cycles', 'Update task status');
+  // permissionStatus = true
 
   ngOnInit(): void {
     this.createdDate = this.TaskCommentData.createdDate;
@@ -79,26 +82,25 @@ export class TaskCommentComponent implements OnInit {
     this.replyCount = this.TaskCommentData.replyCount;
     this.attachmentsCount = this.TaskCommentData.attachmentsCount;
     this.attachments = this.TaskCommentData.attachments;
-    console.log('task-comments-data-receiving',this.TaskCommentData);   
   }
 
   getCreatedBy(author: { userFirstName: string; userLastName: string; }, createdBy: string) {
-    return !!author 
-        ? author.userFirstName + ' ' + author.userLastName
-        : createdBy;
+    return !!author
+      ? author.userFirstName + ' ' + author.userLastName
+      : createdBy;
   }
 
-  setStatusComment(_status){ 
-    console.log('set status comment-->', _status);    
-    console.log('this.idTask-->', this.idTask); 
-      const objData = {
-        "status": _status
-      };     
-      this.commentService.updateTaskStatus(this.idTask, objData).subscribe(res => {
-        this.handleStatusChangedResponse(res);
-      }, error => {
-        console.log('Error update status', error);
-      });
+  setStatusComment(_status) {
+    console.log('set status comment-->', _status);
+    console.log('this.idTask-->', this.idTask);
+    const objData = {
+      "status": _status
+    };
+    this.commentService.updateTaskStatus(this.idTask, objData).subscribe(res => {
+      this.handleStatusChangedResponse(res);
+    }, error => {
+      console.log('Error update status', error);
+    });
   }
 
   handleStatusChangedResponse(res) {
@@ -108,7 +110,7 @@ export class TaskCommentComponent implements OnInit {
   }
 
 
-  ReplyComment(){
+  ReplyComment() {
     this.showReplyNewComment()
     console.log('form-->', this.ReplayForm);
     console.log('comment ->', this.ReplayForm.get('comment').value);
@@ -117,14 +119,15 @@ export class TaskCommentComponent implements OnInit {
     const commentObj = {
       "comment": escape(this.ReplayForm.get('comment').value),
       "entityId": this.idTask,
-      "entityType": "TASK",
+      "entityType": "Task",
+      "moduleOriginated": "Tax Reporting"
     };
 
-    this.commentService.addComment(commentObj).subscribe(commentResponse =>{
-      console.log('Reponse add Replay -->',commentResponse);
-      if(this.permissionStatus){
+    this.commentService.addComment(commentObj).subscribe(commentResponse => {
+      console.log('Reponse add Replay -->', commentResponse);
+      if (this.permissionStatus) {
         let newStatus = this.ReplayForm.get('statusReplay').value;
-        console.log('newStatus -->',newStatus);
+        console.log('newStatus -->', newStatus);
         const objStatus = {
           "status": newStatus
         };
@@ -133,37 +136,37 @@ export class TaskCommentComponent implements OnInit {
           this.replyCount = this.replyCount + 1
           this.showToastAfterSubmit = true;
           this.replyData = [];
-          setTimeout(() => {        
-            this.closeToast();       
+          setTimeout(() => {
+            this.closeToast();
           }, 4000);
-          this.showReplies = false; 
+          this.showReplies = false;
         }, error => {
           console.log('Error update status', error);
         });
-      }else{
-         console.log('you do not have permission to update the status.');
-         this.replyCount = this.replyCount + 1
-         this.showToastAfterSubmit = true;
-         this.replyData = [];
-         setTimeout(() => {        
-          this.closeToast();       
+      } else {
+        console.log('you do not have permission to update the status.');
+        this.replyCount = this.replyCount + 1
+        this.showToastAfterSubmit = true;
+        this.replyData = [];
+        setTimeout(() => {
+          this.closeToast();
         }, 4000);
-        this.showReplies = false; 
+        this.showReplies = false;
       }
     }, error => {
       console.log('Error replay comment', error);
     });
   }
 
-  cancelReplyComment(){
+  cancelReplyComment() {
     this.showReplyNewComment();
     this.ReplayForm.patchValue({
       comment: '',
       statusReplay: 'open'
     });
   }
-  
-  showReplyNewComment(){
+
+  showReplyNewComment() {
     this.showReplies = false;
     this.showReplyComment = !this.showReplyComment
     //this.showReplyCommentButton = !this.showReplyCommentButton
@@ -187,7 +190,7 @@ export class TaskCommentComponent implements OnInit {
     }
   }
 
-  closeToast(){
+  closeToast() {
     this.showToastAfterSubmit = false;
     this.ReplayForm.patchValue({
       comment: '',
@@ -195,16 +198,16 @@ export class TaskCommentComponent implements OnInit {
     });
   }
 
-  getListComments(){
+  getListComments() {
     this.showReplies = !this.showReplies;
-    this.showReplyComment = false; 
-    if(this.replyData.length === 0 && this.replyCount > 0){
-      this.commentService.listComments(this.idTask).subscribe(resp => {     
+    this.showReplyComment = false;
+    if (this.replyData.length === 0 && this.replyCount > 0) {
+      this.commentService.listComments(this.idTask).subscribe(resp => {
         this.replyData = resp['data'];
-          this.replyData.forEach(comment => {
-            comment.commentText = unescape(comment.commentText);
-            comment.timeStamp = this.formatDate(comment.timeStamp);
-          });
+        this.replyData.forEach(comment => {
+          comment.commentText = unescape(comment.commentText);
+          comment.timeStamp = this.formatDate(comment.timeStamp);
+        });
       });
     }
   }
@@ -215,34 +218,34 @@ export class TaskCommentComponent implements OnInit {
       return 'Just now';
     } // less than 30 seconds ago will show as 'Just now'
     const intervals = {
-        'year': 31536000,
-        'month': 2592000,
-        'week': 604800,
-        'day': 86400,
-        'hour': 3600,
-        'minute': 60,
-        'second': 1
+      'year': 31536000,
+      'month': 2592000,
+      'week': 604800,
+      'day': 86400,
+      'hour': 3600,
+      'minute': 60,
+      'second': 1
     };
     let counter;
     for (const i in intervals) {
       counter = Math.floor(seconds / intervals[i]);
       if (counter > 0) {
         if (counter === 1) {
-            return counter + ' ' + i + ' ago'; // singular (1 day ago)
+          return counter + ' ' + i + ' ago'; // singular (1 day ago)
         } else {
-            return counter + ' ' + i + 's ago'; // plural (2 days ago)
+          return counter + ' ' + i + 's ago'; // plural (2 days ago)
         }
       }
     }
   }
 
-  deleteTag(tagName:any, tagId:any){
-    let message = tagName.toLowerCase().startsWith('edit') ? 
-    "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, no further edits are required to close the comment.":
-    "Are you sure to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, then this comment will be excluded from the cycle debrief.";
+  deleteTag(tagName: any, tagId: any) {
+    let message = tagName.toLowerCase().startsWith('edit') ?
+      "Are you sure want to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, no further edits are required to close the comment." :
+      "Are you sure to remove the " + tagName.toLowerCase() + " tag from this comment? If you select yes, then this comment will be excluded from the cycle debrief.";
 
     const dialogRef = this.dialog.open(ModalComponent, {
-      id:'delete-tag',   
+      id: 'delete-tag',
       width: '500px',
       data: {
         type: "Confirmation",
@@ -258,7 +261,7 @@ export class TaskCommentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The deleteTag dialog was closed', result);
-      if(result.button == 'Yes') {
+      if (result.button == 'Yes') {
         this.commentService.deleteTag(this.idTask, tagId).subscribe(resp => {
           console.log('response delete tag', resp);
           this.editRequired = tagId == 1 ? null : this.editRequired;
@@ -268,14 +271,14 @@ export class TaskCommentComponent implements OnInit {
             "idTag": tagId
           };
           this.onCommentTagDeleted.emit(tagDeleted);
-        });   
+        });
       }
     });
   }
 
-  deletePriority(tagName:any){
+  deletePriority(tagName: any) {
     const dialogRef = this.dialog.open(ModalComponent, {
-      id:'delete-tag',   
+      id: 'delete-tag',
       width: '500px',
       data: {
         type: "Confirmation",
@@ -291,19 +294,19 @@ export class TaskCommentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The deletePriority dialog was closed', result);
-      if(result.button == 'Yes') {
+      if (result.button == 'Yes') {
         const data = {
           "priority": 0
         }
-        this.commentService.deletePriority(this.idTask, data).subscribe(resp => {
+        this.commentService.updatePriority(this.idTask, data).subscribe(resp => {
           this.priority = 0;
           console.log('response delete tag', resp);
           const Prioritydeleted = {
             "id": this.idTask,
             "priority": 0
           };
-          this.onCommentPriorityDeleted.emit(Prioritydeleted);                   
-        });   
+          this.onCommentPriorityUpdated.emit(Prioritydeleted);
+        });
       }
     });
   }
@@ -316,28 +319,52 @@ export class TaskCommentComponent implements OnInit {
     }
 
     this.commentService.downloadFile(requestobj).subscribe(resp => {
-        const data = this.base64ToBlob(resp['data']['fileContent']);
-        console.log('k1 > filename >', fileName);
-        FileSaver.saveAs(data, downloadfilename);
-    });  
+      const data = this.base64ToBlob(resp['data']['fileContent']);
+      console.log('k1 > filename >', fileName);
+      FileSaver.saveAs(data, downloadfilename);
+    });
   }
 
-  public base64ToBlob(b64Data, contentType='text/xml', sliceSize=512) {
+  public base64ToBlob(b64Data, contentType = 'text/xml', sliceSize = 512) {
     b64Data = b64Data.replace(/\s/g, ''); //IE compatibility...
     let byteCharacters = atob(b64Data);
     let byteArrays = [];
     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        let slice = byteCharacters.slice(offset, offset + sliceSize);
+      let slice = byteCharacters.slice(offset, offset + sliceSize);
 
-        let byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
-        let byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
+      let byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      let byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
     }
-    return new Blob(byteArrays, {type: contentType});
+    return new Blob(byteArrays, { type: contentType });
   }
 
+  updatePriority() {
+    const data = {
+      "priority": 1
+    }
+    this.commentService.updatePriority(this.idTask, data).subscribe(resp => {
+      this.priority = 1;
+      console.log('response update priority', resp);
+      const PriorityUpdated = {
+        "id": this.idTask,
+        "priority": 1
+      };
+      this.onCommentPriorityUpdated.emit(PriorityUpdated);
+    });
+  }
 
+  addTag(tagId) {
+    this.commentService.addTag(this.idTask, tagId).subscribe(resp => {
+      tagId === 1 ? this.editRequired = { "id": 1, "name": "Edit Required" } : this.includeDebrief = { "id": 2, "name": "Include in cycle debrief" }
+      const tagAdded = {
+        "id": this.idTask,
+        "idTag": tagId
+      };
+      this.onCommentaddTag.emit(tagAdded);
+    });
+  }
 }

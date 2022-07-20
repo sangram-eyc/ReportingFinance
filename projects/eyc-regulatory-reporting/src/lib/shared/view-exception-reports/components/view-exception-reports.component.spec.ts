@@ -107,7 +107,7 @@ describe('ViewExceptionReportsComponent', () => {
     });
     spyOn(component,'createEntitiesRowData');
     component.getExceptionResults();
-    expect(component['viewService'].getExceptionResults).toHaveBeenCalledWith('101');
+    expect(component['viewService'].getExceptionResults).toHaveBeenCalledWith('101','','','');
     expect(component.createEntitiesRowData).toHaveBeenCalled();
   });
 

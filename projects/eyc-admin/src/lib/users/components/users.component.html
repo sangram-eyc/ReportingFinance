@@ -9,7 +9,7 @@
  
  
      
-     <lib-shared-grid 
+     <!-- <lib-shared-grid 
      [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')"
      [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Users')"
      [columnDefs]="columnDefs1"
@@ -27,7 +27,14 @@
      [pagination]="resetRowData.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfo.totalRecords" [pageChangeFunc]="pageChangeFunc"
      (customSortChange)="sortChanged($event)" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)"
      (updatePageSize)="updatePageSize($event)">
-     </lib-shared-grid>
+     </lib-shared-grid> -->
+
+     <lib-ag-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Users')"
+     [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
+     [rowData]="resetRowData" [columnDefs]="columnDefsAgGrid" [buttonText] ="'Add User'"
+       [displayCheckBox] = "true" [disablePrimaryButton]="false" [exportName] = "exportName"
+       [export]="true" buttonPosition="left" gridStyle="third"
+       [search]="true" paginationSize="10" (newEventToParent)="addUser($event)"></lib-ag-grid>
  
      <ng-template #headerTemplate>
        <motif-icon [src]="'/assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'" id="motifExampleDropdown">
@@ -128,7 +135,7 @@
  
    </motif-modal-body>
    <motif-modal-footer>
-     <button motifButton class="btn_save" color="primary" (click)="deleteUser()">Yes</button>
+     <button motifButton class="btn_save" color="primary-alt" (click)="deleteUser()">Yes</button>
      <button motifButton class="btn_close" color="secondary"
        (click)="showDeleteUserModal = false; selectedUser ='';">No</button>
    </motif-modal-footer>

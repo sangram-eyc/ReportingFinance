@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "127a8df2-ffd5-4c6f-b7dd-82e50d5fb300",
+    "data": {
+        "id": 1,
+        "tags": [
+            {
+                "id": 1,
+                "name": "Edit required",
+                "description": "Indicates that deliverable files need to be updated"
+            },
+            {
+                "id": 2,
+                "name": "Include in debrief",
+                "description": "Indicates that deliverable files need to be included in the cycle debrief"
+            }
+        ]
+    },
+    "error": null
+}

@@ -75,7 +75,9 @@
             margin-bottom: 16px;
           }
           .bar{
-            height: 17px
+            height: 17px;
+            margin-right: 1px;
+            width: 33%;
           }
         }
         b{
@@ -99,6 +101,7 @@
             width: 9.9px;
             height: 9.9px;
             border-radius: 50%;
+            margin-right: 5px;
           }
           
           .tax-legend-text {
@@ -140,6 +143,8 @@
             border-style: solid; 
             border-color: #C4C4CD; 
             border-width: thin;
+            width: 99%;
+            margin-left: 2px;
           }
 
           .empty-msg{

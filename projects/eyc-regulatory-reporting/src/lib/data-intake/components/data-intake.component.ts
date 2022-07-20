@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { ModalComponent } from 'eyc-ui-shared-component';
+import { CellRendererTemplateComponent, ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { DataIntakeService } from '../services/data-intake.service';
 import { PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
@@ -25,7 +25,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   gridApi;
   columnDefs;
-  exceptionDefs;
+  // exceptionDefs;
+  exceptionDefsAgGrid;
   tabs = 1;
   filingDetails: any;
   exceptionData;
@@ -43,7 +44,8 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   filingStatusStageId: any;
   bdFilesList = {};
   datasets = [];
-  datasetsDefs;
+  // datasetsDefs;
+  datasetsDefsAgGrid;
   submitDatasets;
   datasetsSelectedRows;
   datasetsModalConfig = {
@@ -96,6 +98,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   moduleOriginated = rr_module_name;
   showIntakeModal = false;
   intakeStageCompleted = false;
+  exportName: string;
   constructor(
     private service: DataIntakeService,
     public dialog: MatDialog,
@@ -147,8 +150,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getExceptionReports(resetData = false) {
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Exception Reports_"
     this.pageInfoException.sort = resetData ? 'file:true' : this.pageInfoException.sort;
-    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period, this.pageInfoException.currentPage, this.pageInfoException.pageSize, this.pageInfoException.filter, this.pageInfoException.sort).subscribe(res => {
+    this.service.getExceptionReports(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
         this.exceptionData = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
         this.createEntitiesRowData();
@@ -172,6 +176,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
 
   getFiles() {
     console.log('FILING DETAILS', this.filingDetails);
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_"
     this.service.getfilesList(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
       this.filesListArr = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
@@ -184,16 +189,21 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   getDatasets(resetData = false) {
+    console.log("getDatasets");
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Dataset_Data_"
     this.pageInfoData.sort = resetData ? 'file:true' : this.pageInfoData.sort;
-    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period, this.pageInfoData.currentPage, this.pageInfoData.pageSize, this.pageInfoData.filter, this.pageInfoData.sort).subscribe(res => {
+    this.service.getDatasetsrecords(this.filingDetails.filingName, this.filingDetails.period).subscribe(res => {
       if(this.mockDataEnable) {
         this.datasets = res['data'].filter(item => item.reg_reporting == this.filingDetails.filingName);
         this.createEntitiesRowData();
-      } else {  
+      } else { 
+
         this.datasets = res['data']; 
         // this.datasetData = this.datasets;
-        this.pageInfoData.totalRecords = res['totalRecords'];
+        // this.pageInfoData.totalRecords = res['totalRecords'];
         if (resetData) {
+          console.log("resetData");
+          
           this.createEntitiesRowData();
         } else {
           this.datasetData = [...this.datasets];
@@ -204,6 +214,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.datasets = [];
       console.log("Datasets error");
     });
+    this.exportName = this.filingDetails.filingName+"_"+this.filingDetails.period+"_Intake_Datasets_"
   }
 
   getBDFilesList(event) {
@@ -225,6 +236,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   receiveMessage($event) {
+    console.log("receiveMessage")
     this.tabs = $event;
     
     if (this.tabs == 2) {
@@ -310,130 +322,283 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   }
 
   createEntitiesRowData(): void {
-    this.datasetsDefs = [];
-    this.exceptionDefs = [];
+    // this.datasetsDefs = [];
+    this.datasetsDefsAgGrid = []
+    // this.exceptionDefs = [];
+    this.exceptionDefsAgGrid = [];
     this.datasetData = [];
     this.rowData = [];
-    this.exceptionDefs = [
+// this.exceptionDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.dropdownTemplate,
+    //     },
+    //     field: 'approved',
+    //     headerName: '',
+    //     width: 20,
+    //     sortable: false,
+    //     pinned: 'left',
+    //     cellStyle: params => 
+    //     (this.checkFilingCompletedStatus()) ?  
+    //         {'pointer-events': 'none'}
+    //         : ''
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.actionButtonTemplate,
+    //     },
+    //     headerName: 'Action',
+    //     field: 'template',
+    //     minWidth: 70,
+    //     width: 70,
+    //     sortable: false,
+    //     cellClass: 'actions-button-cell'
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Due',
+    //     field: 'due',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 130
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.expandExceptionTemplate,
+    //     },
+    //     headerName: 'File',
+    //     field: 'file',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 300
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Exception Report Type',
+    //     field: 'exceptionReportType',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 250
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Exception Report Name',
+    //     field: 'exceptionReportName',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 250,
+    //     comparator: this.disableComparator,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.commentExceptionTemplate,
+    //     },
+    //     headerName: 'Comments',
+    //     field: 'commentCount',
+    //     sortable: true,
+    //     filter: true,
+    //     width: 150,
+    //     comparator: this.disableComparator,
+    //   } ,
+    //   // {
+    //   //   headerComponentFramework: TableHeaderRendererComponent,
+    //   //   cellRendererFramework: MotifTableCellRendererComponent,
+    //   //   cellRendererParams: {
+    //   //     ngTemplate: this.resolveExceptionTemplate,
+    //   //   },
+    //   //   headerName: 'Resolved',
+    //   //   field: 'resolvedCount',
+    //   //   sortable: true,
+    //   //   filter: true,
+    //   //   width: 200,
+    //   //   comparator: this.disableComparator,
+    //   // },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Exceptions',
+    //     field: 'exceptionCount',
+    //     sortable: true,
+    //     filter: true,
+    //     width: 200,
+    //     comparator: this.disableComparator,
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.viewDetTemplate,
+    //     },
+    //     width: 50
+    //   } 
+    //   /* ,
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Review Level',
+    //     field: 'reviewLevel',
+    //     sortable: true,
+    //     filter: true,
+    //   }, */
+
+    // ];
+
+    this.exceptionDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
+          ngTemplate: this.datasetsDropdownTemplate,
         },
-        field: 'approved',
-        headerName: '',
-        width: 20,
+        headerCheckboxSelection: this.exceptionData.some(item => item.approved == false),
+        headerCheckboxSelectionFilteredOnly: true,
+        checkboxSelection: params=>params.data.approved == false,
+        maxWidth: 70,
         sortable: false,
+        menuTabs: [],
+        filter:false,
         pinned: 'left',
-        cellStyle: params => 
-        (this.checkFilingCompletedStatus()) ?  
-            {'pointer-events': 'none'}
-            : ''
+        cellClass: 'approved_icon'
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        maxWidth: 80,
+        hide: true,
+        pinned: 'left',
+        field: 'approved',
+        headerName: 'Status',
+      },
+      {
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 70,
+        sortable: false,
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
+      },
+      {
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.actionButtonTemplate,
         },
         headerName: 'Action',
-        field: 'template',
-        minWidth: 70,
-        width: 70,
+        field: 'Actions',
+        minWidth: 100,
         sortable: false,
+        menuTabs: ['generalMenuTab'],
+        filter:false,
         cellClass: 'actions-button-cell'
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Due',
         field: 'due',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 130
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 130
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.expandExceptionTemplate,
         },
         headerName: 'File',
         field: 'file',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 300
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 300,
+        tooltipField: 'file'
+        
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exception Report Type',
         field: 'exceptionReportType',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 250
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exception Report Name',
         field: 'exceptionReportName',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 250,
-        comparator: this.disableComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 250,
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.commentExceptionTemplate,
         },
         headerName: 'Comments',
         field: 'commentCount',
-        sortable: true,
-        filter: true,
-        width: 150,
-        comparator: this.disableComparator,
-      } ,
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.resolveExceptionTemplate,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
         },
-        headerName: 'Resolved',
-        field: 'resolvedCount',
         sortable: true,
-        filter: true,
-        width: 200,
-        comparator: this.disableComparator,
-      },
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 150,
+      } ,
+      // {
+      //   headerComponentFramework: TableHeaderRendererComponent,
+      //   cellRendererFramework: MotifTableCellRendererComponent,
+      //   cellRendererParams: {
+      //     ngTemplate: this.resolveExceptionTemplate,
+      //   },
+      //   headerName: 'Resolved',
+      //   field: 'resolvedCount',
+      //   sortable: true,
+      //   filter: true,
+      //   width: 200,
+      //   comparator: this.disableComparator,
+      // },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Exceptions',
         field: 'exceptionCount',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        width: 200,
-        comparator: this.disableComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 200,
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.viewDetTemplate,
         },
-        width: 50
+        maxWidth: 50
       } 
       /* ,
       {
@@ -445,116 +610,186 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       }, */
 
     ];
-
-    this.datasetsDefs = [
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   cellRendererFramework: MotifTableCellRendererComponent,
-      //   cellRendererParams: {
-      //     ngTemplate: this.datasetsDropdownTemplate,
-      //   },
-      //   field: 'approved',
-      //   headerName: '',
-      //   width: 70,
-      //   sortable: false,
-      //   pinned: 'left'
-      // },
+    // this.datasetsDefs = [
+    //   // {
+    //   //   headerComponentFramework: TableHeaderRendererComponent,
+    //   //   cellRendererFramework: MotifTableCellRendererComponent,
+    //   //   cellRendererParams: {
+    //   //     ngTemplate: this.datasetsDropdownTemplate,
+    //   //   },
+    //   //   field: 'approved',
+    //   //   headerName: '',
+    //   //   width: 70,
+    //   //   sortable: false,
+    //   //   pinned: 'left'
+    //   // },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Due',
+    //     field: 'due',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 130
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'File',
+    //     field: 'file',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 300
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Source',
+    //     field: 'source',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //     autoHeight: true,
+    //     wrapText: true,
+    //     width: 150
+    //   },
+    //   /*{
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Client',
+    //     field: 'client',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 150,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   } ,
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.commentDatasetsTemplate,
+    //     },
+    //     headerName: 'Comments',
+    //     field: 'comments',
+    //     sortable: true,
+    //     filter: true,
+    //     width: 150
+    //   } */
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.resolveDatasetsTemplate,
+    //     },
+    //     headerName: 'Resolved',
+    //     field: 'resolved',
+    //     sortable: true,
+    //     filter: true,
+    //     width: 150,
+    //     comparator: this.disableComparator,
+    //   },
+    //  /* {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Exceptions',
+    //     field: 'exceptions',
+    //     sortable: true,
+    //     filter: true,
+    //     width: 150,
+    //   } ,
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Review Level',
+    //     field: 'reviewLevel',
+    //     sortable: true,
+    //     filter: true,
+    //   } */,
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Version',
+    //     field: 'version',
+    //     sortable: true,
+    //     filter: true,
+    //     comparator: this.disableComparator,
+    //   }
+    // ];
+    this.datasetsDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 70,
+        sortable: false,
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
+      },
+      {
         headerName: 'Due',
         field: 'due',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 130
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 150
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'File',
         field: 'file',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 300
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 300,
+        tooltipField: 'file'
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Source',
         field: 'source',
-        sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
-        autoHeight: true,
-        wrapText: true,
-        width: 150
-      },
-      /*{
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Client',
-        field: 'client',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 150,
-        sort: 'asc',
-        comparator: customComparator
-      } ,
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.commentDatasetsTemplate,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
         },
-        headerName: 'Comments',
-        field: 'comments',
         sortable: true,
-        filter: true,
-        width: 150
-      } */
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 200,
+        tooltipField: 'source'
+      },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.resolveDatasetsTemplate,
         },
         headerName: 'Resolved',
         field: 'resolved',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        width: 150,
-        comparator: this.disableComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 155,
       },
-     /* {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Exceptions',
-        field: 'exceptions',
-        sortable: true,
-        filter: true,
-        width: 150,
-      } ,
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Review Level',
-        field: 'reviewLevel',
-        sortable: true,
-        filter: true,
-      } */,
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
         headerName: 'Version',
         field: 'version',
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          buttons: ['reset']
+        },
         sortable: true,
-        filter: true,
-        comparator: this.disableComparator,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        minWidth: 155
       }
     ];
     this.rowData = this.exceptionData;
-    this.datasetData = this.datasets;
+    this.datasetData = this.datasets;  
   }
 
   addCommentToException(row) {
@@ -564,7 +799,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
         type: "ConfirmationTextUpload",
         header: "Add comment",
         description: `Please add your comment below.`,
-        entityId: row.id,
+        entityId: row.datasetRuleId,
         entityType: "Data Exception Report",
         moduleOriginated: rr_module_name,
         forms: {
@@ -606,7 +841,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
           files: result.data.files
         }
         console.log(obj);
-        this.exceptionData[this.exceptionData.findIndex(item => item.id === row.id)].commentCount = 1;
+        this.exceptionData[this.exceptionData.findIndex(item => item.datasetRuleId === row.datasetRuleId)].commentCount = 1;
         this.createEntitiesRowData();
       } else {
         console.log(result);
@@ -732,7 +967,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       this.entityId = row.entityId;
     } else {
       this.commentEntityType = 'Data Exception Report'
-      this.entityId = row.id;
+      this.entityId = row.datasetRuleId;
     }
     this.showComments = true;
 
@@ -756,7 +991,10 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       exceptionReportName: event.file,
       parentModule: 'Regulatory Reporting',
       period: this.filingDetails.period,
-      ruleExceptionId: event.ruleExceptionId
+      ruleExceptionId: event.ruleExceptionId,
+      ruleType: event.ruleType,
+      tableName: event.tableName,
+      filename: event.filename
     }}};
     this.filingService.setExceptionData = event;
     this.router.navigate(['/view-exception-reports'], navigationExtras);
@@ -765,9 +1003,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   exportData(type) {
     if(type == 'exceptions') {
       if(this.permissions.validatePermission('Data Intake', 'View Comments')) { 
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,commentCount:Comments,exceptionCount:Exceptions';
       } else {
-        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,resolvedCount:Resolved,exceptionCount:Exceptions';
+        this.exportHeaders = 'due:Due,file:File,exceptionReportType:Exception Report Type,exceptionReportName:Exception Report Name,exceptionCount:Exceptions';
       }
       this.exportURL =  this.settingsService.regReportingFiling.di_exception_reports + "filingName=" + this.filingDetails.filingName + "&period=" + this.filingDetails.period  + "&export=" + true +"&headers=" + this.exportHeaders + "&reportType=csv";
     } else if(type == 'dataset') {

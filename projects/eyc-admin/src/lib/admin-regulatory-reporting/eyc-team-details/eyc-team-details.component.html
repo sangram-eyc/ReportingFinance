@@ -1,12 +1,14 @@
-<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team member has been deleted successfully</motif-toast>
+<motif-toast [type]="'success'" [show]="showToastAfterDeleteTeams">Team member has been deleted successfully
+</motif-toast>
 <div class="user-details-wrapper">
   <div class="back-wrapper">
-    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'" (click)="backtoTeamVIew()"></motif-icon>
-    &nbsp;<span class="back-opt">&nbsp;  Back</span>
+    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoTeamVIew()"></motif-icon>
+    &nbsp;<span class="back-opt">&nbsp; Back</span>
   </div>
   <div class="user-info-header">
     <h3 class="team-details-h3">Team Details</h3>
-<!--      <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
+    <!--      <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'" [class.disabled]="!is_editable" class="user-edit"
       *ngIf="!enableEditor && teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')" (click)="enableEditForm()">
       <span *ngIf="!enableEditor && teamInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
@@ -17,66 +19,67 @@
     </div>   -->
     <div class="circle-div">
       <div motifDropdown placement="bottom-left">
-            <motif-icon [class.disabled]="!is_editable" class="dots-menu-horiz" motifDropdownToggle [src]="'/assets/icons/navigation/ic_more_horiz_24px.svg'"
-            *ngIf="teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
-          </motif-icon>   
+        <motif-icon [class.disabled]="!is_editable" class="dots-menu-horiz" motifDropdownToggle
+          [src]="'/assets/icons/navigation/ic_more_horiz_24px.svg'"
+          *ngIf="teamInfo && this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+        </motif-icon>
         <div class="edit-pencil-icon" motifDropdownMenu aria-labelledby="motifExampleDropdown1">
-            <button motifDropdownItem (click)="enableEditForm()">
-                <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'">
-                </motif-icon>
-                Edit team details
-            </button>
+          <button motifDropdownItem (click)="enableEditForm()">
+            <motif-icon [src]="'/assets/icons/editor/ic_mode_edit_24px.svg'">
+            </motif-icon>
+            Edit team details
+          </button>
         </div>
       </div>
-    </div>  
+    </div>
     <div class="edit-form-team-details" *ngIf="enableEditor">
-      <button motifButton class="button-save-team-details" color="link-alt" 
-      [disabled]="editTeamForm.invalid" [ngClass]="editTeamForm.invalid ? 'dis-button-team-details' : ''" 
-      (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
+      <button motifButton class="button-save-team-details" color="link-alt" [disabled]="editTeamForm.invalid"
+        [ngClass]="editTeamForm.invalid ? 'dis-button-team-details' : ''"
+        (click)="onSubmitEditTeamForm(editTeamForm)">Save</button>
     </div>
   </div>
 
   <div class="team-detailscontent-container" *ngIf="!enableEditor && teamInfo">
-   
+
     <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-6 lablel-heading">
-            Team Name
-          </div>
-          <div class="col-md-6  lablel-heading">
-            <span *ngIf="module == 'Regulatory Reporting'">
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Team Name
+        </div>
+        <div class="col-md-6  lablel-heading">
+          <span *ngIf="module == 'Regulatory Reporting'">
             Filing Type/Reports
-            </span>
-          </div>
-          <div class="col-md-6 label-value">
-            {{teamInfo?.teamName}} 
-          </div>
-          <div class="col-md-6  label-value">
-            <span *ngIf="module == 'Regulatory Reporting'">
-              {{teamInfo?.assignments}}
-            </span>
-          </div>
+          </span>
         </div>
-        <div class="row">
-          <div class="col-md-6 lablel-heading">
-            Role
-          </div>
-          <div class="col-md-6 lablel-heading">
-            Description
-          </div>
-          <div class="col-md-6 label-value">
-            {{teamInfo?.role}}
-          </div>
-          <div class="col-md-6  label-value">
-            {{teamInfo?.teamDescription}}
-          </div>
+        <div class="col-md-6 label-value">
+          {{teamInfo?.teamName}}
         </div>
+        <div class="col-md-6  label-value">
+          <span *ngIf="module == 'Regulatory Reporting'">
+            {{teamInfo?.assignments}}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 lablel-heading">
+          Role
+        </div>
+        <div class="col-md-6 lablel-heading">
+          Description
+        </div>
+        <div class="col-md-6 label-value">
+          {{teamInfo?.role}}
+        </div>
+        <div class="col-md-6  label-value">
+          {{teamInfo?.teamDescription}}
+        </div>
+      </div>
     </div>
 
   </div>
 
   <div class="team-detailscontent-container" *ngIf="enableEditor && teamInfo">
-  
+
     <div class="container-fluid">
       <form [formGroup]="editTeamForm" *ngIf="editTeamForm">
         <div class="row">
@@ -90,12 +93,14 @@
           </div>
           <div class="col-md-6">
             <motif-form-field>
-              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName" (keyup)="teamDuplicateCheck($event.target.value)"/>
+              <input libRemoveSpaces motifInput type="text" aria-label="Email Form Field" formControlName="teamName"
+                (keyup)="teamDuplicateCheck($event.target.value)" />
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('required')">Please provide Team name!
               </motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('pattern')">Team name must be alpha numeric!
               </motif-error>
-              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters long</motif-error>
+              <motif-error *ngIf="editTeamForm.get('teamName').hasError('maxlength')">Team name can be max 50 characters
+                long</motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('whitespace')">Please enter valid data
               </motif-error>
               <motif-error *ngIf="editTeamForm.get('teamName').hasError('teamDuplicate')">Team name already exits
@@ -104,8 +109,11 @@
           </div>
           <div class="col-md-6">
             <motif-form-field *ngIf="module == 'Regulatory Reporting'">
-              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings" (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)" [ngModelOptions]="{standalone: true}" required>
-                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">{{assignment.filingName}}</motif-option>
+              <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings"
+                (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)"
+                [ngModelOptions]="{standalone: true}" required>
+                <motif-option [value]="assignment.formId" *ngFor="let assignment of assignments">
+                  {{assignment.filingName}}</motif-option>
               </motif-select>
               <motif-error *ngIf="!selectedFilings.length">Please provide a assignment!</motif-error>
             </motif-form-field>
@@ -120,7 +128,7 @@
           </div>
           <div class="col-md-6">
             <motif-form-field>
-              <motif-select formControlName="role" aria-label="Aria Label" >
+              <motif-select formControlName="role" aria-label="Aria Label">
                 <motif-option *ngFor="let item of roleList;index as i;" [value]="item">
                   {{item}}</motif-option>
               </motif-select>
@@ -129,7 +137,8 @@
           <div class="col-md-6">
             <motif-form-field>
               <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
-              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250 characters long
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250
+                characters long
               </motif-error>
             </motif-form-field>
           </div>
@@ -139,25 +148,41 @@
 
   </div>
 
-  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!</motif-toast>
+  <motif-toast [type]="'success'" [show]="showToastAfterEditTeam">Team details has been updated successfully!
+  </motif-toast>
   <motif-tab-bar>
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
-    <!-- <button motifButton (click)="adminTabChange(2)" class="motif-text-link"
-      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Assignments</button>
-    <button motifButton (click)="adminTabChange(3)" class="motif-text-link"
+    <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(2)" class="motif-text-link"
+      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Task Assignment</button>
+    <!--<button motifButton (click)="adminTabChange(3)" class="motif-text-link"
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
+      <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(4)" class="motif-text-link"
+      [ngClass]="tabIn == 4 ? 'motif-active' : ''">Data Explorer</button>
+      <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(5)" class="motif-text-link"
+      [ngClass]="tabIn == 5 ? 'motif-active' : ''">Filing Entities</button>
   </motif-tab-bar>
   <div *ngIf="tabIn == 1">
-    
-    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')" [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs" (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText] ="'Add member'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}"
-    displayCheckBox="{{displayCheckBox}}" gridStyle="third" [export] = "true" (exportFlagToParent)="exportTeamsDetailsData()"
-    [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
-    [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
-    (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)" (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)" (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid>
+    <!-- <lib-shared-grid
+      [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
+      [disableAddMemberButton]="disableAddMemberButton" [columnDefs]="columnDefs"
+      (newEventToParent)="addTeamMembers($event)" [rowData]="teamsMemberData" [buttonText]="'Add member'"
+      rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}"
+      gridStyle="third" [export]="true" (exportFlagToParent)="exportTeamsDetailsData()"
+      [paginationApi]="teamsMemberData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
+      [pagination]="teamsMemberData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords"
+      (searchInput)="searchGrid($event)" (gridReady)="handleGridReady($event)"
+      (currentPageChange)="currentPageChange($event)" (customSortChange)="sortChanged($event)"
+      (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid> -->
+      <lib-ag-grid [rowData]="teamsMemberData" [columnDefs]="columnDefsAgGrid" 
+      [displayCheckBox] = "true" [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
+      [disablePrimaryButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="third"
+      [export]="true" buttonPosition="left" [exportName] = "exportName"
+      [search]="true" paginationSize="10" (newEventToParent)="addTeamMembers($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row>
-      <div class="delete-icon" (click)="deleteTeamMember(row)" *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
+      <div class="delete-icon" (click)="deleteTeamMember(row)"
+        *ngIf="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M14.5 3L15.5 4H19V6H5V4H8.5L9.5 3H14.5ZM6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9Z"
@@ -171,7 +196,7 @@
         Add member to team
       </motif-modal-header>
       <motif-modal-body>
-    
+
         <form [formGroup]="addTeamMemberForm">
           <span class="description"> Select members to add to this team below
           </span>
@@ -179,8 +204,10 @@
             <div class="motif-col-xs-4 motif-col-lg-12">
               <motif-form-field>
                 <label motifLabel class="select-label">Select</label>
-                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members" ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
-                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}} {{member.userLastName}}</motif-option>
+                <motif-select aria-label="Please select an option" [multiple]="true" formControlName="members"
+                  ngDefaultControl (change)="logEvent($event, 'multi', addTeamMemberForm.controls.members.value)">
+                  <motif-option [value]="member.userId" *ngFor="let member of users">{{member.userFirstName}}
+                    {{member.userLastName}}</motif-option>
                   <!-- <motif-option [value]="member" *ngFor="let member of members">{{member}}</motif-option> -->
                 </motif-select>
                 <motif-error *ngIf="
@@ -194,14 +221,15 @@
               </motif-chip-group>
             </div> -->
             <div class="motif-col-xs-4 motif-col-lg-12 add-member-note">
-              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span>
+              <span><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User
+                tab.</span>
             </div>
           </div>
         </form>
         <!-- <span class="add-member-note"><b>NOTE:</b> If you cannot find a user, please be sure they are added to the system from the User tab.</span> -->
       </motif-modal-body>
       <motif-modal-footer>
-        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeamMembers()"
+        <button motifButton class="approve-yes" color="primary-alt" (click)="onSubmitNewTeamMembers()"
           [disabled]="addTeamMemberForm.invalid">Save</button>
         <button motifButton class="approve-no" color="secondary" (click)="closeTeamMemberModal()">Cancel</button>
       </motif-modal-footer>
@@ -209,4 +237,135 @@
 
     <motif-toast [type]="'success'" [show]="showToastAfterAddTeamMember">Team members added successfully</motif-toast>
   </div>
+
+  <div *ngIf="tabIn == 2">
+    <!-- <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
+      [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true"  
+      [rowData]="taskAssignmentData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
+      [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
+    </lib-shared-grid> -->
+    <lib-ag-grid *ngIf="taskAssignmentData.length != 0" [rowData]="taskAssignmentData" [columnDefs]="columnDefsAgGrid" [button]='false'
+    [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
+    [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
+    [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+
+    <div *ngIf="taskAssignmentData.length == 0">
+      <motif-card>
+        <div class="row">
+          <svg class="svg-search-icon" width="258" height="43" viewBox="0 0 258 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M235.71 24H236.5L241.49 29L240 30.49L235 25.5V24.71L234.73 24.43C233.59 25.41 232.11 26 230.5 26C226.91 26 224 23.09 224 19.5C224 15.91 226.91 13 230.5 13C234.09 13 237 15.91 237 19.5C237 21.11 236.41 22.59 235.43 23.73L235.71 24ZM226 19.5C226 21.99 228.01 24 230.5 24C232.99 24 235 21.99 235 19.5C235 17.01 232.99 15 230.5 15C228.01 15 226 17.01 226 19.5Z" fill="#C4C4CD"/>
+            <path d="M25.8408 24.1836C25.8408 24.6257 25.7679 25.029 25.6221 25.3936C25.4808 25.7581 25.262 26.0726 24.9658 26.3369C24.6696 26.5967 24.2936 26.7995 23.8379 26.9453C23.3822 27.0866 22.8398 27.1572 22.2109 27.1572C21.8555 27.1572 21.5114 27.1185 21.1787 27.041C20.8506 26.9681 20.5384 26.8633 20.2422 26.7266C19.9505 26.5898 19.6748 26.4235 19.415 26.2275C19.1598 26.0316 18.9297 25.8128 18.7246 25.5713L19.7773 24.5527C19.9414 24.7305 20.1237 24.8923 20.3242 25.0381C20.5247 25.1794 20.7344 25.3001 20.9531 25.4004C21.1719 25.5007 21.3975 25.5781 21.6299 25.6328C21.8623 25.6875 22.0947 25.7148 22.3271 25.7148C23.0199 25.7148 23.5303 25.5964 23.8584 25.3594C24.1911 25.1224 24.3574 24.7646 24.3574 24.2861C24.3574 24.0947 24.3187 23.9261 24.2412 23.7803C24.1637 23.6344 24.0384 23.5 23.8652 23.377C23.6921 23.2493 23.4642 23.1286 23.1816 23.0146C22.8991 22.9007 22.5527 22.7822 22.1426 22.6592C21.623 22.5042 21.1719 22.3493 20.7891 22.1943C20.4062 22.0394 20.0872 21.8571 19.832 21.6475C19.5814 21.4333 19.3923 21.1781 19.2646 20.8818C19.1416 20.5811 19.0801 20.2119 19.0801 19.7744C19.0801 19.3506 19.1644 18.9701 19.333 18.6328C19.5016 18.2956 19.7295 18.0107 20.0166 17.7783C20.3083 17.5413 20.6501 17.3613 21.042 17.2383C21.4385 17.1107 21.8623 17.0469 22.3135 17.0469C22.6872 17.0514 23.0153 17.0833 23.2979 17.1426C23.585 17.2018 23.8607 17.293 24.125 17.416C24.3939 17.5391 24.6354 17.6758 24.8496 17.8262C25.0638 17.972 25.2871 18.1543 25.5195 18.373L24.4805 19.4258C24.2936 19.2389 24.125 19.0954 23.9746 18.9951C23.8242 18.8949 23.667 18.8083 23.5029 18.7354C23.3434 18.6624 23.1543 18.6032 22.9355 18.5576C22.7214 18.512 22.4753 18.4893 22.1973 18.4893C21.9102 18.4893 21.6641 18.5234 21.459 18.5918C21.2539 18.6556 21.083 18.7422 20.9463 18.8516C20.8141 18.9609 20.7161 19.0908 20.6523 19.2412C20.5931 19.387 20.5635 19.542 20.5635 19.7061C20.5635 19.8792 20.5954 20.0319 20.6592 20.1641C20.723 20.2962 20.8346 20.4215 20.9941 20.54C21.1582 20.654 21.377 20.7656 21.6504 20.875C21.9284 20.9844 22.2793 21.1029 22.7031 21.2305C23.1862 21.3763 23.6214 21.5312 24.0088 21.6953C24.3962 21.8548 24.7243 22.0462 24.9932 22.2695C25.2666 22.4928 25.4762 22.7594 25.6221 23.0693C25.7679 23.3747 25.8408 23.7461 25.8408 24.1836ZM33.6543 23.1787C33.6543 23.3109 33.6497 23.4339 33.6406 23.5479C33.6315 23.6618 33.6224 23.7575 33.6133 23.835H28.7529C28.7939 24.1904 28.8714 24.4958 28.9854 24.751C29.0993 25.0016 29.2383 25.209 29.4023 25.373C29.5664 25.5371 29.751 25.6579 29.9561 25.7354C30.1657 25.8128 30.3822 25.8516 30.6055 25.8516C30.765 25.8516 30.9154 25.8379 31.0566 25.8105C31.1979 25.7832 31.3324 25.7422 31.46 25.6875C31.5921 25.6328 31.7083 25.5781 31.8086 25.5234C31.9089 25.4642 32.0387 25.3776 32.1982 25.2637L33.0527 26.1865C32.8704 26.3597 32.695 26.501 32.5264 26.6104C32.3623 26.7152 32.1823 26.8109 31.9863 26.8975C31.7949 26.9795 31.5762 27.0433 31.3301 27.0889C31.084 27.1344 30.8128 27.1572 30.5166 27.1572C30.1976 27.1572 29.8991 27.1117 29.6211 27.0205C29.3431 26.9339 29.097 26.82 28.8828 26.6787C28.6686 26.5329 28.4749 26.3688 28.3018 26.1865C28.1331 25.9997 27.9714 25.7627 27.8164 25.4756C27.6615 25.1839 27.543 24.8604 27.4609 24.5049C27.3789 24.1449 27.3379 23.7529 27.3379 23.3291C27.3379 22.7093 27.4154 22.1602 27.5703 21.6816C27.7298 21.2031 27.9508 20.8021 28.2334 20.4785C28.516 20.1549 28.8555 19.9111 29.252 19.7471C29.6484 19.5785 30.0837 19.4941 30.5576 19.4941C31.0817 19.4941 31.5374 19.5944 31.9248 19.7949C32.3122 19.9909 32.6335 20.2575 32.8887 20.5947C33.1439 20.9274 33.3353 21.3171 33.4629 21.7637C33.5905 22.2103 33.6543 22.682 33.6543 23.1787ZM32.1982 22.6455C32.18 22.3949 32.1344 22.1579 32.0615 21.9346C31.9932 21.7113 31.8883 21.5153 31.7471 21.3467C31.6104 21.1781 31.4349 21.0459 31.2207 20.9502C31.0111 20.8499 30.7581 20.7998 30.4619 20.7998C30.2067 20.7998 29.9834 20.8431 29.792 20.9297C29.6006 21.0117 29.4365 21.1302 29.2998 21.2852C29.1631 21.4401 29.0492 21.6315 28.958 21.8594C28.8714 22.0827 28.8122 22.3447 28.7803 22.6455H32.1982ZM39.5742 27V26.2754C39.3874 26.4486 39.2324 26.5762 39.1094 26.6582C38.9863 26.7357 38.8587 26.8109 38.7266 26.8838C38.5944 26.9521 38.4258 27.0137 38.2207 27.0684C38.0202 27.1276 37.7992 27.1572 37.5576 27.1572C37.2614 27.1572 36.9606 27.1117 36.6553 27.0205C36.3545 26.9339 36.0811 26.7926 35.835 26.5967C35.5934 26.3962 35.3952 26.1387 35.2402 25.8242C35.0853 25.5098 35.0078 25.127 35.0078 24.6758C35.0078 24.2656 35.0807 23.9124 35.2266 23.6162C35.377 23.3154 35.582 23.0671 35.8418 22.8711C36.1061 22.6751 36.416 22.5316 36.7715 22.4404C37.1315 22.3447 37.5189 22.2969 37.9336 22.2969C38.321 22.2969 38.6468 22.3242 38.9111 22.3789C39.1755 22.429 39.3965 22.4951 39.5742 22.5771V22.0303C39.5742 21.6292 39.4557 21.3216 39.2188 21.1074C38.9818 20.8932 38.6377 20.7861 38.1865 20.7861C37.8083 20.7861 37.4665 20.8226 37.1611 20.8955C36.8558 20.9684 36.5596 21.0846 36.2725 21.2441L35.7119 20.1572C36.0628 19.9385 36.4388 19.7744 36.8398 19.665C37.2454 19.5511 37.708 19.4941 38.2275 19.4941C38.6377 19.4941 39.0114 19.5443 39.3486 19.6445C39.6904 19.7448 39.9821 19.8975 40.2236 20.1025C40.4652 20.3076 40.652 20.5651 40.7842 20.875C40.9209 21.1849 40.9893 21.5472 40.9893 21.9619V27H39.5742ZM39.5742 23.8623C39.4375 23.7985 39.3145 23.7507 39.2051 23.7188C39.0957 23.6823 38.9818 23.6527 38.8633 23.6299C38.7448 23.6025 38.6012 23.582 38.4326 23.5684C38.2686 23.5501 38.0885 23.541 37.8926 23.541C37.4277 23.541 37.0586 23.639 36.7852 23.835C36.5163 24.0309 36.3818 24.2975 36.3818 24.6348C36.3818 24.8535 36.4206 25.0404 36.498 25.1953C36.5755 25.3457 36.6735 25.4688 36.792 25.5645C36.9105 25.6602 37.0495 25.7331 37.209 25.7832C37.373 25.8288 37.569 25.8516 37.7969 25.8516C37.9883 25.8516 38.1729 25.8242 38.3506 25.7695C38.5283 25.7148 38.6947 25.6442 38.8496 25.5576C39.0046 25.4665 39.1436 25.3662 39.2666 25.2568C39.3896 25.1429 39.4922 25.029 39.5742 24.915V23.8623ZM47.0459 21.1758C46.891 21.0892 46.7269 21.0231 46.5537 20.9775C46.3851 20.932 46.1823 20.9092 45.9453 20.9092C45.485 20.9092 45.1296 21.0687 44.8789 21.3877C44.6283 21.7021 44.5029 22.1738 44.5029 22.8027V27H43.0605V19.6514H44.5029V20.3486C44.585 20.2256 44.6852 20.1139 44.8037 20.0137C44.9222 19.9089 45.0521 19.8177 45.1934 19.7402C45.3392 19.6628 45.4941 19.6035 45.6582 19.5625C45.8223 19.5169 45.9954 19.4941 46.1777 19.4941C46.474 19.4941 46.7201 19.5215 46.916 19.5762C47.112 19.6309 47.2829 19.7061 47.4287 19.8018L47.0459 21.1758ZM54.0117 25.7832C53.8659 25.9655 53.7087 26.141 53.54 26.3096C53.376 26.4736 53.1891 26.6195 52.9795 26.7471C52.7699 26.8701 52.5329 26.9681 52.2686 27.041C52.0088 27.1185 51.7126 27.1572 51.3799 27.1572C50.9333 27.1572 50.5163 27.0661 50.1289 26.8838C49.7415 26.7015 49.4043 26.444 49.1172 26.1113C48.8346 25.7786 48.6113 25.3776 48.4473 24.9082C48.2832 24.4388 48.2012 23.917 48.2012 23.3428C48.2012 22.7367 48.2832 22.1943 48.4473 21.7158C48.6159 21.2373 48.846 20.834 49.1377 20.5059C49.4294 20.1777 49.7712 19.9271 50.1631 19.7539C50.555 19.5807 50.9743 19.4941 51.4209 19.4941C51.9632 19.4941 52.4463 19.6012 52.8701 19.8154C53.2985 20.0251 53.6836 20.335 54.0254 20.7451L53.1709 21.7637C52.9977 21.5905 52.8496 21.4561 52.7266 21.3604C52.6035 21.2601 52.4668 21.1712 52.3164 21.0938C52.1706 21.0163 52.0202 20.9593 51.8652 20.9229C51.7148 20.8864 51.5531 20.8682 51.3799 20.8682C51.1201 20.8682 50.8831 20.9251 50.6689 21.0391C50.4593 21.153 50.2793 21.3148 50.1289 21.5244C49.9785 21.734 49.8623 21.9893 49.7803 22.29C49.6982 22.5908 49.6572 22.9281 49.6572 23.3018C49.6572 23.6618 49.696 23.9945 49.7734 24.2998C49.8509 24.6006 49.9626 24.8626 50.1084 25.0859C50.2588 25.3047 50.4434 25.4756 50.6621 25.5986C50.8809 25.7217 51.1338 25.7832 51.4209 25.7832C51.5941 25.7832 51.7513 25.765 51.8926 25.7285C52.0339 25.6875 52.1683 25.6305 52.2959 25.5576C52.4281 25.4801 52.5557 25.3844 52.6787 25.2705C52.8063 25.1566 52.943 25.0244 53.0889 24.874L54.0117 25.7832ZM60.335 27V22.8438C60.335 22.1647 60.2142 21.6589 59.9727 21.3262C59.7311 20.9935 59.3483 20.8271 58.8242 20.8271C58.6009 20.8271 58.3936 20.8636 58.2021 20.9365C58.0153 21.0094 57.8535 21.1302 57.7168 21.2988C57.5846 21.4674 57.4844 21.6657 57.416 21.8936C57.3477 22.1214 57.3135 22.3903 57.3135 22.7002V27H55.8711V17.5527L57.3135 16.7939V20.3486C57.4046 20.2165 57.5163 20.098 57.6484 19.9932C57.7806 19.8838 57.9264 19.7926 58.0859 19.7197C58.2454 19.6468 58.4163 19.5921 58.5986 19.5557C58.7809 19.5146 58.9678 19.4941 59.1592 19.4941C59.6012 19.4941 59.984 19.5648 60.3076 19.7061C60.6312 19.8473 60.9023 20.057 61.1211 20.335C61.3444 20.6084 61.5085 20.9593 61.6133 21.3877C61.7227 21.8115 61.7773 22.2786 61.7773 22.7891V27H60.335ZM72.7832 26.0498C72.7832 26.2002 72.7536 26.3438 72.6943 26.4805C72.6351 26.6126 72.5553 26.7288 72.4551 26.8291C72.3548 26.9294 72.2363 27.0091 72.0996 27.0684C71.9674 27.1276 71.8262 27.1572 71.6758 27.1572C71.5254 27.1572 71.3818 27.1276 71.2451 27.0684C71.113 27.0091 70.9967 26.9294 70.8965 26.8291C70.8008 26.7288 70.7233 26.6126 70.6641 26.4805C70.6048 26.3438 70.5752 26.2002 70.5752 26.0498C70.5752 25.8994 70.6048 25.7581 70.6641 25.626C70.7233 25.4893 70.8008 25.3708 70.8965 25.2705C70.9967 25.1657 71.113 25.0837 71.2451 25.0244C71.3818 24.9606 71.5254 24.9287 71.6758 24.9287C71.8262 24.9287 71.9674 24.9606 72.0996 25.0244C72.2363 25.0837 72.3548 25.1657 72.4551 25.2705C72.5553 25.3708 72.6351 25.4893 72.6943 25.626C72.7536 25.7581 72.7832 25.8994 72.7832 26.0498ZM69.2285 26.0498C69.2285 26.2002 69.1989 26.3438 69.1396 26.4805C69.0804 26.6126 69.0007 26.7288 68.9004 26.8291C68.8001 26.9294 68.6816 27.0091 68.5449 27.0684C68.4128 27.1276 68.2715 27.1572 68.1211 27.1572C67.9707 27.1572 67.8271 27.1276 67.6904 27.0684C67.5583 27.0091 67.4421 26.9294 67.3418 26.8291C67.2415 26.7288 67.1618 26.6126 67.1025 26.4805C67.0433 26.3438 67.0137 26.2002 67.0137 26.0498C67.0137 25.8994 67.0433 25.7581 67.1025 25.626C67.1618 25.4893 67.2415 25.3708 67.3418 25.2705C67.4421 25.1657 67.5583 25.0837 67.6904 25.0244C67.8271 24.9606 67.9707 24.9287 68.1211 24.9287C68.2715 24.9287 68.4128 24.9606 68.5449 25.0244C68.6816 25.0837 68.8001 25.1657 68.9004 25.2705C69.0007 25.3708 69.0804 25.4893 69.1396 25.626C69.1989 25.7581 69.2285 25.8994 69.2285 26.0498ZM65.6738 26.0498C65.6738 26.2002 65.6442 26.3438 65.585 26.4805C65.5257 26.6126 65.446 26.7288 65.3457 26.8291C65.2454 26.9294 65.127 27.0091 64.9902 27.0684C64.8581 27.1276 64.7168 27.1572 64.5664 27.1572C64.416 27.1572 64.2725 27.1276 64.1357 27.0684C64.0036 27.0091 63.8874 26.9294 63.7871 26.8291C63.6868 26.7288 63.6071 26.6126 63.5479 26.4805C63.4886 26.3438 63.459 26.2002 63.459 26.0498C63.459 25.8994 63.4886 25.7581 63.5479 25.626C63.6071 25.4893 63.6868 25.3708 63.7871 25.2705C63.8874 25.1657 64.0036 25.0837 64.1357 25.0244C64.2725 24.9606 64.416 24.9287 64.5664 24.9287C64.7168 24.9287 64.8581 24.9606 64.9902 25.0244C65.127 25.0837 65.2454 25.1657 65.3457 25.2705C65.446 25.3708 65.5257 25.4893 65.585 25.626C65.6442 25.7581 65.6738 25.8994 65.6738 26.0498Z" fill="#C4C4CD"/>
+            <line y1="42.5" x2="258" y2="42.5" stroke="#C4C4CD"/>
+            </svg>            
+        </div>
+        <div class="card-block">
+          <svg class='assignment_icon' width="60" height="55" viewBox="0 0 60 55" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M54.5832 9.02852L23.6811 39.9577L12.1978 28.4743L16.0165 24.6556L23.6811 32.3202L50.7644 5.23685L54.5832 9.02852ZM27.4998 49.166C15.5561 49.166 5.83317 39.4431 5.83317 27.4994C5.83317 15.5556 15.5561 5.83268 27.4998 5.83268C31.7519 5.83268 35.7332 7.07852 39.0915 9.2181L43.0186 5.29102C38.604 2.2306 33.2686 0.416016 27.4998 0.416016C12.5498 0.416016 0.416504 12.5493 0.416504 27.4994C0.416504 42.4494 12.5498 54.5827 27.4998 54.5827C32.1853 54.5827 36.5998 53.391 40.4457 51.2785L36.3832 47.216C33.6748 48.4619 30.6686 49.166 27.4998 49.166ZM46.4582 35.6244H38.3332V41.041H46.4582V49.166H51.8748V41.041H59.9998V35.6244H51.8748V27.4994H46.4582V35.6244Z" fill="#747480" />
+          </svg>
+          <span class="assignment_txt">
+            No task assignments displayed.<br>
+            Please click <b>Filings</b> to enable filing permissions and show available task assignments.</span>
+        </div>
+      </motif-card>
+    </div>
+
+    <div *ngIf="searchNoDataAvilable">
+      <motif-card class="no_data">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+    </div>
+  </div>
+
+  <div *ngIf="tabIn == 4">
+    <!-- <lib-shared-grid [button]='false' *ngIf="dataExplorerData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
+      [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true" 
+      [rowData]="dataExplorerData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
+      [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
+    </lib-shared-grid> -->
+
+    <lib-ag-grid *ngIf="dataExplorerData.length != 0" [rowData]="dataExplorerData" [columnDefs]="columnDefsAgGrid" [button]='false'
+    [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
+    [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
+    [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+
+    <div *ngIf="dataExplorerData.length == 0">
+      <motif-card>
+        <div class="row">
+          <svg class="svg-search-icon" width="258" height="43" viewBox="0 0 258 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M235.71 24H236.5L241.49 29L240 30.49L235 25.5V24.71L234.73 24.43C233.59 25.41 232.11 26 230.5 26C226.91 26 224 23.09 224 19.5C224 15.91 226.91 13 230.5 13C234.09 13 237 15.91 237 19.5C237 21.11 236.41 22.59 235.43 23.73L235.71 24ZM226 19.5C226 21.99 228.01 24 230.5 24C232.99 24 235 21.99 235 19.5C235 17.01 232.99 15 230.5 15C228.01 15 226 17.01 226 19.5Z" fill="#C4C4CD"/>
+            <path d="M25.8408 24.1836C25.8408 24.6257 25.7679 25.029 25.6221 25.3936C25.4808 25.7581 25.262 26.0726 24.9658 26.3369C24.6696 26.5967 24.2936 26.7995 23.8379 26.9453C23.3822 27.0866 22.8398 27.1572 22.2109 27.1572C21.8555 27.1572 21.5114 27.1185 21.1787 27.041C20.8506 26.9681 20.5384 26.8633 20.2422 26.7266C19.9505 26.5898 19.6748 26.4235 19.415 26.2275C19.1598 26.0316 18.9297 25.8128 18.7246 25.5713L19.7773 24.5527C19.9414 24.7305 20.1237 24.8923 20.3242 25.0381C20.5247 25.1794 20.7344 25.3001 20.9531 25.4004C21.1719 25.5007 21.3975 25.5781 21.6299 25.6328C21.8623 25.6875 22.0947 25.7148 22.3271 25.7148C23.0199 25.7148 23.5303 25.5964 23.8584 25.3594C24.1911 25.1224 24.3574 24.7646 24.3574 24.2861C24.3574 24.0947 24.3187 23.9261 24.2412 23.7803C24.1637 23.6344 24.0384 23.5 23.8652 23.377C23.6921 23.2493 23.4642 23.1286 23.1816 23.0146C22.8991 22.9007 22.5527 22.7822 22.1426 22.6592C21.623 22.5042 21.1719 22.3493 20.7891 22.1943C20.4062 22.0394 20.0872 21.8571 19.832 21.6475C19.5814 21.4333 19.3923 21.1781 19.2646 20.8818C19.1416 20.5811 19.0801 20.2119 19.0801 19.7744C19.0801 19.3506 19.1644 18.9701 19.333 18.6328C19.5016 18.2956 19.7295 18.0107 20.0166 17.7783C20.3083 17.5413 20.6501 17.3613 21.042 17.2383C21.4385 17.1107 21.8623 17.0469 22.3135 17.0469C22.6872 17.0514 23.0153 17.0833 23.2979 17.1426C23.585 17.2018 23.8607 17.293 24.125 17.416C24.3939 17.5391 24.6354 17.6758 24.8496 17.8262C25.0638 17.972 25.2871 18.1543 25.5195 18.373L24.4805 19.4258C24.2936 19.2389 24.125 19.0954 23.9746 18.9951C23.8242 18.8949 23.667 18.8083 23.5029 18.7354C23.3434 18.6624 23.1543 18.6032 22.9355 18.5576C22.7214 18.512 22.4753 18.4893 22.1973 18.4893C21.9102 18.4893 21.6641 18.5234 21.459 18.5918C21.2539 18.6556 21.083 18.7422 20.9463 18.8516C20.8141 18.9609 20.7161 19.0908 20.6523 19.2412C20.5931 19.387 20.5635 19.542 20.5635 19.7061C20.5635 19.8792 20.5954 20.0319 20.6592 20.1641C20.723 20.2962 20.8346 20.4215 20.9941 20.54C21.1582 20.654 21.377 20.7656 21.6504 20.875C21.9284 20.9844 22.2793 21.1029 22.7031 21.2305C23.1862 21.3763 23.6214 21.5312 24.0088 21.6953C24.3962 21.8548 24.7243 22.0462 24.9932 22.2695C25.2666 22.4928 25.4762 22.7594 25.6221 23.0693C25.7679 23.3747 25.8408 23.7461 25.8408 24.1836ZM33.6543 23.1787C33.6543 23.3109 33.6497 23.4339 33.6406 23.5479C33.6315 23.6618 33.6224 23.7575 33.6133 23.835H28.7529C28.7939 24.1904 28.8714 24.4958 28.9854 24.751C29.0993 25.0016 29.2383 25.209 29.4023 25.373C29.5664 25.5371 29.751 25.6579 29.9561 25.7354C30.1657 25.8128 30.3822 25.8516 30.6055 25.8516C30.765 25.8516 30.9154 25.8379 31.0566 25.8105C31.1979 25.7832 31.3324 25.7422 31.46 25.6875C31.5921 25.6328 31.7083 25.5781 31.8086 25.5234C31.9089 25.4642 32.0387 25.3776 32.1982 25.2637L33.0527 26.1865C32.8704 26.3597 32.695 26.501 32.5264 26.6104C32.3623 26.7152 32.1823 26.8109 31.9863 26.8975C31.7949 26.9795 31.5762 27.0433 31.3301 27.0889C31.084 27.1344 30.8128 27.1572 30.5166 27.1572C30.1976 27.1572 29.8991 27.1117 29.6211 27.0205C29.3431 26.9339 29.097 26.82 28.8828 26.6787C28.6686 26.5329 28.4749 26.3688 28.3018 26.1865C28.1331 25.9997 27.9714 25.7627 27.8164 25.4756C27.6615 25.1839 27.543 24.8604 27.4609 24.5049C27.3789 24.1449 27.3379 23.7529 27.3379 23.3291C27.3379 22.7093 27.4154 22.1602 27.5703 21.6816C27.7298 21.2031 27.9508 20.8021 28.2334 20.4785C28.516 20.1549 28.8555 19.9111 29.252 19.7471C29.6484 19.5785 30.0837 19.4941 30.5576 19.4941C31.0817 19.4941 31.5374 19.5944 31.9248 19.7949C32.3122 19.9909 32.6335 20.2575 32.8887 20.5947C33.1439 20.9274 33.3353 21.3171 33.4629 21.7637C33.5905 22.2103 33.6543 22.682 33.6543 23.1787ZM32.1982 22.6455C32.18 22.3949 32.1344 22.1579 32.0615 21.9346C31.9932 21.7113 31.8883 21.5153 31.7471 21.3467C31.6104 21.1781 31.4349 21.0459 31.2207 20.9502C31.0111 20.8499 30.7581 20.7998 30.4619 20.7998C30.2067 20.7998 29.9834 20.8431 29.792 20.9297C29.6006 21.0117 29.4365 21.1302 29.2998 21.2852C29.1631 21.4401 29.0492 21.6315 28.958 21.8594C28.8714 22.0827 28.8122 22.3447 28.7803 22.6455H32.1982ZM39.5742 27V26.2754C39.3874 26.4486 39.2324 26.5762 39.1094 26.6582C38.9863 26.7357 38.8587 26.8109 38.7266 26.8838C38.5944 26.9521 38.4258 27.0137 38.2207 27.0684C38.0202 27.1276 37.7992 27.1572 37.5576 27.1572C37.2614 27.1572 36.9606 27.1117 36.6553 27.0205C36.3545 26.9339 36.0811 26.7926 35.835 26.5967C35.5934 26.3962 35.3952 26.1387 35.2402 25.8242C35.0853 25.5098 35.0078 25.127 35.0078 24.6758C35.0078 24.2656 35.0807 23.9124 35.2266 23.6162C35.377 23.3154 35.582 23.0671 35.8418 22.8711C36.1061 22.6751 36.416 22.5316 36.7715 22.4404C37.1315 22.3447 37.5189 22.2969 37.9336 22.2969C38.321 22.2969 38.6468 22.3242 38.9111 22.3789C39.1755 22.429 39.3965 22.4951 39.5742 22.5771V22.0303C39.5742 21.6292 39.4557 21.3216 39.2188 21.1074C38.9818 20.8932 38.6377 20.7861 38.1865 20.7861C37.8083 20.7861 37.4665 20.8226 37.1611 20.8955C36.8558 20.9684 36.5596 21.0846 36.2725 21.2441L35.7119 20.1572C36.0628 19.9385 36.4388 19.7744 36.8398 19.665C37.2454 19.5511 37.708 19.4941 38.2275 19.4941C38.6377 19.4941 39.0114 19.5443 39.3486 19.6445C39.6904 19.7448 39.9821 19.8975 40.2236 20.1025C40.4652 20.3076 40.652 20.5651 40.7842 20.875C40.9209 21.1849 40.9893 21.5472 40.9893 21.9619V27H39.5742ZM39.5742 23.8623C39.4375 23.7985 39.3145 23.7507 39.2051 23.7188C39.0957 23.6823 38.9818 23.6527 38.8633 23.6299C38.7448 23.6025 38.6012 23.582 38.4326 23.5684C38.2686 23.5501 38.0885 23.541 37.8926 23.541C37.4277 23.541 37.0586 23.639 36.7852 23.835C36.5163 24.0309 36.3818 24.2975 36.3818 24.6348C36.3818 24.8535 36.4206 25.0404 36.498 25.1953C36.5755 25.3457 36.6735 25.4688 36.792 25.5645C36.9105 25.6602 37.0495 25.7331 37.209 25.7832C37.373 25.8288 37.569 25.8516 37.7969 25.8516C37.9883 25.8516 38.1729 25.8242 38.3506 25.7695C38.5283 25.7148 38.6947 25.6442 38.8496 25.5576C39.0046 25.4665 39.1436 25.3662 39.2666 25.2568C39.3896 25.1429 39.4922 25.029 39.5742 24.915V23.8623ZM47.0459 21.1758C46.891 21.0892 46.7269 21.0231 46.5537 20.9775C46.3851 20.932 46.1823 20.9092 45.9453 20.9092C45.485 20.9092 45.1296 21.0687 44.8789 21.3877C44.6283 21.7021 44.5029 22.1738 44.5029 22.8027V27H43.0605V19.6514H44.5029V20.3486C44.585 20.2256 44.6852 20.1139 44.8037 20.0137C44.9222 19.9089 45.0521 19.8177 45.1934 19.7402C45.3392 19.6628 45.4941 19.6035 45.6582 19.5625C45.8223 19.5169 45.9954 19.4941 46.1777 19.4941C46.474 19.4941 46.7201 19.5215 46.916 19.5762C47.112 19.6309 47.2829 19.7061 47.4287 19.8018L47.0459 21.1758ZM54.0117 25.7832C53.8659 25.9655 53.7087 26.141 53.54 26.3096C53.376 26.4736 53.1891 26.6195 52.9795 26.7471C52.7699 26.8701 52.5329 26.9681 52.2686 27.041C52.0088 27.1185 51.7126 27.1572 51.3799 27.1572C50.9333 27.1572 50.5163 27.0661 50.1289 26.8838C49.7415 26.7015 49.4043 26.444 49.1172 26.1113C48.8346 25.7786 48.6113 25.3776 48.4473 24.9082C48.2832 24.4388 48.2012 23.917 48.2012 23.3428C48.2012 22.7367 48.2832 22.1943 48.4473 21.7158C48.6159 21.2373 48.846 20.834 49.1377 20.5059C49.4294 20.1777 49.7712 19.9271 50.1631 19.7539C50.555 19.5807 50.9743 19.4941 51.4209 19.4941C51.9632 19.4941 52.4463 19.6012 52.8701 19.8154C53.2985 20.0251 53.6836 20.335 54.0254 20.7451L53.1709 21.7637C52.9977 21.5905 52.8496 21.4561 52.7266 21.3604C52.6035 21.2601 52.4668 21.1712 52.3164 21.0938C52.1706 21.0163 52.0202 20.9593 51.8652 20.9229C51.7148 20.8864 51.5531 20.8682 51.3799 20.8682C51.1201 20.8682 50.8831 20.9251 50.6689 21.0391C50.4593 21.153 50.2793 21.3148 50.1289 21.5244C49.9785 21.734 49.8623 21.9893 49.7803 22.29C49.6982 22.5908 49.6572 22.9281 49.6572 23.3018C49.6572 23.6618 49.696 23.9945 49.7734 24.2998C49.8509 24.6006 49.9626 24.8626 50.1084 25.0859C50.2588 25.3047 50.4434 25.4756 50.6621 25.5986C50.8809 25.7217 51.1338 25.7832 51.4209 25.7832C51.5941 25.7832 51.7513 25.765 51.8926 25.7285C52.0339 25.6875 52.1683 25.6305 52.2959 25.5576C52.4281 25.4801 52.5557 25.3844 52.6787 25.2705C52.8063 25.1566 52.943 25.0244 53.0889 24.874L54.0117 25.7832ZM60.335 27V22.8438C60.335 22.1647 60.2142 21.6589 59.9727 21.3262C59.7311 20.9935 59.3483 20.8271 58.8242 20.8271C58.6009 20.8271 58.3936 20.8636 58.2021 20.9365C58.0153 21.0094 57.8535 21.1302 57.7168 21.2988C57.5846 21.4674 57.4844 21.6657 57.416 21.8936C57.3477 22.1214 57.3135 22.3903 57.3135 22.7002V27H55.8711V17.5527L57.3135 16.7939V20.3486C57.4046 20.2165 57.5163 20.098 57.6484 19.9932C57.7806 19.8838 57.9264 19.7926 58.0859 19.7197C58.2454 19.6468 58.4163 19.5921 58.5986 19.5557C58.7809 19.5146 58.9678 19.4941 59.1592 19.4941C59.6012 19.4941 59.984 19.5648 60.3076 19.7061C60.6312 19.8473 60.9023 20.057 61.1211 20.335C61.3444 20.6084 61.5085 20.9593 61.6133 21.3877C61.7227 21.8115 61.7773 22.2786 61.7773 22.7891V27H60.335ZM72.7832 26.0498C72.7832 26.2002 72.7536 26.3438 72.6943 26.4805C72.6351 26.6126 72.5553 26.7288 72.4551 26.8291C72.3548 26.9294 72.2363 27.0091 72.0996 27.0684C71.9674 27.1276 71.8262 27.1572 71.6758 27.1572C71.5254 27.1572 71.3818 27.1276 71.2451 27.0684C71.113 27.0091 70.9967 26.9294 70.8965 26.8291C70.8008 26.7288 70.7233 26.6126 70.6641 26.4805C70.6048 26.3438 70.5752 26.2002 70.5752 26.0498C70.5752 25.8994 70.6048 25.7581 70.6641 25.626C70.7233 25.4893 70.8008 25.3708 70.8965 25.2705C70.9967 25.1657 71.113 25.0837 71.2451 25.0244C71.3818 24.9606 71.5254 24.9287 71.6758 24.9287C71.8262 24.9287 71.9674 24.9606 72.0996 25.0244C72.2363 25.0837 72.3548 25.1657 72.4551 25.2705C72.5553 25.3708 72.6351 25.4893 72.6943 25.626C72.7536 25.7581 72.7832 25.8994 72.7832 26.0498ZM69.2285 26.0498C69.2285 26.2002 69.1989 26.3438 69.1396 26.4805C69.0804 26.6126 69.0007 26.7288 68.9004 26.8291C68.8001 26.9294 68.6816 27.0091 68.5449 27.0684C68.4128 27.1276 68.2715 27.1572 68.1211 27.1572C67.9707 27.1572 67.8271 27.1276 67.6904 27.0684C67.5583 27.0091 67.4421 26.9294 67.3418 26.8291C67.2415 26.7288 67.1618 26.6126 67.1025 26.4805C67.0433 26.3438 67.0137 26.2002 67.0137 26.0498C67.0137 25.8994 67.0433 25.7581 67.1025 25.626C67.1618 25.4893 67.2415 25.3708 67.3418 25.2705C67.4421 25.1657 67.5583 25.0837 67.6904 25.0244C67.8271 24.9606 67.9707 24.9287 68.1211 24.9287C68.2715 24.9287 68.4128 24.9606 68.5449 25.0244C68.6816 25.0837 68.8001 25.1657 68.9004 25.2705C69.0007 25.3708 69.0804 25.4893 69.1396 25.626C69.1989 25.7581 69.2285 25.8994 69.2285 26.0498ZM65.6738 26.0498C65.6738 26.2002 65.6442 26.3438 65.585 26.4805C65.5257 26.6126 65.446 26.7288 65.3457 26.8291C65.2454 26.9294 65.127 27.0091 64.9902 27.0684C64.8581 27.1276 64.7168 27.1572 64.5664 27.1572C64.416 27.1572 64.2725 27.1276 64.1357 27.0684C64.0036 27.0091 63.8874 26.9294 63.7871 26.8291C63.6868 26.7288 63.6071 26.6126 63.5479 26.4805C63.4886 26.3438 63.459 26.2002 63.459 26.0498C63.459 25.8994 63.4886 25.7581 63.5479 25.626C63.6071 25.4893 63.6868 25.3708 63.7871 25.2705C63.8874 25.1657 64.0036 25.0837 64.1357 25.0244C64.2725 24.9606 64.416 24.9287 64.5664 24.9287C64.7168 24.9287 64.8581 24.9606 64.9902 25.0244C65.127 25.0837 65.2454 25.1657 65.3457 25.2705C65.446 25.3708 65.5257 25.4893 65.585 25.626C65.6442 25.7581 65.6738 25.8994 65.6738 26.0498Z" fill="#C4C4CD"/>
+            <line y1="42.5" x2="258" y2="42.5" stroke="#C4C4CD"/>
+            </svg>           
+        </div>
+        <div class="card-block">
+          <svg class='assignment_icon' width="59" height="58" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M45.5003 31.8337V51.667H5.83366V12.0003H20.057C20.1987 9.98866 20.6803 8.09033 21.417 6.33366H5.83366C2.71699 6.33366 0.166992 8.88366 0.166992 12.0003V51.667C0.166992 54.7837 2.71699 57.3337 5.83366 57.3337H45.5003C48.617 57.3337 51.167 54.7837 51.167 51.667V37.5003L45.5003 31.8337ZM41.2503 46.0003H10.0837L17.8753 35.9987L23.4287 42.6853L31.2203 32.6553L41.2503 46.0003ZM49.1837 20.1887C50.4303 18.2053 51.167 15.9103 51.167 13.417C51.167 6.36199 45.472 0.666992 38.417 0.666992C31.362 0.666992 25.667 6.36199 25.667 13.417C25.667 20.472 31.362 26.167 38.3887 26.167C40.882 26.167 43.2053 25.4303 45.1603 24.1837L54.0003 33.0237L58.0237 29.0003L49.1837 20.1887ZM38.417 20.5003C34.507 20.5003 31.3337 17.327 31.3337 13.417C31.3337 9.50699 34.507 6.33366 38.417 6.33366C42.327 6.33366 45.5003 9.50699 45.5003 13.417C45.5003 17.327 42.327 20.5003 38.417 20.5003Z" fill="#6F6F7A"/>
+            </svg>            
+          <span class="assignment_txt">
+            Please enable access to filings to display options in this table.
+          </span>
+        </div>
+      </motif-card>
+    </div>
+
+    <div *ngIf="searchNoDataAvilable">
+      <motif-card class="no_data">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+    </div>
+  </div>
+
+  <div *ngIf="tabIn == 5">
+<!--     <lib-shared-grid [button]='false' *ngIf="filingEntitiesData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
+      [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true" 
+      [rowData]="filingEntitiesData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
+      [permissionToSecondaryButton]="true" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)" >
+    </lib-shared-grid> -->
+
+    <lib-ag-grid *ngIf="filingEntitiesData.length != 0" [rowData]="filingEntitiesData" [columnDefs]="columnDefsAgGrid" [button]='false'
+    [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
+    [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
+    [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
+    [search]="true" paginationSize="10"></lib-ag-grid>
+
+    <div *ngIf="filingEntitiesData.length == 0">
+      <motif-card>
+        <div class="row">
+          <svg class="svg-search-icon" width="258" height="43" viewBox="0 0 258 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M235.71 24H236.5L241.49 29L240 30.49L235 25.5V24.71L234.73 24.43C233.59 25.41 232.11 26 230.5 26C226.91 26 224 23.09 224 19.5C224 15.91 226.91 13 230.5 13C234.09 13 237 15.91 237 19.5C237 21.11 236.41 22.59 235.43 23.73L235.71 24ZM226 19.5C226 21.99 228.01 24 230.5 24C232.99 24 235 21.99 235 19.5C235 17.01 232.99 15 230.5 15C228.01 15 226 17.01 226 19.5Z" fill="#C4C4CD"/>
+            <path d="M25.8408 24.1836C25.8408 24.6257 25.7679 25.029 25.6221 25.3936C25.4808 25.7581 25.262 26.0726 24.9658 26.3369C24.6696 26.5967 24.2936 26.7995 23.8379 26.9453C23.3822 27.0866 22.8398 27.1572 22.2109 27.1572C21.8555 27.1572 21.5114 27.1185 21.1787 27.041C20.8506 26.9681 20.5384 26.8633 20.2422 26.7266C19.9505 26.5898 19.6748 26.4235 19.415 26.2275C19.1598 26.0316 18.9297 25.8128 18.7246 25.5713L19.7773 24.5527C19.9414 24.7305 20.1237 24.8923 20.3242 25.0381C20.5247 25.1794 20.7344 25.3001 20.9531 25.4004C21.1719 25.5007 21.3975 25.5781 21.6299 25.6328C21.8623 25.6875 22.0947 25.7148 22.3271 25.7148C23.0199 25.7148 23.5303 25.5964 23.8584 25.3594C24.1911 25.1224 24.3574 24.7646 24.3574 24.2861C24.3574 24.0947 24.3187 23.9261 24.2412 23.7803C24.1637 23.6344 24.0384 23.5 23.8652 23.377C23.6921 23.2493 23.4642 23.1286 23.1816 23.0146C22.8991 22.9007 22.5527 22.7822 22.1426 22.6592C21.623 22.5042 21.1719 22.3493 20.7891 22.1943C20.4062 22.0394 20.0872 21.8571 19.832 21.6475C19.5814 21.4333 19.3923 21.1781 19.2646 20.8818C19.1416 20.5811 19.0801 20.2119 19.0801 19.7744C19.0801 19.3506 19.1644 18.9701 19.333 18.6328C19.5016 18.2956 19.7295 18.0107 20.0166 17.7783C20.3083 17.5413 20.6501 17.3613 21.042 17.2383C21.4385 17.1107 21.8623 17.0469 22.3135 17.0469C22.6872 17.0514 23.0153 17.0833 23.2979 17.1426C23.585 17.2018 23.8607 17.293 24.125 17.416C24.3939 17.5391 24.6354 17.6758 24.8496 17.8262C25.0638 17.972 25.2871 18.1543 25.5195 18.373L24.4805 19.4258C24.2936 19.2389 24.125 19.0954 23.9746 18.9951C23.8242 18.8949 23.667 18.8083 23.5029 18.7354C23.3434 18.6624 23.1543 18.6032 22.9355 18.5576C22.7214 18.512 22.4753 18.4893 22.1973 18.4893C21.9102 18.4893 21.6641 18.5234 21.459 18.5918C21.2539 18.6556 21.083 18.7422 20.9463 18.8516C20.8141 18.9609 20.7161 19.0908 20.6523 19.2412C20.5931 19.387 20.5635 19.542 20.5635 19.7061C20.5635 19.8792 20.5954 20.0319 20.6592 20.1641C20.723 20.2962 20.8346 20.4215 20.9941 20.54C21.1582 20.654 21.377 20.7656 21.6504 20.875C21.9284 20.9844 22.2793 21.1029 22.7031 21.2305C23.1862 21.3763 23.6214 21.5312 24.0088 21.6953C24.3962 21.8548 24.7243 22.0462 24.9932 22.2695C25.2666 22.4928 25.4762 22.7594 25.6221 23.0693C25.7679 23.3747 25.8408 23.7461 25.8408 24.1836ZM33.6543 23.1787C33.6543 23.3109 33.6497 23.4339 33.6406 23.5479C33.6315 23.6618 33.6224 23.7575 33.6133 23.835H28.7529C28.7939 24.1904 28.8714 24.4958 28.9854 24.751C29.0993 25.0016 29.2383 25.209 29.4023 25.373C29.5664 25.5371 29.751 25.6579 29.9561 25.7354C30.1657 25.8128 30.3822 25.8516 30.6055 25.8516C30.765 25.8516 30.9154 25.8379 31.0566 25.8105C31.1979 25.7832 31.3324 25.7422 31.46 25.6875C31.5921 25.6328 31.7083 25.5781 31.8086 25.5234C31.9089 25.4642 32.0387 25.3776 32.1982 25.2637L33.0527 26.1865C32.8704 26.3597 32.695 26.501 32.5264 26.6104C32.3623 26.7152 32.1823 26.8109 31.9863 26.8975C31.7949 26.9795 31.5762 27.0433 31.3301 27.0889C31.084 27.1344 30.8128 27.1572 30.5166 27.1572C30.1976 27.1572 29.8991 27.1117 29.6211 27.0205C29.3431 26.9339 29.097 26.82 28.8828 26.6787C28.6686 26.5329 28.4749 26.3688 28.3018 26.1865C28.1331 25.9997 27.9714 25.7627 27.8164 25.4756C27.6615 25.1839 27.543 24.8604 27.4609 24.5049C27.3789 24.1449 27.3379 23.7529 27.3379 23.3291C27.3379 22.7093 27.4154 22.1602 27.5703 21.6816C27.7298 21.2031 27.9508 20.8021 28.2334 20.4785C28.516 20.1549 28.8555 19.9111 29.252 19.7471C29.6484 19.5785 30.0837 19.4941 30.5576 19.4941C31.0817 19.4941 31.5374 19.5944 31.9248 19.7949C32.3122 19.9909 32.6335 20.2575 32.8887 20.5947C33.1439 20.9274 33.3353 21.3171 33.4629 21.7637C33.5905 22.2103 33.6543 22.682 33.6543 23.1787ZM32.1982 22.6455C32.18 22.3949 32.1344 22.1579 32.0615 21.9346C31.9932 21.7113 31.8883 21.5153 31.7471 21.3467C31.6104 21.1781 31.4349 21.0459 31.2207 20.9502C31.0111 20.8499 30.7581 20.7998 30.4619 20.7998C30.2067 20.7998 29.9834 20.8431 29.792 20.9297C29.6006 21.0117 29.4365 21.1302 29.2998 21.2852C29.1631 21.4401 29.0492 21.6315 28.958 21.8594C28.8714 22.0827 28.8122 22.3447 28.7803 22.6455H32.1982ZM39.5742 27V26.2754C39.3874 26.4486 39.2324 26.5762 39.1094 26.6582C38.9863 26.7357 38.8587 26.8109 38.7266 26.8838C38.5944 26.9521 38.4258 27.0137 38.2207 27.0684C38.0202 27.1276 37.7992 27.1572 37.5576 27.1572C37.2614 27.1572 36.9606 27.1117 36.6553 27.0205C36.3545 26.9339 36.0811 26.7926 35.835 26.5967C35.5934 26.3962 35.3952 26.1387 35.2402 25.8242C35.0853 25.5098 35.0078 25.127 35.0078 24.6758C35.0078 24.2656 35.0807 23.9124 35.2266 23.6162C35.377 23.3154 35.582 23.0671 35.8418 22.8711C36.1061 22.6751 36.416 22.5316 36.7715 22.4404C37.1315 22.3447 37.5189 22.2969 37.9336 22.2969C38.321 22.2969 38.6468 22.3242 38.9111 22.3789C39.1755 22.429 39.3965 22.4951 39.5742 22.5771V22.0303C39.5742 21.6292 39.4557 21.3216 39.2188 21.1074C38.9818 20.8932 38.6377 20.7861 38.1865 20.7861C37.8083 20.7861 37.4665 20.8226 37.1611 20.8955C36.8558 20.9684 36.5596 21.0846 36.2725 21.2441L35.7119 20.1572C36.0628 19.9385 36.4388 19.7744 36.8398 19.665C37.2454 19.5511 37.708 19.4941 38.2275 19.4941C38.6377 19.4941 39.0114 19.5443 39.3486 19.6445C39.6904 19.7448 39.9821 19.8975 40.2236 20.1025C40.4652 20.3076 40.652 20.5651 40.7842 20.875C40.9209 21.1849 40.9893 21.5472 40.9893 21.9619V27H39.5742ZM39.5742 23.8623C39.4375 23.7985 39.3145 23.7507 39.2051 23.7188C39.0957 23.6823 38.9818 23.6527 38.8633 23.6299C38.7448 23.6025 38.6012 23.582 38.4326 23.5684C38.2686 23.5501 38.0885 23.541 37.8926 23.541C37.4277 23.541 37.0586 23.639 36.7852 23.835C36.5163 24.0309 36.3818 24.2975 36.3818 24.6348C36.3818 24.8535 36.4206 25.0404 36.498 25.1953C36.5755 25.3457 36.6735 25.4688 36.792 25.5645C36.9105 25.6602 37.0495 25.7331 37.209 25.7832C37.373 25.8288 37.569 25.8516 37.7969 25.8516C37.9883 25.8516 38.1729 25.8242 38.3506 25.7695C38.5283 25.7148 38.6947 25.6442 38.8496 25.5576C39.0046 25.4665 39.1436 25.3662 39.2666 25.2568C39.3896 25.1429 39.4922 25.029 39.5742 24.915V23.8623ZM47.0459 21.1758C46.891 21.0892 46.7269 21.0231 46.5537 20.9775C46.3851 20.932 46.1823 20.9092 45.9453 20.9092C45.485 20.9092 45.1296 21.0687 44.8789 21.3877C44.6283 21.7021 44.5029 22.1738 44.5029 22.8027V27H43.0605V19.6514H44.5029V20.3486C44.585 20.2256 44.6852 20.1139 44.8037 20.0137C44.9222 19.9089 45.0521 19.8177 45.1934 19.7402C45.3392 19.6628 45.4941 19.6035 45.6582 19.5625C45.8223 19.5169 45.9954 19.4941 46.1777 19.4941C46.474 19.4941 46.7201 19.5215 46.916 19.5762C47.112 19.6309 47.2829 19.7061 47.4287 19.8018L47.0459 21.1758ZM54.0117 25.7832C53.8659 25.9655 53.7087 26.141 53.54 26.3096C53.376 26.4736 53.1891 26.6195 52.9795 26.7471C52.7699 26.8701 52.5329 26.9681 52.2686 27.041C52.0088 27.1185 51.7126 27.1572 51.3799 27.1572C50.9333 27.1572 50.5163 27.0661 50.1289 26.8838C49.7415 26.7015 49.4043 26.444 49.1172 26.1113C48.8346 25.7786 48.6113 25.3776 48.4473 24.9082C48.2832 24.4388 48.2012 23.917 48.2012 23.3428C48.2012 22.7367 48.2832 22.1943 48.4473 21.7158C48.6159 21.2373 48.846 20.834 49.1377 20.5059C49.4294 20.1777 49.7712 19.9271 50.1631 19.7539C50.555 19.5807 50.9743 19.4941 51.4209 19.4941C51.9632 19.4941 52.4463 19.6012 52.8701 19.8154C53.2985 20.0251 53.6836 20.335 54.0254 20.7451L53.1709 21.7637C52.9977 21.5905 52.8496 21.4561 52.7266 21.3604C52.6035 21.2601 52.4668 21.1712 52.3164 21.0938C52.1706 21.0163 52.0202 20.9593 51.8652 20.9229C51.7148 20.8864 51.5531 20.8682 51.3799 20.8682C51.1201 20.8682 50.8831 20.9251 50.6689 21.0391C50.4593 21.153 50.2793 21.3148 50.1289 21.5244C49.9785 21.734 49.8623 21.9893 49.7803 22.29C49.6982 22.5908 49.6572 22.9281 49.6572 23.3018C49.6572 23.6618 49.696 23.9945 49.7734 24.2998C49.8509 24.6006 49.9626 24.8626 50.1084 25.0859C50.2588 25.3047 50.4434 25.4756 50.6621 25.5986C50.8809 25.7217 51.1338 25.7832 51.4209 25.7832C51.5941 25.7832 51.7513 25.765 51.8926 25.7285C52.0339 25.6875 52.1683 25.6305 52.2959 25.5576C52.4281 25.4801 52.5557 25.3844 52.6787 25.2705C52.8063 25.1566 52.943 25.0244 53.0889 24.874L54.0117 25.7832ZM60.335 27V22.8438C60.335 22.1647 60.2142 21.6589 59.9727 21.3262C59.7311 20.9935 59.3483 20.8271 58.8242 20.8271C58.6009 20.8271 58.3936 20.8636 58.2021 20.9365C58.0153 21.0094 57.8535 21.1302 57.7168 21.2988C57.5846 21.4674 57.4844 21.6657 57.416 21.8936C57.3477 22.1214 57.3135 22.3903 57.3135 22.7002V27H55.8711V17.5527L57.3135 16.7939V20.3486C57.4046 20.2165 57.5163 20.098 57.6484 19.9932C57.7806 19.8838 57.9264 19.7926 58.0859 19.7197C58.2454 19.6468 58.4163 19.5921 58.5986 19.5557C58.7809 19.5146 58.9678 19.4941 59.1592 19.4941C59.6012 19.4941 59.984 19.5648 60.3076 19.7061C60.6312 19.8473 60.9023 20.057 61.1211 20.335C61.3444 20.6084 61.5085 20.9593 61.6133 21.3877C61.7227 21.8115 61.7773 22.2786 61.7773 22.7891V27H60.335ZM72.7832 26.0498C72.7832 26.2002 72.7536 26.3438 72.6943 26.4805C72.6351 26.6126 72.5553 26.7288 72.4551 26.8291C72.3548 26.9294 72.2363 27.0091 72.0996 27.0684C71.9674 27.1276 71.8262 27.1572 71.6758 27.1572C71.5254 27.1572 71.3818 27.1276 71.2451 27.0684C71.113 27.0091 70.9967 26.9294 70.8965 26.8291C70.8008 26.7288 70.7233 26.6126 70.6641 26.4805C70.6048 26.3438 70.5752 26.2002 70.5752 26.0498C70.5752 25.8994 70.6048 25.7581 70.6641 25.626C70.7233 25.4893 70.8008 25.3708 70.8965 25.2705C70.9967 25.1657 71.113 25.0837 71.2451 25.0244C71.3818 24.9606 71.5254 24.9287 71.6758 24.9287C71.8262 24.9287 71.9674 24.9606 72.0996 25.0244C72.2363 25.0837 72.3548 25.1657 72.4551 25.2705C72.5553 25.3708 72.6351 25.4893 72.6943 25.626C72.7536 25.7581 72.7832 25.8994 72.7832 26.0498ZM69.2285 26.0498C69.2285 26.2002 69.1989 26.3438 69.1396 26.4805C69.0804 26.6126 69.0007 26.7288 68.9004 26.8291C68.8001 26.9294 68.6816 27.0091 68.5449 27.0684C68.4128 27.1276 68.2715 27.1572 68.1211 27.1572C67.9707 27.1572 67.8271 27.1276 67.6904 27.0684C67.5583 27.0091 67.4421 26.9294 67.3418 26.8291C67.2415 26.7288 67.1618 26.6126 67.1025 26.4805C67.0433 26.3438 67.0137 26.2002 67.0137 26.0498C67.0137 25.8994 67.0433 25.7581 67.1025 25.626C67.1618 25.4893 67.2415 25.3708 67.3418 25.2705C67.4421 25.1657 67.5583 25.0837 67.6904 25.0244C67.8271 24.9606 67.9707 24.9287 68.1211 24.9287C68.2715 24.9287 68.4128 24.9606 68.5449 25.0244C68.6816 25.0837 68.8001 25.1657 68.9004 25.2705C69.0007 25.3708 69.0804 25.4893 69.1396 25.626C69.1989 25.7581 69.2285 25.8994 69.2285 26.0498ZM65.6738 26.0498C65.6738 26.2002 65.6442 26.3438 65.585 26.4805C65.5257 26.6126 65.446 26.7288 65.3457 26.8291C65.2454 26.9294 65.127 27.0091 64.9902 27.0684C64.8581 27.1276 64.7168 27.1572 64.5664 27.1572C64.416 27.1572 64.2725 27.1276 64.1357 27.0684C64.0036 27.0091 63.8874 26.9294 63.7871 26.8291C63.6868 26.7288 63.6071 26.6126 63.5479 26.4805C63.4886 26.3438 63.459 26.2002 63.459 26.0498C63.459 25.8994 63.4886 25.7581 63.5479 25.626C63.6071 25.4893 63.6868 25.3708 63.7871 25.2705C63.8874 25.1657 64.0036 25.0837 64.1357 25.0244C64.2725 24.9606 64.416 24.9287 64.5664 24.9287C64.7168 24.9287 64.8581 24.9606 64.9902 25.0244C65.127 25.0837 65.2454 25.1657 65.3457 25.2705C65.446 25.3708 65.5257 25.4893 65.585 25.626C65.6442 25.7581 65.6738 25.8994 65.6738 26.0498Z" fill="#C4C4CD"/>
+            <line y1="42.5" x2="258" y2="42.5" stroke="#C4C4CD"/>
+            </svg>            
+        </div>
+        <div class="card-block">
+          <svg class='assignment_icon' width="60" height="55" viewBox="0 0 60 55" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M54.5832 9.02852L23.6811 39.9577L12.1978 28.4743L16.0165 24.6556L23.6811 32.3202L50.7644 5.23685L54.5832 9.02852ZM27.4998 49.166C15.5561 49.166 5.83317 39.4431 5.83317 27.4994C5.83317 15.5556 15.5561 5.83268 27.4998 5.83268C31.7519 5.83268 35.7332 7.07852 39.0915 9.2181L43.0186 5.29102C38.604 2.2306 33.2686 0.416016 27.4998 0.416016C12.5498 0.416016 0.416504 12.5493 0.416504 27.4994C0.416504 42.4494 12.5498 54.5827 27.4998 54.5827C32.1853 54.5827 36.5998 53.391 40.4457 51.2785L36.3832 47.216C33.6748 48.4619 30.6686 49.166 27.4998 49.166ZM46.4582 35.6244H38.3332V41.041H46.4582V49.166H51.8748V41.041H59.9998V35.6244H51.8748V27.4994H46.4582V35.6244Z" fill="#747480" />
+          </svg>
+          <span class="assignment_txt">
+            No filing Entities displayed.<br>
+            Please click <b>Filings</b> to enable filing permissions and show available task assignments.</span>
+        </div>
+      </motif-card>
+    </div>
+
+    <div *ngIf="searchNoDataAvilable">
+      <motif-card class="no_data">
+        <motif-card-body>
+            <h5>Your search has returned no results. Please adjust and try again.</h5>
+        </motif-card-body>
+    </motif-card>
+    </div>
+  </div>
+
+  <ng-template #toggleSwitch let-row>
+    <motif-toggle-switch class="mb-0"></motif-toggle-switch>
+  </ng-template>
 </div>

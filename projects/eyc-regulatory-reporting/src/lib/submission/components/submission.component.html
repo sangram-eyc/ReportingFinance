@@ -1,7 +1,7 @@
 <lib-dots-card (filingDetails)="receiveFilingDetails($event)" (fileStatus)="getFileStatus($event)"></lib-dots-card>
 
 <div class="mark-button-comp">
-    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing') && !enableComplete" motifButton color="primary" size="large" (click)="statusUpdateToComplete()">Mark filing complete</button>
+    <button *ngIf="permissions.validatePermission('Submission', 'Complete Filing') && !checkFilingCompletedStatus()" [disabled]= "enableComplete" motifButton color="primary-alt" size="large" (click)="statusUpdateToComplete()">Mark filing complete</button>
     <button *ngIf="checkFilingCompletedStatus() && permissions.validatePermission('Submission', 'Reopen Filing')" motifButton color="primary-alt" size="large" (click)="reopenFilling()">Reopen filing</button>
 </div>
 
@@ -34,12 +34,22 @@
                 [suppressRowClickSelection]="true" [suppressCellSelection]="true" [pagination]="false" paginationPageSize="10"
                 (rowSelected)="onRowSelected()" [ngClass]="!rowData ? 'cursor-default' : ''" ></motif-table>
         </div>  -->
-        <lib-shared-grid gridStyle="first" title="Answer Files" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
+        <lib-ag-grid [rowData]="subRowData" [columnDefs]="columnDefsAgGrid"
+        [displayCheckBox] = "true" [exportName] = "exportName"
+        [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10" rowSelection="multiple" [submitFunction]="downloadSubmit" buttonPosition="left" [masterDetail]="true"
+        (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
+        [permissionToPrimaryButton]="subRowData?.length > 0 && permissions.validatePermission('Submission', 'Download Files')" 
+        [export] = "true" buttonText="Download selected" [omitModal]="true" [displayPlusIcon]='false'>
+        </lib-ag-grid>
+
+
+        <!-- <lib-shared-grid gridStyle="first" title="Answer Files" [columnDefs]="columnDefs" [rowData]="subRowData" (gridReady)="handleGridReady($event)" [pageChangeFunc]="pageChangeFunc" [omitModal]="true"
             rowSelection="multiple" [submitFunction]="downloadSubmit" (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" buttonText="Download selected"
             buttonPosition="left" [masterDetail]="true" [isToggle]="false" (updatePageSize)="updatePageSize($event)" (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
             [permissionToPrimaryButton]="permissions.validatePermission('Submission', 'Download Files')" [export] = "true" [defaultColDef]="defaultColDef" (rowSelected)="onRowSelected($event)"
             (exportFlagToParent)="exportSubmissionData()" [pagination]="subRowData?.length > 0 ? true : false" [paginationApi]="subRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)">
-        </lib-shared-grid>
+        </lib-shared-grid> -->
         <!-- <motif-card class="no_data" *ngIf="noFilesDataAvilable">
             <motif-card-body>
                 <h5>No result found.</h5>
@@ -91,8 +101,8 @@
 
     <ng-template #commentTemplate let-row>
             <div *ngIf="row.commentsCount!==0 && permissions.validatePermission('Submission', 'View Comments')"
-                class="comments-background" (click)="openComments(row)">
-                {{row.commentsCount}}
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.commentsCount}}</span>
             </div>
             <div class="commentTemplate"  *ngIf="(row.commentsCount===0 || !row.commentsCount) && permissions.validatePermission('Submission', 'Add Comments') && !checkFilingCompletedStatus()">
                 <div class="add_icon">

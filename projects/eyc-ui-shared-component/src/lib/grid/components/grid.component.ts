@@ -2,7 +2,7 @@ import { Component, Input, OnInit,Output, EventEmitter , OnChanges, OnDestroy, T
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import { ValueGetterParams } from 'ag-grid-community/dist/lib/entities/colDef';
-
+import { no_results_found}  from '../../shared-helper'
 
 @Component({
   selector: 'lib-shared-grid',
@@ -25,7 +25,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
   searchNoDataAvilable;
   buttonModal = false;
   toastAfterExport = false;
-
+  no_results_found = no_results_found;
   @Input() gridStyle = 'first';
   @Input() button = true;
   @Input() enableAutoId = false;
@@ -464,7 +464,7 @@ pageSize;
     if(this.uiPagination) {
       this.searchGrid(input)
     } else {
-      this.searchInput.emit(input.el.nativeElement.value);
+      this.searchInput.emit(encodeURIComponent(input.el.nativeElement.value));
       this.currentPage = 1;
       console.log('SEARCH GRID PAGINATION EMIT');
     }

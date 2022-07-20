@@ -17,8 +17,8 @@ export class SubmissionService {
     return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}`);
   }
 
-  getXmlFilesListTest(filingName: any, period: any, page, size, filter, sort) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}&page=${page}&size=${size}&filterKey=${filter}&sortBy=${sort}`);
+  getXmlFilesListTest(filingName: any, period: any) {
+    return this.apiService.invokeGetAPI(`${this.settingsService.regReportingFiling.submission_xml_files}?filing=${filingName}&period=${period}`);
   }
 
   downloadXMl(filesList: any, filingName: any,period: any) {

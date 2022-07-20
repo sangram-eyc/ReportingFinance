@@ -13,7 +13,7 @@
       <span *ngIf="!enableEditor && filingInfo" [class.disabled]="!is_editable" (click)="enableEditForm()">Edit</span>
     </motif-icon>
     <div class="edit-form" *ngIf="enableEditor">
-      <button class="save-submit" motifButton color="primary" size="small" [disabled]="editForm.invalid"
+      <button class="save-submit" motifButton color="primary-alt" size="small" [disabled]="editForm.invalid"
         [ngClass]="editForm.invalid ? 'dis-button' : ''" (click)="onSubmitEditForm()">Save</button>
       <button motifButton color="secondary" class="btn_close" (click)="cancelForm()">Cancel</button>
     </div>
@@ -183,20 +183,26 @@
 
   <div *ngIf="tabIn == 1">
     <div *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
-      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length || invalidEditDatasetIDs.length" motifButton color="primary" size="large"
+      <button class="save_edit_reportid_button" *ngIf="enableEditReportID" [disabled]="invalidEditReportIDs.length || invalidEditDatasetIDs.length" motifButton color="primary-alt" size="large"
         (click)="onSaveReportID()">Save</button>
         <button class="cancel_edit_reportid_button" *ngIf="enableEditReportID" motifButton color="secondary" size="large"
         (click)="onCancelReportID()">Cancel</button>
-      <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary" size="large" [disabled]="disableAddMemberButton"
+      <button class="edit_button" *ngIf="!enableEditReportID" motifButton color="primary-alt" size="large" [disabled]="disableAddMemberButton"
         (click)="enableEditReportId()">Edit</button>
     </div>
-    <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
+    <!-- <lib-shared-grid [permissionToPrimaryButton]="true" [disableAddMemberButton]="disableAddMemberButton || enableEditReportID"
       [columnDefs]="columnDefs" (newEventToParent)="addPBIReport($event)" [rowData]="PBIMappingData"
       [buttonText]="'Add PBI'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" [uiPagination]="true"
       displayCheckBox="{{displayCheckBox}}" gridStyle="third" [pagination]="true" paginationSize="10"
       [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
       [export]="true" [staticDataGrid]="true" (exportFlagToParent)="exportData()">
-    </lib-shared-grid>
+    </lib-shared-grid> -->
+
+    <lib-ag-grid [permissionToPrimaryButton]="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')"
+    [rowData]="PBIMappingData" [columnDefs]="columnDefsAgGrid" [buttonText]="'Add PBI'"
+      [displayCheckBox] = "true" [disablePrimaryButton]="disableAddMemberButton || enableEditReportID"
+      [export]="true" buttonPosition="left" gridStyle="third" [staticDataGrid]="true" [exportName] = "exportName"
+      [search]="true" paginationSize="10"  (newEventToParent)="addPBIReport($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row *ngIf="permissions.validateAllPermission('permissionList', 'Static Data', 'Update Static Data')">
       <div class="delete-icon" (click)="deletePBIMapping(row)" *ngIf="true">
@@ -246,9 +252,10 @@
       </div>
       <div class="editReportID" *ngIf="enableEditReportID">
         <motif-form-field>
-          <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 150)"/>
-          <motif-error *ngIf="row.dataSetIds?.length > 150">Report id can be max 150 characters
+          <input motifInput type="text" [(ngModel)]="row.dataSetIds" (ngModelChange)="onChangeEditDatastID(row.name, row.dataSetIds?.length > 8000)"/>
+          <motif-error *ngIf="row.dataSetIds?.length > 8000">Dataset id can be max 8000 characters
             long</motif-error>
+            <motif-error *ngIf="checkDataSetIdPatternError(row.dataSetIds)">Dataset id must contain only characters and hyphen, It can be comma separated</motif-error>
         </motif-form-field>
       </div>
     </ng-template>
@@ -307,14 +314,15 @@
 
             <div class="motif-col-xs-4 motif-col-lg-12">
               <motif-form-field>
-                <label motifLabel class="select-label">Enter Dataset ID</label>
+                <label motifLabel class="select-label">Enter Dataset ID(s) (Comma seperated)</label>
                 <input motifInput type="text" [formControl]="addPBIReportForm.controls['dataSetIds']" />
                 <motif-error *ngIf="
                 addPBIReportForm.get('dataSetIds').hasError('required') &&
                 addPBIReportForm.get('dataSetIds').touched">Please provide a dataset id
                 </motif-error>
-                <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 150 characters
+                <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('maxlength')">Dataset id can be max 8000 characters
                   long</motif-error>
+                  <motif-error *ngIf="addPBIReportForm.get('dataSetIds').hasError('pattern')">Dataset id must contain only characters and hyphen, It can be comma separated</motif-error>
               </motif-form-field>
             </div>
 
@@ -322,7 +330,7 @@
         </form>
       </motif-modal-body>
       <motif-modal-footer>
-        <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewQuestion()"
+        <button motifButton class="approve-yes" color="primary-alt" (click)="onSubmitNewQuestion()"
           [disabled]="addPBIReportForm.invalid">Save</button>
         <button motifButton class="approve-no" color="secondary" (click)="closeAddQuestionModal()">Cancel</button>
       </motif-modal-footer>

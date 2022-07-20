@@ -11,6 +11,7 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {EycRrSettingsService} from '../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class SubmissionComponent implements OnInit {
   exportURL;
   toastAfterExportInSubmission: boolean = false;
   previousStatus: any;
+  exportName: string;
   constructor(
     private service: SubmissionService,
     private dialog: MatDialog,
@@ -88,6 +90,7 @@ export class SubmissionComponent implements OnInit {
   filter = '';
   sort = '';
   defaultColDef;
+  columnDefsAgGrid;
 
   @ViewChild('dateSubmittedTemplate')
   dateSubmittedTemplate: TemplateRef<any>;
@@ -161,7 +164,7 @@ export class SubmissionComponent implements OnInit {
 
   onDownloadSelected() {
     console.log('DOWNLOADING SELECTED');
-    this.selectedRows = this.gridApi.getSelectedRows();
+    // this.selectedRows = this.gridApi.getSelectedRows();
     this.slectedFiles = [];
     this.selectedRows.forEach((item) => {
       this.slectedFiles.push(item['fileName']);
@@ -174,6 +177,7 @@ export class SubmissionComponent implements OnInit {
         const data = this.base64ToBlob(item.file);
         FileSaver.saveAs(data, item.fileName);
       });
+      this.selectedRows = [];
       setTimeout(() => {
         this.showToastAfterDownload = !this.showToastAfterDownload;
       }, 5000);
@@ -206,6 +210,7 @@ export class SubmissionComponent implements OnInit {
   receiveFilingDetails(event) {
     this.submittedFiles = []
     this.filingDetails = event;
+    this.exportName =this.filingDetails.filingName+"_"+this.filingDetails.period+"_Submission_";
     console.log("filing details > ", this.filingDetails)
     this.filingName = this.filingDetails.filingName;
     this.period = this.filingDetails.period;
@@ -220,11 +225,17 @@ export class SubmissionComponent implements OnInit {
 
   getXmlFilesList(resetData = false) {
     this.sort = resetData ? 'fileName:true' : this.sort;
-    this.service.getXmlFilesListTest(this.filingName, this.period, this.currentPage, this.pageSize, this.filter, this.sort).subscribe(res => {
+    this.service.getXmlFilesListTest(this.filingName, this.period).subscribe(res => {
       this.totalRecords = res['totalRecords'];
       this.noFilesDataAvilable = false;
       this.submittedFiles = res['data'];
-      this.rowData = res['data'];
+      if( res['data']) {
+        this.rowData = res['data'].map(item => {
+          item.dateSubmitted? item.dateSubmitted = this.datepipe.transform(item.dateSubmitted,'MMM dd y hh:mm a') + ' GMT':item.dateSubmitted = '';
+          return item
+      });
+      }
+      
       console.log('GET XML FILES ROW DATA', this.rowData);
       if (resetData) {
         this.resetData();
@@ -246,86 +257,174 @@ export class SubmissionComponent implements OnInit {
     this.subRowData = [];
     this.columnDefs = [];
     setTimeout(() => {
-      this.columnDefs = [
+      this.columnDefsAgGrid=[
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-          
-          },
-          field: 'template',
-          headerName: '',
-          width: 70,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
           sortable: false,
+          menuTabs: [],
           pinned: 'left'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'File Name',
-          field: 'fileName',
-          cellClass: 'custom-report-name',
-          wrapText: true,
-          autoHeight: true,
-          width: 300,
-          sortable: true,
-          filter:true,
-          sort:'asc',
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.statusTemplate,
           },
-          headerName: 'Status',
-          field:'status',
-          sortable: true,
-          filter:true,
-          minWidth: 200
-        },
-        {
-          headerComponentFramework:TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams:{
-            ngTemplate:this.dateSubmittedTemplate
+          {
+            headerName: 'File Name',
+            field: 'fileName',
+            minWidth: 300,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            sort:'asc',
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            tooltipField: 'fileName'
           },
-          field:'dateSubmitted',
-          headerName:'Status Changed',
-          sortable: true,
-          filter:true,
-          minWidth: 220,
-          cellClass:'date-submitted-class'
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.lastUpdatedByTemplate,
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.statusTemplate,
+            },
+            headerName: 'Status',
+            field: 'status',
+            minWidth: 220,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
-          headerName: 'Last updated by',
-          field: 'updatedBy',
-          wrapText: true,
-          autoHeight: true,
-          sortable: true,
-          filter:true,
-          width: 350,
-          comparator: this.disableComparator
-        },
-        {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
+          {
+            // cellRendererFramework: CellRendererTemplateComponent,
+            // cellRendererParams:{
+            //   ngTemplate:this.dateSubmittedTemplate
+            // },
+            headerName: 'Status Changed',
+            field: 'dateSubmitted',
+            minWidth: 220,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
-          headerName: 'Comments',
-          field: 'commentsCount',
-          sortable: true,
-          filter: true,
-          width: 155,
-          comparator: this.disableComparator
-        },
-      ];
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.lastUpdatedByTemplate,
+            },
+            headerName: 'Last updated by',
+            field: 'updatedBy',
+            minWidth: 350,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            wrapText: true,
+            autoHeight: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+          {
+            cellRendererFramework: CellRendererTemplateComponent,
+            cellRendererParams: {
+              ngTemplate: this.commentTemplate,
+            },
+            headerName: 'Comments',
+            field: 'commentsCount',
+            minWidth: 150,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            width: 155,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
+      ]
+      // this.columnDefs = [
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+          
+      //     },
+      //     field: 'template',
+      //     headerName: '',
+      //     width: 70,
+      //     sortable: false,
+      //     pinned: 'left'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     headerName: 'File Name',
+      //     field: 'fileName',
+      //     cellClass: 'custom-report-name',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     width: 300,
+      //     sortable: true,
+      //     filter:true,
+      //     sort:'asc',
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.statusTemplate,
+      //     },
+      //     headerName: 'Status',
+      //     field:'status',
+      //     sortable: true,
+      //     filter:true,
+      //     minWidth: 200
+      //   },
+      //   {
+      //     headerComponentFramework:TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams:{
+      //       ngTemplate:this.dateSubmittedTemplate
+      //     },
+      //     field:'dateSubmitted',
+      //     headerName:'Status Changed',
+      //     sortable: true,
+      //     filter:true,
+      //     minWidth: 220,
+      //     cellClass:'date-submitted-class'
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.lastUpdatedByTemplate,
+      //     },
+      //     headerName: 'Last updated by',
+      //     field: 'updatedBy',
+      //     wrapText: true,
+      //     autoHeight: true,
+      //     sortable: true,
+      //     filter:true,
+      //     width: 350,
+      //     comparator: this.disableComparator
+      //   },
+      //   {
+      //     headerComponentFramework: TableHeaderRendererComponent,
+      //     cellRendererFramework: MotifTableCellRendererComponent,
+      //     cellRendererParams: {
+      //       ngTemplate: this.commentTemplate,
+      //     },
+      //     headerName: 'Comments',
+      //     field: 'commentsCount',
+      //     sortable: true,
+      //     filter: true,
+      //     width: 155,
+      //     comparator: this.disableComparator
+      //   },
+      // ];
       this.subRowData = this.rowData;
     }, 1);
   }
@@ -444,7 +543,7 @@ export class SubmissionComponent implements OnInit {
             for (let j in this.submittedFiles) {
               if (this.submittedFiles[j].fileName == res['data'][i].fileName) {
                 this.submittedFiles[j].status = res['data'][i].status;
-                this.submittedFiles[j].dateSubmitted = res['data'][i].updatedDate;
+                this.submittedFiles[j].dateSubmitted = this.datepipe.transform(res['data'][i].updatedDate,'MMM dd y hh:mm a') + ' GMT';
                 this.submittedFiles[j].updatedBy = res['data'][i].updatedBy;
                 break;
               }
@@ -608,7 +707,7 @@ export class SubmissionComponent implements OnInit {
   }
 
   commentAdded() {
-    this.getXmlFilesList();
+    this.getXmlFilesList(true);
   }
 
   reopenFilling(){
@@ -635,7 +734,8 @@ export class SubmissionComponent implements OnInit {
       if (result.button == 'Yes') {
         this.service.reopenFiling(this.filingDetails.filingId).subscribe(resp => {
           this.filingService.invokeFilingDetails();
-          let subStageIndex = this.filingDetails.status.findIndex(x => x.stageCode === "SUBMISSION");
+          let filingOrder= this.filingDetails.status?.sort((a, b) => parseInt(a.displayOrder) - parseInt(b.displayOrder));
+          let subStageIndex = filingOrder.findIndex(x => x.stageCode === "SUBMISSION");
           this.filingDetails.status[subStageIndex].progress = 'In Progress';
           /* this.enableComplete = true;
           this.showToastAfterStatusChange = !this.showToastAfterStatusChange;

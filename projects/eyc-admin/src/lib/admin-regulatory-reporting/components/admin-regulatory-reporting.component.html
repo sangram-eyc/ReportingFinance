@@ -15,14 +15,22 @@
 <app-users *ngIf="tabIn == 2"></app-users>
 
 <div *ngIf="tabIn == 1">
+  <lib-ag-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
+  [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
+  [rowData]="resetRowData" [columnDefs]="columnDefsAgGrid"
+    [displayCheckBox] = "true" [disablePrimaryButton]="false"
+    [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10"
+    [buttonText] ="'Add team'" [exportName] = "exportName"
+    gridStyle="third" (newEventToParent)="addTeam($event)"></lib-ag-grid>
 
-    <lib-shared-grid [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
+    <!-- <lib-shared-grid [permissionToPrima(newEventToParent)="addTeam($event)"ryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
     [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
     [search]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')" (gridReady)="handleGridReady($event)"
-    [columnDefs]="columnDefs" (newEventToParent)="addTeam($event)" [rowData]="resetRowData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"
+    [columnDefs]="columnDefs"  [rowData]="resetRowData" [buttonText] ="'Add team'" rowSelection="multiple" buttonPosition="right" [defaultColDef]="{}" displayCheckBox="{{displayCheckBox}}" gridStyle="third" [disableAddMemberButton]="false"
     [export] = "true" (exportFlagToParent)="exportTeamsData()" [paginationApi]="resetRowData?.length > 0 ? true : false" (searchInput)="searchGrid($event)"
     [pagination]="resetRowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="totalRecords" (customSortChange)="sortChanged($event)" [pageChangeFunc]="pageChangeFunc"
-    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid>
+    (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" (updatePageSize)="updatePageSize($event)"></lib-shared-grid> -->
 
     <ng-template #actionSection let-row>
         <motif-icon class="edtor-icon" [src]="'/assets/icons/editor/ic_border_color_24px.svg'" (click)="editTeams(row)">
@@ -49,7 +57,7 @@
             <div class="motif-row">
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
-                  <label motifLabel>Team name (Required)</label>
+                  <label motifLabel>Team name (required)</label>
                   <input libRemoveSpaces motifInput type="text" aria-label="Team name Form Field" (keyup)="teamDuplicateCheck($event.target.value)" formControlName="teamName" ngDefaultControl/>
                   <motif-error *ngIf="
                                     addTeamForm.get('teamName').hasError('required') &&
@@ -92,7 +100,7 @@
               </div>
               <div class="motif-col-xs-4 motif-col-lg-12">
                 <motif-form-field>
-                  <label motifLabel>Description (Optional)</label>
+                  <label motifLabel>Description (optional)</label>
                   <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="description"></textarea>
                   <motif-error *ngIf="
                                     addTeamForm.get('description').hasError('maxlength')">Description can be max 250
@@ -104,7 +112,7 @@
           </form>
         </motif-modal-body>
         <motif-modal-footer>
-          <button motifButton class="approve-yes" color="primary" (click)="onSubmitNewTeam()"
+          <button motifButton class="approve-yes" color="primary-alt" (click)="onSubmitNewTeam()"
             [disabled]="addTeamForm.invalid">Save</button>
           <button motifButton class="approve-no" color="secondary" (click)="closeTeamModal()">Cancel</button>
         </motif-modal-footer>

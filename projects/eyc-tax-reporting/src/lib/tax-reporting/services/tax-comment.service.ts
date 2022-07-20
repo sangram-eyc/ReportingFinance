@@ -57,7 +57,7 @@ export class TaxCommentService {
 
   listComments(entityId) {
     if (this.settingsService.production) {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/TASK/${entityId}/comments`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}/Task/${entityId}/comments?module=Tax Reporting`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comments_list}`);
@@ -73,12 +73,21 @@ export class TaxCommentService {
     }
   }
 
-  deletePriority(idTask, data) {
+  addTag(idTask, tagId) {
     if (this.settingsService.production) {
-      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.delete_priority}/tasks/${idTask}/priority`, data);
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.add_tag}/tasks/${idTask}/tags/${tagId}`);
     }
     else {
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.delete_priority}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.add_tag}`);
+    }
+  }
+
+  updatePriority(idTask, data) {
+    if (this.settingsService.production) {
+      return this.apiService.invokePutAPI(`${this.settingsService.taxReporting.update_priority}/tasks/${idTask}/priority`, data);
+    }
+    else {
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.update_priority}`);
     }
   }
 
@@ -110,8 +119,7 @@ export class TaxCommentService {
 
   getCommentExpandDetails(id) {
     if (this.settingsService.production) {
-      //ToDo integrate with Backend
-      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);
+      return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}/tasks/${id}`);
     }
     else {
       return this.apiService.invokeGetAPI(`${this.settingsService.taxReporting.comment_expand_details}`);

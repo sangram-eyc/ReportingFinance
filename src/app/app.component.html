@@ -61,12 +61,11 @@
         </li>
 
         <li
-          [class.active]="(regreporting.isActive || dataintake.isActive || taxReporting.isActive) && mini || (regreporting.isActive || dataintake.isActive || taxReporting.isActive) && opensubmenu !== 'managed-submenu'"
-          [class.submenu-open]="opensubmenu === 'managed-submenu'"
-          [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" (click)="toggleSubMenu('managed-submenu')">
+          [class.active]="(sideMenu.regulatoryReporting.isActive || sideMenu.dataIntake.isActive || sideMenu.taxReporting.isActive || sideMenu.dataManagedServices.isActive || sideMenu.europeanFundReporting.isActive)"
+          [ngClass]="[mini ? 'sidenav-item-mini' : 'sidenav-item', opensubmenu === 'managed-submenu' ? 'submenu-open': '']" (click)="toggleSubMenu('managed-submenu')">
           <motif-icon [src]="'/assets/icons/places/ic_room_service_24px.svg'"></motif-icon>
           <div *ngIf="mini" class="triangle-bottomright"
-            [class.active-triangle]="regreporting.isActive || dataintake.isActive || taxReporting.isActive"></div>
+            [class.active-triangle]="sideMenu.regulatoryReporting.isActive || sideMenu.dataIntake.isActive || sideMenu.taxReporting.isActive || sideMenu.dataManagedServices.isActive || sideMenu.europeanFundReporting.isActive"></div>
           <span>Managed Services</span>
           <motif-icon *ngIf="opensubmenu === 'managed-submenu'" class="sidenav-accordion-icon"
             [src]="'assets/icons/hardware/ic_keyboard_arrow_down_24px.svg'"></motif-icon>
@@ -76,32 +75,31 @@
 
         <li class="sidenav-submenu">
           <ul id="managed-submenu" class="submenu">
-            <li [hidden]="is_Sure_Foot || !permission.isRegReporting" class="sidenav-item" [routerLink]="['/app-regulatory-filing']"
-              routerLinkActive="active-submenu" #regreporting="routerLinkActive">
+            <li [hidden]="is_Sure_Foot || !permission.isRegReporting" class="sidenav-item" [ngClass]="sideMenu.regulatoryReporting.isActive ? 'active-submenu': ''" 
+            [routerLink]="['/app-regulatory-filing']">
               <span>Regulatory Reporting</span>
             </li>
-            <li [hidden]="is_Sure_Foot || !permission.isDataIntake" class="sidenav-item" [routerLink]="['/data-intake-landing']"
-              routerLinkActive="active-submenu" #dataintake="routerLinkActive">
+            <li [hidden]="is_Sure_Foot || !permission.isDataIntake" class="sidenav-item" [ngClass]="sideMenu.dataIntake.isActive ? 'active-submenu': ''"
+            [routerLink]="['/data-intake-landing']">
               <span>Data Intake</span>
             </li>
-            <li [hidden]="!permission.isTaxReporting" class="sidenav-item" [routerLink]="['/app-tax-reporting']" routerLinkActive="active-submenu"
-              #taxReporting="routerLinkActive">
+            <li [hidden]="!permission.isTaxReporting" class="sidenav-item" [ngClass]="sideMenu.taxReporting.isActive ? 'active-submenu': ''"
+            [routerLink]="['/app-tax-reporting']">
               <span>Tax Reporting</span>
             </li>
 
-            <li *ngIf="permission.isDMS" class="sidenav-item" [routerLink]="['/data-managed-services']" routerLinkActive="active-submenu"
-              #taxReporting="routerLinkActive">
+            <li *ngIf="permission.isDMS" class="sidenav-item" [ngClass]="sideMenu.dataManagedServices.isActive ? 'active-submenu': ''"
+            [routerLink]="['/data-managed-services']">
               <span>Data Managed Services</span>
             </li>
-            <li [hidden]="!permission.isEFR" class="sidenav-item" [routerLink]="['/european-fund-reporting']" routerLinkActive="active-submenu"
-            #efrReporting="routerLinkActive">
+            <li [hidden]="!permission.isEFR" class="sidenav-item" [ngClass]="sideMenu.europeanFundReporting.isActive ? 'active-submenu': ''"
+            [routerLink]="['/european-fund-reporting']">
             <span>European Fund Reporting</span>
           </li>
           </ul>
         </li>
 
-        <li *ngIf="permission.isAdmin" [ngClass]="mini ? 'sidenav-item-mini' : 'sidenav-item'" routerLink="eyc-admin"
-          routerLinkActive="active">
+        <li *ngIf="permission.isAdmin" [ngClass]="[mini ? 'sidenav-item-mini' : 'sidenav-item', sideMenu.admin.isActive ? 'active': '']" routerLink="eyc-admin">
           <motif-icon [src]="'/assets/icons/action/ic_supervisor_account_24px.svg'"></motif-icon>
           <span>Admin</span>
         </li>

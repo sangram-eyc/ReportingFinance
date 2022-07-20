@@ -62,6 +62,17 @@
     }
   }
   
+::ng-deep {
+  .motif-button {
+      background: var(--btn-primary-alt-color) !important;
+      color: var(--btn-primary-alt-bg-color) !important;
+  }
+  .motif-button:hover {
+      background: var(--btn-primary-alt-bg-color) !important;
+      color: var(--btn-primary-alt-color) !important;
+  }
+}
+  
 //   @media screen and (min-width: 300px) {
       
 //      }
@@ -102,6 +113,7 @@
 //           width: 200px !important;
 //       }
 //   }
+
 }
 
 .each-card {

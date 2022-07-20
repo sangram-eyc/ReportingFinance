@@ -22,9 +22,26 @@
     width: 100%;
     text-align: center;
     .btn_client {
-        border: 0px;
+        //border: 0px;
         margin-bottom: 10px;
     }
   }
 
- 
+  ::ng-deep.motif-toast {
+    // width: 30%;
+    position: fixed;
+    right: 0px;
+    margin-right: 2%;
+    top: 4px;
+    z-index: 2;
+    .motif-toast-content {
+        font-family: EYInterstate
+    }
+    .motif-button {
+        color: #1a1a24;
+    }
+    // .motif-icon-button {
+    //     display: none !important;
+    // }
+  }
+  

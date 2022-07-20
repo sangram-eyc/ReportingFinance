@@ -1,0 +1,37 @@
+
+
+  <div class="pagination">
+    <div class="JumpToPage">
+      Jump to Page
+    <input
+    type="text"
+    (input)="jumpToPage()"
+    id="jumpToPage"
+    class="paginationPageJump"
+    placeholder="#"
+  />
+  </div>
+  <div class="pageSizeClass">
+    Page Size
+    <select class="pageSizeSelect" (change)="onPageSizeChanged()" id="page-size">
+      <option *ngFor="let item of pageList" [value]="item">
+         {{ item }}
+      </option>
+    </select>
+</div>
+    <span class="ag-paging-page-summary-panel" role="presentation" >
+        <button ref="btFirst" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': currentpage==0}" (click)="onBtFirst()" [disabled]="(currentpage==0)" aria-label="First Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-first" unselectable="on" role="presentation"></span></button>
+        <button ref="btPrevious" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': currentpage==0}" (click)="onBtPrevious()" [disabled]="(currentpage==0)" aria-label="Previous Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-previous" unselectable="on" role="presentation"></span></button>
+        <span class="ag-paging-description" role="status">
+            <span id="ag-496-start-page-number" ref="lbCurrent" class="ag-paging-number">{{currentpage+1}}</span>
+            <span id="ag-496-of-page">/</span>
+            <span id="ag-496-of-page-number" ref="lbTotal" class="ag-paging-number">{{totalPage}}</span>
+        </span>
+        <button ref="btNext" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': (currentpage+1==totalPage)}" [disabled]="(currentpage+1==totalPage)" (click)="onBtNext()" aria-label="Next Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-next" unselectable="on" role="presentation"></span></button>
+        <button ref="btLast" class="ag-paging-button" role="button" [ngClass]="{'disabled_class': (currentpage+1==totalPage)}" [disabled]="(currentpage+1==totalPage)" (click)="onBtLast()" aria-label="Last Page" tabindex="0" aria-disabled="false"><span class="ag-icon ag-icon-last" unselectable="on" role="presentation"></span></button>
+    </span>
+
+  </div>
+
+
+

@@ -21,12 +21,12 @@ export class TeamsService {
     return this.TeamsData;
   }
 
-  getTeamsList(moduleName,page,size,sort,filter) {
-    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_list}?module=${moduleName}&page=${page}&size=${size}&sortBy=${sort}&filterKey=${filter}`);
+  getTeamsList(moduleName) {
+    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_list}?module=${moduleName}`);
   }
 
-  getTeamsDetails(teamId,page,size,sort,filter) {
-    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_Details}?page=${page}&filterKey=${filter}&teamId=${teamId}&sortBy=${sort}&size=${size}`);
+  getTeamsDetails(teamId) {
+    return this.apiService.invokeGetAPI(`${this.settingService.teams.teams_Details}?teamId=${teamId}`);
   }
 
   getRoles(moduleName) {

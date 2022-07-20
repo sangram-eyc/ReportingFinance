@@ -1,88 +1,95 @@
 <div id="cyclePage">
-<div class="page-header">
-    <h1 class="motif-h1">Tax Reporting</h1>
-</div>
+    <div class="page-header">
+        <h1 class="motif-h1">Tax Reporting</h1>
+    </div>
 
-<div class="page-subheader">
-    View tax reporting in production cycles, management reporting, archived reports and data explorer
-</div>
+    <div class="page-subheader">
+        View tax reporting in production cycles, management reporting, archived reports and data explorer
+    </div>
 
-<div class="eyc-tax-tabs">
-    <motif-tab-bar>
-        <button motifButton class="motif-text-link" (click)="reportTabChange(1)" [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
-        <button motifButton class="motif-text-link" (click)="reportTabChange(2)" [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
-    </motif-tab-bar>
-</div>
+    <div class="eyc-tax-tabs">
+        <motif-tab-bar>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(1)"
+                [ngClass]="tabIn == 1 ? 'motif-active' : '' ">Production Cycles</button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(2)"
+                [ngClass]="tabIn == 2 ? 'motif-active' : '' ">Management Reporting</button>
+            <button motifButton class="motif-text-link" (click)="reportTabChange(3)"
+                [ngClass]="tabIn == 3 ? 'motif-active' : '' ">Archived Reports</button>
+        </motif-tab-bar>
+    </div>
 
-<section id='active-reports' [hidden]="!(tabIn == 2)">
-    <div id="reports-history-heading">
-        <div>
-            <h2 class='card-title'>Management reports</h2>
+    <section [hidden]="!(tabIn == 3)">
+        <div >
+            <lib-archived-reports></lib-archived-reports>
         </div>
-    </div>
+    </section> 
 
-    <div class="row">
-        <div class="each-card" *ngFor="let report of activeReport">
-            <app-tax-card [reportData]="report"></app-tax-card>
+    <section id='active-reports' [hidden]="!(tabIn == 2)">
+        <div id="reports-history-heading">
+            <div>
+                <h2 class='card-title'>Management reports</h2>
+            </div>
         </div>
-    </div>
 
-    <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
-        <motif-card-body>
-            <h5>No results found.</h5>
-        </motif-card-body>
-    </motif-card>
+        <div class="row">
+            <div class="each-card" *ngFor="let report of activeReport">
+                <app-tax-card [reportData]="report"></app-tax-card>
+            </div>
+        </div>
 
-</section>
+        <motif-card class="no_data" *ngIf="noActivatedDataAvilable">
+            <motif-card-body>
+                <h5>No results found.</h5>
+            </motif-card-body>
+        </motif-card>
 
-<section id='reports-history' [hidden]="!(tabIn == 1)">
-    <div id="reports-history-heading">
-        <h2 class="card-title">Production cycles list view</h2>
-    </div>
+    </section>
+
+    <section id='reports-history' [hidden]="!(tabIn == 1)">
+        <div id="reports-history-heading">
+            <h2 class="card-title">Production cycles list view</h2>
+        </div>
+
         <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData"
             [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" buttonPosition="left"
-            [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
+            [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)"
+            (searchInput)="searchGrid($event)">
         </lib-shared-grid>
 
         <div *ngIf="searchNoDataAvilable">
             <motif-card class="no_data">
-              <motif-card-body>
-                  <h5>Your search has returned no results. Please adjust and try again.</h5>
-              </motif-card-body>
-          </motif-card>
-          </div>
-
-    <ng-template #productTemplate let-row>
-        <button class="btn btn-link" (click)="getProdCycleDetail(row)">{{row.name}}</button>
-    </ng-template>
-
-<!--     <ng-template #totalFunds let-row>
-        <span>{{(row.totalFunds > 0) ? row.totalFunds : 0}}</span>
-    </ng-template> -->
-
-<!--     <ng-template #cycleStatus let-row>
-        <lib-tax-horizontal-stacked-bar-chart 
-           [dataInput]="row.dataToChart"
-           [width]="widthDivChart"
-           [colorsInput]="colorsBarChart"
-           [labels]="labelsChart"
-           [id]= "'T' + row.id"
-           [gridEnabled]="true">       
-       </lib-tax-horizontal-stacked-bar-chart>
-   </ng-template> -->
-
-    <ng-template #statusTracker let-row>
-        <div class="ml-4">
-            <a class="link-status-tracker" (click)="getStatusTracker(row)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
-                    <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                </svg>
-            </a>
+                <motif-card-body>
+                    <h5>Your search has returned no results. Please adjust and try again.</h5>
+                </motif-card-body>
+            </motif-card>
         </div>
-    </ng-template> 
 
-</section>
+        <ng-template #productTemplate let-row>
+            <button class="btn custom-link" (click)="getProdCycleDetail(row)">{{row.name}}</button>
+        </ng-template>
+
+        <ng-template #totalFunds let-row>
+            <span>{{(row.totalFunds > 0) ? row.totalFunds : 0}}</span>
+        </ng-template>
+
+        <ng-template #cycleStatus let-row>
+            <lib-tax-horizontal-stacked-bar-chart [dataInput]="row.dataToChart" [width]="widthDivChart"
+                [colorsInput]="colorsBarChart" [labels]="labelsChart" [id]="'T' + row.id" [gridEnabled]="true">
+            </lib-tax-horizontal-stacked-bar-chart>
+        </ng-template>
+
+        <ng-template #statusTracker let-row>
+            <div class="ml-4">
+                <a class="link-status-tracker" (click)="getStatusTracker(row)">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.07 2.93L15.66 4.34C17.1 5.79 18 7.79 18 10C18 14.42 14.42 18 10 18C5.58 18 2 14.42 2 10C2 5.92 5.05 2.56 9 2.07V4.09C6.16 4.57 4 7.03 4 10C4 13.31 6.69 16 10 16C13.31 16 16 13.31 16 10C16 8.34 15.33 6.84 14.24 5.76L12.83 7.17C13.55 7.9 14 8.9 14 10C14 12.21 12.21 14 10 14C7.79 14 6 12.21 6 10C6 8.14 7.28 6.59 9 6.14V8.28C8.4 8.63 8 9.26 8 10C8 11.1 8.9 12 10 12C11.1 12 12 11.1 12 10C12 9.26 11.6 8.62 11 8.28V0H10C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 7.24 18.88 4.74 17.07 2.93Z"
+                            fill="#2E2E38" />
+                    </svg>
+                </a>
+            </div>
+        </ng-template>
+
+    </section>
+
 </div>

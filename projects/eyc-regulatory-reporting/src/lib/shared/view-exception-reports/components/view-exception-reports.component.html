@@ -38,6 +38,9 @@
 
 
   <div class="exceptionResults">
+   <lib-ag-grid *ngIf="dataIntakeExceptionsTable" [rowData]="exceptionAnswersData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false" [pageList]="pageList" [paginationPageSize]="pageSize" [exportName] = "exportName"></lib-ag-grid>
+<!-- 
     <lib-shared-grid *ngIf="dataIntakeExceptionsTable"
       (newEventToParent)="redirecttoDataExplorer($event)" 
       [columnDefs]="exceptionAnswersDefs" 
@@ -53,9 +56,20 @@
       [pagination]="true"
       [export]="true" (exportFlagToParent)="exportData()"
       [uiPagination]="true">
-    </lib-shared-grid>
+    </lib-shared-grid> -->
 
-  <lib-shared-grid *ngIf="answerExceptionTable"
+    <lib-ag-grid *ngIf="answerExceptionTable" [rowData]="exceptionAnswersData" [columnDefs]="exceptionAnswersDefsAgGrid" [export]="true" buttonPosition="left"
+    [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"
+    [permissionToResolveExceptionButton]="getResolveButtonPermission()"
+    [permissionToUnresolveExceptionButton]="getUnresolveButtonPermission()"
+    [disableResolveButton]="!enableResolveButton" [pageList]="pageList" [paginationPageSize]="pageSize"
+    [disableUnresolveButton]="!enableUnresolveButton"
+    rowSelection="multiple"
+    (selectedRowEmitter)="exceptionResolveRowsSelected($event)" [exportName] = "exportName"
+    (newEventToParent)="actionResolvedClick($event)"
+    (unresolveEventToParent)="actionUnResolvedClick($event)"></lib-ag-grid>
+
+  <!-- <lib-shared-grid *ngIf="answerExceptionTable"
     [columnDefs]="exceptionAnswersDefs" 
     [rowData]="exceptionAnswersData"
     rowSelection="multiple"
@@ -73,12 +87,12 @@
     [disableUnresolveButton]="!enableUnresolveButton"
     [hideHeaderCheckbox]="false"  [export]="true" (exportFlagToParent)="exportData()"
     [uiPagination]="true">
-  </lib-shared-grid>
+  </lib-shared-grid> -->
     <ng-template #commentExceptionTemplate let-row>
-      <div *ngIf="commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'View Comments')"  class="comments-background" (click)="openComments(row)">
-          {{commentsCount[row.AuditResultObjectID]}}
+      <div *ngIf="row.comments && permissions.validatePermission(permissionStage, 'View Comments')"   (click)="openComments(row)">
+          <span class="comments-background"> {{row.comments}}</span>
       </div>
-      <div class="commentTemplate" *ngIf="!commentsCount[row.AuditResultObjectID] && permissions.validatePermission(componentStage, 'Add Comments') && !checkFilingCompletedStatus()">
+      <div class="commentTemplate" *ngIf="!row.comments && permissions.validatePermission(permissionStage, 'Add Comments') && !checkFilingCompletedStatus()">
         <div class="add_icon">
             <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'" (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
         </div>
@@ -90,7 +104,7 @@
         </motif-icon> -->
 
         <div class="result_complete"
-        *ngIf="(row?.Status == 'Resolved') && permissions.validatePermission(componentStage, 'View Comments')">
+        *ngIf="(row?.Status == 'Resolved') && permissions.validatePermission(permissionStage, 'View Comments')">
             <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'" (click)="openComments(row)"></motif-icon>
         </div>
         <div class="result_warning" *ngIf="row?.Status == 'Unresolved' || row?.Status == '' ">
@@ -102,7 +116,7 @@
 
   <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
     [filingName]="commentsName" [filingStatus]="checkFilingCompletedStatus()" 
-    [permissionToAddComment]="permissions.validatePermission(componentStage, 'Add Comments')"
+    [permissionToAddComment]="permissions.validatePermission(permissionStage, 'Add Comments')"
     (commentAddedEmitter)="commentAdded()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
 
   

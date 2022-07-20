@@ -1,302 +1,261 @@
 {
     "success": true,
     "message": "",
-    "corelationId": null,
-    "data": [
-        {
-        "name": "Fund 1",
-        "id": "1ASKDJ10398ASKDJO",
-        "hasContent": false,         
-        "status": "open",
-        "openCommentsEY": 2,
-        "openCommentsClient": 3,
-        "totalComments":20,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers": [
+    "corelationId": "cce7e9f2-7869-4948-87d5-25f28db347eb",
+    "data": {
+        "productionCycleDetails": [
             {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@ey.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
+                "id": "01KV7KIYBZXGB55RHKCBEZT3USNWPFRQNY",
+                "name": "Fund A",
+                "hasContent": true,
+                "status": "approved",
+                "openCommentsEY": 0,
+                "openCommentsClient": 1,
+                "totalComments": 2,
+                "assignedUsers": [
+                    {
+                        "userId": 6,
+                        "userEmail": "gabriel.loy@ey.com",
+                        "userFirstName": "Gabriel",
+                        "userLastName": "Loy"
+                    },
+                    {
+                        "userId": 4,
+                        "userEmail": "jesus.toscano@ey.com",
+                        "userFirstName": "Jesus",
+                        "userLastName": "Toscano"
+                    },
+                    {
+                        "userId": 5,
+                        "userEmail": "diego.morini@ey.com",
+                        "userFirstName": "Diego",
+                        "userLastName": "Morini"
+                    }
+                ],
+                "statusChangedDate": "2022-05-03T14:17:54.297+00:00"
             },
             {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
+                "id": "01KV7KIYHM37ZJA3LL5NEZGQVQXLXRLXOT",
+                "name": "Fund A1",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
             },
             {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
+                "id": "01KV7KIYETOECOO46PT5HKWEV7WOWTRRKG",
+                "name": "Fund A2",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
             },
             {
-                "userId": 3305,
-                "userEmail": "Gabriel.Loy@email.com", 
-                "userFirstName": "Gabriel", 
-                "userLastName": "Loy" 
+                "id": "01KV7KIYFYRI6UQPNUJFEISWXZAIIN7VPT",
+                "name": "Fund A21",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
             },
             {
-                "userId": 2202,
-                "userEmail": "Diego.Morini@ey.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Morini" 
+                "id": "01KV7KIYGIS67C7TZJ5VHLISQH2FMNODL6",
+                "name": "Fund A3",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYAL7SVSLLWAFZBIW6WQPM7L4IXU",
+                "name": "Fund B",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYFTJ7YWH4LUAZF2BYG4T6NEUUQR",
+                "name": "Fund B1",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYC2A2TKIFVS4ZGIQ5B43T4BGP6Q",
+                "name": "Fund B11",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYC4WKC2JRTV5JEKOBEKJYHJHPC2",
+                "name": "Fund B111",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYCQ27CWJ6SIONAJFCRKOTGPBFPN",
+                "name": "Fund B12",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYFW5VXZTKS4L5HLXV7PKA6ZLG3M",
+                "name": "Fund B2",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYCXSFI7F27N4BEIPRFQLBAZDRYR",
+                "name": "Fund B21",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYCFUOGA2MHM5RALQFY7IOPINH4N",
+                "name": "Fund B3",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYHCA6Q52T34ZZFIWFFLDXRK2CA7",
+                "name": "Fund C",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYBUY7EHOG5L5JFZVJOPETMNSJMO",
+                "name": "Fund C1",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYC7YQFY5GAW5FCY5GKSPZZCWVII",
+                "name": "Fund C11",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYAIDLHXIYPD3RB2PFP3VARRRV7L",
+                "name": "Fund C111",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYGN4Q5OQEF4YJEKUZJFIV5T2M5N",
+                "name": "Fund C12",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYD7FY5JJ2HTMFDY25JYMNXAPFJA",
+                "name": "Fund C2",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYAW5RV5BI7BVVBJQ6P7YFIFWPKN",
+                "name": "Fund C21",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
+            },
+            {
+                "id": "01KV7KIYDJEPMMUW6UCBB2ZQZ6V642ESNS",
+                "name": "Fund D",
+                "hasContent": true,
+                "status": "open",
+                "openCommentsEY": 0,
+                "openCommentsClient": 0,
+                "totalComments": 0,
+                "assignedUsers": [],
+                "statusChangedDate": "2021-08-31T21:04:00.000+00:00"
             }
-        ]
+        ],
+        "isArchived": true
     },
-    {
-        "name": "Fund 2",
-        "id": "2ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 200,
-        "openCommentsClient": 2,
-        "totalComments":100,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-                "userId": 123, 
-                "userEmail": "Jonnathan.Caballero@email.com", 
-                "userFirstName": "Jonnathan", 
-                "userLastName": "Caballero" 
-            },
-            {
-                "userId": 3303,
-                "userEmail": "Gaston.Silva@email.com", 
-                "userFirstName": "Gaston", 
-                "userLastName": "Silva" 
-            },
-            {
-                "userId": 3304,
-                "userEmail": "Diego.Garavito@email.com", 
-                "userFirstName": "Diego", 
-                "userLastName": "Garavito" 
-            }
-        ]
-    },
-    {
-        "name": "Fund 3",
-        "id": "3ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 99,
-        "openCommentsClient": 660,
-        "totalComments":2,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-            }]
-    },
-    {
-        "name": "Fund 4",
-        "id": "4ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY":"10",
-        "openCommentsClient":"10",
-        "totalComments":30,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[
-            {
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@email.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }
-       ]
-    },
-    {
-        "name": "Fund 5",
-        "id": "5ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 0,
-        "openCommentsClient": 5,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-    },
-    {
-        "name": "Fund 6",
-        "id": "6ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 7",
-        "id": "7ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "lastUpdatedDate": "2022-01-12T10:59:41.947+00:00",
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 8",
-        "id": "ASKDJ10398ASKDJ1",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 9",
-        "id": "ASKDJ10398ASKDJq",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 10",
-        "id": "ASKDJ10398ASKrJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 11",
-        "id": "ASKDJ103f8ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 12",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "open",
-        "openCommentsEY": 1,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 13",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 1,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 14",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 15",
-        "id": "ASKDJ10398ASKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 17",
-        "id": "ASKDJ10398ASTTDJO",
-        "hasContent": true,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[{
-            "userId": 123, 
-            "userEmail": "Jonnathan.Caballero@ey.com", 
-            "userFirstName": "Jonnathan", 
-            "userLastName": "Caballero" 
-        }]
-
-    },
-    {
-        "name": "Fund 18",
-        "id": "ASKDJ10398PPKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 19",
-        "id": "ASKDJ10OO8ASKDJO",
-        "hasContent": false,         
-        "status": "OPEN",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 20",
-        "id": "ASKDJ10398ASKXJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 21",
-        "id": "ASKDJ1039JJSKDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund 22",
-        "id": "ASKDJ10398ALLDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    },
-    {
-        "name": "Fund D1",
-        "id": "ASKDJ10398AJJDJO",
-        "hasContent": true,         
-        "status": "approved",
-        "openCommentsEY": 0,
-        "openCommentsClient": 0,
-        "assignedUsers":[]
-
-    }],
     "error": null
 }

@@ -37,6 +37,7 @@ export class CommentsPagecomponent implements OnInit {
   hasOpenComments: boolean = false;
   showOnlyOpenComments:boolean = false;
   cycleId:string;
+  isArchived:boolean = false;
 
   toastSuccessMessage = '';
   showToastAfterSubmit = false;
@@ -56,9 +57,10 @@ export class CommentsPagecomponent implements OnInit {
       this.fundId = params.id
       this.type = params.type
       this.productCycleName = params.prodCycleName
-      this.isApproved = params.status === "approved";
+      this.isApproved = params.status === "Approved by client";
       this.hasOpenComments = params.openCommentsEY > 0 || params.openCommentsClient > 0;
       this.cycleId = params.cycleId;
+      this.isArchived = params.isArchived === "true"
       console.log('params -->', params);
     });
     //Get all the comments related with the selected Production-Cycle and Fund.
@@ -127,20 +129,38 @@ export class CommentsPagecomponent implements OnInit {
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
       if(commentItem.idTag == 1){
-        updatedComment.tagEditTofind = "";
         updatedComment.tags.splice(updatedComment.tags.findIndex(i => i.id == 1), 1);
+        updatedComment.tagEditTofind = updatedComment.tags.length > 0 ? (updatedComment.tags.find(tag => tag.id == 1) != undefined ? updatedComment.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "";
       }else if(commentItem.idTag == 2){
-        updatedComment.tagIncludeTofind = "";
         updatedComment.tags.splice(updatedComment.tags.findIndex(i => i.id == 2), 1);
+        updatedComment.tagIncludeTofind = updatedComment.tags.length > 0 ? (updatedComment.tags.find(tag => tag.id == 2) != undefined ? updatedComment.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "";
       }      
     }
   }
+
+  commentaddTagSearch(commentItem: { id: any; idTag: any; }){
+    let addTag:any;
+    var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
+    if (!!updatedComment) {
+      if(commentItem.idTag == 1){
+        addTag = {"id": 1,"name": "Edit Required"};
+        updatedComment.tags.push(addTag);
+        updatedComment.tagEditTofind = updatedComment.tags.length > 0 ? (updatedComment.tags.find(tag => tag.id == 1) != undefined ? updatedComment.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "";
+      }else if(commentItem.idTag == 2){
+        addTag = {"id": 2,"name": "Include in cycle debrief"};
+        updatedComment.tags.push(addTag);
+        updatedComment.tagIncludeTofind = updatedComment.tags.length > 0 ? (updatedComment.tags.find(tag => tag.id == 2) != undefined ? updatedComment.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "";
+      }      
+        
+      }      
+    }
+  
 
   commentPriorityUpdateSearch(commentItem: { id: any; priority: any; }){
     var updatedComment = this.completedComments.find(item => item.id === commentItem.id);
     if (!!updatedComment) {
       updatedComment.priority = commentItem.priority;
-      updatedComment.priorityToFind = ""
+      updatedComment.priorityToFind = updatedComment.priority == 1 ? "critical":"";
     }
   }
 
@@ -153,7 +173,6 @@ export class CommentsPagecomponent implements OnInit {
   }
 
   backtoCycleView() {
-    //this.location.back();
     this.router.navigate(['cycle-details',this.cycleId,this.productCycleName]);
   }
 

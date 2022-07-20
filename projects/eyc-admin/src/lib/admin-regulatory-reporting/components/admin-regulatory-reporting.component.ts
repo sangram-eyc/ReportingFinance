@@ -10,6 +10,7 @@ import { ErrorModalComponent, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component'
 import { SettingService } from '../../services/setting.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import * as commonConstants from '../../shared/common-contstants'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'app-admin-regulatory-reporting',
@@ -43,6 +44,8 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   sort = '';
   pageChangeFunc;
   resetRowData = [];
+  columnDefsAgGrid;
+  exportName: any;
   constructor(
     private teamsService: TeamsService,
     private adminService: AdministrationService,
@@ -158,9 +161,10 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
 
   getTeamList(resetData = false) {
     this.sort = resetData ? 'teamName:true' : this.sort;
+    this.exportName =this.moduleName + "_Teams_"
     if (this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')) {
       this.getFilingAssignments();
-      this.teamsService.getTeamsList(this.moduleName,this.currentPage,this.pageSize,this.sort,this.filter).subscribe(resp => {
+      this.teamsService.getTeamsList(this.moduleName).subscribe(resp => {
         this.teamsData = resp.data;
         this.totalRecords=resp.totalRecords;
         // this.resetRowData=this.teamsData;
@@ -182,65 +186,119 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
   createTeamsRowData(): void {
     this.resetRowData = [];
     this.columnDefs = [];
-    this.columnDefs = [
+    this.columnDefsAgGrid = [];
+    this.columnDefsAgGrid =[
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Team  Name',
-        field: 'teamName',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 350,
-        sort: 'asc',
-        comparator: this.disableComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Role',
-        field: 'role',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 200,
-        comparator: this.disableComparator
-      },
-
-      // Commenting this column as part of User Story 299890: Assign filing type to new team
-      // {
-      //   headerComponentFramework: TableHeaderRendererComponent,
-      //   headerName: 'Assignments',
-      //   field: 'numberOfAssignments',
-      //   sortable: true,
-      //   filter: false,
-      //   wrapText: true,
-      //   autoHeight: true,
-      //   width: 150,
-        
-      // },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        headerName: 'Members',
-        field: 'numberOfTeamMembers',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 150,
-        comparator: this.disableComparator
-      },
-      {
-        width: 80,
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editAct.bind(this),
-        headerName: 'Actions',
-        field: 'Actions',
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 75,
         sortable: false,
-        filter: false,
-      },
-    ];
+        menuTabs: [],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Team  Name',
+          field: 'teamName',
+          minWidth: 350,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          sort: 'asc',
+          tooltipField: 'teamName',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Role',
+          field: 'role',
+          minWidth: 200,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Members',
+          field: 'numberOfTeamMembers',
+          minWidth: 150,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams:this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'Actions',
+          sortable: false,
+          width: 80,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+    ]
+    // this.columnDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Team  Name',
+    //     field: 'teamName',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 350,
+    //     sort: 'asc',
+    //     comparator: this.disableComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Role',
+    //     field: 'role',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 200,
+    //     comparator: this.disableComparator
+    //   },
+
+    //   // Commenting this column as part of User Story 299890: Assign filing type to new team
+    //   // {
+    //   //   headerComponentFramework: TableHeaderRendererComponent,
+    //   //   headerName: 'Assignments',
+    //   //   field: 'numberOfAssignments',
+    //   //   sortable: true,
+    //   //   filter: false,
+    //   //   wrapText: true,
+    //   //   autoHeight: true,
+    //   //   width: 150,
+        
+    //   // },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     headerName: 'Members',
+    //     field: 'numberOfTeamMembers',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 150,
+    //     comparator: this.disableComparator
+    //   },
+    //   {
+    //     width: 80,
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editAct.bind(this),
+    //     headerName: 'Actions',
+    //     field: 'Actions',
+    //     sortable: false,
+    //     filter: false,
+    //   },
+    // ];
     this.resetRowData = this.teamsData;
 }
 
@@ -270,6 +328,7 @@ deleteTeams(row){
       teamsList.forEach(ele => {
         this.teamsData.push(ele);
       });
+      this.resetRowData = this.teamsData;
       this.updatePageSize(this.pageSize)
       this.gridApi.setRowData(this.teamsData);
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
@@ -319,6 +378,8 @@ editTeams(row) {
       teamsList.forEach(ele => {
         this.teamsData.push(ele);
       });
+
+      this.resetRowData = this.teamsData;
 
       this.addTeamForm.reset();
       this.updatePageSize(this.pageSize)

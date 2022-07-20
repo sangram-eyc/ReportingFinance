@@ -65,7 +65,7 @@ describe('EycRrCommentApiService', () => {
   it('listComments method should add comment',()=>{
     spyOn(service['apiService'],'invokeGetAPI');
     let mockUrl = "/list-comments/tax/101/comments"
-    service.listComments('101','tax');
+    service.listComments('101','tax','');
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(mockUrl)
   })
 
@@ -74,7 +74,7 @@ describe('EycRrCommentApiService', () => {
       entityId :'333'
     }
     spyOn(service['apiService'],'invokePutAPI');
-    service.updateStatus('101',mockData);
+    service.updateStatus('101',mockData,'');
     let mockUrl = "/resolve/101/resolve"
     expect(service['apiService'].invokePutAPI).toHaveBeenCalledWith(mockUrl,mockData)
   })

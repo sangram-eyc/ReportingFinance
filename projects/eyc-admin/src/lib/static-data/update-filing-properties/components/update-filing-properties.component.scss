@@ -242,6 +242,10 @@
       height: 75px !important;
       width: 75px !important;
     }
+
+    .motif-error-content .motif-error-message {
+      min-height: 35px !important;
+    }
   }
   
   .disabled {
@@ -336,20 +340,20 @@
   }
   .edit_button {
     position: absolute;
-    right: 200px;
+    left: 200px;
     margin: 40px 20px 20px 20px;
     width: 100px !important;
   }
   .save_edit_reportid_button {
     position: absolute;
-    right: 320px;
+    left: 320px;
     margin: 40px 20px 20px 20px;
     width: 100px !important;
   }
 
   .cancel_edit_reportid_button {
     position: absolute;
-    right: 200px;
+    left: 200px;
     margin: 40px 20px 20px 20px;
     width: 100px !important;
   }

@@ -8,6 +8,7 @@ import { ModalComponent, PermissionService } from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingService } from '../../../services/setting.service';
 import * as commonConstants from '../../../shared/common-contstants'
+import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 
 @Component({
   selector: 'lib-update-filing-properties',
@@ -28,6 +29,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   entityStagesList = [];
   tabIn = 1;
   columnDefs;
+  columnDefsAgGrid;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   PBIMappingData = []
@@ -56,6 +58,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   showToastAfterDeleteTeams = false;
   fundFrequency = [];
   fundFrequencyList =[];
+  exportName: string;
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -271,6 +274,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
       this.PBIMappingData = resp['data']['questionPbiMap'];
       this.storePBIMappingData = JSON.parse(JSON.stringify(this.PBIMappingData));
       this.createTeamsRowData();
+      this.exportName = resp['data']?.['formName']+"_PBI mapping_"
     });
   }
 
@@ -305,60 +309,120 @@ export class UpdateFilingPropertiesComponent implements OnInit {
   // }
 
   createTeamsRowData(): void {
-    this.columnDefs = [
+    this.columnDefsAgGrid =[
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        // cellRendererFramework: MotifTableCellRendererComponent,
-        // cellRendererParams: this.editQuestion.bind(this),
-        headerName: 'Question',
-        field: 'name',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editReportID.bind(this),
-        headerName: 'Report ID',
-        field: 'pbiReportId',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editDatasetID.bind(this),
-        headerName: 'Dataset ID(s)',
-        field: 'dataSetIds',
-        sortable: true,
-        filter: true,
-        wrapText: true,
-        autoHeight: true,
-        width: 370,
-        sort: 'asc',
-        comparator: customComparator
-      },
-      {
-        width: 80,
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: this.editAct.bind(this),
-        headerName: 'Actions',
-        field: 'name',
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 75,
         sortable: false,
-        filter: false,
-      }
-    ];
+        menuTabs: [],
+        pinned: 'left'
+        },
+        {
+          headerName: 'Question',
+          field: 'name',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          sort: 'asc',
+          tooltipField: 'name',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 250,
+          // cellStyle : { 'text-overflow':'ellipsis','white-space': 'nowrap', 'overflow': 'hidden', 'line-height': '22px'}       
+         },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editReportID.bind(this),
+          headerName: 'Report ID',
+          field: 'pbiReportId',
+          minWidth: 250,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          tooltipField: 'pbiReportId',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editDatasetID.bind(this),
+          headerName: 'Dataset ID(s)',
+          field: 'dataSetIds',
+          tooltipField: 'dataSetIds',
+          minWidth: 500,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: this.editAct.bind(this),
+          headerName: 'Actions',
+          field: 'Actions',
+          minWidth: 150,
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+    ]
+    // this.columnDefs = [
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     // cellRendererFramework: MotifTableCellRendererComponent,
+    //     // cellRendererParams: this.editQuestion.bind(this),
+    //     headerName: 'Question',
+    //     field: 'name',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editReportID.bind(this),
+    //     headerName: 'Report ID',
+    //     field: 'pbiReportId',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 370,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editDatasetID.bind(this),
+    //     headerName: 'Dataset ID(s)',
+    //     field: 'dataSetIds',
+    //     sortable: true,
+    //     filter: true,
+    //     wrapText: true,
+    //     autoHeight: true,
+    //     width: 500,
+    //     sort: 'asc',
+    //     comparator: customComparator
+    //   },
+    //   {
+    //     width: 80,
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: this.editAct.bind(this),
+    //     headerName: 'Actions',
+    //     field: 'name',
+    //     sortable: false,
+    //     filter: false,
+    //   }
+    // ];
 
   }
 
@@ -372,10 +436,14 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     return this.formBuilder.group({
       question: ['', [Validators.required, Validators.maxLength(100)]],
       reportID: ['', [Validators.required, Validators.maxLength(150)]],
-      dataSetIds: ['', [Validators.required, Validators.maxLength(150)]],
+      dataSetIds: ['', [Validators.required,Validators.pattern("^[0-9a-zA-Z-]+(,[0-9a-zA-Z-]+)*$"), Validators.maxLength(8000)]],
     });
   }
 
+  checkDataSetIdPatternError(string){
+    const regPattern = /^[0-9a-zA-Z-]+(,[0-9a-zA-Z-]+)*$/
+    return !regPattern.test(string)
+  }
   onSubmitNewQuestion() {
     const obj = this.addPBIReportForm.getRawValue();
     // const mappingData = {

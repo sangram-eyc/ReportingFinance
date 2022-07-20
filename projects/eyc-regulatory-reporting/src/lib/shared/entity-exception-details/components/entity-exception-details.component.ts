@@ -5,7 +5,7 @@ import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from './../../table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { EntityExceptionDetailsService } from './../services/entity-exception-details.service';
-import { ModalComponent, PermissionService,  IndividualExceptionsResolveComponent} from 'eyc-ui-shared-component';
+import { ModalComponent, PermissionService,  IndividualExceptionsResolveComponent, CellRendererTemplateComponent} from 'eyc-ui-shared-component';
 import { MatDialog } from '@angular/material/dialog';
 import { rr_module_name } from '../../../config/rr-config-helper';
 
@@ -27,7 +27,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
   parentModule: string;
   exceptionDetails;
   exceptionAnswersData;
-  exceptionAnswersDefs;
+  // exceptionAnswersDefs;
+  exceptionAnswersDefsAgGrid = [];
   commentsCount;
   answerExceptionTable: boolean
   moduleOriginated = rr_module_name;
@@ -48,6 +49,10 @@ export class EntityExceptionDetailsComponent implements OnInit {
   entityId: any;
   showComments: boolean = false;
   exportsHeader: string;
+  permissionStage: any;
+  pageList = [100,200,300];
+  pageSize =100;
+  exportName: any;
 
 
   constructor(
@@ -74,12 +79,13 @@ export class EntityExceptionDetailsComponent implements OnInit {
       this.exceptionCnt = parseInt(this.filingService.getExceptionData?.Unresolved) + parseInt(this.filingService.getExceptionData?.Resolved);
       this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     } ; 
-    
+    this.permissionStage = (this.componentStage == "Client review") ? "Client Review" : this.componentStage;
     this.answerExceptionTable = true;
     this.exceptionDetails = this.filingService.getExceptionData;
     this.exceptionReportName = this.filingService.getExceptionData?.exceptionReportName;
     this.getAnswerExceptionReports();
     sessionStorage.setItem("exceptionV3Stage", this.componentStage);
+    sessionStorage.setItem("detailExcepStage",  this.componentStage);
   }
 
   sortByUnresolvedException(){
@@ -87,51 +93,83 @@ export class EntityExceptionDetailsComponent implements OnInit {
   }
 
   getAnswerExceptionReports() {
-    
+    this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Filing_Entities_Exception_Reports_Individual_Exception_Report_";
     this.viewService.getAnswerExceptionReports(this.filingService.getFilingEntityData.fundId, this.filingName, this.period, this.filingService.getExceptionData.AuditFilingID, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData = res.data['exceptionResultJason'];
       this.exceptionAnswersData ? this.exceptionAnswersData.map(e => {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
+      this.commentsCount = res.data['commentCountMap'];
+      this.exceptionAnswersData.forEach(obj=>{
+        obj['comments'] = this.commentsCount[obj.AuditResultObjectID] ? this.commentsCount[obj.AuditResultObjectID] : 0;
+     })
       if (this.exceptionAnswersData) {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
       } else {
-        this.exceptionAnswersDefs = [];
+        // this.exceptionAnswersDefs = [];
+        this.exceptionAnswersDefsAgGrid = [];
       }
-      this.commentsCount = res.data['commentCountMap'];
     });
   }
 
 
   createEntitiesRowData(): void {
-    this.exceptionAnswersDefs = [];
+    // this.exceptionAnswersDefs = [];
 
-    this.exceptionAnswersDefs.push(
+    this.exceptionAnswersDefsAgGrid = [];
+
+    // this.exceptionAnswersDefs.push(
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.dropdownTemplate,
+    //     },
+    //     field: 'approved',
+    //     headerName: '',
+    //     width: 20,
+    //     sortable: false,
+    //     pinned: 'left'
+    //   },
+    //   {
+    //     headerComponentFramework: TableHeaderRendererComponent,
+    //     cellRendererFramework: MotifTableCellRendererComponent,
+    //     cellRendererParams: {
+    //       ngTemplate: this.exceptionResultTemplate,
+    //     },
+    //     headerName: 'Result',
+    //     field: 'Status',
+    //     minWidth: 70,
+    //     width: 70,
+    //     sortable: false,
+    //     cellClass: 'actions-button-cell'
+    //   }
+    // );
+    this.exceptionAnswersDefsAgGrid.push(
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dropdownTemplate,
-        },
-        field: 'approved',
-        headerName: '',
-        width: 20,
+        headerCheckboxSelection: true,
+        headerCheckboxSelectionFilteredOnly: true,
+        checkboxSelection: true,
+        valueGetter: "node.rowIndex + 1",
+        maxWidth: 120,
         sortable: false,
-        pinned: 'left'
+        menuTabs: [],
+        filter:false,
+        pinned: 'left',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
         cellRendererParams: {
           ngTemplate: this.exceptionResultTemplate,
         },
         headerName: 'Result',
         field: 'Status',
-        minWidth: 70,
-        width: 70,
+        maxWidth: 120,
         sortable: false,
+        menuTabs: [],
+        filter:false,
         cellClass: 'actions-button-cell'
       }
     );
@@ -139,26 +177,69 @@ export class EntityExceptionDetailsComponent implements OnInit {
     for (const property in this.exceptionAnswersData[0]) {
       console.log(`${property}: ${this.exceptionAnswersData[0][property]}`);
       if(property != 'approved') {
-        this.exceptionAnswersDefs.push({
+        // this.exceptionAnswersDefs.push({
+        //   field: `${property}`,
+        //   headerName: `${property}`,
+        //   headerComponentFramework: TableHeaderRendererComponent,
+        //   sortable: true,
+        //   autoHeight: true,
+        //   width: 320,
+        //   wrapText: true,
+        //   filter: true
+        // });
+        if (property == 'Entity Name') {
+          this.exceptionAnswersDefsAgGrid.push({
+            field: `${property}`,
+            headerName: `${property}`,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+            minWidth: 300,
+            tooltipField: `${property}`
+          });
+        } else {
+      if(property != "comments"){
+        this.exceptionAnswersDefsAgGrid.push({
           field: `${property}`,
           headerName: `${property}`,
-          headerComponentFramework: TableHeaderRendererComponent,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          autoHeight: true,
-          width: 320,
-          wrapText: true,
-          filter: true
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
         });
+          }
+        }
       }
     }
-    this.exceptionAnswersDefs.push({
+    // this.exceptionAnswersDefs.push({
+    //   headerName: 'Comments',
+    //   headerComponentFramework: TableHeaderRendererComponent,
+    //   cellRendererFramework: MotifTableCellRendererComponent,
+    //   cellRendererParams: {
+    //     ngTemplate: this.commentExceptionTemplate,
+    //   }, sortable: false, autoHeight: true,
+    //   wrapText: true
+    // });
+    this.exceptionAnswersDefsAgGrid.push({
       headerName: 'Comments',
-      headerComponentFramework: TableHeaderRendererComponent,
-      cellRendererFramework: MotifTableCellRendererComponent,
+      cellRendererFramework: CellRendererTemplateComponent,
       cellRendererParams: {
         ngTemplate: this.commentExceptionTemplate,
-      }, sortable: false, autoHeight: true,
-      wrapText: true
+      }, 
+      filter: 'agSetColumnFilter',
+      field:'comments',
+      filterParams: {
+        buttons: ['reset']
+      },
+      sortable: true,
+      menuTabs: ['filterMenuTab', 'generalMenuTab'],
+      minWidth: 155
     });
   }
 
@@ -209,6 +290,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
         this.commentsCount[row.AuditResultObjectID] = 1;
         this.createEntitiesRowData();
       } else {
@@ -230,13 +312,13 @@ export class EntityExceptionDetailsComponent implements OnInit {
   }
 
   getResolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Status Change Resolve') && !this.checkFilingCompletedStatus()){
       return true
     } else return false
   }
 
   getUnresolveButtonPermission() {
-    if (this.exceptionAnswersData && this.permissions.validatePermission(this.componentStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
+    if (this.exceptionAnswersData && this.permissions.validatePermission(this.permissionStage, 'Exception Unapprove') && !this.checkFilingCompletedStatus()){
       return true;
     } else return false;
   }
@@ -414,7 +496,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
       }
     }
 
-    if(this.permissions.validatePermission(this.componentStage, 'View Comments')) { 
+    if(this.permissions.validatePermission(this.permissionStage, 'View Comments')) { 
     this.exportsHeader =  this.exportsHeader+",commentCountMap:Comments";
     }
     if(this.componentStage != null && this.componentStage != undefined) {
@@ -427,7 +509,8 @@ export class EntityExceptionDetailsComponent implements OnInit {
         "period": this.period,
         "stage": this.componentStage,
         "totalExceptions": this.exceptionCnt,
-        "titles": this.exportsHeader
+        "titles": this.exportsHeader,
+        "subHeader": "Filing_Entities"
       }
       this.viewService.exportData(requestobj).subscribe(res => {
       });

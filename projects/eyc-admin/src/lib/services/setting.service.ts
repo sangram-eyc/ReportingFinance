@@ -28,7 +28,7 @@ export class SettingService {
       add_team: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team',
       delete_team: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team/' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/team/',
       teams_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teams' : this.API_ENDPOINT + 'assets/mock/teams.json',
-      teams_Details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamDetails' : this.API_ENDPOINT + 'assets/mock/teams.json',
+      teams_Details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamDetails' : this.API_ENDPOINT + 'assets/mock/team_details.json',
       teamUpdate: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamUpdate' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamUpdate',
       deleteTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember',
       addTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember',
@@ -62,6 +62,13 @@ export class SettingService {
     return static_data;
   }
 
+  get task_assignment(): any {
+    const task_assignment = {
+      tasks_assignment_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/taskAssignment.json' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
+    }
+    return task_assignment;
+  }
+
   get authorization(): any{
     const authorization = {
       auth_Details: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authentication/getDetails' : this.API_ENDPOINT + 'assets/mock/auth.json',
@@ -69,5 +76,19 @@ export class SettingService {
       rr_permission_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/currentUser/moduleFeatures' : this.API_ENDPOINT + 'assets/mock/reg_reporting_permissions.json',
   }
   return authorization;
+  }
+
+  get data_explorer(): any{
+    const data_explorer = {
+      data_explorer_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/taskAssignment.json' : this.API_ENDPOINT + 'assets/mock/taskAssignment.json',
+    }
+    return data_explorer;
+  }
+
+  get filing_entities(): any{
+    const filing_entities = {
+      filing_entities_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/filingEntities.json' : this.API_ENDPOINT + 'assets/mock/filingEntities.json',
+    }
+    return filing_entities;
   }
 }

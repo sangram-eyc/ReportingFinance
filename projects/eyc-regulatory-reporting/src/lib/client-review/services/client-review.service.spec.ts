@@ -17,7 +17,8 @@ describe('ClientReviewService', () => {
       approve_client_review_filing_entities: '/approve_client_review_filing_entities/',
       filing_unapprove: '/filing_unapprove/',
       approve_answer_exceptions: '/approve_answer_exceptions/',
-      rr_comments: '/rr_comments/'
+      rr_comments: '/rr_comments/',
+      audit_log:'/audit_log/'
     }
   }
   let eycRrApiServiceStub = {
@@ -40,20 +41,38 @@ describe('ClientReviewService', () => {
   });
 
   it('getExceptionReports method should call api and fetch exception reports list', () => {
-    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(() => {
-      return of({ data: [] })
+    let mockResp = {
+      data :[
+        {
+          approved:true,
+          exceptionId:1011,
+          exceptionName:'Goldman sachs'
+        }
+      ]
+    }
+    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
+      return of(mockResp)
     });
-    service.getExceptionReports('FDI', '2011', 'Client review');
-    let url = "/rr_exception_reports/&filingName=FDI&period=2011&stage=Client review";
+    service.getExceptionReports('Form PF', 'Q1 2022', 'Reporting', '1', '10', '', 'exceptionId');
+    let url = "/rr_exception_reports/&filingName=Form PF&period=Q1 2022&stage=Reporting&page=1&size=10&filterKey=&sortBy=exceptionId";
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url);
   });
 
-  it('getfilingEntities method should call api and fetch filing Entities', () => {
-    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(() => {
-      return of({ data: [] })
+  it('getfilingEntities method should call api and fetch filling entities', () => {
+    let mockResp = {
+      data :[
+        {
+          approved:true,
+          entityId:1011,
+          entityName:'Goldman sachs'
+        }
+      ]
+    }
+    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
+      return of(mockResp)
     });
-    service.getfilingEntities('FDI', '2011');
-    let url = "/client_review_filing_entities/&filingName=FDI&period=2011";
+    service.getfilingEntities('Form PF', 'Q1 2022', '1', '10', '', 'entityId');
+    let url = "/client_review_filing_entities/&filingName=Form PF&period=Q1 2022&page=1&size=10&filterKey=&sortBy=entityId";
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url);
   });
 
@@ -116,5 +135,22 @@ describe('ClientReviewService', () => {
     service.getComments('filing', '1011');
     let url = "/rr_comments/";
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url);
+  });
+
+  it('exportCRData method should call api and fetch export data', () => {
+    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
+      return of({})
+    });
+    service.exportCRData('/exportData');
+    expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith('/exportData');
+  });
+
+  it('getAuditlog method should call api and fetch audit log data', () => {
+    spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
+      return of({})
+    });
+    service.getAuditlog(45141,'mockType');
+    let URL ="/audit_log/?auditObjectId=45141&auditObjectType=mockType&fetchDetails=true"
+    expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(URL);
   });
 });
