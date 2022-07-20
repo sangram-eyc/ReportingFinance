@@ -59,11 +59,12 @@
                                 </motif-icon>
                                 {{'/'+ api.operation}} &nbsp;&nbsp;
 
-                                <motif-tooltip class="motif-tooltipdisplay" placement="bottom">
+                                <!-- <motif-tooltip class="motif-tooltipdisplay" placement="bottom">
                                     <span motifTooltipTrigger aria-label="tooltip">{{api.description?.length > 85 ?
                                         (api.description | slice:0:85) + '...' : api.description}}</span>
                                     {{api.description}}
-                                </motif-tooltip>
+                                </motif-tooltip> -->
+                                {{api.description?.length > 85 ?(api.description | slice:0:85) + '...' : api.description}}
                             </motif-accordion-header>
 
                             <motif-accordion-content>

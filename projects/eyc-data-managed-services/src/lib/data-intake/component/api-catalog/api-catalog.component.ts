@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { DataManagedService } from '../../services/data-managed.service';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 
@@ -7,7 +7,7 @@ import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
   templateUrl: './api-catalog.component.html',
   styleUrls: ['./api-catalog.component.scss']
 })
-export class ApiCatalogComponent implements OnInit,AfterViewInit,OnDestroy {
+export class ApiCatalogComponent implements OnInit,AfterViewInit {
 
   apiCatalog;
   domains;
@@ -23,7 +23,7 @@ export class ApiCatalogComponent implements OnInit,AfterViewInit,OnDestroy {
   editTrigger;
   columnDefs: string[] = [
     'name',
-    'required',
+    'nullable',
     'description',
     'parameterType',
     'dataType',
@@ -44,20 +44,16 @@ export class ApiCatalogComponent implements OnInit,AfterViewInit,OnDestroy {
   warningMessage = 'There is some issue loading data from this API';
   toastArray = [];
 
-  constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService,private ngZone: NgZone
-    // private toasterService: ToasterService
+  constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService
+
     ) {}
 
   ngOnInit(): void {
 
-    // this.getAPICatalog();
   }
   ngAfterViewInit(){ 
     this.ready = true; }
 
-
-    ngOnDestroy() {
-    }
 
   getAPICatalog(){
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
@@ -71,24 +67,11 @@ export class ApiCatalogComponent implements OnInit,AfterViewInit,OnDestroy {
   }
 
   getApiList(index,event){
-    this.ngZone.runOutsideAngular(() => {
-      // this will not trigger change detection
-      // setInterval(() => 
-      this.operations= this.apiCatalog[index].operations, 10
-      // )
-    });
-   
+    this.operations= this.apiCatalog[index].operations; 
   }
   getApiDetails(i,j,event){
-    this.ngZone.runOutsideAngular(() => {
-      // this will not trigger change detection
-      // setInterval(() =>{
-        this.parameters= this.apiCatalog[i].operations[j].request.parameters;
-        this.response=this.apiCatalog[i].operations[j].response.response
-    //   } 
-    // , 10)
-    });
-    
+    this.parameters= this.apiCatalog[i].operations[j].request.parameters;
+    this.response=this.apiCatalog[i].operations[j].response.response;  
   }
  
   get_filtered_domains(){}
