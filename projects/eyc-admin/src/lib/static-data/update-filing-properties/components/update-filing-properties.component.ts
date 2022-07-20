@@ -350,6 +350,10 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           cellRendererParams: this.editDatasetID.bind(this),
           headerName: 'Dataset ID(s)',
           field: 'dataSetIds',
+          comparator: (valueA, valueB) => {
+            if (valueA == valueB) return 0;
+            return (valueA > valueB) ? 1 : -1;
+          },
           tooltipField: 'dataSetIds',
           minWidth: 500,
           filter: 'agSetColumnFilter',

@@ -460,6 +460,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolvedException',
+          comparator: (valueA, valueB) => valueA - valueB,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
@@ -693,6 +694,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolved',
+          comparator: (valueA, valueB) => valueA - valueB,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']

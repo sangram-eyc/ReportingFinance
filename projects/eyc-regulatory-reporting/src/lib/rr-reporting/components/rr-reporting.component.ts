@@ -332,6 +332,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolvedException',
+          comparator: (valueA, valueB) => valueA - valueB,
           minWidth: 150,
           filter: 'agSetColumnFilter',
           filterParams: {
@@ -454,6 +455,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolved',
+          comparator: (valueA, valueB) => valueA - valueB,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
