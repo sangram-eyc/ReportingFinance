@@ -75,7 +75,7 @@ export class CycleDetailComponent implements OnInit {
   productCycleName;
   productCycleParams: string;
   permissionApproval = this.permissions.validatePermission('Production Cycles', 'Fund Approval');
-  //permissionApproval = true
+  // permissionApproval = true
 
 
 
@@ -499,6 +499,10 @@ export class CycleDetailComponent implements OnInit {
     console.log('click',data)
     this.processingCheck = data;
   }
+  
+  approveOff(e) {
+    e.stopPropagation();
+  }
 
   approveClickEv(e) {
     e.stopPropagation();
@@ -591,7 +595,11 @@ export class CycleDetailComponent implements OnInit {
       this.setClickApproveButton = true;
       this.cancelbtn = document.querySelector('.second-button');
       this.approveBtn = document.querySelector('.approve-button button');
-      this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true);
+      if (this.isArchived){
+        this.approveBtn.addEventListener("click", this.approveOff.bind(this), true);
+      }else{
+        this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true);
+      }
     }
     this.cancelbtn.disabled = true;
     this.approveBtn.disabled = true;
