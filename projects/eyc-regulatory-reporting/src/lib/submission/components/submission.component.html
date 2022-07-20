@@ -39,7 +39,7 @@
         [export]="true" buttonPosition="left"
         [search]="true" paginationSize="10" rowSelection="multiple" [submitFunction]="downloadSubmit" buttonPosition="left" [masterDetail]="true"
         (selectedRowEmitter)="downloadRowsSelected($event)" [customRowSelected]="true"
-        [permissionToPrimaryButton]="permissions.validatePermission('Submission', 'Download Files')" 
+        [permissionToPrimaryButton]="subRowData?.length > 0 && permissions.validatePermission('Submission', 'Download Files')" 
         [export] = "true" buttonText="Download selected" [omitModal]="true" [displayPlusIcon]='false'>
         </lib-ag-grid>
 
