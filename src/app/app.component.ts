@@ -445,11 +445,11 @@ export class AppComponent
       ) {
         this.warningMessage();
       } else {
-        this.wsBulkService.closeConection();
+        //this.wsBulkService.closeConection();
         this.settingsService.logoff();
       }
     } else {
-      this.wsBulkService.closeConection();
+      //this.wsBulkService.closeConection();
       this.settingsService.logoff();
     }
   }
