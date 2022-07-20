@@ -95,6 +95,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         this.createEntitiesRowData();
       } else {
         // this.exceptionAnswersDefs = [];
+        this.createEntitiesRowData();
         this.exceptionAnswersDefsAgGrid = [];
       }
 
