@@ -100,6 +100,10 @@ export class EntityExceptionDetailsComponent implements OnInit {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
+      this.commentsCount = res.data['commentCountMap'];
+      this.exceptionAnswersData.forEach(obj=>{
+        obj['comments'] = this.commentsCount[obj.AuditResultObjectID] ? this.commentsCount[obj.AuditResultObjectID] : 0;
+     })
       if (this.exceptionAnswersData) {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
@@ -107,7 +111,6 @@ export class EntityExceptionDetailsComponent implements OnInit {
         // this.exceptionAnswersDefs = [];
         this.exceptionAnswersDefsAgGrid = [];
       }
-      this.commentsCount = res.data['commentCountMap'];
     });
   }
 
@@ -198,17 +201,19 @@ export class EntityExceptionDetailsComponent implements OnInit {
             tooltipField: `${property}`
           });
         } else {
-          this.exceptionAnswersDefsAgGrid.push({
-            field: `${property}`,
-            headerName: `${property}`,
-            filter: 'agSetColumnFilter',
-            filterParams: {
-              buttons: ['reset']
-            },
-            sortable: true,
-            menuTabs: ['filterMenuTab', 'generalMenuTab'],
-            minWidth: 300,
-          });
+      if(property != "comments"){
+        this.exceptionAnswersDefsAgGrid.push({
+          field: `${property}`,
+          headerName: `${property}`,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
+        });
+          }
         }
       }
     }
@@ -228,6 +233,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
         ngTemplate: this.commentExceptionTemplate,
       }, 
       filter: 'agSetColumnFilter',
+      field:'comments',
       filterParams: {
         buttons: ['reset']
       },
@@ -284,6 +290,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
         this.commentsCount[row.AuditResultObjectID] = 1;
         this.createEntitiesRowData();
       } else {
