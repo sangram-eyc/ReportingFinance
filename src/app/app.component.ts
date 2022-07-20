@@ -354,6 +354,7 @@ export class AppComponent
         if (this.count == 1) {
           console.log('Run ngAfterViewInit', this.count);
           this.checkTimeOut();
+          this.notificationServiceDetail = 'sse';
           this.notificationServiceDetail === 'sse' ? this.connectSse() : this.connectWebSocket();
         }
       }
