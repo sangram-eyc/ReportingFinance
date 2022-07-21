@@ -92,10 +92,10 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['exceptionResultJason'];
       this.commentsCount = res.data['commentCountMap'];
-      res.data['exceptionResultJason'].forEach(obj=>{
-        obj['comments'] = this.commentsCount[obj.AuditFilingID] ? this.commentsCount[obj.AuditFilingID] : 0;
-     })
-      if (this.exceptionAnswersData) {
+      if (this.exceptionAnswersData &&  (this.exceptionAnswersData != null || this.exceptionAnswersData.length != 0 )) {
+        res.data['exceptionResultJason'].forEach(obj=>{
+          obj['comments'] = this.commentsCount[obj.AuditFilingID] ? this.commentsCount[obj.AuditFilingID] : 0;
+       })
         this.createEntitiesRowData();
       } else {
         // this.exceptionAnswersDefs = [];
@@ -108,6 +108,8 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.rowData = [];
     // this.exceptionAnswersDefs = [];
     this.exceptionAnswersDefsAgGrid = [];
+
+    if (this.exceptionAnswersData &&  (this.exceptionAnswersData != null || this.exceptionAnswersData.length != 0 )) {
     this.exceptionAnswersData.forEach(element => {
       this.rowData.push({
         AuditFilingID: element.AuditFilingID,
@@ -118,6 +120,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
         comments: element.comments
       });
     });
+  }
     // this.exceptionAnswersDefs = [
     //   {
     //     headerComponentFramework: TableHeaderRendererComponent,
