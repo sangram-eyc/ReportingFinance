@@ -4,7 +4,7 @@ import { ClientReviewService } from '../services/client-review.service';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE, CellRendererTemplateComponent } from 'eyc-ui-shared-component';
+import { ModalComponent , PermissionService, DEFAULT_PAGE_SIZE, CellRendererTemplateComponent, customComparator } from 'eyc-ui-shared-component';
 import { Router } from '@angular/router';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { DatePipe } from '@angular/common';
@@ -270,9 +270,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
 
   
   createEntitiesRowData(): void {
-    const customComparator = (valueA, valueB) => {
-      return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
-    };
+    
     // this.columnDefs = [];
     this.columnDefsAgGrid = []
     // this.exceptionDefs = [];
@@ -287,6 +285,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 120,
           sortable: false,
           menuTabs: [],
@@ -296,10 +297,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
         {
           headerName: 'ID',
           field: 'fundId',
-          comparator: (valueA, valueB) => {
-            if (valueA == valueB) return 0;
-            return (valueA > valueB) ? 1 : -1;
-          },
+          comparator: customComparator,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
@@ -357,7 +355,7 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolvedException',
-          comparator: (valueA, valueB) => valueA - valueB,
+          comparator: customComparator,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
@@ -411,6 +409,9 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 120,
           sortable: false,
           menuTabs: [],

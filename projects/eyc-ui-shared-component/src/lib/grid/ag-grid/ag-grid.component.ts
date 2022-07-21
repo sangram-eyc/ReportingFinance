@@ -227,7 +227,7 @@ export class AgGridComponent implements OnInit {
     let statusBarComponent = this.gridApi?.getStatusPanel(
       'statusBarCompKey'
     ) as any;
-    if (this.rowData && this.rowData.length == 0) {
+    if(this.rowData && (this.rowData.length ==0 || this.rowData == null)){
       this.columnDefs = [];
       this.filterDisable = false;
       statusBarComponent?.setVisible(false);

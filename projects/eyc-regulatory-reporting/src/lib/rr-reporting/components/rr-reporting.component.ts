@@ -4,8 +4,8 @@ import { RegulatoryReportingFilingService } from '../../regulatory-reporting-fil
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { RrReportingService } from '../services/rr-reporting.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent, CellRendererTemplateComponent } from 'eyc-ui-shared-component';
-import { customComparator, rr_module_name, tabsForRR } from '../../config/rr-config-helper';
+import { ModalComponent, DEFAULT_PAGE_SIZE, ErrorModalComponent, CellRendererTemplateComponent, customComparator } from 'eyc-ui-shared-component';
+import { rr_module_name, tabsForRR } from '../../config/rr-config-helper';
 import { Router } from '@angular/router';
 import { PermissionService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
@@ -265,6 +265,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 120,
           sortable: false,
           menuTabs: [],
@@ -274,10 +277,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           {
             headerName: 'ID',
             field: 'fundId',
-            comparator: (valueA, valueB) => {
-              if (valueA == valueB) return 0;
-              return (valueA > valueB) ? 1 : -1;
-            },
+            comparator: customComparator,
             minWidth: 140,
             filter: 'agSetColumnFilter',
             filterParams: {
@@ -336,7 +336,7 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           },
           headerName: 'Resolved',
           field: 'resolvedException',
-          comparator: (valueA, valueB) => valueA - valueB,
+          comparator: customComparator,
           minWidth: 150,
           filter: 'agSetColumnFilter',
           filterParams: {
@@ -391,6 +391,9 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 120,
           sortable: false,
           menuTabs: [],

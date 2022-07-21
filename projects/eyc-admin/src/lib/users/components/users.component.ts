@@ -139,6 +139,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.columnDefsAgGrid =[
         {
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 75,
           sortable: false,
           menuTabs: [],

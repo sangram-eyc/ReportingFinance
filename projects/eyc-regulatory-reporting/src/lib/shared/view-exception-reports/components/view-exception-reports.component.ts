@@ -156,6 +156,9 @@ export class ViewExceptionReportsComponent implements OnInit {
     this.exceptionAnswersDefsAgGrid = [
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 90,
         sortable: false,
         menuTabs: [],
@@ -224,6 +227,9 @@ export class ViewExceptionReportsComponent implements OnInit {
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 120,
         sortable: false,
         menuTabs: [],
