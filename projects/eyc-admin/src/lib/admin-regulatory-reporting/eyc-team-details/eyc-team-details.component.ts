@@ -432,6 +432,9 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           headerCheckboxSelectionFilteredOnly: true,
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
           maxWidth: 120,
           sortable: false,
           menuTabs: [],

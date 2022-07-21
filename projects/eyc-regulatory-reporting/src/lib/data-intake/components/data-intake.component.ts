@@ -485,6 +485,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
       },
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 70,
         sortable: false,
         menuTabs: [],
@@ -720,6 +723,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     this.datasetsDefsAgGrid = [
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 70,
         sortable: false,
         menuTabs: [],

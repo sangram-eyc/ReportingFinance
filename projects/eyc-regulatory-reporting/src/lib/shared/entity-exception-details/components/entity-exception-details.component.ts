@@ -153,6 +153,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 120,
         sortable: false,
         menuTabs: [],

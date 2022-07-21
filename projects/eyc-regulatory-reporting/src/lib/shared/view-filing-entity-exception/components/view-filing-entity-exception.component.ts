@@ -186,6 +186,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.exceptionAnswersDefsAgGrid = [
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 90,
         sortable: false,
         menuTabs: [],
