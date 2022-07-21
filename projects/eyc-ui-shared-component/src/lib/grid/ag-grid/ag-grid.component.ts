@@ -39,7 +39,7 @@ export class AgGridComponent implements OnInit {
   @Input() customRowSelected = false;
   @Input() columnDefs: ColDef[] = [];
   @Input() omitModal = false;
-  @Input() rowData!: any[];
+  @Input() rowData: any[] = [];
   @Input() displayCheckBox: any;
   @Input() paginationPageSize = 20;
   @Input() pagination = true;
@@ -220,15 +220,21 @@ export class AgGridComponent implements OnInit {
     
    }
 
-   ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
-    this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;  
-    if(this.rowData && this.rowData.length==0){
-      this.columnDefs =[];
-      this.filterDisable= false;
-      }else {
-        this.filterDisable= true;
-    }    
+    this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
+    
+    let statusBarComponent = this.gridApi?.getStatusPanel(
+      'statusBarCompKey'
+    ) as any;
+    if (this.rowData && this.rowData.length == 0) {
+      this.columnDefs = [];
+      this.filterDisable = false;
+      statusBarComponent?.setVisible(false);
+    } else {
+      this.filterDisable = true;
+      statusBarComponent?.setVisible(true);
+    }
   }
 
    onChange(event): void {
