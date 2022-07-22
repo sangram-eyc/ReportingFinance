@@ -1,37 +1,148 @@
 {
     "success": true,
     "message": "",
-    "corelationId": "1ef383d7-826a-42c9-b70c-2d5c0e4275a6",
+    "corelationId": "bd38abba-8094-48d3-b877-a7b710f86272",
     "data": {
-        "teamId": 3,
+        "teamId": 16,
         "teamMembers": [
             {
-                "userId": 26,
-                "userEmail": "Evan.Cannarozzi@ey.com",
-                "userFirstName": "Evan",
-                "userLastName": "Cannarozzi"
+                "userId": 111,
+                "userEmail": "Alejandro.Gonzalez@ey.com",
+                "userFirstName": "Alejandro",
+                "userLastName": "Gonzalez"
             },
             {
-                "userId": 27,
-                "userEmail": "John.M.Christiana@ey.com",
-                "userFirstName": "John",
-                "userLastName": "Christiana"
+                "userId": 123,
+                "userEmail": "Aravind.Mani.Sivaraman@gds.ey.com",
+                "userFirstName": "Aravind",
+                "userLastName": "Sivaraman"
             },
             {
-                "userId": 48,
-                "userEmail": "Leng.Yang@ey.com",
-                "userFirstName": "Leng",
-                "userLastName": "Yang"
+                "userId": 121,
+                "userEmail": "Arpita.Kumra@gds.ey.com",
+                "userFirstName": "Arpita",
+                "userLastName": "Kumra"
+            },
+            {
+                "userId": 114,
+                "userEmail": "Brian.J.Strenk@ey.com",
+                "userFirstName": "Brian",
+                "userLastName": "Strenk"
+            },
+            {
+                "userId": 117,
+                "userEmail": "Chiranjib.Mukherjee@gds.ey.com",
+                "userFirstName": "Chiranjib",
+                "userLastName": "Mukherjee"
+            },
+            {
+                "userId": 55,
+                "userEmail": "Conor.Hayes@ey.com",
+                "userFirstName": "Conor",
+                "userLastName": "Hayes"
+            },
+            {
+                "userId": 120,
+                "userEmail": "Harishrilakshmi.C@gds.ey.com",
+                "userFirstName": "Harishrilakshmi",
+                "userLastName": "C"
+            },
+            {
+                "userId": 113,
+                "userEmail": "Jake.Carter@ey.com",
+                "userFirstName": "Jake",
+                "userLastName": "Carter"
+            },
+            {
+                "userId": 122,
+                "userEmail": "Kaarunya.A.S@gds.ey.com",
+                "userFirstName": "Kaarunya",
+                "userLastName": "S"
+            },
+            {
+                "userId": 127,
+                "userEmail": "Manju.Manju@gds.ey.com",
+                "userFirstName": "Manju",
+                "userLastName": "Manju"
+            },
+            {
+                "userId": 125,
+                "userEmail": "Megha.Godavarti@gds.ey.com",
+                "userFirstName": "Megha",
+                "userLastName": "Godavarti"
+            },
+            {
+                "userId": 119,
+                "userEmail": "Nikki.Shah@gds.ey.com",
+                "userFirstName": "Nikki",
+                "userLastName": "Shah"
+            },
+            {
+                "userId": 118,
+                "userEmail": "Prasada.Palle@gds.ey.com",
+                "userFirstName": "Prasada",
+                "userLastName": "Palle"
+            },
+            {
+                "userId": 116,
+                "userEmail": "Santiago.H.Torres@ey.com",
+                "userFirstName": "Santiago",
+                "userLastName": "Torres"
+            },
+            {
+                "userId": 128,
+                "userEmail": "Shalini.R1@gds.ey.com",
+                "userFirstName": "Shalini",
+                "userLastName": "R"
+            },
+            {
+                "userId": 126,
+                "userEmail": "Shantheri.Alevoor@gds.ey.com",
+                "userFirstName": "Shantheri",
+                "userLastName": "Alevoor"
+            },
+            {
+                "userId": 124,
+                "userEmail": "Sonu.Choudhary@gds.ey.com",
+                "userFirstName": "Sonu",
+                "userLastName": "Choudhary"
             },
             {
                 "userId": 24,
-                "userEmail": "stephen.a.rienzi@ey.com",
-                "userFirstName": "stephen",
-                "userLastName": "rienzi"
+                "userEmail": "Sreenivasan.Raghavan@ey.com",
+                "userFirstName": "Sreenivasan V",
+                "userLastName": "Raghavan"
+            },
+            {
+                "userId": 112,
+                "userEmail": "Tariq.Sultani@ey.com",
+                "userFirstName": "Tariq",
+                "userLastName": "Sultani"
+            },
+            {
+                "userId": 129,
+                "userEmail": "Varsha.Divakaran@gds.ey.com",
+                "userFirstName": "Varsha",
+                "userLastName": "Divakaran"
             }
         ],
-        "assignments": null
+        "assignments": [
+            {
+                "entityId": 1,
+                "assignmentId": 16,
+                "assignmentType": "Team",
+                "createdDate": "2022-07-21 21:02:47.95096",
+                "updatedDate": "2022-07-21 21:02:47.951007"
+            },
+            {
+                "entityId": 2,
+                "assignmentId": 16,
+                "assignmentType": "Team",
+                "createdDate": "2022-07-21 21:02:47.951072",
+                "updatedDate": "2022-07-21 21:02:47.951077"
+            }
+        ]
     },
     "error": null,
-    "totalRecords": 4
+    "totalRecords": 23
 }
