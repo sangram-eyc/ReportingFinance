@@ -115,9 +115,9 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.location.back();
     }
 
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(async params => {
       this.curentTeamId = params.teamId;
-      this.getFilingAssignments();
+      await this.getFilingAssignments();
       this.getTeamDetailsData(true);
     });
     this.tabIn = 1;
@@ -136,7 +136,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     }, 10); 
   }
 
-  getFilingAssignments() {
+  async getFilingAssignments() {
     if (this.module == 'Regulatory Reporting') {
       this.teamService.getFileType().subscribe(res => {
         this.assignments = res['data']

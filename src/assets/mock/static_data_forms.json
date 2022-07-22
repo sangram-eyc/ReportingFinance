@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "Form Display Names returned successfully",
+    "corelationId": "726ecfb2-2581-43ce-9720-380d804a8c15",
+    "data": [
+        {
+            "filingName": "Any Form",
+            "formId": 1,
+            "approved": false
+        },
+        {
+            "filingName": "N-PORT",
+            "formId": 2,
+            "approved": false
+        }
+    ],
+    "error": null
+}
