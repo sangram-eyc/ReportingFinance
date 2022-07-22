@@ -115,10 +115,9 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.location.back();
     }
 
-    this.activatedRoute.params.subscribe(async params => {
+    this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
-      await this.getFilingAssignments();
-      this.getTeamDetailsData(true);
+      this.getFilingAssignments();
     });
     this.tabIn = 1;
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
@@ -136,10 +135,11 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     }, 10); 
   }
 
-  async getFilingAssignments() {
+  getFilingAssignments() {
     if (this.module == 'Regulatory Reporting') {
       this.teamService.getFileType().subscribe(res => {
         this.assignments = res['data']
+        this.getTeamDetailsData(true);
       });
     }
   }
