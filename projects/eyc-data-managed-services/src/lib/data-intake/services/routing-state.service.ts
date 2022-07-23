@@ -3,32 +3,60 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { DATA_INTAKE_TYPE, ROUTE_URL_CONST } from '../../config/dms-config-helper';
 import { HttpUrlEncodingCodec } from '@angular/common/http';
+import {Location} from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
 export class RoutingStateService {
   codec = new HttpUrlEncodingCodec;
   private history = [];
+  private historyCopy=[];
+  private popState:boolean=false;
   DMS_Landing_Url = "/data-managed-services";
+  
 
-  constructor(
-    private router: Router
+  constructor( private router: Router,private location:Location
   ) { }
 
   public loadRouting(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((e: any) => {
+        debugger;
         var urlAfterRedirects = decodeURI(e.urlAfterRedirects);
         if (this.matchExact(this.DMS_Landing_Url, urlAfterRedirects)) {
-          this.history.splice(0, this.history.length)
+          this.historyCopy.splice(0, this.historyCopy.length);
+          this.historyCopy=[...this.history];
+          this.history.splice(0, this.history.length);
         }
         if (urlAfterRedirects.includes(this.DMS_Landing_Url) && this.isNotExistInArray(this.history, urlAfterRedirects)) {
-          this.history = [...this.history, urlAfterRedirects];
+          if(this.popState && this.history.length==1){
+            this.history= this.historyCopy;
+            this.popState=false;
+          }
+          else{
+            this.history = [...this.history, urlAfterRedirects];
+          } 
         }
       });
   }
 
+  getBrowserBackForwardButtonClick(){
+    return this.location.subscribe(
+      ( (value:PopStateEvent) => {
+        console.log("locaton OnNext")
+        debugger;
+        this.popState=value['pop'];
+        console.log(value);
+        return true;
+      }),
+      ( ex => {
+        console.log("Error occured postate event")
+        console.log(ex);
+        return true;
+      })
+    )
+  }
   public getHistory(): string[] {
     return this.history;
   }
@@ -39,6 +67,10 @@ export class RoutingStateService {
 
   public getCurrentUrl(): string {
     return this.history[this.history.length - 1] || this.DMS_Landing_Url;
+  }
+
+  public getOldHistory(): string[] {
+    return this.historyCopy;
   }
 
   public matchExact(r, str) {
