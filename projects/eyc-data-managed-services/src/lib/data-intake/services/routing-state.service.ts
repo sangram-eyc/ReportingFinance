@@ -22,7 +22,6 @@ export class RoutingStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((e: any) => {
-        debugger;
         var urlAfterRedirects = decodeURI(e.urlAfterRedirects);
         if (this.matchExact(this.DMS_Landing_Url, urlAfterRedirects)) {
           this.historyCopy.splice(0, this.historyCopy.length);
@@ -45,7 +44,6 @@ export class RoutingStateService {
     return this.location.subscribe(
       ( (value:PopStateEvent) => {
         console.log("locaton OnNext")
-        debugger;
         this.popState=value['pop'];
         console.log(value);
         return true;
