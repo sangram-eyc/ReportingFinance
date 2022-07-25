@@ -907,3 +907,6 @@ button.close {
 }
 
 }
+::ng-deep .ag-invisible{
+  display: none !important;
+}
