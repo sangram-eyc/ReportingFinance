@@ -334,8 +334,6 @@ deleteTeams(row){
         this.teamsData.push(ele);
       });
       this.resetRowData = this.teamsData;
-      this.updatePageSize(this.pageSize)
-      this.gridApi.setRowData(this.teamsData);
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
         this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;

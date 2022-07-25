@@ -176,8 +176,8 @@
       (updatePageSize)="updatePageSize($event)" [pageChangeFunc]="pageChangeFunc"></lib-shared-grid> -->
       <lib-ag-grid [rowData]="teamsMemberData" [columnDefs]="columnDefsAgGrid" 
       [displayCheckBox] = "true" [permissionToPrimaryButton]="this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams') && this.permissions.validateAllPermission('adminPermissionList', this.module, 'View Users')"
-      [disablePrimaryButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="third"
-      [export]="true" buttonPosition="left" [exportName] = "exportName"
+      [disablePrimaryButton]="disableAddMemberButton" [buttonText]="'Add member'"
+      [export]="true" buttonPosition="left" [exportName] = "exportName" [adminTab]="true"
       [search]="true" paginationSize="10" (newEventToParent)="addTeamMembers($event)"></lib-ag-grid>
 
     <ng-template #actionSection let-row>
@@ -248,7 +248,7 @@
     [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
     [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
     [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
-    [search]="true" paginationSize="10"></lib-ag-grid>
+    [search]="true" paginationSize="10" [adminTab]="true"></lib-ag-grid>
 
     <div *ngIf="taskAssignmentData.length == 0">
       <motif-card>
@@ -291,7 +291,7 @@
     [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
     [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
     [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
-    [search]="true" paginationSize="10"></lib-ag-grid>
+    [search]="true" paginationSize="10" [adminTab]="true"></lib-ag-grid>
 
     <div *ngIf="dataExplorerData.length == 0">
       <motif-card>
@@ -333,7 +333,7 @@
     [displayCheckBox] = "true" [permissionToPrimaryButton]="true"
     [disableAddMemberButton]="disableAddMemberButton" [buttonText]="'Add member'" gridStyle="first"
     [export]="true" buttonPosition="left"  [permissionToSecondaryButton]="true" [exportName] = "exportName"
-    [search]="true" paginationSize="10"></lib-ag-grid>
+    [search]="true" paginationSize="10" [adminTab]="true"></lib-ag-grid>
 
     <div *ngIf="filingEntitiesData.length == 0">
       <motif-card>
