@@ -32,6 +32,7 @@ import { SseService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/ser
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
 import { PreferencesService } from '@default/services/preferences.service';
 import { NotificationService } from '@default/services/notification.service';
+import { EycSseNotificationService } from '@default/services/eyc-sse-notification.service'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -80,7 +81,8 @@ export class AppComponent
   counter = 18000;
   tick = 1000;
   showErrorModel = false;
-
+  timerSse = 17000;
+  timerReconnectionSSE;
   sideMenu = {
     regulatoryReporting: {
       isActive: false,
@@ -113,7 +115,8 @@ export class AppComponent
     private routingState: RoutingStateService,
     private preferencesService: PreferencesService,
     private notificationService: NotificationService,
-    private sseService: SseService
+    private sseService: SseService,
+    private EycSseNotificationService: EycSseNotificationService
   ) {
     // To hide header and footer from login page
 
@@ -291,18 +294,35 @@ export class AppComponent
       }
     );
   }
+
+  reConnectSse(){
+    this.timerReconnectionSSE = setTimeout(()=>{
+     console.log('Reconnecting sse...');      
+     this.connectSse();
+    }, this.timerSse);
+ }
+
   connectSse() {
+    //Logic to start reconnection
+    clearInterval(this.timerReconnectionSSE);
+    this.reConnectSse();
+    //End logic to start reconnection 
     const timerIdUserEmail = setInterval(() => {
       if (sessionStorage.getItem('userEmail') != null) {
         clearInterval(timerIdUserEmail);
         let username = sessionStorage.getItem('userEmail');
         username = username.replace(/\@/g, '%40');
         username = username.replace(/\./g, '%40%40');
-        this.sseService
-          .getServerSentEvent(
+        this.EycSseNotificationService
+          .connect(
               username
           )
           .subscribe((resp: any) => {
+            console.log('sse-new', resp);
+            //Logic to reconnection
+             clearInterval(this.timerReconnectionSSE);
+             this.reConnectSse();
+            //End logic to reconnection
             if (resp.data) {
               if (
                 resp.data !== 'no-data' &&
