@@ -155,6 +155,8 @@ export class AgGridComponent implements OnInit {
   currentpage: number;
   context: any;
   columnsForExport: any[];
+  @Input() adminTab = false
+  showButton: boolean = false;
   
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.gridOptions = <GridOptions>{};
@@ -181,7 +183,6 @@ export class AgGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   console.log(this.pageList,"this.pageList this.pageList this.pageList") 
     if (this.displayCheckBox) {
       this.selectedRows.length = 1;
       this.gridHeadingCls = 'grid-heading-admin';
@@ -223,7 +224,6 @@ export class AgGridComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     console.log('GRID CHANGES', changes);
     this.disablePrimaryButton ? this.selectedRows.length = 0 : this.selectedRows.length = 1;
-    
     let statusBarComponent = this.gridApi?.getStatusPanel(
       'statusBarCompKey'
     ) as any;
@@ -231,8 +231,10 @@ export class AgGridComponent implements OnInit {
       this.columnDefs = [];
       this.filterDisable = false;
       statusBarComponent?.setVisible(false);
+      this.disableButtons();
     } else {
       this.filterDisable = true;
+      this.showButton = this.rowData?.length > 0? false : true ;
       statusBarComponent?.setVisible(true);
     }
   }
@@ -489,5 +491,19 @@ export class AgGridComponent implements OnInit {
   // so the grid div should have no height set, the height is dynamic.
   (document.querySelector<HTMLElement>('#agGrid')! as any).style.height = '';
 }
+
+  //disable buttons if no data available
+  disableButtons(): void {
+    if(this.adminTab){
+      this.showButton = false;
+    }
+    else{
+      this.showButton = true;
+    }
+    this.disabledApproveButton = true;
+    this.disabledUnapproveButton = true;
+    this.disableResolveButton = true;
+    this.disableUnresolveButton = true;
+  }
 
 }
