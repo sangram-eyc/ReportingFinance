@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {PouchdbService} from '@default/services/pouchdb.service';
 import {NotificationService} from '@default/services/notification.service';
 import {Subscription} from 'rxjs';
-
+import { hideNotificationFeaturesForProd } from '@default/helper/api-config-helper';
 @Component({
   selector: 'app-notifications-panel',
   templateUrl: './notifications-panel.component.html',
@@ -18,7 +18,8 @@ export class NotificationsPanelComponent implements OnInit, OnDestroy {
   public totalElements: number;
   public currentPage = 0;
   private notifiSub$: Subscription;
-
+  hideNotificationFeaturesForProd = hideNotificationFeaturesForProd;
+  
   constructor(
     private notificationService: NotificationService,
     private router: Router,
