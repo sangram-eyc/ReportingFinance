@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener} from '@angular/core';
+import { hideNotificationFeaturesForProd } from '@default/helper/api-config-helper';
 import {NotificationService} from '@default/services/notification.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   @Output() deleteNotification = new EventEmitter<any>();
   @Output() archiveNotification = new EventEmitter<any>();
   @Output() flagNotification = new EventEmitter<any>();
-
+  hideNotificationFeaturesForProd = hideNotificationFeaturesForProd;
+  
   public content: any;
 
   constructor(private notificationService: NotificationService) {

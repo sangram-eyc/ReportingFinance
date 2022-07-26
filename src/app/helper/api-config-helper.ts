@@ -26,3 +26,5 @@ export const app_concurrent_sessions = {
     delete_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout' : environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/logout',
     add_session_id: environment.production ? environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/login' : environment.apiEndpoint + 'gatewayService/api/v2/authentication/currentUser/login',
   };
+
+  export const hideNotificationFeaturesForProd = false;
