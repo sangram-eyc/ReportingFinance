@@ -508,14 +508,16 @@ export class ViewExceptionReportsComponent implements OnInit {
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
         })
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
-        });
-        this.sortByUnresolvedException();
-        this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        this.getAnswerExceptionReports();
+        this.resetResolveUnresolveButtons();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.resetResolveUnresolveButtons()
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }
@@ -574,14 +576,16 @@ export class ViewExceptionReportsComponent implements OnInit {
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
         });
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
-        });
-        this.sortByUnresolvedException();
-        this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        this.getAnswerExceptionReports();
+        this.resetResolveUnresolveButtons();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.resetResolveUnresolveButtons()
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }

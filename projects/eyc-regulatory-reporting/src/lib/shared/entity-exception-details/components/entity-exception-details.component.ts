@@ -397,15 +397,17 @@ export class EntityExceptionDetailsComponent implements OnInit {
         let entityIds = this.getEnitityIds('Unresolved');
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
-        })
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
         });
-        this.sortByUnresolvedException();
+        this.getAnswerExceptionReports();
         this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.resetResolveUnresolveButtons()
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }
@@ -471,14 +473,15 @@ export class EntityExceptionDetailsComponent implements OnInit {
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
         });
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
-        });
-        this.sortByUnresolvedException();
+        this.getAnswerExceptionReports();
         this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }
