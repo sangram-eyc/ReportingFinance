@@ -3,11 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiEndpoint :'http://localhost:4200/',
-  production: false,
-  SECURITY_ENABLED:true,
-  //SERVICE_URL:"https://10.48.234.20/qa32/",
-  SERVICE_URL:"https://eycomply-qa.sbp.eyclienthub.com/qa36/",
+  apiEndpoint: 'http://localhost:4200/',
+  production: true,
+  SECURITY_ENABLED: true,
+  SERVICE_URL: "https://10.48.234.20/qa32/",
   /*temp variable needs to be removed after API integration */
   //AUTH_PROD:true
 };
