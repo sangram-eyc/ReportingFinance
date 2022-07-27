@@ -238,9 +238,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       });
       if (resetData) {
         this.createTeamsRowData();
-      } else {
-        this.gridApi.setRowData(this.teamsMemberData);
-      }
+      } 
     });
     this.exportName = this.module+"_"+this.teamService?.getTeamDetailsData?.teamName+"_Team_Members_";
   }
@@ -823,7 +821,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       });
       this.users = this.allUsers.filter(item => !this.teamsMemberData.find(item2 => item.userEmail === item2.userEmail));
       this.addTeamMemberForm.reset();
-      this.updatePageSize(this.pageSize);
+      this.getTeamDetailsData(true);
       console.log('AFTER FORM RESET', this.addTeamMemberForm);
       this.showToastAfterAddTeamMember = !this.showToastAfterAddTeamMember;
       setTimeout(() => {
