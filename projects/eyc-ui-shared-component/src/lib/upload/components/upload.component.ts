@@ -49,14 +49,14 @@ export class UploadComponent implements OnInit {
             this.filesize.push(this.uploaderURL.queue[i]._file.size);
             this.maxsize = this.filesize.reduce((acc, cur) => acc + cur, 0);
             // console.log('file size > ', this.maxsize);
-             if (this.maxsize > this.sharedHelper.MAX_FILE_SIZE) {
+            /*  if (this.maxsize > this.sharedHelper.MAX_FILE_SIZE) {
             this.uploaderURL.queue[i].remove();
               setTimeout(() => {
                 this.uploadError = true;
                 // tslint:disable-next-line: max-line-length
               this.uploadErrorMsg = this.sharedHelper.fileSizeLimit + (this.sharedHelper.MAX_FILE_SIZE / this.sharedHelper.MB_SIZE).toFixed(2) + 'MB';
               }, 0);
-            } 
+            }  */
           }
       }
 
