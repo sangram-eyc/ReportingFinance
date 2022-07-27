@@ -195,22 +195,25 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
-      if(this.baseURL.includes(this.prodUrl)){
-        this.reports = PowerBiReportMonthlyListProd;
-      }
-      else{
-        this.reports = PowerBiReportMonthlyList;
-      }
+      // if(this.baseURL.includes(this.prodUrl)){
+      //   this.reports = PowerBiReportMonthlyListProd;
+      // }
+      // else{
+      //   this.reports = PowerBiReportMonthlyList;
+      // }
+
+      this.reports=this.getPowerBiReports('MONTHLY');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
       
-      if(this.baseURL.includes(this.prodUrl)){
-        this.reports = PowerBiReportDailyListProd;
-      }
-      else{
-        this.reports = PowerBiReportDailyList;
-      }
+      // if(this.baseURL.includes(this.prodUrl)){
+      //   this.reports = PowerBiReportDailyListProd;
+      // }
+      // else{
+      //   this.reports = PowerBiReportDailyList;
+      // }
+      this.reports=this.getPowerBiReports('DAILY');
     }
 
     this.fileSummaryList();
@@ -294,12 +297,14 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', '');
 
-    if(this.baseURL.includes(this.prodUrl)){
-      this.reports = PowerBiReportDailyListProd;
-    }
-    else{
-      this.reports = PowerBiReportDailyList;
-    }
+    // if(this.baseURL.includes(this.prodUrl)){
+    //   this.reports = PowerBiReportDailyListProd;
+    // }
+    // else{
+    //   this.reports = PowerBiReportDailyList;
+    // }
+
+    this.reports=this.getPowerBiReports('DAILY');
     
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
@@ -332,12 +337,14 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter2.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter2.nativeElement, 'color', '');
 
-    if (this.baseURL.includes(this.prodUrl)) {
-      this.reports = PowerBiReportMonthlyListProd;
-    }
-    else {
-      this.reports = PowerBiReportMonthlyList;
-    }
+    // if (this.baseURL.includes(this.prodUrl)) {
+    //   this.reports = PowerBiReportMonthlyListProd;
+    // }
+    // else {
+    //   this.reports = PowerBiReportMonthlyList;
+    // }
+
+    this.reports=this.getPowerBiReports('MONTHLY');
 
     const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
     if (monthlySelectedDate) {
@@ -432,4 +439,17 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getPowerBiReports(dateFrequency){
+    let param={
+      reportModule:'DMS',
+      reportPage:'DATA_EXPLORER',
+      reportPageSection:'',
+      reportAddnlFilter:dateFrequency
+
+
+    }
+    return this.dataManagedService.getPowerBiReports(param,'').pipe(this.unsubscriber.takeUntilDestroy).subscribe((res: any) =>{
+      return res;
+    })
+  }
 }

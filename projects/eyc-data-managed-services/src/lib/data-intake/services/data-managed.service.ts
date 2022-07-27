@@ -274,4 +274,12 @@ export class DataManagedService {
   getApiCatalog(){
     return this.eycDataApiService.invokePostAPI(`${this.dataManagedSettingsService.dataManagedServices.api_catalog}`);
   }
+
+  getPowerBiReports(params, bodyParam: any) {
+    const reportModule = `?reportModule=${params.reportModule}`;
+    const reportPage = `&reportPage=${params.reportPage}`;
+    const reportPageSection = `&reportPageSection=${params.reportPageSection}`;
+    const reportAddnlFilter = `&reportAddnlFilter=${params.reportAddnlFilter}`;
+    return this.eycDataApiService.invokePostBodyAPI(`${this.dataManagedSettingsService.dataManagedServices.power_bi_reports}${reportModule}${reportPage}${reportPageSection}${reportAddnlFilter}`, bodyParam);
+  }
 }
