@@ -16,7 +16,7 @@ import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dt
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
 import { BarChartSeriesItemDTO } from '../../models/bar-chart-series-Item-dto.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RowClickedEvent } from 'ag-grid-community';
+import { RowClickedEvent, ColumnApi, GridApi, FirstDataRenderedEvent, ColDef } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dto.model';
 import { RoutingStateService } from '../../services/routing-state.service';
@@ -34,6 +34,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   private unsubscriber: AutoUnsubscriberService;
   stackBarChartGridData = [];
   gridApi;
+  // private gridApi!: GridApi<>;
+  private gridColumnApi!: ColumnApi;
   innerTabIn: number = 1;
   presentDate: Date;
   totalFileCount = 0;
@@ -95,7 +97,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     height: '74px'
   }
   domLayout = 'autoHeight';
-
+  public defaultColDef: ColDef = {
+    resizable: true,
+  };
+  
   @ViewChild('chipTemplate') chipTemplate: TemplateRef<any>;
   @ViewChild('threeDotTooltip') threeDotTooltip: TemplateRef<any>;
   @ViewChild('nextButtonTemplate') nextButtonTemplate: TemplateRef<any>;
@@ -183,7 +188,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
-    console.log("File Review Page constructor", new Date().toISOString());
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());
@@ -213,7 +217,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log("File Review Page Init", new Date().toISOString());
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
@@ -257,7 +260,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("File Review ngAfterViewInit", new Date().toISOString());
     let dueDate;
     dueDate = this.presentDateFormat;
     if (this.dailyMonthlyStatus) {
@@ -376,11 +378,10 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
-    console.log("File Review Grid API Call Started", new Date().toISOString());
+    this.glRowdata = [];
     this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
-      console.log("File Review Grid API Call End", new Date().toISOString());
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -389,7 +390,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'name',
           sortable: true,
           filter: true,
-          minWidth: 220,
+          // minWidth: 210,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -403,7 +404,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'provider',
           sortable: true,
           filter: true,
-          maxWidth:120,
+          // minWidth: 150,
           wrapText: true,
           autoHeight: true
         },
@@ -413,9 +414,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'dataDomain',
           sortable: true,
           filter: true,
-          maxWidth: 185,
+          // minWidth: 220,
           wrapText: true,
-          autoHeight: true
+          autoHeight: false
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -424,7 +425,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'functions',
           sortable: true,
           filter: true,
-          maxWidth: 180,
+          // minWidth: 220,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -438,7 +439,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'dueDate',
           sortable: true,
           filter: true,
-          maxWidth: 160,
+          // minWidth: 180,
           wrapText: true,
           autoHeight: true,
           cellRenderer: (params) =>{
@@ -478,6 +479,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'exceptions',
           sortable: true,
           filter: true,
+          // minWidth: 200,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -491,7 +493,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'maxPriority',
           sortable: true,
           filter: true,
-          maxWidth: 180,
+          // minWidth: 200,
           sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
@@ -511,14 +513,27 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           }
         },
       ];
+      // this.autoSizeColumns();
+      // this.gridApi.sizeColumnsToFit();
     });
   }
 
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    console.log("File Review Grid Ready", new Date().toISOString());
   };
+
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    params.api.sizeColumnsToFit();
+  }
+  // autoSizeColumns() {
+  //   const skipHeader = true;
+  //   const allColumnIds: string[] = [];
+  //   this.gridColumnApi.getAllGridColumns()!.forEach((column) => {
+  //     allColumnIds.push(column.getId());
+  //   });
+  //   this.gridColumnApi.autoSizeColumns(allColumnIds, skipHeader);
+  // }
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;
@@ -627,14 +642,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   fileSummaryList() {
     // Mock API integration for bar chart (Data Providers/ Data Domains)-
-    console.log("File Review Summary API Call Started", new Date().toISOString());
     this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
     this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
     this.dataList = [];
     if (this.isViewClicked) {
       this.dataManagedService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
         this.manipulateStatusWithReviewByGroup(reviewData.data);
-        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     } else {
       this.totalFileCount = 0;
@@ -645,13 +658,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.stackBarChartData = dataProvider.data[0].barChartDTO;
           this.totalFileCount = this.stackBarChartData.length;
         }
-        console.log("File Review Summary API Call End", new Date().toISOString());
       });
     }
   }
 
   manipulateStatusWithResponse(fetchData: ApiStackSeriesItemDTO[]) {
-    console.log("File Review manipulateStatusWithResponse Start", new Date().toISOString());
     // Manipulate fetch-data as per status
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     const stackBarChart = [];
@@ -691,11 +702,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       })
     }
     this.stackBarChartData = stackBarChartUpdated as StackChartSeriesItemDTO[];
-    console.log("File Review manipulateStatusWithResponse End", new Date().toISOString());
   }
 
   manipulateStatusWithReviewByGroup(fetchData: ApiReviewByGroupSeriesItemDTO[]) {
-    console.log("File Review manipulateStatusWithReviewByGroup Start", new Date().toISOString());
     const cloneFileSummury = JSON.parse(JSON.stringify(donutSummariesObject));
     let stackBarChartDataReviewByGroup = fetchData.map((fData) => {
       fData.fastFilters.map((fDataSeries) => {
@@ -714,7 +723,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.fileSummariesObject = cloneFileSummury;
     this.stackBarChartData = stackBarChartDataReviewByGroup as StackChartSeriesItemDTO[];
     this.totalFileCount = this.stackBarChartData.length;
-    console.log("File Review manipulateStatusWithReviewByGroup End", new Date().toISOString());
   }
 
   mapBarChartDataWithKey(fData: any): BarChartSeriesItemDTO[] {

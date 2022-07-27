@@ -3,11 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const datamanagedenvironment = {
-  apiEndpoint: 'https://10.48.234.20/qa36/',
+  //apiEndpoint: 'https://10.48.234.20/qa33/',
+  apiEndpoint: 'https://eycomply-qa.sbp.eyclienthub.com/qa36/',
   production: true,
   SECURITY_ENABLED: false,
-  SERVICE_URL: 'https://10.48.234.20/qa36/',
-  AUTH_PROD:true
+  //SERVICE_URL: 'https://10.48.234.20/qa33/',
+  SERVICE_URL: 'https://eycomply-qa.sbp.eyclienthub.com/qa36/',
 };
 /*
  * For easier debugging in development mode, you can import the following file

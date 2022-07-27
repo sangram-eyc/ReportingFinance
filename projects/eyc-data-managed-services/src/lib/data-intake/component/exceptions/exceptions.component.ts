@@ -259,7 +259,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'type',
           sortable: true,
           filter: false,
-          minWidth: 150,
+          // minWidth: 150,
           wrapText: false,
           autoHeight: true
         },
@@ -270,7 +270,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'name',
           sortable: true,
           filter: false,
-          minWidth: 400,
+          // minWidth: 400,
           wrapText: true,
           autoHeight: true,
           cellRendererParams: {
@@ -283,9 +283,10 @@ export class ExceptionsComponent implements OnInit {
           field: 'exceptionReportField',
           sortable: true,
           filter: false,
-          minWidth: 100,
+          // minWidth: 100,
           wrapText: true,
-          autoHeight: true
+          autoHeight: true,
+          cellStyle: { 'line-height': '0' }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -294,7 +295,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'priority',
           sortable: true,
           filter: false,
-          minWidth: 200,
+          // minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           },
@@ -327,7 +328,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'comments',
           sortable: true,
           filter: false,
-          width: 155
+          // width: 155
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -335,7 +336,7 @@ export class ExceptionsComponent implements OnInit {
           field: 'exceptionCount',
           sortable: true,
           filter: false,
-          minWidth: 200,
+          // minWidth: 200,
           wrapText: false,
           autoHeight: true,
           valueGetter: function (params) {
@@ -446,7 +447,7 @@ export class ExceptionsComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-  };
+  };  
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;
