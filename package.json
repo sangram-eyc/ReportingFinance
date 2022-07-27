@@ -79,6 +79,7 @@
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.6.7",
     "socket.io-client": "^4.4.0",
+    "sse.js": "^0.5.0",
     "tslib": "^1.10.0",
     "uuid": "^8.3.2",
     "vsts-npm-auth": "^0.41.0",
