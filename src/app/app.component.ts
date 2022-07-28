@@ -30,7 +30,6 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { SseService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/sse.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
-import { PreferencesService } from '@default/services/preferences.service';
 import { NotificationService } from '@default/services/notification.service';
 import { EycSseNotificationService } from '@default/services/eyc-sse-notification.service'
 @Component({
@@ -113,7 +112,6 @@ export class AppComponent
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
     private routingState: RoutingStateService,
-    private preferencesService: PreferencesService,
     private notificationService: NotificationService,
     private sseService: SseService,
     private EycSseNotificationService: EycSseNotificationService
@@ -250,27 +248,6 @@ export class AppComponent
               JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000;
           }
 
-          setTimeout(() => {
-            this.preferencesService.emailToRecipient().subscribe(
-              (recipient) => {},
-              (error) => {
-                this.preferencesService
-                  .createRecipient()
-                  .subscribe((err) => {});
-              }
-            );
-
-            this.notificationService
-              .getNotArchivedNotifications(0)
-              .subscribe((notifications: any) => {
-                notifications.content.forEach((item) => {
-                  if (!item.isRead) {
-                    this.isNotificationRead = false;
-                  }
-                });
-              });
-          }, 1000);
-
           this.sessionTimeOut();
           if (uname) {
             this.userGivenName = uname.firstName;
@@ -364,7 +341,7 @@ export class AppComponent
       (err) => {
         console.log('ws bulk error', err);
       },
-      () => console.log('ws bulk complete') 
+      () => console.log('ws bulk complete')
     );
   }
   ngAfterViewInit(): void {
