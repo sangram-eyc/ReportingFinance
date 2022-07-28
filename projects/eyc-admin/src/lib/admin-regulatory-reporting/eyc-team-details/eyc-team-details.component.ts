@@ -118,6 +118,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     this.activatedRoute.params.subscribe(params => {
       this.curentTeamId = params.teamId;
       this.getFilingAssignments();
+      this.getTeamDetailsData(true);
     });
     this.tabIn = 1;
     if (this.permissions.validateAllPermission('adminPermissionList', this.module, 'Update Teams')) {
