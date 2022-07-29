@@ -1,0 +1,407 @@
+<section id='data-intake' [hidden]="!(tabIn == 1)">
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mt-3 mb-3">
+         <div class="space-between">
+            <div class="box-center">
+               <h6 class="heading-6">Summary Dashboard</h6>
+            </div>
+            </div>
+         </div>
+   </div>
+
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
+         <motif-card class="donut-chart-card no_data">
+            
+            <lib-donut-chart id="donutchart" [data]="fileSummaries" legendTextSliceNumber=23 width=155 height=155
+               margin=13 innerRadius=90 svgTranslateLeft=90 svgTranslateRight=90 totalFilesText="TOTAL FILES"
+               totalExpected="EXPECTED">
+            </lib-donut-chart>
+         
+            <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.FILE_REVIEW_URL]" motifTextLink color="primary-alt" class="review-all">
+               <i class="material-icons icon-size">search</i>
+               <span>Review All</span>
+            </a>
+         </motif-card>
+        
+         <div class="mt-3 mb-3 box-center">
+            <h6 class="heading-6">Review by group</h6>
+         </div>
+         <motif-card class="review-group-card no_data">
+            <motif-card-body>
+               <table class="review-by-group">
+                  <tr>
+                     <td class="review-number">{{reviewByGroupProviders}}</td>
+                     <td rowspan="2" class="review-by-group-search text-align-right">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_PROVIDER]"  motifTextLink color="primary-alt" class="review-all">
+                           <i class="material-icons icon-size">search</i>
+                           <span>Review</span>
+                        </a>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="review-by-group-heading">
+                        Data Providers</td>
+                  </tr>
+                  <tr>
+                     <td colspan="2" class="review-lines"></td>
+                  </tr>
+                  <tr>
+                     <td class="review-number">{{reviewByGroupDomains}}</td>
+                     <td rowspan="2" class="review-by-group-search text-align-right ">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_DOMAIN]"  motifTextLink color="primary-alt" class="review-all">
+                           <i class="material-icons icon-size">search</i>
+                           <span>Review</span>
+                        </a>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="review-by-group-heading">
+                        Data Domains</td>
+                  </tr>
+                  <tr *ngIf="businessDays">
+                     <td colspan="2" class="review-lines"></td>
+                  </tr>
+                  <tr *ngIf="businessDays">
+                     <td class="review-number"><i class="material-icons">date_range</i></td>
+                     <td rowspan="2" class="review-by-group-search text-align-right">
+                        <a href="#" motifTextLink color="primary-alt" class="review-all">
+                           <i class="material-icons icon-size">search</i>
+                           <span>Review</span>
+                        </a>
+                     </td>
+                  </tr>
+                  <tr *ngIf="businessDays">
+                     <td class="review-by-group-heading">
+                        Business Days</td>
+                  </tr>
+               </table>
+            </motif-card-body>
+         </motif-card>
+        
+      </div>
+      <!-- <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
+         <motif-card class="bar-chart-card no_data">
+            <motif-card-header>
+               <div class="inner-tabs">
+                  <motif-tab-bar>
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
+                        [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
+                        Providers
+                     </button>
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
+                        [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
+                        Data Domains
+                     </button>
+                  </motif-tab-bar>
+               </div>
+            </motif-card-header>
+            <motif-card-body>
+               <section id='data-provider' [hidden]="!(innerTabIn == 1)">
+                  <div class="bar-chart-panel">
+                     <div id="past-due">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
+                          
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme"
+                                 [results]="fileMissingPastDueData" [animations]="animations" [gradient]="gradient"
+                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="high-priority-issues">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
+                              issues</div>
+                          
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient"
+                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="medium-priority-issues">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
+                              issues</div>
+                          
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="low-priority-issues" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                         
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+               <section id='data-domain' [hidden]="!(innerTabIn == 2)">
+                  <div class="bar-chart-panel">
+                     <div id="past-due-domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{fileMissingPastDueCount}}</span>Files missing, past due</div>
+                         
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(fileMissingPastDueCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme"
+                                 [results]="fileMissingPastDueData" [animations]="animations" [gradient]="gradient"
+                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
+                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+
+                           <div class="toast-card" [hidden]="!(fileMissingPastDueCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noFileMissingPastDue}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="high-priority-issues-domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{highPriorityIssuesCount}}</span>Files with high priority
+                              issues</div>
+                          
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(highPriorityIssuesCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme2"
+                                 [results]="highPriorityIssuesData" [animations]="animations" [gradient]="gradient"
+                                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                 [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxisLabel]="xAxisLabel2"
+                                 [yAxisLabel]="yAxisLabel" [showXAxisGridLines]="showXAxisGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [roundEdges]="roundEdges"
+                                 [yScaleMax]="yScaleMax" [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                                 [barMaxWidth]="100" [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(highPriorityIssuesCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noHighPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="medium-priority-issues-domain">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{mediumPriorityCount}}</span>Files with medium priority
+                              issues</div>
+                         
+                        </div>
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(mediumPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme3"
+                                 [results]="mediumPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(mediumPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noMediumPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>  
+                     <div id="low-priority-issues-domain" class="last-div">
+                        <div class="bar-chart-header">
+                           <div><span class="file-count">{{lowPriorityCount}}</span>Files with low priority
+                              issues</div>
+                         
+                        </div>
+                        <div class="bar-chart-body border border-0">
+                           <div class="chart-container" [hidden]="(lowPriorityCount==0)">
+                              <eyc-charts-bar-vertical class="chart-container" [scheme]="colorScheme4"
+                                 [results]="lowPriorityData" [animations]="animations" [gradient]="gradient" [xAxis]="showXAxis"
+                                 [yAxis]="showYAxis" [legend]="showLegend" [legendTitle]="legendTitle"
+                                 [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                 [showYAxisLabel]="showYAxisLabel" [tooltipDisabled]="tooltipDisabled"
+                                 [xAxisLabel]="xAxisLabel2" [yAxisLabel]="yAxisLabel"
+                                 [showXAxisGridLines]="showXAxisGridLines" [barPadding]="barPadding"
+                                 [roundDomains]="roundDomains" [roundEdges]="roundEdges" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks" [barMaxWidth]="100"
+                                 [maxXAxisTickLength]="maxXAxisTickLength">
+                              </eyc-charts-bar-vertical>
+                           </div>
+                           <div class="toast-card" [hidden]="!(lowPriorityCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">{{noLowPriorityIssues}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+            </motif-card-body>
+         </motif-card>
+  
+      </div> -->
+   </div>
+</section>
+
+<!-- <section id='data-explorer' [hidden]="!(tabIn == 2)">
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mt-3 mb-3">
+         <div class="space-between">
+            <div class="box-center"></div>
+            <div class="dateWrapper">
+               <div class="px-3 date-ui">
+                  
+               </div>
+               <div class="box-center">
+                  <button #dailyfilter2 [disabled]="disabledDailyMonthlyButton" motifButton color="primary-alt"
+                     (click)="dailyData(false)">Daily</button>
+                  <button #monthlyfilter2 [disabled]="disabledDailyMonthlyButton" motifButton color=""
+                     (click)="monthlyData(true)">Monthly</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="motif-row">
+      <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 mb-3">
+         <motif-card>
+            <div class="m-4">
+               <div class="row">
+                  <h5>Please select from the options below to explore data.</h5>
+               </div>
+               <div class="row">
+                  <motif-form-field>
+                     <label motifLabel>Data Domain (required)</label>
+                     <motif-select [(ngModel)]="powerBiReportId" aria-label="Aria Label" placeholder="Data Domain (required)">
+                        <motif-option *ngFor="let report of reports" [value]="report.reportId">{{report.reportDisplayName}}</motif-option> 
+                     </motif-select>
+                  </motif-form-field>
+               </div>
+
+               <div class="row pt-3">
+                  <ng-container>
+                     <lib-power-bi-paginated-report-embed [selectedReportId]="powerBiReportId" [pod]="pbiConfig.PBI_POD" [selectedDate]="dueDate">
+                     </lib-power-bi-paginated-report-embed>
+                  </ng-container>
+               </div>
+            </div>
+      
+         </motif-card>
+      </div>
+   </div>
+</section>
+ -->
+<!-- <section id='api-catalog' [hidden]="!(tabIn == 3)">
+   <lib-api-catalog #catalog></lib-api-catalog>
+</section>
+ -->

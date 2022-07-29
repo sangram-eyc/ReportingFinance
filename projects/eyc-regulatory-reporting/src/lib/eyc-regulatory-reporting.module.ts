@@ -7,6 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { TableHeaderRendererComponent } from './shared/table-header-renderer/table-header-renderer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { HttpClientModule } from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 import {EycRrSettingsService} from './services/eyc-rr-settings.service';
 import { DotsCardComponent } from './shared/dots-card/dots-card.component';
 import { DataIntakeComponent } from './data-intake/components/data-intake.component';
@@ -25,9 +26,11 @@ import {EycPbiService} from './services/eyc-pbi.service';
 import {​​​​​​​​ FlexLayoutModule }​​​​​​​​ from'@angular/flex-layout';
 import { GridComponent } from './grid/grid.component';
 import { EycUiSharedComponentModule } from 'eyc-ui-shared-component';
+import { EycChartsSharedLibraryModule } from 'eyc-charts-shared-library';
 import { DateSubmittedPipePipe } from './pipes/submission/date-submitted-pipe.pipe';
 import { ViewFilingEntityExceptionComponent } from './shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
 import { EntityExceptionDetailsComponent } from './shared/entity-exception-details/components/entity-exception-details.component';
+import { IntakeLandingComponent } from './data-intake/intake-landing/components/intake-landing.component';
 
  
 
@@ -50,6 +53,7 @@ import { EntityExceptionDetailsComponent } from './shared/entity-exception-detai
     HttpClientModule,
     MotifPaginationModule,
     MotifBreadcrumbModule,
+    RouterModule,
     FormsModule,
     MotifChipModule,
     MotifModalModule,
@@ -57,7 +61,8 @@ import { EntityExceptionDetailsComponent } from './shared/entity-exception-detai
     MotifDropdownModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    EycUiSharedComponentModule
+    EycUiSharedComponentModule,
+    EycChartsSharedLibraryModule
     
     
   ],
@@ -79,6 +84,7 @@ import { EntityExceptionDetailsComponent } from './shared/entity-exception-detai
     DateSubmittedPipePipe,
     ViewFilingEntityExceptionComponent,
     EntityExceptionDetailsComponent,
+    IntakeLandingComponent,
     
   ],
   /* providers: [EycRrApiService, EycPbiService], */

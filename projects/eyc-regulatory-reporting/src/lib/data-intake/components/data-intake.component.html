@@ -1,4 +1,12 @@
+
 <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
+(filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
+<lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
+[isDataInteake]="true"></lib-reporting-tabs-card>
+
+<lib-intake-landing></lib-intake-landing>
+
+<!-- <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
     (filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
@@ -21,16 +29,6 @@
         [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
         [detailCellRendererParams]="exceptionDetailCellRendererParams" [exportName] = "exportName"
         ></lib-ag-grid>
-
-        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="exceptionDefs" [rowData]="rowData"
-            rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
-            [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
-            [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('exceptions')" [paginationApi]="rowData?.length > 0 ? true : false"
-            (gridReady)="handleExceptionGridReady($event)" [pagination]="rowData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoException.totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
-        </lib-shared-grid> -->
 
         <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
             <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
@@ -95,17 +93,6 @@
         [search]="true" paginationSize="10" [exportName] = "exportName"
         [permissionToPrimaryButton]="false"></lib-ag-grid>
 
-
-        <!-- <lib-shared-grid gridStyle="first" [columnDefs]="datasetsDefs" [rowData]="datasetData" rowSelection="multiple"
-            [displayCheckBox]="true" [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false"
-            [modalConfig]="datasetsModalConfig" [detailCellRendererParams]="exceptionDetailCellRendererParams"
-            (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-            [permissionToPrimaryButton]="false" [permissionToSecondaryButton]="false" 
-            [hideHeaderCheckbox]="checkFilingCompletedStatus()" [export]="true" (exportFlagToParent)="exportData('dataset')" [paginationApi]="datasetData?.length > 0 ? true : false"
-            (gridReady)="handleGridReady($event)" [pagination]="datasetData?.length > 0 ? true : false" paginationSize="10" [totalRecords]="pageInfoData.totalRecords" (customSortChange)="sortChanged($event)"
-            (searchInput)="searchGrid($event)" (currentPageChange)="currentPageChange($event)" [pageChangeFunc]="pageChangeFunc" (updatePageSize)="updatePageSize($event)">
-        </lib-shared-grid> -->
-
         <ng-template #datasetsDropdownTemplate let-row>
             <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
             </motif-icon>
@@ -148,4 +135,4 @@
   <button motifButton color="primary-alt" class="mark-as-complete-btn" (click)="markAsCompleteClick()">Mark as complete</button>
   <button motifButton color="secondary" (click)="showIntakeModal = false">Cancel</button>
     </motif-modal-footer>
-  </motif-modal>
+  </motif-modal> -->
