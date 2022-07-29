@@ -7,7 +7,7 @@
       </div>
       <div *ngIf="hideNotificationFeaturesForProd" class="notifications-filter dark"
            (click)="showPanel = !showPanel; showFilters = false; $event.preventDefault(); $event.stopPropagation();">
-        All ({{totalElements}})
+        All ({{notifications?.length}})
         <motif-icon class="expand" [src]="'/assets/icons/expand_more_white.svg'"></motif-icon>
       </div>
       <div class="expanded-panel" *ngIf="showPanel">
