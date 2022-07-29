@@ -295,7 +295,7 @@ export class AppComponent
               username
           )
           .subscribe((resp: any) => {
-            console.log('sse-new', resp);
+            //console.log('sse-new', resp);
             //Logic to reconnection
              clearInterval(this.timerReconnectionSSE);
              this.reConnectSse();
