@@ -15,6 +15,7 @@ import { TasksService } from '../services/tasks.service'
 import { DataExplorerService } from '../services/data-explorer.service'
 import { CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 import { FilingEntityService} from '../services/filing-entity.service'
+import { FilingsTabService } from '../services/filings-tab.service'
 
 @Component({
   selector: 'app-eyc-team-details',
@@ -37,7 +38,8 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     public permissions: PermissionService,
     private apiHelpers: SettingService,
     private dataExplorerService: DataExplorerService,
-    private filingEntityService: FilingEntityService) {
+    private filingEntityService: FilingEntityService,
+    private filingsTabService:FilingsTabService) {
     const module = adminService.getCurrentModule;
     this.module = module.moduleName;
     this.moduleId = module.moduleId;
@@ -47,8 +49,14 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('actionSection')
   actionSection: TemplateRef<any>;
-  @ViewChild('toggleSwitch')
-  toggleSwitch: TemplateRef<any>;
+  @ViewChild('toggleSwitchFilings')
+  toggleSwitchFilings: TemplateRef<any>;
+  @ViewChild('toggleSwitchTaskAssignments')
+  toggleSwitchTaskAssignments: TemplateRef<any>;
+  @ViewChild('toggleDataExplorer')
+  toggleDataExplorer: TemplateRef<any>;
+  @ViewChild('toggleSwitchFilingEntities')
+  toggleSwitchFilingEntities: TemplateRef<any>;
   teamsListArr: any[] = [];
   teamInfo;
   curentTeamId;
@@ -65,6 +73,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   assignments = [];
   columnDefs;
   columnDefsAgGrid;
+  columnDefsAgGridTab2;
   MotifTableHeaderRendererComponent = TableHeaderRendererComponent;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   tabIn;
@@ -99,6 +108,40 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     name: '10',
     id: 0
   };
+  submitFilingsAssignments;
+  submitDisableFilings;
+  selectedRows = [];
+  approveBtn: any;
+  cancelbtn: any;
+  showToastAfterAssignmensFilings = false;
+  toastMessage;
+  filingTabData: any[] = [];
+  exceptionModalConfig = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Enable Selected",
+      description: "Are you sure you want to enable the filings you have selected? This action will make the selected filings visbile.",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
+  disablefilings = {
+    width: '550px',
+    data: {
+      type: "Confirmation",
+      header: "Disable Selected",
+      description: "Are you sure you want to disable the filings you have selected? This action will not make the selected filings visbile.",
+      footer: {
+        style: "start",
+        YesButton: "Yes",
+        NoButton: "No"
+      }
+    }
+  };
 
   ngOnInit(): void {
     if (this.teamService.getTeamDetailsData) {
@@ -127,6 +170,10 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       })
     }
     this.addTeamMemberForm = this._createTeamMembers();
+    if (this.module == 'Regulatory Reporting'){
+      this.submitFilingsAssignments = this.onSubmitFilingsAssignments.bind(this);
+      this.submitDisableFilings = this.onSubmitDisableFilingsAssignments.bind(this);
+    } 
   }
 
   ngAfterViewInit(): void {
@@ -136,11 +183,14 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     }, 10); 
   }
 
+
+
   getFilingAssignments() {
     if (this.module == 'Regulatory Reporting') {
       this.teamService.getFileType().subscribe(res => {
         this.assignments = res['data']
         this.getTeamDetailsData(true);
+        this.getFilingsData();
       });
     }
   }
@@ -328,6 +378,70 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
+  createFilingsRowData(): void{
+    this.columnDefsAgGridTab2 = [];
+    setTimeout(() => {
+      this.columnDefsAgGridTab2 = [
+        {
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
+          valueGetter: "node.rowIndex + 1",
+          maxWidth: 120,
+          sortable: false,
+          menuTabs: ['generalMenuTab','columnsMenuTab'],
+          pinned: 'left'
+          },
+        {
+          cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererParams: { ngTemplate: this.toggleSwitchFilings },
+          headerName: 'Access',
+          sortable: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Filing name',
+          field: 'filingName',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          width: 370,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Frequency',
+          field: 'frequency',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          width: 370,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+      ];
+      this.exportName = this.module+"_Filings_Assignment_";
+    },100)
+  }
+
+  getFilingsData(){
+    this.filingsTabService.getFilingData().subscribe(res => {
+      this.filingTabData = [];
+      res["data"].forEach((item:any) =>{
+        const filing = {
+          formId: item.formId,
+          filingName: item.filingName,
+          frequency: item.fundFrequency,
+          approved: false,
+          addedToTeam: this.selectedFilings.length > 0 ? (this.selectedFilings.findIndex((element) => element === item.formId) === -1 ? false : true) : false
+        };
+        this.filingTabData.push(filing);
+      });
+    });
+  }
+
   adminTabChange(selectedTab) {
     this.tabIn = selectedTab;
     if (selectedTab == 1) {
@@ -337,6 +451,11 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.exportName = this.module+"_Team_Members_"
     }
     else if (selectedTab == 2) {
+      this.createFilingsRowData();
+      this.getFilingsData();
+      this.gridApi.setRowData(this.filingTabData);     
+    }
+    else if (selectedTab == 3) {
       this.taskService.getTaskAssignments().subscribe( res =>{
         this.taskAssignmentData = res.data
         this.gridApi.setRowData(res.data);
@@ -354,7 +473,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           },
         {
           cellRendererFramework: CellRendererTemplateComponent,
-          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          cellRendererParams: { ngTemplate: this.toggleSwitchTaskAssignments },
           headerName: 'Access',
           field: 'userId',
           sortable: false,
@@ -441,7 +560,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           },
         {
           cellRendererFramework: CellRendererTemplateComponent,
-          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          cellRendererParams: { ngTemplate: this.toggleDataExplorer },
           headerName: 'Access',
           field: 'userId',
           sortable: false,
@@ -526,7 +645,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           },
         {
           cellRendererFramework: CellRendererTemplateComponent,
-          cellRendererParams: { ngTemplate: this.toggleSwitch },
+          cellRendererParams: { ngTemplate: this.toggleSwitchFilingEntities },
           headerName: 'Access',
           field: 'userId',
           sortable: false,
@@ -627,7 +746,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
   }
 
   private _updateTeam() {
-    if (this.module == 'Regulatory Reporting') { 
+/*     if (this.module == 'Regulatory Reporting') { 
       return this.formBuilder.group({
         teamName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
         role: ['', [Validators.required]],
@@ -640,7 +759,12 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
         role: ['', [Validators.required]],
         teamDescription: ['', Validators.maxLength(250)],
       });
-    }
+    } */
+    return this.formBuilder.group({
+      teamName: ['', [Validators.required, Validators.pattern(commonConstants['ADD_TEAM_REGEX_PATTERN'].TEAM_NAME), Validators.maxLength(50), this.noWhitespaceValidator]],
+      role: ['', [Validators.required]],
+      teamDescription: ['', Validators.maxLength(250)],
+    });
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -663,7 +787,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       let team;
       console.log(obj);
       
-      if (this.module == 'Regulatory Reporting') { 
+/*       if (this.module == 'Regulatory Reporting') { 
         team = {
           "teamName": obj.teamName.trim(),
           "roleName": obj.role,
@@ -683,6 +807,14 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           "moduleId": this.moduleId,
           "teamId": this.curentTeamId
         }
+      } */
+
+      team = {
+        "teamName": obj.teamName.trim(),
+        "roleName": obj.role,
+        "teamDescription": escape(obj.teamDescription.trim()),
+        "moduleId": this.moduleId,
+        "teamId": this.curentTeamId
       }
       
       const dupTeamInfo = this.teamInfo;
@@ -690,7 +822,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.teamService.EditTeam(team).subscribe(resp => {
         // this.teamInfo = resp['data'];
         const teamInfoObj = resp['data'];
-        if (this.module == 'Regulatory Reporting') {
+/*         if (this.module == 'Regulatory Reporting') {
           this.teamInfo = {
             "teamName": teamInfoObj.teamName.trim(),
             "teamDescription": unescape(teamInfoObj.teamDescription),
@@ -704,6 +836,12 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
             "teamDescription": unescape(teamInfoObj.teamDescription),
             "role": teamInfoObj.role,
           }
+        } */
+
+        this.teamInfo = {
+          "teamName": teamInfoObj.teamName.trim(),
+          "teamDescription": unescape(teamInfoObj.teamDescription),
+          "role": teamInfoObj.role,
         }
         
         this.showToastAfterEditTeam = !this.showToastAfterEditTeam;
@@ -874,6 +1012,64 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     this.teamService.exportTeamsDetailsData(this.exportUrl).subscribe(resp => {
       console.log(resp);
     })
+  }
+
+  onChangeFilingsToggle(event, row){
+    //Just for test
+    console.log("Filings toggle ->", event);
+    console.log("Filings Row ->", row);
+  }
+
+  onChangeTaskAssignToggle(event, row){
+    //Just for test
+    console.log("TaskAssign toggle ->", event);
+    console.log("TaskAssign Row ->", row);
+  }
+
+  onChangeDataExplorerToggle(event, row){
+    //Just for test
+    console.log("DataExplorer toggle ->", event);
+    console.log("DataExplorer Row ->", row);
+  }
+
+  onChangeFilingEntities(event, row){
+    //Just for test
+    console.log("Filing Entities toggle ->", event);
+    console.log("Filing Entities Row ->", row);
+  }
+
+  RowsSelected(event){
+    this.selectedRows = event;
+    this.approveBtn = document.querySelector('.approve-button button');
+    this.cancelbtn = document.querySelector('.second-button');
+    this.approveBtn.disabled = this.selectedRows.length > 0 ? false : true;
+    this.cancelbtn.disabled = this.selectedRows.length > 0 ? false : true;
+    console.log("selectedRows ->", this.selectedRows);
+  }
+
+  onSubmitFilingsAssignments(){
+    //To do
+    console.log("Enable filings...");
+    this.toastMessage = "Selected items has been successfully enabled!";
+    this.showToastAfterAssignmensFilings = true;
+    setTimeout(() => {
+      this.showToastAfterAssignmensFilings = false;
+    }, 5000);
+  }
+
+  onSubmitDisableFilingsAssignments(){
+    //To do
+    console.log("Disable filings...");
+    this.showToastAfterAssignmensFilings = true;
+    this.toastMessage = "Selected items has been successfully disabled!";
+    setTimeout(() => {
+      this.showToastAfterAssignmensFilings = false;
+    }, 5000);
+  }
+
+  
+  closeToast() {
+    this.showToastAfterAssignmensFilings = false;
   }
 
 }
