@@ -19,10 +19,10 @@
   [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"
   [rowData]="resetRowData" [columnDefs]="columnDefsAgGrid"
     [displayCheckBox] = "true" [disablePrimaryButton]="false"
-    [export]="true" buttonPosition="left"
+    [export]="true" buttonPosition="left" [adminTab]="true"
     [search]="true" paginationSize="10"
     [buttonText] ="'Add team'" [exportName] = "exportName"
-    gridStyle="third" (newEventToParent)="addTeam($event)"></lib-ag-grid>
+   (newEventToParent)="addTeam($event)"></lib-ag-grid>
 
     <!-- <lib-shared-grid [permissionToPrima(newEventToParent)="addTeam($event)"ryButton]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'Add Teams')"
     [permissionToShowDataTable]="this.permissions.validateAllPermission('adminPermissionList', this.moduleName, 'View Teams')"

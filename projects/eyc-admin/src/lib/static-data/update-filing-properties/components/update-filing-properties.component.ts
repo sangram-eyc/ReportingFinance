@@ -312,6 +312,9 @@ export class UpdateFilingPropertiesComponent implements OnInit {
     this.columnDefsAgGrid =[
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 75,
         sortable: false,
         menuTabs: [],
@@ -320,6 +323,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
         {
           headerName: 'Question',
           field: 'name',
+          comparator: customComparator,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']
@@ -336,6 +340,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           cellRendererParams: this.editReportID.bind(this),
           headerName: 'Report ID',
           field: 'pbiReportId',
+          comparator: customComparator,
           minWidth: 250,
           filter: 'agSetColumnFilter',
           filterParams: {
@@ -350,6 +355,7 @@ export class UpdateFilingPropertiesComponent implements OnInit {
           cellRendererParams: this.editDatasetID.bind(this),
           headerName: 'Dataset ID(s)',
           field: 'dataSetIds',
+          comparator: customComparator,
           tooltipField: 'dataSetIds',
           minWidth: 500,
           filter: 'agSetColumnFilter',

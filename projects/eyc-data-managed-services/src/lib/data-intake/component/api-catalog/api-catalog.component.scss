@@ -1,3 +1,15 @@
+.mt-5{
+    margin-top: 48px !important;
+}
+
+.mt-3{
+    margin-top: 24px !important;
+}
+
+::ng-deep .motif-modal-overlay {
+    background: rgba(26,26,36,.02) !important;
+}
+
 ::ng-deep #main-container {
     overflow-y: hidden;
     overflow-x: hidden;
@@ -58,7 +70,6 @@ h2 {
             }
         }
         .motif-modal-body #response-type {
-            height: 175%;
             width: 100%;
             border-radius: 0px;
             padding: 24px 16px 48px 16px;
@@ -82,8 +93,8 @@ h2 {
                 }
             }
             .motif-tab-bar {
-                position: relative;
-                top: 70px;
+                // position: relative;
+                // top: 70px;
                 .motif-tab-bar-wrapper {
                     button:hover, button:focus, button.focus {
                         border-bottom: 3px solid #2E2E38 !important;
@@ -100,8 +111,8 @@ h2 {
                 flex-direction: row;
                 justify-content: flex-end;
                 color: #FFFFFF;
-                position: relative;
-                top: 75px;
+                // position: relative;
+                // top: 75px;
                 font-size: 14px;
                 line-height: 22px;
                 font-weight: lighter;
@@ -117,12 +128,12 @@ h2 {
             }
             #code {
                 width: 100%;
-                height: 78%;
+                height: 75%;
                 overflow-y: scroll;
                 background: #2e2e3c;
                 align-items: flex-start;
-                position: relative;
-                top: 75px;
+                // position: relative;
+                // top: 75px;
                 color: #FFFFFF;
                 padding: 24px;
                 pre span {white-space: normal;}

@@ -91,30 +91,36 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.exportName =   this.filingDetails.filingName + "_" + this.filingDetails.period+"_"+this.componentStage+"_Filing_Entities_Exception_Reports_";
     this.viewService.getAnswerExceptionReports(this.entityId, this.filingName, this.period, this.exceptionCnt, this.componentStage).subscribe(res => {
       this.exceptionAnswersData =  res.data['exceptionResultJason'];
-      if (this.exceptionAnswersData) {
+      this.commentsCount = res.data['commentCountMap'];
+      if (this.exceptionAnswersData &&  (this.exceptionAnswersData != null || this.exceptionAnswersData.length != 0 )) {
+        res.data['exceptionResultJason'].forEach(obj=>{
+          obj['comments'] = this.commentsCount[obj.AuditFilingID] ? this.commentsCount[obj.AuditFilingID] : 0;
+       })
         this.createEntitiesRowData();
       } else {
         // this.exceptionAnswersDefs = [];
         this.createEntitiesRowData();
         this.exceptionAnswersDefsAgGrid = [];
       }
-
-      this.commentsCount = res.data['commentCountMap'];
     });
   }
   createEntitiesRowData(): void {
     this.rowData = [];
     // this.exceptionAnswersDefs = [];
     this.exceptionAnswersDefsAgGrid = [];
+
+    if (this.exceptionAnswersData &&  (this.exceptionAnswersData != null || this.exceptionAnswersData.length != 0 )) {
     this.exceptionAnswersData.forEach(element => {
       this.rowData.push({
         AuditFilingID: element.AuditFilingID,
         AuditType: element.AuditType,
         exceptionReportName: element.Audit,
         Unresolved: element.Unresolved,
-        Resolved: element.Resolved
+        Resolved: element.Resolved,
+        comments: element.comments
       });
     });
+  }
     // this.exceptionAnswersDefs = [
     //   {
     //     headerComponentFramework: TableHeaderRendererComponent,
@@ -183,6 +189,9 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
     this.exceptionAnswersDefsAgGrid = [
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 90,
         sortable: false,
         menuTabs: [],
@@ -350,6 +359,7 @@ export class ViewFilingEntityExceptionComponent implements OnInit, OnDestroy {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditFilingID === row.AuditFilingID)].comments = 1;
         this.commentsCount[row.AuditFilingID] = 1;
         this.createEntitiesRowData();
       } else {

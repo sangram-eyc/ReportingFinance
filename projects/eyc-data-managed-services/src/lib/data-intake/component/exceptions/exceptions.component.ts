@@ -464,7 +464,7 @@ export class ExceptionsComponent implements OnInit {
 
   openComments(row) {
     console.log(row);
-    this.commentsName = "dms";
+    this.commentsName = "DMS - Data Intake";
     this.commentEntityType = 'DMS Exception';
     this.entityId = row.dataSetRuleId;
     this.moduleOriginated="Data Managed Services";

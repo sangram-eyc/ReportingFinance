@@ -4,8 +4,7 @@ import { TableHeaderRendererComponent } from '../../shared/table-header-renderer
 import { FundScopingService } from '../services/fund-scoping.service';
 import {INPUT_VALIDATON_CONFIG} from '../../config/rr-config-helper';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
-import { customComparator, customCompareStrIntMix } from '../../config/rr-config-helper';
-import { PermissionService, DEFAULT_PAGE_SIZE } from 'eyc-ui-shared-component';
+import { PermissionService, DEFAULT_PAGE_SIZE, customComparator } from 'eyc-ui-shared-component';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
 import { EycRrSettingsService } from './../../services/eyc-rr-settings.service';
 import { letProto } from 'rxjs-compat/operator/let';
@@ -182,6 +181,9 @@ export class FundScopingComponent implements OnInit {
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true, */
       valueGetter: "node.rowIndex + 1",
+      getQuickFilterText: function(params) {
+        return '';
+      },
       maxWidth: 80,
       sortable: false,
       menuTabs: [],
@@ -200,6 +202,7 @@ export class FundScopingComponent implements OnInit {
     {
       headerName: 'ID',
       field: 'fundId',
+      comparator: customComparator,
       minWidth: 150,
       filter: 'agSetColumnFilter',
       filterParams: {

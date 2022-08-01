@@ -100,6 +100,10 @@ export class EntityExceptionDetailsComponent implements OnInit {
         e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
         return;
       }) : '';
+      this.commentsCount = res.data['commentCountMap'];
+      this.exceptionAnswersData.forEach(obj=>{
+        obj['comments'] = this.commentsCount[obj.AuditResultObjectID] ? this.commentsCount[obj.AuditResultObjectID] : 0;
+     })
       if (this.exceptionAnswersData) {
         this.sortByUnresolvedException();
         this.createEntitiesRowData();
@@ -107,7 +111,6 @@ export class EntityExceptionDetailsComponent implements OnInit {
         // this.exceptionAnswersDefs = [];
         this.exceptionAnswersDefsAgGrid = [];
       }
-      this.commentsCount = res.data['commentCountMap'];
     });
   }
 
@@ -150,6 +153,9 @@ export class EntityExceptionDetailsComponent implements OnInit {
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 120,
         sortable: false,
         menuTabs: [],
@@ -198,17 +204,19 @@ export class EntityExceptionDetailsComponent implements OnInit {
             tooltipField: `${property}`
           });
         } else {
-          this.exceptionAnswersDefsAgGrid.push({
-            field: `${property}`,
-            headerName: `${property}`,
-            filter: 'agSetColumnFilter',
-            filterParams: {
-              buttons: ['reset']
-            },
-            sortable: true,
-            menuTabs: ['filterMenuTab', 'generalMenuTab'],
-            minWidth: 300,
-          });
+      if(property != "comments"){
+        this.exceptionAnswersDefsAgGrid.push({
+          field: `${property}`,
+          headerName: `${property}`,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 300,
+        });
+          }
         }
       }
     }
@@ -228,6 +236,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
         ngTemplate: this.commentExceptionTemplate,
       }, 
       filter: 'agSetColumnFilter',
+      field:'comments',
       filterParams: {
         buttons: ['reset']
       },
@@ -284,6 +293,7 @@ export class EntityExceptionDetailsComponent implements OnInit {
           comment: escape(result.data.comment),
           files: result.data.files
         }
+        this.exceptionAnswersData[this.exceptionAnswersData.findIndex(item => item.AuditResultObjectID === row.AuditResultObjectID)].comments = 1;
         this.commentsCount[row.AuditResultObjectID] = 1;
         this.createEntitiesRowData();
       } else {
@@ -387,15 +397,17 @@ export class EntityExceptionDetailsComponent implements OnInit {
         let entityIds = this.getEnitityIds('Unresolved');
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
-        })
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
         });
-        this.sortByUnresolvedException();
+        this.getAnswerExceptionReports();
         this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.resetResolveUnresolveButtons()
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }
@@ -461,14 +473,15 @@ export class EntityExceptionDetailsComponent implements OnInit {
         entityIds.map((e) => {
           this.commentsCount[e] ? this.commentsCount[e] += 1 : this.commentsCount[e] = 1;
         });
-        this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
-        this.exceptionAnswersData.map(e => {
-          e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
-          return;
-        });
-        this.sortByUnresolvedException();
+        this.getAnswerExceptionReports();
         this.resetResolveUnresolveButtons()
-        this.createEntitiesRowData();
+        // this.exceptionAnswersData = result.resolveResp.data['exceptionResultJason'];
+        // this.exceptionAnswersData.map(e => {
+        //   e.Status == "Resolved" || e.Status == "Unresolved" ? e.approved = false : e.approved = true
+        //   return;
+        // });
+        // this.sortByUnresolvedException();
+        // this.createEntitiesRowData();
       } else {
         console.log(result);
       }

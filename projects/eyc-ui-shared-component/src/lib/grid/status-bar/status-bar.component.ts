@@ -16,7 +16,7 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
   currentpage:number;
   pageList = [20,50,100];
   componentParent: any;
-
+  visible = false;
   constructor() { }
 
   agInit(params: IStatusPanelParams): void {
@@ -93,4 +93,7 @@ export class StatusBarComponent implements IStatusPanelAngularComp  {
     (document.getElementById('jumpToPage') as HTMLInputElement).value = '';
   }
 
+  setVisible(visible: boolean) {
+    this.visible = visible;
+  }
 }

@@ -190,6 +190,9 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
     this.columnDefsAgGrid =[
       {
         valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
+        },
         maxWidth: 75,
         sortable: false,
         menuTabs: [],
@@ -207,6 +210,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
           sort: 'asc',
           tooltipField: 'teamName',
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          comparator: customComparator
         },
         {
           headerName: 'Role',
@@ -217,6 +221,7 @@ export class AdminRegulatoryReportingComponent implements OnInit, OnDestroy {
             buttons: ['reset']
           },
           sortable: true,
+          comparator: customComparator,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -329,8 +334,6 @@ deleteTeams(row){
         this.teamsData.push(ele);
       });
       this.resetRowData = this.teamsData;
-      this.updatePageSize(this.pageSize)
-      this.gridApi.setRowData(this.teamsData);
       this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;
       setTimeout(() => {
         this.showToastAfterDeleteTeams = !this.showToastAfterDeleteTeams;

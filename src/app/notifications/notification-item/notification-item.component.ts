@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, HostListener} from '@angular/core';
+import { hideNotificationFeaturesForProd } from '@default/helper/api-config-helper';
 import {NotificationService} from '@default/services/notification.service';
 
 @Component({
@@ -13,10 +14,11 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   @Output() deleteNotification = new EventEmitter<any>();
   @Output() archiveNotification = new EventEmitter<any>();
   @Output() flagNotification = new EventEmitter<any>();
-
+  hideNotificationFeaturesForProd = hideNotificationFeaturesForProd;
+  
   public content: any;
 
-  constructor(private notificationService: NotificationService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -29,26 +31,20 @@ export class NotificationItemComponent implements OnInit, OnChanges {
   }
 
   expand(id): void {
-    this.notificationService.setMultipleAsRead(id).subscribe();
     this.expandNotification.emit(id);
   }
 
   delete(): void {
-    this.notificationService.deleteNotification(this.notification.engineId).subscribe(res => {
-
-    });
     this.deleteNotification.emit();
   }
 
   archive(): void {
-    this.notificationService.setAsArchived(this.notification.engineId).subscribe();
     this.archiveNotification.emit();
   }
 
   flag(): void {
-    this.notificationService.setNotificationFlagged(this.notification.engineId, !this.content.flagged).subscribe(res => {
-      this.content.flagged = !this.content.flagged;
-    });
+    this.flagNotification.emit();
+    this.content.flagged = !this.content.flagged;
   }
 
   calculateNotificationTime(date) {

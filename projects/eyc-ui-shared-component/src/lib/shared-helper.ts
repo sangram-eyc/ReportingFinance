@@ -25,6 +25,13 @@ export const customComparator = (valueA, valueB) => {
 	else if (valueB == null) {
 		return false;
 	} else {
-		return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+		let intValueA = parseInt(valueA)
+		let intValueB = parseInt(valueB)
+		
+		if(!isNaN(intValueA) && !isNaN(intValueB)) {
+			return valueA - valueB;
+		} else {
+			if (valueA == valueB) return 0; return (valueA > valueB) ? 1 : -1;
+		}
 	}
 }; 

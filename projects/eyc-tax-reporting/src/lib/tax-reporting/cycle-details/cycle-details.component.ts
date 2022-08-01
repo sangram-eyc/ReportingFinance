@@ -196,9 +196,11 @@ export class CycleDetailComponent implements OnInit {
   blockApprovalProcess: boolean = false;
   waitApproval: boolean = false;
   processingCheck: any = '';
-  setClickApproveButton = false; 
+  setClickApproveButton = false;
   downloadButton: HTMLElement = document.createElement('button');
-  isArchived:boolean = false;
+  fakeApproveButton: HTMLElement = document.createElement('div');
+  isArchived: boolean = false;
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.productCycleName = params.name
@@ -215,11 +217,11 @@ export class CycleDetailComponent implements OnInit {
   }
 
   backtoCycleView() {
-    this.router.navigate(['app-tax-reporting',this.isArchived]);
+    this.router.navigate(['app-tax-reporting', this.isArchived]);
   }
-  
+
   ngAfterViewInit(): void {
-    this.getCompletedProductCyclesData(this.productCycleId);
+    this.getCompletedProductCyclesData(this.productCycleId)
     this.downloadButton = document.querySelector('.second-button') === null ? this.downloadButton : document.querySelector('.second-button');
     this.downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
     this.downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
@@ -275,15 +277,15 @@ export class CycleDetailComponent implements OnInit {
   }
 
   createComment(row: any, type: any) {
-    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId,this.isArchived]);
+    this.router.navigate(['comment-page', row.id, row.name, this.productCycleName, row.status, row.openCommentsEY, row.openCommentsClient, type, this.productCycleId, this.isArchived]);
   }
 
-  getCompletedProductCyclesData(id: any, toast?: boolean, msgToast? : any) {
+  getCompletedProductCyclesData(id: any, toast?: boolean, msgToast?: any) {
     this.completedFunds = [];
     this.openCommentsClientByProductCycle = 0;
     this.openCommentsEYByProductCycle = 0;
     this.productcyclesService.getProductionCyclesDetails(id).subscribe(resp => {
-      (resp.data.isArchived != undefined) ? this.isArchived = resp.data.isArchived  : this.isArchived = false;
+      (resp.data.isArchived != undefined) ? this.isArchived = resp.data.isArchived : this.isArchived = false;
       resp.data.productionCycleDetails.forEach((item) => {
         const eachitem: any = {
           name: item.name,
@@ -308,12 +310,17 @@ export class CycleDetailComponent implements OnInit {
       this.getFileSummuries();
       this.createFundRowData(this.completedFunds);
       this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
-      if(toast){
+      if (toast) {
         this.toastSuccessMessage = msgToast;
         this.showToastAfterSubmit = true;
         setTimeout(() => {
           this.showToastAfterSubmit = false;
         }, 5000);
+      }
+      let existFakeBtn = document.querySelector('.fake-approved-btn')
+      if(this.isArchived && (existFakeBtn == undefined || existFakeBtn == null)){
+        this.fakeApproveButton.insertAdjacentHTML('beforeend', '<button _ngcontent-ase-c208="" motifbutton="" color="secondary" size="large" class="motif-button fake-approved-btn ng-star-inserted" disabled="">Approve selected</button>');
+        document.querySelector('.buttons').prepend(this.fakeApproveButton)
       }
     });
   }
@@ -496,7 +503,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   checkDataProcess(data) {
-    console.log('click',data)
+    console.log('click', data)
     this.processingCheck = data;
   }
 
@@ -509,10 +516,10 @@ export class CycleDetailComponent implements OnInit {
         clearInterval(timerId)
         this.processingCheck = 'init'
         console.log('datasetsSelectedRows after processing', this.datasetsSelectedRows)
-        if (this.datasetsSelectedRows.length == 0){
+        if (this.datasetsSelectedRows.length == 0) {
           this.LoaderService.hide();
-          this.openErrorModal("Warning", 
-          "You must select at least one fund in order to submit an approval request");
+          this.openErrorModal("Warning",
+            "You must select at least one fund in order to submit an approval request");
         }
         else {
           let arrFilterOpenC = this.datasetsSelectedRows.filter(this.filterByOpenC)
@@ -528,7 +535,7 @@ export class CycleDetailComponent implements OnInit {
     }, 100);
   }
 
-  openWarningDialog(){
+  openWarningDialog() {
     const warningDialog = this.dialog.open(WarningModalComponent, {
       id: 'warning-modal',
       width: '639px',
@@ -543,7 +550,7 @@ export class CycleDetailComponent implements OnInit {
       }
     });
   }
-  openApprovalDialog(){
+  openApprovalDialog() {
     const fundsSelected = this.datasetsSelectedRows.length;
     const approvalDialog = this.dialog.open(ApproveFundModalComponent, {
       width: '550px',
@@ -587,28 +594,25 @@ export class CycleDetailComponent implements OnInit {
   }
 
   datasetsReportRowsSelected(event) {
-    if(this.setClickApproveButton === false){
+    if (this.setClickApproveButton === false) {
       this.setClickApproveButton = true;
       this.cancelbtn = document.querySelector('.second-button');
-      this.approveBtn = document.querySelector('.approve-button button');
-      this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true);
-    }
-    this.cancelbtn.disabled = true;
-    this.approveBtn.disabled = true;
-    this.datasetsSelectedRows = event;
-    if (this.datasetsSelectedRows.length > 0){
-      if (!this.isArchived){
-        this.approveBtn.disabled = false;
-        this.cancelbtn.disabled = false;
-      }else {
+      if (!this.isArchived) {
+        this.approveBtn = document.querySelector('.approve-button button');
+        this.approveBtn.addEventListener("click", this.approveClickEv.bind(this), true);
         this.approveBtn.disabled = true;
-        this.cancelbtn.disabled = false;
+      }
     }
-  }else{
-    this.approveBtn.disabled = true;
     this.cancelbtn.disabled = true;
+    this.datasetsSelectedRows = event;
+    if (this.datasetsSelectedRows.length > 0) {
+      (this.approveBtn != null || this.approveBtn != undefined ) ? this.approveBtn.disabled = false : '';
+      this.cancelbtn.disabled = false;
+    } else {
+      (this.approveBtn != null || this.approveBtn != undefined ) ? this.approveBtn.disabled = true : '';
+      this.cancelbtn.disabled = true;
+    }
   }
-}
 
   onSubmitApproveDatasets() {
     this.iDs = "";
@@ -628,7 +632,7 @@ export class CycleDetailComponent implements OnInit {
 
   handleGridReady(params) {
     this.gridApi = params.api;
-    this.gridApi.addEventListener('paginationChanged', this.resetPaginationSelection.bind(this));        
+    this.gridApi.addEventListener('paginationChanged', this.resetPaginationSelection.bind(this));
   }
 
   addUsersToFund(_id: any) {
@@ -737,12 +741,12 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getOptionsProductCycles() {
-    if (this.isArchived){
+    if (this.isArchived) {
       this.options = JSON.parse(sessionStorage.getItem('archivedProdCyclesList'));
-    }else{ 
+    } else {
       this.options = JSON.parse(sessionStorage.getItem('productionCyclesList'));
     }
-    
+
   }
 
   onOptionsSelected(idCycle) {
@@ -750,12 +754,12 @@ export class CycleDetailComponent implements OnInit {
     if (this.productCycleId != idCycle && cycle != undefined) {
       this.productCycleName = cycle.name;
       this.productCycleId = idCycle;
-      this.cycleSelectForm.patchValue({mySelect:idCycle});
+      this.cycleSelectForm.patchValue({ mySelect: idCycle });
       this.getCompletedProductCyclesData(this.productCycleId);
 
       //To clean de selected option class
-      let allElements:any = document.querySelectorAll('#selectNewCycle .motif-select-field-list button');
-      if(allElements.length > 0){
+      let allElements: any = document.querySelectorAll('#selectNewCycle .motif-select-field-list button');
+      if (allElements.length > 0) {
         allElements.forEach(element => {
           element.classList.remove('checked');
         });
@@ -834,7 +838,7 @@ export class CycleDetailComponent implements OnInit {
   }
 
   getMoreDetailsPage() {
-    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName,this.isArchived]);
+    this.router.navigate(['comments-details', this.productCycleId, this.productCycleName, this.isArchived]);
   }
 
   removeEvCloseSession(e: Event) {
@@ -875,7 +879,7 @@ export class CycleDetailComponent implements OnInit {
           }
         });
 
-        dialogRef.componentInstance.bulkprocesed.subscribe(result => { 
+        dialogRef.componentInstance.bulkprocesed.subscribe(result => {
           this.toastSuccessMessage = "Download in progress. This may take a few minutes.";
           this.showToastAfterSubmitBulk = true;
           setTimeout(() => {
@@ -913,36 +917,35 @@ export class CycleDetailComponent implements OnInit {
     return result.join(",");
   }
 
-  OptionsClassSelected(){
-      let optionSelected = document.querySelector('#selectNewCycle .motif-select-field-list button[data-value="' + this.productCycleId + '"]');
-      if(optionSelected != null){
-        optionSelected.classList.remove('unchecked');
-        optionSelected.classList.add('checked');
-      }
+  OptionsClassSelected() {
+    let optionSelected = document.querySelector('#selectNewCycle .motif-select-field-list button[data-value="' + this.productCycleId + '"]');
+    if (optionSelected != null) {
+      optionSelected.classList.remove('unchecked');
+      optionSelected.classList.add('checked');
+    }
   }
 
-  searchGrid(input){
+  searchGrid(input) {
     this.gridApi.setQuickFilter(input);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }
 
-  resetPaginationSelection(){   
-      //Initialize pagination data
-      let paginationSize = this.gridApi.paginationGetPageSize();
-      let currentPageNum = this.gridApi.paginationGetCurrentPage();
-      let totalRowsCount = this.gridApi.getDisplayedRowCount();
+  resetPaginationSelection() {
+    //Initialize pagination data
+    let paginationSize = this.gridApi.paginationGetPageSize();
+    let currentPageNum = this.gridApi.paginationGetCurrentPage();
+    let totalRowsCount = this.gridApi.getDisplayedRowCount();
 
-      //Calculate current page row indexes
-      let currentPageRowStartIndex = (currentPageNum * paginationSize);
-      let currentPageRowLastIndex = (currentPageRowStartIndex + paginationSize);
-      if(currentPageRowLastIndex > totalRowsCount) currentPageRowLastIndex = (totalRowsCount);
+    //Calculate current page row indexes
+    let currentPageRowStartIndex = (currentPageNum * paginationSize);
+    let currentPageRowLastIndex = (currentPageRowStartIndex + paginationSize);
+    if (currentPageRowLastIndex > totalRowsCount) currentPageRowLastIndex = (totalRowsCount);
 
-      for(let i = 0; i < totalRowsCount; i++)
-      {
-          //Set isRowSelectable=true attribute for current page rows, and false for other page rows
-          let isWithinCurrentPage = (i >= currentPageRowStartIndex && i < currentPageRowLastIndex);        
-          this.gridApi.getDisplayedRowAtIndex(i).setRowSelectable(isWithinCurrentPage);        
-      }   
+    for (let i = 0; i < totalRowsCount; i++) {
+      //Set isRowSelectable=true attribute for current page rows, and false for other page rows
+      let isWithinCurrentPage = (i >= currentPageRowStartIndex && i < currentPageRowLastIndex);
+      this.gridApi.getDisplayedRowAtIndex(i).setRowSelectable(isWithinCurrentPage);
+    }
   }
 
 }

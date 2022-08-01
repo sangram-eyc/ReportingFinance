@@ -33,7 +33,7 @@ export class SettingService {
       deleteTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/removeteamMember',
       addTeamMemeber: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/teamMember',
       roles: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/authorization/roles?module=' : this.API_ENDPOINT + 'gatewayService/api/v2/authorization/roles?module=',
-      filetypes: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms' : this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms'
+      filetypes: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms' : this.API_ENDPOINT + 'assets/mock/static_data_forms.json'
     }
     return teams;
   };
@@ -90,5 +90,12 @@ export class SettingService {
       filing_entities_list: this.rrproduction ? this.API_ENDPOINT + 'assets/mock/filingEntities.json' : this.API_ENDPOINT + 'assets/mock/filingEntities.json',
     }
     return filing_entities;
+  }
+
+  get filings_tab(): any{
+    const data_explorer = {
+      filings_tab_list: this.rrproduction ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/static-data/forms/frequency-mapping' : this.API_ENDPOINT + 'assets/mock/filingsTableData.json',
+    }
+    return data_explorer;
   }
 }

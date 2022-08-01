@@ -30,8 +30,8 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { SseService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/sse.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
-import { PreferencesService } from '@default/services/preferences.service';
 import { NotificationService } from '@default/services/notification.service';
+import { EycSseNotificationService } from '@default/services/eyc-sse-notification.service'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -75,12 +75,13 @@ export class AppComponent
   pendingDownloads: any;
   pendingDownloadsNew: any;
   timeoutWarnDownloads;
-
+  notificationServiceDetail: string = 'see';
   countDown: Subscription;
   counter = 18000;
   tick = 1000;
   showErrorModel = false;
-
+  timerSse = 17000;
+  timerReconnectionSSE;
   sideMenu = {
     regulatoryReporting: {
       isActive: false,
@@ -111,9 +112,9 @@ export class AppComponent
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
     private routingState: RoutingStateService,
-    private preferencesService: PreferencesService,
     private notificationService: NotificationService,
-    private sseService: SseService
+    private sseService: SseService,
+    private EycSseNotificationService: EycSseNotificationService
   ) {
     // To hide header and footer from login page
 
@@ -247,27 +248,6 @@ export class AppComponent
               JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000;
           }
 
-          setTimeout(() => {
-            this.preferencesService.emailToRecipient().subscribe(
-              (recipient) => {},
-              (error) => {
-                this.preferencesService
-                  .createRecipient()
-                  .subscribe((err) => {});
-              }
-            );
-
-            this.notificationService
-              .getNotArchivedNotifications(0)
-              .subscribe((notifications: any) => {
-                notifications.content.forEach((item) => {
-                  if (!item.isRead) {
-                    this.isNotificationRead = false;
-                  }
-                });
-              });
-          }, 1000);
-
           this.sessionTimeOut();
           if (uname) {
             this.userGivenName = uname.firstName;
@@ -291,18 +271,35 @@ export class AppComponent
       }
     );
   }
+
+  reConnectSse(){
+    this.timerReconnectionSSE = setTimeout(()=>{
+     console.log('Reconnecting sse...');      
+     this.connectSse();
+    }, this.timerSse);
+ }
+
   connectSse() {
+    //Logic to start reconnection
+    clearInterval(this.timerReconnectionSSE);
+    this.reConnectSse();
+    //End logic to start reconnection 
     const timerIdUserEmail = setInterval(() => {
       if (sessionStorage.getItem('userEmail') != null) {
         clearInterval(timerIdUserEmail);
         let username = sessionStorage.getItem('userEmail');
         username = username.replace(/\@/g, '%40');
         username = username.replace(/\./g, '%40%40');
-        this.sseService
-          .getServerSentEvent(
+        this.EycSseNotificationService
+          .connect(
               username
           )
           .subscribe((resp: any) => {
+            //console.log('sse-new', resp);
+            //Logic to reconnection
+             clearInterval(this.timerReconnectionSSE);
+             this.reConnectSse();
+            //End logic to reconnection
             if (resp.data) {
               if (
                 resp.data !== 'no-data' &&
@@ -344,7 +341,7 @@ export class AppComponent
       (err) => {
         console.log('ws bulk error', err);
       },
-      () => console.log('ws bulk complete') 
+      () => console.log('ws bulk complete')
     );
   }
   ngAfterViewInit(): void {
@@ -354,7 +351,8 @@ export class AppComponent
         if (this.count == 1) {
           console.log('Run ngAfterViewInit', this.count);
           this.checkTimeOut();
-          this.connectSse();
+          this.notificationServiceDetail = 'sse';
+          this.notificationServiceDetail === 'sse' ? this.connectSse() : this.connectWebSocket();
         }
       }
     }, 40);
@@ -445,11 +443,11 @@ export class AppComponent
       ) {
         this.warningMessage();
       } else {
-        this.wsBulkService.closeConection();
+        this.notificationServiceDetail === 'websocket' ? this.wsBulkService.closeConection(): '';
         this.settingsService.logoff();
       }
     } else {
-      this.wsBulkService.closeConection();
+      this.notificationServiceDetail === 'websocket' ? this.wsBulkService.closeConection(): '';
       this.settingsService.logoff();
     }
   }

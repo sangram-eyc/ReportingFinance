@@ -95,7 +95,8 @@ export const PowerBiReportDailyList=[
     reportId:'c780ef40-5d4f-4ac0-911d-d86ba2026583',reportDisplayName:'Transaction Disposal Lot'},
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'706df839-8446-4728-8405-9a6949cbcd30',reportDisplayName:'Positions Lot Level'},
-
+    
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss', reportId:'4bd73534-408c-4e3c-874c-edd48ac0b27e',reportDisplayName:'Transaction Realized Gain and Loss'},
     {reportName:'CDM Account',reportId:'5830f7ea-c81d-49a7-a347-d9cb2d1ca562',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'0c773311-e2e3-4ef9-9f7d-5b76c407715c',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'556d2e02-50be-4d48-9d3f-5ffad041e069',reportDisplayName:'Product Issuers'},
@@ -150,7 +151,8 @@ export const PowerBiReportDailyListProd=[
     reportId:'f06102d5-9509-480a-ae94-5f44ef3b1173',reportDisplayName:'Transaction Disposal Lot'},
     {reportName:'DMS_TRP_Positions Lot Level_Daily',
     reportId:'5058ea25-7a8c-4ea8-a5bb-1b24c6ffd189',reportDisplayName:'Positions Lot Level'},
-
+    
+    {reportName:'DMS_TRP_Transaction Realized Gain and Loss', reportId:'cec7074c-dd4e-4b92-89db-c6ce390b4d98', reportDisplayName:'Transaction Realized Gain and Loss'},
     {reportName:'DMS_TRP_CDM Account',reportId:'3c01710b-ca8f-493b-98e6-fdf3ebc0f204',reportDisplayName:'Account and Fund Hierarchy'},
     {reportName:'DMS_TRP_Product Securities',reportId:'534e30ce-9c28-4032-85e7-c3a5cc118817',reportDisplayName:'Product Securities'},
     {reportName:'DMS_TRP_Product Issuers',reportId:'af2cf0f3-e16f-4921-b402-408e0dbf3dd2',reportDisplayName:'Product Issuers'},

@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { DataManagedService } from '../../services/data-managed.service';
-import { formatDate } from '@angular/common';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { AutoUnsubscriberService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
@@ -10,7 +9,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator,sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE,DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { customComparator, sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -40,8 +39,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   presentDate: Date;
   totalFileCount = 0;
   dataIntakeTypeDisplay: object;
-  dataIntakeTypeDisplayText=DATA_INTAKE_TYPE_DISPLAY_TEXT;
-  routeUrlConst=ROUTE_URL_CONST;
+  dataIntakeTypeDisplayText = DATA_INTAKE_TYPE_DISPLAY_TEXT;
+  routeUrlConst = ROUTE_URL_CONST;
   activeReportsSearchNoDataAvilable: boolean;
   noActivatedDataAvilable: boolean;
   searchNoDataAvilable: boolean;
@@ -70,7 +69,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   roundDomains = false;
   roundEdges: boolean = false;
   animations: boolean = true;
-  isDisplay:boolean=false;
+  isDisplay: boolean = false;
   calSelectedMonth: string;
   xScaleMin: number;
   xScaleMax: number;
@@ -166,7 +165,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   httpDataGridParams: DataGrid;
   httpReviewByGroupParams: GroupByDataProviderCardGrid;
   clientName = '';
-  fileName='Files';
+  fileName = 'Files';
   isViewClicked = false;
   dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
   colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
@@ -193,15 +192,15 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     currentDate.setMonth(currentDate.getMonth());
     this.lastMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
     this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
-    this.presentMonthDate =  this.lastMonthDate;
+    this.presentMonthDate = this.lastMonthDate;
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
   
     this._activatedroute.paramMap.subscribe(params => {
-      if ((!!params.get('paramDataIntakeName')) && (!! params.get('paramDataIntakeType'))) {
+      if ((!!params.get('paramDataIntakeName')) && (!!params.get('paramDataIntakeType'))) {
         this.clientName = this.routingState.ngDecode(params.get('paramDataIntakeName').trim());
         this.isViewClicked = true;
         this.dataIntakeType = params.get('paramDataIntakeType');
-        this.fileName= this.clientName;
+        this.fileName = this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
         }
@@ -210,8 +209,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
         }
       }
-      else{
-        this.fileName='Files'
+      else {
+        this.fileName = 'Files'
       }
     });
   }
@@ -240,9 +239,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         }
       }, [Validators.required])
     });
-    this.previousRoute = this.routingState.getPreviousUrl();
-    this.routeHistory = this.routingState.getHistory();
-    this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+    if (this.routingState.getBrowserBackForwardButtonClick()) {
+      this.previousRoute = this.routingState.getPreviousUrl();
+      this.routeHistory = this.routingState.getHistory();
+      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+
+    }
   }
 
   patchDatePicker(patchDatePickerValue: Date) {
@@ -367,7 +369,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
   stringTrim(params, paramSize) {
     const newstr = params.replace(/\s+/g, ' ').trim();
-    if(!newstr){
+    if (!newstr) {
       return "--"
     }
     else if (newstr?.length > paramSize) {
@@ -462,7 +464,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           minWidth: 180,
           wrapText: true,
           autoHeight: true,
-          cellRenderer: (params) =>{
+          cellRenderer: (params) => {
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
                   const date1 = new Date(params.data.dueDate);
                   const date2 = new Date();
@@ -607,12 +609,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
       this.httpDataGridParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_DOMAIN;
     }
 
-    if(!sessionStorage.getItem("selectedDate")){
+    if (!sessionStorage.getItem("selectedDate")) {
       this.httpQueryParams.dueDate = this.presentDateFormat;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
       this.patchDatePicker(this.presentDate);
     } else {
-      const sesstionDate =  this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
+      const sesstionDate = this.dataManagedService.ymdToApiDateFormat(sessionStorage.getItem("selectedDate"));
       this.httpQueryParams.dueDate = sesstionDate;
       this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
       this.patchDatePicker(new Date(sesstionDate));
@@ -630,7 +632,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', 'primary-alt');
     this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', '');
 
-    const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
+    const monthlySelectedDate = sessionStorage.getItem("selectedDate");
     if (monthlySelectedDate) {
       this.presentMonthDate = this.dataManagedService.monthLastDate(new Date(monthlySelectedDate));
     } else {
@@ -639,7 +641,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
     this.httpQueryParams.dueDate = this.dataManagedService.apiDateFormat(this.presentMonthDate);
     this.httpDataGridParams.dueDate = this.httpQueryParams.dueDate;
-    
+
     if (this.innerTabIn == 1) {
       this.httpQueryParams.dataIntakeType = this.dataIntakeType;;
       this.httpDataGridParams.dataIntakeType = this.dataIntakeType;;
