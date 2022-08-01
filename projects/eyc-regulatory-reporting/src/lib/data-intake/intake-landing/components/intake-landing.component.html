@@ -80,24 +80,29 @@
          </motif-card>
         
       </div>
-      <!-- <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
+       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-5 motif-col-lg-9 motif-col-xl-9">
          <motif-card class="bar-chart-card no_data">
             <motif-card-header>
                <div class="inner-tabs">
                   <motif-tab-bar>
                      <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
                         [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
-                        Providers
+                        Business Days
                      </button>
                      <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
                         [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
+                        Data Providers
+                     </button>
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(3)"
+                        [ngClass]="innerTabIn == 3 ? 'motif-active' : '' ">
                         Data Domains
                      </button>
                   </motif-tab-bar>
                </div>
             </motif-card-header>
             <motif-card-body>
-               <section id='data-provider' [hidden]="!(innerTabIn == 1)">
+               <section id='business-days' [hidden]="!(innerTabIn == 1)"></section>
+               <section id='data-provider' [hidden]="!(innerTabIn == 2)">
                   <div class="bar-chart-panel">
                      <div id="past-due">
                         <div class="bar-chart-header">
@@ -221,7 +226,7 @@
                      </div>
                   </div>
                </section>
-               <section id='data-domain' [hidden]="!(innerTabIn == 2)">
+               <section id='data-domain' [hidden]="!(innerTabIn == 3)">
                   <div class="bar-chart-panel">
                      <div id="past-due-domain">
                         <div class="bar-chart-header">
@@ -348,7 +353,7 @@
             </motif-card-body>
          </motif-card>
   
-      </div> -->
+      </div>
    </div>
 </section>
 

@@ -72,7 +72,7 @@ export class EycRrSettingsService {
   get regIntakeSumarry(): any {
 
     const intake_Summary = {
-      file_summary_list: !this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary' : 'http://localhost:4200/' + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
+      file_summary_list: !this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary' : 'http://localhost:4200/' + 'assets/eyc-regulatory-reporting/mock/file-summary-list.json',
       file_summary_list_daily: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list-daily.json',
       file_summary_list_monthly: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       file_data_provider: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/data-intake-charts-data.json',
@@ -84,13 +84,13 @@ export class EycRrSettingsService {
       file_general_ledger: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/general-ledger-data.json',
       exception_reports_table: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/exception-reports-table-data.json',
       file_review_data: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/data-intake-chart-multi-data.json',
-      file_review_table_data: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
+      file_review_table_data: !this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report' : 'http://localhost:4200/' + 'assets/eyc-regulatory-reporting/mock/totals-report.json',
       exception_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report/exception' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
       review_by_group_provider_domain:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/review-by-group' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       PBI_AUTH_TOKEN_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedToken':this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedToken',
       PBI_EMBED_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl':this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl',
       base_Url:this.API_ENDPOINT,
-      file_summary_review_all: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary-review' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
+      file_summary_review_all: !this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary-review' : 'http://localhost:4200/' + 'assets/eyc-regulatory-reporting/mock/data-summary-review.json',
       exception_details_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/exception-details' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
       api_catalog:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/api-catalog' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/api-catalog.json'
 

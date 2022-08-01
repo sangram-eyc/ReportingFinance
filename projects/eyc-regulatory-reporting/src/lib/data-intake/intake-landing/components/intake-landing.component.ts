@@ -52,7 +52,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   @ViewChild('dailyfilter2', { static: false }) dailyfilter2: ElementRef;
   @ViewChild('monthlyfilter2', { static: false }) monthlyfilter2: ElementRef;
   tabIn: number = 1;
-  innerTabIn: number = 1;
+  innerTabIn: number = 2;
   presentDate: Date;
   presentMonth: Date;
   totalFileCount = 0;
@@ -227,6 +227,8 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
+
+    } else if(this.innerTabIn == 2) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
         : this.httpQueryParams.dataFrequency = DATA_FREQUENCY.DAILY
