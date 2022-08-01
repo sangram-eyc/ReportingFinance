@@ -1,0 +1,184 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "f3181f35-9eda-41df-ae88-43b8201db420",
+    "data": [
+      {
+        "totalCount": 71,
+        "donutChartDTO": [
+          {
+            "label": "No issues",
+            "value": 0
+          },
+          {
+            "label": "Low priority issues",
+            "value": 0
+          },
+          {
+            "label": "Medium priority issues",
+            "value": 0
+          },
+          {
+            "label": "High priority issues",
+            "value": 0
+          },
+          {
+            "label": "Missing files, past due",
+            "value": 5
+          },
+          {
+            "label": "Files not received",
+            "value": 66
+          }
+        ],
+        "barChartDTO": [
+          {
+            "name": "SSB",
+            "series": [
+              {
+                "name": "No issues",
+                "value": 0
+              },
+              {
+                "name": "Low priority issues",
+                "value": 0
+              },
+              {
+                "name": "Medium priority issues",
+                "value": 0
+              },
+              {
+                "name": "High priority issues",
+                "value": 0
+              },
+              {
+                "name": "Missing files, past due",
+                "value": 0
+              },
+              {
+                "name": "Files not received",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "name": "JPM",
+            "series": [
+              {
+                "name": "No issues",
+                "value": 0
+              },
+              {
+                "name": "Low priority issues",
+                "value": 0
+              },
+              {
+                "name": "Medium priority issues",
+                "value": 0
+              },
+              {
+                "name": "High priority issues",
+                "value": 0
+              },
+              {
+                "name": "Missing files, past due",
+                "value": 0
+              },
+              {
+                "name": "Files not received",
+                "value": 23
+              }
+            ]
+          },
+          {
+            "name": "CIBC",
+            "series": [
+              {
+                "name": "No issues",
+                "value": 0
+              },
+              {
+                "name": "Low priority issues",
+                "value": 0
+              },
+              {
+                "name": "Medium priority issues",
+                "value": 0
+              },
+              {
+                "name": "High priority issues",
+                "value": 0
+              },
+              {
+                "name": "Missing files, past due",
+                "value": 0
+              },
+              {
+                "name": "Files not received",
+                "value": 9
+              }
+            ]
+          },
+          {
+            "name": "MTBJ",
+            "series": [
+              {
+                "name": "No issues",
+                "value": 0
+              },
+              {
+                "name": "Low priority issues",
+                "value": 0
+              },
+              {
+                "name": "Medium priority issues",
+                "value": 0
+              },
+              {
+                "name": "High priority issues",
+                "value": 0
+              },
+              {
+                "name": "Missing files, past due",
+                "value": 0
+              },
+              {
+                "name": "Files not received",
+                "value": 13
+              }
+            ]
+          },
+          {
+            "name": "BNYM",
+            "series": [
+              {
+                "name": "No issues",
+                "value": 0
+              },
+              {
+                "name": "Low priority issues",
+                "value": 0
+              },
+              {
+                "name": "Medium priority issues",
+                "value": 0
+              },
+              {
+                "name": "High priority issues",
+                "value": 0
+              },
+              {
+                "name": "Missing files, past due",
+                "value": 5
+              },
+              {
+                "name": "Files not received",
+                "value": 11
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "error": null
+  }

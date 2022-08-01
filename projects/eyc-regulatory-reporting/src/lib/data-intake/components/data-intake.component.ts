@@ -110,9 +110,9 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
-    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
-    this.pageChangeFunc = this.onPageChange.bind(this);
+    // this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
+    // this.submitException = this.onSubmitApproveExceptionReports.bind(this);
+    // this.pageChangeFunc = this.onPageChange.bind(this);
   }
 
   @ViewChild('headerTemplate')
@@ -141,7 +141,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
-    this.getFiles();
+    // this.getFiles();
     if(sessionStorage.getItem("enableTabsIntake")) {
       this.enableTabs = true;
       this.getExceptionReports(true);
