@@ -131,33 +131,33 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   filterByIssueType: string = 'all';
   dataIntakeTypeUrl: string = '';
 
-  dataset: GridDataSet[] = [{
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  },
-  {
-    disable: false,
-    value: 25,
-    name: '25',
-    id: 1
-  },
-  {
-    disable: false,
-    value: 50,
-    name: '50',
-    id: 2
-  }];
+  // dataset: GridDataSet[] = [{
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // },
+  // {
+  //   disable: false,
+  //   value: 25,
+  //   name: '25',
+  //   id: 1
+  // },
+  // {
+  //   disable: false,
+  //   value: 50,
+  //   name: '50',
+  //   id: 2
+  // }];
 
-  currentlySelectedPageSize: GridDataSet = {
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  };
+  // currentlySelectedPageSize: GridDataSet = {
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // };
 
-  columnGl = [];
+  columnGl : ColDef[] = [];
   glRowdata = [];
   // end 
 
@@ -335,35 +335,35 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  searchCompleted(input) {
-    this.gridApi.setQuickFilter(input.el.nativeElement.value);
-    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
-  }
+  // searchCompleted(input) {
+  //   this.gridApi.setQuickFilter(input.el.nativeElement.value);
+  //   this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  // }
 
-  onPasteSearchActiveReports(event: ClipboardEvent) {
-    let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
-    pastedText.forEach((ele, index) => {
-      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
-        if ((pastedText.length - 1) === index) {
-          return true;
-        }
-      } else {
-        event.preventDefault();
-        return false;
-      }
-    });
-  }
+  // onPasteSearchActiveReports(event: ClipboardEvent) {
+  //   let clipboardData = event.clipboardData;
+  //   let pastedText = (clipboardData.getData('text')).split("");    
+  //   pastedText.forEach((ele, index) => {
+  //     if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+  //       if ((pastedText.length - 1) === index) {
+  //         return true;
+  //       }
+  //     } else {
+  //       event.preventDefault();
+  //       return false;
+  //     }
+  //   });
+  // }
 
-  searchFilingValidation(event) {
-    var inp = String.fromCharCode(event.keyCode);
-    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
+  // searchFilingValidation(event) {
+  //   var inp = String.fromCharCode(event.keyCode);
+  //   if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+  //     return true;
+  //   } else {
+  //     event.preventDefault();
+  //     return false;
+  //   }
+  // }
 
   stringTrim(params, paramSize) {
     const newstr = params.replace(/\s+/g, ' ').trim();
@@ -381,7 +381,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.glRowdata = [];
     this.dataManagedService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
-      this.glRowdata = resp['data'];
+
       this.columnGl = [
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -389,8 +389,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'File',
           field: 'name',
           sortable: true,
-          filter: true,
-          // minWidth: 210,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 210,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -403,8 +407,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Provider',
           field: 'provider',
           sortable: true,
-          filter: true,
-          // minWidth: 150,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 150,
           wrapText: true,
           autoHeight: true
         },
@@ -413,7 +421,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
-          filter: true,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 220,
           wrapText: true,
           autoHeight: false
@@ -424,7 +436,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Functions',
           field: 'functions',
           sortable: true,
-          filter: true,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 220,
           wrapText: false,
           autoHeight: true,
@@ -438,8 +454,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
-          filter: true,
-          // minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 180,
           wrapText: true,
           autoHeight: true,
           cellRenderer: (params) =>{
@@ -464,13 +484,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
                    return '--'
                 }
               },
-          cellStyle: function (params) {
-            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
-              return { color: 'red' }
-            } else {
-              return true;
-            }
-          }
+          // cellStyle: function (params) {
+          //   if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+          //     return { color: 'red' }
+          //   } else {
+          //     return true;
+          //   }
+          // }
         },
         {
           headerComponentFramework: TableHeaderRendererComponent,
@@ -478,7 +498,11 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Exceptions',
           field: 'exceptions',
           sortable: true,
-          filter: true,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 200,
           wrapText: false,
           autoHeight: true,
@@ -492,10 +516,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Status',
           field: 'maxPriority',
           sortable: true,
-          filter: true,
-          // minWidth: 200,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 200,
           sort: 'asc',
-          comparator: customComparator,
+          // comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }
@@ -507,14 +535,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'next',
           sortable: false,
           filter: false,
-          maxWidth: 50,
+          maxWidth: 30,
+          minWidth: 30,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,
           }
         },
       ];
-      // this.autoSizeColumns();
-      // this.gridApi.sizeColumnsToFit();
+      this.glRowdata = resp['data'];
     });
   }
 
@@ -526,14 +554,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-  // autoSizeColumns() {
-  //   const skipHeader = true;
-  //   const allColumnIds: string[] = [];
-  //   this.gridColumnApi.getAllGridColumns()!.forEach((column) => {
-  //     allColumnIds.push(column.getId());
-  //   });
-  //   this.gridColumnApi.autoSizeColumns(allColumnIds, skipHeader);
-  // }
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;

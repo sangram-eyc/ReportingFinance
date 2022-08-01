@@ -7,6 +7,7 @@ import {
   CheckboxSelectionCallbackParams,
   ColDef,
   ColumnResizedEvent,
+  FirstDataRenderedEvent,
   GetContextMenuItemsParams,
   GridApi,
   GridOptions,
@@ -107,6 +108,7 @@ export class AgGridComponent implements OnInit {
   @Output() gridReady = new EventEmitter<any>();
   @Output() rowClicked = new EventEmitter<any>();
   @Output() columnResized = new EventEmitter<any>();
+  @Output() firstDataRendered = new EventEmitter<any>();
 
   @Input() modalConfig = {
     width: '400px',
@@ -196,6 +198,10 @@ export class AgGridComponent implements OnInit {
 
   onColumnResized(params: ColumnResizedEvent) {
     this.columnResized.emit(params);
+  }
+  
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    this.firstDataRendered.emit(params);
   }
   
   ngOnInit(): void {

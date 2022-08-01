@@ -98,7 +98,7 @@
     (modelUpdated)="onModelUpdated($event)" (sortChanged)="onSortChanged($event)" (filterChanged)="onFilterChanged($event)"
     [icons]="icons" [suppressMenuHide]="true" [getContextMenuItems]="getContextMenuItems" 
     [suppressCellSelection]="suppressCellSelection" [domLayout]="domLayout" (rowClicked)="onRowClicked($event)"
-    (columnResized)="onColumnResized($event)"
+    (columnResized)="onColumnResized($event)" (firstDataRendered)="onFirstDataRendered($event)"
     >
   </ag-grid-angular>
 

@@ -72,12 +72,14 @@
     <div id="grid-wrapper">
         <motif-card>
             <!-- <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
-                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
-            </motif-table> -->
-            <lib-ag-grid [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl" [export]="true" buttonPosition="left"
-                [search]="true" [paginationSize]="10" rowSelection="single" (gridReady)="onGridReady($event)"
-                (rowClicked)="onRowClicked($event)" gridStyle="third"></lib-ag-grid>
+                                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
+                                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
+                            </motif-table> -->
+            <lib-ag-grid [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl" [displayCheckBox]="false"
+                [export]="true" [search]="true" [paginationPageSize]="20" [paginationSize]="20" buttonPosition="left"
+                rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
+                (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
+            </lib-ag-grid>
         </motif-card>
     </div>
 
