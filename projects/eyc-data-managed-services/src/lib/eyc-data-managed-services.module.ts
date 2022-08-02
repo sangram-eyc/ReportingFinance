@@ -23,6 +23,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PrettyJsonModule } from 'angular2-prettyjson';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
+
 
 
 
@@ -34,7 +39,8 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     FileReviewComponent,
     ExceptionsComponent,
     DonutGridListComponent,
-    ApiCatalogComponent],
+    ApiCatalogComponent,
+    SearchFilterPipe],
   imports: [
     BrowserModule,
     CommonModule,
@@ -66,13 +72,17 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     MatIconModule,
     MatTableModule,
     MatTooltipModule,
-    PrettyJsonModule
+    PrettyJsonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   providers: [
     DataManagedService,
     EycDataApiService,
     DataManagedSettingsService,
-    MotifModalModule
+    MotifModalModule,
+    SearchFilterPipe
   ],
   exports: [EycDataManagementServicesComponent, ExceptionsReportsComponent, FileReviewComponent, DonutGridListComponent, ApiCatalogComponent]
 })
