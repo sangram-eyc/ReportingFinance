@@ -3,7 +3,7 @@ import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
 import { IntakeLandingService } from './../services/intake-landing.service';
 
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { AutoUnsubscriberService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CellRendererTemplateComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DataSummary } from './../models/data-summary.model'
 import { GridDataSet } from './../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from './../models/data-grid.model';
@@ -19,6 +19,8 @@ import { RowClickedEvent } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { ApiReviewByGroupSeriesItemDTO } from './../models/api-reviewbygroup-dto.model';
+import { RoutingStateService } from './../services/routing-state.service';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-intake-file-review',
@@ -123,7 +125,8 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   fileNotReceivedVariant: string = this.lightVariant;
   filterByIssueType: string = 'all';
   dataIntakeTypeUrl: string = '';
-
+  filingName: string;
+  period: string;
   dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
@@ -152,6 +155,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
 
   columnGl = [];
   glRowdata = [];
+  filesCount:number;
   // end 
 
   // API Request match with response
@@ -179,7 +183,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   presentMonthDate: Date;
   presentMonthFormat: string;
 
-  constructor(private IntakeLandingService: IntakeLandingService, private cdr: ChangeDetectorRef,
+  constructor(private IntakeLandingService: IntakeLandingService, private cdr: ChangeDetectorRef,private filingService: RegulatoryReportingFilingService,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: IntakeRoutingStateService) {
     console.log("File Review Page constructor", new Date().toISOString());
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
@@ -213,6 +217,8 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log("File Review Page Init", new Date().toISOString());
     const selectedDate = sessionStorage.getItem("selectedDate");
+    this.filingName = this.filingService.getFilingData.filingName;
+    this.period = this.filingService.getFilingData.period;
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toDateString());
       this.presentMonthDate = this.IntakeLandingService.monthLastDate(this.presentDate);
@@ -371,15 +377,17 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
+    debugger;
     console.log("File Review Grid API Call Started", new Date().toISOString());
     this.IntakeLandingService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];
+      this.filesCount = this.glRowdata.length;
       console.log("File Review Grid API Call End", new Date().toISOString());
       this.columnGl = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          
+         // cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'File',
           field: 'name',
           sortable: true,
@@ -387,39 +395,38 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           minWidth: 220,
           wrapText: false,
           autoHeight: true,
-          cellRendererParams: {
-            ngTemplate: this.threeDotTooltip
-          },
+          // cellRendererParams: {
+          //   ngTemplate: this.threeDotTooltip
+          // },
           comparator: sortCaseInsentitve
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          
           headerName: 'Provider',
           field: 'provider',
           sortable: true,
           filter: true,
-          maxWidth: 120,
+          minWidth: 120,
           wrapText: true,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          
           headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
           filter: true,
-          maxWidth: 185,
-          wrapText: true,
+          minWidth: 185,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Functions',
           field: 'functions',
           sortable: true,
           filter: true,
-          maxWidth: 180,
+          minWidth: 180,
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -428,12 +435,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           comparator: sortCaseInsentitve
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          
           headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
           filter: true,
-          maxWidth: 160,
+          minWidth: 160,
           wrapText: true,
           autoHeight: true,
           cellRenderer: (params) => {
@@ -467,8 +474,8 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
           sortable: true,
@@ -480,13 +487,13 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           },
           comparator: sortCaseInsentitve
         }, {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Status',
           field: 'maxPriority',
           sortable: true,
           filter: true,
-          maxWidth: 180,
+          minWidth: 180,
           sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
@@ -494,13 +501,13 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+          
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: '',
           field: 'next',
           sortable: false,
           filter: false,
-          maxWidth: 50,
+          minWidth: 50,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,
           }
