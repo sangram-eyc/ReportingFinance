@@ -264,6 +264,7 @@ export class IntakeLandingService {
   getExceptionDetailsTableData(params:ExceptionDetailsDataGrid, bodyParam: any) {
     const tableName = `?tableName=${params.tableName}`;
     const auditDate = `&auditDate=${params.auditDate}`;
+    return [];
     // return this.apiService.invokePostBodyAPI(`${this.settingsService.regIntakeSumarry.exception_details_table_data}${tableName}${auditDate}`, bodyParam);
   }
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){

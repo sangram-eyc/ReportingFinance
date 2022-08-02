@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, ElementRef, OnInit, Renderer2, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { RoutingStateService } from './../services/routing-state.service';
+import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { MotifTableCellRendererComponent, MotifTableHeaderRendererComponent } from '@ey-xd/ng-motif';
 import { AutoUnsubscriberService, CustomGlobalService, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
@@ -84,7 +84,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   httpDataGridParams: ExceptionDetailsDataGrid;
 
   constructor(private dataManagedService: IntakeLandingService, private cdr: ChangeDetectorRef,
-    private routingState: RoutingStateService,
+    private routingState: IntakeRoutingStateService,
     private unsubscriber: AutoUnsubscriberService,) {
     this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
@@ -107,7 +107,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.auditRuleType === "row") {
       const auditHashIds = { "auditHashId": this.auditHashID };
-      this.dataManagedService
+      /* this.dataManagedService
         .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
         .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
           const respData = resp.data;
@@ -128,7 +128,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
             this.exceptionTableData = respData;
             this.cdr.detectChanges();
           }
-        });
+        }); */
     }
     if (this.auditRuleType === "fileOrTable" && this.headerColumnName && this.headerColumnName.length > 0) {
       const headerColumnNameUnique = new Set(this.headerColumnName);

@@ -7,12 +7,12 @@ import {Location} from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class RoutingStateService {
+export class IntakeRoutingStateService {
   codec = new HttpUrlEncodingCodec;
   private history = [];
   private historyCopy=[];
   private popState:boolean=false;
-  DMS_Landing_Url = "/data-managed-services";
+  LANDING_URL = "/data-intake";
   
 
   constructor( private router: Router,private location:Location
@@ -23,12 +23,12 @@ export class RoutingStateService {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((e: any) => {
         var urlAfterRedirects = decodeURI(e.urlAfterRedirects);
-        if (this.matchExact(this.DMS_Landing_Url, urlAfterRedirects)) {
+        if (this.matchExact(this.LANDING_URL, urlAfterRedirects)) {
           this.historyCopy.splice(0, this.historyCopy.length);
           this.historyCopy=[...this.history];
           this.history.splice(0, this.history.length);
         }
-        if (urlAfterRedirects.includes(this.DMS_Landing_Url) && this.isNotExistInArray(this.history, urlAfterRedirects)) {
+        if (urlAfterRedirects.includes(this.LANDING_URL) && this.isNotExistInArray(this.history, urlAfterRedirects)) {
           if(this.popState && this.history.length==1){
             this.history= this.historyCopy;
             this.popState=false;
@@ -60,11 +60,11 @@ export class RoutingStateService {
   }
 
   public getPreviousUrl(): string {
-    return this.history[this.history.length - 2] || this.DMS_Landing_Url;
+    return this.history[this.history.length - 2] || this.LANDING_URL;
   }
 
   public getCurrentUrl(): string {
-    return this.history[this.history.length - 1] || this.DMS_Landing_Url;
+    return this.history[this.history.length - 1] || this.LANDING_URL;
   }
 
   public getOldHistory(): string[] {
