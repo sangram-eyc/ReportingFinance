@@ -4,6 +4,8 @@
          <motif-breadcrumb maxItems=3 *ngIf="!isViewClicked">
             <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink={{routeUrlConst.LANDING_URL}}>
             </motif-breadcrumb-item>
+            <motif-breadcrumb-item breadcrumbValue="{{filingName}} // {{period}}">
+            </motif-breadcrumb-item>
             <motif-breadcrumb-item breadcrumbValue='Files'>
             </motif-breadcrumb-item>
          </motif-breadcrumb>
@@ -183,24 +185,46 @@
    <div class="motif-row">
       <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12 space-between">
          <div class="heading-6 box-center my-3">
-            <!-- List of files (#) -->
+            <h3>List of files ({{filesCount}})</h3>
          </div>
-         <div class="my-3">
+         <!-- <div class="my-3">
             <motif-form-field>
                <input #gridSearch motifInput motifSearch type="text" placeholder="Search..." aria-label="Search" (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(gridSearch)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
-         </div>
+         </div> -->
       </div>
-   </div>
+   </div> 
 
-   <div id="grid-wrapper">
+
+   <!-- ag grid - start -->
+
+   <lib-ag-grid [columnDefs]="columnGl"
+      [rowData]="glRowdata"
+      [export]="true"
+      paginationSize="10"
+      buttonPosition="left"
+      [search]="true"
+      rowSelection="multiple" 
+      [permissionToPrimaryButton]="false"
+      (gridReady)="onGridReady($event)"
+      >
+   </lib-ag-grid>
+
+   <!-- ag grid - end -->
+
+   <!-- <div id="grid-wrapper">
       <motif-card>
-         <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-            (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [suppressRowClickSelection]="false"
-            [suppressCellSelection]="true" [domLayout]="domLayout">
+         <motif-table class="ag-cursor-pointer"
+          [columnDefs]="columnGl" [rowData]="glRowdata"
+           rowSelection="single"
+            (gridReady)="onGridReady($event)"
+             (rowClicked)="onRowClicked($event)"
+              [suppressRowClickSelection]="false"
+            [suppressCellSelection]="true" 
+            [domLayout]="domLayout">
          </motif-table>
       </motif-card>
-   </div>
+   </div> -->
 
    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
       <motif-card-body>
