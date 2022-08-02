@@ -66,7 +66,7 @@ export class ExceptionsComponent implements OnInit {
   gridApi;
   domLayout = 'autoHeight';
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // TableHeaderRendererComponent = TableHeaderRendererComponent;
 
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
@@ -254,22 +254,24 @@ export class ExceptionsComponent implements OnInit {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.columnGl = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exception Report Type',
           field: 'type',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 150,
           wrapText: false,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exception Report Name',
           field: 'name',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 400,
           wrapText: false,
           autoHeight: true,
@@ -278,22 +280,24 @@ export class ExceptionsComponent implements OnInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exception Report Field',
           field: 'exceptionReportField',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 100,
           wrapText: false,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           autoHeight: true,
           minWidth: 200,
           cellRendererParams: {
@@ -319,7 +323,7 @@ export class ExceptionsComponent implements OnInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
             ngTemplate: this.commentTemplate,
@@ -328,14 +332,16 @@ export class ExceptionsComponent implements OnInit {
           field: 'comments',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // width: 155
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
           sortable: true,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           // minWidth: 200,
           wrapText: false,
           autoHeight: true,

@@ -90,7 +90,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   maxPages = 5;
   noCompletedDataAvilable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // TableHeaderRendererComponent = TableHeaderRendererComponent;
   rowClass = 'row-style';
   rowStyle = {
     height: '74px'
@@ -386,7 +386,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
 
       this.columnGl = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'File',
           field: 'name',
@@ -405,7 +405,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           comparator: sortCaseInsentitve
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Provider',
           field: 'provider',
           sortable: true,
@@ -419,7 +419,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Data domain',
           field: 'dataDomain',
           sortable: true,
@@ -433,7 +433,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           autoHeight: false
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Functions',
           field: 'functions',
@@ -452,7 +452,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           comparator: sortCaseInsentitve
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Due date',
           field: 'dueDate',
           sortable: true,
@@ -495,7 +495,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           // }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
@@ -513,7 +513,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           },
           comparator: sortCaseInsentitve
         }, {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Status',
           field: 'maxPriority',
@@ -531,7 +531,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: '',
           field: 'next',

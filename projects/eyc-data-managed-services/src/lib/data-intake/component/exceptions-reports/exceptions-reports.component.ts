@@ -35,7 +35,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   maxPages = 5;
   noCompletedDataAvailable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // TableHeaderRendererComponent = TableHeaderRendererComponent;
   rowData = [];
   rowClass = 'row-style';
   columnDefs = [];
@@ -123,6 +123,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
                 wrapText: false,
                 autoHeight: false,
                 filter: 'agSetColumnFilter',
+                menuTabs: ['filterMenuTab', 'generalMenuTab'],
               });
             }
             this.columnDefs = this.columnDefsFill;
@@ -136,7 +137,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
       const headerColumnNameUnique = new Set(this.headerColumnName);
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          // headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: key.replace(/_/g, ' '),
           field: key,
           sortable: true,
