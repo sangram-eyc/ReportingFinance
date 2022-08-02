@@ -10,7 +10,7 @@ import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RoutingStateService } from './../services/routing-state.service';
+import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { colorSets, Color } from 'eyc-charts-shared-library';
 
 
@@ -112,7 +112,7 @@ export class IntakeExceptionsComponent implements OnInit {
     private dataManagedService: IntakeLandingService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
-    private _activatedroute: ActivatedRoute, private _router: Router, private routingState: RoutingStateService) {
+    private _activatedroute: ActivatedRoute, private _router: Router, private routingState: IntakeRoutingStateService) {
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();
     currentDate.setMonth(currentDate.getMonth());

@@ -17,8 +17,8 @@ import { BarChartSeriesItemDTO } from './../models/bar-chart-series-Item-dto.mod
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RowClickedEvent } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { ApiReviewByGroupSeriesItemDTO } from './../models/api-reviewbygroup-dto.model';
-import { RoutingStateService } from './../services/routing-state.service';
 
 @Component({
   selector: 'lib-intake-file-review',
@@ -180,7 +180,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   presentMonthFormat: string;
 
   constructor(private IntakeLandingService: IntakeLandingService, private cdr: ChangeDetectorRef,
-    private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
+    private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: IntakeRoutingStateService) {
     console.log("File Review Page constructor", new Date().toISOString());
     this.dailyMonthlyStatus = sessionStorage.getItem("dailyMonthlyStatus") === 'true' ? true : false;
     const currentDate = new Date();

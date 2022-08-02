@@ -92,8 +92,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {path: 'data-intake/files-review', component: IntakeFileReviewComponent,  canActivate: [AuthGuardService]},
-  {path: 'data-intakes/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: IntakeExceptionsComponent,  canActivate: [AuthGuardService]},
-  {path: 'data-intakes/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: IntakeExceptionsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
   {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'archived-notifications', component: ArchivedNotificationsComponent},
   {path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate: [AuthGuardService]},
