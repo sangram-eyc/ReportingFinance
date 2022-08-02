@@ -185,28 +185,34 @@
          <div class="heading-6 box-center my-3">
             <!-- List of files (#) -->
          </div>
-         <div class="my-3">
+         <!-- <div class="my-3">
             <motif-form-field>
                <input #gridSearch motifInput motifSearch type="text" placeholder="Search..." aria-label="Search" (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(gridSearch)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
-         </div>
+         </div> -->
       </div>
    </div>
 
    <div id="grid-wrapper">
       <motif-card>
-         <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
+         <!-- <motif-table class="ag-cursor-pointer" [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
             (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [suppressRowClickSelection]="false"
             [suppressCellSelection]="true" [domLayout]="domLayout">
-         </motif-table>
+         </motif-table> -->
+         <lib-ag-grid class="ag-cursor-pointer" [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl"
+            [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="50" [paginationSize]="50" buttonPosition="left"
+            rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" 
+            (firstDataRendered)="onFirstDataRendered($event)" [defaultColDef]="defaultColDef"
+            gridStyle="third">
+         </lib-ag-grid>
       </motif-card>
    </div>
 
-   <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+   <!-- <motif-card class="no_data" *ngIf="searchNoDataAvilable">
       <motif-card-body>
          <h5>Your search has returned no results. Please adjust and try again.</h5>
       </motif-card-body>
-   </motif-card>
+   </motif-card> -->
 
    <ng-template #chipTemplate let-row>
          <div class="pie-legend">
@@ -281,9 +287,9 @@
 
    </ng-template>
 
-   <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
+   <!-- <motif-card class="no_data" *ngIf="noCompletedDataAvilable">
       <motif-card-body>
          <h5>No results found.</h5>
       </motif-card-body>
-   </motif-card>
+   </motif-card> -->
 </div>

@@ -7,7 +7,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
 import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
-import { RowClickedEvent } from 'ag-grid-community';
+import { FirstDataRenderedEvent, RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RoutingStateService } from '../../services/routing-state.service';
@@ -66,36 +66,36 @@ export class ExceptionsComponent implements OnInit {
   gridApi;
   domLayout = 'autoHeight';
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // TableHeaderRendererComponent = TableHeaderRendererComponent;
 
   noOfCompletdFilingRecords = 10;
   currentPage = 1;
   maxPages = 5;
-  dataset: GridDataSet[] = [{
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  },
-  {
-    disable: false,
-    value: 25,
-    name: '25',
-    id: 1
-  },
-  {
-    disable: false,
-    value: 50,
-    name: '50',
-    id: 2
-  }];
+  // dataset: GridDataSet[] = [{
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // },
+  // {
+  //   disable: false,
+  //   value: 25,
+  //   name: '25',
+  //   id: 1
+  // },
+  // {
+  //   disable: false,
+  //   value: 50,
+  //   name: '50',
+  //   id: 2
+  // }];
 
-  currentlySelectedPageSize: GridDataSet = {
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  };
+  // currentlySelectedPageSize: GridDataSet = {
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // };
   commentEntityType;
   moduleOriginated;
   filingStatus=true;
@@ -218,82 +218,87 @@ export class ExceptionsComponent implements OnInit {
   }
 
   // Table methods
-  searchCompleted(input) {
-    this.gridApi.setQuickFilter(input.el.nativeElement.value);
-    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
-  }
+  // searchCompleted(input) {
+  //   this.gridApi.setQuickFilter(input.el.nativeElement.value);
+  //   this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  // }
 
-  onPasteSearchActiveReports(event: ClipboardEvent) {
-    let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");
-    pastedText.forEach((ele, index) => {
-      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
-        if ((pastedText.length - 1) === index) {
-          return true;
-        }
-      } else {
-        event.preventDefault();
-        return false;
-      }
-    });
-  }
+  // onPasteSearchActiveReports(event: ClipboardEvent) {
+  //   let clipboardData = event.clipboardData;
+  //   let pastedText = (clipboardData.getData('text')).split("");
+  //   pastedText.forEach((ele, index) => {
+  //     if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+  //       if ((pastedText.length - 1) === index) {
+  //         return true;
+  //       }
+  //     } else {
+  //       event.preventDefault();
+  //       return false;
+  //     }
+  //   });
+  // }
 
-  searchFilingValidation(event) {
-    var inp = String.fromCharCode(event.keyCode);
-    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
+  // searchFilingValidation(event) {
+  //   var inp = String.fromCharCode(event.keyCode);
+  //   if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+  //     return true;
+  //   } else {
+  //     event.preventDefault();
+  //     return false;
+  //   }
+  // }
 
   getExceptionTableData() {
+    this.glRowdata = [];
     this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
-      this.glRowdata = resp['data'];
       this.columnGl = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exception Report Type',
           field: 'type',
           sortable: true,
-          filter: false,
-          minWidth: 150,
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // minWidth: 150,
           wrapText: false,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exception Report Name',
           field: 'name',
           sortable: true,
-          filter: false,
-          minWidth: 400,
-          wrapText: true,
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // minWidth: 400,
+          wrapText: false,
           autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.reportNameTemplate
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exception Report Field',
           field: 'exceptionReportField',
           sortable: true,
-          filter: false,
-          minWidth: 100,
-          wrapText: true,
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // minWidth: 100,
+          wrapText: false,
           autoHeight: true
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
           sortable: true,
-          filter: false,
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          autoHeight: true,
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
@@ -318,7 +323,7 @@ export class ExceptionsComponent implements OnInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
             ngTemplate: this.commentTemplate,
@@ -326,16 +331,18 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Comments',
           field: 'comments',
           sortable: true,
-          filter: false,
-          width: 155
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // width: 155
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+          // headerComponentFramework: TableHeaderRendererComponent,
           headerName: 'Exceptions',
           field: 'exceptionCount',
           sortable: true,
-          filter: false,
-          minWidth: 200,
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // minWidth: 200,
           wrapText: false,
           autoHeight: true,
           valueGetter: function (params) {
@@ -359,6 +366,7 @@ export class ExceptionsComponent implements OnInit {
         //   }
         // },
       ];
+      this.glRowdata = resp['data'];
     });
   }
 
@@ -446,7 +454,11 @@ export class ExceptionsComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-  };
+  };  
+
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    params.api.sizeColumnsToFit();
+  }
 
   updatePaginationSize(newPageSize: number) {
     this.noOfCompletdFilingRecords = newPageSize;

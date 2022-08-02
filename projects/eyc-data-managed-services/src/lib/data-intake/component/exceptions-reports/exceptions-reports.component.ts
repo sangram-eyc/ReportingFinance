@@ -6,6 +6,7 @@ import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST, INPUT_
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataManagedService } from '../../services/data-managed.service';
 import { ExceptionDetailsDataGrid } from '../../models/data-grid.model';
+import { FirstDataRenderedEvent } from 'ag-grid-community';
 
 @Component({
   selector: 'lib-exceptions-reports',
@@ -34,7 +35,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   maxPages = 5;
   noCompletedDataAvailable = false;
   MotifTableCellRendererComponent = MotifTableCellRendererComponent;
-  TableHeaderRendererComponent = TableHeaderRendererComponent;
+  // TableHeaderRendererComponent = TableHeaderRendererComponent;
   rowData = [];
   rowClass = 'row-style';
   columnDefs = [];
@@ -43,31 +44,31 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     height: '74px'
   }
   domLayout = 'autoHeight';
-  dataset: GridDataSet[] = [{
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  },
-  {
-    disable: false,
-    value: 25,
-    name: '25',
-    id: 1
-  },
-  {
-    disable: false,
-    value: 50,
-    name: '50',
-    id: 2
-  }];
+  // dataset: GridDataSet[] = [{
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // },
+  // {
+  //   disable: false,
+  //   value: 25,
+  //   name: '25',
+  //   id: 1
+  // },
+  // {
+  //   disable: false,
+  //   value: 50,
+  //   name: '50',
+  //   id: 2
+  // }];
 
-  currentlySelectedPageSize: GridDataSet = {
-    disable: false,
-    value: 10,
-    name: '10',
-    id: 0
-  };
+  // currentlySelectedPageSize: GridDataSet = {
+  //   disable: false,
+  //   value: 10,
+  //   name: '10',
+  //   id: 0
+  // };
   exceptionTableData = [];
   exceptionTableFillData = [];
   headerColumnName = [];
@@ -119,8 +120,10 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
                 headerName: key.replace(/_/g, ' '),
                 field: key,
                 sortable: true,
-                wrapText: true,
-                autoHeight: true
+                wrapText: false,
+                autoHeight: false,
+                filter: 'agSetColumnFilter',
+                menuTabs: ['filterMenuTab', 'generalMenuTab'],
               });
             }
             this.columnDefs = this.columnDefsFill;
@@ -134,12 +137,13 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
       const headerColumnNameUnique = new Set(this.headerColumnName);
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
-          headerComponentFramework: MotifTableHeaderRendererComponent,
+          // headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: key.replace(/_/g, ' '),
           field: key,
           sortable: true,
-          wrapText: true,
-          autoHeight: true
+          wrapText: false,
+          autoHeight: false,
+          filter: 'agSetColumnFilter',
         });
       });
       const multiColumnData = [];
@@ -214,42 +218,42 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSortChanged(params) {
-    this.gridApi.refreshCells();
-  }
+  // onSortChanged(params) {
+  //   this.gridApi.refreshCells();
+  // }
 
   // Table methods
-  searchCompleted(input) {
-    this.gridApi.setQuickFilter(input.el.nativeElement.value);
-    this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
-    this.gridApi.refreshCells();
-  }
+  // searchCompleted(input) {
+  //   this.gridApi.setQuickFilter(input.el.nativeElement.value);
+  //   this.searchNoDataAvailable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
+  //   this.gridApi.refreshCells();
+  // }
 
-  onPasteSearchActiveReports(event: ClipboardEvent) {
-    let clipboardData = event.clipboardData;
-    let pastedText = (clipboardData.getData('text')).split("");    
-    pastedText.forEach((ele, index) => {
-      if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
-        if ((pastedText.length - 1) === index) {
-          return true;
-        }
-      } else {
-        event.preventDefault();
-        return false;
-      }
-    });
-    this.gridApi.refreshCells();
-  }
+  // onPasteSearchActiveReports(event: ClipboardEvent) {
+  //   let clipboardData = event.clipboardData;
+  //   let pastedText = (clipboardData.getData('text')).split("");    
+  //   pastedText.forEach((ele, index) => {
+  //     if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(ele)) {
+  //       if ((pastedText.length - 1) === index) {
+  //         return true;
+  //       }
+  //     } else {
+  //       event.preventDefault();
+  //       return false;
+  //     }
+  //   });
+  //   this.gridApi.refreshCells();
+  // }
 
-  searchFilingValidation(event) {
-    var inp = String.fromCharCode(event.keyCode);
-    if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
+  // searchFilingValidation(event) {
+  //   var inp = String.fromCharCode(event.keyCode);
+  //   if (INPUT_VALIDATON_CONFIG.SEARCH_INPUT_VALIDATION.test(inp)) {
+  //     return true;
+  //   } else {
+  //     event.preventDefault();
+  //     return false;
+  //   }
+  // }
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -257,11 +261,15 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.isLoading = false;
   };
 
-  updatePaginationSize(newPageSize: number) {
-    this.noOfCompletdFilingRecords = newPageSize;
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    params.api.sizeColumnsToFit();
   }
 
-  handlePageChange(val: number): void {
-    this.currentPage = val;
-  }
+  // updatePaginationSize(newPageSize: number) {
+  //   this.noOfCompletdFilingRecords = newPageSize;
+  // }
+
+  // handlePageChange(val: number): void {
+  //   this.currentPage = val;
+  // }
 }

@@ -6,12 +6,15 @@ import {
   AgGridEvent,
   CheckboxSelectionCallbackParams,
   ColDef,
+  ColumnResizedEvent,
+  FirstDataRenderedEvent,
   GetContextMenuItemsParams,
   GridApi,
   GridOptions,
   GridReadyEvent,
   ICellRendererParams,
   PaginationNumberFormatterParams,
+  RowClickedEvent,
   SideBarDef,
   StatusPanelDef,
 } from 'ag-grid-community';
@@ -99,6 +102,13 @@ export class AgGridComponent implements OnInit {
   buttonModal = false;
   @Input() isHideCheckBox = true;
   @Input() exportName ;
+  @Input() suppressRowClickSelection = true;
+  @Input() suppressAggFuncInHeader = true;
+  @Input() suppressCellSelection = false;
+  @Output() gridReady = new EventEmitter<any>();
+  @Output() rowClicked = new EventEmitter<any>();
+  @Output() columnResized = new EventEmitter<any>();
+  @Output() firstDataRendered = new EventEmitter<any>();
 
   @Input() modalConfig = {
     width: '400px',
@@ -127,13 +137,14 @@ export class AgGridComponent implements OnInit {
     }
   };
 
-  public defaultColDef: ColDef = {
+  @Input() defaultColDef: ColDef = {
     flex: 1,
     minWidth: 100,
     resizable: true,
     autoHeight: true,
     // cellStyle: {"white-space": "normal",'line-height': '22px'}
   };
+  
   public rowSelection = 'multiple';
   public sideBar: SideBarDef | string | string[] | boolean | null = 'filters';
   public gridOptions:GridOptions;
@@ -166,6 +177,10 @@ export class AgGridComponent implements OnInit {
   }
 }
 
+  onRowClicked(params: RowClickedEvent) {
+    this.rowClicked.emit(params);
+  }
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -180,8 +195,17 @@ export class AgGridComponent implements OnInit {
       pageSize : this.pageSize
 
     })
+    this.gridReady.emit(params);
   }
 
+  onColumnResized(params: ColumnResizedEvent) {
+    this.columnResized.emit(params);
+  }
+  
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    this.firstDataRendered.emit(params);
+  }
+  
   ngOnInit(): void {
     if (this.displayCheckBox) {
       this.selectedRows.length = 1;

@@ -41,32 +41,37 @@
          <div class="exception-heading box-center">
             Exception report details
          </div>
-         <div class="data-exporer">
+         <!-- <div class="data-exporer">
             <motif-form-field class="search">
                <input #activeReports motifInput motifSearch type="text" placeholder="Search..." aria-label="Search..." (keypress)="searchFilingValidation($event)" (keyup)="searchCompleted(activeReports)" (paste)="onPasteSearchActiveReports($event)">
             </motif-form-field>
-         </div>
+         </div> -->
       </div>
    </div>
 
     <div id="grid-wrapper">
         <motif-card>
-            <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData"
-                (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
-                [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
-            </motif-table>
+            <!-- <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData"
+                        (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
+                        [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
+                    </motif-table> -->
+            <lib-ag-grid class="ag-cursor-pointer" [rowData]="exceptionTableData" [button]="false" [columnDefs]="columnDefs"
+                [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="100" [paginationSize]="100"
+                buttonPosition="left" rowSelection="single" (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true"
+                [suppressCellSelection]="true" (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
+            </lib-ag-grid>
         </motif-card>
     </div>
 
-    <motif-card class="no_data" *ngIf="searchNoDataAvailable">
+    <!-- <motif-card class="no_data" *ngIf="searchNoDataAvailable">
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card> -->
 
-    <motif-card class="no_data" *ngIf="noCompletedDataAvailable">
+    <!-- <motif-card class="no_data" *ngIf="noCompletedDataAvailable">
         <motif-card-body>
             <h5>No results found.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card> -->
 </div>
