@@ -86,6 +86,8 @@ export class AgGridComponent implements OnInit {
   @Output() selectedRowEmitterProcess = new EventEmitter<string>();
   @Output() unresolveEventToParent = new EventEmitter<string>();
   @Output() newEventToParent = new EventEmitter<string>();
+  @Output() toggleEventToParent = new EventEmitter<boolean>();
+  @Output() toggleLeftEventToParent = new EventEmitter<boolean>();
   @Input() submitFunction: () => void;
   @Input() submitTwoFunction: () => void;
   @Input() pageChangeFunc: () => void;
@@ -471,12 +473,12 @@ export class AgGridComponent implements OnInit {
     type == "resolve" ? this.newEventToParent.emit() : this.unresolveEventToParent.emit();
   }
 
-  toggleLeftChanged(event){
-
+  toggleChanged(event){
+    this.toggleEventToParent.emit(event);
   }
 
-  toggleChanged(event){
-
+  toggleLeftChanged(event){
+    this.toggleLeftEventToParent.emit(event);
   }
 
   public paginationNumberFormatter: (

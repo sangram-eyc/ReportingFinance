@@ -9,13 +9,14 @@
         </motif-button-group>
     </div>
     <section>
-
-        <lib-shared-grid id='archived-reports-grid' [columnDefs]="columnDefs" [rowData]="rowData"
+        <!-- <lib-shared-grid id='archived-reports-grid' [columnDefs]="columnDefs" [rowData]="rowData"
             [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" buttonPosition="left"
             buttonText="Cycle Insights" [displaySecondButton]="false" [displayCheckBox]="true"
             (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
-        </lib-shared-grid>
-
+        </lib-shared-grid> -->
+        <lib-ag-grid [disabledApproveButton]="false" [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [displayCheckBox]="false" [buttonText]="'Cycle Insights'"
+        [export]="true" buttonPosition="right" [exportName]="exportName" [adminTab]="true"
+        [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"></lib-ag-grid>
         <div *ngIf="searchNoDataAvilable">
             <motif-card class="no_data">
                 <motif-card-body>
