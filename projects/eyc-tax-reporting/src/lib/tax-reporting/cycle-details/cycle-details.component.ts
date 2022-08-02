@@ -107,6 +107,8 @@ export class CycleDetailComponent implements OnInit {
   rowData;
   rowClass = 'row-style';
   columnDefs;
+  columnDefsAgGrid;
+  exportName;
   rowStyle = {
     height: '74px'
   }
@@ -368,19 +370,15 @@ export class CycleDetailComponent implements OnInit {
     });
     this.isToggleLeftDisabled()
 
-
-    this.columnDefs = [
+    this.columnDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.datasetsDropdownTemplate,
-        },
-        headerName: '',
-        field: 'template',
-        width: 70,
+        valueGetter: 'node.rowIndex + 1',
         sortable: false,
-        pinned: 'left'
+        menuTabs: [],
+        pinned: 'left',
+        maxWidth: 70,
+        headerCheckboxSelection: true,
+        checkboxSelection: true,
       },
       {
         headerComponentFramework: TableHeaderRendererComponent,
@@ -494,6 +492,7 @@ export class CycleDetailComponent implements OnInit {
         sort: 'asc'
       }
     ];
+    this.exportName = this.productCycleName + '_cycle_details_';
   }
 
   filterByOpenC(fund) {

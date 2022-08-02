@@ -1,38 +1,50 @@
-import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { TableHeaderRendererComponent, PanelRightCommentDetailsComponent } from 'eyc-ui-shared-component';
+import {
+  TableHeaderRendererComponent,
+  PanelRightCommentDetailsComponent,
+} from 'eyc-ui-shared-component';
 import { Subscription } from 'rxjs';
 import { TaxCommentService } from '../services/tax-comment.service';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
 
-
 @Component({
   selector: 'comments-details',
   templateUrl: './comments-details.component.html',
-  styleUrls: ['./comments-details.component.scss']
+  styleUrls: ['./comments-details.component.scss'],
 })
-export class CommentsDetailsComponent implements OnInit,OnDestroy {
-
+export class CommentsDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private commentService: TaxCommentService,
-    public dialog: NgDialogAnimationService) { }
+    public dialog: NgDialogAnimationService
+  ) {}
   productCycleId;
   productCycleName;
-  productCycleSubTitle: String = 'Following details belong to all comments received from clients and EY users for '
+  productCycleSubTitle: String =
+    'Following details belong to all comments received from clients and EY users for ';
   completedComments: any[] = [];
-  commentDetails:any;
-  isArchived:boolean = false;
+  commentDetails: any;
+  isArchived: boolean = false;
   rowData;
   columnDefs;
+  columnDefsAgGrid;
+  exportName;
   exceptionDetailCellRendererParams;
   currentlySelectedPageSize = {
     disable: false,
     value: 10,
     name: '10',
-    id: 0
+    id: 0,
   };
   @ViewChild('statusComment')
   statusComment: TemplateRef<any>;
@@ -52,7 +64,7 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
 
   //Total-comments-box
   textCountNumber: number = 0;
-  textCountComments: string = "Total comments"
+  textCountComments: string = 'Total comments';
 
   //Donut Setup--
   totalFilesNumberFontSize: number = 10;
@@ -60,119 +72,147 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   totalExpected = '';
 
   //Donut Setup for CLOSED Comments
-  donut_id_closedC: string = "closedCDonnut"
-  donutByClosedText: string = 'CLOSED'
-  donutByClosedColors: string[] = ["#57E188", "#FF736A"]
+  donut_id_closedC: string = 'closedCDonnut';
+  donutByClosedText: string = 'CLOSED';
+  donutByClosedColors: string[] = ['#57E188', '#FF736A'];
   totalClosedCommentsDetails = [];
   totalClosedComments: number = 0;
 
   //Donut Setup for OPEN Comments
-  donut_id_openedC: string = "openedCDonnut"
-  donutByOpenedText: string = 'OPEN'
-  donutByOpenedColors: string[] = ["#FF6D00", "#FFB46A"]
+  donut_id_openedC: string = 'openedCDonnut';
+  donutByOpenedText: string = 'OPEN';
+  donutByOpenedColors: string[] = ['#FF6D00', '#FFB46A'];
   totalOpenedCommentsDetails = [];
   totalOpenedComments: number = 0;
 
   //Toggle button for View My Assigned Funds--
-  toggleLeftTitle: string = "View my assigned funds";
+  toggleLeftTitle: string = 'View my assigned funds';
   disabledLeftToggle: boolean = true;
   showOnlyMyAssignedFunds: boolean = false;
-  getCommentsDetails:Subscription;
-  lightVariant: string = "monochrome-light";
+  getCommentsDetails: Subscription;
+  lightVariant: string = 'monochrome-light';
   tagCritical: string = 'Critical';
   gridApi;
   searchNoDataAvilable = false;
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.productCycleId = params.cycleId
-      this.productCycleName = params.cycleName
-      this.isArchived = params.isArchived === "true"
+    this.activatedRoute.params.subscribe((params) => {
+      this.productCycleId = params.cycleId;
+      this.productCycleName = params.cycleName;
+      this.isArchived = params.isArchived === 'true';
     });
 
     this.getCommentsList();
   }
 
   backtoCycleView() {
-    this.router.navigate(['cycle-details', this.productCycleId, this.productCycleName]);
+    this.router.navigate([
+      'cycle-details',
+      this.productCycleId,
+      this.productCycleName,
+    ]);
   }
 
   getCommentsList() {
     this.completedComments = [];
-    this.commentService.cycleCommentsDetails(this.productCycleId).subscribe(resp => {
-      resp['data'].forEach((item: any) => {
-        if (item.fundDTO.totalComments > 0) {
-          item.tasks.forEach(itemTask => {
-            const eachitem: any = {
-              id: itemTask.id,
-              entityId: item.fundDTO.id,
-              entityName: item.fundDTO.name,
-              description: itemTask.description,
-              completedComment: itemTask.description,
-              status: itemTask.status.toLowerCase(),
-              priority: itemTask.priority,
-              target: itemTask.target.toUpperCase(),
-              company: itemTask.company,
-              author: itemTask.author != null ? (itemTask.author.userFirstName + " " + itemTask.author.userLastName) : itemTask.createdBy, //toDo if null
-              createdBy: itemTask.createdBy,
-              createdDate: itemTask.createdDate,
-              tags: itemTask.tags,
-              replyCount: itemTask.replyCount,
-              assignedTo: item.fundDTO.assignedUsers == null ? [] : item.fundDTO.assignedUsers
-            };
-            this.completedComments.push(eachitem);
-          });
-        }
+    this.commentService
+      .cycleCommentsDetails(this.productCycleId)
+      .subscribe((resp) => {
+        resp['data'].forEach((item: any) => {
+          if (item.fundDTO.totalComments > 0) {
+            item.tasks.forEach((itemTask) => {
+              const eachitem: any = {
+                id: itemTask.id,
+                entityId: item.fundDTO.id,
+                entityName: item.fundDTO.name,
+                description: itemTask.description,
+                completedComment: itemTask.description,
+                status: itemTask.status.toLowerCase(),
+                priority: itemTask.priority,
+                target: itemTask.target.toUpperCase(),
+                company: itemTask.company,
+                author:
+                  itemTask.author != null
+                    ? itemTask.author.userFirstName +
+                      ' ' +
+                      itemTask.author.userLastName
+                    : itemTask.createdBy, //toDo if null
+                createdBy: itemTask.createdBy,
+                createdDate: itemTask.createdDate,
+                tags: itemTask.tags,
+                replyCount: itemTask.replyCount,
+                assignedTo:
+                  item.fundDTO.assignedUsers == null
+                    ? []
+                    : item.fundDTO.assignedUsers,
+              };
+              this.completedComments.push(eachitem);
+            });
+          }
+        });
+        this.createCommentsRowData(this.completedComments);
       });
-      this.createCommentsRowData(this.completedComments);
-    });
-    
+
     //Fill in the data on the graph
-    this.getCommentsDetails = this.commentService.getCommentsDetailsPerProductCycle(this.productCycleId).subscribe(res => {
-      this.totalOpenedComments = res.data.totalOpen;
-      this.totalClosedComments = res.data.totalClosed;
-      this.textCountNumber = Number(this.totalClosedComments) + Number(this.totalOpenedComments)
+    this.getCommentsDetails = this.commentService
+      .getCommentsDetailsPerProductCycle(this.productCycleId)
+      .subscribe((res) => {
+        this.totalOpenedComments = res.data.totalOpen;
+        this.totalClosedComments = res.data.totalClosed;
+        this.textCountNumber =
+          Number(this.totalClosedComments) + Number(this.totalOpenedComments);
 
-      let openByEY = res.data.open.find(status => status.target === 'EY')
-      let openByClient = res.data.open.find(status => status.target === 'CLIENT')
-      let AcceptedByEY = res.data.closed.find(status => status.target === 'EY' && status.status === "ACCEPTED")
-      let DeclinedByEY = res.data.closed.find(status => status.target === 'EY' && status.status === "DECLINED")
-      let AcceptedByClient = res.data.closed.find(status => status.target === 'CLIENT' && status.status === "ACCEPTED")
-      let DeclinedByClient = res.data.closed.find(status => status.target === 'CLIENT' && status.status === "DECLINED")
-      this.textCountNumber = Number(this.totalClosedComments) + Number(this.totalOpenedComments)
+        let openByEY = res.data.open.find((status) => status.target === 'EY');
+        let openByClient = res.data.open.find(
+          (status) => status.target === 'CLIENT'
+        );
+        let AcceptedByEY = res.data.closed.find(
+          (status) => status.target === 'EY' && status.status === 'ACCEPTED'
+        );
+        let DeclinedByEY = res.data.closed.find(
+          (status) => status.target === 'EY' && status.status === 'DECLINED'
+        );
+        let AcceptedByClient = res.data.closed.find(
+          (status) => status.target === 'CLIENT' && status.status === 'ACCEPTED'
+        );
+        let DeclinedByClient = res.data.closed.find(
+          (status) => status.target === 'CLIENT' && status.status === 'DECLINED'
+        );
+        this.textCountNumber =
+          Number(this.totalClosedComments) + Number(this.totalOpenedComments);
 
-      this.totalOpenedCommentsDetails =
-
-        [
+        this.totalOpenedCommentsDetails = [
           {
-            "label": "Open client comments",
-            "value": (openByClient != undefined) ? openByClient.value : 0,
+            label: 'Open client comments',
+            value: openByClient != undefined ? openByClient.value : 0,
           },
           {
-            "label": "Open EY comments",
-            "value": (openByEY != undefined) ? openByEY.value : 0,
-          }
-        ]
+            label: 'Open EY comments',
+            value: openByEY != undefined ? openByEY.value : 0,
+          },
+        ];
 
-      this.totalClosedCommentsDetails =
-        [
+        this.totalClosedCommentsDetails = [
           {
-            "label": "Accepted",
-            "value": ((AcceptedByEY != undefined) ? AcceptedByEY.value : 0 )  +  ( (AcceptedByClient != undefined) ? AcceptedByClient.value : 0)
+            label: 'Accepted',
+            value:
+              (AcceptedByEY != undefined ? AcceptedByEY.value : 0) +
+              (AcceptedByClient != undefined ? AcceptedByClient.value : 0),
           },
           {
-            "label": "Declined",
-            "value": ((DeclinedByEY != undefined) ? DeclinedByEY.value : 0 )  +  ( (DeclinedByClient != undefined) ? DeclinedByClient.value : 0)
-          }
-        ]
-    });
+            label: 'Declined',
+            value:
+              (DeclinedByEY != undefined ? DeclinedByEY.value : 0) +
+              (DeclinedByClient != undefined ? DeclinedByClient.value : 0),
+          },
+        ];
+      });
   }
 
-
   createCommentsRowData(rowData: any) {
-    let rowDatafunds = rowData
+    let rowDatafunds = rowData;
     this.rowData = [];
-    rowDatafunds.forEach(item => {
+    rowDatafunds.forEach((item) => {
       this.rowData.push({
         id: item.id,
         entityId: item.entityId,
@@ -190,14 +230,25 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         tags: item.tags,
         replyCount: item.replyCount,
         assignedTo: item.assignedUsers == null ? [] : item.assignedUsers,
-        tagsToSearch: item.priority == 1 ? this.splitTags(item.tags, true): this.splitTags(item.tags, false)
-      })
+        tagsToSearch:
+          item.priority == 1
+            ? this.splitTags(item.tags, true)
+            : this.splitTags(item.tags, false),
+      });
     });
-    this.isToggleLeftDisabled()
+    this.isToggleLeftDisabled();
 
-    this.columnDefs = [
+    this.columnDefsAgGrid = [
       {
-        headerComponentFramework: TableHeaderRendererComponent,
+        valueGetter: 'node.rowIndex + 1',
+        sortable: false,
+        menuTabs: [],
+        pinned: 'left',
+        maxWidth: 40,
+        headerCheckboxSelection: true,
+        checkboxSelection: true,
+      },
+      {
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.submitedTemplate,
@@ -207,11 +258,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 250,
-        sort: 'asc'
+        minWidth: 250,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.fundTemplate,
@@ -221,11 +271,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 300,
-        sort: 'asc'
+        minWidth: 300,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.completedCommentTemplate,
@@ -235,11 +284,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 250,
-        sort: 'asc'
+        minWidth: 250,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.dateTemplate,
@@ -249,11 +297,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 150,
-        sort: 'asc'
+        minWidth: 150,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.statusComment,
@@ -263,11 +310,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 150,
-        sort: 'asc'
+        minWidth: 150,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.replyTemplate,
@@ -277,11 +323,10 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 150,
-        sort: 'asc'
+        minWidth: 150,
+        sort: 'asc',
       },
       {
-        headerComponentFramework: TableHeaderRendererComponent,
         cellRendererFramework: MotifTableCellRendererComponent,
         cellRendererParams: {
           ngTemplate: this.tagsTemplate,
@@ -291,31 +336,34 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
         sortable: true,
         filter: true,
         resizeable: true,
-        width: 300,
-        sort: 'asc'
-      }
+        minWidth: 300,
+        sort: 'asc',
+      },
     ];
+    this.exportName = '_comments_details_';
   }
 
   getTooltip() {
-    const arrayTooltips = document.querySelectorAll(".motif-tooltip");
+    const arrayTooltips = document.querySelectorAll('.motif-tooltip');
     arrayTooltips.forEach((userItem) => {
-      document.querySelector('.motif-pagination-select-wrapper').appendChild(userItem);
+      document
+        .querySelector('.motif-pagination-select-wrapper')
+        .appendChild(userItem);
       window.scrollTo(0, window.scrollY + 1);
       setTimeout(() => {
         window.scrollTo(0, window.scrollY - 1);
-      }, 10);  
-    });   
+      }, 10);
+    });
   }
 
   showMyAssignedFunds() {
     if (this.completedComments.length > 0) {
-      this.showOnlyMyAssignedFunds = !this.showOnlyMyAssignedFunds
+      this.showOnlyMyAssignedFunds = !this.showOnlyMyAssignedFunds;
       if (this.showOnlyMyAssignedFunds) {
-        let filterKey = sessionStorage.getItem('userEmail').toLowerCase()
-        this.gridFilter(filterKey)
+        let filterKey = sessionStorage.getItem('userEmail').toLowerCase();
+        this.gridFilter(filterKey);
       } else {
-        this.gridFilter('')
+        this.gridFilter('');
       }
     }
   }
@@ -323,25 +371,24 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   //Apply a filter to the grid
   gridFilter(filterKey: any) {
     if (filterKey.length > 0) {
-      let arrfilterFunds = this.completedComments.filter(fund => {
+      let arrfilterFunds = this.completedComments.filter((fund) => {
         let filterByFund = fund.assignedTo.find((assignedByFund) => {
-          return assignedByFund.userEmail.toLowerCase() == filterKey
-        })
-        let res = (filterByFund == undefined) ? false : true;
+          return assignedByFund.userEmail.toLowerCase() == filterKey;
+        });
+        let res = filterByFund == undefined ? false : true;
         return res;
-      })
-      this.createCommentsRowData(arrfilterFunds)
+      });
+      this.createCommentsRowData(arrfilterFunds);
     } else {
-      this.createCommentsRowData(this.completedComments)
+      this.createCommentsRowData(this.completedComments);
     }
   }
 
   isToggleLeftDisabled() {
-
     if (this.completedComments.length > 0) {
       //if have at less one assigned the button is enabled so return false.
       for (let fund of this.completedComments) {
-        if (fund.assignedTo.length > 0) this.disabledLeftToggle = false
+        if (fund.assignedTo.length > 0) this.disabledLeftToggle = false;
       }
     }
   }
@@ -349,13 +396,14 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.getCommentsDetails.unsubscribe();
   }
-  
 
   openDialog(_idTaskComment): void {
     this.completedComments = [];
-    this.commentService.getCommentExpandDetails(_idTaskComment).subscribe(resp => {
-      const item = resp['data'].taskResponse;
-      const _replies = resp['data'].repliesDetail;
+    this.commentService
+      .getCommentExpandDetails(_idTaskComment)
+      .subscribe((resp) => {
+        const item = resp['data'].taskResponse;
+        const _replies = resp['data'].repliesDetail;
         const comment: any = {
           id: item.id,
           entityId: item.entityId,
@@ -369,51 +417,65 @@ export class CommentsDetailsComponent implements OnInit,OnDestroy {
           createdDate: item.createdDate,
           tags: item.tags,
           replyCount: item.replyCount,
-          attachments:item.attachments,
-          priorityToFind: item.priority == 1 ? "critical":"",
-          tagEditTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 1) != undefined ? item.tags.find(tag => tag.id == 1).name.toLowerCase(): "" ) : "",
-          tagIncludeTofind: item.tags.length > 0 ? (item.tags.find(tag => tag.id == 2) != undefined ? item.tags.find(tag => tag.id == 2).name.toLowerCase(): "" ) : "",
-          authorTofind: item.author != null ? item.author.userFirstName + " " + item.author.userLastName : item.createdBy,
-          replies : _replies
+          attachments: item.attachments,
+          priorityToFind: item.priority == 1 ? 'critical' : '',
+          tagEditTofind:
+            item.tags.length > 0
+              ? item.tags.find((tag) => tag.id == 1) != undefined
+                ? item.tags.find((tag) => tag.id == 1).name.toLowerCase()
+                : ''
+              : '',
+          tagIncludeTofind:
+            item.tags.length > 0
+              ? item.tags.find((tag) => tag.id == 2) != undefined
+                ? item.tags.find((tag) => tag.id == 2).name.toLowerCase()
+                : ''
+              : '',
+          authorTofind:
+            item.author != null
+              ? item.author.userFirstName + ' ' + item.author.userLastName
+              : item.createdBy,
+          replies: _replies,
         };
-        this.commentDetails = comment;      
+        this.commentDetails = comment;
         const dialogRef = this.dialog.open(PanelRightCommentDetailsComponent, {
           width: '50%',
           height: '100%',
-          data: { idTaskComment: _idTaskComment,
-                   dataComent: this.commentDetails,
-                  isArchived: this.isArchived},
-          position: { rowStart : '0' },
-          animation: { to: 'left' }
+          data: {
+            idTaskComment: _idTaskComment,
+            dataComent: this.commentDetails,
+            isArchived: this.isArchived,
+          },
+          position: { rowStart: '0' },
+          animation: { to: 'left' },
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result) => {
           this.getCommentsList();
         });
-
-    })
+      });
   }
 
-  splitTags(arrayTags: any, flagCritical:boolean) {
+  splitTags(arrayTags: any, flagCritical: boolean) {
     var result: string[] = [];
     if (arrayTags) {
-      arrayTags.forEach(tag => {
+      arrayTags.forEach((tag) => {
         result.push(tag.name);
       });
     }
-    if(flagCritical){
+    if (flagCritical) {
       result.push(this.tagCritical);
     }
-    return result.join(",");
+    return result.join(',');
   }
 
   handleGridReady(params) {
     this.gridApi = params.api;
   }
 
-  searchGrid(input){
+  searchGrid(input) {
     this.gridApi.setQuickFilter(input);
-    this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
+    this.searchNoDataAvilable =
+      this.gridApi.rowModel.rowsToDisplay.length === 0;
   }
-
 }

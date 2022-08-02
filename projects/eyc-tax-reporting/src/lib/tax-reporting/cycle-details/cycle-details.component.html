@@ -82,7 +82,7 @@
     </div>
   </div>
 
-    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
+ <!--    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
     [paginationSize]="currentlySelectedPageSize.value" [pagination]="true"
     [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
     [detailCellRendererParams]="exceptionDetailCellRendererParams"
@@ -91,8 +91,13 @@
     (toggleLeftEventToParent)="showMyAssignedFunds()" [toggleLeftTitle]="toggleLeftTitle"
     [toggleLeftDisabled]="disabledLeftToggle" [displaySecondButton]="true" [secondbuttonText]="downloadBtn"
     (selectedRowEmitterProcess)="checkDataProcess($event)" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)" >
-  </lib-shared-grid>
-
+  </lib-shared-grid> -->
+  <lib-ag-grid id='comments-grid' [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
+  [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
+  [detailCellRendererParams]="exceptionDetailCellRendererParams" (selectedRowEmitter)="datasetsReportRowsSelected($event)"
+  [permissionToPrimaryButton]="!isArchived" [permissionToSecondaryButton]="true" [isToggleLeft]="true"
+  buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" (selectedRowEmitterProcess)="checkDataProcess($event)"
+  [search]="true" paginationSize="10" [displaySecondButton]="true" [secondbuttonText]="downloadBtn"></lib-ag-grid>
   <div *ngIf="searchNoDataAvilable">
     <motif-card class="no_data">
       <motif-card-body>
