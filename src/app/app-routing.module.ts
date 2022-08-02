@@ -47,6 +47,13 @@ import { UserDetailsComponent } from 'projects/eyc-admin/src/lib/user-details/co
 import { UpdateFilingPropertiesComponent } from 'projects/eyc-admin/src/lib/static-data/update-filing-properties/components/update-filing-properties.component';
 import { EuropeanFundReportingComponent } from '../../projects/eyc-european-fund-reporting/src/lib/european-fund-reporting/components/european-fund-reporting.component'
 
+import { IntakeFileReviewComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-file-review/intake-file-review.component';
+import { IntakeExceptionsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions/intake-exceptions.component';
+import { IntakeExceptionsReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
+
+
+
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
@@ -84,6 +91,9 @@ const routes: Routes = [
     component: ViewFilingEntityExceptionComponent,
     canActivate: [AuthGuardService]
   },
+  {path: 'data-intake/files-review', component: IntakeFileReviewComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intakes/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: IntakeExceptionsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intakes/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
   {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'archived-notifications', component: ArchivedNotificationsComponent},
   {path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate: [AuthGuardService]},

@@ -19,11 +19,11 @@ export const DATA_INTAKE_TYPE = {
 }
 
 export const ROUTE_URL_CONST = {
-    DMS_LANDING_URL:'/data-managed-services',
+    LANDING_URL:'/data-intake',
     DATA_INTAKE_TYPE_URL: '/data-managed-services/data-intake',
-    FILE_REVIEW_URL: '/data-managed-services/files-review',
-    FILE_EXCEPTION:'/data-managed-services/files/exceptions',
-    FILE_EXCEPTION_DETAILS:'/data-managed-services/files/exception-details'
+    FILE_REVIEW_URL: '/data-intake/files-review',
+    FILE_EXCEPTION:'/data-intakes/files/exceptions',
+    FILE_EXCEPTION_DETAILS:'/data-intakes/files/exception-details'
 }
 
 export const DATA_INTAKE_TYPE_DISPLAY_TEXT = {

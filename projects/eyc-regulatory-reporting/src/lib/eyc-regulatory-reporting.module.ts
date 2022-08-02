@@ -31,6 +31,11 @@ import { DateSubmittedPipePipe } from './pipes/submission/date-submitted-pipe.pi
 import { ViewFilingEntityExceptionComponent } from './shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
 import { EntityExceptionDetailsComponent } from './shared/entity-exception-details/components/entity-exception-details.component';
 import { IntakeLandingComponent } from './data-intake/intake-landing/components/intake-landing.component';
+import { IntakeFileReviewComponent } from './data-intake/intake-file-review/intake-file-review.component';
+import { IntakeExceptionsComponent } from './data-intake/intake-exceptions/intake-exceptions.component';
+import { IntakeExceptionsReportsComponent } from './data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
+
+
 
  
 
@@ -85,6 +90,9 @@ import { IntakeLandingComponent } from './data-intake/intake-landing/components/
     ViewFilingEntityExceptionComponent,
     EntityExceptionDetailsComponent,
     IntakeLandingComponent,
+    IntakeFileReviewComponent,
+    IntakeExceptionsComponent,
+    IntakeExceptionsReportsComponent
     
   ],
   /* providers: [EycRrApiService, EycPbiService], */

@@ -18,7 +18,7 @@
                totalExpected="EXPECTED">
             </lib-donut-chart>
          
-            <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.FILE_REVIEW_URL]" motifTextLink color="primary-alt" class="review-all">
+            <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.LANDING_URL] : [routeUrlConst.FILE_REVIEW_URL]" motifTextLink color="primary-alt" class="review-all">
                <i class="material-icons icon-size">search</i>
                <span>Review All</span>
             </a>
@@ -33,7 +33,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupProviders}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_PROVIDER]"  motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_PROVIDER]"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -49,7 +49,7 @@
                   <tr>
                      <td class="review-number">{{reviewByGroupDomains}}</td>
                      <td rowspan="2" class="review-by-group-search text-align-right ">
-                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.DMS_LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_DOMAIN]"  motifTextLink color="primary-alt" class="review-all">
+                        <a [isDisabled]="reviewAllDisabled" [routerLink]="reviewAllDisabled ? [routeUrlConst.LANDING_URL] : [routeUrlConst.DATA_INTAKE_TYPE_URL,dataIntakeType.DATA_DOMAIN]"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>

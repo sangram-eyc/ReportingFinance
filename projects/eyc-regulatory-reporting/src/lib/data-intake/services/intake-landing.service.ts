@@ -211,7 +211,7 @@ export class IntakeLandingService {
   } 
 
   getReviewAllList(params: DataSummary) {
-    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.file_summary_review_all}`, this.httpQueryParams(params));
+    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_summary_review_all}`);
   } 
   getEmbedURL() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.PBI_EMBED_URL}`);
@@ -255,11 +255,11 @@ export class IntakeLandingService {
   }
   
   getReviewFileTableData(params: DataGrid) {
-    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.file_review_table_data}`,this.httpQueryParamsGrid(params));
+    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_review_table_data}`);
   }
 
   getExceptionTableData(params:ExceptionDataGrid) {
-    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.exception_table_data}`,this.httpQueryParamsExceptionGrid(params));
+    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.exception_table_data}`);
   }
   getExceptionDetailsTableData(params:ExceptionDetailsDataGrid, bodyParam: any) {
     const tableName = `?tableName=${params.tableName}`;
