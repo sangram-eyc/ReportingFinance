@@ -267,7 +267,7 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
       } 
     ];
     this.exportName = "Tax_Reporting_Production_Cycles"
-  },200);
+  },100);
   }
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
