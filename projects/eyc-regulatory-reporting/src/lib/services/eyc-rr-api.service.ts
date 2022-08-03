@@ -71,4 +71,10 @@ export class EycRrApiService {
     const headers = this.setHeaders1();
     return this.httpClient.put(url, params, { headers });
   }
+
+  /*--------------GENERIC API FOR POST BODY METHOD-------------*/
+  invokePostBodyAPI(url: string, bodyParam?: any) {
+    const headers = this.setHeaders1();
+    return this.httpClient.post(url, bodyParam, { headers });
+  }
 }

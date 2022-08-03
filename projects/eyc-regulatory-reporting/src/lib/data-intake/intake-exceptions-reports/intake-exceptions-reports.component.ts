@@ -107,7 +107,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.auditRuleType === "row") {
       const auditHashIds = { "auditHashId": this.auditHashID };
-      /* this.dataManagedService
+      this.dataManagedService
         .getExceptionDetailsTableData(this.httpDataGridParams, auditHashIds)
         .pipe(this.unsubscriber.takeUntilDestroy).subscribe((resp: any) => {
           const respData = resp.data;
@@ -128,7 +128,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
             this.exceptionTableData = respData;
             this.cdr.detectChanges();
           }
-        }); */
+        });
     }
     if (this.auditRuleType === "fileOrTable" && this.headerColumnName && this.headerColumnName.length > 0) {
       const headerColumnNameUnique = new Set(this.headerColumnName);

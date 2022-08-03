@@ -261,12 +261,18 @@ export class IntakeLandingService {
   getExceptionTableData(params:ExceptionDataGrid) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.exception_table_data}`);
   }
+
   getExceptionDetailsTableData(params:ExceptionDetailsDataGrid, bodyParam: any) {
+    const tableName = `?tableName=${params.tableName}`;
+    const auditDate = `&auditDate=${params.auditDate}`;
+    return this.apiService.invokePostBodyAPI(`${this.settingsService.regIntakeSumarry.exception_details_table_data}${tableName}${auditDate}`, bodyParam);
+  }
+  /* getExceptionDetailsTableData(params:ExceptionDetailsDataGrid, bodyParam: any) {
     const tableName = `?tableName=${params.tableName}`;
     const auditDate = `&auditDate=${params.auditDate}`;
     return [];
     // return this.apiService.invokePostBodyAPI(`${this.settingsService.regIntakeSumarry.exception_details_table_data}${tableName}${auditDate}`, bodyParam);
-  }
+  } */
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
     return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
   }
