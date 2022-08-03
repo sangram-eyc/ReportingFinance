@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from
 import { IntakeLandingService } from './../services/intake-landing.service';
 import { formatDate } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CellRendererTemplateComponent, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from './../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from './../models/data-grid.model';
@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { colorSets, Color } from 'eyc-charts-shared-library';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 
 @Component({
@@ -106,9 +107,11 @@ export class IntakeExceptionsComponent implements OnInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
-
+  filingName: string;
+  period: string;
   constructor(
     private unsubscriber: AutoUnsubscriberService,
+    private filingService: RegulatoryReportingFilingService,
     private dataManagedService: IntakeLandingService,
     private renderer: Renderer2, private customglobalService: CustomGlobalService,
     public dialog: MatDialog,
@@ -129,6 +132,8 @@ export class IntakeExceptionsComponent implements OnInit {
   ngOnInit(): void {
     this.curDate = formatDate(this.lastMonthDate, 'MMMM  yyyy', 'en');
     const selectedDate = sessionStorage.getItem("selectedDate");
+    this.filingName = this.filingService.getFilingData.filingName;
+    this.period = this.filingService.getFilingData.period;
     if (selectedDate) {
       this.presentDate = new Date(new Date(selectedDate).toLocaleDateString());
     } else {
@@ -254,46 +259,67 @@ export class IntakeExceptionsComponent implements OnInit {
       this.glRowdata = resp['data'];
       this.columnGl = [
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          headerName: 'Exception Report Type',
-          field: 'type',
-          sortable: true,
-          filter: false,
-          minWidth: 150,
-          wrapText: false,
-          autoHeight: true
+          valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
+          maxWidth: 70,
+          sortable: false,
+          menuTabs: [],
+          filter:false,
+          pinned: 'left',
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+         
+          headerName: 'Exception Report Type',
+          field: 'type',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 150
+        },
+        {
+         
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Exception Report Name',
           field: 'name',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 400,
-          wrapText: true,
-          autoHeight: true,
           cellRendererParams: {
             ngTemplate: this.reportNameTemplate
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+         
           headerName: 'Exception Report Field',
           field: 'exceptionReportField',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: false,
-          minWidth: 100,
-          wrapText: true,
-          autoHeight: true
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 220
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+         
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Exceptions Priority Level',
           field: 'priority',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 200,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
@@ -318,26 +344,32 @@ export class IntakeExceptionsComponent implements OnInit {
           }
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
+         
+          cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.commentTemplate,
           },
           headerName: 'Comments',
           field: 'comments',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           width: 155
         },
         {
-          headerComponentFramework: TableHeaderRendererComponent,
+         
           headerName: 'Exceptions',
           field: 'exceptionCount',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: false,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 200,
-          wrapText: false,
-          autoHeight: true,
           valueGetter: function (params) {
             if (params.data.exceptionCount) {
               return params.data.exceptionCount
@@ -347,7 +379,7 @@ export class IntakeExceptionsComponent implements OnInit {
           }
         },
         // {
-        //   headerComponentFramework: TableHeaderRendererComponent,
+        //  
         //   cellRendererFramework: MotifTableCellRendererComponent,
         //   headerName: '',
         //   field: 'next',
