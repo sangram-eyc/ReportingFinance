@@ -227,6 +227,7 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
         field: 'name',
         maxWidth: 250,
         sort: 'asc',
+        filter: true,
         sortable: true,
         menuTabs: ['filterMenuTab', 'generalMenuTab']
       },
