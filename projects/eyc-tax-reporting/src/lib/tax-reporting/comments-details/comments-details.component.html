@@ -43,10 +43,12 @@
       </div>
     </div> 
   </div>
+  
       <lib-ag-grid id='comments-grid' [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
       [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" 
       buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()"
-      [search]="true" paginationSize="10" [permissionToSecondaryButton]="false" [permissionToPrimaryButton]="false" [displaySecondButton]="true"></lib-ag-grid>
+      [search]="true" [permissionToSecondaryButton]="false" [permissionToPrimaryButton]="false" [displaySecondButton]="true"
+      ></lib-ag-grid>
       <div *ngIf="searchNoDataAvilable">
         <motif-card class="no_data">
           <motif-card-body>
