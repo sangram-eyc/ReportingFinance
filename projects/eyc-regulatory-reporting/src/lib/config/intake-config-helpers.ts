@@ -20,10 +20,11 @@ export const DATA_INTAKE_TYPE = {
 
 export const ROUTE_URL_CONST = {
     LANDING_URL:'/data-intake',
-    DATA_INTAKE_TYPE_URL: '/data-managed-services/data-intake',
+    DATA_INTAKE_TYPE_URL: '/data-intake/data-intake',
     FILE_REVIEW_URL: '/data-intake/files-review',
     FILE_EXCEPTION:'/data-intake/files/exceptions',
-    FILE_EXCEPTION_DETAILS:'/data-intake/files/exception-details'
+    FILE_EXCEPTION_DETAILS:'/data-intake/files/exception-details',
+    REG_REPORTING_LANDING: '/app-regulatory-filing'
 }
 
 export const DATA_INTAKE_TYPE_DISPLAY_TEXT = {
