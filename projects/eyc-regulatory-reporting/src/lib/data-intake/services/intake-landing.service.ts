@@ -274,7 +274,9 @@ export class IntakeLandingService {
     // return this.apiService.invokePostBodyAPI(`${this.settingsService.regIntakeSumarry.exception_details_table_data}${tableName}${auditDate}`, bodyParam);
   } */
   getReviewByGroupProviderOrDomainGrid(params:GroupByDataProviderCardGrid){
-    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
+    // return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.review_by_group_provider_domain}`,this.httpQueryParamsProviderCardGrid(params));
+    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.review_by_group_provider_domain}`);
+    
   }
   getApiBaseUrl(){
     return this.settingsService.regIntakeSumarry.base_Url;

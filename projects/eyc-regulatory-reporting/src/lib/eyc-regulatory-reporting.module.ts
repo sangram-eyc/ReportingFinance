@@ -34,6 +34,7 @@ import { IntakeLandingComponent } from './data-intake/intake-landing/components/
 import { IntakeFileReviewComponent } from './data-intake/intake-file-review/intake-file-review.component';
 import { IntakeExceptionsComponent } from './data-intake/intake-exceptions/intake-exceptions.component';
 import { IntakeExceptionsReportsComponent } from './data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
+import { IntakeDonutGridListComponent } from './data-intake/intake-donut-grid-list/intake-donut-grid-list.component';
 
 
 
@@ -92,7 +93,8 @@ import { IntakeExceptionsReportsComponent } from './data-intake/intake-exception
     IntakeLandingComponent,
     IntakeFileReviewComponent,
     IntakeExceptionsComponent,
-    IntakeExceptionsReportsComponent
+    IntakeExceptionsReportsComponent,
+    IntakeDonutGridListComponent
     
   ],
   /* providers: [EycRrApiService, EycPbiService], */
