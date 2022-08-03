@@ -333,6 +333,10 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
     }
   }
 
+  routeToExceptionDetailsPage(event: any) {
+    this._router.navigate([ROUTE_URL_CONST.FILE_EXCEPTION, event.name, event.auditFileGuidName, event.fileNameAlias]);
+  }
+
   searchCompleted(input) {
     this.gridApi.setQuickFilter(input.el.nativeElement.value);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0)
@@ -376,7 +380,6 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   }
 
   getReviewFileTableData() {
-    debugger;
     console.log("File Review Grid API Call Started", new Date().toISOString());
     this.IntakeLandingService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
@@ -385,26 +388,45 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
       console.log("File Review Grid API Call End", new Date().toISOString());
       this.columnGl = [
         {
+          valueGetter: "node.rowIndex + 1",
+          getQuickFilterText: function(params) {
+            return '';
+          },
+          maxWidth: 70,
+          sortable: false,
+          menuTabs: [],
+          filter:false,
+          pinned: 'left',
+        },
+        {
           
-         // cellRendererFramework: CellRendererTemplateComponent,
+          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'File',
           field: 'name',
-          sortable: true,
-          filter: true,
           minWidth: 220,
           wrapText: false,
           autoHeight: true,
-          // cellRendererParams: {
-          //   ngTemplate: this.threeDotTooltip
-          // },
-          comparator: sortCaseInsentitve
+          cellRendererParams: {
+            ngTemplate: this.threeDotTooltip
+          },
+          comparator: sortCaseInsentitve,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
           
           headerName: 'Provider',
           field: 'provider',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 120,
           wrapText: true,
           autoHeight: true
@@ -413,8 +435,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           
           headerName: 'Data domain',
           field: 'dataDomain',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 185,
           autoHeight: true
         },
@@ -423,8 +449,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Functions',
           field: 'functions',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 180,
           wrapText: false,
           autoHeight: true,
@@ -437,8 +467,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           
           headerName: 'Due date',
           field: 'dueDate',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 160,
           wrapText: true,
           autoHeight: true,
@@ -477,8 +511,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           wrapText: false,
           autoHeight: true,
           cellRendererParams: {
@@ -490,9 +528,13 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Status',
           field: 'maxPriority',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          filter: true,
-          minWidth: 180,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 250,
           sort: 'asc',
           comparator: customComparator,
           cellRendererParams: {
@@ -504,8 +546,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: '',
           field: 'next',
-          sortable: false,
-          filter: false,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 50,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,

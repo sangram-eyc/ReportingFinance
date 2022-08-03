@@ -6,6 +6,7 @@ import { DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT,ROUTE_URL_CONST, INPUT_
 import { GridDataSet } from './../models/grid-dataset.model';
 import { IntakeLandingService } from './../services/intake-landing.service';
 import { ExceptionDetailsDataGrid } from './../models/data-grid.model';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-intake-exceptions-reports',
@@ -82,9 +83,12 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   isLoading = true;
   fileName="Files";
   httpDataGridParams: ExceptionDetailsDataGrid;
-
+  filingName: string;
+  period: string;
+  
   constructor(private dataManagedService: IntakeLandingService, private cdr: ChangeDetectorRef,
     private routingState: IntakeRoutingStateService,
+    private filingService: RegulatoryReportingFilingService,
     private unsubscriber: AutoUnsubscriberService,) {
     this.exceptionReportDetails = this.dataManagedService.getExceptionDetails;
     this.exceptionFileName = this.dataManagedService.getExceptionFileName;
@@ -115,12 +119,11 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
             const firstRow = resp.data[0];
             for (const [key] of Object.entries(firstRow)) {
               this.columnDefsFill.push({
-                headerComponentFramework: MotifTableHeaderRendererComponent,
                 headerName: key.replace(/_/g, ' '),
                 field: key,
-                sortable: true,
                 wrapText: true,
-                autoHeight: true
+                autoHeight: true,
+                sortable: true,
               });
             }
             this.columnDefs = this.columnDefsFill;
@@ -134,12 +137,15 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
       const headerColumnNameUnique = new Set(this.headerColumnName);
       headerColumnNameUnique.forEach((key) => {
         this.columnDefsFill.push({
-          headerComponentFramework: MotifTableHeaderRendererComponent,
           headerName: key.replace(/_/g, ' '),
           field: key,
+          minWidth: 320,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
           sortable: true,
-          wrapText: true,
-          autoHeight: true
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         });
       });
       const multiColumnData = [];
@@ -176,7 +182,8 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.headerColumnName = []
     this.columnDefs = [];
     this.columnDefsFill = [];
-
+    this.filingName = this.filingService.getFilingData.filingName;
+    this.period = this.filingService.getFilingData.period;
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
     const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");

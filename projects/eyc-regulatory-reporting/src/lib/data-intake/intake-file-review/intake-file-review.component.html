@@ -262,6 +262,11 @@
             </div>
          </div>
    </ng-template>
+
+   <ng-template #expandFileTemplate let-row>
+      <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)">{{ row.name}}</div>
+  </ng-template>
+
    <!-- Tooltip -->
    <ng-template #threeDotTooltip let-row>
       {{stringTrim(row.name, 25)}}
