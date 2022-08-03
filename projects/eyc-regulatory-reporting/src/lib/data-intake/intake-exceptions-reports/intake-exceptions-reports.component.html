@@ -8,11 +8,12 @@
     <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
         <div class="mt-3">
             <motif-breadcrumb maxItems=5>
-                <motif-breadcrumb-item breadcrumbValue='Data Intake' breadcrumbLink={{routeUrlConst.LANDING_URL}}>
+                <motif-breadcrumb-item class="breadcrumb-first"
+                     breadcrumbValue="Regulatory Reporting" breadcrumbLink="{{routeUrlConst.REG_REPORTING_LANDING}}">
                 </motif-breadcrumb-item>
                 <motif-breadcrumb-item *ngIf="isDataIntaketype" [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]' [breadcrumbLink]='dataIntakeTypeUrl'>
                 </motif-breadcrumb-item>
-                <motif-breadcrumb-item breadcrumbValue="{{filingName}} // {{period}}">
+                <motif-breadcrumb-item breadcrumbValue="{{filingName}} // {{period}}"  breadcrumbLink={{routeUrlConst.LANDING_URL}}>
                 </motif-breadcrumb-item>
                 <motif-breadcrumb-item [breadcrumbValue]='fileName' [breadcrumbLink]='filereviewUrl'>
                 </motif-breadcrumb-item>
