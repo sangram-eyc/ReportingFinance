@@ -19,7 +19,6 @@ import { RowClickedEvent } from 'ag-grid-community';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IntakeRoutingStateService } from './../services/intake-routing-state.service';
 import { ApiReviewByGroupSeriesItemDTO } from './../models/api-reviewbygroup-dto.model';
-import { RoutingStateService } from './../services/routing-state.service';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
