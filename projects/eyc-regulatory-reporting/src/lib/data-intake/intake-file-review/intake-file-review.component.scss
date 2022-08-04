@@ -288,3 +288,20 @@ margin-top: 24px !important;
 ::ng-deep .is-exception {
   cursor: pointer;
 }
+::ng-deep  {
+  motif-breadcrumb-item {
+    text-decoration: none !important;
+  }
+  .bc-item-container a{
+    font-family: 'EYInterstate' !important;
+    font-style: normal !important;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+  motif-breadcrumb-item.cust-bred a{
+    color: #747480 !important;
+  }
+}
+
+

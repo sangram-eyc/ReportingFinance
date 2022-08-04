@@ -43,11 +43,12 @@
 }
 
 .exception-heading {
-  font-family: EYInterstate;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 18px;
   color: #2e2e38;
+  font-family: 'EYInterstate';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px;
 }
 
 ::ng-deep .motif-card-header {
@@ -133,4 +134,20 @@
 }
 ::ng-deep .ag-row:hover,.ag-column-hover {
   font-weight: normal !important;
+}
+
+::ng-deep  {
+  motif-breadcrumb-item {
+    text-decoration: none !important;
+  }
+  .bc-item-container a{
+    font-family: 'EYInterstate' !important;
+    font-style: normal !important;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+  motif-breadcrumb-item.cust-bred a{
+    color: #747480 !important;
+  }
 }
