@@ -109,6 +109,7 @@ export class IntakeExceptionsComponent implements OnInit {
   presentDateFormat: string;
   filingName: string;
   period: string;
+  exportName:string;
   constructor(
     private unsubscriber: AutoUnsubscriberService,
     private filingService: RegulatoryReportingFilingService,
@@ -254,6 +255,7 @@ export class IntakeExceptionsComponent implements OnInit {
   }
 
   getExceptionTableData() {
+    this.exportName = this.filingName + "_" + this.period+"_data_intake_exception_report_";
     this.dataManagedService.getExceptionTableData(this.httpDataGridParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe(resp => {
       resp['data'].length === 0 ? this.noExceptionDataAvilable = true : this.noExceptionDataAvilable = false;
       this.glRowdata = resp['data'];

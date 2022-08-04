@@ -85,7 +85,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   httpDataGridParams: ExceptionDetailsDataGrid;
   filingName: string;
   period: string;
-  
+  exportName:string
   constructor(private dataManagedService: IntakeLandingService, private cdr: ChangeDetectorRef,
     private routingState: IntakeRoutingStateService,
     private filingService: RegulatoryReportingFilingService,
@@ -109,6 +109,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.exportName = this.filingName + "_" + this.period+"_data_intake_exception_report_details_";
     if (this.auditRuleType === "row") {
       const auditHashIds = { "auditHashId": this.auditHashID };
       this.dataManagedService
