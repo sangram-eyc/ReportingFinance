@@ -109,7 +109,7 @@
           <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
           </motif-icon>
         </div>
-        <div (click)="addCommentToFund(row.id, row.name)" *ngIf="permissionApproval && !isArchived" class="row row-assignm">
+        <div (click)="addCommentToFund(row.id, row.name)" *ngIf="permissions.validatePermission('Production Cycles', 'Add comments') && !isArchived" class="row row-assignm">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg width="34" height="28" viewBox="0 0 34 28" xmlns="http://www.w3.org/2000/svg">
               <path opacity="0.3"
@@ -120,7 +120,7 @@
             <p class="text-tooltip">Add comment</p>
           </div>
         </div>
-        <div (click)="approveFund(row.id)" class="row row-assignm" *ngIf="permissionApproval && (row.approvedBack === false && (row.openCommentsEY < 1 && row.openCommentsClient < 1 && row.hasContent)) && !isArchived">
+        <div (click)="approveFund(row.id)" class="row row-assignm" *ngIf="permissions.validatePermission('Production Cycles', 'Fund Approval') && (row.approvedBack === false && (row.openCommentsEY < 1 && row.openCommentsClient < 1 && row.hasContent)) && !isArchived">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -132,7 +132,7 @@
             <p class="text-tooltip">Approve fund</p>
           </div>
         </div>
-        <div class='update-assignment' (click)="addUsersToFund(row.id)" class="row row-assignm" *ngIf="permissionApproval && row.assignedTo.length > 0 && !isArchived">
+        <div class='update-assignment' (click)="addUsersToFund(row.id)" class="row row-assignm" *ngIf="permissions.validatePermission('Production Cycles', 'Update assignment') && row.assignedTo.length > 0 && !isArchived">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -146,7 +146,7 @@
         </div>
 
         <div class='update-assignment-disabled'
-          *ngIf="!permissionApproval && row.assignedTo.length > 0 || isArchived"
+          *ngIf="!permissions.validatePermission('Production Cycles', 'Update assignment') && row.assignedTo.length > 0 || isArchived"
           class="row row-assignm">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +160,7 @@
           </div>
         </div>
 
-        <div class='unaprovefund' (click)="unApproveFund(row)" *ngIf="permissionApproval && row.approvedBack && !isArchived" class="row row-assignm">
+        <div class='unaprovefund' (click)="unApproveFund(row)" *ngIf="permissions.validatePermission('Production Cycles', 'Fund Approval') && row.approvedBack && !isArchived" class="row row-assignm">
           <div class="col-md-3 col-sm-3 div-icon">
             <svg xmlns="http://www.w3.org/2000/svg">
               <path
