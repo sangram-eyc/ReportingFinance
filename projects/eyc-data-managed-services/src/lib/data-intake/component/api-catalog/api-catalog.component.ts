@@ -15,7 +15,6 @@ export class ApiCatalogComponent {
   parameters;
   response;
   popupResponse;
-  frequencyFilter;
   panelOpenState = false;
 
   ready:boolean = false
@@ -54,7 +53,6 @@ export class ApiCatalogComponent {
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
     .subscribe((data: any) => {
       this.fast_filters=data.filters;
-      this.frequencyFilter=data.APICatalog;
       this.apiCatalog=data.APICatalog;
       this.domains=data.APICatalog.map((item)=> { 
         return {"domain":item.domain}
@@ -75,9 +73,6 @@ export class ApiCatalogComponent {
 
   filterCatalog(filter){
     this.selectedFilter=filter;
-    // this.apiCatalog=this.searchFilter.transform(this.frequencyFilter,this.selectedFilter,'');
-    // console.log(filter);
-    // console.log(this.apiCatalog);
   }
 
   showRightPopUp(data){

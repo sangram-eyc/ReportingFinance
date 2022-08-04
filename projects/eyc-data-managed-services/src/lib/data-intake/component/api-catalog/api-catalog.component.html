@@ -36,7 +36,7 @@
 <br>
               <mat-accordion>
                 <mat-expansion-panel class="child-expansion-panel-header" *ngFor="let api of operations; let j = index; trackBy: trackByFn;" expanded="false" (opened)="getApiDetails(i,j,$event)">
-                  <mat-expansion-panel-header>
+                  <mat-expansion-panel-header *ngIf="(api.filter==='' || api.filter?.toUpperCase()=== selectedFilter?.toUpperCase()) ? true : false">
                     <mat-panel-title>
                         <div class="method-type" [class.get]="api.methodType?.toUpperCase() === 'GET'"
                         [class.post]="api.methodType?.toUpperCase() === 'POST'"
