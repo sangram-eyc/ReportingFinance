@@ -268,6 +268,9 @@ export class IntakeExceptionsComponent implements OnInit {
           menuTabs: [],
           filter:false,
           pinned: 'left',
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
          
@@ -279,7 +282,10 @@ export class IntakeExceptionsComponent implements OnInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 150
+          minWidth: 150,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
          
@@ -295,6 +301,9 @@ export class IntakeExceptionsComponent implements OnInit {
           minWidth: 400,
           cellRendererParams: {
             ngTemplate: this.reportNameTemplate
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
         {
@@ -307,7 +316,10 @@ export class IntakeExceptionsComponent implements OnInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 220
+          minWidth: 220,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
          
@@ -341,6 +353,9 @@ export class IntakeExceptionsComponent implements OnInit {
               default:
                 break;
             }
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
         {
@@ -357,7 +372,10 @@ export class IntakeExceptionsComponent implements OnInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          width: 155
+          width: 155,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
          
@@ -376,6 +394,9 @@ export class IntakeExceptionsComponent implements OnInit {
             } else {
               return '--'
             }
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
         // {
@@ -527,5 +548,14 @@ export class IntakeExceptionsComponent implements OnInit {
   }
   commentAdded() {
     this.getExceptionTableData();
+  }
+
+  checkException(params) {
+    const exceptionReportDetail = params.data.exceptionReportDetails;
+    if (exceptionReportDetail == null || exceptionReportDetail == "\"[]\"" || exceptionReportDetail == '[]') {
+      return false;
+    } else {
+      return (params && params.data && params.data.auditRuleTyp == "row" && params.data.auditHashId != "") || (params && params.data && (params.data.auditRuleTyp == "file" || params.data.auditRuleTyp == "table"))
+    }
   }
 }

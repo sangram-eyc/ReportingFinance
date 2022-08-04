@@ -284,3 +284,7 @@ margin-top: 24px !important;
     cursor: pointer !important;
   }
 }
+
+::ng-deep .is-exception {
+  cursor: pointer;
+}

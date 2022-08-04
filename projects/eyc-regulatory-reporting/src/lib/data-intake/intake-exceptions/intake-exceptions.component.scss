@@ -206,3 +206,6 @@
 ::ng-deep .motif-table .ag-cell-value {
   word-break: break-word;
 }
+::ng-deep .is-exception {
+  cursor: pointer;
+}

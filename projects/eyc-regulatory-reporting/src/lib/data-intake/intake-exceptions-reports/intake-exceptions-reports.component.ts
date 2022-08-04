@@ -127,7 +127,17 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
               });
             }
             this.columnDefs = this.columnDefsFill;
-            this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+            this.columnDefsFill.splice(0, 0, {
+              valueGetter: "node.rowIndex + 1",
+              getQuickFilterText: function (params) {
+                return '';
+              },
+              maxWidth: 70,
+              sortable: false,
+              menuTabs: [],
+              filter: false,
+              pinned: 'left'
+            });
             this.exceptionTableData = respData;
             this.cdr.detectChanges();
           }
@@ -172,7 +182,17 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
       }
       this.columnDefs = this.columnDefsFill;
       this.exceptionTableData = multiColumnData;
-      this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+      this.columnDefsFill.splice(0, 0, { 
+        valueGetter: "node.rowIndex + 1",
+              getQuickFilterText: function (params) {
+                return '';
+              },
+              maxWidth: 70,
+              sortable: false,
+              menuTabs: [],
+              filter: false,
+              pinned: 'left'
+            });
     }
    }
 
