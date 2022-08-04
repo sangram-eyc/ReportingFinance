@@ -397,6 +397,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: [],
           filter:false,
           pinned: 'left',
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
           
@@ -416,6 +419,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
           
@@ -429,7 +435,10 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 120,
           wrapText: true,
-          autoHeight: true
+          autoHeight: true,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
           
@@ -442,7 +451,10 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 185,
-          autoHeight: true
+          autoHeight: true,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
           
@@ -461,7 +473,10 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotFunctionTooltip
           },
-          comparator: sortCaseInsentitve
+          comparator: sortCaseInsentitve,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
         },
         {
           
@@ -504,6 +519,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
             } else {
               return true;
             }
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
         {
@@ -522,8 +540,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererParams: {
             ngTemplate: this.threeDotExceptionsTooltip
           },
-          comparator: sortCaseInsentitve
-        }, {
+          comparator: sortCaseInsentitve,
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
+          }
+        }, 
+        {
           
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Status',
@@ -539,6 +561,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
         {
@@ -546,15 +571,15 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           cellRendererFramework: CellRendererTemplateComponent,
           headerName: '',
           field: 'next',
-          filter: 'agSetColumnFilter',
-          filterParams: {
-            buttons: ['reset']
-          },
-          sortable: true,
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 50,
+          filter: false,
+          sortable: false,
+          menuTabs: [],
+          minWidth: 100,
           cellRendererParams: {
             ngTemplate: this.nextButtonTemplate,
+          },
+          cellClass: params => {
+            return this.checkException(params) ? 'is-exception' : '';
           }
         },
       ];
@@ -901,5 +926,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
+  }
+
+  checkException(params) {
+    return params.data && params.data.name && params.data.auditFileGuidName && params.data.fileNameAlias && params.data.exceptions;
   }
 }
