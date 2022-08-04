@@ -136,80 +136,82 @@ export class ArchivedReportsComponent implements OnInit {
         submittedBy:reportRow.submittedBy */
       });
     });
-    this.columnDefsAgGrid = [
-      {
-        valueGetter: 'node.rowIndex + 1',
-        sortable: false,
-        menuTabs: [],
-        pinned: 'left',
-        maxWidth: 70,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: { ngTemplate: this.datasetsDropdownTemplate },
-        headerName: '',
-        field: 'template',
-        sortable: false,
-        maxWidth: 70,
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        headerName: 'Tax report name',
-        field: 'name',
-        cellRendererParams: {
-          ngTemplate: this.taxReportName,
+    setTimeout(() =>{
+      this.columnDefsAgGrid = [
+        {
+          valueGetter: 'node.rowIndex + 1',
+          sortable: false,
+          menuTabs: [],
+          pinned: 'left',
+          maxWidth: 70,
         },
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 250,
-        sort: 'asc',
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        headerName: 'Total funds',
-        field: 'fundCount',
-        cellRendererParams: {
-          ngTemplate: this.totalFunds,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: { ngTemplate: this.datasetsDropdownTemplate },
+          headerName: '',
+          field: 'template',
+          sortable: false,
+          maxWidth: 70,
         },
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 250,
-        sort: 'asc',
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        headerName: 'Comments',
-        field: 'totalComments',
-        cellRendererParams: {
-          ngTemplate: this.totalComments,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: 'Tax report name',
+          field: 'name',
+          cellRendererParams: {
+            ngTemplate: this.taxReportName,
+          },
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 250,
+          sort: 'asc',
         },
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 250,
-        sort: 'asc',
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.Actions,
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: 'Total funds',
+          field: 'fundCount',
+          cellRendererParams: {
+            ngTemplate: this.totalFunds,
+          },
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 250,
+          sort: 'asc',
         },
-        headerName: '',
-        field: 'totalComments',
-        sortable: false,
-        filter: false,
-        resizeable: true,
-        minWidth: 250,
-        sort: 'asc',
-      },
-    ];
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          headerName: 'Comments',
+          field: 'totalComments',
+          cellRendererParams: {
+            ngTemplate: this.totalComments,
+          },
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 250,
+          sort: 'asc',
+        },
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.Actions,
+          },
+          headerName: '',
+          field: 'totalComments',
+          sortable: false,
+          filter: false,
+          resizeable: true,
+          minWidth: 250,
+          sort: 'asc',
+        },
+      ];
+    }, 100);
     this.exportName = '_archived_reports_';
   }
   exportName: string;
