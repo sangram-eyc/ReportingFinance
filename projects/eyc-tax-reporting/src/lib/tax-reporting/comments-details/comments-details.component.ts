@@ -237,100 +237,102 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
       });
     });
     this.isToggleLeftDisabled();
-
-    this.columnDefsAgGrid = [
-      {
-        valueGetter: 'node.rowIndex + 1',
-        sortable: false,
-        menuTabs: [],
-        pinned: 'left',
-        maxWidth: 70,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.submitedTemplate,
+    setTimeout(() =>{
+      this.columnDefsAgGrid = [
+        {
+          valueGetter: 'node.rowIndex + 1',
+          sortable: false,
+          menuTabs: [],
+          pinned: 'left',
+          maxWidth: 70,
         },
-        headerName: 'Submitted by',
-        field: 'author',
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-        minWidth: 250,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.fundTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.submitedTemplate,
+          },
+          headerName: 'Submitted by',
+          field: 'author',
+          sortable: false,
+          menuTabs: [],
+          filter:true,
+          minWidth: 250,
         },
-        headerName: 'Fund/entity workbook',
-        field: 'entityName',
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-        minWidth: 300,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.completedCommentTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.fundTemplate,
+          },
+          headerName: 'Fund/entity workbook',
+          field: 'entityName',
+          sortable: false,
+          menuTabs: [],
+          filter:true,
+          minWidth: 300,
         },
-        headerName: 'Comment/question',
-        field: 'description',
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-        minWidth: 250,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.dateTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.completedCommentTemplate,
+          },
+          headerName: 'Comment/question',
+          field: 'description',
+          sortable: false,
+          menuTabs: [],
+          filter:true,
+          minWidth: 250,
         },
-        headerName: 'Date added',
-        field: 'createdDate',
-        minWidth: 150,
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.statusComment,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.dateTemplate,
+          },
+          headerName: 'Date added',
+          field: 'createdDate',
+          minWidth: 150,
+          sortable: false,
+          menuTabs: [],
+          filter:true,
         },
-        headerName: 'Status',
-        field: 'status',
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-        minWidth: 150,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.replyTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.statusComment,
+          },
+          headerName: 'Status',
+          field: 'status',
+          sortable: false,
+          menuTabs: [],
+          filter:true,
+          minWidth: 150,
         },
-        headerName: 'Replies',
-        field: 'replyCount',
-        minWidth: 150,
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-      },
-      {
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.tagsTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.replyTemplate,
+          },
+          headerName: 'Replies',
+          field: 'replyCount',
+          minWidth: 150,
+          sortable: false,
+          menuTabs: [],
+          filter:true,
         },
-        headerName: 'Tags',
-        field: 'tagsToSearch',
-        minWidth: 300,
-        sortable: false,
-        menuTabs: [],
-        filter:false,
-      },
-    ];
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.tagsTemplate,
+          },
+          headerName: 'Tags',
+          field: 'tagsToSearch',
+          minWidth: 300,
+          sortable: false,
+          menuTabs: [],
+          filter:true,
+        },
+      ];
+    },);
+    
     this.exportName = this.productCycleName || '' + '_comments_details_';
   }
 

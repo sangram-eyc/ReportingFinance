@@ -907,6 +907,12 @@ button.close {
 }
 
 }
+::ng-deep .motif-card{
+  flex-direction: row !important;
+}
 ::ng-deep .ag-invisible{
   display: none !important;
+}
+::ng-deep .ag-cell-value{
+  line-height: 25px;
 }

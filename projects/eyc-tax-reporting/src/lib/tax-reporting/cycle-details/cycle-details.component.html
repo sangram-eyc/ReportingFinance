@@ -81,23 +81,11 @@
       </motif-card>
     </div>
   </div>
-
- <!--    <lib-shared-grid gridStyle="first" [columnDefs]="columnDefs" [rowData]="rowData" rowSelection="multiple"
-    [paginationSize]="currentlySelectedPageSize.value" [pagination]="true"
-    [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
-    [detailCellRendererParams]="exceptionDetailCellRendererParams"
-    (selectedRowEmitter)="datasetsReportRowsSelected($event)" [displaySecondButton]="true"
-    [permissionToPrimaryButton]="!isArchived" [permissionToSecondaryButton]="true" [isToggleLeft]="true"
-    (toggleLeftEventToParent)="showMyAssignedFunds()" [toggleLeftTitle]="toggleLeftTitle"
-    [toggleLeftDisabled]="disabledLeftToggle" [displaySecondButton]="true" [secondbuttonText]="downloadBtn"
-    (selectedRowEmitterProcess)="checkDataProcess($event)" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)" >
-  </lib-shared-grid> -->
-  <lib-ag-grid id='comments-grid' [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
-  [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" [submitFunction]="submitDatasets" buttonPosition="left" [masterDetail]="false" [modalConfig]="datasetsModalConfig"
-  [detailCellRendererParams]="exceptionDetailCellRendererParams" (selectedRowEmitter)="datasetsReportRowsSelected($event)"
-  [permissionToPrimaryButton]="!isArchived" [permissionToSecondaryButton]="true" [isToggleLeft]="true"
-  buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" (selectedRowEmitterProcess)="checkDataProcess($event)"
-  [search]="true" paginationSize="10" [displaySecondButton]="true" [secondbuttonText]="downloadBtn"></lib-ag-grid>
+  <lib-ag-grid [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
+      [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" 
+      buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" [secondbuttonText]="downloadBtn"
+      [search]="true" paginationSize="10" [permissionToSecondaryButton]="true" [permissionToPrimaryButton]="false" [displaySecondButton]="true" >
+  </lib-ag-grid>
   <div *ngIf="searchNoDataAvilable">
     <motif-card class="no_data">
       <motif-card-body>
@@ -221,8 +209,7 @@
         </svg>                    
       </a>
 
-      <a class='btn-comment-enabled' (click)="createComment(row,'')"
-        *ngIf="true">
+      <a class='btn-comment-enabled' (click)="createComment(row,'')" *ngIf="permissions.validatePermission('Production Cycles', 'View comments')">
         <svg xmlns="http://www.w3.org/2000/svg">
           <path d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z" />
         </svg>
