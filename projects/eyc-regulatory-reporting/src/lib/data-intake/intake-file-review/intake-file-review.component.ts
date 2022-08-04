@@ -126,6 +126,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
   dataIntakeTypeUrl: string = '';
   filingName: string;
   period: string;
+  exportName:string;
   dataset: GridDataSet[] = [{
     disable: false,
     value: 10,
@@ -381,6 +382,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
 
   getReviewFileTableData() {
     console.log("File Review Grid API Call Started", new Date().toISOString());
+    this.exportName = this.filingName + "_" + this.period+"_data_intake_all_files_";
     this.IntakeLandingService.getReviewFileTableData(this.httpDataGridParams).subscribe(resp => {
       resp['data'].length === 0 ? this.noCompletedDataAvilable = true : this.noCompletedDataAvilable = false;
       this.glRowdata = resp['data'];

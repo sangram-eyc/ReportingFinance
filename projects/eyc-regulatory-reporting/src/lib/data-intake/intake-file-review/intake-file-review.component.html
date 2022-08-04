@@ -211,7 +211,8 @@
       (gridReady)="onGridReady($event)"
       (rowClicked)="onRowClicked($event)"
       [suppressRowClickSelection]="false"
-      [suppressCellSelection]="true">
+      [suppressCellSelection]="true"
+      [exportName] = "exportName">
    </lib-ag-grid>
 
    <!-- ag grid - end -->
