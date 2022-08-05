@@ -80,7 +80,7 @@ export const customComparator = (valueA, valueB) => {
 };
 
 export const sortCaseInsentitve = (valueA, valueB) => {
-    return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
+    return valueA?.toLowerCase().localeCompare(valueB?.toLowerCase());
   };
 
 export const PowerBiReportDailyList=[
