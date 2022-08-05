@@ -472,9 +472,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           minWidth: 180,
           wrapText: false,
           autoHeight: true,
-          cellRendererParams: {
-            ngTemplate: this.threeDotFunctionTooltip
-          },
+          // cellRendererParams: {
+          //   ngTemplate: this.threeDotFunctionTooltip
+          // },
           comparator: sortCaseInsentitve,
           cellClass: params => {
             return this.checkException(params) ? 'is-exception' : '';
@@ -539,9 +539,9 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           wrapText: false,
           autoHeight: true,
-          cellRendererParams: {
-            ngTemplate: this.threeDotExceptionsTooltip
-          },
+          // cellRendererParams: {
+          //   ngTemplate: this.threeDotExceptionsTooltip
+          // },
           comparator: sortCaseInsentitve,
           cellClass: params => {
             return this.checkException(params) ? 'is-exception' : '';
