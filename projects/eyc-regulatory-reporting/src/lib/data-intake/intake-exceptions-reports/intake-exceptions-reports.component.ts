@@ -7,6 +7,7 @@ import { GridDataSet } from './../models/grid-dataset.model';
 import { IntakeLandingService } from './../services/intake-landing.service';
 import { ExceptionDetailsDataGrid } from './../models/data-grid.model';
 import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-intake-exceptions-reports',
@@ -86,7 +87,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   filingName: string;
   period: string;
   exportName:string
-  constructor(private dataManagedService: IntakeLandingService, private cdr: ChangeDetectorRef,
+  constructor(private location: Location,private dataManagedService: IntakeLandingService, private cdr: ChangeDetectorRef,
     private routingState: IntakeRoutingStateService,
     private filingService: RegulatoryReportingFilingService,
     private unsubscriber: AutoUnsubscriberService,) {
@@ -292,4 +293,8 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
   handlePageChange(val: number): void {
     this.currentPage = val;
   }
+
+  backtoParent() {
+    this.location.back();
+}
 }
