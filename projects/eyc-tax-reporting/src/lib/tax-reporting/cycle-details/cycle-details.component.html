@@ -103,7 +103,7 @@
       </svg>      
     </div>  
 
-    <div class="margin-tooltip-v2 mt-2 actions-in-funds" *ngIf="row.assignedTo.length > 0 || row.approvedBack || permissions.validatePermission('Production Cycles', 'Add comments') || permissions.validatePermission('Production Cycles', 'Fund Approval')">
+    <div class="margin-tooltip-v2 mt-2 actions-in-funds" *ngIf="true">
       <motif-tooltip class='cycle-detais-motif-tooltip' placement="bottom">
         <div motifTooltipTrigger aria-label="tooltip" class="dropdownTemplate" (click)="getTooltip()">
           <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
@@ -175,7 +175,7 @@
       </motif-tooltip>
     </div>
 
-    <div class="margin-tooltip-v2 mt-2 dropdownTemplate-v2 actions-in-funds" *ngIf="row.assignedTo.length === 0 && !row.approvedBack && !permissions.validatePermission('Production Cycles', 'Add comments') && !permissions.validatePermission('Production Cycles', 'Fund Approval')">
+    <div class="margin-tooltip-v2 mt-2 dropdownTemplate-v2 actions-in-funds" *ngIf="false">
       <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
       </motif-icon>
     </div>

@@ -383,6 +383,7 @@ export class CycleDetailComponent implements OnInit {
           pinned: 'left',
           menuTabs: [],
           headerCheckboxSelection: true,
+          checkboxSelection: true,
         },
         {
           valueGetter: 'node.rowIndex + 1',
