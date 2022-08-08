@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LegendPosition, colorSets, Color } from 'eyc-charts-shared-library';
+import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
+import { ApiReviewByGroupSeriesItemDTO } from '../../models/api-reviewbygroup-dto.model';
 import { IntakeLandingService } from './../../services/intake-landing.service';
 import { formatDate,DatePipe } from '@angular/common';
 import {
@@ -51,6 +53,8 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
 
   @ViewChild('dailyfilter2', { static: false }) dailyfilter2: ElementRef;
   @ViewChild('monthlyfilter2', { static: false }) monthlyfilter2: ElementRef;
+
+  stackBarChartData: StackChartSeriesItemDTO[];
   tabIn: number = 1;
   innerTabIn: number = 2;
   presentDate: Date;
@@ -115,7 +119,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   colorScheme4: Color;
   //end option
   form: FormGroup;
-  businessDays: boolean = false;
+  businessDays: boolean = true;
   lastMonthDate: Date;
   curDateVal:Date;
   lastMonthDueDateFormat: string;
@@ -227,7 +231,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
-
+      // this.getstackBarchart();
     } else if(this.innerTabIn == 2) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
@@ -321,4 +325,29 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  // getstackBarchart() {
+  //   // Mock API integration for bar chart (Data Providers/ Data Domains)-
+  //   console.log("File Review Summary API Call Started", new Date().toISOString());
+  //   // this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
+  //   // this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
+  //   this.dataList = [];
+  //   if (this.isViewClicked) {
+  //     this.IntakeLandingService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
+  //       this.manipulateStatusWithReviewByGroup(reviewData.data);
+  //       console.log("File Review Summary API Call End", new Date().toISOString());
+  //     });
+  //   } else {
+  //     this.totalFileCount = 0;
+  //     this.IntakeLandingService.getReviewAllList(this.httpQueryParams).subscribe((dataProvider: any) => {
+  //       this.stackBarChartData = [];
+  //       this.fileSummaries = dataProvider.data[0].donutChartDTO;
+  //       if (dataProvider.data[0] && dataProvider.data[0].barChartDTO.length > 0) {
+  //         this.stackBarChartData = dataProvider.data[0].barChartDTO;
+  //         this.totalFileCount = this.stackBarChartData.length;
+  //       }
+  //       console.log("File Review Summary API Call End", new Date().toISOString());
+  //     });
+  //   }
+  // }
 }

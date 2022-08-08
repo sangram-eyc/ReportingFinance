@@ -35,6 +35,7 @@ import { IntakeFileReviewComponent } from './data-intake/intake-file-review/inta
 import { IntakeExceptionsComponent } from './data-intake/intake-exceptions/intake-exceptions.component';
 import { IntakeExceptionsReportsComponent } from './data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
 import { IntakeDonutGridListComponent } from './data-intake/intake-donut-grid-list/intake-donut-grid-list.component';
+import { IntakeBusinessDayComponent } from './data-intake/intake-business-day/intake-business-day.component';
 
 
 
@@ -94,7 +95,8 @@ import { IntakeDonutGridListComponent } from './data-intake/intake-donut-grid-li
     IntakeFileReviewComponent,
     IntakeExceptionsComponent,
     IntakeExceptionsReportsComponent,
-    IntakeDonutGridListComponent
+    IntakeDonutGridListComponent,
+    IntakeBusinessDayComponent
     
   ],
   /* providers: [EycRrApiService, EycPbiService], */

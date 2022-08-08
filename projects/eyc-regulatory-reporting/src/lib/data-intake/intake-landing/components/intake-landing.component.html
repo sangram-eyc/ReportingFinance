@@ -85,10 +85,10 @@
             <motif-card-header>
                <div class="inner-tabs">
                   <motif-tab-bar>
-                  <!--    <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
+                     <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
                         [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
                         Business Days
-                     </button> -->
+                     </button>
                      <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
                         [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
                         Data Providers
@@ -101,7 +101,38 @@
                </div>
             </motif-card-header>
             <motif-card-body>
-               <section id='business-days' [hidden]="!(innerTabIn == 1)"></section>
+               <section id='business-days' [hidden]="!(innerTabIn == 1)">
+                  <div class="bar-chart-panel">
+                     <div id="StackBarChart-business">
+                        <div class="bar-chart-body">
+                           <div class="chart-container" [hidden]="(totalFileCount==0)">
+                              <!-- Chart placeholder -->
+                              <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
+                                 [results]="stackBarChartData" [animations]="animations" [gradient]="gradient"
+                                 [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                 [legend]="showLegend" [legendTitle]="legendTitle" [legendPosition]="legendPosition"
+                                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                 [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showYAxisGridLines"
+                                 [barPadding]="barPadding" [roundDomains]="roundDomains" [yScaleMax]="yScaleMax"
+                                 [noBarWhenZero]="noBarWhenZero" [showDataLabel]="showDataLabel"
+                                 [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                                 [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                                 [maxYAxisTickLength]="maxYAxisTickLength" [barMaxWidth]="100"
+                                 [customColors]="customColors">
+                              </eyc-charts-bar-vertical-stacked>
+                           </div>
+   
+                           <div class="toast-card" [hidden]="!(totalFileCount==0)">
+                              <div class="toast-icon">
+                                 <i class="material-icons md-light">check_circle</i>
+                              </div>
+                              <div class="toast-card-body">Data is not available
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
                <section id='data-provider' [hidden]="!(innerTabIn == 2)">
                   <div class="bar-chart-panel">
                      <div id="past-due">
