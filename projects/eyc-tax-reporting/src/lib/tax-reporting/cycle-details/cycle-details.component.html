@@ -1,32 +1,52 @@
 <div [hidden]="!isLoading" *ngIf="isLoading | async">
   <div class="revised-loading">
-    <motif-progress-bar [progress]="100" [circle]="true">
-    </motif-progress-bar>
+    <motif-progress-bar [progress]="100" [circle]="true"> </motif-progress-bar>
   </div>
 </div>
 <div class="production-cycle-details-wrapper">
-
   <div class="back-wrapper">
-    <motif-icon class="back-button" [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
-      (click)="backtoCycleView()"></motif-icon>
-    &nbsp;<span class="back-opt">&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span>{{productCycleName}}</span></span>
+    <motif-icon
+      class="back-button"
+      [src]="'/assets/icons/hardware/ic_keyboard_backspace_24px.svg'"
+      (click)="backtoCycleView()"
+    ></motif-icon>
+    &nbsp;<span class="back-opt"
+      >&nbsp;Tax Reporting&nbsp;&nbsp;>&nbsp;&nbsp;<span>{{
+        productCycleName
+      }}</span></span
+    >
   </div>
 
   <div class="row production-cycle-details-header">
     <div class="col-md-12 col-sm-12">
-      <h1>{{pageName}}</h1>
+      <h1>{{ pageName }}</h1>
     </div>
     <div class="col-md-12 col-sm-12">
-      <p>{{dropdownMessage}}</p>
+      <p>{{ dropdownMessage }}</p>
     </div>
-    <div id="selectNewCycle" class="col-md-4 col-sm-4" (click)="OptionsClassSelected()">
+    <div
+      id="selectNewCycle"
+      class="col-md-4 col-sm-4"
+      (click)="OptionsClassSelected()"
+    >
       <form [formGroup]="cycleSelectForm">
         <motif-form-field>
-          <label motifLabel class="select-label" *ngIf = "isArchived">Archived reports</label>
-          <label motifLabel class="select-label" *ngIf = "!isArchived">Production cycles</label>
-          <motif-select aria-label="Please select an option" formControlName="mySelect"
-            (ngModelChange)="onOptionsSelected($event)">
-            <motif-option *ngFor="let item of options; index as i;" [value]="item.id">{{item.name}}</motif-option>
+          <label motifLabel class="select-label" *ngIf="isArchived"
+            >Archived reports</label
+          >
+          <label motifLabel class="select-label" *ngIf="!isArchived"
+            >Production cycles</label
+          >
+          <motif-select
+            aria-label="Please select an option"
+            formControlName="mySelect"
+            (ngModelChange)="onOptionsSelected($event)"
+          >
+            <motif-option
+              *ngFor="let item of options; index as i"
+              [value]="item.id"
+              >{{ item.name }}</motif-option
+            >
           </motif-select>
         </motif-form-field>
       </form>
@@ -38,106 +58,223 @@
       <p class="production-cycle-summary-header">Summary</p>
     </div>
 
-<!--     <div class="motif-col-xs-3 motif-col-sm-3 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
+    <!--     <div class="motif-col-xs-3 motif-col-sm-3 motif-col-md-3 motif-col-lg-3 motif-col-xl-3">
       <motif-card class='donut-chart-card-tax'> -->
-        <!-- Donut chart integration -->
-        <!--  <lib-donut-chart style ='flex-direction: row;
+    <!-- Donut chart integration -->
+    <!--  <lib-donut-chart style ='flex-direction: row;
         display: flex;' id="donutchart" [data]="fileSummaries"> </lib-donut-chart> -->
-<!--       </motif-card>
+    <!--       </motif-card>
     </div> -->
 
-    <div class="motif-col-xs-9 motif-col-sm-9 motif-col-md-9 motif-col-lg-9 motif-col-xl-9">
-      <motif-card class='donut-chart-card-tax'>
+    <div
+      class="motif-col-xs-9 motif-col-sm-9 motif-col-md-9 motif-col-lg-9 motif-col-xl-9"
+    >
+      <motif-card class="donut-chart-card-tax">
         <div class="container">
           <!-- Bar chart integration -->
-          <p class='status-tax-processing'>Tax processing fund status</p>
-          <p class='status-in-progress'>Funds in progress
-            <span class='btn-info-modal'>
-              <svg xmlns="http://www.w3.org/2000/svg"
-                (click)="informationModal()">
-                <path d="M6.79102 11.3872H8.20768V7.13721H6.79102V11.3872ZM7.49935 0.762207C3.58935 0.762207 0.416016 3.93554 0.416016 7.84554C0.416016 11.7555 3.58935 14.9289 7.49935 14.9289C11.4093 14.9289 14.5827 11.7555 14.5827 7.84554C14.5827 3.93554 11.4093 0.762207 7.49935 0.762207ZM7.49935 13.5122C4.3756 13.5122 1.83268 10.9693 1.83268 7.84554C1.83268 4.72179 4.3756 2.17887 7.49935 2.17887C10.6231 2.17887 13.166 4.72179 13.166 7.84554C13.166 10.9693 10.6231 13.5122 7.49935 13.5122ZM6.79102 5.72054H8.20768V4.30387H6.79102V5.72054Z"/>
+          <p class="status-tax-processing">Tax processing fund status</p>
+          <p class="status-in-progress">
+            Funds in progress
+            <span class="btn-info-modal">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                (click)="informationModal()"
+              >
+                <path
+                  d="M6.79102 11.3872H8.20768V7.13721H6.79102V11.3872ZM7.49935 0.762207C3.58935 0.762207 0.416016 3.93554 0.416016 7.84554C0.416016 11.7555 3.58935 14.9289 7.49935 14.9289C11.4093 14.9289 14.5827 11.7555 14.5827 7.84554C14.5827 3.93554 11.4093 0.762207 7.49935 0.762207ZM7.49935 13.5122C4.3756 13.5122 1.83268 10.9693 1.83268 7.84554C1.83268 4.72179 4.3756 2.17887 7.49935 2.17887C10.6231 2.17887 13.166 4.72179 13.166 7.84554C13.166 10.9693 10.6231 13.5122 7.49935 13.5122ZM6.79102 5.72054H8.20768V4.30387H6.79102V5.72054Z"
+                />
               </svg>
             </span>
           </p>
 
-          <lib-tax-horizontal-stacked-bar-chart 
-          [dataInput]="dataToChart" 
-          [width]="widthDivChart"
-          [colorsInput]="colorsBarChart" 
-          [labels]="labelsChart"
-          [gridEnabled]="false">
-        </lib-tax-horizontal-stacked-bar-chart>
+          <lib-tax-horizontal-stacked-bar-chart
+            [dataInput]="dataToChart"
+            [width]="widthDivChart"
+            [colorsInput]="colorsBarChart"
+            [labels]="labelsChart"
+            [gridEnabled]="false"
+          >
+          </lib-tax-horizontal-stacked-bar-chart>
         </div>
         <!-- Donut chart integration -->
         <div>
           <p class="donut-title">Comments tracker</p>
-          <lib-donut-chart [data]="fileSummaries" [colors]="colors" [totalFilesText]="totalFilesText"
-            totalFilesNumberFontSize={{totalFilesNumberFontSize}} totalFilesTextFontSize={{totalFilesTextFontSize}}
-            [totalExpected]="totalExpected" innerRadius=50 svgTranslateLeft=80  svgTranslateRight=80 width=100
-            height=100 margin=11 [legendTextSliceNumber]=20>
+          <lib-donut-chart
+            [data]="fileSummaries"
+            [colors]="colors"
+            [totalFilesText]="totalFilesText"
+            totalFilesNumberFontSize="{{ totalFilesNumberFontSize }}"
+            totalFilesTextFontSize="{{ totalFilesTextFontSize }}"
+            [totalExpected]="totalExpected"
+            innerRadius="50"
+            svgTranslateLeft="80"
+            svgTranslateRight="80"
+            width="100"
+            height="100"
+            margin="11"
+            [legendTextSliceNumber]="20"
+          >
           </lib-donut-chart>
-          <p class="more-details-comments" (click)="getMoreDetailsPage()">More details</p>
+          <p class="more-details-comments" (click)="getMoreDetailsPage()">
+            More details
+          </p>
         </div>
       </motif-card>
     </div>
   </div>
-  <lib-ag-grid [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
-      [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" 
-      buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" [secondbuttonText]="downloadBtn"
-      [search]="true" paginationSize="10" [permissionToSecondaryButton]="true" [displaySecondButton]="true" >
+  <lib-ag-grid
+    [rowData]="rowData"
+    [columnDefs]="columnDefsAgGrid"
+    [isToggleLeft]="true"
+    [toggleLeftTitle]="toggleLeftTitle"
+    [hideLabels]="true"
+    [toggleLeftDisabled]="disabledLeftToggle"
+    [export]="true"
+    buttonPosition="left"
+    [exportName]="exportName"
+    [adminTab]="true"
+    (toggleLeftEventToParent)="showMyAssignedFunds()"
+    [secondbuttonText]="downloadBtn"
+    [search]="true"
+    paginationSize="10"
+    [permissionToSecondaryButton]="true"
+    [displaySecondButton]="true"
+    [submitFunction]="submitDatasets"
+    buttonPosition="left"
+    [masterDetail]="false"
+    [modalConfig]="datasetsModalConfig"
+    [permissionToPrimaryButton]="!isArchived"
+  >
   </lib-ag-grid>
   <div *ngIf="searchNoDataAvilable">
     <motif-card class="no_data">
       <motif-card-body>
-          <h5>Your search has returned no results. Please adjust and try again.</h5>
+        <h5>
+          Your search has returned no results. Please adjust and try again.
+        </h5>
       </motif-card-body>
-  </motif-card>
+    </motif-card>
   </div>
 
-
   <ng-template #datasetsDropdownTemplate let-row>
-
-    <div class="mt-2" *ngIf="row.approvedBack === false && (!row.hasContent) || !permissionApproval">
-      <svg class="gray-check" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="0.5" width="18" height="18" fill="#C4C4CD"/>
-      </svg>      
-    </div>  
+    <div
+      class="mt-2"
+      *ngIf="
+        (row.approvedBack === false && !row.hasContent) || !permissionApproval
+      "
+    >
+      <svg
+        class="gray-check"
+        width="18"
+        height="19"
+        viewBox="0 0 18 19"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect y="0.5" width="18" height="18" fill="#C4C4CD" />
+      </svg>
+    </div>
 
     <div class="margin-tooltip-v2 mt-2 actions-in-funds" *ngIf="true">
-      <motif-tooltip class='cycle-detais-motif-tooltip' placement="bottom">
-        <div motifTooltipTrigger aria-label="tooltip" class="dropdownTemplate" (click)="getTooltip()">
-          <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
+      <motif-tooltip class="cycle-detais-motif-tooltip" placement="bottom">
+        <div
+          motifTooltipTrigger
+          aria-label="tooltip"
+          class="dropdownTemplate"
+          (click)="getTooltip()"
+        >
+          <motif-icon
+            [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
+            id="motifExampleDropdown1"
+            tabindex="0"
+          >
           </motif-icon>
         </div>
-        <div (click)="addCommentToFund(row.id, row.name)" *ngIf="permissions.validatePermission('Production Cycles', 'Add comments') && !isArchived" class="row row-assignm">
+        <div
+          (click)="addCommentToFund(row.id, row.name)"
+          *ngIf="
+            permissions.validatePermission(
+              'Production Cycles',
+              'Add comments'
+            ) && !isArchived
+          "
+          class="row row-assignm"
+        >
           <div class="col-md-3 col-sm-3 div-icon">
-            <svg width="34" height="28" viewBox="0 0 34 28" xmlns="http://www.w3.org/2000/svg">
-              <path opacity="0.3"
-                d="M0.333008 0.333496V25.3335H31.2288L33.6663 27.771V0.333496H0.333008ZM27.4163 14.9168H19.083V23.2502H14.9163V14.9168H6.58301V10.7502H14.9163V2.41683H19.083V10.7502H27.4163V14.9168Z"/>
+            <svg
+              width="34"
+              height="28"
+              viewBox="0 0 34 28"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.3"
+                d="M0.333008 0.333496V25.3335H31.2288L33.6663 27.771V0.333496H0.333008ZM27.4163 14.9168H19.083V23.2502H14.9163V14.9168H6.58301V10.7502H14.9163V2.41683H19.083V10.7502H27.4163V14.9168Z"
+              />
             </svg>
           </div>
           <div class="col-md-9 col-sm-9 div-msg">
             <p class="text-tooltip">Add comment</p>
           </div>
         </div>
-        <div (click)="approveFund(row.id)" class="row row-assignm" *ngIf="permissions.validatePermission('Production Cycles', 'Fund Approval') && (row.approvedBack === false && (row.openCommentsEY < 1 && row.openCommentsClient < 1 && row.hasContent)) && !isArchived">
+        <div
+          (click)="approveFund(row.id)"
+          class="row row-assignm"
+          *ngIf="
+            permissions.validatePermission(
+              'Production Cycles',
+              'Fund Approval'
+            ) &&
+            row.approvedBack === false &&
+              row.openCommentsEY < 1 &&
+                row.openCommentsClient < 1 &&
+                row.hasContent &&
+            !isArchived
+          "
+        >
           <div class="col-md-3 col-sm-3 div-icon">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="18"
+              height="14"
+              viewBox="0 0 18 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M6.00016 11.1698L1.83016 6.99984L0.410156 8.40984L6.00016 13.9998L18.0002 1.99984L16.5902 0.589844L6.00016 11.1698Z"
-                fill="#747480" />
+                fill="#747480"
+              />
             </svg>
           </div>
           <div class="col-md-9 col-sm-9 div-msg">
             <p class="text-tooltip">Approve fund</p>
           </div>
         </div>
-        <div class='update-assignment' (click)="addUsersToFund(row.id)" class="row row-assignm" *ngIf="permissions.validatePermission('Production Cycles', 'Update assignment') && row.assignedTo.length > 0 && !isArchived">
+        <div
+          class="update-assignment"
+          (click)="addUsersToFund(row.id)"
+          class="row row-assignm"
+          *ngIf="
+            permissions.validatePermission(
+              'Production Cycles',
+              'Update assignment'
+            ) &&
+            row.assignedTo.length > 0 &&
+            !isArchived
+          "
+        >
           <div class="col-md-3 col-sm-3 div-icon">
-            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M16 2H11.82C11.4 0.84 10.3 0 9 0C7.7 0 6.6 0.84 6.18 2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM9 2C9.55 2 10 2.45 10 3C10 3.55 9.55 4 9 4C8.45 4 8 3.55 8 3C8 2.45 8.45 2 9 2ZM9 6C10.66 6 12 7.34 12 9C12 10.66 10.66 12 9 12C7.34 12 6 10.66 6 9C6 7.34 7.34 6 9 6ZM15 18H3V16.6C3 14.6 7 13.5 9 13.5C11 13.5 15 14.6 15 16.6V18Z"
-                fill="#747480" />
+                fill="#747480"
+              />
             </svg>
           </div>
           <div class="col-md-9 col-sm-9 div-msg">
@@ -145,14 +282,30 @@
           </div>
         </div>
 
-        <div class='update-assignment-disabled'
-          *ngIf="!permissions.validatePermission('Production Cycles', 'Update assignment') && row.assignedTo.length > 0 || isArchived"
-          class="row row-assignm">
+        <div
+          class="update-assignment-disabled"
+          *ngIf="
+            (!permissions.validatePermission(
+              'Production Cycles',
+              'Update assignment'
+            ) &&
+              row.assignedTo.length > 0) ||
+            isArchived
+          "
+          class="row row-assignm"
+        >
           <div class="col-md-3 col-sm-3 div-icon">
-            <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="18"
+              height="20"
+              viewBox="0 0 18 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M16 2H11.82C11.4 0.84 10.3 0 9 0C7.7 0 6.6 0.84 6.18 2H2C0.9 2 0 2.9 0 4V18C0 19.1 0.9 20 2 20H16C17.1 20 18 19.1 18 18V4C18 2.9 17.1 2 16 2ZM9 2C9.55 2 10 2.45 10 3C10 3.55 9.55 4 9 4C8.45 4 8 3.55 8 3C8 2.45 8.45 2 9 2ZM9 6C10.66 6 12 7.34 12 9C12 10.66 10.66 12 9 12C7.34 12 6 10.66 6 9C6 7.34 7.34 6 9 6ZM15 18H3V16.6C3 14.6 7 13.5 9 13.5C11 13.5 15 14.6 15 16.6V18Z"
-                fill="#C4C4CD" />
+                fill="#C4C4CD"
+              />
             </svg>
           </div>
           <div class="col-md-9 col-sm-9 div-msg">
@@ -160,12 +313,25 @@
           </div>
         </div>
 
-        <div class='unaprovefund' (click)="unApproveFund(row)" *ngIf="permissions.validatePermission('Production Cycles', 'Fund Approval') && row.approvedBack && !isArchived" class="row row-assignm">
+        <div
+          class="unaprovefund"
+          (click)="unApproveFund(row)"
+          *ngIf="
+            permissions.validatePermission(
+              'Production Cycles',
+              'Fund Approval'
+            ) &&
+            row.approvedBack &&
+            !isArchived
+          "
+          class="row row-assignm"
+        >
           <div class="col-md-3 col-sm-3 div-icon">
             <svg xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9C10 10.1 10.9 11 12 11C13.1 11 14 10.1 14 9ZM12 0C7.03 0 3 4.03 3 9H0L4 13L8 9H5C5 5.13 8.13 2 12 2C15.87 2 19 5.13 19 9C19 12.87 15.87 16 12 16C10.49 16 9.09 15.51 7.94 14.7L6.52 16.14C8.04 17.3 9.94 18 12 18C16.97 18 21 13.97 21 9C21 4.03 16.97 0 12 0Z"
-                fill="#747480" />
+                fill="#747480"
+              />
             </svg>
           </div>
           <div class="col-md-9 col-sm-9 div-msg">
@@ -175,21 +341,28 @@
       </motif-tooltip>
     </div>
 
-    <div class="margin-tooltip-v2 mt-2 dropdownTemplate-v2 actions-in-funds" *ngIf="false">
-      <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1" tabindex="0">
+    <div
+      class="margin-tooltip-v2 mt-2 dropdownTemplate-v2 actions-in-funds"
+      *ngIf="false"
+    >
+      <motif-icon
+        [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'"
+        id="motifExampleDropdown1"
+        tabindex="0"
+      >
       </motif-icon>
     </div>
   </ng-template>
 
   <ng-template #fundName let-row>
-    <span class="fund-name mt-2">{{row.name}}</span>
+    <span class="fund-name mt-2">{{ row.name }}</span>
   </ng-template>
 
   <!--status grid column-->
   <ng-template #status let-row>
     <span class="tax-legend-text">
-      <div class="tax-legend" [style.background]="setClasses(row)"> </div>
-      {{row.status}}
+      <div class="tax-legend" [style.background]="setClasses(row)"></div>
+      {{ row.status }}
     </span>
     <span class="fund-name mt-2"></span>
   </ng-template>
@@ -197,103 +370,188 @@
 
   <ng-template #urlDownload let-row>
     <div class="ml-4 grid-actions">
-      <a class='btn-download-enabled' *ngIf="row.hasContent" (click)="getDownloadFile(row)">
-        <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z" fill="#2E2E38"/>
-        </svg>          
-      </a>
-
-      <a class='btn-download-disabled' *ngIf="!row.hasContent">
-        <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z" fill="#C4C4CD"/>
-        </svg>                    
-      </a>
-
-      <a class='btn-comment-enabled' (click)="createComment(row,'')" *ngIf="permissions.validatePermission('Production Cycles', 'View comments')">
-        <svg xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z" />
+      <a
+        class="btn-download-enabled"
+        *ngIf="row.hasContent"
+        (click)="getDownloadFile(row)"
+      >
+        <svg
+          width="15"
+          height="20"
+          viewBox="0 0 15 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z"
+            fill="#2E2E38"
+          />
         </svg>
       </a>
 
-      <a class='btn-comment-disabled' *ngIf="!permissions.validatePermission('Production Cycles', 'View comments')">
-        <svg xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z" />
+      <a class="btn-download-disabled" *ngIf="!row.hasContent">
+        <svg
+          width="15"
+          height="20"
+          viewBox="0 0 15 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.7913 7.25H10.6247V0.75H4.37467V7.25H0.208008L7.49967 14.8333L14.7913 7.25ZM6.45801 9.41667V2.91667H8.54134V9.41667H9.76009L7.49967 11.7675L5.23926 9.41667H6.45801ZM0.208008 17H14.7913V19.1667H0.208008V17Z"
+            fill="#C4C4CD"
+          />
         </svg>
       </a>
 
+      <a
+        class="btn-comment-enabled"
+        (click)="createComment(row, '')"
+        *ngIf="
+          permissions.validatePermission('Production Cycles', 'View comments')
+        "
+      >
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z"
+          />
+        </svg>
+      </a>
+
+      <a
+        class="btn-comment-disabled"
+        *ngIf="
+          !permissions.validatePermission('Production Cycles', 'View comments')
+        "
+      >
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21.8228 2.83317C21.8228 1.6415 20.8587 0.666504 19.667 0.666504H2.33366C1.14199 0.666504 0.166992 1.6415 0.166992 2.83317V15.8332C0.166992 17.0248 1.14199 17.9998 2.33366 17.9998H17.5003L21.8337 22.3332L21.8228 2.83317ZM19.667 2.83317V17.1007L18.3995 15.8332H2.33366V2.83317H19.667ZM4.50033 11.4998H17.5003V13.6665H4.50033V11.4998ZM4.50033 8.24984H17.5003V10.4165H4.50033V8.24984ZM4.50033 4.99984H17.5003V7.1665H4.50033V4.99984Z"
+          />
+        </svg>
+      </a>
     </div>
   </ng-template>
 
   <ng-template #totalComments let-row>
-    <button (click)="createComment(row,'')" class='counter-item'>
-      {{row.totalComments}}
+    <button (click)="createComment(row, '')" class="counter-item">
+      {{ row.totalComments }}
     </button>
-
   </ng-template>
 
   <ng-template #openCommentEY let-row>
-    <button (click)="createComment(row,'EY')" class='counter-item'
-      [ngClass]="row.openCommentsEY > 0 ? 'has-count': 'zero-count'">
-      {{row.openCommentsEY}}
+    <button
+      (click)="createComment(row, 'EY')"
+      class="counter-item"
+      [ngClass]="row.openCommentsEY > 0 ? 'has-count' : 'zero-count'"
+    >
+      {{ row.openCommentsEY }}
     </button>
   </ng-template>
 
   <ng-template #openCommentClient let-row>
-    <button (click)="createComment(row,'CLIENT')" class='counter-item'
-      [ngClass]="row.openCommentsClient > 0 ? 'has-count': 'zero-count'">
-      {{row.openCommentsClient}}
+    <button
+      (click)="createComment(row, 'CLIENT')"
+      class="counter-item"
+      [ngClass]="row.openCommentsClient > 0 ? 'has-count' : 'zero-count'"
+    >
+      {{ row.openCommentsClient }}
     </button>
   </ng-template>
 
   <ng-template #assignedToTemplate let-row>
-    <div class='assigned-section'>
-      <div class="comment-user mt-2" *ngFor="let user of row.assignedTo; let i = index">
+    <div class="assigned-section">
+      <div
+        class="comment-user mt-2"
+        *ngFor="let user of row.assignedTo; let i = index"
+      >
         <div class="header-avatar" *ngIf="i < 2">
-          <motif-avatar [userName]="user.userFirstName +' '+ user.userLastName" status="none"></motif-avatar>
+          <motif-avatar
+            [userName]="user.userFirstName + ' ' + user.userLastName"
+            status="none"
+          ></motif-avatar>
         </div>
       </div>
 
       <div class="margin-tooltip mt-2" *ngIf="row.assignedTo.length > 1">
         <motif-tooltip placement="bottom">
-          <h4 motifTooltipTrigger aria-label="tooltip" class="link-assigned" (click)="getTooltip()"><b
-              *ngIf="row.assignedTo.length > 2">+{{row.assignedTo.length-2}}</b></h4>
+          <h4
+            motifTooltipTrigger
+            aria-label="tooltip"
+            class="link-assigned"
+            (click)="getTooltip()"
+          >
+            <b *ngIf="row.assignedTo.length > 2"
+              >+{{ row.assignedTo.length - 2 }}</b
+            >
+          </h4>
           <div *ngFor="let item of row.assignedTo; let x = index">
-            <span *ngIf="x > 1">{{item.userFirstName + " " + item.userLastName}}</span>
+            <span *ngIf="x > 1">{{
+              item.userFirstName + " " + item.userLastName
+            }}</span>
           </div>
         </motif-tooltip>
       </div>
 
-      <a class="add-user-enabled cursor-pointer" (click)="addUsersToFund(row.id)" *ngIf="(permissions.validatePermission('Production Cycles', 'Add assignment')) && (row.assignedTo.length == 0) && !isArchived">
+      <a
+        class="add-user-enabled cursor-pointer"
+        (click)="addUsersToFund(row.id)"
+        *ngIf="
+          permissions.validatePermission(
+            'Production Cycles',
+            'Add assignment'
+          ) &&
+          row.assignedTo.length == 0 &&
+          !isArchived
+        "
+      >
         <svg xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5.5H5V2.5H3V5.5H0V7.5H3V10.5H5V7.5H8V5.5ZM18 6.5C19.66 6.5 20.99 5.16 20.99 3.5C20.99 1.84 19.66 0.5 18 0.5C17.68 0.5 17.37 0.55 17.09 0.64C17.66 1.45 17.99 2.43 17.99 3.5C17.99 4.57 17.65 5.54 17.09 6.36C17.37 6.45 17.68 6.5 18 6.5ZM13 6.5C14.66 6.5 15.99 5.16 15.99 3.5C15.99 1.84 14.66 0.5 13 0.5C11.34 0.5 10 1.84 10 3.5C10 5.16 11.34 6.5 13 6.5ZM19.62 8.66C20.45 9.39 21 10.32 21 11.5V13.5H24V11.5C24 9.96 21.63 9.01 19.62 8.66ZM13 8.5C11 8.5 7 9.5 7 11.5V13.5H19V11.5C19 9.5 15 8.5 13 8.5Z" />
+          <path
+            d="M8 5.5H5V2.5H3V5.5H0V7.5H3V10.5H5V7.5H8V5.5ZM18 6.5C19.66 6.5 20.99 5.16 20.99 3.5C20.99 1.84 19.66 0.5 18 0.5C17.68 0.5 17.37 0.55 17.09 0.64C17.66 1.45 17.99 2.43 17.99 3.5C17.99 4.57 17.65 5.54 17.09 6.36C17.37 6.45 17.68 6.5 18 6.5ZM13 6.5C14.66 6.5 15.99 5.16 15.99 3.5C15.99 1.84 14.66 0.5 13 0.5C11.34 0.5 10 1.84 10 3.5C10 5.16 11.34 6.5 13 6.5ZM19.62 8.66C20.45 9.39 21 10.32 21 11.5V13.5H24V11.5C24 9.96 21.63 9.01 19.62 8.66ZM13 8.5C11 8.5 7 9.5 7 11.5V13.5H19V11.5C19 9.5 15 8.5 13 8.5Z"
+          />
         </svg>
       </a>
-      
-      <a class="add-user-disabled cursor-pointer" *ngIf="!(permissions.validatePermission('Production Cycles', 'Add assignment')) && (row.assignedTo.length == 0) || (isArchived && (row.assignedTo.length == 0))">
+
+      <a
+        class="add-user-disabled cursor-pointer"
+        *ngIf="
+          (!permissions.validatePermission(
+            'Production Cycles',
+            'Add assignment'
+          ) &&
+            row.assignedTo.length == 0) ||
+          (isArchived && row.assignedTo.length == 0)
+        "
+      >
         <svg xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5.5H5V2.5H3V5.5H0V7.5H3V10.5H5V7.5H8V5.5ZM18 6.5C19.66 6.5 20.99 5.16 20.99 3.5C20.99 1.84 19.66 0.5 18 0.5C17.68 0.5 17.37 0.55 17.09 0.64C17.66 1.45 17.99 2.43 17.99 3.5C17.99 4.57 17.65 5.54 17.09 6.36C17.37 6.45 17.68 6.5 18 6.5ZM13 6.5C14.66 6.5 15.99 5.16 15.99 3.5C15.99 1.84 14.66 0.5 13 0.5C11.34 0.5 10 1.84 10 3.5C10 5.16 11.34 6.5 13 6.5ZM19.62 8.66C20.45 9.39 21 10.32 21 11.5V13.5H24V11.5C24 9.96 21.63 9.01 19.62 8.66ZM13 8.5C11 8.5 7 9.5 7 11.5V13.5H19V11.5C19 9.5 15 8.5 13 8.5Z" />
+          <path
+            d="M8 5.5H5V2.5H3V5.5H0V7.5H3V10.5H5V7.5H8V5.5ZM18 6.5C19.66 6.5 20.99 5.16 20.99 3.5C20.99 1.84 19.66 0.5 18 0.5C17.68 0.5 17.37 0.55 17.09 0.64C17.66 1.45 17.99 2.43 17.99 3.5C17.99 4.57 17.65 5.54 17.09 6.36C17.37 6.45 17.68 6.5 18 6.5ZM13 6.5C14.66 6.5 15.99 5.16 15.99 3.5C15.99 1.84 14.66 0.5 13 0.5C11.34 0.5 10 1.84 10 3.5C10 5.16 11.34 6.5 13 6.5ZM19.62 8.66C20.45 9.39 21 10.32 21 11.5V13.5H24V11.5C24 9.96 21.63 9.01 19.62 8.66ZM13 8.5C11 8.5 7 9.5 7 11.5V13.5H19V11.5C19 9.5 15 8.5 13 8.5Z"
+          />
         </svg>
       </a>
     </div>
   </ng-template>
 
   <ng-template #statusChangedToTemplate let-row>
-    <span *ngIf="row.status != 'In EY tax preparation'"class='status-changes'> {{row.statusChangedDate | date: 'MM/dd/yyyy'}} </span>
-    <span *ngIf="row.status == 'In EY tax preparation'" class='status-changes'> -- </span>
+    <span *ngIf="row.status != 'In EY tax preparation'" class="status-changes">
+      {{ row.statusChangedDate | date: "MM/dd/yyyy" }}
+    </span>
+    <span *ngIf="row.status == 'In EY tax preparation'" class="status-changes">
+      --
+    </span>
   </ng-template>
-
 </div>
 
 <div class="toast-cycles-details">
   <motif-toast [type]="'success'" [show]="showToastAfterSubmit">
-    {{toastSuccessMessage}}
+    {{ toastSuccessMessage }}
     <button type="button" class="close" (click)="closeToast()">&times;</button>
   </motif-toast>
 </div>
 
 <div class="toast-bulk-download">
   <motif-toast [type]="'success'" [show]="showToastAfterSubmitBulk">
-    {{toastSuccessMessage}}
+    {{ toastSuccessMessage }}
     <button type="button" class="close" (click)="closeToast()">&times;</button>
   </motif-toast>
 </div>
