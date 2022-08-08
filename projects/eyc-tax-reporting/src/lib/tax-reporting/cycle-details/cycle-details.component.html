@@ -84,7 +84,7 @@
   <lib-ag-grid [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
       [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" 
       buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" [secondbuttonText]="downloadBtn"
-      [search]="true" paginationSize="10" [permissionToSecondaryButton]="true" [permissionToPrimaryButton]="false" [displaySecondButton]="true" >
+      [search]="true" paginationSize="10" [permissionToSecondaryButton]="true" [displaySecondButton]="true" >
   </lib-ag-grid>
   <div *ngIf="searchNoDataAvilable">
     <motif-card class="no_data">
