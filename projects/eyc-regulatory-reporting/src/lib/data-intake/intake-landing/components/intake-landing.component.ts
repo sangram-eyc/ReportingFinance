@@ -12,7 +12,7 @@ import {
   FileFilterStatus, FILTER_TYPE,
   DATA_INTAKE_TYPE, DATA_FREQUENCY,ROUTE_URL_CONST,
   NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_LOW_PRIORITY_ISSUES, NO_MEDUIM_PRIORITY_ISSUES,
-  PowerBiReportDailyList, PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG
+  PowerBiReportDailyList, PowerBiReportMonthlyList,PowerBiReportDailyListProd,PowerBiReportMonthlyListProd,PBI_CONFIG, FILTER_TYPE_TITLE
 } from './../../../config/intake-config-helpers';
 import { DataSummary } from './../../models/data-summary.model';
 import { BarChartSeriesItemDTO } from './../../models/bar-chart-series-Item-dto.model';
@@ -56,7 +56,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
 
   stackBarChartData: StackChartSeriesItemDTO[];
   tabIn: number = 1;
-  innerTabIn: number = 2;
+  innerTabIn: number = 1;
   presentDate: Date;
   presentMonth: Date;
   totalFileCount = 0;
@@ -117,6 +117,16 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   colorScheme2: Color;
   colorScheme3: Color;
   colorScheme4: Color;
+  colorSchemeAll: Color = colorSets.find(s => s.name === 'all');
+  customColors: any = [
+    { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
+    { name: FILTER_TYPE_TITLE.low, value: this.colorSchemeAll.domain[1] },
+    { name: FILTER_TYPE_TITLE.medium, value: this.colorSchemeAll.domain[2] },
+    { name: FILTER_TYPE_TITLE.high, value: this.colorSchemeAll.domain[3] },
+    { name: FILTER_TYPE_TITLE.missingFiles, value: this.colorSchemeAll.domain[4] },
+    { name: FILTER_TYPE_TITLE.fileNotReceived, value: this.colorSchemeAll.domain[5] },
+  ];
+
   //end option
   form: FormGroup;
   businessDays: boolean = true;
@@ -211,7 +221,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
         this.reports = PowerBiReportDailyList;
       }
     }
-
+    this.getstackBarchart();
     this.fileSummaryList();
   }
 
@@ -231,7 +241,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   innerTabChange(selectedTab) {
     this.innerTabIn = selectedTab;
     if (this.innerTabIn == 1) {
-      // this.getstackBarchart();
+      this.getstackBarchart();
     } else if(this.innerTabIn == 2) {
       this.httpQueryParams.dataIntakeType = DATA_INTAKE_TYPE.DATA_PROVIDER;
       this.dailyMonthlyStatus ? this.httpQueryParams.dataFrequency = DATA_FREQUENCY.MONTHLY
@@ -326,28 +336,20 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   }
 
 
-  // getstackBarchart() {
-  //   // Mock API integration for bar chart (Data Providers/ Data Domains)-
-  //   console.log("File Review Summary API Call Started", new Date().toISOString());
-  //   // this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
-  //   // this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
-  //   this.dataList = [];
-  //   if (this.isViewClicked) {
-  //     this.IntakeLandingService.getReviewByGroupProviderOrDomainGrid(this.httpReviewByGroupParams).subscribe((reviewData: any) => {
-  //       this.manipulateStatusWithReviewByGroup(reviewData.data);
-  //       console.log("File Review Summary API Call End", new Date().toISOString());
-  //     });
-  //   } else {
-  //     this.totalFileCount = 0;
-  //     this.IntakeLandingService.getReviewAllList(this.httpQueryParams).subscribe((dataProvider: any) => {
-  //       this.stackBarChartData = [];
-  //       this.fileSummaries = dataProvider.data[0].donutChartDTO;
-  //       if (dataProvider.data[0] && dataProvider.data[0].barChartDTO.length > 0) {
-  //         this.stackBarChartData = dataProvider.data[0].barChartDTO;
-  //         this.totalFileCount = this.stackBarChartData.length;
-  //       }
-  //       console.log("File Review Summary API Call End", new Date().toISOString());
-  //     });
-  //   }
-  // }
+  getstackBarchart() {
+    console.log("File Review Summary API Call Started", new Date().toISOString());
+    // this.httpReviewByGroupParams.dataFrequency = this.httpDataGridParams.dataFrequency;
+    // this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
+    this.dataList = [];
+      this.totalFileCount = 0;
+      this.intakeLandingService.getBusinessday().subscribe((businessday: any) => {
+        this.stackBarChartData = [];
+        if (businessday.data[0] && businessday.data[0].barChartDTO.length > 0) {
+          this.stackBarChartData = businessday.data[0].barChartDTO;
+          this.totalFileCount = this.stackBarChartData.length;
+        }
+        console.log("File Review Summary API Call End", new Date().toISOString());
+      });
+  }
+
 }

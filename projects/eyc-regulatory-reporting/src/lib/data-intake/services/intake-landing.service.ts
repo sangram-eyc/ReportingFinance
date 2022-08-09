@@ -206,6 +206,75 @@ export class IntakeLandingService {
     return params;
   }
 
+  getBusinessday(){
+    // return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_summary_review_all}`);
+    return of({
+      "data": [
+        {
+          "barChartDTO": [
+            {
+                "name": "JPM",
+                "series": [
+                    {
+                        "name": "No issues",
+                        "value": 8
+                    },
+                    {
+                        "name": "Low priority issues",
+                        "value": 12
+                    },
+                    {
+                        "name": "Medium priority issues",
+                        "value": 15
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 12
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 23
+                    },
+                    {
+                        "name": "Files not received",
+                        "value": 24
+                    }
+                ]
+            },
+            {
+                "name": "CIBC",
+                "series": [
+                    {
+                        "name": "No issues",
+                        "value": 10
+                    },
+                    {
+                        "name": "Low priority issues",
+                        "value": 20
+                    },
+                    {
+                        "name": "Medium priority issues",
+                        "value": 30
+                    },
+                    {
+                        "name": "High priority issues",
+                        "value": 10
+                    },
+                    {
+                        "name": "Missing files, past due",
+                        "value": 39
+                    },
+                    {
+                        "name": "Files not received",
+                        "value": 20
+                    }
+                ]
+            }
+      ]
+        }]
+      });
+  }
+  
   getFileSummaryList(params: DataSummary) {
     return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_summary_list}`);
   } 
