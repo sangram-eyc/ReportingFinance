@@ -280,7 +280,7 @@ export class IntakeLandingService {
   } 
 
   getReviewAllList(params: DataSummary) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_summary_review_all}`);
+    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.file_summary_review_all}`, params);
   } 
   getEmbedURL() {
     return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.PBI_EMBED_URL}`);
@@ -324,7 +324,7 @@ export class IntakeLandingService {
   }
   
   getReviewFileTableData(params: DataGrid) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_review_table_data}`);
+    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.file_review_table_data}`,  params);
   }
 
   getExceptionTableData(params:ExceptionDataGrid) {
