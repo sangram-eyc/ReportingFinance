@@ -72,7 +72,7 @@ export class EycRrSettingsService {
   get regIntakeSumarry(): any {
 
     const intake_Summary = {
-      file_summary_list: !this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary' : 'http://localhost:4200/' + 'assets/eyc-regulatory-reporting/mock/file-summary-list.json',
+      file_summary_list: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/regreporting/data-intake/summary' : 'http://localhost:4200/' + 'assets/eyc-regulatory-reporting/mock/file-summary-list.json',
       file_summary_list_daily: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list-daily.json',
       file_summary_list_monthly: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       file_data_provider: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/data-intake-charts-data.json',

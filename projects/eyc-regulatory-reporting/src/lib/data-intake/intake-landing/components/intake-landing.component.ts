@@ -19,6 +19,7 @@ import { BarChartSeriesItemDTO } from './../../models/bar-chart-series-Item-dto.
 import { ApiSeriesItemDTO } from './../../models/api-series-Item-dto.model';
 import { donutSummariesObject } from './../../models/donut-chart-summary.model';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
+import { RegulatoryReportingFilingService } from './../../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
 
 @Component({
   selector: 'lib-intake-landing',
@@ -141,9 +142,12 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   prodUrl='/trp/';
   presentMonthDate: Date;
   presentMonthFormat: string;
+  filingName: any;
+  period: any;
 
   constructor(
     private intakeLandingService: IntakeLandingService,
+    private filingService: RegulatoryReportingFilingService,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
     private unsubscriber: AutoUnsubscriberService) {
@@ -158,6 +162,13 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    if (this.filingService.getFilingData) {
+      this.filingName = this.filingService.getFilingData.filingName;
+      this.period = this.filingService.getFilingData.period;
+     
+    }
+
     this.curDate = this.intakeLandingService.monthlyFormat(this.lastMonthDate);
     const selectedDate = sessionStorage.getItem("selectedDate");
     if (selectedDate) {
@@ -199,7 +210,9 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: this.dueDate,
+      dueDate: '2022-06-30',
+      regulationFormReportingPeriodDate: '2022-06-30',
+      displayName: this.filingName,
       periodType: '',
       filterTypes: [
         FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,

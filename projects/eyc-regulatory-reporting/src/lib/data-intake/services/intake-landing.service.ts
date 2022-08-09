@@ -276,7 +276,7 @@ export class IntakeLandingService {
   }
   
   getFileSummaryList(params: DataSummary) {
-    return this.apiService.invokeGetAPI(`${this.settingsService.regIntakeSumarry.file_summary_list}`);
+    return this.apiService.invokePostAPI(`${this.settingsService.regIntakeSumarry.file_summary_list}`,params);
   } 
 
   getReviewAllList(params: DataSummary) {
