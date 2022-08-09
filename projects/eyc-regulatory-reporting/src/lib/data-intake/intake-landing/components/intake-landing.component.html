@@ -65,7 +65,7 @@
                   <tr *ngIf="businessDays">
                      <td class="review-number"><i class="material-icons">date_range</i></td>
                      <td rowspan="2" class="review-by-group-search text-align-right">
-                        <a href="#" motifTextLink color="primary-alt" class="review-all">
+                        <a [routerLink]="[routeUrlConst.DATA_INTAKE_BUSINESS_DAY]"  motifTextLink color="primary-alt" class="review-all">
                            <i class="material-icons icon-size">search</i>
                            <span>Review</span>
                         </a>
@@ -102,11 +102,11 @@
             </motif-card-header>
             <motif-card-body>
                <section id='business-days' [hidden]="!(innerTabIn == 1)">
-                  <div class="bar-chart-panel">
+                  <!-- <div class="bar-chart-panel">
                      <div id="StackBarChart-business">
                         <div class="bar-chart-body">
                            <div class="chart-container" [hidden]="(totalFileCount==0)">
-                              <!-- Chart placeholder -->
+                              
                               <eyc-charts-bar-vertical-stacked class="chart-container" [scheme]="colorSchemeAll"
                                  [results]="stackBarChartData" [animations]="animations" [gradient]="gradient"
                                  [tooltipDisabled]="tooltipDisabled" [xAxis]="showXAxis" [yAxis]="showYAxis"
@@ -131,7 +131,7 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                </section>
                <section id='data-provider' [hidden]="!(innerTabIn == 2)">
                   <div class="bar-chart-panel">

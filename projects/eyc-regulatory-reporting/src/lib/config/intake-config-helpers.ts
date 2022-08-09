@@ -24,7 +24,8 @@ export const ROUTE_URL_CONST = {
     FILE_REVIEW_URL: '/data-intake/files-review',
     FILE_EXCEPTION:'/data-intake/files/exceptions',
     FILE_EXCEPTION_DETAILS:'/data-intake/files/exception-details',
-    REG_REPORTING_LANDING: '/app-regulatory-filing'
+    REG_REPORTING_LANDING: '/app-regulatory-filing',
+    DATA_INTAKE_BUSINESS_DAY: '/data-intake/business-day'
 }
 
 export const DATA_INTAKE_TYPE_DISPLAY_TEXT = {

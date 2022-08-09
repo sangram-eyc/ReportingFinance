@@ -51,6 +51,7 @@ import { IntakeFileReviewComponent } from 'projects/eyc-regulatory-reporting/src
 import { IntakeExceptionsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions/intake-exceptions.component';
 import { IntakeExceptionsReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
 import { IntakeDonutGridListComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-donut-grid-list/intake-donut-grid-list.component';
+import { IntakeBusinessDayComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-business-day/intake-business-day.component';
 
 
 
@@ -97,6 +98,7 @@ const routes: Routes = [
   {path: 'data-intake/files-review/:paramDataIntakeType/:paramDataIntakeName', component: IntakeFileReviewComponent,  canActivate: [AuthGuardService]},
   {path: 'data-intake/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: IntakeExceptionsComponent,  canActivate: [AuthGuardService]},
   {path: 'data-intake/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/business-day',component: IntakeBusinessDayComponent,  canActivate: [AuthGuardService]},
   {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'archived-notifications', component: ArchivedNotificationsComponent},
   {path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate: [AuthGuardService]},

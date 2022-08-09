@@ -1,3 +1,115 @@
+.intake-content-container {
+  top: 50px;
+  position: relative;
+}
+
+.comments-background {
+  background-color: black;
+  color: white !important;
+  border-radius: 50px;
+  padding: 4px 12px !important;
+  height: 30px;
+  margin-top: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.commentTemplate {
+width: 80px;
+height: 45px;
+.add_icon {
+    display: none;
+}
+}
+
+.commentTemplate:hover {
+.add_icon {
+    display: block !important;  
+    cursor: pointer;  
+    position: absolute;
+    margin-top: 12px;
+    ::ng-deep svg {
+        fill: #85858a !important;
+    }
+    .plus {
+        color: #fff;
+        position: absolute;
+        font-size: 17px;
+        top: -14px;
+        left: 7px;
+    }
+}
+}
+
+.resolve-Exception {
+  margin-left: 10px;
+::ng-deep svg {
+  fill: #168736;
+}
+}
+.result_warning {
+::ng-deep svg {
+  fill: #FF9831;
+}
+}
+.result_complete {
+::ng-deep svg {
+fill: #168736;
+}
+}
+.complete {
+::ng-deep svg {
+    fill: #168736;
+}
+}
 .intakeFilesWrapper {
-    margin-top: 110px;
+margin-top: 110px;
+}
+
+.exceptionRouteCls {
+color: #155CB4;
+cursor: pointer;
+}
+
+.view-det-arrow {
+cursor: pointer;
+}
+
+button.motif-button.mark-as-complete-btn {
+width: auto !important;
+}
+
+::ng-deep .markAsComplete-modal-class .motif-modal-content{
+width: 500px !important;  
+}
+
+.back-wrapper {
+  display: flex;
+  margin-bottom: 8px;
+  h2 {
+      color: #1A1A24;
+      margin-left: 17px;
+  }  
+}
+
+.back-wrapper motif-icon:first-child:hover {
+  background: #e1e1e6;
+}
+
+.back-wrapper motif-icon:first-child {
+  width: 24px;
+  height: 26px;
+}
+
+.back-button {
+  ::ng-deep svg {
+      background-color: transparent;
+      cursor: pointer;
+      fill: #747480 !important;
+      width: 16px;
+      margin-left: 4px;
   }
+}
+
+.custom-mr{
+  margin-right: 6px;
+}

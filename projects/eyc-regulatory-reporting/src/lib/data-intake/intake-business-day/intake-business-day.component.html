@@ -1,7 +1,135 @@
-<div class="intakeFilesWrapper">
-    <!-- <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr"
+<br>
+<div class="back-wrapper">
+    <motif-icon class="back-button custom-mr" [src]="'/assets/icons/arrow-back.svg'" (click)="back()"></motif-icon>
+</div>
+
+<lib-dots-card [status]="status" [isBreadcrumb]="false" (filingDetails)="receiveFilingDetails($event)"
+    (filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
+<lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
+    [isDataInteake]="true"></lib-reporting-tabs-card>
+
+<div *ngIf="!enableTabs" class="intakeFilesWrapper">
+    <shared-lib-intake-files (eventToParentFromIntakeFiles)="getIntakeDetails($event)" [filesData]="filesListArr"
         [buttonTxt]="'All exceptions'" [filesDatasets]="bdFilesList" [isEnabled] ="permissions.validatePermission('Data Intake', 'View All Exceptions')" (datasetEvent)="getBDFilesList($event)"
         (commentClickEvent)="openComments($event)" (routeToExceptionDetailsEvent)="routeToExceptionDetailsPage($event)" [exportName]="exportName"
          (exportFlagToDataIntakeformSharedIntake)="exportData('accordion')">
-    </shared-lib-intake-files> -->
+    </shared-lib-intake-files>
 </div>
+
+<div class="review-content-container" *ngIf="enableTabs">
+    <section id="exceptionReports" *ngIf="tabs==1">
+
+        <lib-ag-grid [rowData]="rowData" [columnDefs]="exceptionDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10"
+        [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Exception Status Change Resolve') && !mockDataEnable"
+        rowSelection="multiple" buttonPosition="left" [masterDetail]="false" [submitFunction]="submitException"
+        [modalConfig]="exceptionModalConfig" (selectedRowEmitter)="exceptionReportRowsSelected($event)"
+        [detailCellRendererParams]="exceptionDetailCellRendererParams" [exportName] = "exportName"
+        ></lib-ag-grid>
+
+        <ng-template #commentExceptionTemplate let-row *ngIf="!mockDataEnable">
+            <div *ngIf=" row.commentCount !==0 && row?.commentCount && permissions.validatePermission('Data Intake', 'View Comments')  "
+                 (click)="openComments(row)">
+                <span class="comments-background">{{row.commentCount}}</span>
+            </div>
+            <div class="commentTemplate" *ngIf="row.commentCount ===0 || !row.commentCount ">
+                <div class="add_icon" *ngIf="permissions.validatePermission('Data Intake', 'Add Comments') && !checkFilingCompletedStatus()">
+                    <motif-icon [src]="'/assets/icons/editor/ic_mode_comment_24px.svg'"
+                        (click)="addCommentToException(row)"><span class="plus">+</span></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #resolveExceptionTemplate let-row>
+            <div>
+                {{row.resolvedCount}}
+            </div>
+            <div class="resolve-Exception" *ngIf="row.exceptionCount">
+
+                <div class="result_complete"
+                    *ngIf="row.exceptionCount == row.resolvedCount && (row.exceptionCount != 0)">
+                    <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+                </div>
+                <div class="result_warning"
+                    *ngIf="row.exceptionCount != row.resolvedCount && (row.exceptionCount != 0)">
+                    <motif-icon [src]="'/assets/icons/alert/ic_warning_24px.svg'"></motif-icon>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #dropdownTemplate let-row *ngIf="!mockDataEnable">
+            <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
+            </motif-icon>
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row *ngIf="!mockDataEnable">
+            <div class="actionButtonTemplate" *ngIf="!mockDataEnable">
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                    tabindex="0">
+                </motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #viewDetTemplate let-row>
+            <div class="view-det-arrow" *ngIf="!mockDataEnable">
+                <motif-icon [src]="'/assets/icons/navigation/ic_chevron_right_24px.svg'"
+                    (click)="routeToExceptionDetailsPage(row)"></motif-icon>
+            </div>
+        </ng-template>
+        <ng-template #expandExceptionTemplate let-row>
+            <div class="exceptionRouteCls" (click)="routeToExceptionDetailsPage(row)" *ngIf="!mockDataEnable">{{row.file}}</div>
+            <div *ngIf="mockDataEnable">{{row.file}}</div>
+        </ng-template>
+        <ng-template #datasetsDropdownTemplate let-row>
+            <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
+            </motif-icon>
+        </ng-template>
+
+    </section>
+
+    <section id="dataset" *ngIf="(tabs==2)">
+
+        <lib-ag-grid [rowData]="datasetData" [columnDefs]="datasetsDefsAgGrid" [export]="true" buttonPosition="left"
+        [search]="true" paginationSize="10" [exportName] = "exportName"
+        [permissionToPrimaryButton]="false"></lib-ag-grid>
+
+        <ng-template #datasetsDropdownTemplate let-row>
+            <motif-icon class="complete" *ngIf="row.approved == true" [src]="'/assets/icons/action/ic_done_24px.svg'">
+            </motif-icon>
+        </ng-template>
+
+        <ng-template #actionButtonTemplate let-row>
+            <div class="actionButtonTemplate">
+                <motif-icon [src]="'/assets/icons/navigation/ic_more_vert_24px.svg'" id="motifExampleDropdown1"
+                    tabindex="0">
+                </motif-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #resolveDatasetsTemplate let-row>
+            <div>
+                {{row.resolved}}
+            </div>
+            <div class="resolve-Exception" *ngIf="row.isExceptionResolved">
+                <motif-icon [src]="'/assets/icons/av/ic_playlist_add_check_24px.svg'"></motif-icon>
+            </div>
+        </ng-template>
+    </section>
+</div>
+<lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType"
+    [filingName]="commentsName" [permissionToAddComment]="permissions.validatePermission('Data Intake', 'Add Comments')"
+    (commentAddedEmitter)="commentAdded()" [filingStatus]="checkFilingCompletedStatus()" [moduleOriginated]="moduleOriginated"></lib-comment-side-menu>
+
+<motif-toast [type]="'success'" [show]="showToastAfterApproveExceptionReports"
+    (close)="showToastAfterApproveExceptionReports = !showToastAfterApproveExceptionReports">Approved successfully
+</motif-toast>
+
+<motif-modal class="markAsComplete-modal-class" [show]="showIntakeModal" (close)="showIntakeModal = false">
+    <motif-modal-header>
+      Mark intake complete
+    </motif-modal-header>
+    <motif-modal-body>
+      <p>Are you sure you want to mark filing complete?</p>
+    </motif-modal-body>
+    <motif-modal-footer>
+  <button motifButton color="primary-alt" class="mark-as-complete-btn" (click)="markAsCompleteClick()">Mark as complete</button>
+  <button motifButton color="secondary" (click)="showIntakeModal = false">Cancel</button>
+    </motif-modal-footer>
+  </motif-modal>
