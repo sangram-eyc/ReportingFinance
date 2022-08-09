@@ -5,6 +5,8 @@ export interface DataSummary {
   endDate: StringOrNull;
   periodType: StringOrNull;
   dueDate: StringOrNull;
+  regulationFormReportingPeriodDate: StringOrNull,
+  displayName: StringOrNull,
   dataFrequency: string;
   dataIntakeType: string;
   filterTypes: string[];
