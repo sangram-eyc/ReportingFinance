@@ -15,7 +15,8 @@ export const DATA_FREQUENCY = {
 
 export const DATA_INTAKE_TYPE = {
     DATA_PROVIDER: 'dataProvider',
-    DATA_DOMAIN: 'dataDomain'
+    DATA_DOMAIN: 'dataDomain',
+    BUSINESS_DAY:'business_Days'
 }
 
 export const ROUTE_URL_CONST = {

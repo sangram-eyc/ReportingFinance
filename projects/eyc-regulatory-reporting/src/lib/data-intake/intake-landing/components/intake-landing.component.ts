@@ -80,6 +80,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
 
   // API Request match with response
   httpQueryParams: DataSummary;
+  businessDayQueryParams:DataSummary;
 
   // bar chart start
   fitContainer: boolean = false;
@@ -95,6 +96,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   showText = true;
   xAxisLabel = 'Providers';
   xAxisLabel2 = 'Domains';
+  xAxisLabel3='Business Days'
   showYAxisLabel = true;
   yAxisLabel = 'Files';
   showXAxisGridLines = false;
@@ -211,6 +213,21 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
       dueDate: '2022-06-30',
+      regulationFormReportingPeriodDate: '2022-06-30',
+      displayName: this.filingName,
+      periodType: '',
+      filterTypes: [
+        FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
+        FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
+    };
+
+    this.businessDayQueryParams =
+    {
+      startDate: '',
+      endDate: '',
+      dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
+      dataIntakeType: DATA_INTAKE_TYPE.BUSINESS_DAY,
+      dueDate: '2022-06-06',
       regulationFormReportingPeriodDate: '2022-06-30',
       displayName: this.filingName,
       periodType: '',
@@ -355,7 +372,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
     // this.httpReviewByGroupParams.dueDate = this.httpDataGridParams.dueDate;
     this.dataList = [];
       this.totalFileCount = 0;
-      this.intakeLandingService.getBusinessday().subscribe((businessday: any) => {
+      this.intakeLandingService.getBusinessday(this.businessDayQueryParams).pipe(this.unsubscriber.takeUntilDestroy).subscribe((businessday: any) => {
         this.stackBarChartData = [];
         if (businessday.data[0] && businessday.data[0].barChartDTO.length > 0) {
           this.stackBarChartData = businessday.data[0].barChartDTO;
