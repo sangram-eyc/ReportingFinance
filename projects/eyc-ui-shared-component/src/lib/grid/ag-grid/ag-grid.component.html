@@ -4,7 +4,7 @@
       <div *ngIf="button" class="buttons">
         <div class="approve-button" *ngIf="permissionToPrimaryButton">
           <button motifButton color="primary-alt" size="large" (click)="primaryButtonAction()"
-            [disabled]="showButton">
+            [disabled]="selectedRows.length==0">
             <span *ngIf="displayPlusIcon">
               <motif-icon class="plus_icon" *ngIf="displayCheckBox" [src]="'./assets/icons/content/ic_add_24px.svg'">
               </motif-icon>

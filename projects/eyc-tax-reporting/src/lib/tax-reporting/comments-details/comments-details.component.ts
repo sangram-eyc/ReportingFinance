@@ -105,6 +105,21 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
     this.getCommentsList();
   }
 
+  ngAfterViewInit(): void {
+    this.setTooltips();
+  }
+  setTooltips(){
+    setTimeout(()=>{
+      const arrayTooltips = document.querySelectorAll('.motif-tooltip');
+      arrayTooltips.forEach((userItem) => {
+        document
+          .querySelector('.ag-theme-material')
+          .appendChild(userItem);
+      });
+        window.scrollTo(0, window.scrollY + 1);
+    }, 500)
+  }
+
   backtoCycleView() {
     this.router.navigate([
       'cycle-details',
@@ -254,7 +269,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           headerName: 'Submitted by',
           field: 'author',
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
           minWidth: 250,
         },
@@ -266,7 +281,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           headerName: 'Fund/entity workbook',
           field: 'entityName',
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
           minWidth: 300,
         },
@@ -278,7 +293,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           headerName: 'Comment/question',
           field: 'description',
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
           minWidth: 250,
         },
@@ -291,7 +306,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           field: 'createdDate',
           minWidth: 150,
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
         },
         {
@@ -302,7 +317,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           headerName: 'Status',
           field: 'status',
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
           minWidth: 150,
         },
@@ -315,7 +330,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           field: 'replyCount',
           minWidth: 150,
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
         },
         {
@@ -327,7 +342,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           field: 'tagsToSearch',
           minWidth: 300,
           sortable: false,
-          menuTabs: [],
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
         },
       ];
@@ -337,7 +352,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
   }
 
   getTooltip() {
-    const arrayTooltips = document.querySelectorAll('.motif-tooltip');
+    /* const arrayTooltips = document.querySelectorAll('.motif-tooltip');
     arrayTooltips.forEach((userItem) => {
       document
         .querySelector('.motif-pagination-select-wrapper')
@@ -346,7 +361,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         window.scrollTo(0, window.scrollY - 1);
       }, 10);
-    });
+    }); */
   }
 
   showMyAssignedFunds() {
