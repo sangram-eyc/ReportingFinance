@@ -208,24 +208,24 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.period = this.filingService.getFilingData.period;
     this.previousRoute = this.routingState.getPreviousUrl();
     this.routeHistory = this.routingState.getHistory();
-    const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
-    const routePart=routeArray[routeArray.length - 2];
+    // const routeArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
+    // const routePart=routeArray[routeArray.length - 2];
 
-    if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
-      this.isDataIntaketype = true;
-      this.fileName = decodeURIComponent(routeArray[routeArray.length - 1]);
-      if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
-        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
-      }
-      else {
-        this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
-      }
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
-    }
-    else {
-      this.fileName = "Files";
-      this.isDataIntaketype = false;
-    }
+    // if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER || routePart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
+    //   this.isDataIntaketype = true;
+    //   this.fileName = decodeURIComponent(routeArray[routeArray.length - 1]);
+    //   if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
+    //     this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+    //   }
+    //   else {
+    //     this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+    //   }
+    //   this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+    // }
+    // else {
+    //   this.fileName = "Files";
+    //   this.isDataIntaketype = false;
+    // }
     this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
     this.exceptionUrl = this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
