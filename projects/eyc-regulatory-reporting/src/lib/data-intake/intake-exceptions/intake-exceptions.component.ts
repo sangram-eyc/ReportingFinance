@@ -171,8 +171,8 @@ export class IntakeExceptionsComponent implements OnInit {
       this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
     }
     else if (routePart == "files" || routeArray[2] == "files") {
-      const urlPartArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL)).split("/");
-      const urlPart = urlPartArray[urlPartArray.length - 2];
+      const urlPartArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL))?.split("/");
+      const urlPart = urlPartArray? urlPartArray[urlPartArray?.length - 2]: '';
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
         this.fileName = decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
@@ -194,6 +194,7 @@ export class IntakeExceptionsComponent implements OnInit {
     }
     else {
       this.isDataIntaketype = false;
+      this.fileName = "Files";
     }
     this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
   }
