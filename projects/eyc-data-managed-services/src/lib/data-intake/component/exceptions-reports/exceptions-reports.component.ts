@@ -34,7 +34,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   currentPage = 1;
   maxPages = 5;
   noCompletedDataAvailable = false;
-  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   // TableHeaderRendererComponent = TableHeaderRendererComponent;
   rowData = [];
   rowClass = 'row-style';
@@ -117,7 +117,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
             const firstRow = resp.data[0];
             for (const [key] of Object.entries(firstRow)) {
               this.columnDefsFill.push({
-                headerComponentFramework: MotifTableHeaderRendererComponent,
+                // headerComponentFramework: MotifTableHeaderRendererComponent,
                 headerName: key.replace(/_/g, ' '),
                 field: key,
                 sortable: true,
@@ -145,6 +145,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           wrapText: false,
           autoHeight: false,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         });
       });
       const multiColumnData = [];

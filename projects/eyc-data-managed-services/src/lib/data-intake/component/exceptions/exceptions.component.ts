@@ -107,7 +107,7 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
   exportName: string = "ExceptionsReport";
-  
+
   constructor(
     private unsubscriber: AutoUnsubscriberService,
     private dataManagedService: DataManagedService,
@@ -462,13 +462,13 @@ export class ExceptionsComponent implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  updatePaginationSize(newPageSize: number) {
-    this.noOfCompletdFilingRecords = newPageSize;
-  }
+  // updatePaginationSize(newPageSize: number) {
+  //   this.noOfCompletdFilingRecords = newPageSize;
+  // }
 
-  handlePageChange(val: number): void {
-    this.currentPage = val;
-  }
+  // handlePageChange(val: number): void {
+  //   this.currentPage = val;
+  // }
 
   openComments(row) {
     console.log(row);
