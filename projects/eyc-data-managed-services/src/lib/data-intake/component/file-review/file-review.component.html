@@ -200,8 +200,8 @@
             [suppressCellSelection]="true" [domLayout]="domLayout">
          </motif-table> -->
          <lib-ag-grid class="ag-cursor-pointer" [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl"
-            [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="50" [paginationSize]="50" buttonPosition="left"
-            rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" 
+            [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="50" [paginationSize]="50" [pageSize]="50" [pageList]="[50,100,150]" buttonPosition="left"
+            rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [exportName]="exportName"
             (firstDataRendered)="onFirstDataRendered($event)" [defaultColDef]="defaultColDef"
             gridStyle="third">
          </lib-ag-grid>

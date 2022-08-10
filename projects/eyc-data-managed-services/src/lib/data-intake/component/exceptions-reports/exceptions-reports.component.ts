@@ -83,6 +83,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   isLoading = true;
   fileName="Files";
   httpDataGridParams: ExceptionDetailsDataGrid;
+  exportName: string = "ExceptionsDetail";
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private routingState: RoutingStateService,

@@ -56,8 +56,8 @@
                         [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
                     </motif-table> -->
             <lib-ag-grid class="ag-cursor-pointer" [rowData]="exceptionTableData" [button]="false" [columnDefs]="columnDefs"
-                [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="100" [paginationSize]="100"
-                buttonPosition="left" rowSelection="single" (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true"
+                [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="100" [paginationSize]="100" [pageSize]="100" [pageList]="[100,150,200]" 
+                buttonPosition="left" rowSelection="single" (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [exportName]="exportName"
                 [suppressCellSelection]="true" (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
             </lib-ag-grid>
         </motif-card>

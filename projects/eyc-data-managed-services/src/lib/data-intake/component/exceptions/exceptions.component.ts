@@ -106,7 +106,8 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
-
+  exportName: string = "ExceptionsReport";
+  
   constructor(
     private unsubscriber: AutoUnsubscriberService,
     private dataManagedService: DataManagedService,
@@ -296,10 +297,11 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exceptions Priority Level',
           field: 'priority',
           sortable: true,
-          filter: 'agSetColumnFilter',
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // filter: 'agSetColumnFilter',
+          menuTabs: ['generalMenuTab'],
           autoHeight: true,
           minWidth: 200,
+          sort: 'desc',
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           },
