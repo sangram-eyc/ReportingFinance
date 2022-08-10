@@ -141,7 +141,7 @@
     [displaySecondButton]="true"
     [submitFunction]="submitDatasets"
     buttonPosition="left"
-    [permissionToPrimaryButton]="true"
+    [permissionToPrimaryButton]="!isArchived"
     [permissionToApproveButton]="false"
     (selectedRowEmitter)="datasetsReportRowsSelected($event)"
     (selectedRowEmitterProcess)="checkDataProcess($event)"
