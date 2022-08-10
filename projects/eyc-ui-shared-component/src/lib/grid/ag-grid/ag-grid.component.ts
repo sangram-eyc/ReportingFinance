@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../modal/component/modal.component';
 import {
@@ -29,7 +29,7 @@ import { StatusBarComponent } from '../status-bar/status-bar.component'
   templateUrl: './ag-grid.component.html',
   styleUrls: ['./ag-grid.component.scss']
 })
-export class AgGridComponent implements OnInit {
+export class AgGridComponent implements OnInit, OnChanges {
 
   public icons: {
     [key: string]: Function | string;
@@ -225,7 +225,7 @@ export class AgGridComponent implements OnInit {
       name: (this.paginationSize).toString(),
       id: 0
     };
-
+    this.buttonText === "Data Explorer" ?  this.permissionToPrimaryButton = false  : ''; 
     this.dataset = [{
       disable: false,
       value: this.paginationSize,
