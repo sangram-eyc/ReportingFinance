@@ -122,7 +122,7 @@ export class IntakeDonutGridListComponent implements OnInit, AfterViewInit {
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: this.dataIntakeType,
       dueDate: dueDate,
-      regulationFormReportingPeriodDate: '2022-06-30',
+      regulationFormReportingPeriodDate: this.period,
       displayName: this.filingName,
       periodType: '',
       auditFileGuidName: '',
