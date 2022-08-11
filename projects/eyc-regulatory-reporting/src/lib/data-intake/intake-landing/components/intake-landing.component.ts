@@ -132,7 +132,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
 
   //end option
   form: FormGroup;
-  businessDays: boolean = true;
+  businessDays: boolean = false;
   lastMonthDate: Date;
   curDateVal:Date;
   lastMonthDueDateFormat: string;
