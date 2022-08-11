@@ -1,0 +1,276 @@
+{
+    "success": true,
+    "message": "",
+    "corelationId": "fa0a9181-22bb-4869-99a8-7a34d508bb4c",
+    "data": [
+      {
+        "dataIntakeName": "SSB",
+        "dataIntakeCount": 10,
+        "fastFilters": [
+          {
+            "lable": "noIssues",
+            "value": 0
+          },
+          {
+            "lable": "low",
+            "value": 0
+          },
+          {
+            "lable": "medium",
+            "value": 0
+          },
+          {
+            "lable": "high",
+            "value": 0
+          },
+          {
+            "lable": "missingFiles",
+            "value": 10
+          },
+          {
+            "lable": "fileNotReceived",
+            "value": 0
+          }
+        ],
+        "dataIntakeDTO": [
+          {
+            "name": "Account and Fund Hierarchy",
+            "value": 2
+          },
+          {
+            "name": "General Ledger",
+            "value": 2
+          },
+          {
+            "name": "Positions",
+            "value": 2
+          },
+          {
+            "name": "Product",
+            "value": 1
+          },
+          {
+            "name": "Transactions",
+            "value": 2
+          },
+          {
+            "name": "Transactions / Account Fund Hierarchy",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "dataIntakeName": "JPM",
+        "dataIntakeCount": 23,
+        "fastFilters": [
+          {
+            "lable": "noIssues",
+            "value": 0
+          },
+          {
+            "lable": "low",
+            "value": 0
+          },
+          {
+            "lable": "medium",
+            "value": 0
+          },
+          {
+            "lable": "high",
+            "value": 0
+          },
+          {
+            "lable": "missingFiles",
+            "value": 23
+          },
+          {
+            "lable": "fileNotReceived",
+            "value": 0
+          }
+        ],
+        "dataIntakeDTO": [
+          {
+            "name": "Account and Fund Hierarchy ",
+            "value": 6
+          },
+          {
+            "name": "Account and Fund Hierarchy / Product",
+            "value": 2
+          },
+          {
+            "name": "General Ledger",
+            "value": 3
+          },
+          {
+            "name": "Positions",
+            "value": 3
+          },
+          {
+            "name": "Transactions",
+            "value": 9
+          }
+        ]
+      },
+      {
+        "dataIntakeName": "CIBC",
+        "dataIntakeCount": 9,
+        "fastFilters": [
+          {
+            "lable": "noIssues",
+            "value": 0
+          },
+          {
+            "lable": "low",
+            "value": 0
+          },
+          {
+            "lable": "medium",
+            "value": 4
+          },
+          {
+            "lable": "high",
+            "value": 4
+          },
+          {
+            "lable": "missingFiles",
+            "value": 1
+          },
+          {
+            "lable": "fileNotReceived",
+            "value": 0
+          }
+        ],
+        "dataIntakeDTO": [
+          {
+            "name": "General Ledger",
+            "value": 2
+          },
+          {
+            "name": "Positions",
+            "value": 1
+          },
+          {
+            "name": "Transaction",
+            "value": 1
+          },
+          {
+            "name": "Transactions",
+            "value": 2
+          },
+          {
+            "name": "Account Fund Hierarchy",
+            "value": 1
+          },
+          {
+            "name": "Position; Product",
+            "value": 1
+          },
+          {
+            "name": "Transition; Product",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "dataIntakeName": "MTBJ",
+        "dataIntakeCount": 13,
+        "fastFilters": [
+          {
+            "lable": "noIssues",
+            "value": 0
+          },
+          {
+            "lable": "low",
+            "value": 0
+          },
+          {
+            "lable": "medium",
+            "value": 0
+          },
+          {
+            "lable": "high",
+            "value": 0
+          },
+          {
+            "lable": "missingFiles",
+            "value": 13
+          },
+          {
+            "lable": "fileNotReceived",
+            "value": 0
+          }
+        ],
+        "dataIntakeDTO": [
+          {
+            "name": "Account and Fund Hierarchy",
+            "value": 2
+          },
+          {
+            "name": "General Ledger",
+            "value": 2
+          },
+          {
+            "name": "Positions",
+            "value": 5
+          },
+          {
+            "name": "Transactions",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "dataIntakeName": "BNYM",
+        "dataIntakeCount": 16,
+        "fastFilters": [
+          {
+            "lable": "noIssues",
+            "value": 0
+          },
+          {
+            "lable": "low",
+            "value": 0
+          },
+          {
+            "lable": "medium",
+            "value": 0
+          },
+          {
+            "lable": "high",
+            "value": 0
+          },
+          {
+            "lable": "missingFiles",
+            "value": 16
+          },
+          {
+            "lable": "fileNotReceived",
+            "value": 0
+          }
+        ],
+        "dataIntakeDTO": [
+          {
+            "name": "Account and Fund Hierarchy",
+            "value": 2
+          },
+          {
+            "name": "General Ledger",
+            "value": 3
+          },
+          {
+            "name": "Positions",
+            "value": 5
+          },
+          {
+            "name": "Product",
+            "value": 2
+          },
+          {
+            "name": "Transactions",
+            "value": 4
+          }
+        ]
+      }
+    ],
+    "error": null
+  }

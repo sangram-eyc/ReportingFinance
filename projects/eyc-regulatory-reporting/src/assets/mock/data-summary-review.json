@@ -1,0 +1,184 @@
+{
+  "success": true,
+  "message": "",
+  "corelationId": "3cf200d0-3dc6-4e0a-a2b0-4bd6e7199ce5",
+  "data": [
+    {
+      "totalCount": 71,
+      "donutChartDTO": [
+        {
+          "label": "No issues",
+          "value": 0
+        },
+        {
+          "label": "Low priority issues",
+          "value": 0
+        },
+        {
+          "label": "Medium priority issues",
+          "value": 4
+        },
+        {
+          "label": "High priority issues",
+          "value": 4
+        },
+        {
+          "label": "Missing files, past due",
+          "value": 63
+        },
+        {
+          "label": "Files not received",
+          "value": 0
+        }
+      ],
+      "barChartDTO": [
+        {
+          "name": "SSB",
+          "series": [
+            {
+              "name": "No issues",
+              "value": 0
+            },
+            {
+              "name": "Low priority issues",
+              "value": 0
+            },
+            {
+              "name": "Medium priority issues",
+              "value": 0
+            },
+            {
+              "name": "High priority issues",
+              "value": 0
+            },
+            {
+              "name": "Missing files, past due",
+              "value": 10
+            },
+            {
+              "name": "Files not received",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "JPM",
+          "series": [
+            {
+              "name": "No issues",
+              "value": 0
+            },
+            {
+              "name": "Low priority issues",
+              "value": 0
+            },
+            {
+              "name": "Medium priority issues",
+              "value": 0
+            },
+            {
+              "name": "High priority issues",
+              "value": 0
+            },
+            {
+              "name": "Missing files, past due",
+              "value": 23
+            },
+            {
+              "name": "Files not received",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "CIBC",
+          "series": [
+            {
+              "name": "No issues",
+              "value": 0
+            },
+            {
+              "name": "Low priority issues",
+              "value": 0
+            },
+            {
+              "name": "Medium priority issues",
+              "value": 4
+            },
+            {
+              "name": "High priority issues",
+              "value": 4
+            },
+            {
+              "name": "Missing files, past due",
+              "value": 1
+            },
+            {
+              "name": "Files not received",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "MTBJ",
+          "series": [
+            {
+              "name": "No issues",
+              "value": 0
+            },
+            {
+              "name": "Low priority issues",
+              "value": 0
+            },
+            {
+              "name": "Medium priority issues",
+              "value": 0
+            },
+            {
+              "name": "High priority issues",
+              "value": 0
+            },
+            {
+              "name": "Missing files, past due",
+              "value": 13
+            },
+            {
+              "name": "Files not received",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "name": "BNYM",
+          "series": [
+            {
+              "name": "No issues",
+              "value": 0
+            },
+            {
+              "name": "Low priority issues",
+              "value": 0
+            },
+            {
+              "name": "Medium priority issues",
+              "value": 0
+            },
+            {
+              "name": "High priority issues",
+              "value": 0
+            },
+            {
+              "name": "Missing files, past due",
+              "value": 16
+            },
+            {
+              "name": "Files not received",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "error": null
+}

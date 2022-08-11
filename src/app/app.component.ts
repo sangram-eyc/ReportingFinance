@@ -30,6 +30,8 @@ import { BulkDownloadModalComponent } from 'projects/eyc-tax-reporting/src/lib/t
 import { WebSocketBulkService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/web-socket-bulk.service';
 import { SseService } from 'projects/eyc-tax-reporting/src/lib/tax-reporting/services/sse.service';
 import { RoutingStateService } from '../../projects/eyc-data-managed-services/src/lib/data-intake/services/routing-state.service';
+import { IntakeRoutingStateService } from '../../projects/eyc-regulatory-reporting/src/lib/data-intake/services/intake-routing-state.service';
+import { PreferencesService } from '@default/services/preferences.service';
 import { NotificationService } from '@default/services/notification.service';
 import { EycSseNotificationService } from '@default/services/eyc-sse-notification.service'
 @Component({
@@ -112,6 +114,8 @@ export class AppComponent
     public dialog: MatDialog,
     private wsBulkService: WebSocketBulkService,
     private routingState: RoutingStateService,
+    private intakeRoutingStateService: IntakeRoutingStateService,
+    private preferencesService: PreferencesService,
     private notificationService: NotificationService,
     private sseService: SseService,
     private EycSseNotificationService: EycSseNotificationService
@@ -165,6 +169,7 @@ export class AppComponent
       }
     });
     this.routingState.loadRouting();
+    this.intakeRoutingStateService.loadRouting();
   }
 
   checkTimeOut() {

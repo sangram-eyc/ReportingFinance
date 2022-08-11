@@ -1,0 +1,292 @@
+* {
+    h1,
+    h2,
+    h6,
+    section {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  
+  .mt-3 {
+    margin-top: 24px !important;
+  }
+  .mb-3 {
+    margin-bottom: 24px !important;
+  }
+  .m-0 {
+    margin: 0 !important;
+  }
+  .p-0 {
+    padding: 0 !important;
+  }
+  .mr-2{
+    margin-right: 16px !important;
+  }
+  
+  .box-center {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #2e2e38;
+  }
+  .space-between {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .flex-end {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .chip-container {
+    font-family: EYInterstate;
+    font-size: 10px;
+    line-height: 20px;
+    letter-spacing: 1.25px;
+    text-align: left;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #747480;
+    ::ng-deep motif-chip {
+      margin-bottom: 8px !important;
+      margin-right: 13px !important;
+    }
+    .left-div {
+      margin-right: 13px;
+      margin-bottom: 8px;
+    }
+  }
+  
+  .monthly-date-ui {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #2e2e38;
+    padding-right: 26px;
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  
+  .search-bar {
+    font-family: EYInterstate;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #3a3a4a;
+  
+    ::ng-deep .motif-form-field {
+      margin: 0 !important;
+      .motif-input-wrap > .motif-input {
+        height: 30px !important;
+        padding: 0 !important;
+      }
+    }
+    ::ng-deep .motif-form-field-search-icon {
+      left: 82.83%;
+      right: 41.67%;
+      top: -25%;
+      bottom: 0;
+      padding-top: 3%;
+    }
+  }
+  .boder-b {
+    border-bottom: 1px solid #e7e7ea;
+  }
+  
+  .heading-6 {
+    font-family: EYInterstate;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #2e2e38;
+  }
+  .dateWrapper {
+    font-family: EYInterstate;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    ::ng-deep {
+      .motif-icon {
+        cursor: pointer;
+      }
+      .motif-button {
+        min-height: 30px;
+        
+      }
+    }
+  }
+  
+  .date-ui{
+  
+    ::ng-deep .motif-form-field {
+      margin-bottom: 0!important;
+      ::ng-deep .motif-input{
+        background-color: #ffffff !important;
+      }
+      
+      border-bottom: 1px solid #2E2E38 !important;
+      .motif-label{
+        margin:0 !important;
+      }
+      input#datepicker{
+        min-width: 266px !important; 
+      }
+    }
+  
+    ::ng-deep .motif-hover .motif-input{
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #2E2E38 !important;
+    } 
+    ::ng-deep .motif-focus .motif-input{
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #2E2E38 !important;
+    }
+  
+    
+  }
+  
+  .chart-card {
+    min-height: 232px;
+    ::ng-deep motif-card-body {
+      padding: 22px 11px !important;
+    }
+  }
+  
+  .warning-border{
+     box-sizing: border-box;
+          border-bottom: 3px solid #FF9831;
+          // Important: We must deduct border size from width and height 
+          
+      // } 
+  }
+  
+  .white-border{
+    box-sizing: border-box;
+    border-bottom: 3px solid #ffffff;
+  }
+  
+  .warning-info{
+    color: #FF9831;
+  }
+  .chart-panel {
+    padding: 0;
+    font-family: EYInterstate;
+    font-size: 16px;
+    line-height: 18px;
+    color: #1a1a24;
+    div {
+      padding: 0;
+    }
+  
+    .chart-header {
+      font-weight: bold;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      min-height: 100px;
+  
+      .file-count {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 16px;
+        letter-spacing: -0.6572299599647522px;
+        text-align: left;
+  
+        display: block;
+        padding-left: 0;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+  
+      .btn-secondary {
+        width: 69px;
+        color: #2e2e38;
+        z-index: 10;
+      }
+  
+      .motif-button[color="secondary"]:hover,
+      .motif-button[color="secondary"]:focus,
+      .motif-button[color="secondary"]:active {
+        background-color: transparent !important;
+      }
+    }
+  
+    .chart-body {
+      font-family: EYInterstate;
+      font-size: 12px;
+      margin-top: 16px;
+      width: 100%;
+  
+      .chart-container {
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+  
+        .pie-chart {
+          padding: 0;
+          max-width: 30%;
+          min-width:  6.588579795021962vw;//90px;
+          min-height: 14.4vh; //90px;
+          margin-bottom: 3.52vh; //22px;
+          ::ng-deep .eyc-charts {
+            text {
+              fill: #747480 !important;
+            }
+          }
+        }
+  
+        .pie-legend {
+          padding: 0;
+          color: #2e2e38;
+          width: 65%;
+  
+          ul,li{
+            padding: 0;
+            list-style: none;
+          }
+  
+          ul>li{
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+          }
+          .lable{
+            flex: none;
+          }
+          .legend {
+            flex: none;
+            width: 10px;
+            height: 10px;
+            margin-top: 4px;
+            margin-right: 8px;
+            border-radius: 50%;
+          }
+          .count{
+            flex: 1;
+            text-align: end;
+            padding-right: 8%;
+          }
+        }
+        
+      }
+    }
+  }

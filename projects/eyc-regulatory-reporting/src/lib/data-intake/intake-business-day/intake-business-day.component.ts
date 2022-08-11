@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { CellRendererTemplateComponent, ModalComponent } from 'eyc-ui-shared-component';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
@@ -12,11 +13,12 @@ import { rr_module_name } from '../../config/rr-config-helper';
 
 
 @Component({
-  selector: 'lib-data-intake',
-  templateUrl: './data-intake.component.html',
-  styleUrls: ['./data-intake.component.scss']
+  selector: 'lib-intake-business-day',
+  templateUrl: './intake-business-day.component.html',
+  styleUrls: ['./intake-business-day.component.scss']
 })
-export class DataIntakeComponent implements OnInit, OnDestroy {
+export class IntakeBusinessDayComponent implements OnInit, OnDestroy {
+
   status = {
     stage: 'Reporting',
     progress: 'in-progress'
@@ -106,13 +108,14 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
     public permissions: PermissionService,
     private router: Router,
     private settingsService: EycRrSettingsService,
+    private location: Location,
     @Inject('mockDataEnable') public mockDataEnable
   ) { }
 
   ngOnInit(): void {
-    // this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
-    // this.submitException = this.onSubmitApproveExceptionReports.bind(this);
-    // this.pageChangeFunc = this.onPageChange.bind(this);
+    this.submitDatasets = this.onSubmitApproveDatasets.bind(this);
+    this.submitException = this.onSubmitApproveExceptionReports.bind(this);
+    this.pageChangeFunc = this.onPageChange.bind(this);
   }
 
   @ViewChild('headerTemplate')
@@ -141,7 +144,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   receiveFilingDetails(event) {
     this.filingDetails = event;
     console.log('FILING DETAILS', this.filingDetails);
-    // this.getFiles();
+    this.getFiles();
     if(sessionStorage.getItem("enableTabsIntake")) {
       this.enableTabs = true;
       this.getExceptionReports(true);
@@ -1042,4 +1045,7 @@ export class DataIntakeComponent implements OnInit, OnDestroy {
   });
   }  
 
+  back(){
+    this.location.back();
+  }
 }

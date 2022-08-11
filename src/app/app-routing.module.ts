@@ -40,6 +40,15 @@ import { UserDetailsComponent } from 'projects/eyc-admin/src/lib/user-details/co
 import { UpdateFilingPropertiesComponent } from 'projects/eyc-admin/src/lib/static-data/update-filing-properties/components/update-filing-properties.component';
 import { EuropeanFundReportingComponent } from '../../projects/eyc-european-fund-reporting/src/lib/european-fund-reporting/components/european-fund-reporting.component'
 
+import { IntakeFileReviewComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-file-review/intake-file-review.component';
+import { IntakeExceptionsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions/intake-exceptions.component';
+import { IntakeExceptionsReportsComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-exceptions-reports/intake-exceptions-reports.component';
+import { IntakeDonutGridListComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-donut-grid-list/intake-donut-grid-list.component';
+import { IntakeBusinessDayComponent } from 'projects/eyc-regulatory-reporting/src/lib/data-intake/intake-business-day/intake-business-day.component';
+
+
+
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate : [AuthGuardService]},
@@ -77,6 +86,12 @@ const routes: Routes = [
     component: ViewFilingEntityExceptionComponent,
     canActivate: [AuthGuardService]
   },
+  {path: 'data-intake/data-intake/:dataIntakeType', component: IntakeDonutGridListComponent, canActivate: [AuthGuardService] },
+  {path: 'data-intake/files-review', component: IntakeFileReviewComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/files-review/:paramDataIntakeType/:paramDataIntakeName', component: IntakeFileReviewComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/files/exceptions/:paramFilename/:paramguidName/:paramfileNameAlias', component: IntakeExceptionsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
+  {path: 'data-intake/business-day',component: IntakeBusinessDayComponent,  canActivate: [AuthGuardService]},
   {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
   {path: 'data-managed-services', component: EycDataManagementServicesComponent, canActivate: [AuthGuardService]},
   {path: 'data-managed-services/files-review', component: FileReviewComponent, canActivate: [AuthGuardService]},

@@ -20,6 +20,7 @@ export class DotsCardComponent implements OnInit, OnChanges, OnDestroy {
   @Input() permissionToPrimaryButton = false;
   @Input() disablePrimaryButton = true;
   @Input() primaryButtonText = "Mark complete"
+  @Input() isBreadcrumb=true;
   @Output() filingDetails = new EventEmitter<any>();
   @Output() fileStatus = new EventEmitter<any>();
   @Output() filingStatusRes = new EventEmitter<any>();

@@ -1,29 +1,85 @@
 {
     "success": true,
-    "message": "success",
-    "data": {
-        "totalCount": 600,
-        "dataSeries": [
-            {
-                "label": "No issue",
-                "value": 400
-            },
-            {
-                "label": "Medium / low priority issues",
-                "value": 50
-            },
-            {
-                "label": "High priority issues",
-                "value": 50
-            },
-            {
-                "label": "Missing files, past due",
-                "value": 50
-            },
-            {
-                "label": "Files not received",
-                "value": 50
-            }
-        ]
-    }
+    "message": "",
+    "corelationId": "6e535b74-17a6-44a9-89de-aa18686b95b1",
+    "data": [
+        {
+            "totalCount": 71,
+            "dataProvideCount": 5,
+            "dataDomainCount": 12,
+            "totalSeriesItem": [
+                {
+                    "label": "noIssues",
+                    "value": 4,
+                    "seriesItemDTO": [
+                        {
+                            "lable": "CIBC",
+                            "value": 2
+                        },
+                        {
+                            "lable": "JPM",
+                            "value": 2
+                        }
+                    ]
+                },
+                {
+                    "label": "medium",
+                    "value": 4,
+                    "seriesItemDTO": [
+                        {
+                            "lable": "JPM",
+                            "value": 1
+                        },
+                        {
+                            "lable": "CIBC",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "label": "high",
+                    "value": 4,
+                    "seriesItemDTO": [
+                        {
+                            "lable": "CIBC",
+                            "value": 4
+                        }
+                    ]
+                },
+                {
+                    "label": "missingFiles",
+                    "value": 6,
+                    "seriesItemDTO": [
+                        {
+                            "lable": "BNYM",
+                            "value": 6
+                        }
+                    ]
+                },
+                {
+                    "label": "fileNotReceived",
+                    "value": 53,
+                    "seriesItemDTO": [
+                        {
+                            "lable": "BNYM",
+                            "value": 10
+                        },
+                        {
+                            "lable": "MTBJ",
+                            "value": 13
+                        },
+                        {
+                            "lable": "SSB",
+                            "value": 10
+                        },
+                        {
+                            "lable": "JPM",
+                            "value": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "error": null
 }

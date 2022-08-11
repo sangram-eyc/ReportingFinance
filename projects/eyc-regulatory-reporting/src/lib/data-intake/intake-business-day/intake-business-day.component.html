@@ -1,12 +1,9 @@
+<br>
+<div class="back-wrapper">
+    <motif-icon class="back-button custom-mr" [src]="'/assets/icons/arrow-back.svg'" (click)="back()"></motif-icon>
+</div>
 
-<lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
-(filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
-<lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
-[isDataInteake]="true"></lib-reporting-tabs-card>
-
-<lib-intake-landing></lib-intake-landing>
-
-<!-- <lib-dots-card [status]="status" (filingDetails)="receiveFilingDetails($event)"
+<lib-dots-card [status]="status" [isBreadcrumb]="false" (filingDetails)="receiveFilingDetails($event)"
     (filingStatusRes)="getFilingStatusDetails($event)" [primaryButtonText]="'Mark intake complete'" [disablePrimaryButton]="intakeStageCompleted" [permissionToPrimaryButton]="permissions.validatePermission('Data Intake', 'Mark Intake Complete')" (invokePrimaryButton)="showIntakeModal = true"></lib-dots-card>
 <lib-reporting-tabs-card [pageName]="'dataIntake'" *ngIf="enableTabs" (messageEvent)="receiveMessage($event)"
     [isDataInteake]="true"></lib-reporting-tabs-card>
@@ -135,4 +132,4 @@
   <button motifButton color="primary-alt" class="mark-as-complete-btn" (click)="markAsCompleteClick()">Mark as complete</button>
   <button motifButton color="secondary" (click)="showIntakeModal = false">Cancel</button>
     </motif-modal-footer>
-  </motif-modal> -->
+  </motif-modal>
