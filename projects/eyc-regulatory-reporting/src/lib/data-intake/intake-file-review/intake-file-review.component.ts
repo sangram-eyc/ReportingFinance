@@ -496,7 +496,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 160,
+          minWidth: 200,
           wrapText: true,
           autoHeight: true,
           cellRenderer: (params) => {
@@ -545,6 +545,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           wrapText: false,
           autoHeight: true,
+          minWidth: 150,
           // cellRendererParams: {
           //   ngTemplate: this.threeDotExceptionsTooltip
           // },
