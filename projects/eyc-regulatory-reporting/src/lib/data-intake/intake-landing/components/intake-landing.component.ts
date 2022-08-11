@@ -212,8 +212,8 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-      dueDate: '2022-06-30',
-      regulationFormReportingPeriodDate: '2022-06-30',
+      dueDate: this.dueDate,
+      regulationFormReportingPeriodDate: this.period,
       displayName: this.filingName,
       periodType: '',
       filterTypes: [
@@ -227,8 +227,8 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
       endDate: '',
       dataFrequency: this.dailyMonthlyStatus ? DATA_FREQUENCY.MONTHLY : DATA_FREQUENCY.DAILY,
       dataIntakeType: DATA_INTAKE_TYPE.BUSINESS_DAY,
-      dueDate: '2022-06-06',
-      regulationFormReportingPeriodDate: '2022-06-30',
+      dueDate: this.dueDate,
+      regulationFormReportingPeriodDate: this.period,
       displayName: this.filingName,
       periodType: '',
       filterTypes: [
