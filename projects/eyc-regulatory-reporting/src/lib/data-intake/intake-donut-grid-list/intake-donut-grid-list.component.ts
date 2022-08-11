@@ -9,7 +9,7 @@ import { NO_FILE_MISSING_PAST_DUE, NO_HIGH_PRIORITY_ISSUES, NO_LOW_PRIORITY_ISSU
 import { donutSummariesObject } from '../models/donut-chart-summary.model';
 import { DataSummary } from '../models/data-summary.model';
 import { ApiDonutSeriesItemDTO, ApiSeriesItemDTO } from '../models/api-series-Item-dto.model';
-import { PieChartSeriesItemDTO } from 'projects/eyc-data-managed-services/src/lib/data-intake/models/pie-chart-series-Item-dto.model';
+import { PieChartSeriesItemDTO } from '../models/pie-chart-series-Item-dto.model';
 import { GroupByDataProviderCardGrid } from '../models/data-grid.model';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
