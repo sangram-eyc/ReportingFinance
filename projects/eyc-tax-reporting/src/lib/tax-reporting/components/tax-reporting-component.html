@@ -18,13 +18,13 @@
         </motif-tab-bar>
     </div>
 
-    <section [hidden]="!(tabIn == 3)">
+    <section *ngIf="tabIn == 3">
         <div >
             <lib-archived-reports></lib-archived-reports>
         </div>
     </section> 
 
-    <section id='active-reports' [hidden]="!(tabIn == 2)">
+    <section id='active-reports' *ngIf="tabIn == 2">
         <div id="reports-history-heading">
             <div>
                 <h2 class='card-title'>Management reports</h2>
@@ -45,16 +45,16 @@
 
     </section>
 
-    <section id='reports-history' [hidden]="!(tabIn == 1)">
+    <section id='reports-history' *ngIf="tabIn == 1">
         <div id="reports-history-heading">
             <h2 class="card-title">Production cycles list view</h2>
         </div>
 
-        <lib-shared-grid [columnDefs]="columnDefs" [rowData]="rowData"
-            [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" buttonPosition="left"
+        <lib-ag-grid [columnDefs]="columnDefs" [rowData]="rowData"
+            [paginationSize]="currentlySelectedPageSize.value" buttonPosition="left"
             [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)"
-            (searchInput)="searchGrid($event)">
-        </lib-shared-grid>
+            (searchInput)="searchGrid($event)" [export]="true" [exportName] = "exportName" paginationSize="10" >
+        </lib-ag-grid>
 
         <div *ngIf="searchNoDataAvilable">
             <motif-card class="no_data">

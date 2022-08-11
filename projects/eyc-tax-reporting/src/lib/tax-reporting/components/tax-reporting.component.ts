@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { ManagementReportsService } from '../services/management-reports.service';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
 import { TableHeaderRendererComponent } from '../../shared/table-header-renderer/table-header-renderer.component';
 import { InformationBarChartModalComponent } from '../information-bar-chart-modal/information-bar-chart-modal.component'
-import { CustomGlobalService } from 'eyc-ui-shared-component';
+import { CustomGlobalService, CellRendererTemplateComponent } from 'eyc-ui-shared-component';
 import { ProductionCycleService } from '../services/production-cycle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { fromEvent } from 'rxjs';
   templateUrl: './tax-reporting-component.html',
   styleUrls: ['./tax-reporting-component.scss']
 })
-export class TaxReportingComponent implements OnInit,AfterViewInit {
+export class TaxReportingComponent implements OnInit, AfterViewInit {
 
   tabIn;
   constructor(
@@ -96,12 +96,13 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
   labelsChart: string[] = [];
   statusIndicatorEv: any;
   prodCyclesSessionStorage: any[] = [];
-  isArchived:boolean=false;
+  isArchived: boolean = false;
+  exportName:any;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.isArchived = params.isArchived === "true"
-    }); 
+    });
     this.widthDivChart = 950;
     this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
     this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
@@ -113,7 +114,7 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     this.isArchived ? this.reportTabChange(3) : this.reportTabChange(1)
   }
- 
+
   statusIndicatorEvclick() {
     const cycleStatusBtn = document.getElementById('cycle-status-indicator-id');
     if (cycleStatusBtn != undefined) {
@@ -176,10 +177,10 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
             dataToChart: [
               {
                 "in EY tax preparation": item.fundCount != null ? item.fundCount.fundCountByStatus[0].fundCount : 0,
-                "in client review": item.fundCount != null ? item.fundCount.fundCountByStatus[1].fundCount: 0,
-                "Approved by client": item.fundCount != null ? item.fundCount.fundCountByStatus[2].fundCount: 0,
+                "in client review": item.fundCount != null ? item.fundCount.fundCountByStatus[1].fundCount : 0,
+                "Approved by client": item.fundCount != null ? item.fundCount.fundCountByStatus[2].fundCount : 0,
               }
-            ]  
+            ]
           };
           this.completedReports.push(eachitem);
           this.prodCyclesSessionStorage.push(eachitem);
@@ -195,7 +196,7 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
     this.completedReports.forEach(filing => {
       this.rowData.push({
         name: filing.name,
-        id: filing.id ,
+        id: filing.id,
         totalFunds: filing.totalFunds,
         dataToChart: [
           {
@@ -203,63 +204,71 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
             "in client review": filing.dataToChart[0]["in client review"],
             "Approved by client": filing.dataToChart[0]["Approved by client"],
           }
-        ]  
+        ]
       })
     });
+    setTimeout(() => {
     this.columnDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.productTemplate,
+       {
+        valueGetter: "node.rowIndex + 1",
+        getQuickFilterText: function(params) {
+          return '';
         },
-        headerName: 'Production cycle name',
-        field: 'name',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        width: 250,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.totalFunds,
-        },
-        headerName: 'Total funds',
-        field: 'totalFunds',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        width: 150,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.cycleStatus,
-        },
-        headerName: "Cycle status indicator",
-        field: "name",
+        maxWidth: 75,
         sortable: false,
-        width: 400
+        menuTabs: [],
+        pinned: 'left'
       }, 
       {
         headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.statusTracker,
-        },
+        cellRendererFramework: CellRendererTemplateComponent,
+        cellRendererParams: { ngTemplate: this.productTemplate },
+        headerName: 'Production cycle name',
+        field: 'name',
+        maxWidth: 250,
+        sort: 'asc',
+        filter: true,
+        sortable: true,
+        menuTabs: ['filterMenuTab', 'generalMenuTab']
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
+        cellRendererParams: { ngTemplate: this.totalFunds },
+        headerName: 'Total funds',
+        field: 'totalFunds',
+        maxWidth: 200,
+        sortable: true,
+        filter: true,
+        resizeable: true,
+        sort: 'asc',
+        menuTabs: ['filterMenuTab', 'generalMenuTab'] 
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
+        cellRendererParams: { ngTemplate: this.cycleStatus },
+        headerName: "Cycle status indicator",
+        field: "name",
+        sortable: false,
+        maxWidth: 400,
+        menuTabs: ['filterMenuTab', 'generalMenuTab'],
+      },
+      {
+        headerComponentFramework: TableHeaderRendererComponent,
+        cellRendererFramework: CellRendererTemplateComponent,
+        cellRendererParams: { ngTemplate: this.statusTracker },
         headerName: 'Status tracker',
         sortable: false,
         filter: false,
         wrapText: true,
         autoHeight: true,
-        width: 150
-      }
+        width: 150,
+        menuTabs: ['filterMenuTab', 'generalMenuTab']
+      } 
     ];
+    this.exportName = "Tax_Reporting_Production_Cycles"
+  },100);
   }
 
   onPasteSearchActiveReports(event: ClipboardEvent) {
@@ -348,7 +357,7 @@ export class TaxReportingComponent implements OnInit,AfterViewInit {
     this.gridApi = params.api;
   }
 
-  searchGrid(input){
+  searchGrid(input) {
     this.gridApi.setQuickFilter(input);
     this.searchNoDataAvilable = (this.gridApi.rowModel.rowsToDisplay.length === 0);
   }

@@ -41,18 +41,14 @@
           </lib-donut-tax-chart>
         </span>
       </div>
-    </div>
+    </div> 
   </div>
-
-
-      <lib-shared-grid id='comments-grid' [columnDefs]="columnDefs" [rowData]="rowData" 
-      [paginationSize]="currentlySelectedPageSize.value" [pagination]="true" 
-      buttonPosition="left" [displayCheckBox]="true" [permissionToPrimaryButton]="false"
-      [permissionToSecondaryButton]="false" [isToggleLeft]="true"  [hideLabels] = "true"
-      [toggleLeftTitle]="toggleLeftTitle" [toggleLeftDisabled]="disabledLeftToggle"
-      buttonPosition="left" [displaySecondButton]="true" (toggleLeftEventToParent)="showMyAssignedFunds()" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
-      </lib-shared-grid>
-
+  
+      <lib-ag-grid id='comments-grid' [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [isToggleLeft]="true" [toggleLeftTitle]="toggleLeftTitle" 
+      [hideLabels] = "true" [toggleLeftDisabled]="disabledLeftToggle" [export]="true" 
+      buttonPosition="left" [exportName]="exportName" [adminTab]="true" (toggleLeftEventToParent)="showMyAssignedFunds()"
+      [search]="true" [permissionToSecondaryButton]="false" [permissionToPrimaryButton]="false" [displaySecondButton]="true"
+      ></lib-ag-grid>
       <div *ngIf="searchNoDataAvilable">
         <motif-card class="no_data">
           <motif-card-body>

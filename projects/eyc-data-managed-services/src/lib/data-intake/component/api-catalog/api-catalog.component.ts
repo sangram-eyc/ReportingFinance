@@ -1,23 +1,25 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataManagedService } from '../../services/data-managed.service';
 import { AutoUnsubscriberService } from 'eyc-ui-shared-component';
-
+import { SearchFilterPipe } from '../../../pipes/search-filter.pipe'
 @Component({
   selector: 'lib-api-catalog',
   templateUrl: './api-catalog.component.html',
   styleUrls: ['./api-catalog.component.scss']
 })
-export class ApiCatalogComponent implements OnInit,AfterViewInit {
+export class ApiCatalogComponent {
 
   apiCatalog;
   domains;
   operations;
   parameters;
   response;
+  popupResponse;
+  panelOpenState = false;
 
   ready:boolean = false
   show2:boolean=false;
-  modeselect;
+  modeselect="app/json";
   selectedFilter:string="Daily";
   motifTypeahead;
   editTrigger;
@@ -45,15 +47,7 @@ export class ApiCatalogComponent implements OnInit,AfterViewInit {
   toastArray = [];
 
   constructor(private dataManagedService: DataManagedService,private unsubscriber: AutoUnsubscriberService
-
-    ) {}
-
-  ngOnInit(): void {
-
-  }
-  ngAfterViewInit(){ 
-    this.ready = true; }
-
+    ,private searchFilter:SearchFilterPipe) {}
 
   getAPICatalog(){
     this.dataManagedService.getApiCatalog().pipe(this.unsubscriber.takeUntilDestroy)
@@ -66,20 +60,25 @@ export class ApiCatalogComponent implements OnInit,AfterViewInit {
     });
   }
 
-  getApiList(index,event){
+  getApiList(index, event) {
     this.operations= this.apiCatalog[index].operations; 
   }
   getApiDetails(i,j,event){
     this.parameters= this.apiCatalog[i].operations[j].request.parameters;
-    this.response=this.apiCatalog[i].operations[j].response.response;  
+    this.response=JSON.stringify(this.apiCatalog[i].operations[j].response.response,null,2)
+    .replace(/ /g, '&nbsp;') // note the usage of `/ /g` instead of `' '` in order to replace all occurences
+    .replace(/\n/g, '<br/>'); // same here;  
+    
   }
- 
-  get_filtered_domains(){}
 
   filterCatalog(filter){
     this.selectedFilter=filter;
   }
 
+  showRightPopUp(data){
+    this.show2 = true;
+    this.popupResponse=data;
+  }
   trackByFn(index, item) {
     if(!item) return null;
     return index;

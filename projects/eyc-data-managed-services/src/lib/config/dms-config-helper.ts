@@ -68,10 +68,10 @@ export const FILTER_TYPE_TITLE = {
 export const customComparator = (valueA, valueB) => {
     const statusCol = [FILTER_TYPE.MISSING_FILES, FILTER_TYPE.HIGH, FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW,FILTER_TYPE.NO_ISSUES,FILTER_TYPE.FILE_NOT_RECIEVED];
 	if (valueA == null) {
-		return false;
+		return null;
 	}
 	else if (valueB == null) {
-		return false;
+		return null;
 	} else {
         if (valueA == valueB) return 0;
         return (statusCol.indexOf(valueA) > statusCol.indexOf(valueB)) ? 1 : -1;
@@ -107,7 +107,9 @@ export const PowerBiReportDailyList=[
     {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'e9ba6d4c-8cb5-4f80-87e4-bdfb3b19b552',reportDisplayName:'Transactions Realized Unrealized'},
     {reportName:'DMS_TRP_Account Capital Stock',reportId:'2cb452aa-65d3-472d-b2ee-1dd65a48134a',reportDisplayName:'Account Capital Stock'},
     {reportName:'DMS_TRP_Account Share Class',reportId:'ee174c24-efb9-48b0-90a0-f8806416efba',reportDisplayName:'Account Share Class'},
-    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'60f42ae2-e507-41fc-b985-f67df78c3443',reportDisplayName:'Performance Net Asset Value'}
+    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'60f42ae2-e507-41fc-b985-f67df78c3443',reportDisplayName:'Performance Net Asset Value'},
+    {reportName:'DMS_TRP_General Ledger Trialbalance Share Class Nav',reportId:'28c11b25-be83-4536-94be-bbd96781e7ad',reportDisplayName:'Trial Balance Share Class NAV'}
+
     
 
 ]
@@ -163,7 +165,9 @@ export const PowerBiReportDailyListProd=[
     {reportName:'DMS_TRP_Transactions RealizedUnrealizedTransaction',reportId:'3531243f-9105-4cf8-8ae3-6c6806919c14',reportDisplayName:'Transactions Realized Unrealized'},
     {reportName:'DMS_TRP_Account Capital Stock',reportId:'4e262c1a-5b19-4bf8-b2d6-6a43dd9eef71',reportDisplayName:'Account Capital Stock'},
     {reportName:'DMS_TRP_Account Share Class',reportId:'5bfcd5d4-a0c9-4abe-8a4f-7a942c94112f',reportDisplayName:'Account Share Class'},
-    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'f64231ec-faf9-4b88-b0a5-cc686a9eb4d4',reportDisplayName:'Performance Net Asset Value'}
+    {reportName:'DMS_TRP_PerformanceNetAssetValue Daily',reportId:'f64231ec-faf9-4b88-b0a5-cc686a9eb4d4',reportDisplayName:'Performance Net Asset Value'},
+
+    {reportName:'DMS_TRP_General Ledger Trialbalance Share Class Nav',reportId:'b0e411b9-be50-4f81-9f9f-e283aa6460e3',reportDisplayName:'Trial Balance Share Class NAV'}
     
 
 ];

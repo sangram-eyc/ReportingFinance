@@ -83,11 +83,14 @@ export class ModalComponent implements OnInit {
             console.log(element);
             formData.append('files', element.file.rawFile);
           });
+          const startTime = new Date().getTime();
           this.commentService.uploadFile(formData).subscribe(uploadRes => {
             console.log(uploadRes);
+            console.log(new Date().getTime() - startTime,"Success Time It took");
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
           }, uploadError => {
             console.log(uploadError);
+            console.log(new Date().getTime() - startTime,"Error Time It took");
             this.dialogRef.close({ button: this.modalDetails.footer.YesButton, data: this.modalForm.getRawValue() });
           });
         } else {

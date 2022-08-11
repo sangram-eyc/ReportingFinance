@@ -107,6 +107,8 @@ export class CycleDetailComponent implements OnInit {
   rowData;
   rowClass = 'row-style';
   columnDefs;
+  columnDefsAgGrid;
+  exportName;
   rowStyle = {
     height: '74px'
   }
@@ -225,6 +227,19 @@ export class CycleDetailComponent implements OnInit {
     this.downloadButton = document.querySelector('.second-button') === null ? this.downloadButton : document.querySelector('.second-button');
     this.downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
     this.downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
+    this.setTooltips();
+  }
+
+  setTooltips(){
+    setTimeout(()=>{
+      const arrayTooltips = document.querySelectorAll('.motif-tooltip');
+      arrayTooltips.forEach((userItem) => {
+        document
+          .querySelector('.ag-theme-material')
+          .appendChild(userItem);
+      });
+        window.scrollTo(0, window.scrollY + 1);
+    }, 500)
   }
 
   showMyAssignedFunds() {
@@ -366,134 +381,131 @@ export class CycleDetailComponent implements OnInit {
         assignedToSearch: fund.assignedTo.length > 0 ? this.splitAssignedUser(fund.assignedTo) : ''
       })
     });
-    this.isToggleLeftDisabled()
-
-
-    this.columnDefs = [
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.datasetsDropdownTemplate,
+    this.isToggleLeftDisabled();
+    setTimeout(() =>{
+      this.columnDefsAgGrid = [
+        {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.datasetsDropdownTemplate,
+          },
+          headerName: '',
+          field: 'template',
+          width: 70,
+          pinned: 'left',
+          menuTabs: [],
+          headerCheckboxSelection: true,
+          checkboxSelection: true,
         },
-        headerName: '',
-        field: 'template',
-        width: 70,
-        sortable: false,
-        pinned: 'left'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.fundName,
+        {
+          valueGetter: 'node.rowIndex + 1',
+          sortable: false,
+          menuTabs: [],
+          pinned: 'left',
+          maxWidth: 70,
         },
-        headerName: 'Fund name',
-        field: 'name',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 300,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.status,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.fundName,
+          },
+          headerName: 'Fund name',
+          field: 'name',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Status',
-        field: 'status',
-        sortable: true,
-        filter: true,
-        resizeable: false,
-        minWidth: 200,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.assignedToTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.status,
+          },
+          headerName: 'Status',
+          field: 'status',
+          sortable: true,
+          filter: true,
+          resizeable: false,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Assigned to',
-        field: 'assignedToSearch',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 150,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.statusChangedToTemplate,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.assignedToTemplate,
+          },
+          headerName: 'Assigned to',
+          field: 'assignedToSearch',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Status changed',
-        field: 'statusChangedDate',
-        sortable: true,
-        filter: true,
-        resizeable: true,
-        minWidth: 150,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.totalComments,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.statusChangedToTemplate,
+          },
+          headerName: 'Status changed',
+          field: 'statusChangedDate',
+          sortable: true,
+          filter: true,
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Total comments',
-        field: 'totalComments',
-        sortable: true,
-        filter: 'agNumberColumnFilter',
-        resizeable: true,
-        minWidth: 150,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.openCommentEY,
+        {
+  
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.totalComments,
+          },
+          headerName: 'Total comments',
+          field: 'totalComments',
+          sortable: true,
+          filter: 'agNumberColumnFilter',
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Open comments (EY)',
-        field: 'openCommentsEY',
-        sortable: true,
-        filter: 'agNumberColumnFilter',
-        resizeable: true,
-        minWidth: 150,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.openCommentClient,
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.openCommentEY,
+          },
+          headerName: 'Open comments (EY)',
+          field: 'openCommentsEY',
+          sortable: true,
+          filter: 'agNumberColumnFilter',
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
-        headerName: 'Open comments (Client)',
-        field: 'openCommentsClient',
-        sortable: true,
-        filter: 'agNumberColumnFilter',
-        resizeable: true,
-        minWidth: 220,
-        sort: 'asc'
-      },
-      {
-        headerComponentFramework: TableHeaderRendererComponent,
-        cellRendererFramework: MotifTableCellRendererComponent,
-        cellRendererParams: {
-          ngTemplate: this.urlDownload,
-        },
-        headerName: 'Actions',
-        sortable: false,
-        filter: false,
-        resizeable: true,
-        minWidth: 150,
-        sort: 'asc'
-      }
-    ];
+        {
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.urlDownload,
+          },
+          headerName: 'Actions',
+          sortable: true,
+          filter: 'agNumberColumnFilter',
+          resizeable: true,
+          minWidth: 150,
+          maxWidth: 200,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        }
+      ];
+    }, 100)
+    this.exportName = this.productCycleName + '_cycle_details_';
   }
 
   filterByOpenC(fund) {
@@ -764,16 +776,16 @@ export class CycleDetailComponent implements OnInit {
           element.classList.remove('checked');
         });
       }
+      this.setTooltips();
     }
   }
 
   getTooltip() {
     /* var element = document.querySelector('.motif-tooltip-active');
     if (element != null) {
-      document.querySelector('.motif-pagination-select-wrapper').appendChild(element);
+      document.querySelector('.ag-theme-material').appendChild(element);
       window.scrollTo(0, window.scrollY + 1);
-      window.scrollTo(0, window.scrollY - 1);
-    } */
+      window.scrollTo(0, window.scrollY - 1);} */
   }
 
   getFileSummuries() {

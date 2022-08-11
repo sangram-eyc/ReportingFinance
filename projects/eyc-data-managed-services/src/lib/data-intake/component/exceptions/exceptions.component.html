@@ -56,7 +56,7 @@
             <div class="exception-heading box-center">
                 List of exception reports ({{glRowdata.length}})
             </div>
-            <div class="data-exporer">
+            <!-- <div class="data-exporer">
                 <motif-form-field class="search">
                     <input #activeReports motifInput motifSearch type="text" placeholder="Search..."
                         aria-label="Search..." (keypress)="searchFilingValidation($event)"
@@ -65,24 +65,29 @@
                 <div class="data-exporer buttonstyle" *ngIf="dataExplorer">
                     <button motifButton color="secondary" size="fluid">Data Explorer</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
     <div id="grid-wrapper">
         <motif-card>
-            <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
-                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
-                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
-            </motif-table>
+            <!-- <motif-table [columnDefs]="columnGl" [rowData]="glRowdata" rowSelection="single"
+                                (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
+                                [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
+                            </motif-table> -->
+            <lib-ag-grid [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl" [displayCheckBox]="false"
+                [export]="true" [search]="true" [paginationPageSize]="20" [paginationSize]="20" [pageSize]="20" [pageList]="[20,50,100]" buttonPosition="left"
+                rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [exportName]="exportName"
+                (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
+            </lib-ag-grid>
         </motif-card>
     </div>
 
-    <motif-card class="no_data" *ngIf="searchNoDataAvilable">
+    <!-- <motif-card class="no_data" *ngIf="searchNoDataAvilable">
         <motif-card-body>
             <h5>Your search has returned no results. Please adjust and try again.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card> -->
 
     <ng-template #reportNameTemplate let-row>
         {{row.name}}
@@ -130,11 +135,11 @@
     <ng-template #nextButtonTemplate let-row>
         <motif-icon [src]="'./assets/icons/navigation/ic_chevron_right_24px.svg'"></motif-icon>
     </ng-template>
-    <motif-card class="no_data" *ngIf="noExceptionDataAvilable">
+    <!-- <motif-card class="no_data" *ngIf="noExceptionDataAvilable">
         <motif-card-body>
             <h5>No results found.</h5>
         </motif-card-body>
-    </motif-card>
+    </motif-card> -->
 </div>
 
 <lib-comment-side-menu [(show)]="showComments" [entityId]="entityId" [entityType]="commentEntityType" [filingStatus]="filingStatus"

@@ -47,17 +47,19 @@
           Team Name
         </div>
         <div class="col-md-6  lablel-heading">
-          <span *ngIf="module == 'Regulatory Reporting'">
+<!--           <span *ngIf="module == 'Regulatory Reporting'">
             Filing Type/Reports
-          </span>
+          </span> -->
+          Description
         </div>
         <div class="col-md-6 label-value">
           {{teamInfo?.teamName}}
         </div>
         <div class="col-md-6  label-value">
-          <span *ngIf="module == 'Regulatory Reporting'">
+<!--           <span *ngIf="module == 'Regulatory Reporting'">
             {{teamInfo?.assignments}}
-          </span>
+          </span> -->
+          {{teamInfo?.teamDescription}}
         </div>
       </div>
       <div class="row">
@@ -65,13 +67,13 @@
           Role
         </div>
         <div class="col-md-6 lablel-heading">
-          Description
+         <!--  Description -->
         </div>
         <div class="col-md-6 label-value">
           {{teamInfo?.role}}
         </div>
         <div class="col-md-6  label-value">
-          {{teamInfo?.teamDescription}}
+          <!-- {{teamInfo?.teamDescription}} -->
         </div>
       </div>
     </div>
@@ -87,9 +89,10 @@
             Team Name
           </div>
           <div class="col-md-6 lablel-heading">
-            <span *ngIf="module == 'Regulatory Reporting'">
+<!--             <span *ngIf="module == 'Regulatory Reporting'">
               Filing Type/Reports
-            </span>
+            </span> -->
+            Description
           </div>
           <div class="col-md-6">
             <motif-form-field>
@@ -108,7 +111,7 @@
             </motif-form-field>
           </div>
           <div class="col-md-6">
-            <motif-form-field *ngIf="module == 'Regulatory Reporting'">
+<!--             <motif-form-field *ngIf="module == 'Regulatory Reporting'">
               <motif-select aria-label="Please select an option" [multiple]="true" [(ngModel)]="selectedFilings"
                 (ngModelChange)="filingTypeLogEvent($event, 'multi', selectedFilings)"
                 [ngModelOptions]="{standalone: true}" required>
@@ -116,6 +119,12 @@
                   {{assignment.filingName}}</motif-option>
               </motif-select>
               <motif-error *ngIf="!selectedFilings.length">Please provide a assignment!</motif-error>
+            </motif-form-field> -->
+            <motif-form-field>
+              <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
+              <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250
+                characters long
+              </motif-error>
             </motif-form-field>
           </div>
         </div>
@@ -124,7 +133,7 @@
             Role
           </div>
           <div class="col-md-6 lablel-heading">
-            Description
+            <!-- Description -->
           </div>
           <div class="col-md-6">
             <motif-form-field>
@@ -135,12 +144,12 @@
             </motif-form-field>
           </div>
           <div class="col-md-6">
-            <motif-form-field>
+<!--             <motif-form-field>
               <textarea libRemoveSpaces motifInput class="motif-textarea" formControlName="teamDescription"></textarea>
               <motif-error *ngIf="editTeamForm.get('teamDescription').hasError('maxlength')">Description can be max 250
                 characters long
               </motif-error>
-            </motif-form-field>
+            </motif-form-field> -->
           </div>
         </div>
       </form>
@@ -154,7 +163,9 @@
     <button motifButton (click)="adminTabChange(1)" class="motif-text-link"
       [ngClass]="tabIn == 1 ? 'motif-active' : ''">Team members</button>
     <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(2)" class="motif-text-link"
-      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Task Assignment</button>
+      [ngClass]="tabIn == 2 ? 'motif-active' : ''">Filings</button>
+      <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(3)" class="motif-text-link"
+      [ngClass]="tabIn == 3 ? 'motif-active' : ''">Task Assignmen</button>
     <!--<button motifButton (click)="adminTabChange(3)" class="motif-text-link"
       [ngClass]="tabIn == 3 ? 'motif-active' : ''">Funds</button> -->
       <button *ngIf="module == 'Regulatory Reporting' && is_enable_assignmnet_tabs" motifButton (click)="adminTabChange(4)" class="motif-text-link"
@@ -239,6 +250,43 @@
   </div>
 
   <div *ngIf="tabIn == 2">
+    <!--     <lib-shared-grid [button]='true' gridStyle="third" [columnDefs]="columnDefs"
+          [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true"  
+          [rowData]="filingTabData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="false"
+          [permissionToSecondaryButton]="false" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)"
+          [permissionToApproveButton]="true" approveButtonText = "Enable" [permissionToUnapproveButton] = "true" unApprovebuttonText="Disable"
+          (selectedRowEmitter)="RowsSelected($event)" [disabledApproveButton] = "true" [disabledUnapproveButton] = "true"
+          [modalConfig]="exceptionModalConfig" [submitFunction]="submitFilingsAssignments"
+          [modalConfigTwo]="disablefilings" [submitTwoFunction]="submitDisableFilings" >
+        </lib-shared-grid>  -->
+    
+        <lib-ag-grid [button]='true'  [columnDefs]="columnDefsAgGridTab2" paginationSize="10" 
+        [rowData]="filingTabData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="false"
+        [permissionToSecondaryButton]="false" (gridReady)="handleGridReady($event)" (searchInput)="searchGrid_opc2($event)"
+        [permissionToApproveButton]="true" approveButtonText = "Enable" [permissionToUnapproveButton] = "true" unApprovebuttonText="Disable"
+        (selectedRowEmitter)="RowsSelected($event)" [disabledApproveButton] = "true" [disabledUnapproveButton] = "true"
+        [modalConfig]="exceptionModalConfig" [submitFunction]="submitFilingsAssignments"
+        [modalConfigTwo]="disablefilings" [submitTwoFunction]="submitDisableFilings" [search]="true" [export]="true" [exportName] = "exportName">
+      </lib-ag-grid> 
+        
+        <div *ngIf="searchNoDataAvilable">
+          <motif-card class="no_data">
+            <motif-card-body>
+                <h5>Your search has returned no results. Please adjust and try again.</h5>
+            </motif-card-body>
+        </motif-card>
+        </div>
+        <motif-toast [type]="'success'" [show]="showToastAfterAssignmensFilings">{{toastMessage}}
+          <button type="button" class="close-toast-td" (click)="closeToast() ">&times;</button>
+        </motif-toast>
+      </div>
+      <!-- Toggle template for filings  -->
+      <ng-template #toggleSwitchFilings let-row>
+        <motif-toggle-switch class="mb-0" (change)="onChangeFilingsToggle($event, row)" [(ngModel)] = "row.addedToTeam" ></motif-toggle-switch>
+      </ng-template>
+      <!-- End toggle template for filings  -->
+
+  <div *ngIf="tabIn == 3">
     <!-- <lib-shared-grid [button]='false' *ngIf="taskAssignmentData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
       [paginationSize]="currentlySelectedPageSizeNewTabs.value" [pagination]="true"  
       [rowData]="taskAssignmentData" rowSelection="multiple" buttonPosition="left" [permissionToPrimaryButton]="true"
@@ -279,6 +327,11 @@
     </motif-card>
     </div>
   </div>
+    <!-- Toggle template for task assignments  -->
+    <ng-template #toggleSwitchTaskAssignments let-row>
+      <motif-toggle-switch class="mb-0" (change)="onChangeTaskAssignToggle($event, row)"></motif-toggle-switch>
+    </ng-template>
+    <!-- End toggle template for task assignments  -->
 
   <div *ngIf="tabIn == 4">
     <!-- <lib-shared-grid [button]='false' *ngIf="dataExplorerData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
@@ -321,6 +374,11 @@
     </motif-card>
     </div>
   </div>
+    <!-- Toggle template for task assignments  -->
+    <ng-template #toggleDataExplorer let-row>
+      <motif-toggle-switch class="mb-0" (change)="onChangeDataExplorerToggle($event, row)"></motif-toggle-switch>
+    </ng-template>
+    <!-- End toggle template for task assignments  -->
 
   <div *ngIf="tabIn == 5">
 <!--     <lib-shared-grid [button]='false' *ngIf="filingEntitiesData.length != 0" gridStyle="first" [columnDefs]="columnDefs"
@@ -365,7 +423,7 @@
     </div>
   </div>
 
-  <ng-template #toggleSwitch let-row>
-    <motif-toggle-switch class="mb-0"></motif-toggle-switch>
+  <ng-template #toggleSwitchFilingEntities let-row>
+    <motif-toggle-switch class="mb-0" (change)="onChangeFilingEntities($event, row)"></motif-toggle-switch>
   </ng-template>
 </div>

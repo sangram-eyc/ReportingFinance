@@ -1,5 +1,4 @@
 .production-cycle-details-wrapper {
-  
   top: 20px;
   position: relative;
 
@@ -10,28 +9,28 @@
   #grid-wrapper {
     ::ng-deep {
       .ag-root-wrapper {
-        border: 1px solid #EAEAF2 !important;
+        border: 1px solid #eaeaf2 !important;
       }
       ::ng-deep .ag-body-viewport {
         min-height: 150px !important;
       }
-      
+
       ::ng-deep .ag-header {
         height: 49px !important;
         min-height: 49px !important;
       }
       .motif-header-name {
         font-family: EYInterstate !important;
-        font-style: normal  !important;
-        font-weight: 700  !important;
-        font-size: 16px  !important;
-        line-height: 20px  !important;
-        color: #2E2E38  !important;
+        font-style: normal !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        line-height: 20px !important;
+        color: #2e2e38 !important;
       }
       .ag-right-aligned-header {
         justify-content: flex-end !important;
       }
-      .ag-right-aligned-cell{
+      .ag-right-aligned-cell {
         justify-content: flex-end !important;
       }
       .ag-center-cols-container {
@@ -45,22 +44,22 @@
       }
       .ag-header {
         font-family: EYInterstate !important;
-        font-style: normal  !important;
-        font-weight: 700  !important;
-        font-size: 16px  !important;
-        line-height: 20px  !important;
-        color: #2E2E38  !important;
+        font-style: normal !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        line-height: 20px !important;
+        color: #2e2e38 !important;
         background: #ffffff !important;
         height: 48px !important;
         min-height: 48px !important;
-        border-bottom: 1px solid #EAEAF2 !important;
+        border-bottom: 1px solid #eaeaf2 !important;
       }
       .ag-pinned-left-header {
         border-right: none !important;
       }
       .ag-row {
         background: #ffffff !important;
-        border-bottom: 1px solid #E7E7EA !important;
+        border-bottom: 1px solid #e7e7ea !important;
         .ag-cell {
           display: flex !important;
           align-items: center !important;
@@ -76,15 +75,15 @@
       }
       .motif-table {
         .ag-row {
-              background: #FFFFFF !important;
+          background: #ffffff !important;
         }
         .ag-cell-value {
           font-family: EYInterstate !important;
-          font-style: normal  !important;
-          font-weight: 400  !important;
-          font-size: 12px  !important;
-          line-height: 20px  !important;
-          color: #2E2E38  !important;
+          font-style: normal !important;
+          font-weight: 400 !important;
+          font-size: 12px !important;
+          line-height: 20px !important;
+          color: #2e2e38 !important;
         }
       }
       .ag-paging-panel {
@@ -94,7 +93,6 @@
         height: 69px !important;
       }
     }
-  
   }
 
   .save-submit {
@@ -123,53 +121,54 @@
     text-align: center;
   }
 
-  .dropdownTemplate-v2{
+  .dropdownTemplate-v2 {
     width: 1.5rem;
   }
 
-  ::ng-deep .row-assignm{
-      width: 130% !important;
-      .add-comment{
-          fill:#2E2E38;
-          width:34px !important; 
-          height:28px !important; 
-      }
-  }
-
-  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active{
-    visibility: hidden !important;
- }
-
-  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked{
-    visibility:visible !important;
-  }
-
-  ::ng-deep .motif-select-trigger{
-      background-color: #eaeaf2bd !important;
+  ::ng-deep .row-assignm {
+    width: 130% !important;
+    .add-comment {
+      fill: #2e2e38;
+      width: 34px !important;
+      height: 28px !important;
     }
+  }
 
-  ::ng-deep .motif-pagination-select-wrapper{
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active {
+    visibility: hidden !important;
+  }
+
+  ::ng-deep
+    .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked {
+    visibility: visible !important;
+  }
+
+  ::ng-deep .motif-select-trigger {
+    background-color: #eaeaf2bd !important;
+  }
+
+  ::ng-deep .motif-pagination-select-wrapper {
     margin-left: -500px;
-    #tooltip{
+    #tooltip {
       margin-top: -15px !important;
       width: max-content;
-    }   
+    }
     .motif-icon.motif-tooltip-close {
       display: none !important;
       cursor: help !important;
     }
   }
 
-  .actions-in-funds{
-    position: relative; 
-    z-index: 1; 
+  .actions-in-funds {
+    position: relative;
+    z-index: 1;
   }
-  .gray-check{
+  .gray-check {
     height: 18px;
     width: 18px;
     margin-right: 10px;
   }
-  
+
   .no_data {
     width: 100%;
     height: auto;
@@ -180,9 +179,9 @@
       font-family: EYInterstate !important;
     }
   }
-   ::ng-deep .no_data:hover {
+  ::ng-deep .no_data:hover {
     box-shadow: none !important;
-  } 
+  }
 }
 
 .back-wrapper {
@@ -190,17 +189,16 @@
   margin-bottom: 8px;
 
   h2 {
-    color: #1A1A24;
+    color: #1a1a24;
     margin-left: 17px;
   }
-
 }
 
 .back-button {
   ::ng-deep svg {
-      background-color: #e1e1e6;
-      cursor: pointer;
-      fill: #747480 !important;
+    background-color: #e1e1e6;
+    cursor: pointer;
+    fill: #747480 !important;
   }
 }
 
@@ -218,11 +216,11 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
-  color: #2E2E3C;
+  color: #2e2e3c;
   top: 4px;
   position: relative;
   left: 3px;
-  span{
+  span {
     font-weight: 400;
   }
 }
@@ -233,7 +231,7 @@ h3 {
   font-weight: bold;
   font-size: 32px;
   line-height: 48px;
-  color: #1A1A24;
+  color: #1a1a24;
   margin-right: 40px;
 }
 
@@ -242,7 +240,7 @@ h3 {
   margin-top: 25px;
   margin-bottom: 12px;
 
-  h1{
+  h1 {
     font-weight: 600;
   }
 }
@@ -262,7 +260,7 @@ motif-icon.motif-icon.user-edit {
   font-weight: bold;
   font-size: 14px;
   line-height: 22px;
-  color: #155CB4;
+  color: #155cb4;
   position: absolute;
   cursor: pointer;
 }
@@ -276,9 +274,9 @@ motif-icon.motif-icon.user-edit {
     font-weight: normal;
     font-size: 32px;
     line-height: 38px;
-    color: #1A1A24;
+    color: #1a1a24;
     margin-top: 20px;
-    margin-left: 15px
+    margin-left: 15px;
   }
 }
 
@@ -289,13 +287,11 @@ motif-icon.motif-icon.user-edit {
   margin-top: 3px;
 }
 
- .team-detailscontent-container {
-
+.team-detailscontent-container {
   min-height: 150px;
   .row {
     margin-left: 0px !important;
     padding: 0px 0px 30px 0px;
-    
   }
 
   .lablel-heading {
@@ -315,20 +311,19 @@ motif-icon.motif-icon.user-edit {
     font-weight: 400;
     font-size: 16px;
     line-height: 25px;
-    color: #2E2E38
+    color: #2e2e38;
   }
 
   .cust-col-role {
-  position: absolute;
-  top: 190px;
+    position: absolute;
+    top: 190px;
   }
   .cust-col-role-value {
-  position: absolute;
-  top: 212px;
+    position: absolute;
+    top: 212px;
   }
 
   ::ng-deep {
-
     .motif-input {
       padding: 0px !important;
       font-family: EYInterstate !important;
@@ -336,7 +331,7 @@ motif-icon.motif-icon.user-edit {
       font-weight: 600 !important;
       font-size: 16px !important;
       line-height: 25px !important;
-      color: #2E2E38 !important;
+      color: #2e2e38 !important;
       // margin-top: -5px;
       margin-top: 2px;
       width: 85% !important;
@@ -347,12 +342,12 @@ motif-icon.motif-icon.user-edit {
       width: 83.9% !important;
     }
 
-    .motif-select-view-value  {
+    .motif-select-view-value {
       font-family: EYInterstate !important;
       font-style: normal !important;
       font-weight: 600 !important;
       font-size: 16px !important;
-      color: #2E2E38 !important;
+      color: #2e2e38 !important;
     }
 
     button.motif-select-trigger {
@@ -371,7 +366,7 @@ motif-icon.motif-icon.user-edit {
 
     .motif-form-field .motif-input {
       background-color: transparent !important;
-      border-bottom: 1px solid #2E2E38 !important;
+      border-bottom: 1px solid #2e2e38 !important;
     }
 
     .motif-textarea {
@@ -379,15 +374,12 @@ motif-icon.motif-icon.user-edit {
       width: 95% !important;
       margin-top: 2px;
     }
-
-    
   }
-
 }
- 
+
 ::ng-deep {
   .motif-icon.motif-icon.user-edit svg {
-    fill: #155CB4 !important;
+    fill: #155cb4 !important;
   }
 
   .motif-toast {
@@ -398,7 +390,7 @@ motif-icon.motif-icon.user-edit {
     z-index: 2;
 
     .motif-toast-content {
-      font-family: EYInterstate
+      font-family: EYInterstate;
     }
 
     .motif-button {
@@ -418,7 +410,7 @@ motif-icon.motif-icon.user-edit {
 
 .disabled {
   pointer-events: none;
-  opacity: 0.6
+  opacity: 0.6;
 }
 
 .field-header {
@@ -439,7 +431,6 @@ motif-icon.motif-icon.user-edit {
 }
 
 .data-header {
-
   width: 568px;
   height: 50px;
   left: 79px;
@@ -449,11 +440,11 @@ motif-icon.motif-icon.user-edit {
   font-weight: normal;
   font-size: 16px;
   line-height: 35px;
-  color: #1A1A24;
+  color: #1a1a24;
 }
 
 .pipe-back {
-  color: #747480
+  color: #747480;
 }
 
 .header-comp {
@@ -467,20 +458,20 @@ motif-icon.motif-icon.user-edit {
 
 .new-team-member-modal {
   ::ng-deep .motif-modal-content {
-      width: 50% !important;
+    width: 50% !important;
   }
   .motif-modal-body {
     padding: 30px 58px 20px 28px;
     position: relative;
   }
   .description {
-      font-size: 14px;
-      font-weight: 400;
-      font-style: normal;
-      line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 20px;
   }
   .motif-row {
-      margin-top: 12px;
+    margin-top: 12px;
   }
   .add-member-note {
     padding-top: 84px;
@@ -491,99 +482,98 @@ motif-icon.motif-icon.user-edit {
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  .btn-download-enabled{
-    svg{
-      enable-background:new 0 0 480 480;
-      fill:black;
+  .btn-download-enabled {
+    svg {
+      enable-background: new 0 0 480 480;
+      fill: black;
     }
     margin-right: 12px;
   }
-  .btn-download-disabled{
-    svg{
-      fill:#C4C4CD !important;
-      cursor:auto;
-      enable-background:new 0 0 480 480;
+  .btn-download-disabled {
+    svg {
+      fill: #c4c4cd !important;
+      cursor: auto;
+      enable-background: new 0 0 480 480;
     }
     margin-right: 12px;
   }
-  .btn-comment-enabled{
-    svg{
-      width:22px;
-      height:23px; 
-      fill:black;
+  .btn-comment-enabled {
+    svg {
+      width: 22px;
+      height: 23px;
+      fill: black;
     }
   }
-  .btn-comment-disabled{
-    svg{
-      width:22px;
-      height:23px; 
-      fill:#C4C4CD
+  .btn-comment-disabled {
+    svg {
+      width: 22px;
+      height: 23px;
+      fill: #c4c4cd;
     }
   }
 }
 
-.assigned-section{
+.assigned-section {
   display: flex;
-  .add-user-enabled{
-    svg{
-     width:24px; 
-     height:14px;  
-     fill:#155CB4
+  .add-user-enabled {
+    svg {
+      width: 24px;
+      height: 14px;
+      fill: #155cb4;
     }
   }
-  .add-user-disabled{
-    svg{
-      width:24px; 
-      height:14px;  
-      fill:#C4C4CD
+  .add-user-disabled {
+    svg {
+      width: 24px;
+      height: 14px;
+      fill: #c4c4cd;
     }
   }
 }
 
-.counter-item{
+.counter-item {
   left: 0%;
-  background: #FFFFFF;
-  border: 1px solid #C4C4CD;
+  background: #ffffff;
+  border: 1px solid #c4c4cd;
   box-sizing: border-box;
   border-radius: 16px;
   height: 22px;
   width: 30px;
   box-shadow: 0px 0px 0px 0px;
   line-height: 0px;
-  font-size: 10px ;
+  font-size: 10px;
 }
 
-.has-count{
+.has-count {
   background: black;
-  color:white;
+  color: white;
 }
 
-.zero-count{
-  background:white;
-  color:black;
+.zero-count {
+  background: white;
+  color: black;
 }
 
 .assigned-btn {
   height: 30px;
-  line-height: 30px;  
-  width: 30px;  
+  line-height: 30px;
+  width: 30px;
   font-size: 2em;
   font-weight: bold;
   border-radius: 50%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   text-align: center;
   cursor: pointer;
 }
 
-.link-assigned{
-    color: #155CB4;
-    margin-top: 8px;  
+.link-assigned {
+  color: #155cb4;
+  margin-top: 8px;
 }
 
-::ng-deep .margin-tooltip{
-
-  #tooltip{
+::ng-deep .margin-tooltip {
+  #tooltip {
     margin-top: -5px !important;
     width: max-content;
   }
@@ -592,113 +582,106 @@ motif-icon.motif-icon.user-edit {
     display: none !important;
     cursor: help !important;
   }
-
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
-::ng-deep #add-user-modal{
-
-  .motif-button[color=primary] {
-      background-color: #fff;
-      border-color: var(--btn-primary-border-color);
-      color: var(--btn-primary-color);
+::ng-deep #add-user-modal {
+  .motif-button[color="primary"] {
+    background-color: #fff;
+    border-color: var(--btn-primary-border-color);
+    color: var(--btn-primary-color);
   }
 
-  .motif-button:hover{
-      background-color:#2e2e38;
-      border-color: var(--btn-primary-border-color);
-      color: #fff;
+  .motif-button:hover {
+    background-color: #2e2e38;
+    border-color: var(--btn-primary-border-color);
+    color: #fff;
   }
 
-  .motif-button[color=primary]:disabled {
+  .motif-button[color="primary"]:disabled {
     background-color: var(--btn-primary-disabled-bg-color);
     border-color: var(--btn-primary-disabled-border-color);
-    color: var(--btn-primary-disabled-color); 
+    color: var(--btn-primary-disabled-color);
     cursor: not-allowed;
   }
-} 
+}
 
-.div-icon{
+.div-icon {
   margin-right: inherit;
 }
 
-.div-msg{
+.div-msg {
   margin-left: initial;
 }
 
-.text-tooltip{
+.text-tooltip {
   font-size: small;
 }
 
-::ng-deep .margin-tooltip-v2{
- #tooltip{
+::ng-deep .margin-tooltip-v2 {
+  #tooltip {
     margin-top: 0px !important;
     width: max-content;
-  } 
+  }
 
   .motif-icon.motif-tooltip-close {
     display: none !important;
   }
 
-  .motif-tooltip-close-button{
+  .motif-tooltip-close-button {
     pointer-events: none !important;
   }
-
 }
 
-.row-assignm:hover{
-  background-color: #F0F0F0;
+.row-assignm:hover {
+  background-color: #f0f0f0;
   cursor: pointer;
 }
 
-::ng-deep .toast-cycles-details{
+::ng-deep .toast-cycles-details {
+  .motif-toast {
+    height: 50px !important;
+    padding-left: 0px !important;
+    padding-top: inherit !important;
+    padding-bottom: inherit !important;
+    margin-top: 15px !important;
+  }
 
-  .motif-toast{
+  .motif-icon-content {
+    padding: initial !important;
+    margin-top: 2px !important;
 
-     height: 50px !important;
-     padding-left: 0px !important;
-     padding-top: inherit !important;
-     padding-bottom: inherit !important;
-     margin-top: 15px !important;   
- }
+    svg {
+      padding: initial !important;
+    }
+  }
 
- .motif-icon-content{
+  .close {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    position: relative;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+  }
 
-     padding: initial !important;
-     margin-top: 2px !important;
+  button.close:hover {
+    background-color: var(--modal-header-border-color) !important;
+  }
 
-     svg{
-         padding: initial !important;
-     }
- }
-
-.close {
- color: #000;
- text-decoration: none;
- cursor: pointer;
- filter: alpha(opacity=50);
- position: relative;
- height: 50px;
- width: 50px;
- font-size: 25px;
-}
-
-button.close:hover {
- background-color: var(--modal-header-border-color) !important;
-}
-
-button.close {
- -webkit-appearance: none;
- padding: 0;
- cursor: pointer;
- background: 0 0;
- border: 0;
- left:14px;
-} 
-
+  button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    left: 14px;
+  }
 }
 
 .production-cycle-summary-header {
@@ -710,7 +693,7 @@ button.close {
   text-align: left;
 }
 
-.donut-title{  
+.donut-title {
   font-family: EYInterstate !important;
   font-size: 12px;
   line-height: 20px;
@@ -725,39 +708,37 @@ button.close {
   display: flex;
   flex-direction: row;
   min-height: 173px;
-  .container{
-    border-right: 1px
-    solid #C4C4CD;
-    .status-tax-processing{
+  .container {
+    border-right: 1px solid #c4c4cd;
+    .status-tax-processing {
       font: EYInterstate;
       font-size: 12px;
       color: #747480;
       margin-top: 3px;
     }
-    .status-in-progress{
+    .status-in-progress {
       font: EYInterstate;
       font-size: 16px;
-      color: #2E2E38;
+      color: #2e2e38;
     }
 
-    .btn-info-modal{
-      svg{
-        width:15px;
-        height:15px;  
-        fill:#2E2E38
+    .btn-info-modal {
+      svg {
+        width: 15px;
+        height: 15px;
+        fill: #2e2e38;
       }
     }
 
-    svg{
+    svg {
       width: 15px;
-      display:inline;
-      cursor:pointer;
+      display: inline;
+      cursor: pointer;
     }
-    
   }
 }
 
-.donut-chart-card-tax ::ng-deep .donut-chart{
+.donut-chart-card-tax ::ng-deep .donut-chart {
   width: max-content !important;
   margin-top: -17px !important;
   height: 131px !important;
@@ -770,25 +751,25 @@ button.close {
 
 .donut-chart-card-tax ::ng-deep .donut-chart > svg .totalFilesNumber {
   letter-spacing: 0px !important;
-  font-weight:600 !important;
+  font-weight: 600 !important;
 }
 
-.donut-chart-card-tax ::ng-deep .donut-summary .flexbox{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
 
-.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend{
-  content: url('../../../assets/mock/icons/chat-booble-orange-dark.svg');
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:first-child .legend {
+  content: url("../../../assets/mock/icons/chat-booble-orange-dark.svg");
   background: transparent !important;
   order: 2;
   width: 31px;
   height: 14px;
 }
 
-.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend{
-  content: url('../../../assets/mock/icons/chat-booble-orange.svg');
+.donut-chart-card-tax ::ng-deep .donut-summary .flexbox:nth-child(2) .legend {
+  content: url("../../../assets/mock/icons/chat-booble-orange.svg");
   background: transparent !important;
   order: 2;
   width: 31px;
@@ -799,37 +780,34 @@ button.close {
   font-family: EYInterstate;
   font-size: 11px;
   line-height: 16px;
-  color: #2E2E38;
+  color: #2e2e38;
 }
 
 .donut-chart-card-tax ::ng-deep .legend-value {
   font-size: 11px;
   line-height: 16px;
-  color: #2E2E38;
+  color: #2e2e38;
   text-align: inherit;
-  letter-spacing:0px;
+  letter-spacing: 0px;
   font-weight: 600;
   display: contents;
 }
 
-.donut-chart-card-tax ::ng-deep .donut-summary{
+.donut-chart-card-tax ::ng-deep .donut-summary {
   width: 12.5em !important;
   padding-left: 0px !important;
-} 
+}
 
-.more-details-comments{
+.more-details-comments {
   text-align: right;
-  color: #155CB4;
+  color: #155cb4;
   font-family: EYInterstate !important;
   font-size: 12px;
   margin-right: 10px;
   cursor: pointer;
 }
 
-
-
 //NEW
-
 
 .tax-legend {
   display: inline-block;
@@ -842,71 +820,73 @@ button.close {
 .tax-legend-text {
   font-family: EYInterstate;
   font-size: 12px;
-  color: #2E2E38;
+  color: #2e2e38;
 }
 //NEW
 
-.status-changes{
-  font-size:12px !important;
+.status-changes {
+  font-size: 12px !important;
   margin-left: 0px;
 }
 
-lib-donut-chart{
-  display: flex; 
+lib-donut-chart {
+  display: flex;
 }
 
+::ng-deep .toast-bulk-download {
+  .motif-toast {
+    height: 50px !important;
+    padding-left: 0px !important;
+    padding-top: inherit !important;
+    padding-bottom: inherit !important;
+    margin-top: 15px !important;
+  }
 
-::ng-deep .toast-bulk-download{
+  .motif-icon-content {
+    padding: initial !important;
+    margin-top: 2px !important;
 
-  .motif-toast{
+    svg {
+      padding: initial !important;
+    }
+  }
 
-     height: 50px !important;
-     padding-left: 0px !important;
-     padding-top: inherit !important;
-     padding-bottom: inherit !important;
-     margin-top: 15px !important;   
- }
+  .close {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    position: relative;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+  }
 
- .motif-icon-content{
+  button.close:hover {
+    background-color: var(--modal-header-border-color) !important;
+  }
 
-     padding: initial !important;
-     margin-top: 2px !important;
+  button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    left: 14px;
+  }
 
-     svg{
-         padding: initial !important;
-     }
- }
-
-.close {
- color: #000;
- text-decoration: none;
- cursor: pointer;
- filter: alpha(opacity=50);
- position: relative;
- height: 50px;
- width: 50px;
- font-size: 25px;
+  .motif-toast .motif-toast-icon._icon-success {
+    content: url("../../../assets/mock/icons/bulk-toast-icon.svg");
+    background-color: #747480 !important;
+  }
 }
 
-button.close:hover {
- background-color: var(--modal-header-border-color) !important;
-}
-
-button.close {
- -webkit-appearance: none;
- padding: 0;
- cursor: pointer;
- background: 0 0;
- border: 0;
- left:14px;
-} 
-
-.motif-toast .motif-toast-icon._icon-success {
-  content: url('../../../assets/mock/icons/bulk-toast-icon.svg');
-  background-color: #747480 !important;
-}
-
-}
-::ng-deep .ag-invisible{
+::ng-deep .ag-invisible {
   display: none !important;
+}
+::ng-deep .ag-cell-wrapper .ag-cell-value {
+  line-height: 25px;
+}
+.production-cycle-summary ::ng-deep .motif-card {
+  flex-direction: row !important;
 }

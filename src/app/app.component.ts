@@ -253,27 +253,6 @@ export class AppComponent
               JSON.parse(sessionStorage.getItem('sessionTimeOut')) / 1000;
           }
 
-          setTimeout(() => {
-            this.preferencesService.emailToRecipient().subscribe(
-              (recipient) => {},
-              (error) => {
-                this.preferencesService
-                  .createRecipient()
-                  .subscribe((err) => {});
-              }
-            );
-
-            this.notificationService
-              .getNotArchivedNotifications(0)
-              .subscribe((notifications: any) => {
-                notifications.content.forEach((item) => {
-                  if (!item.isRead) {
-                    this.isNotificationRead = false;
-                  }
-                });
-              });
-          }, 1000);
-
           this.sessionTimeOut();
           if (uname) {
             this.userGivenName = uname.firstName;
@@ -321,7 +300,7 @@ export class AppComponent
               username
           )
           .subscribe((resp: any) => {
-            console.log('sse-new', resp);
+            //console.log('sse-new', resp);
             //Logic to reconnection
              clearInterval(this.timerReconnectionSSE);
              this.reConnectSse();
@@ -367,7 +346,7 @@ export class AppComponent
       (err) => {
         console.log('ws bulk error', err);
       },
-      () => console.log('ws bulk complete') 
+      () => console.log('ws bulk complete')
     );
   }
   ngAfterViewInit(): void {

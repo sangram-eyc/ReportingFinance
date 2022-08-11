@@ -24,16 +24,9 @@ import { CommentsDetailsComponent } from '../../projects/eyc-tax-reporting/src/l
 import { ExceptionsReportsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions-reports/exceptions-reports.component';
 import {FileReviewComponent} from 'projects/eyc-data-managed-services/src/lib/data-intake/component/file-review/file-review.component';
 import { DonutGridListComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/donut-grid-list/donut-grid-list.component';
-import {
-  ArchivedNotificationsComponent
-} from '@default/notifications/archived-notifications/archived-notifications.component';
 import { ExceptionsComponent } from 'projects/eyc-data-managed-services/src/lib/data-intake/component/exceptions/exceptions.component';
 import { ViewFilingEntityExceptionComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/view-filing-entity-exception/components/view-filing-entity-exception.component';
 import { EntityExceptionDetailsComponent } from 'projects/eyc-regulatory-reporting/src/lib/shared/entity-exception-details/components/entity-exception-details.component';
-
-import {
-  NotificationsPreferencesComponent
-} from '@default/notifications/notifications-preferences/notifications-preferences.component';
 
 import { ExpenseReportComponent } from 'projects/eyc-expense-reporting/src/lib/expense-report/expense-report.component';
 import { ExpenseTaskAssignmentComponent } from 'projects/eyc-expense-reporting/src/lib/expense-task-assignment/expense-task-assignment.component';
@@ -100,8 +93,6 @@ const routes: Routes = [
   {path: 'data-intake/files/exception-details', component: IntakeExceptionsReportsComponent,  canActivate: [AuthGuardService]},
   {path: 'data-intake/business-day',component: IntakeBusinessDayComponent,  canActivate: [AuthGuardService]},
   {path: 'entity-exception-details', component: EntityExceptionDetailsComponent, canActivate: [AuthGuardService]},
-  {path: 'archived-notifications', component: ArchivedNotificationsComponent},
-  {path: 'notifications-preferences', component: NotificationsPreferencesComponent, canActivate: [AuthGuardService]},
   {path: 'data-managed-services', component: EycDataManagementServicesComponent, canActivate: [AuthGuardService]},
   {path: 'data-managed-services/files-review', component: FileReviewComponent, canActivate: [AuthGuardService]},
   {

@@ -9,7 +9,8 @@ export const environment = {
   SERVICE_URL: "https://10.48.234.20/qa32/",
   /*temp variable needs to be removed after API integration */
   //AUTH_PROD:true,
-  AG_License_KEY : "CompanyName=SHI International Corp._on_behalf_of_Ernst & Young U.S. LLP,LicensedApplication=EY Comply,LicenseType=SingleApplication,LicensedConcurrentDeveloperCount=11,LicensedProductionInstancesCount=1,AssetReference=AG-027377,ExpiryDate=23_May_2023_[v2]_MTY4NDc5NjQwMDAwMA==9014b013fefbb0b8e447956ac4272e81"
+  //ag-grid-liscence encrypted key
+  AG_KEY : "XcgQstGFjBtULTNjN5ZRnJGgqhq/LDOXL/P2Z7eKFG3jHvJsc1GCDNYAP/dxFJYTfHSTfYbOPdSrFxl14Tzzk8Hrqc1Q62XhZg0V0AqEvCFyFq/6xibutS4+ORpkbJzxerUfUq5c7SJyGon3pqVruoeSmFOKZaA36MGroF1LaHQ4zxThdR/1dDksADUqRIVNfroq+a3ty2YqPWieotaP3JIkmRllRMS3XNGnheFjSzPGXxAAZzQDGoi2C4kwXIM0RHAduURxLDrqrSKq4yVDmtuxdZHm2BizIzbTYQn4wJWVUL6uf8q2y0vfSd/Qk3MxrKdXIg/vmXrlqR9b6/1RM7uc2WICzLb2jhk14BIEtkwQIygcs+tqWTwfrBBJp1FcKRLf5KsA1Mv98nnLzI7xKxvAptjkiVevDssf8Oa++3A="
 };
 /*
  * For easier debugging in development mode, you can import the following file
