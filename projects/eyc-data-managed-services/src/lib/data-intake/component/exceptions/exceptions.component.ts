@@ -301,7 +301,7 @@ export class ExceptionsComponent implements OnInit {
           menuTabs: ['generalMenuTab'],
           autoHeight: true,
           minWidth: 200,
-          sort: 'desc',
+          sort: 'asc',
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           },

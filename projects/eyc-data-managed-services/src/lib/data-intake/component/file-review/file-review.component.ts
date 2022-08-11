@@ -525,8 +525,8 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           // },
           menuTabs: ['generalMenuTab'],
           minWidth: 200,
-          sort: 'desc',
-          // comparator: customComparator,
+          sort: 'asc',
+          comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }

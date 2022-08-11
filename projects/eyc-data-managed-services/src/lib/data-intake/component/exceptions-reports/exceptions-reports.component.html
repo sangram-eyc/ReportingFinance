@@ -49,15 +49,17 @@
       </div>
    </div>
 
-    <div id="grid-wrapper">
+    <div id="grid-wrapper" *ngIf="showAgGrid" >
         <motif-card>
             <!-- <motif-table [columnDefs]="columnDefs" [rowData]="exceptionTableData"
                         (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [suppressCellSelection]="true"
                         [domLayout]="domLayout" (sortChanged)="onSortChanged($event)">
-                    </motif-table> -->
+                    </motif-table> 
+                [paginationSize]="paginationSize" [pageSize]="pageSize"
+                -->
             <lib-ag-grid class="ag-cursor-pointer" [rowData]="exceptionTableData" [button]="false" [columnDefs]="columnDefs"
-                [displayCheckBox]="false" [export]="true" [search]="true" [paginationPageSize]="100" [paginationSize]="100" [pageSize]="100" [pageList]="[100,150,200]" 
-                buttonPosition="left" rowSelection="single" (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [exportName]="exportName"
+                [displayCheckBox]="false" [export]="true" [search]="true" [paginationSize]="paginationSize" [pageSize]="pageSize" [paginationPageSize]="paginationPageSize"  [pageList]="pageList" 
+                buttonPosition="left" rowSelection="single" (gridReady)="onGridReady($event)" [suppressRowClickSelection]="true" [exportName]="exportName" [pagination]="pagination"
                 [suppressCellSelection]="true" (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
             </lib-ag-grid>
         </motif-card>
