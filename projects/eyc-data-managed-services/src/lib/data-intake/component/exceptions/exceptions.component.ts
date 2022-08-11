@@ -106,6 +106,7 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
+  exportName: string = "ExceptionsReport";
 
   constructor(
     private unsubscriber: AutoUnsubscriberService,
@@ -296,10 +297,11 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exceptions Priority Level',
           field: 'priority',
           sortable: true,
-          filter: 'agSetColumnFilter',
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // filter: 'agSetColumnFilter',
+          menuTabs: ['generalMenuTab'],
           autoHeight: true,
           minWidth: 200,
+          sort: 'asc',
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           },
@@ -460,13 +462,13 @@ export class ExceptionsComponent implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  updatePaginationSize(newPageSize: number) {
-    this.noOfCompletdFilingRecords = newPageSize;
-  }
+  // updatePaginationSize(newPageSize: number) {
+  //   this.noOfCompletdFilingRecords = newPageSize;
+  // }
 
-  handlePageChange(val: number): void {
-    this.currentPage = val;
-  }
+  // handlePageChange(val: number): void {
+  //   this.currentPage = val;
+  // }
 
   openComments(row) {
     console.log(row);

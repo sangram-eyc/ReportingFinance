@@ -34,7 +34,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   currentPage = 1;
   maxPages = 5;
   noCompletedDataAvailable = false;
-  MotifTableCellRendererComponent = MotifTableCellRendererComponent;
+  // MotifTableCellRendererComponent = MotifTableCellRendererComponent;
   // TableHeaderRendererComponent = TableHeaderRendererComponent;
   rowData = [];
   rowClass = 'row-style';
@@ -83,6 +83,13 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   isLoading = true;
   fileName="Files";
   httpDataGridParams: ExceptionDetailsDataGrid;
+  exportName: string = "ExceptionsDetail";
+  pagination: boolean = true;
+  paginationSize: number = 100;
+  pageSize: number = 100;
+  pageList: number[] = [100,150,200];
+  paginationPageSize: number = 100;
+  showAgGrid: boolean = true;
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private routingState: RoutingStateService,
@@ -95,6 +102,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.tableName = this.dataManagedService.getTableName;
     this.auditHashID = this.dataManagedService.getAuditHashID;
     this.auditRuleType = this.dataManagedService.getAuditRuleType;
+    console.log("auditRuleType", this.auditRuleType);
     this.httpDataGridParams = {
       auditDate : this.auditDate, tableName: this.tableName
     }
@@ -116,7 +124,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
             const firstRow = resp.data[0];
             for (const [key] of Object.entries(firstRow)) {
               this.columnDefsFill.push({
-                headerComponentFramework: MotifTableHeaderRendererComponent,
+                // headerComponentFramework: MotifTableHeaderRendererComponent,
                 headerName: key.replace(/_/g, ' '),
                 field: key,
                 sortable: true,
@@ -144,6 +152,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
           wrapText: false,
           autoHeight: false,
           filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         });
       });
       const multiColumnData = [];
@@ -168,9 +177,16 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         }
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
-      this.columnDefs = this.columnDefsFill;
-      this.exceptionTableData = multiColumnData;
-      this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+      // this.columnDefs = this.columnDefsFill;
+      // this.exceptionTableData = multiColumnData;
+      // this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+      setTimeout(() => {
+        this.columnDefs = this.columnDefsFill;
+        this.exceptionTableData = multiColumnData;
+        this.columnDefsFill.splice(0, 0, { headerName: '#', width: '70', valueGetter: 'node.rowIndex+1' });
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }, 10);      
     }
    }
 
@@ -216,6 +232,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
         this.exceptionTableFillData.push({ [`${columnName}`]: value });
       })
     }
+
   }
 
   // onSortChanged(params) {
@@ -258,7 +275,6 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    this.isLoading = false;
   };
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

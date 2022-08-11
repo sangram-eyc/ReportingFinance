@@ -68,10 +68,10 @@ export const FILTER_TYPE_TITLE = {
 export const customComparator = (valueA, valueB) => {
     const statusCol = [FILTER_TYPE.MISSING_FILES, FILTER_TYPE.HIGH, FILTER_TYPE.MEDIUM, FILTER_TYPE.LOW,FILTER_TYPE.NO_ISSUES,FILTER_TYPE.FILE_NOT_RECIEVED];
 	if (valueA == null) {
-		return false;
+		return null;
 	}
 	else if (valueB == null) {
-		return false;
+		return null;
 	} else {
         if (valueA == valueB) return 0;
         return (statusCol.indexOf(valueA) > statusCol.indexOf(valueB)) ? 1 : -1;

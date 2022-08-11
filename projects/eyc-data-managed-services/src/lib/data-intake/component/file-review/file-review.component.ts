@@ -184,6 +184,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   presentDateFormat: string;
   presentMonthDate: Date;
   presentMonthFormat: string;
+  exportName: string = "FileReview";
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
@@ -486,13 +487,13 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
                    return '--'
                 }
               },
-          // cellStyle: function (params) {
-          //   if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
-          //     return { color: 'red' }
-          //   } else {
-          //     return true;
-          //   }
-          // }
+          cellStyle: function (params) {
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+              return { color: 'red' };
+            } else {
+              return null;
+            }
+          }
         },
         {
           // headerComponentFramework: TableHeaderRendererComponent,
@@ -518,14 +519,14 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Status',
           field: 'maxPriority',
           sortable: true,
-          filter: 'agSetColumnFilter',
-          filterParams: {
-            buttons: ['reset']
-          },
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          // filter: 'agSetColumnFilter',
+          // filterParams: {
+          //   buttons: ['reset']
+          // },
+          menuTabs: ['generalMenuTab'],
           minWidth: 200,
           sort: 'asc',
-          // comparator: customComparator,
+          comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           }
@@ -549,7 +550,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   }
 
   onGridReady(params) {
-    this.gridApi = params.api;
+    this.gridApi = params!.api;
     this.gridApi.sizeColumnsToFit();
   };
 

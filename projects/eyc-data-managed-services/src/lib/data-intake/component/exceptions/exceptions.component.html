@@ -76,8 +76,8 @@
                                 [suppressRowClickSelection]="false" [suppressCellSelection]="true" [domLayout]="domLayout">
                             </motif-table> -->
             <lib-ag-grid [rowData]="glRowdata" [button]="false" [columnDefs]="columnGl" [displayCheckBox]="false"
-                [export]="true" [search]="true" [paginationPageSize]="20" [paginationSize]="20" buttonPosition="left"
-                rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"
+                [export]="true" [search]="true" [paginationPageSize]="20" [paginationSize]="20" [pageSize]="20" [pageList]="[20,50,100]" buttonPosition="left"
+                rowSelection="single" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" [exportName]="exportName"
                 (firstDataRendered)="onFirstDataRendered($event)" gridStyle="third">
             </lib-ag-grid>
         </motif-card>
