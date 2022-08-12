@@ -138,8 +138,23 @@
     visibility: hidden !important;
   }
 
-  ::ng-deep
-    .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked {
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked {
+    visibility: hidden !important;
+  }
+
+  ::ng-deep .motif-tooltip.hidden.color-default.motif-tooltip-active.motif-tooltip-clicked.motif-tooltip-clicked-cycle-details {
+    visibility: visible !important;
+  }
+
+  ::ng-deep .motif-tooltip.hidden.color-alternate.motif-tooltip-active {
+    visibility: hidden !important;
+  }
+
+  ::ng-deep .motif-tooltip.hidden.color-alternate.motif-tooltip-active.motif-tooltip-clicked {
+    visibility: hidden !important;
+  }
+
+  ::ng-deep .motif-tooltip.hidden.color-alternate.motif-tooltip-active.motif-tooltip-clicked.motif-tooltip-clicked-cycle-details {
     visibility: visible !important;
   }
 
@@ -147,17 +162,15 @@
     background-color: #eaeaf2bd !important;
   }
 
-  ::ng-deep .motif-pagination-select-wrapper {
-    margin-left: -500px;
-    #tooltip {
-      margin-top: -15px !important;
+  ::ng-deep #tooltip {
+      margin-top: -10px !important;
       width: max-content;
     }
-    .motif-icon.motif-tooltip-close {
+    ::ng-deep .motif-icon.motif-tooltip-close {
       display: none !important;
       cursor: help !important;
     }
-  }
+  
 
   .actions-in-funds {
     position: relative;

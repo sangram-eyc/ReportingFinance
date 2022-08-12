@@ -159,12 +159,7 @@
   </div>
 
   <ng-template #datasetsDropdownTemplate let-row>
-    <div
-      class="mt-2"
-      *ngIf="
-        (row.approvedBack === false && !row.hasContent) || !permissionApproval
-      "
-    >
+    <div class="mt-2" *ngIf="(row.approvedBack === false && !row.hasContent) || !permissionApproval">
       <svg
         class="gray-check"
         width="18"
@@ -343,7 +338,7 @@
       </motif-tooltip>
     </div>
 
-    <div
+<!--     <div
       class="margin-tooltip-v2 mt-2 dropdownTemplate-v2 actions-in-funds"
       *ngIf="false"
     >
@@ -353,7 +348,7 @@
         tabindex="0"
       >
       </motif-icon>
-    </div>
+    </div> -->
   </ng-template>
 
   <ng-template #fundName let-row>
@@ -476,7 +471,7 @@
       </div>
 
       <div class="margin-tooltip mt-2" *ngIf="row.assignedTo.length > 1">
-        <motif-tooltip placement="bottom">
+        <motif-tooltip placement="bottom" color="alternate">
           <h4
             motifTooltipTrigger
             aria-label="tooltip"

@@ -227,7 +227,7 @@ export class CycleDetailComponent implements OnInit {
     this.downloadButton = document.querySelector('.second-button') === null ? this.downloadButton : document.querySelector('.second-button');
     this.downloadButton.insertAdjacentHTML('beforeend', '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75H8.25V0.25H3.75V4.75H0.75L6 10L11.25 4.75ZM0.75 11.5V13H11.25V11.5H0.75Z" fill="#23232F"/></svg> Download');
     this.downloadButton.addEventListener('click', this.onClickSecondButton.bind(this));
-    this.setTooltips();
+    //this.setTooltips();
   }
 
   setTooltips(){
@@ -776,16 +776,20 @@ export class CycleDetailComponent implements OnInit {
           element.classList.remove('checked');
         });
       }
-      this.setTooltips();
+      //this.setTooltips();
     }
   }
 
   getTooltip() {
-    /* var element = document.querySelector('.motif-tooltip-active');
+    var element = document.querySelector('.motif-tooltip-active');
     if (element != null) {
-      document.querySelector('.ag-theme-material').appendChild(element);
+      document.querySelector('.ag-status-bar').appendChild(element);
       window.scrollTo(0, window.scrollY + 1);
-      window.scrollTo(0, window.scrollY - 1);} */
+      setTimeout(()=>{
+        element.classList.add('motif-tooltip-clicked-cycle-details');
+        window.scrollTo(0, window.scrollY - 1); 
+      },500)         
+    }
   }
 
   getFileSummuries() {

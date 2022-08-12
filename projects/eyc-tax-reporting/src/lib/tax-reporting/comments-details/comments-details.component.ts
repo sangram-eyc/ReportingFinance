@@ -106,7 +106,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.setTooltips();
+    //this.setTooltips();
   }
   setTooltips(){
     setTimeout(()=>{
@@ -352,16 +352,15 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
   }
 
   getTooltip() {
-    /* const arrayTooltips = document.querySelectorAll('.motif-tooltip');
-    arrayTooltips.forEach((userItem) => {
-      document
-        .querySelector('.motif-pagination-select-wrapper')
-        .appendChild(userItem);
+    /* var element = document.querySelector('.motif-tooltip-active');
+    if (element != null) {
+      document.querySelector('.ag-status-bar').appendChild(element);
       window.scrollTo(0, window.scrollY + 1);
-      setTimeout(() => {
-        window.scrollTo(0, window.scrollY - 1);
-      }, 10);
-    }); */
+      setTimeout(()=>{
+        element.classList.add('motif-tooltip-clicked-cycle-details');
+        window.scrollTo(0, window.scrollY - 1); 
+      },500)         
+    } */
   }
 
   showMyAssignedFunds() {
