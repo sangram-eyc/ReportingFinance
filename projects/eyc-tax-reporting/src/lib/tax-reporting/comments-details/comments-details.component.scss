@@ -107,15 +107,11 @@
          margin-right: auto;
       } */
 
-      ::ng-deep .motif-pagination-select-wrapper{
-        //margin-left: -500px; 
-         .motif-icon.motif-tooltip-close {
-          display: none !important;
-          cursor:  default !important;
-        } 
-      }
-
-   
+    ::ng-deep .motif-icon.motif-tooltip-close {
+      display: none !important;
+      cursor:  default !important;
+    } 
+        
    .donut-charts-wrapper{
     .wrapper-count-comments{
       background-color: #EAEAF2; 
@@ -281,6 +277,12 @@
 ::ng-deep .no_data:hover {
   box-shadow: none !important;
 }
+
+  ::ng-deep .ag-theme-material .ag-row-hover{
+    background-color: transparent !important;
+    position: absolute !important;
+    z-index: 1 !important;
+   }  
 
 }
 ::ng-deep motif-chip-group{

@@ -30,6 +30,18 @@
                         "userEmail": "diego.morini@ey.com",
                         "userFirstName": "Diego",
                         "userLastName": "Morini"
+                    },
+                    {
+                        "userId": 6,
+                        "userEmail": "jonnathan.caballero@ey.com",
+                        "userFirstName": "Jonnathan",
+                        "userLastName": "Caballero"
+                    },
+                    {
+                        "userId": 7,
+                        "userEmail": "fabian.laborato@ey.com",
+                        "userFirstName": "Fabian",
+                        "userLastName": "Labotaro"
                     }
                 ],
                 "statusChangedDate": "2022-05-03T14:17:54.297+00:00"
