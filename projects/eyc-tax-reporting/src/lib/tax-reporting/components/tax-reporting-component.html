@@ -19,10 +19,10 @@
     </div>
 
     <section *ngIf="tabIn == 3">
-        <div >
+        <div>
             <lib-archived-reports></lib-archived-reports>
         </div>
-    </section> 
+    </section>
 
     <section id='active-reports' *ngIf="tabIn == 2">
         <div id="reports-history-heading">
@@ -50,10 +50,9 @@
             <h2 class="card-title">Production cycles list view</h2>
         </div>
 
-        <lib-ag-grid [columnDefs]="columnDefs" [rowData]="rowData"
-            [paginationSize]="currentlySelectedPageSize.value" buttonPosition="left"
-            [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)"
-            (searchInput)="searchGrid($event)" [export]="true" [exportName] = "exportName" paginationSize="10" >
+        <lib-ag-grid [columnDefs]="columnDefs" [rowData]="rowData" [paginationSize]="currentlySelectedPageSize.value"
+            buttonPosition="left" [displayCheckBox]="true" [button]="false" (gridReady)="handleGridReady($event)"
+            (searchInput)="searchGrid($event)" [export]="true" [exportName]="exportName" paginationSize="10">
         </lib-ag-grid>
 
         <div *ngIf="searchNoDataAvilable">
@@ -81,10 +80,14 @@
         <ng-template #statusTracker let-row>
             <div class="ml-4">
                 <a class="link-status-tracker" (click)="getStatusTracker(row)">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17.07 2.93L15.66 4.34C17.1 5.79 18 7.79 18 10C18 14.42 14.42 18 10 18C5.58 18 2 14.42 2 10C2 5.92 5.05 2.56 9 2.07V4.09C6.16 4.57 4 7.03 4 10C4 13.31 6.69 16 10 16C13.31 16 16 13.31 16 10C16 8.34 15.33 6.84 14.24 5.76L12.83 7.17C13.55 7.9 14 8.9 14 10C14 12.21 12.21 14 10 14C7.79 14 6 12.21 6 10C6 8.14 7.28 6.59 9 6.14V8.28C8.4 8.63 8 9.26 8 10C8 11.1 8.9 12 10 12C11.1 12 12 11.1 12 10C12 9.26 11.6 8.62 11 8.28V0H10C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 7.24 18.88 4.74 17.07 2.93Z"
-                            fill="#2E2E38" />
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1"
+                        width="16" height="16" style="width: 100%; height: 100%;">
+
+                        <g transform="matrix(0.88888896 0 0 0.88888896 0 0)">
+                            <path
+                                d="M16 16L2 16L2 2L9 2L9 0L2 0C 0.89 0 0 0.9 0 2L0 2L0 16C 0 17.1 0.89 18 2 18L2 18L16 18C 17.1 18 18 17.1 18 16L18 16L18 9L16 9L16 16zM11 0L11 2L14.59 2L4.76 11.83L6.17 13.24L16 3.41L16 7L18 7L18 0L11 0z"
+                                stroke="none" fill="#155CB4" fill-rule="nonzero" />
+                        </g>
                     </svg>
                 </a>
             </div>
