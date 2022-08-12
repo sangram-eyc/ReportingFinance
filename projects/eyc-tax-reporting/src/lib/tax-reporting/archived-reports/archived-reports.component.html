@@ -1,5 +1,7 @@
     <div id="archived-report" class="mt-4 mb-4">
         <motif-button-group>
+            <button id="option0" class="active" motifButton color="secondary" (click)="getReportYear('option0', null)"
+                size="small">{{allYears}}</button>
             <button id="option1" motifButton color="secondary" (click)="getReportYear('option1', pastYear)"
                 size="small">{{pastYear}}</button>
             <button id="option2" motifButton color="secondary" (click)="getReportYear('option2', past2Year)"
@@ -15,7 +17,7 @@
             (gridReady)="handleGridReady($event)" (searchInput)="searchGrid($event)">
         </lib-shared-grid> -->
         <lib-ag-grid [disabledApproveButton]="false" [rowData]="rowData" [columnDefs]="columnDefsAgGrid" [displayCheckBox]="false" [buttonText]="'Cycle Insights'"
-        [export]="true" buttonPosition="right" [exportName]="exportName" [adminTab]="true"
+        [export]="true" buttonPosition="left" [exportName]="exportName" [adminTab]="true"
         [search]="true" paginationSize="10" [permissionToPrimaryButton]="false"></lib-ag-grid>
         <div *ngIf="searchNoDataAvilable">
             <motif-card class="no_data">
@@ -40,7 +42,7 @@
         </ng-template>
 
         <ng-template #taxReportNameTemplate let-row>
-            <span class="custom-row">{{row.name}}</span>
+            <span class="custom-row blue-link">{{row.name}}</span>
         </ng-template>
 
         <ng-template #totalFundsTemplate let-row>
@@ -48,14 +50,8 @@
         </ng-template>
 
         <ng-template #totalCommentsTemplate let-row>
-            <div class="total-comments-div">
-                <svg class="total-comments-svg" width="15" height="16" viewBox="0 0 15 16" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M15 2C15 1.175 14.325 0.5 13.5 0.5H1.5C0.675 0.5 0 1.175 0 2V11C0 11.825 0.675 12.5 1.5 12.5H12L15 15.5V2Z"
-                        fill="#2E2E3C" />
-                </svg>
-                {{row.totalComments}}
+            <div class="counter-item">
+                <span>{{row.totalComments}}</span>
             </div>
         </ng-template>
 

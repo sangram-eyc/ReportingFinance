@@ -85,7 +85,7 @@ export class ArchivedReportsComponent implements OnInit {
     name: '5',
     id: 0,
   };
-
+  allYears: any= 'All';
   pastYear: any = new Date().getFullYear();
   past2Year: any = new Date().getFullYear() - 1;
   past3Year: any = new Date().getFullYear() - 2;
