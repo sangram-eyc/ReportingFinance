@@ -446,7 +446,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
     this.tabIn = selectedTab;
     if (selectedTab == 1) {
       this.createTeamsRowData()
-      this.getTeamDetailsData(true)
+      this.getTeamDetailsData(true) 
       this.gridApi.setRowData(this.teamsMemberData);
       this.exportName = this.module+"_Team_Members_"
     }
@@ -456,10 +456,11 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       this.gridApi.setRowData(this.filingTabData);     
     }
     else if (selectedTab == 3) {
-      this.taskService.getTaskAssignments().subscribe( res =>{
+      this.taskService.getTaskAssignments(this.selectedFilings).subscribe(res =>{
         this.taskAssignmentData = res.data
         this.gridApi.setRowData(res.data);
       })
+      setTimeout(() =>{
       this.columnDefsAgGrid = [
         {
           headerCheckboxSelection: true,
@@ -467,6 +468,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           checkboxSelection: true,
           valueGetter: "node.rowIndex + 1",
           maxWidth: 120,
+          minWidth: 120,
           sortable: false,
           menuTabs: [],
           pinned: 'left'
@@ -476,29 +478,30 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
           cellRendererParams: { ngTemplate: this.toggleSwitchTaskAssignments },
           headerName: 'Access',
           field: 'userId',
+          maxWidth: 200,
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
           {
             headerName: 'Filling Type',
-            field: 'fillingType',
+            field: 'filingName',
             filter: 'agSetColumnFilter',
             filterParams: {
               buttons: ['reset']
             },
             sortable: true,
-            width: 370,
+            maxWidth: 200,
+            width: 200,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
           {
             headerName: 'Task Assignment',
-            field: 'taskAssingment',
+            field: 'taskAssignment',
             filter: 'agSetColumnFilter',
             filterParams: {
               buttons: ['reset']
             },
             sortable: true,
-            width: 370,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           }
       ]
@@ -537,6 +540,7 @@ export class EycTeamDetailsComponent implements OnInit, AfterViewInit {
       //   }
         
       // ];     
+    }, 100)
       this.exportName = this.module+"_Task_Assignment_"
     }
     else if (selectedTab == 4) {

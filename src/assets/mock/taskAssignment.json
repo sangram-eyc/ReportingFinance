@@ -1,103 +1,326 @@
 {
     "success": true,
-    "message": "",
-    "corelationId": null,
+    "message": "Filing Task Assignment Mapping returned successfully",
+    "corelationId": "127a8df2-ffd5-4c6f-b7dd-82e50d5fb247",
     "data": [
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 SFI Total Variance",
+            "auditID": 12066
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 2",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 SFI Total Excess Collateral Variance",
+            "auditID": 12064
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 3",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 SFI Total Futures Variance",
+            "auditID": 12062
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 SFI Total Other Investment Variance",
+            "auditID": 12065
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 SFI Total Swaps Variance",
+            "auditID": 12063
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 Total Employees Variance",
+            "auditID": 12041
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 Total Equity Holders Variance",
+            "auditID": 12056
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
-        },        {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 1 Total Pool Variance",
+            "auditID": 12042
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 2",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 2 Registered Net AUM",
+            "auditID": 12059
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 3",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 2 Total AUM",
+            "auditID": 12057
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 2 Total Net AUM",
+            "auditID": 12058
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 3 CA/CL Ratio Variance",
+            "auditID": 12060
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 3 TR/TE Ratio Variance",
+            "auditID": 12061
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 6 PTM Percentage Held Variance",
+            "auditID": 12049
         },
         {
-            "access": 1,
-            "fillingType": "Form PF",
-            "taskAssingment": "Exception Report 1",
-            "approved": false
-        }   
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 7 PC Percentage Held Variance",
+            "auditID": 12050
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 8 Additions To Pool Varaince",
+            "auditID": 12044
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 8 NAV at Beginning of Period Variance",
+            "auditID": 12047
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 8 NAV on Reporting Date Variance",
+            "auditID": 12046
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 8 Net Income Varaince",
+            "auditID": 12043
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 8 Redemptions Variance",
+            "auditID": 12045
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 9 Net Investment Variance",
+            "auditID": 12048
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 11 Cost Variance",
+            "auditID": 12055
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 11 Fair Value Variance",
+            "auditID": 12051
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 11 Net Option Value Variance",
+            "auditID": 12052
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 11 Open Trade Equity Variance",
+            "auditID": 12053
+        },
+        {
+            "filingName": "CPOPQR",
+            "formId": 4,
+            "taskAssignment": "CPOPQR - Question 11 Gain Loss YTD Variance",
+            "auditID": 12054
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - DHF",
+            "auditID": 12159
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - DHF",
+            "auditID": 12146
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - DHF",
+            "auditID": 12142
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - GMS",
+            "auditID": 12156
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "DuplicatePosition - GMS",
+            "auditID": 12165
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - GMS",
+            "auditID": 12162
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - GMS",
+            "auditID": 12149
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - HFS",
+            "auditID": 12160
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "DuplicatePosition - HFS",
+            "auditID": 12166
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - HFS",
+            "auditID": 12157
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - HFS",
+            "auditID": 12164
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - MBD",
+            "auditID": 12152
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - MBD",
+            "auditID": 12151
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - MBD",
+            "auditID": 12147
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - OFMF",
+            "auditID": 12163
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - OFMF",
+            "auditID": 12144
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - OFMF",
+            "auditID": 12153
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - PEG",
+            "auditID": 12155
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - PEG",
+            "auditID": 12148
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - PEG",
+            "auditID": 12161
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - REIG",
+            "auditID": 12141
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - REIG",
+            "auditID": 12143
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - REIG",
+            "auditID": 12145
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "ABS Edit Check - USMF",
+            "auditID": 12150
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "DuplicatePosition - US Mutual Funds",
+            "auditID": 12167
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Issuer Name vs Issuer Country Edit Check - USMF",
+            "auditID": 12158
+        },
+        {
+            "filingName": "TIC SLT",
+            "formId": 7,
+            "taskAssignment": "Security Type Edit Check - USMF",
+            "auditID": 12154
+        }
     ],
     "error": null
 }
