@@ -491,6 +491,20 @@ export class CycleDetailComponent implements OnInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
+          headerComponentFramework: TableHeaderRendererComponent,
+          cellRendererFramework: MotifTableCellRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.openCommentClient,
+          },
+          headerName: 'Open comments (Client)',
+          field: 'openCommentsClient',
+          sortable: true,
+          filter: 'agNumberColumnFilter',
+          resizeable: true,
+          minWidth: 220,
+          sort: 'asc'
+        },
+        {
           cellRendererFramework: MotifTableCellRendererComponent,
           cellRendererParams: {
             ngTemplate: this.urlDownload,
