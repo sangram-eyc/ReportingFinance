@@ -415,8 +415,8 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: true,
           resizeable: true,
-          minWidth: 150,
-          maxWidth: 200,
+          minWidth: 250,
+          maxWidth: 400,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
