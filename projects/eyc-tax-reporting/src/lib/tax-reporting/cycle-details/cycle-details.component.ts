@@ -444,7 +444,6 @@ export class CycleDetailComponent implements OnInit {
           filter: true,
           resizeable: true,
           minWidth: 150,
-          maxWidth: 200,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -473,7 +472,6 @@ export class CycleDetailComponent implements OnInit {
           filter: 'agNumberColumnFilter',
           resizeable: true,
           minWidth: 150,
-          maxWidth: 200,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -486,8 +484,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: 'agNumberColumnFilter',
           resizeable: true,
-          minWidth: 150,
-          maxWidth: 200,
+          minWidth: 200,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
