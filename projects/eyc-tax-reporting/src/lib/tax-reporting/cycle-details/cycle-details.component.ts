@@ -403,7 +403,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: false,
           menuTabs: [],
           pinned: 'left',
-          maxWidth: 70,
+          width: 70,
         },
         {
           cellRendererFramework: MotifTableCellRendererComponent,
@@ -443,7 +443,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: true,
           resizeable: true,
-          minWidth: 150,
+          minWidth: 170,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -456,8 +456,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: true,
           resizeable: true,
-          minWidth: 150,
-          maxWidth: 200,
+          minWidth: 220,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -471,7 +470,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: 'agNumberColumnFilter',
           resizeable: true,
-          minWidth: 150,
+          minWidth: 220,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
@@ -484,7 +483,7 @@ export class CycleDetailComponent implements OnInit {
           sortable: true,
           filter: 'agNumberColumnFilter',
           resizeable: true,
-          minWidth: 200,
+          minWidth: 220,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
