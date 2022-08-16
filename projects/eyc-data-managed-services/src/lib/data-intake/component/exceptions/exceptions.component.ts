@@ -6,7 +6,7 @@ import { AutoUnsubscriberService, CustomGlobalService, ModalComponent, TableHead
 import { GridDataSet } from '../../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG, maxPriorityValueFormatter } from '../../../config/dms-config-helper';
 import { FirstDataRenderedEvent, RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -297,8 +297,12 @@ export class ExceptionsComponent implements OnInit {
           headerName: 'Exceptions Priority Level',
           field: 'priority',
           sortable: true,
-          // filter: 'agSetColumnFilter',
-          menuTabs: ['generalMenuTab'],
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          valueFormatter: maxPriorityValueFormatter,
+          filterParams: {
+            valueFormatter: maxPriorityValueFormatter,
+          },
           autoHeight: true,
           minWidth: 200,
           sort: 'asc',
