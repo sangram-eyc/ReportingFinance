@@ -395,8 +395,8 @@ export class CycleDetailComponent implements OnInit {
           width: 70,
           pinned: 'left',
           menuTabs: [],
-          headerCheckboxSelection: true,
-          checkboxSelection: true,
+          headerCheckboxSelection: this.rowData.some(item => item.approved == false),
+          checkboxSelection: params=>params.data.approved == false,
         },
         {
           valueGetter: 'node.rowIndex + 1',
