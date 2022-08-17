@@ -506,12 +506,10 @@ export class CycleDetailComponent implements OnInit {
             ngTemplate: this.urlDownload,
           },
           headerName: 'Actions',
-          sortable: true,
-          filter: 'agNumberColumnFilter',
+          suppressMenu:true,
           resizeable: true,
           minWidth: 150,
-          maxWidth: 200,
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          maxWidth: 200
         }
       ];
     }, 100)
