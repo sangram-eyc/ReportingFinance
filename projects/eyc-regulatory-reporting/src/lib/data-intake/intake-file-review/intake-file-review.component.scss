@@ -305,3 +305,10 @@ margin-top: 24px !important;
 }
 
 
+.breadcrumb-active {
+  ::ng-deep {
+    a {
+      color: #155CB4 !important;
+    }
+  }
+}

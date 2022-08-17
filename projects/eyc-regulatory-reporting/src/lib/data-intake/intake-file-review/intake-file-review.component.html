@@ -2,19 +2,23 @@
    <div class="motif-col-xs-4 motif-col-sm-4 motif-col-md-12 motif-col-lg-12 motif-col-xl-12">
       <div class=" mt-3">
          <motif-breadcrumb maxItems=3 *ngIf="!isViewClicked">
-            <motif-breadcrumb-item class="breadcrumb-first"
+            <motif-breadcrumb-item class="breadcrumb-active"
                      breadcrumbValue="Regulatory Reporting" breadcrumbLink="{{routeUrlConst.REG_REPORTING_LANDING}}">
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item breadcrumbValue="{{filingName}} // {{period}}" breadcrumbLink={{routeUrlConst.LANDING_URL}}>
+            <motif-breadcrumb-item class="breadcrumb-active"
+             breadcrumbValue="{{filingName}} // {{period}}" breadcrumbLink={{routeUrlConst.LANDING_URL}}>
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item class="cust-bred" breadcrumbValue='Files'>
+            <motif-breadcrumb-item breadcrumbValue='Files'>
             </motif-breadcrumb-item>
          </motif-breadcrumb>
-         <motif-breadcrumb maxItems=3 *ngIf="isViewClicked">
-            <motif-breadcrumb-item class="breadcrumb-first"
+         <motif-breadcrumb maxItems=4 *ngIf="isViewClicked">
+            <motif-breadcrumb-item class="breadcrumb-active"
                      breadcrumbValue="Regulatory Reporting" breadcrumbLink="{{routeUrlConst.REG_REPORTING_LANDING}}">
             </motif-breadcrumb-item>
-            <motif-breadcrumb-item [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]' [breadcrumbLink]='dataIntakeTypeUrl'>
+            <motif-breadcrumb-item class="breadcrumb-active"
+             breadcrumbValue="{{filingName}} // {{period}}" breadcrumbLink={{routeUrlConst.LANDING_URL}}></motif-breadcrumb-item>
+            <motif-breadcrumb-item class="breadcrumb-active"
+             [breadcrumbValue]='dataIntakeTypeDisplay["Plural"]' [breadcrumbLink]='dataIntakeTypeUrl'>
             </motif-breadcrumb-item>
             <motif-breadcrumb-item [breadcrumbValue]='fileName'>
             </motif-breadcrumb-item>
@@ -102,7 +106,7 @@
                <motif-tab-bar>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(1)"
                      [ngClass]="innerTabIn == 1 ? 'motif-active' : '' ">
-                     Providers
+                     Data Providers
                   </button>
                   <button motifButton class="motif-text-link" (click)="innerTabChange(2)"
                      [ngClass]="innerTabIn == 2 ? 'motif-active' : '' ">
