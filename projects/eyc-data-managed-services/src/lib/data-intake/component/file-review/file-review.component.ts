@@ -9,7 +9,7 @@ import { GridDataSet } from '../../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from '../../models/data-grid.model';
 
 import { donutSummariesObject } from '../../models/donut-chart-summary.model';
-import { customComparator, sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from '../../../config/dms-config-helper';
+import { customComparator, sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG, dueDateValueFormatter, maxPriorityValueFormatter } from '../../../config/dms-config-helper';
 import { ApiStackSeriesItemDTO } from '../../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from '../../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from '../../models/api-series-Item-dto.model';
@@ -458,7 +458,9 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           field: 'dueDate',
           sortable: true,
           filter: 'agSetColumnFilter',
+          valueFormatter: dueDateValueFormatter,
           filterParams: {
+            valueFormatter: dueDateValueFormatter,
             buttons: ['reset']
           },
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
@@ -519,11 +521,12 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
           headerName: 'Status',
           field: 'maxPriority',
           sortable: true,
-          // filter: 'agSetColumnFilter',
-          // filterParams: {
-          //   buttons: ['reset']
-          // },
-          menuTabs: ['generalMenuTab'],
+          valueFormatter: maxPriorityValueFormatter,
+          filterParams: {
+            valueFormatter: maxPriorityValueFormatter,
+          },
+          filter: 'agSetColumnFilter',
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 200,
           sort: 'asc',
           comparator: customComparator,
@@ -531,19 +534,19 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
             ngTemplate: this.chipTemplate,
           }
         },
-        {
-          // headerComponentFramework: TableHeaderRendererComponent,
-          cellRendererFramework: MotifTableCellRendererComponent,
-          headerName: '',
-          field: 'next',
-          sortable: false,
-          filter: false,
-          maxWidth: 30,
-          minWidth: 30,
-          cellRendererParams: {
-            ngTemplate: this.nextButtonTemplate,
-          }
-        },
+        // {
+        //   // headerComponentFramework: TableHeaderRendererComponent,
+        //   cellRendererFramework: MotifTableCellRendererComponent,
+        //   headerName: '',
+        //   field: 'next',
+        //   sortable: false,
+        //   filter: false,
+        //   maxWidth: 30,
+        //   minWidth: 30,
+        //   cellRendererParams: {
+        //     ngTemplate: this.nextButtonTemplate,
+        //   }
+        // },
       ];
       this.glRowdata = resp['data'];
     });
