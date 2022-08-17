@@ -6,7 +6,7 @@ import { AutoUnsubscriberService, CellRendererTemplateComponent, CustomGlobalSer
 import { GridDataSet } from './../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from './../models/data-grid.model';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
+import { customComparator, sortCaseInsentitve,DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -361,25 +361,25 @@ export class IntakeExceptionsComponent implements OnInit {
             return this.checkException(params) ? 'is-exception' : '';
           }
         },
-        {
+        // {
          
-          cellRendererFramework: CellRendererTemplateComponent,
-          cellRendererParams: {
-            ngTemplate: this.commentTemplate,
-          },
-          headerName: 'Comments',
-          field: 'comments',
-          filter: 'agSetColumnFilter',
-          filterParams: {
-            buttons: ['reset']
-          },
-          sortable: true,
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          width: 155,
-          cellClass: params => {
-            return this.checkException(params) ? 'is-exception' : '';
-          }
-        },
+        //   cellRendererFramework: CellRendererTemplateComponent,
+        //   cellRendererParams: {
+        //     ngTemplate: this.commentTemplate,
+        //   },
+        //   headerName: 'Comments',
+        //   field: 'comments',
+        //   filter: 'agSetColumnFilter',
+        //   filterParams: {
+        //     buttons: ['reset']
+        //   },
+        //   sortable: true,
+        //   menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        //   width: 155,
+        //   cellClass: params => {
+        //     return this.checkException(params) ? 'is-exception' : '';
+        //   }
+        // },
         {
          
           headerName: 'Exceptions',

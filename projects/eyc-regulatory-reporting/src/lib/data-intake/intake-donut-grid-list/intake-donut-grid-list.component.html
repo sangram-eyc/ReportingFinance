@@ -104,7 +104,7 @@
                             <div class="pie-chart">
                                 <eyc-charts-pie-chart doughnut="yes"
                                     [results]="mapDonutChartDataWithKey(item.fastFilters)" [scheme]="colorSchemeAll"
-                                    animations="true" explodeSlices="false" arcWidth="0.50" gradient="false"
+                                    [animations]="animations" explodeSlices="false" arcWidth="0.50" gradient="false"
                                     tooltipDisabled="true" [legend]="showLegend" [customColors]="customColors"
                                     [legendTitle]="legendTitle" [legendPosition]="legendPosition">
                                 </eyc-charts-pie-chart>

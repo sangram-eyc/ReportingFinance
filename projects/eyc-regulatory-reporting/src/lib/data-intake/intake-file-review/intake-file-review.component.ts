@@ -465,8 +465,6 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          
-          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Functions',
           field: 'functions',
           filter: 'agSetColumnFilter',
@@ -534,7 +532,6 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           
-          cellRendererFramework: CellRendererTemplateComponent,
           headerName: 'Exceptions',
           field: 'exceptions',
           filter: 'agSetColumnFilter',

@@ -59,6 +59,7 @@ export class IntakeDonutGridListComponent implements OnInit, AfterViewInit {
   routeUrlConst=ROUTE_URL_CONST;
   filingName: string;
   period: string;
+  animations: boolean = false;
 
   customColors: any = [
     { name: FILTER_TYPE_TITLE.noIssues, value: this.colorSchemeAll.domain[0] },
