@@ -240,7 +240,7 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
         maxWidth: 200,
         sortable: true,
         filter: true,
-        resizeable: true,
+        resizable: true,
         sort: 'asc',
         menuTabs: ['filterMenuTab', 'generalMenuTab'] 
       },
