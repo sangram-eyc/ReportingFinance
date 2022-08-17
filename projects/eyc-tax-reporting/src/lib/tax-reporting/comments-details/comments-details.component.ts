@@ -343,7 +343,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
-          resizeable: true,
+          resizable: true,
           minWidth: 350,
           maxWidth: 350
         },
