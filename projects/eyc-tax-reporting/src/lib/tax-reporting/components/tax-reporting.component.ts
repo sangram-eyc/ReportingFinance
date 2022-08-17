@@ -163,7 +163,7 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
   }
 
   getCompletedProductCyclesData() {
-    if (this.calledProductCyclesList === false) {
+    //if (this.calledProductCyclesList === false) {
       this.calledProductCyclesList = true;
       this.completedReports = [];
       this.prodCyclesSessionStorage = [];
@@ -188,7 +188,7 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
         this.createHistoryRowData();
         sessionStorage.setItem('productionCyclesList', JSON.stringify(this.prodCyclesSessionStorage));
       });
-    }
+    //}
   }
 
   createHistoryRowData() {
