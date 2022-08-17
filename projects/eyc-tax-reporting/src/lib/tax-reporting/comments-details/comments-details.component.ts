@@ -340,10 +340,12 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
           },
           headerName: 'Tags',
           field: 'tagsToSearch',
-          minWidth: 300,
           sortable: false,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           filter:true,
+          resizeable: true,
+          minWidth: 350,
+          maxWidth: 350
         },
       ];
     },);
