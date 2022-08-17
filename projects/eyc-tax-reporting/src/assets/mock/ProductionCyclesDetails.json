@@ -49,7 +49,7 @@
             {
                 "id": "01KV7KIYHM37ZJA3LL5NEZGQVQXLXRLXOT",
                 "name": "Fund A1",
-                "hasContent": true,
+                "hasContent": false,
                 "status": "open",
                 "openCommentsEY": 0,
                 "openCommentsClient": 0,
