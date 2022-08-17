@@ -146,6 +146,7 @@
     (selectedRowEmitter)="datasetsReportRowsSelected($event)"
     (selectedRowEmitterProcess)="checkDataProcess($event)"
     (toggleLeftEventToParent)="showMyAssignedFunds()"
+    (gridReady)="handleGridReady($event)"
   >
   </lib-ag-grid>
   <div *ngIf="searchNoDataAvilable">
