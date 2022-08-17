@@ -103,16 +103,12 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
     this.activatedRoute.params.subscribe(params => {
       this.isArchived = params.isArchived === "true"
     });
-    this.widthDivChart = 950;
-    this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
-    this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
-    this.tabIn = 1;
-    this.getCompletedProductCyclesData();
-    this.statusIndicatorEv = setInterval(this.statusIndicatorEvclick.bind(this), 500);
+    this.tabIn = this.isArchived ? 3: 1;
+    this.isArchived ? this.reportTabChange(3) : this.reportTabChange(1);
   }
 
   ngAfterViewInit(): void {
-    this.isArchived ? this.reportTabChange(3) : this.reportTabChange(1)
+    //this.isArchived ? this.reportTabChange(3) : this.reportTabChange(1)   
   }
 
   statusIndicatorEvclick() {
@@ -132,7 +128,11 @@ export class TaxReportingComponent implements OnInit, AfterViewInit {
   reportTabChange(selectedTab) {
     this.tabIn = selectedTab;
     if (selectedTab == 1) {
+      this.widthDivChart = 950;
+      this.colorsBarChart = ['#9C82D4', '#87D3F2', '#8CE8AD'];
+      this.labelsChart = ['In EY tax preparation', 'In client review', 'Approved by client'];
       this.getCompletedProductCyclesData();
+      this.statusIndicatorEv = setInterval(this.statusIndicatorEvclick.bind(this), 500);
     }
     else if (selectedTab == 2) {
       this.getActiveFilingsData();
