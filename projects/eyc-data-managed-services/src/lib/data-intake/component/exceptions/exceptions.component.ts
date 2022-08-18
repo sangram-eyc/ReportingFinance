@@ -106,7 +106,7 @@ export class ExceptionsComponent implements OnInit {
   lastMonthDate: Date;
   lastMonthDueDateFormat: string;
   presentDateFormat: string;
-  exportName: string = "ExceptionsReport";
+  exportName: string = "Data Intake_";
 
   constructor(
     private unsubscriber: AutoUnsubscriberService,
@@ -191,6 +191,12 @@ export class ExceptionsComponent implements OnInit {
       this.isDataIntaketype = false;
     }
     this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    const exportExceptionFileName = this.ExceptionFileName?.slice(0,-4).replace(/[`;:'",.<>\\\/]/gi, '');
+    if(this.isDataIntaketype) {
+      this.exportName = "Data Intake_" + this.dataIntakeTypeDisplay["Plural"] + "_" + this.fileName + "_" + exportExceptionFileName + "_";
+    } else {
+      this.exportName = "Data Intake_" + this.fileName + "_" + exportExceptionFileName + "_";
+    }
   }
 
   ngAfterViewInit(): void {

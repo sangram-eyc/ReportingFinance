@@ -184,7 +184,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   presentDateFormat: string;
   presentMonthDate: Date;
   presentMonthFormat: string;
-  exportName: string = "FileReview";
+  exportName: string = "Data Intake_";
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
@@ -195,7 +195,6 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
     this.lastMonthDueDateFormat = this.dataManagedService.apiDateFormat(this.lastMonthDate);
     this.presentMonthDate = this.lastMonthDate;
     this.presentMonthFormat = this.dataManagedService.monthlyFormat(this.presentMonthDate);
-  
     this._activatedroute.paramMap.subscribe(params => {
       if ((!!params.get('paramDataIntakeName')) && (!!params.get('paramDataIntakeType'))) {
         this.clientName = this.routingState.ngDecode(params.get('paramDataIntakeName').trim());
@@ -204,14 +203,17 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         this.fileName = this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+          this.exportName = this.exportName + this.dataIntakeTypeDisplayText.DATA_PROVIDER?.Singular + "_" + this.clientName + "_";
         }
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
           this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
+          this.exportName = this.exportName + this.dataIntakeTypeDisplayText.DATA_DOMAIN?.Singular + "_" + this.clientName + "_";
         }
       }
       else {
-        this.fileName = 'Files'
+        this.fileName = 'Files';
+        this.exportName = this.exportName + "Files_";
       }
     });
   }

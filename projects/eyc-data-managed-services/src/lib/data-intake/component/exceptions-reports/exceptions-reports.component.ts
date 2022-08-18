@@ -83,7 +83,7 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
   isLoading = true;
   fileName="Files";
   httpDataGridParams: ExceptionDetailsDataGrid;
-  exportName: string = "ExceptionsDetail";
+  exportName: string = "Data Intake_";
   pagination: boolean = true;
   paginationSize: number = 100;
   pageSize: number = 100;
@@ -221,6 +221,12 @@ export class ExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.exceptionUrl = this.previousRoute;
     const exceptionUrlSplitArray = this.exceptionUrl.split("/");
     this.ExceptionFileName = exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
+    const exportExceptionFileName = this.ExceptionFileName?.slice(0,-3).replace(/[`;:'",.<>\\\/]/gi, '');
+    if(this.isDataIntaketype) {
+      this.exportName = "Data Intake_" + this.dataIntakeTypeDisplay["Plural"] + "_" + this.fileName + "_" + exportExceptionFileName + "_Exception Report_" ;
+    } else {
+      this.exportName = "Data Intake_" + this.fileName + "_" + exportExceptionFileName + "_Exception Report_";
+    }
 
     if (this.auditRuleType === "fileOrTable" && this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
       const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"');
