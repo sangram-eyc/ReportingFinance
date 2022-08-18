@@ -232,7 +232,7 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
     this.ExceptionFileName = exceptionUrlSplitArray[exceptionUrlSplitArray.length - 3];
 
     if (this.auditRuleType === "fileOrTable" && this.exceptionReportDetails && this.exceptionReportDetails.length > 0) {
-      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"').replace('[', '');
+      const str = this.exceptionReportDetails.replace(/[{}]/g, '').replace('"["', '"').replace('"]"', '"').replace('[', '').replace(']', '');
       const prop = str.split(',');
       prop.forEach((props) => {
         const columnName = this.capitalizeFirstLetter(props.split(':')[0].trim().replace(/"/g, ''));

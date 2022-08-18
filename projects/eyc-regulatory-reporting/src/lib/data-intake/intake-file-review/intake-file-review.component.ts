@@ -564,7 +564,6 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 250,
           sort: 'asc',
-          comparator: customComparator,
           cellRendererParams: {
             ngTemplate: this.chipTemplate,
           },
