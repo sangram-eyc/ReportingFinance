@@ -182,19 +182,24 @@ export class IntakeExceptionsReportsComponent implements OnInit, AfterViewInit {
         }
         multiColumnData.push(headerColumnNameUniqueWithValue);
       }
-      this.columnDefs = this.columnDefsFill;
-      this.exceptionTableData = multiColumnData;
-      this.columnDefsFill.splice(0, 0, { 
-        valueGetter: "node.rowIndex + 1",
-              getQuickFilterText: function (params) {
-                return '';
-              },
-              maxWidth: 70,
-              sortable: false,
-              menuTabs: [],
-              filter: false,
-              pinned: 'left'
-            });
+
+      setTimeout(() => {
+        this.columnDefs = this.columnDefsFill;
+        this.exceptionTableData = multiColumnData;
+        this.columnDefsFill.splice(0, 0, { 
+          valueGetter: "node.rowIndex + 1",
+                getQuickFilterText: function (params) {
+                  return '';
+                },
+                maxWidth: 70,
+                sortable: false,
+                menuTabs: [],
+                filter: false,
+                pinned: 'left'
+              });
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      }, 10);
     }
    }
 

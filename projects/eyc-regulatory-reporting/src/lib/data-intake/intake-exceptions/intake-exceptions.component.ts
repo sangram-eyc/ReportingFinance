@@ -2,11 +2,11 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, TemplateRef } from
 import { IntakeLandingService } from './../services/intake-landing.service';
 import { formatDate } from '@angular/common';
 import { MotifTableCellRendererComponent } from '@ey-xd/ng-motif';
-import { AutoUnsubscriberService, CellRendererTemplateComponent, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
+import { AutoUnsubscriberService, CellRendererTemplateComponent, customComparator, CustomGlobalService, ModalComponent, TableHeaderRendererComponent } from 'eyc-ui-shared-component';
 import { GridDataSet } from './../models/grid-dataset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExceptionDataGrid } from './../models/data-grid.model';
-import { customComparator, sortCaseInsentitve,DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
+import { sortCaseInsentitve,DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
 import { RowClickedEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -393,14 +393,15 @@ export class IntakeExceptionsComponent implements OnInit {
           minWidth: 200,
           valueGetter: function (params) {
             if (params.data.exceptionCount) {
-              return params.data.exceptionCount
+              return (params.data.exceptionCount).toString()
             } else {
               return '--'
             }
           },
           cellClass: params => {
             return this.checkException(params) ? 'is-exception' : '';
-          }
+          },
+          comparator: customComparator
         },
         // {
         //  

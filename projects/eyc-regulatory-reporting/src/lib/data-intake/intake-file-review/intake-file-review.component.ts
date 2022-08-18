@@ -433,7 +433,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
         },
         {
           
-          headerName: 'Provider',
+          headerName: 'Data provider',
           field: 'provider',
           filter: 'agSetColumnFilter',
           filterParams: {
@@ -441,7 +441,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           },
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth: 120,
+          minWidth: 150,
           wrapText: true,
           autoHeight: true,
           cellClass: params => {
