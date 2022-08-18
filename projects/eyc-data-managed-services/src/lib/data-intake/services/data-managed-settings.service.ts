@@ -32,13 +32,13 @@ export class DataManagedSettingsService {
       file_review_table_data: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
       exception_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/totals-report/exception' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
       review_by_group_provider_domain:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/review-by-group' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
-      PBI_AUTH_TOKEN_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedToken':this.API_ENDPOINT +'dmsdataintakeservice/api/v2/dms/getPBIEmbedToken',
-      PBI_EMBED_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl':this.API_ENDPOINT +'dmsdataintakeservice/api/v2/dms/getPBIEmbedUrl',
+      PBI_AUTH_TOKEN_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedToken':this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedToken',
+      PBI_EMBED_URL:this.production ? this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl':this.API_ENDPOINT +'gatewayService/api/v2/dms/getPBIEmbedUrl',
       base_Url:this.API_ENDPOINT,
       file_summary_review_all: this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/data-summary-review' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/file-summary-list.json',
       exception_details_table_data:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/exception-details' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/review-file-data.json',
       api_catalog:this.production ? this.API_ENDPOINT + 'gatewayService/api/v2/dms/api-catalog' : this.API_ENDPOINT + 'assets/eyc-data-managed-services/mock/api-catalog.json',
-      power_bi_reports:this.production ? this.API_ENDPOINT + 'powerbireportservice/api/v2/pbi/reports': this.API_ENDPOINT + 'powerbireportservice/api/v2/pbi/reports',
+      power_bi_reports:this.production ? this.API_ENDPOINT + 'pbireportService/api/v2/pbi/reports': this.API_ENDPOINT + 'pbireportService/api/v2/pbi/reports',
     }
     console.log('data_Managed_Services', data_Managed_Services);
     return data_Managed_Services;

@@ -202,7 +202,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       //   this.reports = PowerBiReportMonthlyList;
       // }
 
-      this.reports=this.getPowerBiReports('MONTHLY');
+      this.getPowerBiReports('MONTHLY');
     } else {
       this.renderer.setAttribute(this.dailyfilter.nativeElement, 'color', 'primary-alt');
       this.renderer.setAttribute(this.monthlyfilter.nativeElement, 'color', '');
@@ -213,7 +213,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       // else{
       //   this.reports = PowerBiReportDailyList;
       // }
-      this.reports=this.getPowerBiReports('DAILY');
+      this.getPowerBiReports('DAILY');
     }
 
     this.fileSummaryList();
@@ -304,7 +304,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     //   this.reports = PowerBiReportDailyList;
     // }
 
-    this.reports=this.getPowerBiReports('DAILY');
+    this.getPowerBiReports('DAILY');
     
     // Daily data fetch as per click
     this.dailyMonthlyStatus = status;
@@ -344,7 +344,7 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
     //   this.reports = PowerBiReportMonthlyList;
     // }
 
-    this.reports=this.getPowerBiReports('MONTHLY');
+    this.getPowerBiReports('MONTHLY');
 
     const monthlySelectedDate =  sessionStorage.getItem("selectedDate");
     if (monthlySelectedDate) {
@@ -445,11 +445,9 @@ export class DataIntakeComponent implements OnInit, AfterViewInit {
       reportPage:'DATA_EXPLORER',
       reportPageSection:'',
       reportAddnlFilter:dateFrequency
-
-
     }
-    return this.dataManagedService.getPowerBiReports(param,'').pipe(this.unsubscriber.takeUntilDestroy).subscribe((res: any) =>{
-      return res;
+    this.dataManagedService.getPowerBiReports(param,'').pipe(this.unsubscriber.takeUntilDestroy).subscribe((res: any) =>{
+      this.reports=res?.data;
     })
   }
 }
