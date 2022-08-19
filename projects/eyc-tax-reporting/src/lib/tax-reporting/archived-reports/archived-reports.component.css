@@ -76,3 +76,7 @@
 ::ng-deep .ag-cell-value{
     line-height: 30px;
 }
+.custom-link .custom-button{
+    padding: 2px 13px;
+}
+

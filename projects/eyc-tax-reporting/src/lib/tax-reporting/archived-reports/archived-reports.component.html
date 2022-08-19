@@ -50,9 +50,9 @@
         </ng-template>
 
         <ng-template #totalCommentsTemplate let-row>
-            <div class="counter-item">
-                <span>{{row.totalComments}}</span>
-            </div>
+            <button class="counter-item">
+                {{ row.totalComments }}
+              </button>
         </ng-template>
 
         <ng-template #dueDateTemplate let-row>
