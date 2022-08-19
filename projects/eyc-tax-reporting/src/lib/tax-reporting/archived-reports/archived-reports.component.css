@@ -31,7 +31,21 @@
     letter-spacing: 0px;
     text-align: left;
 }
-
+.blue-link{
+    color: #155cb4;
+}
+.counter-item {
+    left: 0%;
+    background: #ffffff;
+    border: 1px solid #c4c4cd;
+    box-sizing: border-box;
+    border-radius: 16px;
+    height: 22px;
+    width: 30px;
+    box-shadow: 0px 0px 0px 0px;
+    line-height: 0px;
+    font-size: 10px;
+}
 .total-comments-div{
     display: contents;
 }
@@ -62,3 +76,7 @@
 ::ng-deep .ag-cell-value{
     line-height: 30px;
 }
+.custom-link .custom-button{
+    padding: 2px 13px;
+}
+
