@@ -285,6 +285,10 @@
    }  
 
 }
+::ng-deep .comments-details-panel > .mat-dialog-container{
+  border-radius: 0 !important;
+ }
+
 ::ng-deep motif-chip-group{
   flex-wrap: nowrap !important;
 }
