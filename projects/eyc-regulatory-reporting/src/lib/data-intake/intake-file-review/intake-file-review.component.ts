@@ -497,6 +497,25 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           minWidth: 200,
           wrapText: true,
           autoHeight: true,
+          getQuickFilterText: function (params) {
+            if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
+              const date1 = new Date(params.data.dueDate);
+              const date2 = new Date();
+
+              // One day in milliseconds
+              const oneDay = 1000 * 60 * 60 * 24;
+
+              // Calculating the time difference between two dates
+              const diffInTime = date2.getTime() - date1.getTime();
+
+              // Calculating the no. of days between two dates
+              const diffInDays = Math.round(diffInTime / oneDay);
+              return "-" + diffInDays + " Days";
+
+            } else if (params.data.dueDate) {
+              return params.data.dueDate;
+            }
+          },
           cellRenderer: (params) => {
             if ((params.data.dueDate < Date.now) && params.data.maxPriority == FILTER_TYPE.MISSING_FILES) {
               const date1 = new Date(params.data.dueDate);
@@ -542,6 +561,7 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           wrapText: false,
           autoHeight: true,
+          tooltipField: 'exceptions',
           minWidth: 150,
           // cellRendererParams: {
           //   ngTemplate: this.threeDotExceptionsTooltip
