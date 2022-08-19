@@ -92,7 +92,7 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   legendTitle = 'Legend';
   legendPosition = LegendPosition.Below;
   showXAxisLabel = true;
-  tooltipDisabled = true;
+  tooltipDisabled = false;
   showText = true;
   xAxisLabel = 'Providers';
   xAxisLabel2 = 'Domains';
