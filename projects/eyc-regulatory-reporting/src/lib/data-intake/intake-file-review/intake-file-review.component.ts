@@ -9,7 +9,7 @@ import { GridDataSet } from './../models/grid-dataset.model';
 import { DataGrid, GroupByDataProviderCardGrid } from './../models/data-grid.model';
 
 import { donutSummariesObject } from './../models/donut-chart-summary.model';
-import { customComparator, sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG } from './../../config/intake-config-helpers';
+import { customComparator, sortCaseInsentitve, DATA_FREQUENCY, DATA_INTAKE_TYPE, DATA_INTAKE_TYPE_DISPLAY_TEXT, FILTER_TYPE, FILTER_TYPE_TITLE, ROUTE_URL_CONST, INPUT_VALIDATON_CONFIG, maxPriorityValueFormatter } from './../../config/intake-config-helpers';
 import { ApiStackSeriesItemDTO } from './../models/api-stack-series-Item-dto.model';
 import { StackChartSeriesItemDTO } from './../models/stack-chart-series-Item-dto.model';
 import { ApiSeriesItemDTO } from './../models/api-series-Item-dto.model';
@@ -558,8 +558,11 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
           field: 'maxPriority',
           filter: 'agSetColumnFilter',
           filterParams: {
-            buttons: ['reset']
+            buttons: ['reset'],
+            valueFormatter: maxPriorityValueFormatter,
           },
+          valueFormatter: maxPriorityValueFormatter,
+          comparator: customComparator,
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 250,
