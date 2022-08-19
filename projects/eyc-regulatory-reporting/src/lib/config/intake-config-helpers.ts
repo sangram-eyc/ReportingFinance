@@ -1,3 +1,4 @@
+import { ValueFormatterParams } from 'ag-grid-community';
 import { DonutLegend } from '../data-intake/models/donut-legend.model';
 
 export const NO_FILE_MISSING_PAST_DUE = "No files missing at the moment";
@@ -206,4 +207,28 @@ export const PBI_CONFIG = {
 
 export const INPUT_VALIDATON_CONFIG = {
     SEARCH_INPUT_VALIDATION: /[A-Za-z0-9\-\_/ ]+/,
+}
+
+export const maxPriorityValueFormatter = (params: ValueFormatterParams) => {
+    const value = params.value;
+    switch (value) {
+        case FILTER_TYPE.MISSING_FILES:
+            return FILTER_TYPE_TITLE.missingFiles
+        case FILTER_TYPE.HIGH:
+            return FILTER_TYPE_TITLE.high
+
+
+        case FILTER_TYPE.MEDIUM:
+            return FILTER_TYPE_TITLE.medium;
+
+
+        case FILTER_TYPE.FILE_NOT_RECIEVED:
+            return FILTER_TYPE_TITLE.fileNotReceived
+        case FILTER_TYPE.LOW:
+            return FILTER_TYPE_TITLE.low;
+        case FILTER_TYPE.NO_ISSUES:
+            return FILTER_TYPE_TITLE.noIssues;
+        default:
+            break;
+    };
 }
