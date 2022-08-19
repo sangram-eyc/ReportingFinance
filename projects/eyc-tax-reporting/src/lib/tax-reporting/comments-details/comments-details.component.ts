@@ -450,6 +450,7 @@ export class CommentsDetailsComponent implements OnInit, OnDestroy {
         const dialogRef = this.dialog.open(PanelRightCommentDetailsComponent, {
           width: '50%',
           height: '100%',
+          panelClass:'comments-details-panel',
           data: {
             idTaskComment: _idTaskComment,
             dataComent: this.commentDetails,
