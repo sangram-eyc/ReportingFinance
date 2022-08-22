@@ -192,11 +192,7 @@ export class ExceptionsComponent implements OnInit {
     }
     this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
     const exportExceptionFileName = this.ExceptionFileName?.slice(0,-4).replace(/[`;:'",.<>\\\/]/gi, '');
-    if(this.isDataIntaketype) {
-      this.exportName = "Data Intake_" + this.dataIntakeTypeDisplay["Plural"] + "_" + this.fileName + "_" + exportExceptionFileName + "_";
-    } else {
-      this.exportName = "Data Intake_" + this.fileName + "_" + exportExceptionFileName + "_";
-    }
+    this.exportName = exportExceptionFileName + "_";
   }
 
   ngAfterViewInit(): void {
