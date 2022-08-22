@@ -44,7 +44,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: block;
-                width: 140px;
+                width: 250px;
             }
             span.report-name.ellipsis-period {
                 flex: 1;
@@ -281,47 +281,48 @@
             display: none;
         }
     }
-    @media screen and (min-width: 300px) {
-        
-       }
-      @media screen and (min-width: 1000px) {
-       
-      }
-      @media screen and (min-width: 1200px) {
-         span.report-name.ellipsis {
-            width: 200px !important;
-        }
-        span.report-name.ellipsis-period {
-            width: 200px !important;
-        }
-       }
-      
-       @media screen and (min-width: 1950px) {
+
+    @media screen and (min-width: 650px) and (max-width: 899px) {
         span.report-name.ellipsis {
-            width: 241px !important;
-        }
-        span.report-name.ellipsis-period {
-            width: 200px !important;
-        }
-       }
-      
-       @media screen and (min-width: 2600px) {
-        
-       }
-      
-       @media screen and (min-width: 2800px) {
-        
-       }   
-    
-       @media screen and (min-width: 850px) and (max-width: 1000px) {
-        span.report-name.ellipsis {
-            width: 230px !important;
-        }
-        span.report-name.ellipsis-period {
-            width: 200px !important;
+            width: 350px !important;
         }
     }
 
+    @media screen and (min-width: 900px) and (max-width: 1180px) {
+        span.report-name.ellipsis {
+            width: 350px !important;
+        }
+    }
+    @media screen and (min-width: 1181px) and (max-width: 1350px)  {
+        span.report-name.ellipsis {
+            width: 270px !important;
+        }
+    }
+
+    @media screen and (min-width: 1351px) and (max-width: 1600px) {
+        span.report-name.ellipsis {
+            width: 310px !important;
+        }
+    }
+      
+    @media screen and (min-width: 1601px) and (max-width: 1720px) {
+        span.report-name.ellipsis {
+            width: 280px !important;
+        }
+    }
+
+    @media screen and (min-width: 1721px) and (max-width: 1890px) {
+        span.report-name.ellipsis {
+            width: 320px !important;
+        }
+    }
+
+    @media screen and (min-width: 1891px) and (max-width: 2600px) {
+        span.report-name.ellipsis {
+            width: 350px !important;
+        }
+    }
+          
     @media screen and (min-width: 990px) and (max-width: 1070px) {
         .report-wrapper .motif-card .motif-card-header .report-date-due {
             font-size: 10px;
@@ -344,4 +345,21 @@
         text-decoration: underline;
     }
 
+
+    .col-icon-width{
+        width: max-content;
+    }
+
+    .icon-download{
+        width: 58px;
+        height: 20px;
+    }
+
+    .margin-right-arrow{
+        margin-right: -5px;
+    }
+
+    .border-card-mr{
+        border-color: #C4C4CD !important;
+    }
 }

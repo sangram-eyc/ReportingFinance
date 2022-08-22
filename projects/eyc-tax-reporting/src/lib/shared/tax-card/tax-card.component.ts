@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, SimpleChanges, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-import { ManagementReportsService } from '../../tax-reporting/services/management-reports.service';
 
 @Component({
   selector: 'app-tax-card',
@@ -11,9 +9,8 @@ export class TaxCardComponent implements OnInit {
 
   private _reportData;
   innerWidth: any;
-  reportWidth = 15;
+  reportWidth = 25;
   periodWidth = 10;
-
   author = '';
   name = '';
   createdDate = '';
@@ -26,66 +23,47 @@ export class TaxCardComponent implements OnInit {
     this.author = this._reportData.author;
     this.createdDate = this._reportData.createdDate;
     this.downloadUrl = this._reportData.downloadUrl;
-    
- /* 
-    this.formatDate();
-    this.setStatus(); */
   };
  
-  constructor(
-    private router: Router,
-    private reportService: ManagementReportsService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     console.log(window.innerWidth);
     this.innerWidth = window.innerWidth;
-    if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.reportWidth = 25;
-      this.periodWidth = 20
-    } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.reportWidth = 25;
-      this.periodWidth = 16
-    } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      this.reportWidth = 30;
-      this.periodWidth = 20
+    if(this.innerWidth > 650 && this.innerWidth < 899) {
+      this.reportWidth = 40;
+    }else if(this.innerWidth > 899 && this.innerWidth < 1250) {
+      this.reportWidth = 35;
+    } else if(this.innerWidth > 1250 && this.innerWidth < 1350) {
+      this.reportWidth = 35;
+    }else if(this.innerWidth > 1350 && this.innerWidth < 1700) {
+      this.reportWidth = 35;
+    } else if (this.innerWidth > 1701 && this.innerWidth < 1950) {
+      this.reportWidth = 40;
     }else {
-      this.reportWidth = 15;
-      this.periodWidth = 10
-    }
-  }
-
-
-  sortStates(a, b) {
-    let stage1 = a.displayOrder;
-    let stage2 = b.displayOrder;
-
-    if (stage1 > stage2) {
-      return 1;
-    } else if (stage1 < stage2) {
-      return -1;
-    } else {
-      return 0;
+      this.reportWidth = 80;
     }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+    console.log('onResize innerWidth',window.innerWidth);
     this.innerWidth = window.innerWidth;
     console.log(this.innerWidth);
-    if(this.innerWidth > 850 && this.innerWidth < 1000) {
-      this.reportWidth = 25;
-      this.periodWidth = 20
-    } else if(this.innerWidth > 1200 && this.innerWidth < 1950) {
-      this.reportWidth = 25;
-      this.periodWidth = 16
-    } else if (this.innerWidth > 1950 && this.innerWidth < 2600) {
-      console.log("inside 1600");
-      this.reportWidth = 30;
-      this.periodWidth = 20
+    this.innerWidth = window.innerWidth;
+    this.innerWidth = window.innerWidth;
+    if(this.innerWidth > 650 && this.innerWidth < 899) {
+      this.reportWidth = 40;
+    }else if(this.innerWidth > 899 && this.innerWidth < 1250) {
+      this.reportWidth = 35;
+    } else if(this.innerWidth > 1250 && this.innerWidth < 1350) {
+      this.reportWidth = 35;
+    }else if(this.innerWidth > 1350 && this.innerWidth < 1700) {
+      this.reportWidth = 35;
+    } else if (this.innerWidth > 1701 && this.innerWidth < 1950) {
+      this.reportWidth = 40;
     }else {
-      this.reportWidth = 15;
-      this.periodWidth = 10
+      this.reportWidth = 80;
     }
   }
 }

@@ -298,15 +298,21 @@
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 900px) and (max-width: 1180px) {
     .each-card {
-        width: 25% !important;
+        width: 50% !important;
+    }
+}
+
+@media screen and (min-width: 1181px) {
+    .each-card {
+        width: 33.33% !important;//25% !important;
     }
 }
 
 @media screen and (min-width: 1600px) {
     .each-card {
-        width: 33.33% !important;
+        width: 25% !important;//33.33% !important;
     }
 }
 
