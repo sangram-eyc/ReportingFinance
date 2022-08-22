@@ -94,8 +94,8 @@ export class IntakeLandingComponent implements OnInit, AfterViewInit {
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
-  xAxisLabel = 'Providers';
-  xAxisLabel2 = 'Domains';
+  xAxisLabel = 'Data Providers';
+  xAxisLabel2 = 'Data Domains';
   xAxisLabel3='SLA/Business Day';
   yAxisLabel3 ='Files expected';
   showYAxisLabel = true;
