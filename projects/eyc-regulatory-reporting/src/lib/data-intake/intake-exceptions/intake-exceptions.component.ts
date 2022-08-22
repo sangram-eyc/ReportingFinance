@@ -164,25 +164,31 @@ export class IntakeExceptionsComponent implements OnInit {
       this.fileName = decodeURIComponent(routeArray[routeArray.length - 1]);
       if (routePart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+        this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_PROVIDER;
       }
       else {
         this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+        this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_DOMAIN;
       }
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+      // let filterRoutes = this.routeHistory.filter(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+      // this.dataIntakeTypeUrl = filterRoutes.pop()
     }
     else if (routePart == "files" || routeArray[2] == "files") {
-      const urlPartArray = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL))?.split("/");
+      let filterRoutes = this.routeHistory.filter(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL))
+      const urlPartArray = filterRoutes.pop()?.split("/");
       const urlPart = urlPartArray? urlPartArray[urlPartArray?.length - 2]: '';
       if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER || urlPart == DATA_INTAKE_TYPE.DATA_DOMAIN) {
         this.isDataIntaketype = true;
         this.fileName = decodeURIComponent(urlPartArray[urlPartArray.length - 1]);
         if (urlPart == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+          this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_PROVIDER;
         }
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
+          this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_DOMAIN;
         }
-        this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
+
       }
       else {
         this.fileName = "Files";
@@ -196,7 +202,8 @@ export class IntakeExceptionsComponent implements OnInit {
       this.isDataIntaketype = false;
       this.fileName = "Files";
     }
-    this.filereviewUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    let filterRoutes = this.routeHistory.filter(url => url.includes(ROUTE_URL_CONST.FILE_REVIEW_URL));
+    this.filereviewUrl = filterRoutes.pop()
   }
 
   ngAfterViewInit(): void {

@@ -202,10 +202,12 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
         this.fileName = this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
+          this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_PROVIDER;
         }
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
           this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
+          this.dataIntakeTypeUrl = ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL + '/' + DATA_INTAKE_TYPE.DATA_DOMAIN;
         }
       }
       else {
@@ -244,7 +246,6 @@ export class IntakeFileReviewComponent implements OnInit, AfterViewInit {
     if (this.routingState.getBrowserBackForwardButtonClick()) {
       this.previousRoute = this.routingState.getPreviousUrl();
       this.routeHistory = this.routingState.getHistory();
-      this.dataIntakeTypeUrl = this.routeHistory.find(url => url.includes(ROUTE_URL_CONST.DATA_INTAKE_TYPE_URL));
 
     }
   }
