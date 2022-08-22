@@ -184,7 +184,7 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
   presentDateFormat: string;
   presentMonthDate: Date;
   presentMonthFormat: string;
-  exportName: string = "Data Intake_";
+  exportName: string = "";
 
   constructor(private dataManagedService: DataManagedService, private cdr: ChangeDetectorRef,
     private renderer: Renderer2, private _router: Router, private _activatedroute: ActivatedRoute, private routingState: RoutingStateService) {
@@ -203,17 +203,17 @@ export class FileReviewComponent implements OnInit, AfterViewInit {
         this.fileName = this.clientName;
         if (this.dataIntakeType == DATA_INTAKE_TYPE.DATA_PROVIDER) {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_PROVIDER;
-          this.exportName = this.exportName + this.dataIntakeTypeDisplayText.DATA_PROVIDER?.Singular + "_" + this.clientName + "_";
+          this.exportName = this.clientName + "_";
         }
         else {
           this.dataIntakeTypeDisplay = this.dataIntakeTypeDisplayText.DATA_DOMAIN;
           this.xAxisLabel = DATA_INTAKE_TYPE_DISPLAY_TEXT.DATA_DOMAIN.Plural;
-          this.exportName = this.exportName + this.dataIntakeTypeDisplayText.DATA_DOMAIN?.Singular + "_" + this.clientName + "_";
+          this.exportName = this.clientName + "_";
         }
       }
       else {
         this.fileName = 'Files';
-        this.exportName = this.exportName + "Files_";
+        this.exportName = "Files_";
       }
     });
   }
