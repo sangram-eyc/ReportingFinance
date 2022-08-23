@@ -1,3 +1,4 @@
+import { IntakeExceptionsComponent } from './intake-exceptions.component'
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,318 +11,321 @@ import { MotifButtonModule, MotifCardModule, MotifFormsModule, MotifIconModule, 
 import { AgGridModule } from 'ag-grid-angular';
 import { RowClickedEvent } from 'ag-grid-community';
 import { of } from 'rxjs';
-import { environment } from '../../../../../../../src/environments/environment';
-import { DATA_FREQUENCY, DATA_INTAKE_TYPE, FILTER_TYPE } from '../../../config/dms-config-helper';
-import { ExceptionDataGrid } from '../../models/data-grid.model';
-import { DataSummary } from '../../models/data-summary.model';
-import { DataManagedSettingsService } from '../../services/data-managed-settings.service';
-import { DataManagedService } from '../../services/data-managed.service';
-import { EycDataApiService } from '../../services/eyc-data-api.service';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { IntakeLandingService } from '../services/intake-landing.service';
 
-import { ExceptionsComponent } from './exceptions.component';
-
-describe('ExceptionsComponent', () => {
-    let component: ExceptionsComponent;
-    let fixture: ComponentFixture<ExceptionsComponent>;
-    let dataManagedService: DataManagedService;
-    let renderer: Renderer2;
-    let httpQueryParams: DataSummary;
-    let httpDataGridParams: ExceptionDataGrid;
-    let httpDataGridParamsException: ExceptionDataGrid;
-    
-    const data = {
-        "success": true,
-        "message": "",
-        "corelationId": "9d07b574-4d1a-4a24-8d60-84229203f11b",
-        "data": [
-            {
-                "type": "Integrity",
-                "name": "null check on securitytypedescription",
-                "priority": "medium",
-                "comments": null,
-                "exceptionCount": 3,
-                "exceptionReportDetails": null
-            },
-            {
-                "type": "Integrity",
-                "name": "Date Format Check",
-                "priority": "high",
-                "comments": null,
-                "exceptionCount": 0,
-                "exceptionReportDetails": null
-            },
-            {
-                "type": null,
-                "name": null,
-                "priority": "medium",
-                "comments": null,
-                "exceptionCount": 0,
-                "exceptionReportDetails": null
-            }
-        ],
-
-        "error": null
-    };
-
-    let mockReviewFile = {
-        "success": true,
-        "message": "success",
-        "data": {
-            "totalCount": 50,
-            "rowData": [
-                {
-                    "file": "General_Ledger_09",
-                    "provider": "Data H",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS, ",
-                    "due_date": "10/19/2021 | 9:00am EST",
-                    "exceptions": "Fund completeness",
-                    "Status": "High"
-                },
-                {
-                    "file": "General_Ledger_091",
-                    "provider": "Statestreet",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS,",
-                    "due_date": "10/15/2021 | 9:00am EST",
-                    "exceptions": "",
-                    "Status": "No Issues"
-                },
-                {
-                    "file": "General_Ledger_09",
-                    "provider": "Data H",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS, ",
-                    "due_date": "10/19/2021 | 9:00am EST",
-                    "exceptions": "Fund completeness",
-                    "Status": "High"
-                },
-                {
-                    "file": "Positions_state_071",
-                    "provider": "Facet",
-                    "data_domain": "Positions",
-                    "functions": "RRMS, ",
-                    "due_date": "-12 Days ",
-                    "exceptions": "",
-                    "Status": "Missing"
-                },
-                {
-                    "file": "General_Ledger_09",
-                    "provider": "Data H",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS, ",
-                    "due_date": "10/19/2021 | 9:00am EST",
-                    "exceptions": "Fund completeness",
-                    "Status": "High"
-                },
-                {
-                    "file": "General_Ledger_091",
-                    "provider": "Statestreet",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS, ",
-                    "due_date": "10/15/2021 | 9:00am EST",
-                    "exceptions": "Fund completeness",
-                    "Status": "Medium / Low"
-                },
-                {
-                    "file": "Positions_state_071",
-                    "provider": "Facet",
-                    "data_domain": "Positions",
-                    "functions": "RRMS, ",
-                    "due_date": "-12 Days ",
-                    "exceptions": "",
-                    "Status": "Missing"
-                },
-                {
-                    "file": "General_Ledger_091",
-                    "provider": "Statestreet",
-                    "data_domain": "General Ledger",
-                    "functions": "TRMS, ",
-                    "due_date": "10/15/2021 | 9:00am EST",
-                    "exceptions": "Fund completeness",
-                    "Status": "Medium / Low"
-                }
-            ]
+describe('IntakeExceptionsComponent', () => {
+    let component: IntakeExceptionsComponent;
+    let fixture: ComponentFixture<IntakeExceptionsComponent>;
+    let regulatoryReportingFilingServiceStub = {
+        getFilingData: () => {
+            return { filingName: 'Form PF', period: 'Q1 2022' }
         }
     }
-
+    let intakeLandingServiceStub = {
+        getExceptionTableData :()=>{
+            return of({})
+        }
+    }
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ExceptionsComponent],
-            imports: [AgGridModule.withComponents([]),
-                MatDialogModule,
-                ReactiveFormsModule,
-                FormsModule,
-                CommonModule,
-                MotifCardModule,
-                MotifButtonModule,
-                MotifFormsModule,
-                MotifIconModule,
-                MotifProrgressIndicatorsModule,
-                MotifTableModule,
+            declarations: [IntakeExceptionsComponent],
+            imports: [
                 HttpClientModule,
-                MotifPaginationModule,
                 RouterTestingModule,
-                HttpClientTestingModule],
-            providers: [DataManagedService, DataManagedSettingsService, EycDataApiService,
-                { provide: "dataManagedEndPoint", useValue: environment.apiEndpoint },
-                { provide: "dataManagedProduction", useValue: environment.production }]
+                HttpClientTestingModule,
+                MatDialogModule
+            ],
+            providers: [
+                { provide: RegulatoryReportingFilingService, useValue: regulatoryReportingFilingServiceStub },
+                { provide: IntakeLandingService, useValue: intakeLandingServiceStub }
+            ]
         })
             .compileComponents();
-        fixture = TestBed.createComponent(ExceptionsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        dataManagedService = TestBed.get(DataManagedService)
     }));
 
-    function getElement(id: string): any {
-        return document.body.querySelector(id);
-    }
-
     beforeEach(() => {
-        fixture = TestBed.createComponent(ExceptionsComponent);
+        fixture = TestBed.createComponent(IntakeExceptionsComponent);
         component = fixture.componentInstance;
-        component.dailyfilter = { nativeElement: 'nativeElement' };
-        component.monthlyfilter = { nativeElement: 'nativeElement' };
-        renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
-        spyOn(renderer, 'setAttribute');
-        renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
-        renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
-
-        component.ngAfterViewInit();
         fixture.detectChanges();
-        dataManagedService = TestBed.get(DataManagedService);
-        httpQueryParams =
-
-        {
-            startDate: '',
-            endDate: '',
-            dataFrequency: DATA_FREQUENCY.DAILY,
-            dataIntakeType: DATA_INTAKE_TYPE.DATA_PROVIDER,
-            dueDate: '2021-10-22',
-            periodType: '',
-            filterTypes: [
-                FILTER_TYPE.NO_ISSUES, FILTER_TYPE.HIGH, FILTER_TYPE.LOW, FILTER_TYPE.MEDIUM,
-                FILTER_TYPE.MISSING_FILES, FILTER_TYPE.FILE_NOT_RECIEVED]
-        };
-
-        httpDataGridParamsException = {
-            startDate: '',
-            endDate: '',
-            dataFrequency: DATA_FREQUENCY.DAILY,
-            dueDate: '2021-03-31',
-            periodType: '',
-            clientName: '',
-            auditFileGuidName: '6f43bd8a-2be3-4953-8e69-aa22ff5c4b4d',
-            fileId: '',
-            fileName: 'Security Master2021-03-31'
-        };
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should check the service', () => {
-        expect(dataManagedService instanceof DataManagedService).toBeTruthy();
-    });
-
-    it('should update PaginationSize', () => {
-        let newSize = 10;
-        component.updatePaginationSize(newSize);
-        expect(component.noOfCompletdFilingRecords).toEqual(10);
-    });
-
-    it('should update handlePageChange', () => {
-        let value = 10;
-        component.handlePageChange(value);
-        expect(component.currentPage).toEqual(10);
-    });
-
-    it('should fetch date from motif Calendar', () => {
-        renderer.setAttribute(component.monthlyfilter.nativeElement, 'color', 'primary-alt');
-        renderer.setAttribute(component.dailyfilter.nativeElement, 'color', 'secondary');
-
-        const event = { "isRange": false, "singleDate": { "date": { "year": 2021, "month": 12, "day": 15 }, "jsDate": "2021-12-14T18:30:00.000Z", "formatted": "2021-12-15", "epoc": 1639506600 }, "dateRange": null };
-        component.toggleCalendar(event);
-        fixture.detectChanges();
-        component.calSelectedDate = event.singleDate.formatted
-        let selector = getElement('#datepicker');
-        expect(selector).not.toBe(null);
-
-        if (component.calSelectedDate) {
-            component.httpDataGridParams.dueDate = component.calSelectedDate;
+    it('searchCompleted method should search', () => {
+        let mockInput = {
+          el: {
+            nativeElement: {
+              value: ''
+            }
+          }
         }
-        expect(component.httpDataGridParams.dueDate).toEqual(component.calSelectedDate);
-    });
+        component['gridApi']={
+            setQuickFilter:()=>{},
+            rowModel:{
+                rowsToDisplay:[]
+            }
+        }
+        component.searchCompleted(mockInput)
+      })
 
-    it('should dataFrequency as daily', () => {
-        component.dailyData(false);
-        fixture.detectChanges();
-        expect(component.httpDataGridParams.dataFrequency).toEqual(DATA_FREQUENCY.DAILY);
-    });
+      xit('onPasteSearchActiveReports method should search activ reports', () => {
+        let mockEvent = {
+          clipboardData: {
+            getData: () => {}
+          },
+          preventDefault: () => { }
+        } as any
+        component.onPasteSearchActiveReports(mockEvent);
+      })
 
-    it('should fetch daily statues as false', () => {
-        component.dailyData(false);
-        fixture.detectChanges();
-        expect(component.dailyMonthlyStatus).toEqual(false);
-    });
+      it('searchFilingValidation method should search filing validation - return false', () => {
+        let mockEvent = {
+          keyCode: "",
+          preventDefault: () => { }
+        }
+        let res = component.searchFilingValidation(mockEvent)
+        expect(res).toEqual(false)
+      })
+    
+      it('searchFilingValidation method should search filing validation - return true', () => {
+        let mockEvent = {
+          keyCode: "abc",
+          preventDefault: () => { }
+        }
+        let res = component.searchFilingValidation(mockEvent)
+        expect(res).toEqual(false)
+      })
 
-    it('should dataFrequency as monthly', () => {
-        component.monthlyData(true);
-        fixture.detectChanges();
-        expect(component.httpDataGridParams.dataFrequency).toEqual(DATA_FREQUENCY.MONTHLY);
-    });
-
-    it('should fetch daily statues as true', () => {
-        component.monthlyData(true);
-        fixture.detectChanges();
-        expect(component.dailyMonthlyStatus).toEqual(true);
-    });
-
-    it('should showComments as true', () => {
-        component.openComments(true);
-        fixture.detectChanges();
-        expect(component.showComments).toEqual(true);
-    });
-
-    it('should dataFrequency as daily', () => {
-        component.dailyData(false);
-        fixture.detectChanges();
-        expect(component.httpDataGridParams.dataFrequency).toEqual(DATA_FREQUENCY.DAILY);
-    });
-
-    it('should check the service', () => {
-        expect(dataManagedService instanceof DataManagedService).toBeTruthy();
-    });
-
-    it('should redirect on click at table-row', () => {
-        const event = { data: { name: 'AECX', exceptionReportDetails: "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"" } } as RowClickedEvent;
-        component.onRowClicked(event);
-        fixture.detectChanges();
-    });
-
-    it('should get file-details grid data', () => {
-        let mockReviewResponse = data;
-        let mockReviewTotalSeriesItem;
-        spyOn(dataManagedService, 'getExceptionTableData').and.returnValue(of(mockReviewResponse));
-        component.getExceptionTableData();
-        fixture.detectChanges();
-        mockReviewTotalSeriesItem = mockReviewResponse.data;
-        expect(component.glRowdata).toEqual(mockReviewTotalSeriesItem);
-    });
-
-    it('should return ExceptionTableData', () => {
-
-        fixture.detectChanges();
-        component.getExceptionTableData();
-        dataManagedService.getExceptionTableData(httpDataGridParamsException).subscribe(resp => {
-            expect(resp).toEqual(data);
-            expect(resp['data']).toEqual(component.glRowdata);
+      it('getExceptionTableData method should fetch exception table data',()=>{
+        let mockResp ={
+            data :[
+                { exceptionId:101 }
+            ]
+        }
+        spyOn(component['dataManagedService'],'getExceptionTableData').and.callFake(()=>{
+            return of(mockResp)
         })
-    })
+        component.getExceptionTableData();
+        expect(component['dataManagedService'].getExceptionTableData).toHaveBeenCalled()
+      })
 
+      it('patchDatePicker method should patch date picker', () => {
+        let mockDate = new Date();
+        component.patchDatePicker(mockDate);
+      })
+
+      it('toggleCalendar method should toggle calender', () => {
+        let mockEvent = {
+          singleDate: {
+            jsDate: '01/03/2002'
+          }
+        }
+        // spyOn(component, 'getExceptionTableData');
+        component.toggleCalendar(mockEvent);
+        expect(component.httpDataGridParams.dueDate).toEqual('2002-01-03')
+      })
+
+      it('onRowClicked method should set data - exceptionReportDetail is null',()=>{
+        let mockEvent = {
+            data:{
+                exceptionReportDetails:'[]',
+                name:'form',
+                tableName:'tableData',
+                auditIngestionDate:'01-03-2022',
+                auditHashId:'101',
+                auditRuleTyp:'',
+                exceptionReportField:{}
+            }
+        }
+       let res= component.onRowClicked(mockEvent as RowClickedEvent);
+       expect(res).toEqual(false)
+      })
+
+      it('onRowClicked method should set data - auditRuleTyp :row',()=>{
+        let mockEvent = {
+            data:{
+                exceptionReportDetails:[],
+                name:'form',
+                tableName:'tableData',
+                auditIngestionDate:'01-03-2022',
+                auditHashId:'101',
+                auditRuleTyp:'row',
+                exceptionReportField:{}
+            }
+        }
+       let res= component.onRowClicked(mockEvent as RowClickedEvent);
+       expect(component['dataManagedService'].setAuditRuleType).toEqual('row')
+
+      })
+
+      it('onRowClicked method should set data - auditRuleTyp :file',()=>{
+        let mockEvent = {
+            data:{
+                exceptionReportDetails:[],
+                name:'form',
+                tableName:'tableData',
+                auditIngestionDate:'01-03-2022',
+                auditHashId:'101',
+                auditRuleTyp:'file',
+                exceptionReportField:{}
+            }
+        }
+       component.onRowClicked(mockEvent as RowClickedEvent);
+       expect(component['dataManagedService'].setAuditRuleType).toEqual('fileOrTable')
+      })
+
+      it('onGridReady method should set grid',()=>{
+        let mockParams = {
+            api:{
+                sizeColumnsToFit:()=>{}
+            }
+        }
+        component['gridApi']={
+            sizeColumnsToFit:()=>{}
+        }
+        component.onGridReady(mockParams);
+      })
+
+      it('updatePaginationSize method should update pagination size',()=>{
+        component.noOfCompletdFilingRecords = 10;
+        component.updatePaginationSize(20);
+        expect(component.noOfCompletdFilingRecords).toEqual(20);
+      })
+
+      it('handlePageChange method should handle page chnage',()=>{
+
+        component.handlePageChange(2);
+        expect(component.currentPage).toEqual(2)
+      })
+
+      it('openComments method should open comments',()=>{
+        let mockRow = {
+            dataSetRuleId:'101'
+        }
+        component.openComments(mockRow);
+        expect(component.entityId).toEqual('101')
+      })
+
+      it('addComment method should open comment modal', () => {
+        let mockResult = {
+          button : 'Submit',
+          data :{
+            assignTo:'abcd',
+            comment:'',
+            files:''
+          }
+        }
+        let mockData = {
+          afterClosed : ()=> of(mockResult)
+        }
+        spyOn(component,'commentAdded');
+    
+        //component.rowData = [{entityId :'101',commentsCount:0}] as any
+        spyOn(component.dialog, 'open').and.returnValue(mockData as any);
+        component.addComment({dataSetRuleId:'101'})
+        expect(component.commentAdded).toHaveBeenCalled()
+      });
+
+      it('commentAdded method should call getExceptionTableData',()=>{
+        spyOn(component,'getExceptionTableData');
+        component.commentAdded();
+        expect(component.getExceptionTableData).toHaveBeenCalled()
+      })
+
+      it('checkException method should check exception - return false',()=>{
+        let mockParams ={
+            data:{
+                exceptionReportDetails:'[]'
+            }
+        }
+       let res= component.checkException(mockParams);
+        expect(res).toEqual(false)
+      })
+
+      it('checkException method should check exception - return true',()=>{
+        let mockParams ={
+            data:{
+                exceptionReportDetails:'',
+                auditRuleTyp :'row',
+                auditHashId :'101'
+            }
+        }
+       let res= component.checkException(mockParams);
+        expect(res).toEqual(true)
+      })
+
+      it('ngAfterViewInit method should set dueDate',()=>{
+        component.lastMonthDueDateFormat="01-02-2022"
+        component.dailyMonthlyStatus = true;
+        spyOn(sessionStorage,'getItem').and.returnValue('')
+        component.ngAfterViewInit();
+      })
+      
+      xit('ngAfterViewInit method should set dueDate',()=>{
+        component.lastMonthDueDateFormat="01-02-2022"
+        component.dailyMonthlyStatus = false;
+        spyOn(sessionStorage,'getItem').and.returnValue('')
+        component.ngAfterViewInit();
+      })
+
+      it('ngOnInit method should set data intake data-data provider type',()=>{
+        component['routingState']={
+            getPreviousUrl:()=>{
+                return 'dataProvider/dataDomain'
+            },
+            getHistory:()=>{ 
+                return ['dataProvider/dataDomain']
+            }
+        }as any
+        component.ngOnInit();
+        expect(component.previousRoute).toEqual('dataProvider/dataDomain')
+        expect(component.routeHistory).toEqual(['dataProvider/dataDomain'])
+      })
+
+
+      it('ngOnInit method should set data intake data- files type',()=>{
+        component['routingState']={
+            getPreviousUrl:()=>{
+                return 'files/data-intake/files/files-review'
+            },
+            getHistory:()=>{ 
+                return ['/data-intake/files-review']
+            }
+        }as any
+        component.ngOnInit();
+        expect(component.previousRoute).toEqual('files/data-intake/files/files-review')
+        expect(component.routeHistory).toEqual(['/data-intake/files-review'])
+      })
+
+
+      it('ngOnInit method should set data intake data- files type',()=>{
+        component['routingState']={
+            getPreviousUrl:()=>{
+                return 'files/data-intake/files-review'
+            },
+            getHistory:()=>{ 
+                return ['/data-intake/files-review']
+            }
+        }as any
+        component.ngOnInit();
+        expect(component.previousRoute).toEqual('files/data-intake/files-review')
+        expect(component.routeHistory).toEqual(['/data-intake/files-review'])
+      })
+
+      it('ngOnInit method should set data intake data- files type',()=>{
+        component['routingState']={
+            getPreviousUrl:()=>{
+                return 'files/data-intake/files/files-review'
+            },
+            getHistory:()=>{ 
+                return ['/data-intake/files-review']
+            }
+        }as any
+        component.ngOnInit();
+        expect(component.previousRoute).toEqual('files/data-intake/files/files-review')
+        expect(component.routeHistory).toEqual(['/data-intake/files-review'])
+      })
 });
-
-
-
