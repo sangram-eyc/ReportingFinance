@@ -1,111 +1,175 @@
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MotifButtonModule, MotifCardModule, MotifFormsModule, MotifIconModule, MotifModalModule, MotifPaginationModule, MotifProrgressIndicatorsModule, MotifTableModule, MotifToastModule } from '@ey-xd/ng-motif';
-import { AgGridModule } from 'ag-grid-angular';
-import { environment } from '../../../../../../../src/environments/environment';
-import { DataManagedSettingsService } from '../../services/data-managed-settings.service';
-import { DataManagedService } from '../../services/data-managed.service';
-import { EycDataApiService } from '../../services/eyc-data-api.service';
+import { of } from 'rxjs';
+import { RegulatoryReportingFilingService } from '../../regulatory-reporting-filing/services/regulatory-reporting-filing.service';
+import { IntakeLandingService } from '../services/intake-landing.service';
+import { IntakeRoutingStateService } from '../services/intake-routing-state.service';
+import { IntakeExceptionsReportsComponent } from './intake-exceptions-reports.component';
 
-import { ExceptionsReportsComponent } from './exceptions-reports.component';
+describe('IntakeExceptionsReportsComponent', () => {
+    let component: IntakeExceptionsReportsComponent;
+    let fixture: ComponentFixture<IntakeExceptionsReportsComponent>;
+    let regulatoryReportingFilingServiceStub = {
+        getFilingData: () => {
+            return { filingName: 'Form PF', period: 'Q1 2022' }
+        }
+    }
+    let intakeLandingServiceStub = {
+        getExceptionTableData: () => {
+            return of({})
+        },
+        getExceptionDetailsTableData:()=>{
+            return of({})
+        }
+    }
 
-describe('ExceptionsReportsComponent', () => {
-  let component: ExceptionsReportsComponent;
-  let fixture: ComponentFixture<ExceptionsReportsComponent>;
-  let dataManagedService: DataManagedService;
+    let intakeRoutingStateServiceStub = {
+        getPreviousUrl: () => {
+            return '/data-intake/files-review'
+        },
+        getHistory: () => {
+            return ['/data-intake/files-review']
+        }
+    }
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [IntakeExceptionsReportsComponent],
+            imports: [
+                HttpClientModule,
+                RouterTestingModule,
+                HttpClientTestingModule,
+                MatDialogModule
+            ],
+            providers: [
+                { provide: RegulatoryReportingFilingService, useValue: regulatoryReportingFilingServiceStub },
+                { provide: IntakeLandingService, useValue: intakeLandingServiceStub },
+                { provide: IntakeRoutingStateService, useValue: intakeRoutingStateServiceStub }
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ExceptionsReportsComponent],
-      imports: [AgGridModule.withComponents([]),
-        CommonModule,
-        MotifCardModule,
-        MotifButtonModule,
-        MotifFormsModule,
-        MotifIconModule,
-        MotifProrgressIndicatorsModule,
-        MotifTableModule,
-        HttpClientModule,
-        MotifPaginationModule,
-        RouterTestingModule,
-        HttpClientTestingModule],
-      providers: [DataManagedService, DataManagedSettingsService, EycDataApiService,
-        { provide: "dataManagedEndPoint", useValue: environment.apiEndpoint },
-        { provide: "dataManagedProduction", useValue: environment.production }]
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IntakeExceptionsReportsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('searchCompleted method should search', () => {
+        let mockInput = {
+            el: {
+                nativeElement: {
+                    value: ''
+                }
+            }
+        }
+        component['gridApi'] = {
+            setQuickFilter: () => { },
+            refreshCells: () => { },
+            rowModel: {
+                rowsToDisplay: []
+            }
+        }
+        component.searchCompleted(mockInput)
     })
-      .compileComponents();
-    fixture = TestBed.createComponent(ExceptionsReportsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    dataManagedService = TestBed.get(DataManagedService)
-  }));
 
+    
+    it('searchFilingValidation method should search filing validation - return false', () => {
+        let mockEvent = {
+          keyCode: "",
+          preventDefault: () => { }
+        }
+        let res = component.searchFilingValidation(mockEvent)
+        expect(res).toEqual(false)
+      })
+    
+      it('searchFilingValidation method should search filing validation - return true', () => {
+        let mockEvent = {
+          keyCode: "abc",
+          preventDefault: () => { }
+        }
+        let res = component.searchFilingValidation(mockEvent)
+        expect(res).toEqual(false)
+      })
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      it('updatePaginationSize method should update pagination size',()=>{
+        component.noOfCompletdFilingRecords = 10;
+        component.updatePaginationSize(20);
+        expect(component.noOfCompletdFilingRecords).toEqual(20);
+      })
 
-  it('should check the service', () => {
-    expect(dataManagedService instanceof DataManagedService).toBeTruthy();
-  });
+      it('handlePageChange method should handle page chnage',()=>{
 
-  it('should check exceptionReportDetails property ', () => {
-    let mokckExceptionReportDetails = [
-      { Fundnumber: 'AECX' },
-      { Fundnumber: '70Rl' },
-      { Fundnumber: 'AECW' },
-      { Fundnumber: 'AECZ' },
-      { Fundnumber: 'AECY' }];
-    component.exceptionReportDetails = "\"[{\"fundnumber\":\"AECX\"}, {\"fundnumber\":\"70Rl\"}, {\"fundnumber\":\"AECW\"}, {\"fundnumber\":\"AECZ\"}, {\"fundnumber\":\"AECY\"}]\"";
-    fixture.detectChanges();
-    component.ngOnInit()
-    component.ngAfterViewInit();
-    expect(component.exceptionTableFillData).toEqual(mokckExceptionReportDetails);
-  });
+        component.handlePageChange(2);
+        expect(component.currentPage).toEqual(2)
+      })
 
-  it('should change letter to uppercase', () => {
-    expect(component.capitalizeFirstLetter('a')).toEqual('A');
-  });
+      it('onGridReady method should set grid',()=>{
+        let mockParams = {
+            api:{
+                sizeColumnsToFit:()=>{}
+            }
+        }
+        component['gridApi']={
+            sizeColumnsToFit:()=>{}
+        }
+        component.onGridReady(mockParams);
+      })
 
-  it('should update PaginationSize', () => {
-    let newSize = 10;
-    component.updatePaginationSize(newSize);
-    expect(component.noOfCompletdFilingRecords).toEqual(10);
-  });
+      it('capitalizeFirstLetter method should capitalize first letter',()=>{
+        let res=component.capitalizeFirstLetter('nitin');
+        expect(res).toEqual('Nitin');
+      })
 
-  it('should update handlePageChange', () => {
-    let value = 10;
-    component.handlePageChange(value);
-    expect(component.currentPage).toEqual(10);
-  });
+      it('ngAfterViewInit method should set data for  - row',()=>{
+        component.auditRuleType='row';
+        let mockResp ={
+            data:[
+            { exceptionId:'101',exceptionName:'Form'}
+        ]}
+        spyOn(component['dataManagedService'],'getExceptionDetailsTableData').and.callFake(()=>{
+            return of(mockResp)
+        })
+        component.ngAfterViewInit();
+        expect(component['dataManagedService'].getExceptionDetailsTableData).toHaveBeenCalled()
+      })
 
-  it('should call getExceptionReportstable and return list of exception list', async(() => {
-    let activeFilings = [];
-    fixture.detectChanges();
-    const result$ = dataManagedService.getExceptionReportstable();
-    result$.subscribe(resp => {
-      resp['data'].data['rowData'].forEach((item) => {
-        const eachitem: any = {
-          type: item.type,
-          exposure: item.exposure,
-          classification: item.classification,
-          category: item.category,
-          value: item.value,
-          variance: item.variance
-        };
-        activeFilings.push(eachitem);
-      });
-      expect(component.exceptionTableData).toEqual(activeFilings);
-    })
-  }));
+      it('ngAfterViewInit method should set data for  - fileOrTable',()=>{
+        component.exceptionTableFillData = [
+            {id:'23',datasetId:'234'}
+        ] as any
+        component.auditRuleType='fileOrTable';
+        component.headerColumnName=['id','datasetId'] as any
+        component.ngAfterViewInit();
+      })
 
-  it('grid API is availabl `detectChanges`', () => {
-    fixture.detectChanges();
-    expect(component.gridApi).toBeTruthy();
-  });
+      it('ngOnInit method should set fileName',()=>{
+        component['routingState'] ={
+            getPreviousUrl: () => {
+                return '/dataProvider/files-review'
+            },
+            getHistory: () => {
+                return ['/dataProvider/data-intake/files-review']
+            }
+        }as any;
+        component.exceptionReportDetails="no exception : found"
+        component.auditRuleType='fileOrTable';
+        component.ngOnInit();
+      })
+
+      it('onSortChanged method should call refreshCells',()=>{
+        component['gridApi']={
+            refreshCells:()=>{}
+        }
+
+        component.onSortChanged({})
+        expect(component['gridApi'].refreshCells).toHaveBeenCalled();
+      })
 });
-

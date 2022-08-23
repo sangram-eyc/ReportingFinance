@@ -54,7 +54,7 @@ describe('RrReportingService', () => {
     spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
       return of(mockResp)
     });
-    service.getExceptionReports('Form PF', 'Q1 2022', 'Reporting', '1', '10', '', 'exceptionId');
+    service.getExceptionReports('Form PF', 'Q1 2022', 'Reporting');
     let url = "/rr_exception_reports/filingName=Form PF&period=Q1 2022&stage=Reporting&page=1&size=10&filterKey=&sortBy=exceptionId";
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url);
   });
@@ -72,7 +72,7 @@ describe('RrReportingService', () => {
     spyOn(service['apiService'], 'invokeGetAPI').and.callFake(()=>{
       return of(mockResp)
     });
-    service.getfilingEntities('Form PF', 'Q1 2022', '1', '10', '', 'entityId');
+    service.getfilingEntities('Form PF', 'Q1 2022');
     let url = "/rr_filing_entities/&filingName=Form PF&period=Q1 2022&page=1&size=10&filterKey=&sortBy=entityId";
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith(url);
   });
