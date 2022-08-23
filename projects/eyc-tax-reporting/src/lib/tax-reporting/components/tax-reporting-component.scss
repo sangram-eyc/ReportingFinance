@@ -22,11 +22,15 @@
       #cycle-status-indicator-id{
         margin-top: 11px;
       }
-   }
+
+      .btn:hover {
+        border-color: transparent;
+     }
+}
 
    .page-header {
     margin-top: 25px;
-}
+   }
 
 .page-header h3 {
     font-weight: 700;

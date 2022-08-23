@@ -104,6 +104,7 @@ export class TaxHorizontalStackedBarChartComponent{
           .style("border-radius", "5px")
           .style("padding", "5px")
           .style("color", "white")
+          .style("position", "absolute")
 
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
