@@ -286,6 +286,18 @@ export class RrReportingComponent implements OnInit, OnDestroy {
             sortable: true,
             menuTabs: ['filterMenuTab', 'generalMenuTab'],
           },
+          {
+            headerName: 'Code',
+            field: 'externalEntityIdentifier',
+            comparator: customComparator,
+            minWidth: 140,
+            filter: 'agSetColumnFilter',
+            filterParams: {
+              buttons: ['reset']
+            },
+            sortable: true,
+            menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          },
       
         {
           cellRendererFramework: CellRendererTemplateComponent,
@@ -302,17 +314,6 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           tooltipField: 'entityName',
-        },
-        {
-          headerName: 'Review Level',
-          field: 'reviewLevel',
-          minWidth: 180,
-          filter: 'agSetColumnFilter',
-          filterParams: {
-            buttons: ['reset'],
-          },
-          sortable: true,
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,
@@ -368,6 +369,50 @@ export class RrReportingComponent implements OnInit, OnDestroy {
           headerName: 'Last Updated By',
           field: 'updatedBy',
           minWidth: 350,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Adviser',
+          field: 'filingAdvisor',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Business Unit',
+          field: 'businessUnitIdentifier',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset'],
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Filing Type',
+          field: 'regulationFormType',
+          minWidth: 180,
           filter: 'agSetColumnFilter',
           filterParams: {
             buttons: ['reset']

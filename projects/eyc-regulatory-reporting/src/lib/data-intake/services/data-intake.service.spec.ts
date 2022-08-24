@@ -47,7 +47,7 @@ describe('DataIntakeService', () => {
   });
 
   it('getExceptionReports method should call api and should return exception reports when mockDataEnable is true',()=>{
-    service.mockDataEnable = true;
+    service['mockDataEnable'] = true;
     spyOn(service['apiService'],'invokeGetAPI');
     service.getExceptionReports('form PF','Q2 2022');
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalled();
@@ -66,7 +66,7 @@ describe('DataIntakeService', () => {
   });
 
   it('getfilesList method should call api and should return files list, mockDataEnable is true',()=>{
-    service.mockDataEnable = true;
+    service['mockDataEnable'] = true;
     spyOn(service['apiService'],'invokeGetAPI')
     service.getfilesList('form PF','Q2 2022');
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith('/exception_summary');
@@ -79,7 +79,7 @@ describe('DataIntakeService', () => {
   });
 
   it('getBDFilesList method should call api and should return BD files list, mockDataEnable is true',()=>{
-    service.mockDataEnable = true;
+    service['mockDataEnable'] = true;
     spyOn(service['apiService'],'invokeGetAPI')
     service.getBDFilesList('form PF','01/03/2022','Q2 2022');
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith('/bd_files_list');
@@ -92,7 +92,7 @@ describe('DataIntakeService', () => {
   });
 
   it('getDatasetsrecords method should call api and should return dataset records, mockDataEnable is true',()=>{
-    service.mockDataEnable = true;
+    service['mockDataEnable'] = true;
     spyOn(service['apiService'],'invokeGetAPI');
     service.getDatasetsrecords('form PF','Q2 2022');
     expect(service['apiService'].invokeGetAPI).toHaveBeenCalledWith('/datasets_list');
