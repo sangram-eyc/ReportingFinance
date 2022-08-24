@@ -307,6 +307,18 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           minWidth: 140,
         },
         {
+          headerName: 'Code',
+          field: 'externalEntityIdentifier',
+          comparator: customComparator,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth: 140,
+        },
+        {
           cellRendererFramework: CellRendererTemplateComponent,
           cellRendererParams: {
             ngTemplate: this.expandEntityTemplate,
@@ -321,17 +333,6 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 300,
           tooltipField: 'entityName'
-        },
-        {
-          headerName: 'Review Level',
-          field: 'reviewLevel',
-          filter: 'agSetColumnFilter',
-          filterParams: {
-            buttons: ['reset']
-          },
-          sortable: true,
-          menuTabs: ['filterMenuTab', 'generalMenuTab'],
-          minWidth:155
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,
@@ -393,6 +394,50 @@ export class ClientReviewComponent implements OnInit, OnDestroy {
           sortable: true,
           menuTabs: ['filterMenuTab', 'generalMenuTab'],
           minWidth: 350,
+        },
+        {
+          headerName: 'Adviser',
+          field: 'filingAdvisor',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Business Unit',
+          field: 'businessUnitIdentifier',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+        },
+        {
+          headerName: 'Review Level',
+          field: 'reviewLevel',
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
+          minWidth:155
+        },
+        {
+          headerName: 'Filing Type',
+          field: 'regulationFormType',
+          minWidth: 180,
+          filter: 'agSetColumnFilter',
+          filterParams: {
+            buttons: ['reset']
+          },
+          sortable: true,
+          menuTabs: ['filterMenuTab', 'generalMenuTab'],
         },
         {
           cellRendererFramework: CellRendererTemplateComponent,
